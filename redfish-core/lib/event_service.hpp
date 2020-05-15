@@ -398,6 +398,66 @@ class EventDestinationCollection : public Node
     }
 };
 
+class EventServiceSSE : public Node
+{
+  public:
+    EventServiceSSE(CrowApp& app) :
+        Node(app, "/redfish/v1/EventService/Subscriptions/SSE/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
+            maxNoOfSubscriptions)
+        {
+            messages::eventSubscriptionLimitExceeded(res);
+            res.end();
+            return;
+        }
+
+        std::shared_ptr<crow::Request::Adaptor> sseConn =
+            std::make_shared<crow::Request::Adaptor>(std::move(req.socket()));
+        std::shared_ptr<Subscription> subValue =
+            std::make_shared<Subscription>(sseConn);
+
+        // GET on this URI means, Its SSE subscriptionType.
+        subValue->subscriptionType = "SSE";
+        subValue->protocol = "Redfish";
+
+        char* filters = req.urlParams.get("$filter");
+        if (filters == nullptr)
+        {
+            subValue->eventFormatType = "Event";
+            subValue->retryPolicy = "TerminateAfterRetries";
+        }
+        else
+        {
+            // TODO: Need to read this from query params.
+            subValue->eventFormatType = "Event";
+            subValue->retryPolicy = "TerminateAfterRetries";
+        }
+
+        std::string id =
+            EventServiceManager::getInstance().addSubscription(subValue);
+        if (id.empty())
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+    }
+};
+
 class EventDestination : public Node
 {
   public:

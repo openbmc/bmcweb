@@ -517,6 +517,10 @@ class Connection : public std::enable_shared_from_this<
 
         if (!isInvalidRequest)
         {
+            req->socket = [this, self = shared_from_this()]() -> Adaptor& {
+                return self->socket();
+            };
+
             res.completeRequestHandler = [] {};
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
@@ -778,6 +782,7 @@ class Connection : public std::enable_shared_from_this<
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
                 }
+
                 handle();
             });
     }
