@@ -782,6 +782,7 @@ class Connection : public std::enable_shared_from_this<
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
                 }
+
                 handle();
             });
     }
