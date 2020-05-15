@@ -41,13 +41,15 @@ enum class ConnState
     recvFailed,
     idle,
     suspended,
-    closed
+    closed,
+    terminated
 };
 
 class HttpClient : public std::enable_shared_from_this<HttpClient>
 {
   private:
     boost::beast::tcp_stream conn;
+    boost::asio::steady_timer timer;
     boost::beast::flat_buffer buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::response<boost::beast::http::string_body> res;
@@ -55,11 +57,15 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     std::vector<std::pair<std::string, std::string>> headers;
     std::queue<std::string> requestDataQueue;
     ConnState state;
+    std::string subId;
     std::string host;
     std::string port;
     std::string uri;
-    int retryCount;
-    int maxRetryAttempts;
+    uint32_t retryCount;
+    uint32_t maxRetryAttempts;
+    uint32_t retryIntervalSecs;
+    std::string retryPolicyAction;
+    bool runningTimer;
 
     void doConnect()
     {
@@ -207,10 +213,23 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 requestDataQueue.pop();
             }
 
-            // TODO: Take 'DeliveryRetryPolicy' action.
-            // For now, doing 'SuspendRetries' action.
-            state = ConnState::suspended;
-            return;
+            BMCWEB_LOG_DEBUG << "Retry policy is set to " << retryPolicyAction;
+            if (retryPolicyAction == "TerminateAfterRetries")
+            {
+                // TODO: delete subscription
+                state = ConnState::terminated;
+                return;
+            }
+            else if (retryPolicyAction == "SuspendRetries")
+            {
+                state = ConnState::suspended;
+                return;
+            }
+            else
+            {
+                // keep retrying, reset count and continue.
+                retryCount = 0;
+            }
         }
 
         if ((state == ConnState::connectFailed) ||
@@ -225,20 +244,43 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 return;
             }
 
+            if (runningTimer)
+            {
+                BMCWEB_LOG_DEBUG << "Retry timer is already running.";
+                return;
+            }
+            runningTimer = true;
+
             retryCount++;
-            // TODO: Perform async wait for retryTimeoutInterval before proceed.
+
+            BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
+                             << " seconds. RetryCount = " << retryCount;
+            timer.expires_after(std::chrono::seconds(retryIntervalSecs));
+            timer.async_wait([self = shared_from_this()](
+                                 const boost::system::error_code& ec) {
+                self->runningTimer = false;
+                self->connStateCheck();
+            });
+            return;
         }
         else
         {
             // reset retry count.
             retryCount = 0;
         }
+        connStateCheck();
 
+        return;
+    }
+
+    void connStateCheck()
+    {
         switch (state)
         {
             case ConnState::connectInProgress:
             case ConnState::sendInProgress:
             case ConnState::suspended:
+            case ConnState::terminated:
                 // do nothing
                 break;
             case ConnState::initialized:
@@ -262,22 +304,21 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             default:
                 break;
         }
-
-        return;
     }
 
   public:
-    explicit HttpClient(boost::asio::io_context& ioc, const std::string& destIP,
-                        const std::string& destPort,
+    explicit HttpClient(boost::asio::io_context& ioc, const std::string& id,
+                        const std::string& destIP, const std::string& destPort,
                         const std::string& destUri) :
         conn(ioc),
-        host(destIP), port(destPort), uri(destUri)
+        timer(ioc), subId(id), host(destIP), port(destPort), uri(destUri)
     {
         boost::asio::ip::tcp::resolver resolver(ioc);
         endpoint = resolver.resolve(host, port);
         state = ConnState::initialized;
         retryCount = 0;
         maxRetryAttempts = 5;
+        runningTimer = false;
     }
 
     void sendData(const std::string& data)
@@ -304,6 +345,18 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         const std::vector<std::pair<std::string, std::string>>& httpHeaders)
     {
         headers = httpHeaders;
+    }
+
+    void setRetryConfig(const uint32_t& retryAttempts,
+                        const uint32_t& retryTimeoutInterval)
+    {
+        maxRetryAttempts = retryAttempts;
+        retryIntervalSecs = retryTimeoutInterval;
+    }
+
+    void setRetryPolicy(const std::string& retryPolicy)
+    {
+        retryPolicyAction = retryPolicy;
     }
 };
 
