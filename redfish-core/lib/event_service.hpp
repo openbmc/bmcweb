@@ -61,13 +61,15 @@ class EventService : public Node
                            "EventService.SubmitTestEvent"}}}}},
             {"@odata.id", "/redfish/v1/EventService"}};
 
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        asyncResp->res.jsonValue["ServiceEnabled"] =
-            EventServiceManager::getInstance().enabled;
-        asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
-            EventServiceManager::getInstance().retryAttempts;
+        auto [enabled, retryAttempts, retryTimeoutInterval] =
+            EventServiceManager::getInstance().getEventServiceConfig();
+
+        asyncResp->res.jsonValue["Status"]["State"] =
+            (enabled ? "Enabled" : "Disabled");
+        asyncResp->res.jsonValue["ServiceEnabled"] = enabled;
+        asyncResp->res.jsonValue["DeliveryRetryAttempts"] = retryAttempts;
         asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-            EventServiceManager::getInstance().retryTimeoutInterval;
+            retryTimeoutInterval;
         asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
     }
@@ -88,9 +90,12 @@ class EventService : public Node
             return;
         }
 
+        auto [enabled, retryCount, retryTimeoutInterval] =
+            EventServiceManager::getInstance().getEventServiceConfig();
+
         if (serviceEnabled)
         {
-            EventServiceManager::getInstance().enabled = *serviceEnabled;
+            enabled = *serviceEnabled;
         }
 
         if (retryAttemps)
@@ -104,8 +109,7 @@ class EventService : public Node
             }
             else
             {
-                EventServiceManager::getInstance().retryAttempts =
-                    *retryAttemps;
+                retryCount = *retryAttemps;
             }
         }
 
@@ -120,12 +124,12 @@ class EventService : public Node
             }
             else
             {
-                EventServiceManager::getInstance().retryTimeoutInterval =
-                    *retryInterval;
+                retryTimeoutInterval = *retryInterval;
             }
         }
 
-        EventServiceManager::getInstance().updateSubscriptionData();
+        EventServiceManager::getInstance().setEventServiceConfig(
+            std::make_tuple(enabled, retryCount, retryTimeoutInterval));
     }
 };
 
