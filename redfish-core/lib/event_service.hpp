@@ -126,6 +126,8 @@ class EventService : public Node
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();
+
+        EventServiceManager::getInstance().updateConfigParams();
     }
 };
 
@@ -506,6 +508,7 @@ class EventDestination : public Node
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();
+        subValue->updateRetryPolicy();
     }
 
     void doDelete(crow::Response& res, const crow::Request& req,

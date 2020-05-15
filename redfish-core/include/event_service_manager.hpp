@@ -271,6 +271,8 @@ class Subscription
     std::vector<std::string> registryPrefixes;
     std::vector<nlohmann::json> httpHeaders; // key-value pair
     std::vector<nlohmann::json> metricReportDefinitions;
+    uint32_t deliveryRetryAttempts;
+    uint32_t deliveryRetryTimeoutInterval; // seconds
 
     Subscription(const Subscription&) = delete;
     Subscription& operator=(const Subscription&) = delete;
@@ -283,7 +285,8 @@ class Subscription
         host(inHost), port(inPort), path(inPath), uriProto(inUriProto)
     {
         conn = std::make_shared<crow::HttpClient>(
-            crow::connections::systemBus->get_io_context(), host, port, path);
+            crow::connections::systemBus->get_io_context(), id, host, port,
+            path);
     }
     ~Subscription()
     {
@@ -435,6 +438,21 @@ class Subscription
             {"MetricValues", metricValuesArray}};
 
         this->sendEvent(msg.dump());
+    }
+
+    void updateConfiguration(const uint32_t retryAttempts,
+                             const uint32_t retryTimeoutInterval)
+    {
+        deliveryRetryAttempts = retryAttempts;
+        deliveryRetryTimeoutInterval = retryTimeoutInterval;
+
+        conn->setConfigParams(deliveryRetryAttempts,
+                              deliveryRetryTimeoutInterval);
+    }
+
+    void updateRetryPolicy()
+    {
+        conn->setRetryPolicy(retryPolicy);
     }
 
   private:
@@ -871,6 +889,17 @@ class EventServiceManager
                 std::string intf = msg.get_interface();
                 getMetricReading(service, objPath, intf);
             });
+    }
+
+    void updateConfigParams()
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+
+            entry->updateConfiguration(retryAttempts, retryTimeoutInterval);
+        }
     }
 };
 
