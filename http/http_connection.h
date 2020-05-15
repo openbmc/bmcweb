@@ -748,6 +748,13 @@ class Connection : public std::enable_shared_from_this<
     void doRead()
     {
         BMCWEB_LOG_DEBUG << this << " doRead";
+        // Unlike websocket, Server-sent-events are one way comunication.
+        // It need already established connection(via generic GET) for
+        // sending the events.
+        if (req)
+        {
+            req->socket = [this]() -> Adaptor& { return this->socket(); };
+        }
 
         boost::beast::http::async_read(
             adaptor, buffer, *parser,
@@ -778,6 +785,7 @@ class Connection : public std::enable_shared_from_this<
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
                 }
+
                 handle();
             });
     }
