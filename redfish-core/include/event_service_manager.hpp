@@ -35,6 +35,7 @@ namespace redfish
 
 using ReadingsObjType =
     std::vector<std::tuple<std::string, std::string, double, std::string>>;
+using EventServiceConfig = std::tuple<bool, uint32_t, uint32_t>;
 
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
@@ -449,31 +450,33 @@ class Subscription
 class EventServiceManager
 {
   private:
+    bool serviceEnabled;
+    uint32_t retryAttempts;
+    uint32_t retryTimeoutInterval;
+
     EventServiceManager(const EventServiceManager&) = delete;
     EventServiceManager& operator=(const EventServiceManager&) = delete;
     EventServiceManager(EventServiceManager&&) = delete;
     EventServiceManager& operator=(EventServiceManager&&) = delete;
 
-    EventServiceManager() : noOfMetricReportSubscribers(0)
+    EventServiceManager() :
+        noOfEventLogSubscribers(0), noOfMetricReportSubscribers(0)
     {
         // TODO: Read the persistent data from store and populate.
         // Populating with default.
-        enabled = true;
+        serviceEnabled = true;
         retryAttempts = 3;
         retryTimeoutInterval = 30; // seconds
     }
 
     std::string lastEventTStr;
+    size_t noOfEventLogSubscribers;
     size_t noOfMetricReportSubscribers;
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
   public:
-    bool enabled;
-    uint32_t retryAttempts;
-    uint32_t retryTimeoutInterval;
-
     static EventServiceManager& getInstance()
     {
         static EventServiceManager handler;
@@ -486,6 +489,79 @@ class EventServiceManager
         // TODO: subscriptionsMap & configData need to be
         // written to Persist store.
         return;
+    }
+
+    EventServiceConfig getEventServiceConfig()
+    {
+        return {serviceEnabled, retryAttempts, retryTimeoutInterval};
+    }
+
+    void setEventServiceConfig(const EventServiceConfig& cfg)
+    {
+        bool updateConfig = false;
+
+        if (serviceEnabled != std::get<0>(cfg))
+        {
+            serviceEnabled = std::get<0>(cfg);
+            if (serviceEnabled && noOfMetricReportSubscribers)
+            {
+                registerMetricReportSignal();
+            }
+            else
+            {
+                unregisterMetricReportSignal();
+            }
+            updateConfig = true;
+        }
+
+        if (retryAttempts != std::get<1>(cfg))
+        {
+            retryAttempts = std::get<1>(cfg);
+            updateConfig = true;
+        }
+
+        if (retryTimeoutInterval != std::get<2>(cfg))
+        {
+            retryTimeoutInterval = std::get<2>(cfg);
+            updateConfig = true;
+        }
+
+        if (updateConfig)
+        {
+            updateSubscriptionData();
+        }
+    }
+
+    void updateNoOfSubscribersCount()
+    {
+        size_t eventLogSubCount = 0;
+        size_t metricReportSubCount = 0;
+        for (const auto& it : subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            if (entry->eventFormatType == eventFormatType)
+            {
+                eventLogSubCount++;
+            }
+            else if (entry->eventFormatType == metricReportFormatType)
+            {
+                metricReportSubCount++;
+            }
+        }
+
+        noOfEventLogSubscribers = eventLogSubCount;
+        if (noOfMetricReportSubscribers != metricReportSubCount)
+        {
+            noOfMetricReportSubscribers = metricReportSubCount;
+            if (noOfMetricReportSubscribers)
+            {
+                registerMetricReportSignal();
+            }
+            else
+            {
+                unregisterMetricReportSignal();
+            }
+        }
     }
 
     std::shared_ptr<Subscription> getSubscription(const std::string& id)
@@ -523,15 +599,7 @@ class EventServiceManager
             return std::string("");
         }
 
-        if (subValue->eventFormatType == metricReportFormatType)
-        {
-            // If it is first entry,  Register Metrics report signal.
-            if ((++noOfMetricReportSubscribers == 1))
-            {
-                registerMetricReportSignal();
-            }
-        }
-
+        updateNoOfSubscribersCount();
         updateSubscriptionData();
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -558,16 +626,8 @@ class EventServiceManager
         auto obj = subscriptionsMap.find(id);
         if (obj != subscriptionsMap.end())
         {
-            std::shared_ptr<Subscription> entry = obj->second;
-            if (entry->eventFormatType == metricReportFormatType)
-            {
-                if ((--noOfMetricReportSubscribers == 0))
-                {
-                    unregisterMetricReportSignal();
-                }
-            }
-
             subscriptionsMap.erase(obj);
+            updateNoOfSubscribersCount();
             updateSubscriptionData();
         }
     }
@@ -636,10 +696,9 @@ class EventServiceManager
 
     void readEventLogsFromFile()
     {
-        if (!getNumberOfSubscriptions())
+        if (!serviceEnabled || !noOfEventLogSubscribers)
         {
-            // no subscriptions. Just return.
-            BMCWEB_LOG_DEBUG << "No Subscriptions\n";
+            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
             return;
         }
         std::ifstream logStream(redfishEventLogFile);
@@ -839,16 +898,19 @@ class EventServiceManager
 
     void unregisterMetricReportSignal()
     {
-        BMCWEB_LOG_DEBUG << "Metrics report signal - Unregister";
-        matchTelemetryMonitor.reset();
-        matchTelemetryMonitor = nullptr;
+        if (matchTelemetryMonitor)
+        {
+            BMCWEB_LOG_DEBUG << "Metrics report signal - Unregister";
+            matchTelemetryMonitor.reset();
+            matchTelemetryMonitor = nullptr;
+        }
     }
 
     void registerMetricReportSignal()
     {
-        if (matchTelemetryMonitor)
+        if (!serviceEnabled || matchTelemetryMonitor)
         {
-            BMCWEB_LOG_DEBUG << "Metrics report signal - Already registered.";
+            BMCWEB_LOG_DEBUG << "Not registering metric report signal.";
             return;
         }
 
