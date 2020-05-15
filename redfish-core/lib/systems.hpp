@@ -477,6 +477,22 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                     valueStr.insert(18, 1, '-');
                                                     valueStr.insert(23, 1, '-');
                                                 }
+                                                else if (valueStr.size() > 32)
+                                                {
+                                                    // format:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
+                                                    if (valueStr.at(8) != '-')
+                                                        valueStr.insert(8, 1,
+                                                                        '-');
+                                                    if (valueStr.at(13) != '-')
+                                                        valueStr.insert(13, 1,
+                                                                        '-');
+                                                    if (valueStr.at(18) != '-')
+                                                        valueStr.insert(18, 1,
+                                                                        '-');
+                                                    if (valueStr.at(23) != '-')
+                                                        valueStr.insert(23, 1,
+                                                                        '-');
+                                                }
                                                 BMCWEB_LOG_DEBUG << "UUID = "
                                                                  << valueStr;
                                                 aResp->res.jsonValue["UUID"] =
