@@ -28,6 +28,7 @@
 #include <fstream>
 #include <http_client.hpp>
 #include <memory>
+#include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
 #include <variant>
 
@@ -290,24 +291,39 @@ class Subscription
         conn = std::make_shared<crow::HttpClient>(
             crow::connections::systemBus->get_io_context(), host, port, path);
     }
+
+    Subscription(const std::shared_ptr<crow::Request::Adaptor>& adaptor) :
+        eventSeqNum(1)
+    {
+        sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);
+    }
+
     ~Subscription()
     {
     }
 
     void sendEvent(const std::string& msg)
     {
-        std::vector<std::pair<std::string, std::string>> reqHeaders;
-        for (const auto& header : httpHeaders)
+        if (conn != nullptr)
         {
-            for (const auto& item : header.items())
+            std::vector<std::pair<std::string, std::string>> reqHeaders;
+            for (const auto& header : httpHeaders)
             {
-                std::string key = item.key();
-                std::string val = item.value();
-                reqHeaders.emplace_back(std::pair(key, val));
+                for (const auto& item : header.items())
+                {
+                    std::string key = item.key();
+                    std::string val = item.value();
+                    reqHeaders.emplace_back(std::pair(key, val));
+                }
             }
+            conn->setHeaders(reqHeaders);
+            conn->sendData(msg);
         }
-        conn->setHeaders(reqHeaders);
-        conn->sendData(msg);
+
+        if (sseConn != nullptr)
+        {
+            sseConn->sendData(eventSeqNum, msg);
+        }
     }
 
     void sendTestEventLog()
@@ -448,7 +464,8 @@ class Subscription
     std::string port;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::HttpClient> conn;
+    std::shared_ptr<crow::HttpClient> conn = nullptr;
+    std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 };
 
 static constexpr const bool defaultEnabledState = true;
