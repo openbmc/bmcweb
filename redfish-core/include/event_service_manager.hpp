@@ -284,7 +284,8 @@ class Subscription
         host(inHost), port(inPort), path(inPath), uriProto(inUriProto)
     {
         conn = std::make_shared<crow::HttpClient>(
-            crow::connections::systemBus->get_io_context(), host, port, path);
+            crow::connections::systemBus->get_io_context(), id, host, port,
+            path);
     }
     ~Subscription()
     {
@@ -438,6 +439,17 @@ class Subscription
         this->sendEvent(msg.dump());
     }
 
+    void updateRetryConfig(const uint32_t& retryAttempts,
+                           const uint32_t& retryTimeoutInterval)
+    {
+        conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
+    }
+
+    void updateRetryPolicy()
+    {
+        conn->setRetryPolicy(retryPolicy);
+    }
+
   private:
     uint64_t eventSeqNum;
     std::string host;
@@ -499,6 +511,7 @@ class EventServiceManager
     void setEventServiceConfig(const EventServiceConfig& cfg)
     {
         bool updateConfig = false;
+        bool updateRetryCfg = false;
 
         if (serviceEnabled != std::get<0>(cfg))
         {
@@ -518,17 +531,30 @@ class EventServiceManager
         {
             retryAttempts = std::get<1>(cfg);
             updateConfig = true;
+            updateRetryCfg = true;
         }
 
         if (retryTimeoutInterval != std::get<2>(cfg))
         {
             retryTimeoutInterval = std::get<2>(cfg);
             updateConfig = true;
+            updateRetryCfg = true;
         }
 
         if (updateConfig)
         {
             updateSubscriptionData();
+        }
+
+        if (updateRetryCfg)
+        {
+            // Update the changed retry config to all subscriptions
+            for (const auto& it :
+                 EventServiceManager::getInstance().subscriptionsMap)
+            {
+                std::shared_ptr<Subscription> entry = it.second;
+                entry->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+            }
         }
     }
 
@@ -608,6 +634,10 @@ class EventServiceManager
             cacheLastEventTimestamp();
         }
 #endif
+        // Update retry configuration.
+        subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+        subValue->updateRetryPolicy();
+
         return id;
     }
 
