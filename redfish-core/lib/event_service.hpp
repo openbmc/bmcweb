@@ -507,6 +507,7 @@ class EventDestination : public Node
                 return;
             }
             subValue->retryPolicy = *retryPolicy;
+            subValue->updateRetryPolicy();
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();
