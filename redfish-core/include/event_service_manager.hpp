@@ -253,9 +253,9 @@ int formatEventLogEntry(const std::string& logEntryID,
                     {"Context", customText}};
     return 0;
 }
-#endif
 
 } // namespace event_log
+#endif
 
 class Subscription
 {
