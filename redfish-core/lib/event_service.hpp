@@ -510,6 +510,7 @@ class EventDestination : public Node
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();
+        subValue->updateRetryPolicy();
     }
 
     void doDelete(crow::Response& res, const crow::Request& req,
