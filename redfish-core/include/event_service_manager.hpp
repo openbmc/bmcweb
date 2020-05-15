@@ -25,6 +25,7 @@
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
+#include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
 
 #include <cstdlib>
@@ -295,23 +296,38 @@ class Subscription
             crow::connections::systemBus->get_io_context(), id, host, port,
             path);
     }
+
+    Subscription(const std::shared_ptr<crow::Request::Adaptor>& adaptor) :
+        eventSeqNum(1)
+    {
+        sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);
+    }
+
     ~Subscription()
     {}
 
     void sendEvent(const std::string& msg)
     {
-        std::vector<std::pair<std::string, std::string>> reqHeaders;
-        for (const auto& header : httpHeaders)
+        if (conn != nullptr)
         {
-            for (const auto& item : header.items())
+            std::vector<std::pair<std::string, std::string>> reqHeaders;
+            for (const auto& header : httpHeaders)
             {
-                std::string key = item.key();
-                std::string val = item.value();
-                reqHeaders.emplace_back(std::pair(key, val));
+                for (const auto& item : header.items())
+                {
+                    std::string key = item.key();
+                    std::string val = item.value();
+                    reqHeaders.emplace_back(std::pair(key, val));
+                }
             }
+            conn->setHeaders(reqHeaders);
+            conn->sendData(msg);
         }
-        conn->setHeaders(reqHeaders);
-        conn->sendData(msg);
+
+        if (sseConn != nullptr)
+        {
+            sseConn->sendData(eventSeqNum, msg);
+        }
     }
 
     void sendTestEventLog()
@@ -462,7 +478,8 @@ class Subscription
     std::string port;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::HttpClient> conn;
+    std::shared_ptr<crow::HttpClient> conn = nullptr;
+    std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 };
 
 static constexpr const bool defaultEnabledState = true;
@@ -572,6 +589,22 @@ class EventServiceManager
                 BMCWEB_LOG_DEBUG << "Invalid subscription Protocol exist.";
                 continue;
             }
+
+            std::string subscriptionType;
+            if (!json_util::getValueFromJsonObject(jsonObj, "SubscriptionType",
+                                                   subscriptionType))
+            {
+                subscriptionType = defaulSubscriptionType;
+            }
+            // SSE connections are initiated from client
+            // and can't be re-established from server.
+            if (subscriptionType == "SSE")
+            {
+                BMCWEB_LOG_DEBUG
+                    << "The subscription type is SSE, so skipping.";
+                continue;
+            }
+
             std::string destination;
             if (!json_util::getValueFromJsonObject(jsonObj, "Destination",
                                                    destination))
@@ -597,6 +630,7 @@ class EventServiceManager
 
             subValue->destinationUrl = destination;
             subValue->protocol = protocol;
+            subValue->subscriptionType = subscriptionType;
             if (!json_util::getValueFromJsonObject(
                     jsonObj, "DeliveryRetryPolicy", subValue->retryPolicy))
             {
@@ -607,12 +641,6 @@ class EventServiceManager
             {
                 subValue->eventFormatType = defaulEventFormatType;
             }
-            if (!json_util::getValueFromJsonObject(jsonObj, "SubscriptionType",
-                                                   subValue->subscriptionType))
-            {
-                subValue->subscriptionType = defaulSubscriptionType;
-            }
-
             json_util::getValueFromJsonObject(jsonObj, "Context",
                                               subValue->customText);
             json_util::getValueFromJsonObject(jsonObj, "MessageIds",
@@ -649,9 +677,17 @@ class EventServiceManager
 
         for (const auto& it : subscriptionsMap)
         {
-            nlohmann::json entry;
             std::shared_ptr<Subscription> subValue = it.second;
+            // Don't preserve SSE connections. Its initiated from
+            // client side and can't be re-established from server.
+            if (subValue->subscriptionType == "SSE")
+            {
+                BMCWEB_LOG_DEBUG
+                    << "The subscription type is SSE, so skipping.";
+                continue;
+            }
 
+            nlohmann::json entry;
             entry["Context"] = subValue->customText;
             entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
             entry["Destination"] = subValue->destinationUrl;
