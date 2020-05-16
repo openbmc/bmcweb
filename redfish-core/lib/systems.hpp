@@ -917,6 +917,90 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
 }
 
 /**
+ * @brief Retrieves Automatic Retry properties. Known on D-Bus as AutoReboot.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                std::variant<bool> &autoRebootEnabled) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                return;
+            }
+
+            const bool *autoRebootEnabledPtr =
+                std::get_if<bool>(&autoRebootEnabled);
+
+            if (!autoRebootEnabledPtr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Auto Reboot: " << *autoRebootEnabledPtr;
+            if (*autoRebootEnabledPtr == true)
+            {
+                aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
+                    "RetryAttempts";
+                // If AutomaticRetry (AutoReboot) is enabled see how many
+                // attempts are left
+                crow::connections::systemBus->async_method_call(
+                    [aResp](const boost::system::error_code ec,
+                            std::variant<uint32_t> &autoRebootAttemptsLeft) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                            return;
+                        }
+
+                        const uint32_t *autoRebootAttemptsLeftPtr =
+                            std::get_if<uint32_t>(&autoRebootAttemptsLeft);
+
+                        if (!autoRebootAttemptsLeftPtr)
+                        {
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+
+                        BMCWEB_LOG_DEBUG << "Auto Reboot Attempts Left: "
+                                         << *autoRebootAttemptsLeftPtr;
+
+                        aResp->res
+                            .jsonValue["Boot"]
+                                      ["RemainingAutomaticRetryAttempts"] =
+                            *autoRebootAttemptsLeftPtr;
+                    },
+                    "xyz.openbmc_project.State.Host",
+                    "/xyz/openbmc_project/state/host0",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                    "AttemptsLeft");
+            }
+            else
+            {
+                aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
+                    "Disabled";
+            }
+
+            // Not on D-Bus. Hardcoded here:
+            // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
+            aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/auto_reboot",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot");
+}
+
+/**
  * @brief Retrieves power restore policy over DBUS.
  *
  * @param[in] aResp     Shared pointer for generating response message.
@@ -1693,7 +1777,7 @@ class Systems : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_6_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_11_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
@@ -1772,6 +1856,8 @@ class Systems : public Node
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
+        // Called AutoReboot on D-Bus
+        getAutomaticRetry(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
