@@ -2187,7 +2187,7 @@ class VlanNetworkInterface : public Node
         }
 
         bool vlanEnable = false;
-        uint64_t vlanId = 0;
+        uint32_t vlanId = 0;
 
         if (!json_util::readJson(req, res, "VLANEnable", vlanEnable, "VLANId",
                                  vlanId))
