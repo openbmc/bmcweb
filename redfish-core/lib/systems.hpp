@@ -993,6 +993,13 @@ void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
             // Not on D-Bus. Hardcoded here:
             // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
             aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+
+            // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
+            // and RetryAttempts. OpenBMC only supports Disabled and
+            // RetryAttempts.
+            aResp->res.jsonValue["Boot"]["AutomaticRetryConfig@Redfish."
+                                         "AllowableValues"] = {"Disabled",
+                                                               "RetryAttempts"};
         },
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/auto_reboot",
@@ -1187,9 +1194,9 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  *
  * @return Integer error code.
  */
-static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
-                              std::optional<std::string> bootSource,
-                              std::optional<std::string> bootEnable)
+static void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
+                                    std::optional<std::string> bootSource,
+                                    std::optional<std::string> bootEnable)
 {
     BMCWEB_LOG_DEBUG << "Set boot information.";
 
@@ -1221,6 +1228,55 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/control/host0/boot/one_time",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Object.Enable", "Enabled");
+}
+
+/**
+ * @brief Sets automaticRetry (Auto Reboot)
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
+ *
+ * @return None.
+ */
+static void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
+                              const std::string &automaticRetryConfig)
+{
+    BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
+
+    // OpenBMC only supports "Disabled" and "RetryAttempts".
+    bool autoRebootEnabled;
+
+    if (automaticRetryConfig == "Disabled")
+    {
+        autoRebootEnabled = false;
+    }
+    else if (automaticRetryConfig == "RetryAttempts")
+    {
+        autoRebootEnabled = true;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "Invalid property value for "
+                            "AutomaticRetryConfig: "
+                         << automaticRetryConfig;
+        messages::propertyValueNotInList(aResp->res, automaticRetryConfig,
+                                         "AutomaticRetryConfig");
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/auto_reboot",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
+        std::variant<bool>(autoRebootEnabled));
 }
 
 /**
@@ -1899,15 +1955,24 @@ class Systems : public Node
         {
             std::optional<std::string> bootSource;
             std::optional<std::string> bootEnable;
+            std::optional<std::string> automaticRetryConfig;
 
-            if (!json_util::readJson(*bootProps, asyncResp->res,
-                                     "BootSourceOverrideTarget", bootSource,
-                                     "BootSourceOverrideEnabled", bootEnable))
+            if (!json_util::readJson(
+                    *bootProps, asyncResp->res, "BootSourceOverrideTarget",
+                    bootSource, "BootSourceOverrideEnabled", bootEnable,
+                    "AutomaticRetryConfig", automaticRetryConfig))
             {
                 return;
             }
-            setBootProperties(asyncResp, std::move(bootSource),
-                              std::move(bootEnable));
+            if (bootSource || bootEnable)
+            {
+                setBootSourceProperties(asyncResp, std::move(bootSource),
+                                        std::move(bootEnable));
+            }
+            if (automaticRetryConfig)
+            {
+                setAutomaticRetry(asyncResp, std::move(*automaticRetryConfig));
+            }
         }
 
         if (indicatorLed)
