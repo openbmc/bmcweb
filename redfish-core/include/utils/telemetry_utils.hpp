@@ -1,5 +1,7 @@
 #pragma once
 
+#include "dbus_utility.hpp"
+
 namespace redfish
 {
 
