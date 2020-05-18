@@ -56,6 +56,31 @@ std::string toDurationFormatItem(std::chrono::milliseconds& duration,
     return ss.str();
 }
 
+template <typename T>
+static long long fromDurationFormatItem(std::string_view& fmt,
+                                        const char* postfix)
+{
+    auto pos = fmt.find(postfix);
+    if (pos == std::string::npos)
+    {
+        return 0;
+    }
+
+    long out;
+    if constexpr (std::is_same<T, std::chrono::milliseconds>::value)
+    {
+        /* Half point is added to avoid numeric error on rounding */
+        out = static_cast<long>(std::strtof(fmt.data(), nullptr) *
+                                std::chrono::milliseconds::period::den + 0.5f);
+    }
+    else
+    {
+        out = std::strtol(fmt.data(), nullptr, 10);
+    }
+    fmt.remove_prefix(pos + 1);
+    return std::chrono::milliseconds(T(out)).count();
+}
+
 } // namespace details
 
 /**
@@ -90,6 +115,29 @@ std::string toDurationFormat(const uint32_t ms)
         details::toDurationFormatItem<std::chrono::milliseconds>(duration, "S");
 
     return fmt;
+}
+
+static uint32_t fromDurationFormat(std::string_view fmt)
+{
+    if (fmt.empty() || fmt[0] != 'P')
+    {
+        return 0;
+    }
+    using Days = std::chrono::duration<int, std::ratio<24 * 60 * 60>>;
+
+    fmt.remove_prefix(1);
+    auto out = details::fromDurationFormatItem<Days>(fmt, "D");
+    if (fmt[0] != 'T')
+    {
+        return static_cast<uint32_t>(out);
+    }
+
+    fmt.remove_prefix(1);
+    out += details::fromDurationFormatItem<std::chrono::hours>(fmt, "H");
+    out += details::fromDurationFormatItem<std::chrono::minutes>(fmt, "M");
+    out += details::fromDurationFormatItem<std::chrono::milliseconds>(fmt, "S");
+
+    return static_cast<uint32_t>(out);
 }
 
 } // namespace time_utils
