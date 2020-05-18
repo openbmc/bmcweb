@@ -1,6 +1,9 @@
 #pragma once
 
+#include <algorithm>
+#include <charconv>
 #include <chrono>
+#include <optional>
 #include <string>
 
 namespace redfish
@@ -12,6 +15,8 @@ namespace time_utils
 namespace details
 {
 
+using Days = std::chrono::duration<long, std::ratio<24 * 60 * 60>>;
+
 inline void leftZeroPadding(std::string& str, const std::size_t padding)
 {
     if (str.size() < padding)
@@ -19,7 +24,134 @@ inline void leftZeroPadding(std::string& str, const std::size_t padding)
         str.insert(0, padding - str.size(), '0');
     }
 }
+
+inline bool fromChars(const char* start, const char* end,
+                      std::chrono::milliseconds::rep& val)
+{
+    auto [ptr, ec] = std::from_chars(start, end, val);
+    if (ptr != end)
+    {
+        BMCWEB_LOG_ERROR
+            << "Failed to convert string to decimal because of unexpected sign";
+        return false;
+    }
+    if (ec != std::errc())
+    {
+        BMCWEB_LOG_ERROR << "Failed to convert string to decimal with err: "
+                         << static_cast<int>(ec) << "("
+                         << std::make_error_code(ec).message() << ")";
+        return false;
+    }
+    return true;
+}
+
+template <typename T>
+bool fromDurationItem(std::string_view& fmt, const char postfix,
+                      std::chrono::milliseconds& out)
+{
+    const size_t pos = fmt.find(postfix);
+    if (pos == std::string::npos)
+    {
+        return true;
+    }
+    if ((pos + 1U) > fmt.size())
+    {
+        return false;
+    }
+
+    std::chrono::milliseconds::rep v = 0;
+    if constexpr (std::is_same_v<T, std::chrono::milliseconds>)
+    {
+        std::string str(fmt.data(), std::min<size_t>(pos, 3U));
+        while (str.size() < 3U)
+        {
+            str += '0';
+        }
+        fromChars(str.data(), str.data() + str.size(), v);
+    }
+    else
+    {
+        fromChars(fmt.data(), fmt.data() + pos, v);
+    }
+
+    fmt.remove_prefix(pos + 1U);
+    out += T(v);
+    if (out < T(v))
+    {
+        return false;
+    }
+
+    return true;
+}
 } // namespace details
+
+/**
+ * @brief Convert string that represents value in Duration Format to its numeric
+ *        equivalent.
+ */
+std::optional<std::chrono::milliseconds>
+    fromDurationString(const std::string& str)
+{
+    std::chrono::milliseconds out = std::chrono::milliseconds::zero();
+    std::string_view v = str;
+
+    if (v.empty())
+    {
+        return out;
+    }
+    if (v.front() != 'P')
+    {
+        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        return std::nullopt;
+    }
+
+    v.remove_prefix(1);
+    if (!details::fromDurationItem<details::Days>(v, 'D', out))
+    {
+        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        return std::nullopt;
+    }
+
+    if (v.empty())
+    {
+        return out;
+    }
+    if (v.front() != 'T')
+    {
+        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        return std::nullopt;
+    }
+
+    v.remove_prefix(1);
+    if (!details::fromDurationItem<std::chrono::hours>(v, 'H', out) ||
+        !details::fromDurationItem<std::chrono::minutes>(v, 'M', out))
+    {
+        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        return std::nullopt;
+    }
+
+    if (v.find('.') != std::string::npos && v.find('S') != std::string::npos)
+    {
+        if (!details::fromDurationItem<std::chrono::seconds>(v, '.', out) ||
+            !details::fromDurationItem<std::chrono::milliseconds>(v, 'S', out))
+        {
+            BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+            return std::nullopt;
+        }
+    }
+    else if (!details::fromDurationItem<std::chrono::seconds>(v, 'S', out))
+    {
+        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        return std::nullopt;
+    }
+
+    if (!v.empty())
+    {
+        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        return std::nullopt;
+    }
+    return out;
+}
 
 /**
  * @brief Convert time value into duration format that is based on ISO 8601.
@@ -36,8 +168,7 @@ std::string toDurationString(std::chrono::milliseconds ms)
     std::string fmt;
     fmt.reserve(sizeof("PxxxxxxxxxxxxDTxxHxxMxx.xxxxxxS"));
 
-    using Days = std::chrono::duration<long, std::ratio<24 * 60 * 60>>;
-    Days days = std::chrono::floor<Days>(ms);
+    details::Days days = std::chrono::floor<details::Days>(ms);
     ms -= days;
 
     std::chrono::hours hours = std::chrono::floor<std::chrono::hours>(ms);
