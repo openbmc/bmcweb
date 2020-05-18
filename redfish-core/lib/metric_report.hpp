@@ -25,7 +25,7 @@ namespace redfish
 class MetricReportCollection : public Node
 {
   public:
-    MetricReportCollection(CrowApp& app) :
+    MetricReportCollection(App& app) :
         Node(app, "/redfish/v1/TelemetryService/MetricReports/")
     {
         entityPrivileges = {
@@ -38,8 +38,8 @@ class MetricReportCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
             "#MetricReportCollection.MetricReportCollection";
@@ -55,7 +55,7 @@ class MetricReportCollection : public Node
 class MetricReport : public Node
 {
   public:
-    MetricReport(CrowApp& app) :
+    MetricReport(App& app) :
         Node(app, "/redfish/v1/TelemetryService/MetricReports/<str>/",
              std::string())
     {
@@ -69,7 +69,7 @@ class MetricReport : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);

@@ -41,7 +41,7 @@ static constexpr size_t maxReportIdLen =
 class MetricReportDefinitionCollection : public Node
 {
   public:
-    MetricReportDefinitionCollection(CrowApp& app) :
+    MetricReportDefinitionCollection(App& app) :
         Node(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
     {
         entityPrivileges = {
@@ -54,8 +54,8 @@ class MetricReportDefinitionCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#MetricReportDefinitionCollection."
                                        "MetricReportDefinitionCollection";
@@ -83,7 +83,7 @@ class MetricReportDefinitionCollection : public Node
     };
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         AddReportArgs addReportArgs;
@@ -109,7 +109,7 @@ class MetricReportDefinitionCollection : public Node
             retrieveUriToDbusMap(
                 chassis, sensorType,
                 [asyncResp, addReportReq](
-                    const boost::beast::http::status status,
+                    const boost::beast::http::status,
                     const boost::container::flat_map<std::string, std::string>&
                         uriToDbus) { *addReportReq += uriToDbus; });
         }
@@ -328,7 +328,7 @@ class MetricReportDefinitionCollection : public Node
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, name = args.name](const boost::system::error_code ec,
-                                          const std::string ret) {
+                                          const std::string) {
                 if (ec == boost::system::errc::file_exists)
                 {
                     messages::resourceAlreadyExists(
@@ -393,7 +393,7 @@ class MetricReportDefinitionCollection : public Node
 class MetricReportDefinition : public Node
 {
   public:
-    MetricReportDefinition(CrowApp& app) :
+    MetricReportDefinition(App& app) :
         Node(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
              std::string())
     {
@@ -407,7 +407,7 @@ class MetricReportDefinition : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -505,6 +505,44 @@ class MetricReportDefinition : public Node
                 }
             }
         }
+    }
+
+    void doDelete(crow::Response& res, const crow::Request&,
+                  const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string& id = params[0];
+        const std::string reportPath = telemetry::getDbusReportPath(id);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, id](const boost::system::error_code ec) {
+                /*
+                 * boost::system::errc and std::errc are missing value for
+                 * EBADR error that is defined in Linux.
+                 */
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, schemaType, id);
+                    return;
+                }
+
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
+            "Delete");
     }
 
     static constexpr const char* schemaType =
