@@ -1750,6 +1750,36 @@ nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
         {"Resolution", "None."}};
 }
 
+/**
+ * @internal
+ * @brief Formats PropertyValueIncorrect message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+
+nlohmann::json propertyValueIncorrect(const std::string& arg1,
+                                      const std::string& arg2)
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"MessageId", "Base.1.8.1.PropertyValueIncorrect"},
+        {"Message", "The property " + arg1 + " with the requested value of " +
+                        arg2 +
+                        " could not be written because the value does not " +
+                        "meet the constraints of the implementation."},
+        {"MessageArgs", {arg1, arg2}},
+        {"Severity", "Warning"},
+        {"Resolution", "No resolution is required."}};
+}
+
+void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToJson(res.jsonValue, propertyValueIncorrect(arg1, arg2), arg1);
+}
+
 } // namespace messages
 
 } // namespace redfish

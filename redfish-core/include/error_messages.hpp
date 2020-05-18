@@ -787,6 +787,21 @@ nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2);
 void invalidUpload(crow::Response& res, const std::string& arg1,
                    const std::string& arg2);
 
+/**
+ * @brief Formats PropertyValueIncorrect message into JSON
+ * Message body: The property '%1' with the requested value of '%2' could
+ * not be written because the value does not meet the constraints of the
+ * implementation.
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message PropertyValueIncorrect formatted to JSON */
+nlohmann::json propertyValueIncorrect(const std::string& arg1,
+                                      const std::string& arg2);
+
+void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2);
+
 } // namespace messages
 
 } // namespace redfish
