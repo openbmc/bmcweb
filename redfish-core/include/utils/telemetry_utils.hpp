@@ -29,6 +29,8 @@ constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
+constexpr const char* reportDir =
+    "/xyz/openbmc_project/MonitoringService/Reports/TelemetryService/";
 
 inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
                                 const std::string& uri)
@@ -84,8 +86,7 @@ inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
 
 inline std::string getDbusReportPath(const std::string& id)
 {
-    std::string path =
-        "/xyz/openbmc_project/MonitoringService/Reports/TelemetryService/" + id;
+    std::string path = reportDir + id;
     dbus::utility::escapePathForDbus(path);
     return path;
 }
