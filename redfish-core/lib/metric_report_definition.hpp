@@ -487,6 +487,38 @@ class MetricReportDefinition : public Node
             "xyz.openbmc_project.MonitoringService.Report");
     }
 
+    void doDelete(crow::Response& res, const crow::Request& req,
+                  const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string& id = params[0];
+        telemetry::getReport(asyncResp, id, schemaType, deleteReport);
+    }
+
+    static void deleteReport(const std::shared_ptr<AsyncResp>& asyncResp,
+                             const std::string& path, const std::string& id)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            "xyz.openbmc_project.MonitoringService", path,
+            "xyz.openbmc_project.Object.Delete", "Delete");
+    }
+
   public:
     static constexpr const char* schemaType =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
