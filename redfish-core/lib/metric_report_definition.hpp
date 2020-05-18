@@ -519,6 +519,44 @@ class MetricReportDefinition : public Node
         }
     }
 
+    void doDelete(crow::Response& res, const crow::Request&,
+                  const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string& id = params[0];
+        const std::string reportPath = telemetry::getDbusReportPath(id);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, id](const boost::system::error_code ec) {
+                /*
+                 * boost::system::errc and std::errc are missing value for
+                 * EBADR error that is defined in Linux.
+                 */
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, schemaType, id);
+                    return;
+                }
+
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
+            "Delete");
+    }
+
     static constexpr const char* schemaType =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
 };
