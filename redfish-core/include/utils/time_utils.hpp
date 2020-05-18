@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <charconv>
 #include <chrono>
 #include <string>
 
@@ -28,6 +29,8 @@ namespace time_utils
 namespace details
 {
 
+using Days = std::chrono::duration<long, std::ratio<24 * 60 * 60>>;
+
 std::string& leftZeroPadding(std::string&& str, const std::size_t padding)
 {
     if (str.size() < padding)
@@ -36,7 +39,107 @@ std::string& leftZeroPadding(std::string&& str, const std::size_t padding)
     }
     return str;
 }
+
+long pow10(size_t exp)
+{
+    if (exp <= 0)
+    {
+        return 1;
+    }
+    return pow10(--exp) * 10;
+}
+
+template <typename T>
+bool fromDurationItem(std::string_view& fmt, const char postfix,
+                      std::chrono::milliseconds& out)
+{
+    size_t pos = fmt.find(postfix);
+    if (pos == std::string::npos || fmt.size() < (pos + 1))
+    {
+        return true;
+    }
+
+    long v = 0;
+    auto [p, ec] = std::from_chars(fmt.data(), fmt.data() + pos, v);
+    if (p != (fmt.data() + pos) || ec != std::errc())
+    {
+        BMCWEB_LOG_ERROR << "Failed to parse duration string with err: "
+                         << static_cast<int>(ec) << "\n";
+        return false;
+    }
+
+    if constexpr (std::is_same_v<T, std::chrono::milliseconds>)
+    {
+        if (pos < 3)
+        {
+            v *= pow10(3 - pos);
+        }
+        else if (pos > 3)
+        {
+            v /= pow10(pos - 3);
+        }
+    }
+
+    fmt.remove_prefix(pos + 1);
+    out += T(v);
+    if (out < std::chrono::milliseconds::zero())
+    {
+        return false;
+    }
+
+    return true;
+}
 } // namespace details
+
+/**
+ * @brief Convert string that represents value in Duration Format to its numeric
+ *        equivalent.
+ */
+std::chrono::milliseconds fromDurationString(const std::string& str)
+{
+    std::chrono::milliseconds out = std::chrono::milliseconds::zero();
+    std::string_view fmt = str;
+    if (fmt.empty() || fmt.front() != 'P')
+    {
+        return out;
+    }
+
+    fmt.remove_prefix(1);
+    if (!details::fromDurationItem<details::Days>(fmt, 'D', out))
+    {
+        return std::chrono::milliseconds::min();
+    }
+    if (fmt.empty() || fmt.front() != 'T')
+    {
+        return out;
+    }
+
+    fmt.remove_prefix(1);
+    if (!details::fromDurationItem<std::chrono::hours>(fmt, 'H', out) ||
+        !details::fromDurationItem<std::chrono::minutes>(fmt, 'M', out))
+    {
+        return std::chrono::milliseconds::min();
+    }
+
+    if (fmt.find('.') != std::string::npos)
+    {
+        if (!details::fromDurationItem<std::chrono::seconds>(fmt, '.', out) ||
+            !details::fromDurationItem<std::chrono::milliseconds>(fmt, 'S',
+                                                                  out))
+        {
+            return std::chrono::milliseconds::min();
+        }
+    }
+    else
+    {
+        if (!details::fromDurationItem<std::chrono::seconds>(fmt, 'S', out))
+        {
+            return std::chrono::milliseconds::min();
+        }
+    }
+
+    return out;
+}
 
 /**
  * @brief Convert time value into duration format that is based on ISO 8601.
@@ -53,8 +156,7 @@ std::string toDurationString(std::chrono::milliseconds ms)
     std::string fmt;
     fmt.reserve(sizeof("PxxxxxxxxxxxxDTxxHxxMxx.xxxxxxS\0"));
 
-    using Days = std::chrono::duration<long, std::ratio<24 * 60 * 60>>;
-    Days days = std::chrono::floor<Days>(ms);
+    details::Days days = std::chrono::floor<details::Days>(ms);
     ms -= days;
 
     std::chrono::hours hours = std::chrono::floor<std::chrono::hours>(ms);
