@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <charconv>
 #include <chrono>
 #include <string>
 
@@ -25,9 +26,68 @@ namespace redfish
 namespace time_utils
 {
 
+namespace details
+{
+
+using Days = std::chrono::duration<long long int, std::ratio<24 * 60 * 60>>;
+
+template <typename T>
+std::chrono::milliseconds fromDurationFormatItem(std::string& fmt,
+                                                 const char postfix)
+{
+    auto pos = fmt.find(postfix);
+    if (pos == std::string::npos || fmt.size() < (pos + 1))
+    {
+        return std::chrono::milliseconds();
+    }
+
+    std::chrono::milliseconds out;
+    if constexpr (std::is_same<T, std::chrono::milliseconds>::value)
+    {
+        /* std::from_chars for floating types is not implemented in gcc */
+        const float v = std::stof(fmt.c_str(), nullptr);
+        out = T(static_cast<long>(
+            std::roundf(v * std::chrono::milliseconds::period::den)));
+    }
+    else
+    {
+        long v = 0;
+        std::from_chars(fmt.c_str(), fmt.c_str() + pos, v);
+        out = T(v);
+    }
+
+    fmt.erase(0, pos + 1);
+    return out;
+}
+
+} // namespace details
+
+std::time_t fromDurationFormat(std::string fmt)
+{
+    if (fmt.empty() || *fmt.begin() != 'P')
+    {
+        return 0;
+    }
+
+    fmt.erase(fmt.begin());
+    std::chrono::milliseconds out =
+        details::fromDurationFormatItem<details::Days>(fmt, 'D');
+    if (fmt.empty() || *fmt.begin() != 'T')
+    {
+        return static_cast<std::time_t>(out.count());
+    }
+
+    fmt.erase(fmt.begin());
+    out += details::fromDurationFormatItem<std::chrono::hours>(fmt, 'H');
+    out += details::fromDurationFormatItem<std::chrono::minutes>(fmt, 'M');
+    out += details::fromDurationFormatItem<std::chrono::milliseconds>(fmt, 'S');
+
+    return static_cast<std::time_t>(out.count());
+}
+
 /**
  * @brief Convert time value into duration format that is based on ISO 8601.
- *        Example output: "P192DT12H01M01.500000S"
+ *        Example output: "P192DT12H1M1.500000S"
  */
 std::string toDurationFormat(std::chrono::milliseconds ms)
 {
