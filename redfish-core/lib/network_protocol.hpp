@@ -17,10 +17,12 @@
 
 #include "error_messages.hpp"
 #include "node.hpp"
+#include "openbmc_dbus_rest.hpp"
 
 #include <optional>
 #include <utils/json_utils.hpp>
 #include <variant>
+
 namespace redfish
 {
 
@@ -76,7 +78,8 @@ inline void
                         if (propertyPair.first == "NTPServers")
                         {
                             const std::vector<std::string>* ntpServers =
-                                std::get_if<std::vector<std::string>>(
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
                                     &propertyPair.second);
                             if (ntpServers != nullptr)
                             {
@@ -86,7 +89,8 @@ inline void
                         else if (propertyPair.first == "DomainName")
                         {
                             const std::vector<std::string>* domainNames =
-                                std::get_if<std::vector<std::string>>(
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
                                     &propertyPair.second);
                             if (domainNames != nullptr)
                             {
@@ -124,6 +128,37 @@ void getEthernetIfaceData(CallbackFunc&& callback)
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
+
+// template <typename CallbackFunc>
+// void getNetworkIpmiObjectPaths(CallbackFunc&& callback)
+// {
+//     crow::connections::systemBus->async_method_call(
+//         [callback{std::move(callback)}](
+//             const boost::system::error_code error_code,
+//             const GetManagedObjects& dbusData) {
+//             std::vector<sdbusplus::message::object_path> netIpmidObjectPaths;
+
+//             if (error_code)
+//             {
+//                 callback(false, netIpmidObjectPaths);
+//                 return;
+//             }
+
+//             for (const auto& obj : dbusData)
+//             {
+//                 if (boost::algorithm::starts_with(obj.first,
+//                 "/xyz/openbmc_project/control/service/phosphor_2dipmi_2dnet")
+//                 {
+//                     netIpmidObjectPaths.emplace_back(obj.first);
+//                 }
+//             }
+
+//             callback(true, netIpmidObjectPaths);
+//         },
+//         "xyz.openbmc_project.Control.Service.Manager",
+//         "/xyz/openbmc_project/control/service",
+//         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+// }
 
 class NetworkProtocol : public Node
 {
@@ -188,7 +223,7 @@ class NetworkProtocol : public Node
     void getData(const std::shared_ptr<AsyncResp>& asyncResp)
     {
         asyncResp->res.jsonValue["@odata.type"] =
-            "#ManagerNetworkProtocol.v1_5_0.ManagerNetworkProtocol";
+            "#ManagerNetworkProtocol.v1_4_0.ManagerNetworkProtocol";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol";
         asyncResp->res.jsonValue["Id"] = "NetworkProtocol";
@@ -197,29 +232,8 @@ class NetworkProtocol : public Node
         asyncResp->res.jsonValue["Status"]["Health"] = "OK";
         asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        asyncResp->res.jsonValue["SNMP"]["ProtocolEnabled"] = true;
-        asyncResp->res.jsonValue["SNMP"]["Port"] = 161;
-        asyncResp->res.jsonValue["SNMP"]["AuthenticationProtocol"] =
-            "CommunityString";
-        asyncResp->res.jsonValue["SNMP"]["CommunityAccessMode"] = "Full";
-        asyncResp->res.jsonValue["SNMP"]["HideCommunityStrings"] = true;
-        asyncResp->res
-            .jsonValue["SNMP"]["EngineId"]["EnterpriseSpecificMethod"] =
-            nullptr;
-        asyncResp->res.jsonValue["SNMP"]["EngineId"]["PrivateEnterpriseId"] =
-            nullptr;
-        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv1"] = false;
-        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv2c"] = true;
-        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv3"] = false;
-        asyncResp->res.jsonValue["SNMP"]["EncryptionProtocol"] = "None";
-        nlohmann::json& memberArray =
-            asyncResp->res.jsonValue["SNMP"]["CommunityStrings"];
-        memberArray = nlohmann::json::array();
-        memberArray.push_back({{"AccessMode", "Full"}});
-        memberArray.push_back({{"CommunityString", ""}});
-        memberArray.push_back({{"Name", ""}});
 
-        // HTTP is Mandatory attribute as per OCP Baseline Profile - v1.0.0,
+        // HTTP is Mandatory attribute as per OCP Baseline Profile � v1.0.0,
         // but from security perspective it is not recommended to use.
         // Hence using protocolEnabled as false to make it OCP and security-wise
         // compliant
@@ -425,14 +439,62 @@ class NetworkProtocol : public Node
             std::variant<std::vector<std::string>>{ntpServers});
     }
 
+    void handleIpmiProtocolEnabled(const bool ipmiProtocolEnabled,
+                                   const std::shared_ptr<AsyncResp>& asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [ipmiProtocolEnabled,
+             asyncResp](const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                constexpr char const* netipmidBasePath =
+                    "/xyz/openbmc_project/control/service/"
+                    "phosphor_2dipmi_2dnet_40";
+
+                for (const auto& entry : subtree)
+                {
+                    if (boost::algorithm::starts_with(entry.first,
+                                                      netipmidBasePath))
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [ipmiProtocolEnabled,
+                             asyncResp](const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            },
+                            entry.second.begin()->first, entry.first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Masked", std::variant<bool>{!ipmiProtocolEnabled});
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/control/service", 0,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Control.Service.Attributes"});
+    }
+
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::optional<std::string> newHostName;
         std::optional<nlohmann::json> ntp;
+        std::optional<nlohmann::json> ipmi;
 
-        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp))
+        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp,
+                                 "IPMI", ipmi))
         {
             return;
         }
@@ -461,6 +523,21 @@ class NetworkProtocol : public Node
             if (ntpServers)
             {
                 handleNTPServersPatch(*ntpServers, asyncResp);
+            }
+        }
+
+        if (ipmi)
+        {
+            std::optional<bool> ipmiProtocolEnabled;
+            if (!json_util::readJson(*ipmi, res, "ProtocolEnabled",
+                                     ipmiProtocolEnabled))
+            {
+                return;
+            }
+
+            if (ipmiProtocolEnabled)
+            {
+                handleIpmiProtocolEnabled(*ipmiProtocolEnabled, asyncResp);
             }
         }
     }
