@@ -175,6 +175,30 @@ class Middleware
         persistentFile << data;
     }
 
+    void updateClientId(const std::string_view& sessionId)
+    {
+        std::ofstream persistentFile(filename);
+
+        // set the permission of the file to 640
+        fs::perms permission = fs::perms::owner_read | fs::perms::owner_write |
+                               fs::perms::group_read;
+        fs::permissions(filename, permission);
+        auto session =
+            crow::persistent_data::SessionStore::getInstance().getSessionByUid(
+                sessionId);
+
+        session->clientId = SessionStore::getInstance().getSessionClientId();
+        BMCWEB_LOG_DEBUG << "new clientId to be written to session is : "
+                         << session->clientId;
+
+        nlohmann::json data{
+            {"sessions", SessionStore::getInstance().authTokens},
+            {"auth_config", SessionStore::getInstance().getAuthMethodsConfig()},
+            {"system_uuid", systemUuid},
+            {"revision", jsonRevision}};
+        persistentFile << data;
+    }
+
     std::string systemUuid{""};
 };
 

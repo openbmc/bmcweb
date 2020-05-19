@@ -346,6 +346,17 @@ class SessionStore
         return authMethodsConfig;
     }
 
+    void updateSessionClientIdConfig(const std::string& inClientId)
+    {
+        clientId = inClientId;
+        needWrite = true;
+    }
+
+    std::string& getSessionClientId()
+    {
+        return clientId;
+    }
+
     bool needsWrite()
     {
         return needWrite;
@@ -409,6 +420,7 @@ class SessionStore
     bool needWrite{false};
     std::chrono::minutes timeoutInMinutes;
     AuthConfigMethods authMethodsConfig;
+    std::string clientId;
 };
 
 } // namespace persistent_data
