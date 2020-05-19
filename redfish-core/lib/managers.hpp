@@ -32,85 +32,81 @@ namespace redfish
 {
 
 /**
- * ManagerActionsReset class supports handle POST method for Reset action.
- * The class retrieves and sends data directly to dbus.
+ * Function reboots the BMC.
+ *
+ * @param[in] asyncResp - Shared pointer for completing asynchronous calls
  */
-class ManagerActionsReset : public Node
+void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
+{
+    const char* processName = "xyz.openbmc_project.State.BMC";
+    const char* objectPath = "/xyz/openbmc_project/state/bmc0";
+    const char* interfaceName = "xyz.openbmc_project.State.BMC";
+    const std::string& propertyValue =
+        "xyz.openbmc_project.State.BMC.Transition.Reboot";
+    const char* destProperty = "RequestedBMCTransition";
+
+    // Create the D-Bus variant for D-Bus call.
+    VariantType dbusPropertyValue(propertyValue);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            // Use "Set" method to set the property value.
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            messages::success(asyncResp->res);
+        },
+        processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
+        interfaceName, destProperty, dbusPropertyValue);
+}
+
+/**
+ * ManagerResetAction class supports the POST method for the Reset (reboot)
+ * action.
+ */
+class ManagerResetAction : public Node
 {
   public:
-    ManagerActionsReset(CrowApp& app) :
+    ManagerResetAction(CrowApp& app) :
         Node(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
     /**
      * Function handles POST method request.
-     * Analyzes POST body message before sends Reset request data to dbus.
-     * OpenBMC allows for ResetType is GracefulRestart only.
+     * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
+     * OpenBMC only supports ResetType "GracefulRestart".
      */
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-        std::string resetType;
+        BMCWEB_LOG_DEBUG << "Post Manager Reset.";
 
-        if (!json_util::readJson(req, res, "ResetType", resetType))
+        std::string resetType;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (!json_util::readJson(req, asyncResp->res, "ResetType", resetType))
         {
             return;
         }
 
         if (resetType != "GracefulRestart")
         {
-            res.result(boost::beast::http::status::bad_request);
-            messages::actionParameterNotSupported(res, resetType, "ResetType");
-            BMCWEB_LOG_ERROR << "Request incorrect action parameter: "
+            BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
                              << resetType;
-            res.end();
+            messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                                  "ResetType");
+
             return;
         }
-        doBMCGracefulRestart(res, req, params);
-    }
-
-    /**
-     * Function transceives data with dbus directly.
-     * All BMC state properties will be retrieved before sending reset request.
-     */
-    void doBMCGracefulRestart(crow::Response& res, const crow::Request& req,
-                              const std::vector<std::string>& params)
-    {
-        const char* processName = "xyz.openbmc_project.State.BMC";
-        const char* objectPath = "/xyz/openbmc_project/state/bmc0";
-        const char* interfaceName = "xyz.openbmc_project.State.BMC";
-        const std::string& propertyValue =
-            "xyz.openbmc_project.State.BMC.Transition.Reboot";
-        const char* destProperty = "RequestedBMCTransition";
-
-        // Create the D-Bus variant for D-Bus call.
-        VariantType dbusPropertyValue(propertyValue);
-
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
-                // Use "Set" method to set the property value.
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "[Set] Bad D-Bus request error: " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                messages::success(asyncResp->res);
-            },
-            processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
-            interfaceName, destProperty, dbusPropertyValue);
+        doBMCGracefulRestart(asyncResp);
     }
 };
 
@@ -1600,13 +1596,13 @@ class Manager : public Node
         oemOpenbmc["Certificates"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
 
-        // Update Actions object.
-        nlohmann::json& manager_reset =
+        // Manager.Reset (an action) can be many values, OpenBMC only supports
+        // BMC reboot.
+        nlohmann::json& managerReset =
             res.jsonValue["Actions"]["#Manager.Reset"];
-        manager_reset["target"] =
+        managerReset["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
-        manager_reset["ResetType@Redfish.AllowableValues"] = {
-            "GracefulRestart"};
+        managerReset["ResetType@Redfish.AllowableValues"] = {"GracefulRestart"};
 
         res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
 
