@@ -131,51 +131,99 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 
                                     std::string iface;
                                     boost::container::flat_map<
-                                        std::string, std::variant<std::string>>
+                                        std::string,
+                                        std::variant<std::string, uint8_t>>
                                         values;
-                                    msg.read(iface, values);
-                                    auto findActivation =
-                                        values.find("Activation");
-                                    if (findActivation == values.end())
-                                    {
-                                        return !task::completed;
-                                    }
-                                    std::string *state =
-                                        std::get_if<std::string>(
-                                            &(findActivation->second));
-
-                                    if (state == nullptr)
-                                    {
-                                        taskData->messages.emplace_back(
-                                            messages::internalError());
-                                        return task::completed;
-                                    }
 
                                     std::string index =
                                         std::to_string(taskData->index);
+                                    msg.read(iface, values);
 
-                                    if (boost::ends_with(*state, "Invalid") ||
-                                        boost::ends_with(*state, "Failed"))
+                                    if (iface == "xyz.openbmc_project.Software."
+                                                 "Activation")
                                     {
-                                        taskData->state = "Exception";
-                                        taskData->status = "Warning";
-                                        taskData->messages.emplace_back(
-                                            messages::taskAborted(index));
-                                        return task::completed;
+                                        auto findActivation =
+                                            values.find("Activation");
+                                        if (findActivation == values.end())
+                                        {
+                                            return !task::completed;
+                                        }
+                                        std::string *state =
+                                            std::get_if<std::string>(
+                                                &(findActivation->second));
+
+                                        if (state == nullptr)
+                                        {
+                                            taskData->messages.emplace_back(
+                                                messages::internalError());
+                                            return task::completed;
+                                        }
+
+                                        if (boost::ends_with(*state,
+                                                             "Invalid") ||
+                                            boost::ends_with(*state, "Failed"))
+                                        {
+                                            taskData->state = "Exception";
+                                            taskData->status = "Warning";
+                                            taskData->messages.emplace_back(
+                                                messages::taskAborted(index));
+                                            return task::completed;
+                                        }
+
+                                        if (boost::ends_with(*state, "Staged"))
+                                        {
+                                            taskData->state = "Stopping";
+                                            taskData->messages.emplace_back(
+                                                messages::taskPaused(index));
+
+                                            // its staged, set a long timer to
+                                            // allow them time to complete the
+                                            // update (probably cycle the
+                                            // system) if this expires then
+                                            // task will be cancelled
+                                            taskData->extendTimer(
+                                                std::chrono::hours(5));
+                                            return !task::completed;
+                                        }
+
+                                        if (boost::ends_with(*state, "Active"))
+                                        {
+                                            taskData->messages.emplace_back(
+                                                messages::taskCompletedOK(
+                                                    index));
+                                            taskData->state = "Completed";
+                                            return task::completed;
+                                        }
                                     }
-
-                                    if (boost::ends_with(*state, "Staged"))
+                                    else if (iface ==
+                                             "xyz.openbmc_project.Software."
+                                             "ActivationProgress")
                                     {
-                                        taskData->state = "Pending";
-                                        return !task::completed;
-                                    }
+                                        auto findProgress =
+                                            values.find("Progress");
+                                        if (findProgress == values.end())
+                                        {
+                                            return !task::completed;
+                                        }
+                                        uint8_t *progress =
+                                            std::get_if<uint8_t>(
+                                                &(findProgress->second));
 
-                                    if (boost::ends_with(*state, "Active"))
-                                    {
+                                        if (progress == nullptr)
+                                        {
+                                            taskData->messages.emplace_back(
+                                                messages::internalError());
+                                            return task::completed;
+                                        }
                                         taskData->messages.emplace_back(
-                                            messages::taskCompletedOK(index));
-                                        taskData->state = "Completed";
-                                        return task::completed;
+                                            messages::taskProgressChanged(
+                                                index, static_cast<size_t>(
+                                                           *progress)));
+
+                                        // if we're getting status updates it's
+                                        // still alive, update timer
+                                        taskData->extendTimer(
+                                            std::chrono::minutes(5));
                                     }
 
                                     // as firmware update often results in a
@@ -186,8 +234,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                 },
                                 "type='signal',interface='org.freedesktop.DBus."
                                 "Properties',"
-                                "member='PropertiesChanged',arg0='xyz.openbmc_"
-                                "project.Software.Activation',path='" +
+                                "member='PropertiesChanged',path='" +
                                     objPath.str + "'");
                         task->startTimer(std::chrono::minutes(5));
                         task->populateResp(asyncResp->res);
