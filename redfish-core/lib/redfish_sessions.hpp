@@ -118,6 +118,48 @@ class Sessions : public Node
             session);
     }
 
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            res.end();
+            return;
+        }
+
+        std::optional<nlohmann::json> oemObject;
+
+        if (!json_util::readJson(req, res, "Oem", oemObject))
+        {
+            res.end();
+            return;
+        }
+
+        if (oemObject)
+        {
+            std::optional<nlohmann::json> ibmOem;
+            if (!json_util::readJson(*oemObject, res, "OpenBMC", ibmOem))
+            {
+                res.end();
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Patching the Oem Property";
+            std::optional<std::string> clientId;
+            if (!json_util::readJson(*ibmOem, res, "ClientID", clientId))
+            {
+                res.end();
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Path operation is not allowed on ClientID";
+            messages::propertyNotWritable(res, "ClientID");
+            res.end();
+            return;
+        }
+    }
+
     /**
      * This allows SessionCollection to reuse this class' doGet method, to
      * maintain consistency of returned data, as Collection's doPost should
@@ -211,11 +253,16 @@ class SessionCollection : public Node
             std::optional<nlohmann::json> bmcOem;
             if (json_util::readJson(*oemObject, res, "OpenBMC", bmcOem))
             {
-                if (!json_util::readJson(*bmcOem, res, "ClientID", clientId))
+                if (bmcOem)
                 {
-                    BMCWEB_LOG_ERROR << "Could not read ClientId";
-                    res.end();
-                    return;
+                    std::optional<std::string> clientId;
+                    if (!json_util::readJson(*bmcOem, res, "ClientID",
+                                             clientId))
+                    {
+                        BMCWEB_LOG_ERROR << "Could not read ClientId";
+                        res.end();
+                        return;
+                    }
                 }
             }
         }
