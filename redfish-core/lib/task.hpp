@@ -168,28 +168,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             std::chrono::system_clock::now());
     }
 
-    void startTimer(const std::chrono::seconds &timeout)
+    void extendTimer(const std::chrono::seconds &timeout)
     {
-        match = std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus &>(*crow::connections::systemBus),
-            matchStr,
-            [self = shared_from_this()](sdbusplus::message::message &message) {
-                boost::system::error_code ec;
-
-                // callback to return True if callback is done, callback needs
-                // to update status itself if needed
-                if (self->callback(ec, message, self) == task::completed)
-                {
-                    self->timer.cancel();
-                    self->finishTask();
-
-                    // reset the match after the callback was successful
-                    boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
-                        [self] { self->match.reset(); });
-                    return;
-                }
-            });
         timer.expires_after(timeout);
         timer.async_wait(
             [self = shared_from_this()](boost::system::error_code ec) {
@@ -211,6 +191,36 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     messages::taskAborted(std::to_string(self->index)));
                 self->callback(ec, msg, self);
             });
+    }
+
+    void startTimer(const std::chrono::seconds &timeout)
+    {
+        if (match)
+        {
+            return;
+        }
+        match = std::make_unique<sdbusplus::bus::match::match>(
+            static_cast<sdbusplus::bus::bus &>(*crow::connections::systemBus),
+            matchStr,
+            [self = shared_from_this()](sdbusplus::message::message &message) {
+                boost::system::error_code ec;
+
+                // callback to return True if callback is done, callback needs
+                // to update status itself if needed
+                if (self->callback(ec, message, self) == task::completed)
+                {
+                    self->timer.cancel();
+                    self->finishTask();
+
+                    // reset the match after the callback was successful
+                    boost::asio::post(
+                        crow::connections::systemBus->get_io_context(),
+                        [self] { self->match.reset(); });
+                    return;
+                }
+            });
+
+        extendTimer(timeout);
         messages.emplace_back(messages::taskStarted(std::to_string(index)));
     }
 
