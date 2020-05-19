@@ -174,7 +174,6 @@ class Middleware
             {"revision", jsonRevision}};
         persistentFile << data;
     }
-
     std::string systemUuid{""};
 };
 
