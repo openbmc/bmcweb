@@ -28,7 +28,8 @@ class Sessions : public Node
 {
   public:
     Sessions(CrowApp& app) :
-        Node(app, "/redfish/v1/SessionService/Sessions/<str>/", std::string())
+        Node(app, "/redfish/v1/SessionService/Sessions/<str>/", std::string()),
+        app(app)
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -122,6 +123,52 @@ class Sessions : public Node
             session);
     }
 
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::optional<nlohmann::json> oemObject;
+        std::string clientId;
+
+        if (!json_util::readJson(req, res, "Oem", oemObject))
+        {
+            return;
+        }
+
+        if (oemObject)
+        {
+            std::optional<nlohmann::json> bmcOem;
+            if (json_util::readJson(*oemObject, res, "IBM", bmcOem))
+            {
+                if (json_util::readJson(*bmcOem, res, "ClientID", clientId))
+                {
+                    if (clientId.empty())
+                    {
+                        // Return the PropertyMissing error.
+                        // No need to stop creating the session as this is
+                        // an Oem optional property for session creation
+                        messages::propertyMissing(res, "ClientID");
+                    }
+                }
+            }
+        }
+
+        crow::persistent_data::SessionStore::getInstance()
+            .updateSessionClientIdConfig(clientId);
+        // Save configuration immediately
+        app.template getMiddleware<crow::persistent_data::Middleware>()
+            .updateClientId(params[0]);
+        BMCWEB_LOG_DEBUG << "Session ClientId is updated";
+    }
+
+    CrowApp& app;
     /**
      * This allows SessionCollection to reuse this class' doGet method, to
      * maintain consistency of returned data, as Collection's doPost should
