@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59cde4a0_5ad09ebd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-19T06:51:19Z",
+      "side": 1,
+      "message": "this is confusing , we wont return an error if it is \u003e200kb right..we only return if it is \u003e500kb correct ?\n\nthen why this statement ? File size exceeds 200KB ?",
+      "range": {
+        "startLine": 105,
+        "startChar": 13,
+        "endLine": 105,
+        "endChar": 68
+      },
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c15bbaa9_d7b645a9",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-19T06:51:19Z",
+      "side": 1,
+      "message": "do we need a check here ? to see if file exists ?",
+      "range": {
+        "startLine": 190,
+        "startChar": 3,
+        "endLine": 190,
+        "endChar": 41
+      },
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
