@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1948b8cc_238216a6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-05-19T17:58:23Z",
+      "side": 1,
+      "message": "nit: boost::starts_with in a loop would avoid the regex",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 17
+      },
+      "revId": "9ef0d789661f8ca451a514e1f50bfa8a92d75769",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
