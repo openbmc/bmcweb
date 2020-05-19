@@ -302,6 +302,12 @@ class SessionStore
         return nullptr;
     }
 
+    void updateSession(std::shared_ptr<UserSession> session)
+    {
+        authTokens.emplace(std::make_pair(session->sessionToken, session));
+        needWrite = true;
+    }
+
     void removeSession(std::shared_ptr<UserSession> session)
     {
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE

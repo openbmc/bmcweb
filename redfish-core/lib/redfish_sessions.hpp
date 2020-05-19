@@ -122,6 +122,49 @@ class Sessions : public Node
             session);
     }
 
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::optional<nlohmann::json> oemObject;
+        std::string clientId;
+
+        if (!json_util::readJson(req, res, "Oem", oemObject))
+        {
+            return;
+        }
+
+        if (oemObject)
+        {
+            std::optional<nlohmann::json> bmcOem;
+            if (json_util::readJson(*oemObject, res, "IBM", bmcOem))
+            {
+                if (!json_util::readJson(*bmcOem, res, "ClientID", clientId))
+                {
+                    BMCWEB_LOG_ERROR << "Could not read ClientId";
+                    res.end();
+                    return;
+                }
+            }
+        }
+        auto session =
+            crow::persistent_data::SessionStore::getInstance().getSessionByUid(
+                params[0]);
+
+        session->clientId = clientId;
+        crow::persistent_data::SessionStore::getInstance().updateSession(
+            session);
+
+        BMCWEB_LOG_DEBUG << "Session ClientId is updated";
+    }
+
     /**
      * This allows SessionCollection to reuse this class' doGet method, to
      * maintain consistency of returned data, as Collection's doPost should
