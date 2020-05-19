@@ -17,6 +17,7 @@
 
 #include "error_messages.hpp"
 #include "node.hpp"
+#include "openbmc_dbus_rest.hpp"
 
 #include <optional>
 #include <utils/json_utils.hpp>
@@ -425,14 +426,62 @@ class NetworkProtocol : public Node
             std::variant<std::vector<std::string>>{ntpServers});
     }
 
+    void handleIpmiProtocolEnabled(const bool ipmiProtocolEnabled,
+                                   const std::shared_ptr<AsyncResp>& asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [ipmiProtocolEnabled,
+             asyncResp](const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                constexpr char const* netipmidBasePath =
+                    "/xyz/openbmc_project/control/service/"
+                    "phosphor_2dipmi_2dnet_40";
+
+                for (const auto& entry : subtree)
+                {
+                    if (boost::algorithm::starts_with(entry.first,
+                                                      netipmidBasePath))
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [ipmiProtocolEnabled,
+                             asyncResp](const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            },
+                            entry.second.begin()->first, entry.first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Masked", std::variant<bool>{!ipmiProtocolEnabled});
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/control/service", 0,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Control.Service.Attributes"});
+    }
+
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::optional<std::string> newHostName;
         std::optional<nlohmann::json> ntp;
+        std::optional<nlohmann::json> ipmi;
 
-        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp))
+        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp,
+                                 "IPMI", ipmi))
         {
             return;
         }
@@ -461,6 +510,21 @@ class NetworkProtocol : public Node
             if (ntpServers)
             {
                 handleNTPServersPatch(*ntpServers, asyncResp);
+            }
+        }
+
+        if (ipmi)
+        {
+            std::optional<bool> ipmiProtocolEnabled;
+            if (!json_util::readJson(*ipmi, res, "ProtocolEnabled",
+                                     ipmiProtocolEnabled))
+            {
+                return;
+            }
+
+            if (ipmiProtocolEnabled)
+            {
+                handleIpmiProtocolEnabled(*ipmiProtocolEnabled, asyncResp);
             }
         }
     }
