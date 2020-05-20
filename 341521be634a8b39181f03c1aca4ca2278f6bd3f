@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c6dbb07a_592ae270",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-05-20T18:45:17Z",
+      "side": 1,
+      "message": "missing reference for all of these\n\nhttps://en.cppreference.com/w/cpp/language/reference#Lvalue_references",
+      "parentUuid": "32cffc78_ece61da5",
+      "range": {
+        "startLine": 511,
+        "startChar": 22,
+        "endLine": 511,
+        "endChar": 43
+      },
+      "revId": "341521be634a8b39181f03c1aca4ca2278f6bd3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b316d925_abe2cb23",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 4
