@@ -22,6 +22,30 @@
       "revId": "9ef0d789661f8ca451a514e1f50bfa8a92d75769",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc14d430_7198cb67",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-20T07:31:17Z",
+      "side": 1,
+      "message": "Then I would have to cut this string manually to get chassis id and sensor type. Are you sure this is a good way?",
+      "parentUuid": "1948b8cc_238216a6",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 17
+      },
+      "revId": "9ef0d789661f8ca451a514e1f50bfa8a92d75769",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
