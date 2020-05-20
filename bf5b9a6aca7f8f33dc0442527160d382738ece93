@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db352f4c_a41ac8df",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000312
+      },
+      "writtenOn": "2020-05-20T16:12:51Z",
+      "side": 1,
+      "message": "Don\u0027t we need to handle Targets and Oem of UpdateParameters?",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86969539_31d5e287",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000312
+      },
+      "writtenOn": "2020-05-20T16:12:51Z",
+      "side": 1,
+      "message": "have you tested the update with the uploaded image? Does the image binary received as same or any headers were added to it by multi-part?",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
