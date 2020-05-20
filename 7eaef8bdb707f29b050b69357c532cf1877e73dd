@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ce67f9a8_6de9fd1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-05-20T17:08:31Z",
+      "side": 1,
+      "message": "Can you run the validator on this?",
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eaff69b0_08b7ac68",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
