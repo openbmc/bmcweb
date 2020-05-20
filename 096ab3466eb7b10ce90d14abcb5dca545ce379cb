@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3270a3d9_c7f0d1c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-05-20T17:09:43Z",
+      "side": 1,
+      "message": "Even though it doesn\u0027t look like it could break anything.. Can you run the validator on this?",
+      "revId": "096ab3466eb7b10ce90d14abcb5dca545ce379cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
