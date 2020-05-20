@@ -110,6 +110,78 @@ class ManagerResetAction : public Node
     }
 };
 
+/**
+ * ManagerResetToDefaultsAction class supports POST method for factory reset
+ * action.
+ */
+class ManagerResetToDefaultsAction : public Node
+{
+  public:
+    ManagerResetToDefaultsAction(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Function handles ResetToDefaults POST method request.
+     *
+     * Analyzes POST body message and factory resets BMC by calling
+     * BMC code updater factory reset followed by a BMC reboot.
+     *
+     * BMC code updater factory reset wipes the whole BMC read-write
+     * filesystem which includes things like the network settings.
+     *
+     * OpenBMC only supports ResetToDefaultsType "ResetAll".
+     */
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        BMCWEB_LOG_DEBUG << "Post ResetToDefaults.";
+
+        std::string resetType;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (!json_util::readJson(req, asyncResp->res, "ResetToDefaultsType",
+                                 resetType))
+        {
+            BMCWEB_LOG_DEBUG << "Missing property ResetToDefaultsType.";
+
+            messages::actionParameterMissing(asyncResp->res, "ResetToDefaults",
+                                             "ResetToDefaultsType");
+            return;
+        }
+
+        if (resetType != "ResetAll")
+        {
+            BMCWEB_LOG_DEBUG << "Invalid property value for "
+                                "ResetToDefaultsType: "
+                             << resetType;
+            messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                                  "ResetToDefaultsType");
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "Failed to ResetToDefaults: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                // Factory Reset doesn't actually happen until a reboot
+                // Can't erase what the BMC is running on
+                doBMCGracefulRestart(asyncResp);
+            },
+            "xyz.openbmc_project.Software.BMC.Updater",
+            "/xyz/openbmc_project/software",
+            "xyz.openbmc_project.Common.FactoryReset", "Reset");
+    }
+};
+
 static constexpr const char* objectManagerIface =
     "org.freedesktop.DBus.ObjectManager";
 static constexpr const char* pidConfigurationIface =
@@ -1561,7 +1633,7 @@ class Manager : public Node
                const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        res.jsonValue["@odata.type"] = "#Manager.v1_3_0.Manager";
+        res.jsonValue["@odata.type"] = "#Manager.v1_8_0.Manager";
         res.jsonValue["Id"] = "bmc";
         res.jsonValue["Name"] = "OpenBmc Manager";
         res.jsonValue["Description"] = "Baseboard Management Controller";
@@ -1603,6 +1675,15 @@ class Manager : public Node
         managerReset["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
         managerReset["ResetType@Redfish.AllowableValues"] = {"GracefulRestart"};
+
+        // ResetToDefaults (Factory Reset) has values like
+        // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
+        // on OpenBMC
+        nlohmann::json& resetToDefaults =
+            res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
+        resetToDefaults["target"] =
+            "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
+        resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
 
         res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
 
