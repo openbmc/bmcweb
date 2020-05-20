@@ -75,6 +75,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
         nodes.emplace_back(std::make_unique<ManagerResetAction>(app));
+        nodes.emplace_back(std::make_unique<ManagerResetToDefaultsAction>(app));
         nodes.emplace_back(std::make_unique<Power>(app));
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
