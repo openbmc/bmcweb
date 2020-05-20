@@ -22,6 +22,30 @@
       "revId": "38268fa8af4964312062bd92156ab87637f82e71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1185f99_23b59637",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-05-20T02:15:11Z",
+      "side": 0,
+      "message": "Do we need to support MultipartHttpPushUri and HttpPushUri at the same time?\nI think so and fixed it.",
+      "parentUuid": "d267b083_0f6093ec",
+      "range": {
+        "startLine": 420,
+        "startChar": 2,
+        "endLine": 420,
+        "endChar": 67
+      },
+      "revId": "38268fa8af4964312062bd92156ab87637f82e71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
