@@ -263,6 +263,100 @@ int formatEventLogEntry(const std::string& logEntryID,
 } // namespace event_log
 #endif
 
+bool isParenthesesOrQuote(char c)
+{
+    switch (c)
+    {
+        case '(':
+        case ')':
+        case '\'':
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool sseQueryParamsParsing(std::string sseFilter, std::string& formatType,
+                           std::string& retryPolicy,
+                           std::vector<std::string>& messageIds,
+                           std::vector<std::string>& registryPrefixes,
+                           std::vector<nlohmann::json>& metricReportDefinitions)
+{
+    sseFilter.erase(std::remove_if(sseFilter.begin(), sseFilter.end(),
+                                   isParenthesesOrQuote),
+                    sseFilter.end());
+
+    std::vector<std::string> result;
+
+    boost::split(result, sseFilter, boost::is_any_of(" "),
+                 boost::token_compress_on);
+
+    BMCWEB_LOG_DEBUG << "No of tokens in SEE query: " << result.size();
+
+    uint8_t divisor = 4;
+    uint8_t check = 3;
+
+    if (result.size() % divisor != check)
+    {
+        BMCWEB_LOG_ERROR << "Invalid query params";
+        return false;
+    }
+
+    for (std::size_t i = 0; i < result.size(); i += divisor)
+    {
+        std::string& key = result[i];
+        std::string& op = result[i + 1];
+        std::string& value = result[i + 2];
+
+        if ((i + 3) < result.size())
+        {
+            std::string& seperator = result[i + 3];
+
+            if ((seperator != "or") && (seperator != "and"))
+            {
+                BMCWEB_LOG_ERROR
+                    << "Invalid group operator in SSE query parameters";
+                return false;
+            }
+        }
+
+        if (op != "eq")
+        {
+            BMCWEB_LOG_ERROR
+                << "Invalid assignment operator in SSE query parameters";
+            return false;
+        }
+
+        BMCWEB_LOG_DEBUG << key << " : " << value;
+
+        if (key == "EventFormatType")
+        {
+            formatType = value;
+        }
+
+        if (key == "DeliveryRetryPolicy")
+        {
+            retryPolicy = value;
+        }
+
+        if (key == "RegistryPrefixes")
+        {
+            registryPrefixes.push_back(value);
+        }
+
+        if (key == "MetricReportDefinitions")
+        {
+            metricReportDefinitions.push_back(value);
+        }
+
+        if (key == "MessageIds")
+        {
+            messageIds.push_back(value);
+        }
+    }
+    return true;
+}
+
 class Subscription
 {
   public:
