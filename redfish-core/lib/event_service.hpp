@@ -72,6 +72,14 @@ class EventService : public Node
             retryTimeoutInterval;
         asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
+
+        nlohmann::json supportedSSEFilters = {
+            {"EventFormatType", true},        {"MessageId", true},
+            {"MetricReportDefinition", true}, {"RegistryPrefix", true},
+            {"OriginResource", false},        {"ResourceType", false}};
+
+        asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
+            supportedSSEFilters;
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
@@ -432,19 +440,61 @@ class EventServiceSSE : public Node
 
         // GET on this URI means, Its SSE subscriptionType.
         subValue->subscriptionType = "SSE";
+
+        // Default values
         subValue->protocol = "Redfish";
+        subValue->retryPolicy = "TerminateAfterRetries";
 
         char* filters = req.urlParams.get("$filter");
         if (filters == nullptr)
         {
             subValue->eventFormatType = "Event";
-            subValue->retryPolicy = "TerminateAfterRetries";
         }
         else
         {
-            // TODO: Need to read this from query params.
-            subValue->eventFormatType = "Event";
-            subValue->retryPolicy = "TerminateAfterRetries";
+            // Reading from query params.
+            bool status = readSSEQueryParams(
+                filters, subValue->eventFormatType, subValue->registryMsgIds,
+                subValue->registryPrefixes, subValue->metricReportDefinitions);
+
+            if (!status)
+            {
+                messages::invalidObject(res, filters);
+                return;
+            }
+
+            if (!subValue->eventFormatType.empty())
+            {
+                if (std::find(supportedEvtFormatTypes.begin(),
+                              supportedEvtFormatTypes.end(),
+                              subValue->eventFormatType) ==
+                    supportedEvtFormatTypes.end())
+                {
+                    messages::propertyValueNotInList(
+                        res, subValue->eventFormatType, "EventFormatType");
+                    return;
+                }
+            }
+            else
+            {
+                // If nothing specified, using default "Event"
+                subValue->eventFormatType.assign({"Event"});
+            }
+
+            if (!subValue->registryPrefixes.empty())
+            {
+                for (const std::string& it : subValue->registryPrefixes)
+                {
+                    if (std::find(supportedRegPrefixes.begin(),
+                                  supportedRegPrefixes.end(),
+                                  it) == supportedRegPrefixes.end())
+                    {
+                        messages::propertyValueNotInList(res, it,
+                                                         "RegistryPrefixes");
+                        return;
+                    }
+                }
+            }
         }
 
         std::string id =
