@@ -259,6 +259,95 @@ int formatEventLogEntry(const std::string& logEntryID,
 } // namespace event_log
 #endif
 
+bool IsParenthesesOrQuote(char c)
+{
+    switch (c)
+    {
+        case '(':
+        case ')':
+        case '\'':
+            return true;
+        default:
+            return false;
+    }
+}
+
+void sseQueryParamsParsing(std::string sseFilter, std::string formatType,
+                           std::string retryPolicy,
+                           std::vector<std::string> messageIds,
+                           std::vector<std::string> registryPrefixes,
+                           std::vector<nlohmann::json> metricReportDefinitions)
+{
+    sseFilter.erase(std::remove_if(sseFilter.begin(), sseFilter.end(),
+                                   IsParenthesesOrQuote),
+                    sseFilter.end());
+
+    std::vector<std::string> result;
+
+    boost::split(result, sseFilter, boost::is_any_of(" "),
+                 boost::token_compress_on);
+
+    BMCWEB_LOG_DEBUG << "Size" << result.size();
+
+    if (result.size() % 4 != 3)
+    {
+        BMCWEB_LOG_ERROR << "Invalid query params";
+        return;
+    }
+
+    for (std::size_t i = 0; i < result.size(); i += 4)
+    {
+        std::string& key = result[i];
+        std::string& op = result[i + 1];
+        std::string& value = result[i + 2];
+
+        if ((i + 3) < result.size())
+        {
+            std::string& seperator = result[i + 3];
+
+            if ((seperator != "or") && (seperator != "and"))
+            {
+                BMCWEB_LOG_ERROR << "ERROR1: Invalid query param.";
+                return;
+            }
+        }
+
+        if (op != "eq")
+        {
+            BMCWEB_LOG_ERROR << "ERROR2: Invalid query param.";
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << key << " : " << value;
+
+        if (key == "EventFormatType")
+        {
+            formatType = value;
+        }
+
+        if (key == "DeliveryRetryPolicy")
+        {
+            retryPolicy = value;
+        }
+
+        if (key == "RegistryPrefixes")
+        {
+            registryPrefixes.push_back(value);
+        }
+
+        if (key == "MetricReportDefinitions")
+        {
+            metricReportDefinitions.push_back(value);
+        }
+
+        if (key == "MessageId")
+        {
+            messageIds.push_back(value);
+        }
+    }
+    return;
+}
+
 class Subscription
 {
   public:

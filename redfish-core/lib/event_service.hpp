@@ -442,9 +442,11 @@ class EventServiceSSE : public Node
         }
         else
         {
-            // TODO: Need to read this from query params.
-            subValue->eventFormatType = "Event";
-            subValue->retryPolicy = "TerminateAfterRetries";
+            // Reading from query params.
+            sseQueryParamsParsing(
+                filters, subValue->eventFormatType, subValue->retryPolicy,
+                subValue->registryMsgIds, subValue->registryPrefixes,
+                subValue->metricReportDefinitions);
         }
 
         std::string id =
