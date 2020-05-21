@@ -442,9 +442,68 @@ class EventServiceSSE : public Node
         }
         else
         {
-            // TODO: Need to read this from query params.
-            subValue->eventFormatType = "Event";
-            subValue->retryPolicy = "TerminateAfterRetries";
+            // Reading from query params.
+            bool status = readSSEQueryParams(
+                filters, subValue->eventFormatType, subValue->retryPolicy,
+                subValue->registryMsgIds, subValue->registryPrefixes,
+                subValue->metricReportDefinitions);
+
+            if (!status)
+            {
+                messages::invalidObject(res, filters);
+                return;
+            }
+
+            if (!subValue->eventFormatType.empty())
+            {
+                if (std::find(supportedEvtFormatTypes.begin(),
+                              supportedEvtFormatTypes.end(),
+                              subValue->eventFormatType) ==
+                    supportedEvtFormatTypes.end())
+                {
+                    messages::propertyValueNotInList(
+                        res, subValue->eventFormatType, "EventFormatType");
+                    return;
+                }
+            }
+            else
+            {
+                // If nothing specified, using default "Event"
+                subValue->eventFormatType.assign({"Event"});
+            }
+
+            if (!subValue->retryPolicy.empty())
+            {
+                if (std::find(supportedRetryPolicies.begin(),
+                              supportedRetryPolicies.end(),
+                              subValue->retryPolicy) ==
+                    supportedRetryPolicies.end())
+                {
+                    messages::propertyValueNotInList(res, subValue->retryPolicy,
+                                                     "DeliveryRetryPolicy");
+                    return;
+                }
+            }
+            else
+            {
+                // If nothing specified, using default "TerminateAfterRetries"
+                subValue->retryPolicy = "TerminateAfterRetries";
+            }
+
+            if (!subValue->registryPrefixes.empty())
+            {
+                for (const std::string& it : subValue->registryPrefixes)
+                {
+                    if (std::find(supportedRegPrefixes.begin(),
+                                  supportedRegPrefixes.end(),
+                                  it) == supportedRegPrefixes.end())
+                    {
+                        messages::propertyValueNotInList(res, it,
+                                                         "RegistryPrefixes");
+                        return;
+                    }
+                }
+            }
         }
 
         std::string id =
