@@ -267,6 +267,95 @@ int formatEventLogEntry(const std::string& logEntryID,
 } // namespace event_log
 #endif
 
+bool isFilterQuerySpecialChar(char c)
+{
+    switch (c)
+    {
+        case '(':
+        case ')':
+        case '\'':
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool readSSEQueryParams(std::string sseFilter, std::string& formatType,
+                        std::vector<std::string>& messageIds,
+                        std::vector<std::string>& registryPrefixes,
+                        std::vector<nlohmann::json>& metricReportDefinitions)
+{
+    sseFilter.erase(std::remove_if(sseFilter.begin(), sseFilter.end(),
+                                   isFilterQuerySpecialChar),
+                    sseFilter.end());
+
+    std::vector<std::string> result;
+    boost::split(result, sseFilter, boost::is_any_of(" "),
+                 boost::token_compress_on);
+
+    BMCWEB_LOG_DEBUG << "No of tokens in SEE query: " << result.size();
+
+    constexpr uint8_t divisor = 4;
+    constexpr uint8_t minTokenSize = 3;
+    if (result.size() % divisor != minTokenSize)
+    {
+        BMCWEB_LOG_ERROR << "Invalid SSE filter specified.";
+        return false;
+    }
+
+    for (std::size_t i = 0; i < result.size(); i += divisor)
+    {
+        std::string& key = result[i];
+        std::string& op = result[i + 1];
+        std::string& value = result[i + 2];
+
+        if ((i + minTokenSize) < result.size())
+        {
+            std::string& seperator = result[i + minTokenSize];
+            // SSE supports only "or" and "and" in query params.
+            if ((seperator != "or") && (seperator != "and"))
+            {
+                BMCWEB_LOG_ERROR
+                    << "Invalid group operator in SSE query parameters";
+                return false;
+            }
+        }
+
+        // SSE supports only "eq" as per spec.
+        if (op != "eq")
+        {
+            BMCWEB_LOG_ERROR
+                << "Invalid assignment operator in SSE query parameters";
+            return false;
+        }
+
+        BMCWEB_LOG_DEBUG << key << " : " << value;
+        if (key == "EventFormatType")
+        {
+            formatType = value;
+        }
+        else if (key == "MessageId")
+        {
+            messageIds.push_back(value);
+        }
+        else if (key == "RegistryPrefix")
+        {
+            registryPrefixes.push_back(value);
+        }
+        else if (key == "MetricReportDefinition")
+        {
+            metricReportDefinitions.push_back(value);
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Invalid property(" << key
+                             << ")in SSE filter query.";
+            return false;
+        }
+    }
+    return true;
+}
+
 class Subscription
 {
   public:
