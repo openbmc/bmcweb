@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "976cf75d_64bd8346",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-05-21T03:48:14Z",
+      "side": 1,
+      "message": "For now, should only parse the applyTime property and update d-bus.\nright?",
+      "parentUuid": "db352f4c_a41ac8df",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86969539_31d5e287",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-05-20T16:12:51Z",
       "side": 1,
       "message": "have you tested the update with the uploaded image? Does the image binary received as same or any headers were added to it by multi-part?",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c9a9e2_38658bd3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-05-21T03:48:14Z",
+      "side": 1,
+      "message": "\u003ehave you tested the update with the uploaded image? \nyes, upload and update image success.\n\n\u003eby multi-part?\nsorry, according to the redfish spec, we need to use the octet-stream type to receive the image binary instead of multi-part.\nhttp://redfish.dmtf.org/schemas/DSP0266_1.8.0.html#multipart-http-push-updates-a-id-http-push-update-a-",
+      "parentUuid": "86969539_31d5e287",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
