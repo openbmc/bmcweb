@@ -939,6 +939,82 @@ void objectInterfacesToJson(
 }
 
 static void
+    populatePSURedundancy(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [sensorsAsyncResp](
+            const boost::system::error_code& err,
+            const boost::container::flat_map<
+                std::string, std::variant<uint8_t, uint32_t, bool,
+                                          std::vector<uint8_t>, std::string>>&
+                ret) {
+            if (err)
+            {
+                return;
+            }
+
+            auto findPSUNumber = ret.find("PSUNumber");
+            auto findEnabled = ret.find("PowerSupplyRedundancyEnabled");
+            if (findPSUNumber == ret.end() || findEnabled == ret.end())
+            {
+                BMCWEB_LOG_ERROR << "Invalid redundancy interface";
+                messages::internalError(sensorsAsyncResp->res);
+                return;
+            }
+
+            auto psuNumber = std::get_if<uint8_t>(&(findPSUNumber->second));
+            auto enabled = std::get_if<bool>(&(findEnabled->second));
+
+            if (psuNumber == nullptr || enabled == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Invalid redundancy interface "
+                                    "types";
+                messages::internalError(sensorsAsyncResp->res);
+                return;
+            }
+
+            std::string health;
+            if (*psuNumber > 1)
+            {
+                health = "OK";
+            }
+            else
+            {
+                health = "Warning";
+            }
+
+            std::string state;
+            if (*enabled)
+            {
+                state = "Enabled";
+            }
+            else
+            {
+                state = "Disabled";
+            }
+
+            nlohmann::json& jResp =
+                sensorsAsyncResp->res.jsonValue["Redundancy"];
+            jResp.push_back(
+                {{"@odata.id",
+                  "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId + "/" +
+                      sensorsAsyncResp->chassisSubNode + "#/Redundancy/" +
+                      std::to_string(jResp.size())},
+                 {"@odata.type", "#Redundancy.v1_3_2.Redundancy"},
+                 {"MemberId", "PSURedundancy"},
+                 {"MinNumNeeded", 2},
+                 {"Mode", "Failover"},
+                 {"Name", "PSURedundancy"},
+                 {"RedundancySet", nlohmann::json::array()},
+                 {"Status", {{"Health", health}, {"State", state}}}});
+        },
+        "xyz.openbmc_project.PSURedundancy",
+        "/xyz/openbmc_project/control/power_supply_redundancy",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Control.PowerSupplyRedundancy");
+}
+
+static void
     populateFanRedundancy(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp)
 {
     crow::connections::systemBus->async_method_call(
@@ -2472,6 +2548,10 @@ void getSensorData(
                 if (SensorsAsyncResp->chassisSubNode == "Thermal")
                 {
                     populateFanRedundancy(SensorsAsyncResp);
+                }
+                else if (SensorsAsyncResp->chassisSubNode == "Power")
+                {
+                    populatePSURedundancy(SensorsAsyncResp);
                 }
             }
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
