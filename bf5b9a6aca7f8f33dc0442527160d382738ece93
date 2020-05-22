@@ -105,6 +105,24 @@
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac847c58_cf376028",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-05-22T01:40:19Z",
+      "side": 1,
+      "message": "@Vikram B\n\u003ebmc_signed_cap-20200515120637.bin\nIt should be *.tar, please see my commit message, thanks :)\n\n@Rata\n\u003eI don\u0027t see the implementation is correct\ncould you point out where is not correct? thanks.\nissues about this commit: https://github.com/ibm-openbmc/dev/issues/1372.\n\n\u003eMultiPart request should have the boundary tag\nright.\nI printed the following message from this commit.\n\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------91b83fcd225fffac\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n\n-----------------------------91b83fcd225fffac\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n\n{\n    \"Targets\": [\n        \"/redfish/v1/Managers/1\"\n    ],\n    \"@Redfish.OperationApplyTime\": \"Immediate\",\n    \"Oem\": {}\n}\n\n-----------------------------91b83fcd225fffac\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"obmc-phosphor-image-fp5280g2.static.mtd.tar\"\nContent-Type: application/octet-stream\n\n\u003csoftware image binary\u003e",
+      "parentUuid": "f0df18c0_15133e27",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
