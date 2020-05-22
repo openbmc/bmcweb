@@ -460,6 +460,11 @@ class NetworkProtocol : public Node
 
             if (ntpServers)
             {
+                std::sort((*ntpServers).begin(), (*ntpServers).end());
+                (*ntpServers)
+                    .erase(
+                        std::unique((*ntpServers).begin(), (*ntpServers).end()),
+                        (*ntpServers).end());
                 handleNTPServersPatch(*ntpServers, asyncResp);
             }
         }
