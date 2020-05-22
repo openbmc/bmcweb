@@ -316,8 +316,9 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
 
             segInfo.push_back(std::make_pair(lockFlags, segmentLength));
         }
-        lockRequestStructure.push_back(make_tuple(
-            req.session->uniqueId, "hmc-id", lockType, resourceId, segInfo));
+        lockRequestStructure.push_back(
+            make_tuple(req.session->uniqueId, req.session->clientId, lockType,
+                       resourceId, segInfo));
     }
 
     // print lock request into journal
@@ -425,13 +426,11 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
         BMCWEB_LOG_DEBUG << listTransactionIds[i];
     }
 
-    std::string clientId = "hmc-id";
-    std::string sessionId = req.session->uniqueId;
-
     // validate the request ids
 
     auto varReleaselock = crow::ibm_mc_lock::Lock::getInstance().releaseLock(
-        listTransactionIds, std::make_pair(clientId, sessionId));
+        listTransactionIds,
+        std::make_pair(req.session->clientId, req.session->uniqueId));
 
     if (!varReleaselock.first)
     {
