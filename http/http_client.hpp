@@ -245,16 +245,14 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             case ConnState::closed:
             case ConnState::connectFailed:
             case ConnState::sendFailed:
-            case ConnState::recvFailed:
-            {
+            case ConnState::recvFailed: {
                 // After establishing the connection, checkQueue() will
                 // get called and it will attempt to send data.
                 doConnect();
                 break;
             }
             case ConnState::connected:
-            case ConnState::idle:
-            {
+            case ConnState::idle: {
                 std::string data = requestDataQueue.front();
                 sendMessage(data);
                 break;
