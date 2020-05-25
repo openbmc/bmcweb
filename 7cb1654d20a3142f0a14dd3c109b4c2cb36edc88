@@ -16,6 +16,24 @@
       "revId": "7cb1654d20a3142f0a14dd3c109b4c2cb36edc88",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057d808f_59f6b1b8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-25T14:50:43Z",
+      "side": 1,
+      "message": "There is a patch that fixes clang-format\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32729",
+      "parentUuid": "d2cb8b9f_786ad608",
+      "revId": "7cb1654d20a3142f0a14dd3c109b4c2cb36edc88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
