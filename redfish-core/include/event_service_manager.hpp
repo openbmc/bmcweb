@@ -289,7 +289,7 @@ class Subscription
     {
         conn = std::make_shared<crow::HttpClient>(
             crow::connections::systemBus->get_io_context(), id, host, port,
-            path);
+            path, (uriProto == "https" ? true : false));
     }
     ~Subscription()
     {
