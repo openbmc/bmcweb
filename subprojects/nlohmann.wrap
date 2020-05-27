@@ -1,0 +1,3 @@
+[wrap-git]
+revision = d2dd27dc3b8472dbaa7d66f83619b3ebcd9185fe
+url = https://github.com/nlohmann/json.git
