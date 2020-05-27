@@ -1,0 +1,36 @@
+option('pam', type: 'feature', value : 'enabled', description : 'Built static libraries')
+option('build-static-libs', type: 'feature', value : 'disabled', description : 'Built static libraries')
+option('yocto-deps', type: 'feature', value : 'disabled', description : 'Use YOCTO dependencies system')
+option('kvm', type : 'feature',value : 'enabled', description : 'Enable the KVM host video WebSocket.  Path is \'/kvm/0\'.  Video is from the BMC\'s \'/dev/video\' device.')
+option ('tests', type : 'feature', value : 'enabled', description : 'Enable Unit tests for bmcweb')
+option('vm-websocket', type : 'feature', value : 'enabled', description : '''Enable the Virtual Media WebSocket. Path is \'/vm/0/0\'to open the websocket.
+See https://github.com/openbmc/jsnbd/blob/master/README.''')
+option('vm-nbdproxy', type: 'feature', description : 'Enable the Virtual Media WebSocket.')
+option('rest', type : 'feature', value : 'enabled', description : '''Enable Phosphor REST (D-Bus) APIs. Paths directly map Phosphor D-Bus object paths, for example, \'/xyz/openbmc_project/logging/entry/enumerate\'. See https://github.com/openbmc/docs/blob/master/rest-api.md.''')
+option('redfish', type : 'feature',value : 'enabled', description: 'Enable Redfish APIs.  Paths are under \'/redfish/v1/\'. See https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish.')
+option('host-serial-socket', type : 'feature', value : 'enabled', description : 'Enable host serial console WebSocket. Path is \'/console0\'.  See https://github.com/openbmc/docs/blob/master/console.md.')
+option('static-hosting', type : 'feature', value : 'enabled', description : 'Enable serving files from the \'/usr/share/www\' directory as paths under \'/\'.')
+option('redfish-bmc-journal', type : 'feature', value : 'disabled', description : 'Enable BMC journal access through Redfish. Paths are under \'/redfish/v1/Managers/bmc/LogServices/Journal\'.')
+option('redfish-raw-peci', type : 'feature', value : 'disabled', description : '''Enable PECI transactions through Redfish. Paths are under \/redfish/v1/Systems/system/LogServices/CpuLog/Actions/Oem/CpuLog.SendRawPeci\'.''')
+option('redfish-cpu-log', type : 'feature', value : 'disabled', description : '''Enable CPU log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/Crashdump'.''')
+option('redfish-sysdump-log', type : 'feature', value : 'disabled', description : '''Enable System dump log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/SystemDump\''')
+option('redfish-dbus-log', type : 'feature', value : 'disabled', description : 'Enable DBUS log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/EventLog/Entries\'')
+option('redfish-provisioning-feature', type : 'feature', description : 'Enable provisioning feature support in redfish. Paths are under \'/redfish/v1/Systems/system/\'')
+option('mutual-tls-auth', type : 'feature', value : 'enabled', description : '''Enables authenticating users through TLS client certificates.
+The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect.''')
+option('ibm-management-console', type : 'feature', description : 'Enable the IBM management console specific functionality. Paths are under \'/ibm/v1/\'')
+option('http-body-limit', type: 'integer', min : 0, max : 30, value : 30, description : 'Specifies the http request body length limit')
+
+# Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
+# not be enabled by default for any platform, unless the author fully
+# comprehends the implications of doing so.In general, enabling these options
+# will cause security problems of varying degrees
+
+option ('disable-csrf', type : 'feature', value : 'disabled', description : 'Disable CSRF prevention checks.Should be set to false for production systems.')
+option ('disable-ssl', type : 'feature', value : 'disabled', description : 'Disable SSL ports. Should be set to false for production systems.')
+option ('disable-auth', type : 'feature', value : 'disabled', description : 'Disable authentication on all ports. Should be set to false for production systems')
+option ('disable-xss', type : 'feature', value : 'disabled', description : 'Disable XSS preventions')
+option ('tftp-update', type : 'feature', value : 'disabled', description : '''Enable TFTP based firmware update transactions through Redfish UpdateService.SimpleUpdate.''')
+option ('push-style-notification',type : 'feature', value : 'disabled', description : 'Enable HTTP push style eventing feature')
+option ('validate-unsecure-feature', type : 'feature', value : 'disabled', description : '''Enables unsecure features required by validation. Note: mustbe turned off for production images.''')
+option ('sensor-override', type : 'feature', value : 'disabled', description : 'Enables Sensor override feature without any check.')
