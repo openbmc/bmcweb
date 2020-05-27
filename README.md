@@ -16,11 +16,25 @@ At this time, the webserver implements a few interfaces:
 ## Configuration
 
 BMCWeb is configured by setting `-D` flags that correspond to options
-in `bmcweb/CMakeLists.txt` and then compiling.  For example, `cmake
--DBMCWEB_ENABLE_KVM=NO ...` followed by `make`.  The option names
-become C++ preprocessor symbols that control which code is compiled
-into the program.
+in `bmcweb/meson_options.txt` and then compiling.  For example, `meson
+<builddir> -Dkvm=disabled ...` followed by `ninja` in build directory.
+The option names become C++ preprocessor symbols that control which code
+is compiled into the program.
 
+If any of the dependencies are not found on the host system during
+configuration, meson automatically gets them via its wrap dependencies
+mentioned in `bmcweb/subprojects`.
+
+### Compile bmcweb with default options:
+```ascii
+meson builddir
+ninja -C builddir
+```
+### Generate test coverage report:
+```ascii
+meson builddir -Db_coverage=true -Dtests=enabled
+ninja coverage -C builddir test
+```
 When BMCWeb starts running, it reads persistent configuration data
 (such as UUID and session data) from a local file.  If this is not
 usable, it generates a new configuration.
