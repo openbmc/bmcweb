@@ -141,6 +141,24 @@
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7de9b617_ecec6628",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-27T11:30:41Z",
+      "side": 1,
+      "message": "@george : This is what I got from the commit message \n\n\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type:\nmultipart/form-data\" -F\n\"UpdateParameters\u003d{\\\"Targets\\\":[\\\"/redfish/v1/Managers/1\\\"],\\\"@Redfish.OperationApplyTime\\\":\\\"Immediate\\\",\\\"Oem\\\":{}};type\u003dappalication/json\"\n-F\n\"UpdateFile\u003d@obmc-phosphor-image.static.mtd.tar;type\u003dapplication/octet-stream\"\nhttps://${bmc}/redfish/v1/UpdateService/upload\n{\n  \"@odata.id\": \"/redfish/v1/TaskService/Tasks/0\",\n  \"@odata.type\": \"#Task.v1_4_3.Task\",\n  \"Id\": \"0\",\n  \"TaskState\": \"Running\",\n  \"TaskStatus\": \"OK\"\n} \n\n\nAs per the redfish spec(http://redfish.dmtf.org/schemas/DSP0266_1.8.0.html#multipart-http-push-updates-a-id-http-push-update-a-) the request should have been like this.\n\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------d74496d66958873e\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n\n{\n    \"Targets\": [\n        \"/redfish/v1/Managers/1\"\n    ],\n    \"@Redfish.OperationApplyTime\": \"OnReset\",\n    \"Oem\": {}\n}\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"flash.bin\"\nContent-Type: application/octet-stream\n\n\u003csoftware image binary\u003e\n\n\nWhat I meant to say if you look at the curl request which you are using it for testing doesn\u0027t have the boundry tag , however spec also suggest that there should be boundry tag.\n\nIf boundry tag is not there in multipart request then how the content is multipart.",
+      "parentUuid": "6af58b30_f78a2e5b",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
