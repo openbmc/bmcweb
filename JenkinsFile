@@ -1,10 +1,8 @@
 #!groovy
 stage 'Debug Build'
 sh '''rm -rf build_debug
-  mkdir build_debug
-  cd build_debug
-  cmake .. -DCMAKE_BUILD_TYPE="Debug"
-  cmake --build .'''
+  meson build_debug --buildtype=debug
+  ninja -C build_debug'''
 
 //stage 'Debug Test'
 //sh '''cd build_debug
@@ -12,10 +10,8 @@ sh '''rm -rf build_debug
 
 stage 'Release Build'
 sh '''rm -rf build_release
-  mkdir build_release
-  cd build_release
-  cmake .. -DCMAKE_BUILD_TYPE="Release"
-  cmake --build .'''
+  meson build_release --buildtype=release
+  ninja -C build_release'''
 
 //stage 'Release Test'
 //sh '''cd build_release
