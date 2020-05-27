@@ -1,0 +1,14 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Tom Joseph <tomjoseph@in.ibm.com>
+Code-Review+1: Adriana Kobylak <anoo@linux.ibm.com>
+Code-Review+1: Patrick Williams <patrick@stwcx.xyz>
+Ok-To-Test+1: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: Jozef Wludzik <jozef.wludzik@intel.com>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Andrew Geissler <geissonator@yahoo.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: James Feist <james.feist@linux.intel.com>
+Submitted-at: Wed, 27 May 2020 21:44:47 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32729
+Project: openbmc/bmcweb
+Branch: refs/heads/master
