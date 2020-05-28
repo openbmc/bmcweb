@@ -1517,6 +1517,13 @@ class BMCJournalLogEntry : public Node
         std::string idStr;
         bool firstEntry = true;
         ret = sd_journal_seek_realtime_usec(journal.get(), ts);
+        if (ret < 0)
+        {
+            BMC_LOG_ERROR << "failed to seek to an entry in journal"
+                          << strerror(-ret);
+            messages::internalError(asyncResp->res);
+            return;
+        }
         for (uint64_t i = 0; i <= index; i++)
         {
             sd_journal_next(journal.get());
