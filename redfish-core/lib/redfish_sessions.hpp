@@ -66,6 +66,7 @@ class Sessions : public Node
         res.jsonValue["Oem"]["OpenBMC"]["@odata.id"] =
             "#OemSession.v1_0_0.Session";
         res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
+        res.jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] = session->clientIp;
         res.end();
     }
 
@@ -144,9 +145,17 @@ class Sessions : public Node
             if (json_util::readJson(*oemObject, res, "OpenBMC", ibmOem))
             {
                 std::string clientId;
+                std::string clientIp;
                 if (!json_util::readJson(*ibmOem, res, "ClientID", clientId))
                 {
                     messages::propertyNotWritable(res, "ClientID");
+                    res.end();
+                    return;
+                }
+                if (!json_util::readJson(*ibmOem, res, "ClientOriginIP",
+                                         clientIp))
+                {
+                    messages::propertyNotWritable(res, "ClientOriginIP");
                     res.end();
                     return;
                 }
@@ -208,6 +217,7 @@ class SessionCollection : public Node
         std::string password;
         std::optional<nlohmann::json> oemObject;
         std::string clientId;
+        std::string clientIp;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
                                  password, "Oem", oemObject))
         {
@@ -253,6 +263,11 @@ class SessionCollection : public Node
                     res.end();
                     return;
                 }
+                clientIp = req.socket()
+                               .next_layer()
+                               .remote_endpoint()
+                               .address()
+                               .to_string();
             }
         }
         // User is authenticated - create session
@@ -260,7 +275,7 @@ class SessionCollection : public Node
             crow::persistent_data::SessionStore::getInstance()
                 .generateUserSession(
                     username, crow::persistent_data::PersistenceType::TIMEOUT,
-                    isConfigureSelfOnly, clientId);
+                    isConfigureSelfOnly, clientId, clientIp);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
