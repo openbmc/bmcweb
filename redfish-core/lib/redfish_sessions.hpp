@@ -66,6 +66,7 @@ class Sessions : public Node
         res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
             "#OemSession.v1_0_0.Session";
         res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
+        res.jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] = session->clientIp;
         res.end();
     }
 
@@ -148,23 +149,36 @@ class Sessions : public Node
             }
             BMCWEB_LOG_DEBUG << "Patching the Oem Property";
             std::optional<std::string> clientId;
-            if (!json_util::readJson(*bmcOem, res, "ClientID", clientId))
+            std::optional<std::string> clientIp;
+            if (!json_util::readJson(*bmcOem, res, "ClientID", clientId,
+                                     "ClientOriginIP", clientIp))
             {
                 res.end();
                 return;
             }
-            BMCWEB_LOG_DEBUG << "Path operation is not allowed on ClientID";
-            messages::propertyNotWritable(res, "ClientID");
-            res.end();
-            return;
+            if (clientId)
+            {
+                BMCWEB_LOG_DEBUG << "Path operation is not allowed on ClientID";
+                messages::propertyNotWritable(res, "ClientID");
+                res.end();
+                return;
+            }
+
+            if (clientIp)
+            {
+                BMCWEB_LOG_DEBUG << "Path operation is not allowed on ClientIp";
+                messages::propertyNotWritable(res, "ClientOriginIP");
+                res.end();
+                return;
+            }
         }
     }
 
     /**
      * This allows SessionCollection to reuse this class' doGet method, to
      * maintain consistency of returned data, as Collection's doPost should
-     * return data for created member which should match member's doGet result
-     * in 100%
+     * return data for created member which should match member's doGet
+     * result in 100%
      */
     friend SessionCollection;
 };
@@ -214,6 +228,7 @@ class SessionCollection : public Node
         std::string password;
         std::optional<nlohmann::json> oemObject;
         std::string clientId;
+        std::string clientIp;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
                                  password, "Oem", oemObject))
         {
@@ -262,13 +277,18 @@ class SessionCollection : public Node
                 res.end();
                 return;
             }
+            clientIp = req.socket()
+                           .next_layer()
+                           .remote_endpoint()
+                           .address()
+                           .to_string();
         }
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
                 .generateUserSession(
                     username, crow::persistent_data::PersistenceType::TIMEOUT,
-                    isConfigureSelfOnly, clientId);
+                    isConfigureSelfOnly, clientId, clientIp);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
