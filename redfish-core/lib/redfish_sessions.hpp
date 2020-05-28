@@ -63,11 +63,12 @@ class Sessions : public Node
         res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
             "#OemSession.v1_0_0.Session";
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
 #endif
+        res.jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] = session->clientIp;
         res.end();
     }
 
@@ -123,8 +124,8 @@ class Sessions : public Node
     /**
      * This allows SessionCollection to reuse this class' doGet method, to
      * maintain consistency of returned data, as Collection's doPost should
-     * return data for created member which should match member's doGet result
-     * in 100%
+     * return data for created member which should match member's doGet
+     * result in 100%
      */
     friend SessionCollection;
 };
@@ -174,6 +175,7 @@ class SessionCollection : public Node
         std::string password;
         std::optional<nlohmann::json> oemObject;
         std::string clientId;
+        std::string clientIp;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
                                  password, "Oem", oemObject))
         {
@@ -225,12 +227,15 @@ class SessionCollection : public Node
             }
         }
 #endif
+        clientIp =
+            req.socket().next_layer().remote_endpoint().address().to_string();
+
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
                 .generateUserSession(
                     username, crow::persistent_data::PersistenceType::TIMEOUT,
-                    isConfigureSelfOnly, clientId);
+                    isConfigureSelfOnly, clientId, clientIp);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
