@@ -44,6 +44,7 @@ struct UserSession
     std::string username;
     std::string csrfToken;
     std::string clientId;
+    std::string clientIp;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
     bool cookieAuth = false;
@@ -101,6 +102,11 @@ struct UserSession
             {
                 userSession->clientId = *thisValue;
             }
+            else if (element.key() == "client_ip")
+            {
+                userSession->clientIp = *thisValue;
+            }
+
             else
             {
                 BMCWEB_LOG_ERROR
@@ -212,7 +218,8 @@ class SessionStore
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
         PersistenceType persistence = PersistenceType::TIMEOUT,
-        bool isConfigureSelfOnly = false, const std::string_view clientId = "")
+        bool isConfigureSelfOnly = false, const std::string_view clientId = "",
+        const std::string_view clientIp = "")
     {
         // TODO(ed) find a secure way to not generate session identifiers if
         // persistence is set to SINGLE_REQUEST
@@ -259,10 +266,11 @@ class SessionStore
                 return nullptr;
             }
         }
-        auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
-            std::string(clientId), std::chrono::steady_clock::now(),
-            persistence, false, isConfigureSelfOnly});
+        auto session = std::make_shared<UserSession>(
+            UserSession{uniqueId, sessionToken, std::string(username),
+                        csrfToken, std::string(clientId), std::string(clientIp),
+                        std::chrono::steady_clock::now(), persistence, false,
+                        isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
@@ -428,16 +436,16 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
             crow::persistent_data::PersistenceType::SINGLE_REQUEST)
         {
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-            j = nlohmann::json{{"unique_id", p->uniqueId},
-                               {"session_token", p->sessionToken},
-                               {"username", p->username},
-                               {"csrf_token", p->csrfToken},
-                               {"client_id", p->clientId}};
+            j = nlohmann::json{
+                {"unique_id", p->uniqueId}, {"session_token", p->sessionToken},
+                {"username", p->username},  {"csrf_token", p->csrfToken},
+                {"client_id", p->clientId}, {"client_ip", p->clientIp}};
 #else
             j = nlohmann::json{{"unique_id", p->uniqueId},
                                {"session_token", p->sessionToken},
                                {"username", p->username},
-                               {"csrf_token", p->csrfToken}};
+                               {"csrf_token", p->csrfToken},
+                               {"client_ip", p->clientIp}};
 #endif
         }
     }
