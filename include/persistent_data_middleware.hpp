@@ -188,8 +188,11 @@ class Middleware
                 sessionId);
 
         session->clientId = SessionStore::getInstance().getSessionClientId();
+        session->clientIp = SessionStore::getInstance().getSessionClientIp();
         BMCWEB_LOG_DEBUG << "new clientId to be written to session is : "
                          << session->clientId;
+        BMCWEB_LOG_DEBUG << "new clientIp to be written to session is : "
+                         << session->clientIp;
 
         nlohmann::json data{
             {"sessions", SessionStore::getInstance().authTokens},
