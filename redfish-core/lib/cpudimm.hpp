@@ -497,6 +497,137 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
         std::array<const char *, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
 }
 
+void getMetricsDataByService(std::shared_ptr<AsyncResp> aResp,
+                          const std::string &dimmId, const std::string &service,
+                          const std::string &objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get available system components.";
+    crow::connections::systemBus->async_method_call(
+        [dimmId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<std::string, uint64_t, uint32_t, uint16_t, bool>>
+                &properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            nlohmann::json &members = aResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
+            members.push_back({{"@odata.id", "/redfish/v1/Systems/system/Memory/" +
+                                dimmId + "/Metrics"}});
+            aResp->res.jsonValue["Members@odata.count"] = members.size();
+
+            nlohmann::json &healthdata = aResp->res.jsonValue["HealthData"];
+            for (const auto &property : properties)
+            {
+                if (property.first == "BlockSizeBytes")
+                {
+                    aResp->res.jsonValue["BlockSizeBytes"] = property.second;
+                }
+                else if (property.first == "BandwidthPercent")
+                {
+                    aResp->res.jsonValue["BandwidthPercent"] = property.second;
+                }
+                else if (property.first == "BlocksReadCurrent")
+                {
+                    aResp->res.jsonValue["CurrentPeriod"]["BlocksRead"] = property.second;
+                }
+                else if (property.first == "BlocksWrittenCurrent")
+                {
+                    aResp->res.jsonValue["CurrentPeriod"]["BlocksWritten"] = property.second;
+                }
+                else if (property.first == "BlocksReadLifetime")
+                {
+                    aResp->res.jsonValue["LifeTime"]["BlocksRead"] = property.second;
+                }
+                else if (property.first == "BlocksWrittenLifetime")
+                {
+                    aResp->res.jsonValue["LifeTime"]["BlocksWritten"] = property.second;
+                }
+                else if (property.first == "RemainingSpareBlockPercentage")
+                {
+                    healthdata["RemainingSpareBlockPercentage"] = property.second;
+                }
+                else if (property.first == "LastShutdownSuccess")
+                {
+                    healthdata["LastShutdownSuccess"] = property.second;
+                }
+                else if (property.first == "DataLossDetected")
+                {
+                    healthdata["DataLossDetected"] = property.second;
+                }
+                else if (property.first == "PerformanceDegraded")
+                {
+                    healthdata["PerformanceDegraded"] = property.second;
+                }
+                else if (property.first == "PredictedMediaLifeLeftPercent")
+                {
+                    healthdata["PredictedMediaLifeLeftPercent"] = property.second;
+                }
+                else if (property.first == "Temperature")
+                {
+                    healthdata["AlarmTrips"]["Temperature"] = property.second;
+                }
+                else if (property.first == "AddressParityError")
+                {
+                    healthdata["AlarmTrips"]["AddressParityError"] = property.second;
+                }
+                else if (property.first == "CorrectableECCError")
+                {
+                    healthdata["AlarmTrips"]["CorrectableECCError"] = property.second;
+                }
+                else if (property.first == "SpareBlock")
+                {
+                    healthdata["AlarmTrips"]["SpareBlock"] = property.second;
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "xyz.openbmc_project.Inventory.Item.Dimm.MemoryMetrics");
+}
+
+void getMetricsData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId) {
+    BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
+    crow::connections::systemBus->async_method_call(
+        [dimmId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, boost::container::flat_map<
+                                 std::string, std::vector<std::string>>>
+                &subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+            for (const auto &object : subtree)
+            {
+                if (boost::ends_with(object.first, dimmId))
+                {
+                    for (const auto &service : object.second)
+                    {
+                        getMetricsDataByService(aResp, dimmId, service.first,
+                                                object.first);
+                        return;
+                    }
+                }
+            }
+            // Object not found
+            messages::resourceNotFound(aResp->res, "Memory", dimmId);
+            return;
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char *, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
+}
+
 class ProcessorCollection : public Node
 {
   public:
@@ -658,6 +789,51 @@ class Memory : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getDimmData(asyncResp, dimmId);
+    }
+};
+
+class MemoryMetrics : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    MemoryMetrics(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/Memory/<str>/Metrics", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        // Check if there is required param, truly entering this shall be
+        // impossible
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+        const std::string &dimmId = params[0];
+
+        res.jsonValue["@odata.type"] = "#MemoryMetrics.v1_2_0.MemoryMetrics";
+        res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Memory/" + dimmId + "/Metircs";
+        res.jsonValue["Name"] = "Memory Metrics for " + dimmId;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        getMetricsData(asyncResp, dimmId);
     }
 };
 
