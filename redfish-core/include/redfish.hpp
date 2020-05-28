@@ -106,6 +106,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemDumpEntryCollection>(app));
         nodes.emplace_back(std::make_unique<SystemDumpEntry>(app));
         nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpCreate>(app));
         nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
 #endif
 
