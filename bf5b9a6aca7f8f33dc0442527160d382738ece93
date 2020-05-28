@@ -159,6 +159,24 @@
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac5b033_323b67cb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-05-28T03:13:18Z",
+      "side": 1,
+      "message": "@Ratan\nSorry, Maybe I am not familiar with this boundary tag, but I checked and parsed it by the curl request(https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32174/5/redfish-core/lib/update_service.hpp#754), and printed boundary tag by the curl request.\nSo could you tell me where is an error？\n\n@Vikram B\nSorry, I want to know, What * .bin file are you referring to? :)\nfrom my understanding, load and update image just need *.tar file.\nAnd phosphor-bmc-code-mgmt only supports * .tar files.\n*.tar -\u003e /tmp/image",
+      "parentUuid": "7de9b617_ecec6628",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
