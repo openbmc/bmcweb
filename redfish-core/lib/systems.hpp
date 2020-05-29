@@ -325,40 +325,54 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
 
                                     if (properties.size() > 0)
                                     {
+                                        const uint32_t* processorId = nullptr;
+                                        const std::string* procFamily = nullptr;
+                                        nlohmann::json& procSummary =
+                                            aResp->res.jsonValue["ProcessorSumm"
+                                                                 "ary"];
+                                        nlohmann::json& procCount =
+                                            procSummary["Count"];
+
+                                        auto procCountPtr = procCount.get_ptr<
+                                            nlohmann::json::
+                                                number_integer_t*>();
                                         for (const auto& property : properties)
                                         {
+
+                                            if (property.first == "ProcessorId")
+                                            {
+                                                processorId =
+                                                    std::get_if<uint32_t>(
+                                                        &property.second);
+                                                if (nullptr != procFamily)
+                                                    break;
+                                                continue;
+                                            }
+
                                             if (property.first ==
                                                 "ProcessorFamily")
                                             {
-                                                const std::string* value =
+                                                procFamily =
                                                     std::get_if<std::string>(
                                                         &property.second);
-                                                if (value != nullptr)
-                                                {
-                                                    nlohmann::json&
-                                                        procSummary =
-                                                            aResp->res.jsonValue
-                                                                ["ProcessorSumm"
-                                                                 "ary"];
-                                                    nlohmann::json& procCount =
-                                                        procSummary["Count"];
+                                                if (nullptr != processorId)
+                                                    break;
+                                                continue;
+                                            }
+                                        }
 
-                                                    auto procCountPtr =
-                                                        procCount.get_ptr<
-                                                            nlohmann::json::
-                                                                number_integer_t*>();
-                                                    if (procCountPtr != nullptr)
-                                                    {
-                                                        // shouldn't be possible
-                                                        // to be nullptr
-                                                        *procCountPtr += 1;
-                                                    }
-                                                    procSummary["Status"]
-                                                               ["State"] =
-                                                                   "Enabled";
-                                                    procSummary["Model"] =
-                                                        *value;
-                                                }
+                                        if (procFamily != nullptr &&
+                                            processorId != nullptr)
+                                        {
+                                            if (procCountPtr != nullptr &&
+                                                *processorId != 0)
+                                            {
+                                                *procCountPtr += 1;
+                                                procSummary["Status"]["State"] =
+                                                    "Enabled";
+
+                                                procSummary["Model"] =
+                                                    *procFamily;
                                             }
                                         }
                                     }
