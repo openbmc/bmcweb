@@ -150,23 +150,6 @@ inline bool translateDHCPEnabledToBool(const std::string &inputDHCP,
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both"));
 }
 
-inline std::string GetDHCPEnabledEnumeration(bool isIPv4, bool isIPv6)
-{
-    if (isIPv4 && isIPv6)
-    {
-        return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both";
-    }
-    else if (isIPv4)
-    {
-        return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4";
-    }
-    else if (isIPv6)
-    {
-        return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6";
-    }
-    return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.none";
-}
-
 inline std::string
     translateAddressOriginDbusToRedfish(const std::string &inputOrigin,
                                         bool isIPv4)
@@ -1215,7 +1198,6 @@ class EthernetInterface : public Node
                         const bool v6Value,
                         const std::shared_ptr<AsyncResp> asyncResp)
     {
-        const std::string dhcp = GetDHCPEnabledEnumeration(v4Value, v6Value);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
                 if (ec)
@@ -1229,7 +1211,7 @@ class EthernetInterface : public Node
             "/xyz/openbmc_project/network/" + ifaceId,
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Network.EthernetInterface", propertyName,
-            std::variant<std::string>{dhcp});
+            std::variant<bool>{v4Value || v6Value});
     }
 
     void setEthernetInterfaceBoolProperty(

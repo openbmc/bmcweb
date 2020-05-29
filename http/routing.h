@@ -1325,10 +1325,6 @@ class Router
                         BMCWEB_LOG_ERROR
                             << "UserPasswordExpired property is expected for"
                                " local user but is missing or wrong type";
-                        res.result(
-                            boost::beast::http::status::internal_server_error);
-                        res.end();
-                        return;
                     }
                 }
 
