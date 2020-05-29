@@ -30,6 +30,8 @@
 #include <dump_offload.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <string_view>
 #include <variant>
 
@@ -46,6 +48,8 @@ constexpr char const *crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr char const *crashdumpRawPECIInterface =
     "com.intel.crashdump.SendRawPeci";
+static constexpr const uint8_t maxNodeCount = 4;
+static constexpr const char *redfishSlvLogDir = "/var/log/node";
 
 namespace message_registries
 {
@@ -424,11 +428,16 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
 }
 
 static bool
-    getRedfishLogFiles(std::vector<std::filesystem::path> &redfishLogFiles)
+    getRedfishLogFiles(std::vector<std::filesystem::path> &redfishLogFiles,
+                       const int nodeId)
 {
-    static const std::filesystem::path redfishLogDir = "/var/log";
+    static std::filesystem::path redfishLogDir = "/var/log";
     static const std::string redfishLogFilename = "redfish";
 
+    if (nodeId != 0)
+    {
+        redfishLogDir = redfishSlvLogDir + std::to_string(nodeId);
+    }
     // Loop through the directory looking for redfish log files
     for (const std::filesystem::directory_entry &dirEnt :
          std::filesystem::directory_iterator(redfishLogDir))
@@ -630,7 +639,7 @@ class JournalEventLogClear : public Node
 
         // Clear the EventLog by deleting the log files
         std::vector<std::filesystem::path> redfishLogFiles;
-        if (getRedfishLogFiles(redfishLogFiles))
+        if (getRedfishLogFiles(redfishLogFiles, masterNodeId))
         {
             for (const std::filesystem::path &file : redfishLogFiles)
             {
@@ -770,6 +779,20 @@ class JournalEventLogEntryCollection : public Node
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
+    template <typename CrowApp>
+    JournalEventLogEntryCollection(CrowApp &app, const std::string &slave) :
+        Node(app, "/redfish/v1/Systems/Node<str>/LogServices/EventLog/Entries/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
   private:
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
@@ -777,6 +800,7 @@ class JournalEventLogEntryCollection : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         uint64_t skip = 0;
         uint64_t top = maxEntriesPerPage; // Show max entries by default
+        int nodeId = 0;
         if (!getSkipParam(asyncResp->res, req, skip))
         {
             return;
@@ -785,12 +809,30 @@ class JournalEventLogEntryCollection : public Node
         {
             return;
         }
+        if (params.size() == 1)
+        {
+            nodeId = std::stoi(params[0]);
+            if (nodeId >= maxNodeCount)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        }
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
+        if (nodeId == 0)
+        {
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
+        }
+        else
+        {
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/Node" + std::to_string(nodeId) +
+                "/LogServices/EventLog/Entries";
+        }
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
@@ -799,7 +841,7 @@ class JournalEventLogEntryCollection : public Node
         logEntryArray = nlohmann::json::array();
         // Go through the log files and create a unique ID for each entry
         std::vector<std::filesystem::path> redfishLogFiles;
-        getRedfishLogFiles(redfishLogFiles);
+        getRedfishLogFiles(redfishLogFiles, nodeId);
         uint64_t entryCount = 0;
         std::string logEntry;
 
@@ -848,10 +890,21 @@ class JournalEventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
         if (skip + top < entryCount)
         {
-            asyncResp->res.jsonValue["Members@odata.nextLink"] =
-                "/redfish/v1/Systems/system/LogServices/EventLog/"
-                "Entries?$skip=" +
-                std::to_string(skip + top);
+            if (nodeId == 0)
+            {
+                asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                    "/redfish/v1/Systems/system/LogServices/EventLog/"
+                    "Entries?$skip=" +
+                    std::to_string(skip + top);
+            }
+            else
+            {
+                asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                    "/redfish/v1/Systems/Node" + std::to_string(nodeId) +
+                    "/LogServices/EventLog/"
+                    "Entries?$skip=" +
+                    std::to_string(skip + top);
+            }
         }
     }
 };
@@ -888,7 +941,7 @@ class JournalEventLogEntry : public Node
         // Go through the log files and check the unique ID for each entry to
         // find the target entry
         std::vector<std::filesystem::path> redfishLogFiles;
-        getRedfishLogFiles(redfishLogFiles);
+        getRedfishLogFiles(redfishLogFiles, masterNodeId);
         std::string logEntry;
 
         // Oldest logs are in the last file, so start there and loop backwards
@@ -2962,6 +3015,170 @@ class PostCodesEntry : public Node
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
         getPostCodeForEntry(asyncResp, bootIndex, codeIndex);
+    }
+};
+
+/****************************************************
+ * Redfish SlvNodeLog interfaces
+ ******************************************************/
+
+static constexpr const char *redfishLogFilename = "redfish";
+class SlvNodeLogService : public Node
+{
+  public:
+    template <typename CrowApp>
+    SlvNodeLogService(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/Node<str>/LogServices/EventLog/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string &nodeId = params[0];
+
+        int *p = new (std::nothrow) int; // non-throwing overload
+        if (p == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if ((*p = std::stoi(nodeId)) >= maxNodeCount)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        asyncResp->res.jsonValue = {
+            {"@odata.id",
+             "/redfish/v1/Systems/Node" + nodeId + "/LogServices/EventLog"},
+            {"@odata.type", "#LogService.v1_1_0.LogEntryCollection"},
+            {"@odata.context", "/redfish/v1/$metadata#LogService.LogService"},
+            {"Name", "Slave Node Event Service"},
+            {"Description", "Slave Node Event Service"},
+            {"Id", "Slave Node Event Log"},
+            {"OverWritePolicy", "WrapsWhenFull"},
+            {"Entries",
+             {{"@odata.id", "/redfish/v1/Systems/Node" + nodeId +
+                                "/LogServices/EventLog/Entries"}}}};
+        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
+            {"target", "/redfish/v1/Systems/Node" + nodeId +
+                           "/LogServices/EventLog/"
+                           "Actions/LogService.ClearLog"}};
+    }
+};
+
+class SlvNodeServiceCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    SlvNodeServiceCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/Node<str>/", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string &nodeId = params[0];
+        if (std::stoi(nodeId) >= maxNodeCount)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Collections don't include the static data added by SubRoute because
+        // it has a duplicate entry for members
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/Node" + nodeId;
+        asyncResp->res.jsonValue["Name"] = "System Log Entry Collection";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of Node Services for this Computer System";
+        nlohmann::json &logServiceArray = asyncResp->res.jsonValue["Members"];
+        logServiceArray = nlohmann::json::array();
+
+        logServiceArray.push_back(
+            {{"@odata.id",
+              "/redfish/v1/Systems/Node" + nodeId + "/LogServices/EventLog/"}});
+
+        asyncResp->res.jsonValue["Members@odata.count"] =
+            logServiceArray.size();
+    }
+};
+
+class JournalSlvNodeEventLogClear : public Node
+{
+  public:
+    JournalSlvNodeEventLogClear(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/Node<str>/LogServices/EventLog/Actions/"
+             "LogService.ClearLog/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &nodeId = params[0];
+        if (std::stoi(nodeId) >= maxNodeCount)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Clear the EventLog by deleting the log files
+        static const std::filesystem::path filename =
+            redfishSlvLogDir + nodeId + redfishLogFilename;
+        std::error_code ec;
+        std::filesystem::remove(filename, ec);
     }
 };
 
