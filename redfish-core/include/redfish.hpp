@@ -115,6 +115,14 @@ class RedfishService
         nodes.emplace_back(std::make_unique<JournalEventLogClear>(app));
 #endif
 
+#ifdef BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+        nodes.emplace_back(std::make_unique<SlvNodeLogServiceCollection>(app));
+        nodes.emplace_back(std::make_unique<SlvNodeLogService>(app));
+        nodes.emplace_back(
+            std::make_unique<JournalEventLogEntryCollection>(app, "slave"));
+        nodes.emplace_back(std::make_unique<JournalSlvNodeEventLogClear>(app));
+#endif
+
         nodes.emplace_back(std::make_unique<BMCLogServiceCollection>(app));
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         nodes.emplace_back(std::make_unique<BMCJournalLogService>(app));
