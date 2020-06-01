@@ -285,7 +285,7 @@ add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
 # sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})
     include_directories (SYSTEM ${CMAKE_BINARY_DIR}/sdbusplus-src)
-    link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/.libs)
+    link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/build)
 endif ()
 
 # Openssl
