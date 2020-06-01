@@ -177,6 +177,24 @@
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14705fb0_ec50202a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000312
+      },
+      "writtenOn": "2020-06-01T04:44:40Z",
+      "side": 1,
+      "message": "@Liu, .bin is the raw hex image file. I\u0027m curious to know why multi-part-form-data appends \"0x0D\" and \"0x0A\" (i.e CR, LF) to the image files.",
+      "parentUuid": "1ac5b033_323b67cb",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
