@@ -195,6 +195,24 @@
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2910d80_5eec5983",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-06-01T07:00:40Z",
+      "side": 1,
+      "message": "@Vikram B\n\u003ebin is the raw hex image file.\nThe full name is？For example?\n\u003eI\u0027m curious to know why multi-part-form-data appends \"0x0D\" and \"0x0A\" (i.e CR, LF) to the image files.\nOh, This is the standard format of multipart/form-data of HTML Form. :)\nRefer to: https://dev.to/sidthesloth92/understanding-html-form-encoding-url-encoded-and-multipart-forms-3lpa",
+      "parentUuid": "14705fb0_ec50202a",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
