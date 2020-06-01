@@ -418,10 +418,10 @@ constexpr std::array<MessageEntry, 155> registry = {
     MessageEntry{"FirmwareUpdateFailed",
                  {
                      "Indicates a firmware update has failed.",
-                     "%1 firmware update to version %2 failed.",
+                     "%1 firmware update to version %2 failed: %3.",
                      "Warning",
-                     2,
-                     {"string", "string"},
+                     3,
+                     {"string", "string", "string"},
                      "None.",
                  }},
     MessageEntry{"FirmwareUpdateStarted",
