@@ -764,6 +764,10 @@ void objectInterfacesToJson(
         {
             sensor_json["ReadingUnits"] = "Amperes";
         }
+        else if (sensorType == "utilization")
+        {
+            sensor_json["ReadingUnits"] = "Percent";
+        }
     }
     else if (sensorType == "temperature")
     {
@@ -2869,7 +2873,8 @@ class SensorCollection : public Node
   private:
     std::vector<const char*> typeList = {
         "/xyz/openbmc_project/sensors/power",
-        "/xyz/openbmc_project/sensors/current"};
+        "/xyz/openbmc_project/sensors/current",
+        "/xyz/openbmc_project/sensors/utilization"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
