@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10601a2a_0840fc21",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-06-03T09:34:46Z",
+      "side": 1,
+      "message": "What would you think about little struct/class encapsulating the connection?\n\nIt could get rid of all \u0027if(ssl) else..\u0027 and encapsulate all the decision points in one place. It will then saparate the business logic of connection (connection states and transitions) from chosen transport.\n\n// Just a poc\nclass Stream\n{\n  Stream(isSsl)\n  {\n     if(isSsl)\n     {\n        ssl \u003d make_shared\u003c....\n     }\n     {\n        tcp \u003d make_shared\u003c...\n     }\n  }\n\n\n  void async_write(req, handler)\n  { ... }\n\n  void async_read(req, handler)\n  { ... }\n\n  void onConnect(handler(ec))\n  {\n    if(ssl)\n    {\n       // perform handshake and call handler(ec)\n    }\n    {\n       // just call handler(boost::make_error_code(ok))\n    } \n  }\n\n  boost::beast::tcp_stream\u0026 get()\n  { ... }\n\nprivate:\n   shared_ptr\u003cSSL\u003e ..\n   shared_ptr\u003cTCP\u003e ..\n}",
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abcc7550_b0ab45af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-06-03T09:34:46Z",
+      "side": 1,
+      "message": "nit: Is there a reason we need that? Couldn\u0027t async_write(getConn().. be used instead? I suspect that might be limitation (or design choice?) of the boost implementation, but I\u0027m interested in the answer",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 9
+      },
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "185254f4_33a5cab5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-06-03T09:34:46Z",
+      "side": 1,
+      "message": "nit: I believe that just \u0027useSsl\u0027 would be more meaningful",
+      "range": {
+        "startLine": 410,
+        "startChar": 24,
+        "endLine": 410,
+        "endChar": 53
+      },
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
