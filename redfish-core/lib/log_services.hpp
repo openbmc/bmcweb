@@ -2725,7 +2725,7 @@ static void fillPostCodeEntry(
             {"MessageId", "OpenBMC.0.1.BIOSPOSTCode"},
             {"MessageArgs", std::move(messageArgs)},
             {"EntryType", "Event"},
-            {"Severity", std::move(severity)},
+            {"Severity", severity},
             {"Created", std::move(entryTimeStr)}};
     }
 }
