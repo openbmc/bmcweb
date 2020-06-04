@@ -1,0 +1,11 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Tony Lee <tony.lee@quantatw.com>
+Code-Review+1: Vikram B <vikram.bodireddy@linux.intel.com>
+Code-Review+1: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Verified+1: Andrew Geissler <geissonator@yahoo.com>
+Submitted-by: James Feist <james.feist@linux.intel.com>
+Submitted-at: Thu, 04 Jun 2020 18:38:42 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33209
+Project: openbmc/bmcweb
+Branch: refs/heads/master
