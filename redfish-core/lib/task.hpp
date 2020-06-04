@@ -19,8 +19,9 @@
 
 #include <boost/asio.hpp>
 #include <boost/container/flat_map.hpp>
-#include <chrono>
 #include <task_messages.hpp>
+
+#include <chrono>
 #include <variant>
 
 namespace redfish
@@ -36,7 +37,7 @@ constexpr bool completed = true;
 
 struct Payload
 {
-    Payload(const crow::Request &req) :
+    Payload(const crow::Request& req) :
         targetUri(req.url), httpOperation(req.methodString()),
         httpHeaders(nlohmann::json::array())
 
@@ -54,7 +55,7 @@ struct Payload
             jsonBody = nullptr;
         }
 
-        for (const auto &field : req.fields)
+        for (const auto& field : req.fields)
         {
             if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
                           field.name()) == headerWhitelist.end())
@@ -78,7 +79,7 @@ struct Payload
     nlohmann::json jsonBody;
 };
 
-inline void to_json(nlohmann::json &j, const Payload &p)
+inline void to_json(nlohmann::json& j, const Payload& p)
 {
     j = {{"TargetUri", p.targetUri},
          {"HttpOperation", p.httpOperation},
@@ -90,9 +91,9 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
     TaskData(std::function<bool(boost::system::error_code,
-                                sdbusplus::message::message &,
-                                const std::shared_ptr<TaskData> &)> &&handler,
-             const std::string &match, size_t idx) :
+                                sdbusplus::message::message&,
+                                const std::shared_ptr<TaskData>&)>&& handler,
+             const std::string& match, size_t idx) :
         callback(std::move(handler)),
         matchStr(match), index(idx),
         startTime(std::chrono::system_clock::to_time_t(
@@ -100,33 +101,31 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         status("OK"), state("Running"), messages(nlohmann::json::array()),
         timer(crow::connections::systemBus->get_io_context())
 
-    {
-    }
+    {}
     TaskData() = delete;
 
   public:
-    static std::shared_ptr<TaskData> &createTask(
+    static std::shared_ptr<TaskData>& createTask(
         std::function<bool(boost::system::error_code,
-                           sdbusplus::message::message &,
-                           const std::shared_ptr<TaskData> &)> &&handler,
-        const std::string &match)
+                           sdbusplus::message::message&,
+                           const std::shared_ptr<TaskData>&)>&& handler,
+        const std::string& match)
     {
         static size_t lastTask = 0;
         struct MakeSharedHelper : public TaskData
         {
             MakeSharedHelper(
-                std::function<bool(
-                    boost::system::error_code, sdbusplus::message::message &,
-                    const std::shared_ptr<TaskData> &)> &&handler,
-                const std::string &match, size_t idx) :
+                std::function<bool(boost::system::error_code,
+                                   sdbusplus::message::message&,
+                                   const std::shared_ptr<TaskData>&)>&& handler,
+                const std::string& match, size_t idx) :
                 TaskData(std::move(handler), match, idx)
-            {
-            }
+            {}
         };
 
         if (tasks.size() >= maxTaskCount)
         {
-            auto &last = tasks.front();
+            auto& last = tasks.front();
 
             // destroy all references
             last->timer.cancel();
@@ -138,7 +137,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             std::move(handler), match, lastTask++));
     }
 
-    void populateResp(crow::Response &res, size_t retryAfterSeconds = 30)
+    void populateResp(crow::Response& res, size_t retryAfterSeconds = 30)
     {
         if (!endTime)
         {
@@ -168,7 +167,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             std::chrono::system_clock::now());
     }
 
-    void extendTimer(const std::chrono::seconds &timeout)
+    void extendTimer(const std::chrono::seconds& timeout)
     {
         timer.expires_after(timeout);
         timer.async_wait(
@@ -193,16 +192,16 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             });
     }
 
-    void startTimer(const std::chrono::seconds &timeout)
+    void startTimer(const std::chrono::seconds& timeout)
     {
         if (match)
         {
             return;
         }
         match = std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus &>(*crow::connections::systemBus),
+            static_cast<sdbusplus::bus::bus&>(*crow::connections::systemBus),
             matchStr,
-            [self = shared_from_this()](sdbusplus::message::message &message) {
+            [self = shared_from_this()](sdbusplus::message::message& message) {
                 boost::system::error_code ec;
 
                 // callback to return True if callback is done, callback needs
@@ -224,8 +223,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         messages.emplace_back(messages::taskStarted(std::to_string(index)));
     }
 
-    std::function<bool(boost::system::error_code, sdbusplus::message::message &,
-                       const std::shared_ptr<TaskData> &)>
+    std::function<bool(boost::system::error_code, sdbusplus::message::message&,
+                       const std::shared_ptr<TaskData>&)>
         callback;
     std::string matchStr;
     size_t index;
@@ -245,7 +244,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 class TaskMonitor : public Node
 {
   public:
-    TaskMonitor(CrowApp &app) :
+    TaskMonitor(CrowApp& app) :
         Node((app), "/redfish/v1/TaskService/Tasks/<str>/Monitor/",
              std::string())
     {
@@ -259,8 +258,8 @@ class TaskMonitor : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
@@ -269,10 +268,10 @@ class TaskMonitor : public Node
             return;
         }
 
-        const std::string &strParam = params[0];
+        const std::string& strParam = params[0];
         auto find = std::find_if(
             task::tasks.begin(), task::tasks.end(),
-            [&strParam](const std::shared_ptr<task::TaskData> &task) {
+            [&strParam](const std::shared_ptr<task::TaskData>& task) {
                 if (!task)
                 {
                     return false;
@@ -288,7 +287,7 @@ class TaskMonitor : public Node
             messages::resourceNotFound(asyncResp->res, "Monitor", strParam);
             return;
         }
-        std::shared_ptr<task::TaskData> &ptr = *find;
+        std::shared_ptr<task::TaskData>& ptr = *find;
         // monitor expires after 204
         if (ptr->gave204)
         {
@@ -302,7 +301,7 @@ class TaskMonitor : public Node
 class Task : public Node
 {
   public:
-    Task(CrowApp &app) :
+    Task(CrowApp& app) :
         Node((app), "/redfish/v1/TaskService/Tasks/<str>/", std::string())
     {
         entityPrivileges = {
@@ -315,8 +314,8 @@ class Task : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
@@ -325,10 +324,10 @@ class Task : public Node
             return;
         }
 
-        const std::string &strParam = params[0];
+        const std::string& strParam = params[0];
         auto find = std::find_if(
             task::tasks.begin(), task::tasks.end(),
-            [&strParam](const std::shared_ptr<task::TaskData> &task) {
+            [&strParam](const std::shared_ptr<task::TaskData>& task) {
                 if (!task)
                 {
                     return false;
@@ -345,7 +344,7 @@ class Task : public Node
             return;
         }
 
-        std::shared_ptr<task::TaskData> &ptr = *find;
+        std::shared_ptr<task::TaskData>& ptr = *find;
 
         asyncResp->res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
         asyncResp->res.jsonValue["Id"] = strParam;
@@ -377,7 +376,7 @@ class Task : public Node
 class TaskCollection : public Node
 {
   public:
-    TaskCollection(CrowApp &app) : Node(app, "/redfish/v1/TaskService/Tasks/")
+    TaskCollection(CrowApp& app) : Node(app, "/redfish/v1/TaskService/Tasks/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -389,8 +388,8 @@ class TaskCollection : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.jsonValue["@odata.type"] =
@@ -398,10 +397,10 @@ class TaskCollection : public Node
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/TaskService/Tasks";
         asyncResp->res.jsonValue["Name"] = "Task Collection";
         asyncResp->res.jsonValue["Members@odata.count"] = task::tasks.size();
-        nlohmann::json &members = asyncResp->res.jsonValue["Members"];
+        nlohmann::json& members = asyncResp->res.jsonValue["Members"];
         members = nlohmann::json::array();
 
-        for (const std::shared_ptr<task::TaskData> &task : task::tasks)
+        for (const std::shared_ptr<task::TaskData>& task : task::tasks)
         {
             if (task == nullptr)
             {
@@ -417,7 +416,7 @@ class TaskCollection : public Node
 class TaskService : public Node
 {
   public:
-    TaskService(CrowApp &app) : Node(app, "/redfish/v1/TaskService/")
+    TaskService(CrowApp& app) : Node(app, "/redfish/v1/TaskService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -429,8 +428,8 @@ class TaskService : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.jsonValue["@odata.type"] =

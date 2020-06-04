@@ -1,8 +1,8 @@
+#include "crow.h"
+
 #include <iostream>
 #include <sstream>
 #include <vector>
-
-#include "crow.h"
 
 #include "gtest/gtest.h"
 
@@ -22,7 +22,8 @@ void error_print(const A& a, Args... args)
     error_print(args...);
 }
 
-template <typename... Args> void fail(Args... args)
+template <typename... Args>
+void fail(Args... args)
 {
     error_print(args...);
     failed__ = true;
@@ -58,8 +59,7 @@ TEST(Crow, Rule)
         fail("empty handler should fail to validate");
     }
     catch (runtime_error& e)
-    {
-    }
+    {}
 
     int x = 0;
 
@@ -484,33 +484,27 @@ TEST(Crow, black_magic)
 struct NullMiddleware
 {
     struct Context
-    {
-    };
+    {};
 
     template <typename AllContext>
     void beforeHandle(Request&, Response&, Context&, AllContext&)
-    {
-    }
+    {}
 
     template <typename AllContext>
     void afterHandle(Request&, Response&, Context&, AllContext&)
-    {
-    }
+    {}
 };
 
 struct NullSimpleMiddleware
 {
     struct Context
-    {
-    };
+    {};
 
     void beforeHandle(Request& /*req*/, Response& /*res*/, Context& /*ctx*/)
-    {
-    }
+    {}
 
     void afterHandle(Request& /*req*/, Response& /*res*/, Context& /*ctx*/)
-    {
-    }
+    {}
 };
 
 TEST(Crow, middleware_simple)
@@ -569,8 +563,7 @@ struct FirstMW
 struct SecondMW
 {
     struct Context
-    {
-    };
+    {};
     template <typename AllContext>
     void beforeHandle(Request& req, Response& res, Context&,
                       AllContext& all_ctx)
@@ -590,8 +583,7 @@ struct SecondMW
 struct ThirdMW
 {
     struct Context
-    {
-    };
+    {};
     template <typename AllContext>
     void beforeHandle(Request&, Response&, Context&, AllContext& all_ctx)
     {
@@ -895,8 +887,7 @@ TEST(Crow, routeDynamic)
         fail();
     }
     catch (std::exception&)
-    {
-    }
+    {}
 
     // app is in an invalid state when routeDynamic throws an exception.
     try
@@ -905,8 +896,7 @@ TEST(Crow, routeDynamic)
         fail();
     }
     catch (std::exception&)
-    {
-    }
+    {}
 
     {
         boost::beast::http::request<boost::beast::http::string_body> r{};

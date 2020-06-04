@@ -5,8 +5,9 @@
 #include <dbus_singleton.hpp>
 #include <error_messages.hpp>
 #include <node.hpp>
-#include <optional>
 #include <utils/json_utils.hpp>
+
+#include <optional>
 #include <variant>
 
 namespace redfish
@@ -21,7 +22,7 @@ class HypervisorSystem : public Node
     /*
      * Default Constructor
      */
-    HypervisorSystem(CrowApp &app) :
+    HypervisorSystem(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/hypervisor/")
     {
         entityPrivileges = {
@@ -34,13 +35,13 @@ class HypervisorSystem : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string> &hostName) {
+                        const std::variant<std::string>& hostName) {
                 if (ec)
                 {
                     messages::resourceNotFound(asyncResp->res, "System",
@@ -77,7 +78,7 @@ class HypervisorInterfaceCollection : public Node
 {
   public:
     template <typename CrowApp>
-    HypervisorInterfaceCollection(CrowApp &app) :
+    HypervisorInterfaceCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
     {
         entityPrivileges = {
@@ -90,16 +91,16 @@ class HypervisorInterfaceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        const std::array<const char *, 1> interfaces = {
+        const std::array<const char*, 1> interfaces = {
             "xyz.openbmc_project.Network.EthernetInterface"};
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code error,
-                        const std::vector<std::string> &ifaceList) {
+                        const std::vector<std::string>& ifaceList) {
                 if (error)
                 {
                     messages::resourceNotFound(asyncResp->res, "System",
@@ -118,10 +119,10 @@ class HypervisorInterfaceCollection : public Node
                     "Collection of Virtual Management "
                     "Interfaces for the hypervisor";
 
-                nlohmann::json &ifaceArray =
+                nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
-                for (const std::string &iface : ifaceList)
+                for (const std::string& iface : ifaceList)
                 {
                     std::size_t last_pos = iface.rfind("/");
                     if (last_pos != std::string::npos)
@@ -143,14 +144,14 @@ class HypervisorInterfaceCollection : public Node
 };
 
 inline bool extractHypervisorInterfaceData(
-    const std::string &ethifaceId, const GetManagedObjects &dbusData,
-    EthernetInterfaceData &ethData,
-    boost::container::flat_set<IPv4AddressData> &ipv4Config)
+    const std::string& ethifaceId, const GetManagedObjects& dbusData,
+    EthernetInterfaceData& ethData,
+    boost::container::flat_set<IPv4AddressData>& ipv4Config)
 {
     bool idFound = false;
-    for (const auto &objpath : dbusData)
+    for (const auto& objpath : dbusData)
     {
-        for (const auto &ifacePair : objpath.second)
+        for (const auto& ifacePair : objpath.second)
         {
             if (objpath.first ==
                 "/xyz/openbmc_project/network/vmi/" + ethifaceId)
@@ -158,11 +159,11 @@ inline bool extractHypervisorInterfaceData(
                 idFound = true;
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
                 {
-                    for (const auto &propertyPair : ifacePair.second)
+                    for (const auto& propertyPair : ifacePair.second)
                     {
                         if (propertyPair.first == "MACAddress")
                         {
-                            const std::string *mac =
+                            const std::string* mac =
                                 std::get_if<std::string>(&propertyPair.second);
                             if (mac != nullptr)
                             {
@@ -181,12 +182,12 @@ inline bool extractHypervisorInterfaceData(
                         boost::container::flat_set<IPv4AddressData>::iterator,
                         bool>
                         it = ipv4Config.insert(IPv4AddressData{});
-                    IPv4AddressData &ipv4Address = *it.first;
-                    for (auto &property : ifacePair.second)
+                    IPv4AddressData& ipv4Address = *it.first;
+                    for (auto& property : ifacePair.second)
                     {
                         if (property.first == "Address")
                         {
-                            const std::string *address =
+                            const std::string* address =
                                 std::get_if<std::string>(&property.second);
                             if (address != nullptr)
                             {
@@ -195,7 +196,7 @@ inline bool extractHypervisorInterfaceData(
                         }
                         else if (property.first == "Origin")
                         {
-                            const std::string *origin =
+                            const std::string* origin =
                                 std::get_if<std::string>(&property.second);
                             if (origin != nullptr)
                             {
@@ -206,7 +207,7 @@ inline bool extractHypervisorInterfaceData(
                         }
                         else if (property.first == "PrefixLength")
                         {
-                            const uint8_t *mask =
+                            const uint8_t* mask =
                                 std::get_if<uint8_t>(&property.second);
                             if (mask != nullptr)
                             {
@@ -230,11 +231,11 @@ inline bool extractHypervisorInterfaceData(
                 if (ifacePair.first ==
                     "xyz.openbmc_project.Network.SystemConfiguration")
                 {
-                    for (const auto &propertyPair : ifacePair.second)
+                    for (const auto& propertyPair : ifacePair.second)
                     {
                         if (propertyPair.first == "HostName")
                         {
-                            const std::string *hostName =
+                            const std::string* hostName =
                                 std::get_if<std::string>(&propertyPair.second);
                             if (hostName != nullptr)
                             {
@@ -243,7 +244,7 @@ inline bool extractHypervisorInterfaceData(
                         }
                         else if (propertyPair.first == "DefaultGateway")
                         {
-                            const std::string *defaultGateway =
+                            const std::string* defaultGateway =
                                 std::get_if<std::string>(&propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
@@ -265,13 +266,13 @@ inline bool extractHypervisorInterfaceData(
  * into JSON
  */
 template <typename CallbackFunc>
-void getHypervisorIfaceData(const std::string &ethifaceId,
-                            CallbackFunc &&callback)
+void getHypervisorIfaceData(const std::string& ethifaceId,
+                            CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [ethifaceId{std::string{ethifaceId}},
          callback{std::move(callback)}](const boost::system::error_code error,
-                                        const GetManagedObjects &resp) {
+                                        const GetManagedObjects& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             if (error)
@@ -302,14 +303,14 @@ void getHypervisorIfaceData(const std::string &ethifaceId,
  * @return None.
  */
 inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
-                                     const std::string &ethifaceId,
-                                     const std::string &ipv4Aaddress)
+                                     const std::string& ethifaceId,
+                                     const std::string& ipv4Aaddress)
 {
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Aaddress
                      << " on Iface: " << ethifaceId;
     std::string path =
         "/xyz/openbmc_project/network/vmi/" + ethifaceId + "/ipv4/addr0";
-    const char *vmiObj = path.c_str();
+    const char* vmiObj = path.c_str();
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec) {
@@ -337,14 +338,14 @@ inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
-                                    const std::string &ethifaceId,
+                                    const std::string& ethifaceId,
                                     const uint8_t subnet)
 {
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
                      << " on Iface: " << ethifaceId;
     std::string path =
         "/xyz/openbmc_project/network/vmi/" + ethifaceId + "/ipv4/addr0";
-    const char *vmiObj = path.c_str();
+    const char* vmiObj = path.c_str();
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec) {
@@ -372,8 +373,8 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
-                                     const std::string &ethifaceId,
-                                     const std::string &gateway)
+                                     const std::string& ethifaceId,
+                                     const std::string& gateway)
 {
     BMCWEB_LOG_DEBUG
         << "Setting the DefaultGateway to the last configured gateway";
@@ -405,10 +406,10 @@ inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None
  */
-inline void createHypervisorIPv4(const std::string &ifaceId,
+inline void createHypervisorIPv4(const std::string& ifaceId,
                                  uint8_t prefixLength,
-                                 const std::string &gateway,
-                                 const std::string &address,
+                                 const std::string& gateway,
+                                 const std::string& address,
                                  std::shared_ptr<AsyncResp> asyncResp)
 {
     setHypervisorIPv4Address(asyncResp, ifaceId, address);
@@ -424,7 +425,7 @@ inline void createHypervisorIPv4(const std::string &ifaceId,
  *
  * @return None
  */
-inline void deleteHypervisorIPv4(const std::string &ifaceId,
+inline void deleteHypervisorIPv4(const std::string& ifaceId,
                                  const std::shared_ptr<AsyncResp> asyncResp)
 {
     std::string address = "0.0.0.0";
@@ -445,7 +446,7 @@ class HypervisorInterface : public Node
      * Default Constructor
      */
     template <typename CrowApp>
-    HypervisorInterface(CrowApp &app) :
+    HypervisorInterface(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
              std::string())
     {
@@ -457,9 +458,9 @@ class HypervisorInterface : public Node
 
   private:
     void parseInterfaceData(
-        nlohmann::json &jsonResponse, const std::string &ifaceId,
-        const EthernetInterfaceData &ethData,
-        const boost::container::flat_set<IPv4AddressData> &ipv4Data)
+        nlohmann::json& jsonResponse, const std::string& ifaceId,
+        const EthernetInterfaceData& ethData,
+        const boost::container::flat_set<IPv4AddressData>& ipv4Data)
     {
         jsonResponse["Id"] = ifaceId;
         jsonResponse["@odata.id"] =
@@ -469,11 +470,11 @@ class HypervisorInterface : public Node
 
         jsonResponse["HostName"] = ethData.hostname;
 
-        nlohmann::json &ipv4Array = jsonResponse["IPv4Addresses"];
-        nlohmann::json &ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
+        nlohmann::json& ipv4Array = jsonResponse["IPv4Addresses"];
+        nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
         ipv4Array = nlohmann::json::array();
         ipv4StaticArray = nlohmann::json::array();
-        for (auto &ipv4Config : ipv4Data)
+        for (auto& ipv4Config : ipv4Data)
         {
             ipv4Array.push_back({{"AddressOrigin", ipv4Config.origin},
                                  {"SubnetMask", ipv4Config.netmask},
@@ -491,7 +492,7 @@ class HypervisorInterface : public Node
     }
 
     void handleHypervisorIPv4StaticPatch(
-        const std::string &ifaceId, nlohmann::json &&input,
+        const std::string& ifaceId, nlohmann::json&& input,
         const std::shared_ptr<AsyncResp> asyncResp)
     {
         if ((!input.is_array()) || input.empty())
@@ -504,7 +505,7 @@ class HypervisorInterface : public Node
         // Hypervisor considers the first IP address in the array list
         // as the Hypervisor's virtual management interface supports single IPv4
         // address
-        nlohmann::json &thisJson = input[0];
+        nlohmann::json& thisJson = input[0];
 
         // For the error string
         std::string pathString = "IPv4StaticAddresses/1";
@@ -594,7 +595,7 @@ class HypervisorInterface : public Node
         }
     }
 
-    bool isHostnameValid(const std::string &hostName)
+    bool isHostnameValid(const std::string& hostName)
     {
         // As per RFC 1123
         // Allow up to 255 characters
@@ -609,7 +610,7 @@ class HypervisorInterface : public Node
         return std::regex_match(hostName, pattern);
     }
 
-    void handleHostnamePatch(const std::string &hostName,
+    void handleHostnamePatch(const std::string& hostName,
                              const std::shared_ptr<AsyncResp> asyncResp)
     {
         if (!isHostnameValid(hostName))
@@ -636,8 +637,8 @@ class HypervisorInterface : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
@@ -649,8 +650,8 @@ class HypervisorInterface : public Node
         getHypervisorIfaceData(
             params[0],
             [this, asyncResp, ifaceId{std::string(params[0])}](
-                const bool &success, const EthernetInterfaceData &ethData,
-                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                const bool& success, const EthernetInterfaceData& ethData,
+                const boost::container::flat_set<IPv4AddressData>& ipv4Data) {
                 if (!success)
                 {
                     messages::resourceNotFound(
@@ -668,8 +669,8 @@ class HypervisorInterface : public Node
             });
     }
 
-    void doPatch(crow::Response &res, const crow::Request &req,
-                 const std::vector<std::string> &params) override
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
@@ -678,7 +679,7 @@ class HypervisorInterface : public Node
             return;
         }
 
-        const std::string &ifaceId = params[0];
+        const std::string& ifaceId = params[0];
         std::optional<std::string> hostName;
         std::optional<nlohmann::json> ipv4StaticAddresses;
 

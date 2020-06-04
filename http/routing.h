@@ -1,5 +1,12 @@
 #pragma once
 
+#include "common.h"
+#include "http_request.h"
+#include "http_response.h"
+#include "logging.h"
+#include "utility.h"
+#include "websocket.h"
+
 #include "error_messages.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
@@ -8,6 +15,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/small_vector.hpp>
 #include <boost/lexical_cast.hpp>
+
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
@@ -16,13 +24,6 @@
 #include <tuple>
 #include <utility>
 #include <vector>
-
-#include "common.h"
-#include "http_request.h"
-#include "http_response.h"
-#include "logging.h"
-#include "utility.h"
-#include "websocket.h"
 
 namespace crow
 {
@@ -34,8 +35,7 @@ class BaseRule
 {
   public:
     BaseRule(std::string thisRule) : rule(std::move(thisRule))
-    {
-    }
+    {}
 
     virtual ~BaseRule() = default;
 
@@ -99,20 +99,23 @@ class BaseRule
     std::unique_ptr<BaseRule> ruleToUpgrade;
 
     friend class Router;
-    template <typename T> friend struct RuleParameterTraits;
+    template <typename T>
+    friend struct RuleParameterTraits;
 };
 
 namespace detail
 {
 namespace routing_handler_call_helper
 {
-template <typename T, int Pos> struct CallPair
+template <typename T, int Pos>
+struct CallPair
 {
     using type = T;
     static const int pos = Pos;
 };
 
-template <typename H1> struct CallParams
+template <typename H1>
+struct CallParams
 {
     H1& handler;
     const RoutingParams& params;
@@ -123,8 +126,7 @@ template <typename H1> struct CallParams
 template <typename F, int NInt, int NUint, int NDouble, int NString,
           typename S1, typename S2>
 struct Call
-{
-};
+{};
 
 template <typename F, int NInt, int NUint, int NDouble, int NString,
           typename... Args1, typename... Args2>
@@ -195,7 +197,8 @@ struct Call<F, NInt, NUint, NDouble, NString, black_magic::S<>,
     }
 };
 
-template <typename Func, typename... ArgsWrapped> struct Wrapped
+template <typename Func, typename... ArgsWrapped>
+struct Wrapped
 {
     template <typename... Args>
     void set(
@@ -213,11 +216,11 @@ template <typename Func, typename... ArgsWrapped> struct Wrapped
         };
     }
 
-    template <typename Req, typename... Args> struct ReqHandlerWrapper
+    template <typename Req, typename... Args>
+    struct ReqHandlerWrapper
     {
         ReqHandlerWrapper(Func f) : f(std::move(f))
-        {
-        }
+        {}
 
         void operator()(const Request& req, Response& res, Args... args)
         {
@@ -264,7 +267,8 @@ template <typename Func, typename... ArgsWrapped> struct Wrapped
         handler = std::move(f);
     }
 
-    template <typename... Args> struct HandlerTypeHelper
+    template <typename... Args>
+    struct HandlerTypeHelper
     {
         using type =
             std::function<void(const crow::Request&, crow::Response&, Args...)>;
@@ -312,12 +316,10 @@ class WebSocketRule : public BaseRule
 
   public:
     WebSocketRule(std::string rule) : BaseRule(std::move(rule))
-    {
-    }
+    {}
 
     void validate() override
-    {
-    }
+    {}
 
     void handle(const Request&, Response& res, const RoutingParams&) override
     {
@@ -351,25 +353,29 @@ class WebSocketRule : public BaseRule
     }
 #endif
 
-    template <typename Func> self_t& onopen(Func f)
+    template <typename Func>
+    self_t& onopen(Func f)
     {
         openHandler = f;
         return *this;
     }
 
-    template <typename Func> self_t& onmessage(Func f)
+    template <typename Func>
+    self_t& onmessage(Func f)
     {
         messageHandler = f;
         return *this;
     }
 
-    template <typename Func> self_t& onclose(Func f)
+    template <typename Func>
+    self_t& onclose(Func f)
     {
         closeHandler = f;
         return *this;
     }
 
-    template <typename Func> self_t& onerror(Func f)
+    template <typename Func>
+    self_t& onerror(Func f)
     {
         errorHandler = f;
         return *this;
@@ -386,7 +392,8 @@ class WebSocketRule : public BaseRule
     std::function<void(crow::websocket::Connection&)> errorHandler;
 };
 
-template <typename T> struct RuleParameterTraits
+template <typename T>
+struct RuleParameterTraits
 {
     using self_t = T;
     WebSocketRule& websocket()
@@ -444,8 +451,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
 {
   public:
     DynamicRule(std::string rule) : BaseRule(std::move(rule))
-    {
-    }
+    {}
 
     void validate() override
     {
@@ -462,7 +468,8 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         erasedHandler(req, res, params);
     }
 
-    template <typename Func> void operator()(Func f)
+    template <typename Func>
+    void operator()(Func f)
     {
         using function_t = utility::function_traits<Func>;
 
@@ -497,7 +504,8 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         return ret;
     }
 
-    template <typename Func> void operator()(std::string name, Func&& f)
+    template <typename Func>
+    void operator()(std::string name, Func&& f)
     {
         nameStr = std::move(name);
         (*this).template operator()<Func>(std::forward(f));
@@ -509,15 +517,15 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
 };
 
 template <typename... Args>
-class TaggedRule : public BaseRule,
-                   public RuleParameterTraits<TaggedRule<Args...>>
+class TaggedRule :
+    public BaseRule,
+    public RuleParameterTraits<TaggedRule<Args...>>
 {
   public:
     using self_t = TaggedRule<Args...>;
 
     TaggedRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
-    {
-    }
+    {}
 
     void validate() override
     {
@@ -606,7 +614,8 @@ class TaggedRule : public BaseRule,
         handler = std::move(f);
     }
 
-    template <typename Func> void operator()(std::string name, Func&& f)
+    template <typename Func>
+    void operator()(std::string name, Func&& f)
     {
         nameStr = std::move(name);
         (*this).template operator()<Func>(std::forward(f));
@@ -647,8 +656,7 @@ class Trie
     };
 
     Trie() : nodes(1)
-    {
-    }
+    {}
 
   private:
     void optimizeNode(Node* node)
@@ -1406,8 +1414,7 @@ class Router
         // rule index 0, 1 has special meaning; preallocate it to avoid
         // duplication.
         PerMethod() : rules(2)
-        {
-        }
+        {}
     };
     std::array<PerMethod, maxHttpVerbCount> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;

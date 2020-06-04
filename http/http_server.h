@@ -1,30 +1,32 @@
 #pragma once
 
-#include <atomic>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/steady_timer.hpp>
+
+#include <atomic>
 #if BOOST_VERSION >= 107000
 #include <boost/beast/ssl/ssl_stream.hpp>
 #else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
 #endif
 
+#include "http_connection.h"
+#include "logging.h"
+#include "timer_queue.h"
+
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <ssl_key_handler.hpp>
+
 #include <chrono>
 #include <cstdint>
 #include <filesystem>
 #include <future>
 #include <memory>
-#include <ssl_key_handler.hpp>
 #include <utility>
 #include <vector>
-
-#include "http_connection.h"
-#include "logging.h"
-#include "timer_queue.h"
 
 namespace crow
 {
@@ -46,8 +48,7 @@ class Server
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
         timer(*ioService), handler(handler), middlewares(middlewares),
         adaptorCtx(adaptor_ctx)
-    {
-    }
+    {}
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
@@ -59,8 +60,7 @@ class Server
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
                adaptor_ctx, middlewares, io)
-    {
-    }
+    {}
 
     Server(Handler* handler, int existing_socket,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
@@ -71,8 +71,7 @@ class Server
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
                adaptor_ctx, middlewares, io)
-    {
-    }
+    {}
 
     void setTickFunction(std::chrono::milliseconds d, std::function<void()> f)
     {

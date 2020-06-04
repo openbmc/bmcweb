@@ -14,13 +14,11 @@ class AsyncResp
 {
   public:
     AsyncResp(crow::Response& response) : res(response)
-    {
-    }
+    {}
 
     AsyncResp(crow::Response& response, std::function<void()>&& function) :
         res(response), func(std::move(function))
-    {
-    }
+    {}
 
     ~AsyncResp()
     {

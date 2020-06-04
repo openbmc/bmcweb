@@ -16,8 +16,7 @@ class TokenAuth : public ::testing::Test
     TokenAuth() :
         lk(std::unique_lock<std::mutex>(m)),
         io(std::make_shared<boost::asio::io_context>())
-    {
-    }
+    {}
 
     std::mutex m;
     std::condition_variable cv;

@@ -17,10 +17,11 @@
 
 #include <logging.h>
 
-#include <array>
-#include <bitset>
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
+
+#include <array>
+#include <bitset>
 #include <cstdint>
 #include <vector>
 
@@ -211,8 +212,7 @@ class Privileges
 
   private:
     Privileges(const std::bitset<maxPrivilegeCount>& p) : privilegeBitset{p}
-    {
-    }
+    {}
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 

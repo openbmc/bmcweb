@@ -8,12 +8,13 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <filesystem>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
-#include <random>
 #include <sessions.hpp>
 #include <webassets.hpp>
+
+#include <filesystem>
+#include <random>
 
 namespace crow
 {
@@ -32,8 +33,7 @@ class Middleware
     static constexpr const char* filename = "bmcweb_persistent_data.json";
 
     struct Context
-    {
-    };
+    {};
 
     Middleware()
     {
@@ -49,12 +49,10 @@ class Middleware
     }
 
     void beforeHandle(crow::Request& req, Response& res, Context& ctx)
-    {
-    }
+    {}
 
     void afterHandle(Request& req, Response& res, Context& ctx)
-    {
-    }
+    {}
 
     // TODO(ed) this should really use protobuf, or some other serialization
     // library, but adding another dependency is somewhat outside the scope of

@@ -22,9 +22,9 @@
  * ids can be retrieved from Base.__ver__.json file.
  ***************************************************************/
 #pragma once
-#include <nlohmann/json.hpp>
-
 #include "http_response.h"
+
+#include <nlohmann/json.hpp>
 
 namespace redfish
 {

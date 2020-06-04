@@ -21,9 +21,10 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
-#include <cmath>
 #include <dbus_singleton.hpp>
 #include <utils/json_utils.hpp>
+
+#include <cmath>
 #include <variant>
 
 namespace redfish
@@ -53,8 +54,7 @@ class SensorsAsyncResp
                      const std::string& subNode) :
         res(response),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
-    {
-    }
+    {}
 
     ~SensorsAsyncResp()
     {

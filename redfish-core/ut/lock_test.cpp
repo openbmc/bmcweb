@@ -1,8 +1,9 @@
 #include "ibm/locks.hpp"
 #include "nlohmann/json.hpp"
 
-#include <string>
 #include <utils/json_utils.hpp>
+
+#include <string>
 
 #include "gmock/gmock.h"
 
@@ -59,8 +60,7 @@ class LockTest : public ::testing::Test
                      {{"LockAll", 2}, {"DontLock", 4}}}};
     }
     ~LockTest()
-    {
-    }
+    {}
 };
 
 class MockLock : public crow::ibm_mc_lock::Lock

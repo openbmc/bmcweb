@@ -18,9 +18,10 @@
 #include <http_request.h>
 #include <http_response.h>
 
-#include <bitset>
 #include <error_messages.hpp>
 #include <nlohmann/json.hpp>
+
+#include <bitset>
 
 namespace redfish
 {
@@ -44,36 +45,35 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
 namespace details
 {
 
-template <typename Type> struct is_optional : std::false_type
-{
-};
+template <typename Type>
+struct is_optional : std::false_type
+{};
 
 template <typename Type>
 struct is_optional<std::optional<Type>> : std::true_type
-{
-};
+{};
 
 template <typename Type>
 constexpr bool is_optional_v = is_optional<Type>::value;
 
-template <typename Type> struct is_vector : std::false_type
-{
-};
+template <typename Type>
+struct is_vector : std::false_type
+{};
 
-template <typename Type> struct is_vector<std::vector<Type>> : std::true_type
-{
-};
+template <typename Type>
+struct is_vector<std::vector<Type>> : std::true_type
+{};
 
-template <typename Type> constexpr bool is_vector_v = is_vector<Type>::value;
+template <typename Type>
+constexpr bool is_vector_v = is_vector<Type>::value;
 
-template <typename Type> struct is_std_array : std::false_type
-{
-};
+template <typename Type>
+struct is_std_array : std::false_type
+{};
 
 template <typename Type, std::size_t size>
 struct is_std_array<std::array<Type, size>> : std::true_type
-{
-};
+{};
 
 template <typename Type>
 constexpr bool is_std_array_v = is_std_array<Type>::value;
