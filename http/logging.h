@@ -62,7 +62,8 @@ class logger
     }
 
     //
-    template <typename T> logger& operator<<(T const& value)
+    template <typename T>
+    logger& operator<<(T const& value)
     {
         if (level >= get_current_log_level())
         {

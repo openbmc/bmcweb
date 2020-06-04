@@ -1,11 +1,12 @@
 #pragma once
 
+#include "logging.h"
+
 #include <boost/circular_buffer.hpp>
 #include <boost/circular_buffer/space_optimized.hpp>
+
 #include <chrono>
 #include <functional>
-
-#include "logging.h"
 
 namespace crow
 {

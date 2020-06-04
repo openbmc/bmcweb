@@ -30,7 +30,7 @@ namespace redfish
 /**
  * @brief Read all known properties from VM object interfaces
  */
-static void vmParseInterfaceObject(const DbusInterfaceType &interface,
+static void vmParseInterfaceObject(const DbusInterfaceType& interface,
                                    std::shared_ptr<AsyncResp> aResp)
 {
     const auto mountPointIface =
@@ -63,14 +63,14 @@ static void vmParseInterfaceObject(const DbusInterfaceType &interface,
         return;
     }
 
-    const bool *activeValue = std::get_if<bool>(&activeProperty->second);
+    const bool* activeValue = std::get_if<bool>(&activeProperty->second);
     if (!activeValue)
     {
         BMCWEB_LOG_DEBUG << "Value Active not found";
         return;
     }
 
-    const std::string *endpointIdValue =
+    const std::string* endpointIdValue =
         std::get_if<std::string>(&endpointIdProperty->second);
     if (endpointIdValue)
     {
@@ -93,7 +93,7 @@ static void vmParseInterfaceObject(const DbusInterfaceType &interface,
                 mountPointIface->second.find("ImageURL");
             if (imageUrlProperty != processIface->second.cend())
             {
-                const std::string *imageUrlValue =
+                const std::string* imageUrlValue =
                     std::get_if<std::string>(&imageUrlProperty->second);
                 if (imageUrlValue && !imageUrlValue->empty())
                 {
@@ -112,8 +112,8 @@ static void vmParseInterfaceObject(const DbusInterfaceType &interface,
 /**
  * @brief Fill template for Virtual Media Item.
  */
-static nlohmann::json vmItemTemplate(const std::string &name,
-                                     const std::string &resName)
+static nlohmann::json vmItemTemplate(const std::string& name,
+                                     const std::string& resName)
 {
     nlohmann::json item;
     item["@odata.id"] =
@@ -140,26 +140,26 @@ static nlohmann::json vmItemTemplate(const std::string &name,
  *  @brief Fills collection data
  */
 static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
-                              const std::string &service,
-                              const std::string &name)
+                              const std::string& service,
+                              const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
     crow::connections::systemBus->async_method_call(
         [name, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                        ManagedObjectType &subtree) {
+                                        ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
                 return;
             }
-            nlohmann::json &members = aResp->res.jsonValue["Members"];
+            nlohmann::json& members = aResp->res.jsonValue["Members"];
             members = nlohmann::json::array();
 
-            for (const auto &object : subtree)
+            for (const auto& object : subtree)
             {
                 nlohmann::json item;
-                const std::string &path =
-                    static_cast<const std::string &>(object.first);
+                const std::string& path =
+                    static_cast<const std::string&>(object.first);
                 std::size_t lastIndex = path.rfind("/");
                 if (lastIndex == std::string::npos)
                 {
@@ -183,14 +183,14 @@ static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
  *  @brief Fills data for specific resource
  */
 static void getVmData(std::shared_ptr<AsyncResp> aResp,
-                      const std::string &service, const std::string &name,
-                      const std::string &resName)
+                      const std::string& service, const std::string& name,
+                      const std::string& resName)
 {
     BMCWEB_LOG_DEBUG << "Get Virtual Media resource data.";
 
     crow::connections::systemBus->async_method_call(
         [resName, name, aResp](const boost::system::error_code ec,
-                               ManagedObjectType &subtree) {
+                               ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -198,10 +198,10 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
 
-            for (auto &item : subtree)
+            for (auto& item : subtree)
             {
-                const std::string &path =
-                    static_cast<const std::string &>(item.first);
+                const std::string& path =
+                    static_cast<const std::string&>(item.first);
 
                 std::size_t lastItem = path.rfind("/");
                 if (lastItem == std::string::npos)
@@ -248,7 +248,7 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
 class VirtualMediaActionInsertMedia : public Node
 {
   public:
-    VirtualMediaActionInsertMedia(CrowApp &app) :
+    VirtualMediaActionInsertMedia(CrowApp& app) :
         Node(app,
              "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
              "VirtualMedia.InsertMedia",
@@ -280,7 +280,7 @@ class VirtualMediaActionInsertMedia : public Node
      *
      */
     std::optional<TransferProtocol>
-        getTransferProtocolFromUri(const std::string &imageUri)
+        getTransferProtocolFromUri(const std::string& imageUri)
     {
         if (imageUri.find("smb://") != std::string::npos)
         {
@@ -305,7 +305,7 @@ class VirtualMediaActionInsertMedia : public Node
      *
      */
     std::optional<TransferProtocol> getTransferProtocolFromParam(
-        const std::optional<std::string> &transferProtocolType)
+        const std::optional<std::string>& transferProtocolType)
     {
         if (transferProtocolType == std::nullopt)
         {
@@ -330,8 +330,8 @@ class VirtualMediaActionInsertMedia : public Node
      *
      */
     const std::string
-        getUriWithTransferProtocol(const std::string &imageUri,
-                                   const TransferProtocol &transferProtocol)
+        getUriWithTransferProtocol(const std::string& imageUri,
+                                   const TransferProtocol& transferProtocol)
     {
         if (transferProtocol == TransferProtocol::smb)
         {
@@ -350,10 +350,10 @@ class VirtualMediaActionInsertMedia : public Node
      * @brief Function validate parameters of insert media request.
      *
      */
-    bool validateParams(crow::Response &res, std::string &imageUrl,
-                        const std::optional<bool> &inserted,
-                        const std::optional<std::string> &transferMethod,
-                        const std::optional<std::string> &transferProtocolType)
+    bool validateParams(crow::Response& res, std::string& imageUrl,
+                        const std::optional<bool>& inserted,
+                        const std::optional<std::string>& transferMethod,
+                        const std::optional<std::string>& transferProtocolType)
     {
         BMCWEB_LOG_DEBUG << "Validation started";
         // required param imageUrl must not be empty
@@ -469,8 +469,8 @@ class VirtualMediaActionInsertMedia : public Node
      *
      * Analyzes POST body message before sends Reset request data to dbus.
      */
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         auto aResp = std::make_shared<AsyncResp>(res);
 
@@ -481,7 +481,7 @@ class VirtualMediaActionInsertMedia : public Node
         }
 
         // take resource name from URL
-        const std::string &resName = params[1];
+        const std::string& resName = params[1];
 
         if (params[0] != "bmc")
         {
@@ -493,7 +493,7 @@ class VirtualMediaActionInsertMedia : public Node
         crow::connections::systemBus->async_method_call(
             [this, aResp{std::move(aResp)}, req,
              resName](const boost::system::error_code ec,
-                      const GetObjectType &getObjectType) {
+                      const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
@@ -508,7 +508,7 @@ class VirtualMediaActionInsertMedia : public Node
                 crow::connections::systemBus->async_method_call(
                     [this, service, resName, req, aResp{std::move(aResp)}](
                         const boost::system::error_code ec,
-                        ManagedObjectType &subtree) {
+                        ManagedObjectType& subtree) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -516,10 +516,10 @@ class VirtualMediaActionInsertMedia : public Node
                             return;
                         }
 
-                        for (const auto &object : subtree)
+                        for (const auto& object : subtree)
                         {
-                            const std::string &path =
-                                static_cast<const std::string &>(object.first);
+                            const std::string& path =
+                                static_cast<const std::string&>(object.first);
 
                             std::size_t lastIndex = path.rfind("/");
                             if (lastIndex == std::string::npos)
@@ -602,22 +602,22 @@ class VirtualMediaActionInsertMedia : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetObject",
-            "/xyz/openbmc_project/VirtualMedia", std::array<const char *, 0>());
+            "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
     }
 
-    template <typename T> static void secureCleanup(T &value)
+    template <typename T>
+    static void secureCleanup(T& value)
     {
-        auto raw = const_cast<typename T::value_type *>(value.data());
+        auto raw = const_cast<typename T::value_type*>(value.data());
         explicit_bzero(raw, value.size() * sizeof(*raw));
     }
 
     class Credentials
     {
       public:
-        Credentials(std::string &&user, std::string &&password) :
+        Credentials(std::string&& user, std::string&& password) :
             userBuf(std::move(user)), passBuf(std::move(password))
-        {
-        }
+        {}
 
         ~Credentials()
         {
@@ -625,20 +625,20 @@ class VirtualMediaActionInsertMedia : public Node
             secureCleanup(passBuf);
         }
 
-        const std::string &user()
+        const std::string& user()
         {
             return userBuf;
         }
 
-        const std::string &password()
+        const std::string& password()
         {
             return passBuf;
         }
 
       private:
         Credentials() = delete;
-        Credentials(const Credentials &) = delete;
-        Credentials &operator=(const Credentials &) = delete;
+        Credentials(const Credentials&) = delete;
+        Credentials& operator=(const Credentials&) = delete;
 
         std::string userBuf;
         std::string passBuf;
@@ -647,9 +647,10 @@ class VirtualMediaActionInsertMedia : public Node
     class CredentialsProvider
     {
       public:
-        template <typename T> struct Deleter
+        template <typename T>
+        struct Deleter
         {
-            void operator()(T *buff) const
+            void operator()(T* buff) const
             {
                 if (buff)
                 {
@@ -663,20 +664,19 @@ class VirtualMediaActionInsertMedia : public Node
         using SecureBuffer = std::unique_ptr<Buffer, Deleter<Buffer>>;
         // Using explicit definition instead of std::function to avoid implicit
         // conversions eg. stack copy instead of reference
-        using FormatterFunc = void(const std::string &username,
-                                   const std::string &password, Buffer &dest);
+        using FormatterFunc = void(const std::string& username,
+                                   const std::string& password, Buffer& dest);
 
-        CredentialsProvider(std::string &&user, std::string &&password) :
+        CredentialsProvider(std::string&& user, std::string&& password) :
             credentials(std::move(user), std::move(password))
-        {
-        }
+        {}
 
-        const std::string &user()
+        const std::string& user()
         {
             return credentials.user();
         }
 
-        const std::string &password()
+        const std::string& password()
         {
             return credentials.password();
         }
@@ -697,15 +697,15 @@ class VirtualMediaActionInsertMedia : public Node
     };
 
     // Wrapper for boost::async_pipe ensuring proper pipe cleanup
-    template <typename Buffer> class Pipe
+    template <typename Buffer>
+    class Pipe
     {
       public:
         using unix_fd = sdbusplus::message::unix_fd;
 
-        Pipe(boost::asio::io_context &io, Buffer &&buffer) :
+        Pipe(boost::asio::io_context& io, Buffer&& buffer) :
             impl(io), buffer{std::move(buffer)}
-        {
-        }
+        {}
 
         ~Pipe()
         {
@@ -719,7 +719,7 @@ class VirtualMediaActionInsertMedia : public Node
         }
 
         template <typename WriteHandler>
-        void async_write(WriteHandler &&handler)
+        void async_write(WriteHandler&& handler)
         {
             impl.async_write_some(data(), std::forward<WriteHandler>(handler));
         }
@@ -753,9 +753,9 @@ class VirtualMediaActionInsertMedia : public Node
      * All BMC state properties will be retrieved before sending reset request.
      */
     void doMountVmLegacy(std::shared_ptr<AsyncResp> asyncResp,
-                         const std::string &service, const std::string &name,
-                         const std::string &imageUrl, const bool rw,
-                         std::string &&userName, std::string &&password)
+                         const std::string& service, const std::string& name,
+                         const std::string& imageUrl, const bool rw,
+                         std::string&& userName, std::string&& password)
     {
         using SecurePipe = Pipe<CredentialsProvider::SecureBuffer>;
         constexpr const size_t secretLimit = 1024;
@@ -779,8 +779,8 @@ class VirtualMediaActionInsertMedia : public Node
             }
 
             // Pack secret
-            auto secret = credentials.pack([](const auto &user,
-                                              const auto &pass, auto &buff) {
+            auto secret = credentials.pack([](const auto& user,
+                                              const auto& pass, auto& buff) {
                 std::copy(user.begin(), user.end(), std::back_inserter(buff));
                 buff.push_back('\0');
                 std::copy(pass.begin(), pass.end(), std::back_inserter(buff));
@@ -795,7 +795,7 @@ class VirtualMediaActionInsertMedia : public Node
 
             // Pass secret over pipe
             secretPipe->async_write(
-                [asyncResp](const boost::system::error_code &ec,
+                [asyncResp](const boost::system::error_code& ec,
                             std::size_t size) {
                     if (ec)
                     {
@@ -831,7 +831,7 @@ class VirtualMediaActionInsertMedia : public Node
 class VirtualMediaActionEjectMedia : public Node
 {
   public:
-    VirtualMediaActionEjectMedia(CrowApp &app) :
+    VirtualMediaActionEjectMedia(CrowApp& app) :
         Node(app,
              "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
              "VirtualMedia.EjectMedia",
@@ -852,8 +852,8 @@ class VirtualMediaActionEjectMedia : public Node
      *
      * Analyzes POST body message before sends Reset request data to dbus.
      */
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         auto aResp = std::make_shared<AsyncResp>(res);
 
@@ -864,7 +864,7 @@ class VirtualMediaActionEjectMedia : public Node
         }
 
         // take resource name from URL
-        const std::string &resName = params[1];
+        const std::string& resName = params[1];
 
         if (params[0] != "bmc")
         {
@@ -876,7 +876,7 @@ class VirtualMediaActionEjectMedia : public Node
         crow::connections::systemBus->async_method_call(
             [this, aResp{std::move(aResp)}, req,
              resName](const boost::system::error_code ec,
-                      const GetObjectType &getObjectType) {
+                      const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
@@ -891,7 +891,7 @@ class VirtualMediaActionEjectMedia : public Node
                 crow::connections::systemBus->async_method_call(
                     [this, resName, service, req, aResp{std::move(aResp)}](
                         const boost::system::error_code ec,
-                        ManagedObjectType &subtree) {
+                        ManagedObjectType& subtree) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -899,10 +899,10 @@ class VirtualMediaActionEjectMedia : public Node
                             return;
                         }
 
-                        for (const auto &object : subtree)
+                        for (const auto& object : subtree)
                         {
-                            const std::string &path =
-                                static_cast<const std::string &>(object.first);
+                            const std::string& path =
+                                static_cast<const std::string&>(object.first);
 
                             std::size_t lastIndex = path.rfind("/");
                             if (lastIndex == std::string::npos)
@@ -943,7 +943,7 @@ class VirtualMediaActionEjectMedia : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetObject",
-            "/xyz/openbmc_project/VirtualMedia", std::array<const char *, 0>());
+            "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
     }
 
     /**
@@ -952,7 +952,7 @@ class VirtualMediaActionEjectMedia : public Node
      * All BMC state properties will be retrieved before sending reset request.
      */
     void doVmAction(std::shared_ptr<AsyncResp> asyncResp,
-                    const std::string &service, const std::string &name,
+                    const std::string& service, const std::string& name,
                     bool legacy)
     {
 
@@ -996,7 +996,7 @@ class VirtualMediaCollection : public Node
     /*
      * Default Constructor
      */
-    VirtualMediaCollection(CrowApp &app) :
+    VirtualMediaCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Managers/<str>/VirtualMedia/", std::string())
     {
         entityPrivileges = {
@@ -1012,8 +1012,8 @@ class VirtualMediaCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1026,7 +1026,7 @@ class VirtualMediaCollection : public Node
             return;
         }
 
-        const std::string &name = params[0];
+        const std::string& name = params[0];
 
         if (name != "bmc")
         {
@@ -1043,7 +1043,7 @@ class VirtualMediaCollection : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, name](const boost::system::error_code ec,
-                              const GetObjectType &getObjectType) {
+                              const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
@@ -1060,7 +1060,7 @@ class VirtualMediaCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetObject",
-            "/xyz/openbmc_project/VirtualMedia", std::array<const char *, 0>());
+            "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
     }
 };
 
@@ -1070,7 +1070,7 @@ class VirtualMedia : public Node
     /*
      * Default Constructor
      */
-    VirtualMedia(CrowApp &app) :
+    VirtualMedia(CrowApp& app) :
         Node(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/",
              std::string(), std::string())
     {
@@ -1087,8 +1087,8 @@ class VirtualMedia : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
         // impossible
@@ -1099,8 +1099,8 @@ class VirtualMedia : public Node
             res.end();
             return;
         }
-        const std::string &name = params[0];
-        const std::string &resName = params[1];
+        const std::string& name = params[0];
+        const std::string& resName = params[1];
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1113,7 +1113,7 @@ class VirtualMedia : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, name, resName](const boost::system::error_code ec,
-                                       const GetObjectType &getObjectType) {
+                                       const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
@@ -1130,7 +1130,7 @@ class VirtualMedia : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetObject",
-            "/xyz/openbmc_project/VirtualMedia", std::array<const char *, 0>());
+            "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
     }
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <async_resp.hpp>
+
 #include <string>
 
 namespace redfish
@@ -7,11 +8,11 @@ namespace redfish
 namespace fw_util
 {
 /* @brief String that indicates a bios firmware instance */
-constexpr const char *biosPurpose =
+constexpr const char* biosPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.Host";
 
 /* @brief String that indicates a BMC firmware instance */
-constexpr const char *bmcPurpose =
+constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
 /**
@@ -24,14 +25,14 @@ constexpr const char *bmcPurpose =
  * @return void
  */
 void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
-                        const std::string &fwVersionPurpose,
-                        const std::string &jsonIdxStr)
+                        const std::string& fwVersionPurpose,
+                        const std::string& jsonIdxStr)
 {
     // Get active FW images
     crow::connections::systemBus->async_method_call(
         [aResp, fwVersionPurpose,
          jsonIdxStr](const boost::system::error_code ec,
-                     const std::variant<std::vector<std::string>> &resp) {
+                     const std::variant<std::vector<std::string>>& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "error_code = " << ec;
@@ -39,7 +40,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                 messages::internalError(aResp->res);
                 return;
             }
-            const std::vector<std::string> *functionalFw =
+            const std::vector<std::string>* functionalFw =
                 std::get_if<std::vector<std::string>>(&resp);
             if ((functionalFw == nullptr) || (functionalFw->size() == 0))
             {
@@ -50,7 +51,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
             // example functionalFw:
             // v as 2 "/xyz/openbmc_project/software/ace821ef"
             //        "/xyz/openbmc_project/software/230fb078"
-            for (auto &fw : *functionalFw)
+            for (auto& fw : *functionalFw)
             {
                 // if can't parse fw id then return
                 std::string::size_type idPos = fw.rfind("/");
@@ -74,7 +75,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                     [aResp, fw, swId, fwVersionPurpose, jsonIdxStr](
                         const boost::system::error_code ec,
                         const std::vector<std::pair<
-                            std::string, std::vector<std::string>>> &objInfo) {
+                            std::string, std::vector<std::string>>>& objInfo) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "error_code = " << ec;
@@ -109,7 +110,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                             [aResp, swId, fwVersionPurpose, jsonIdxStr](
                                 const boost::system::error_code ec,
                                 const boost::container::flat_map<
-                                    std::string, VariantType> &propertiesList) {
+                                    std::string, VariantType>& propertiesList) {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_ERROR << "error_code = " << ec;
@@ -134,7 +135,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                                     messages::internalError(aResp->res);
                                     return;
                                 }
-                                const std::string *swInvPurpose =
+                                const std::string* swInvPurpose =
                                     std::get_if<std::string>(&it->second);
                                 if (swInvPurpose == nullptr)
                                 {
@@ -157,7 +158,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                                     messages::internalError(aResp->res);
                                     return;
                                 }
-                                const std::string *version =
+                                const std::string* version =
                                     std::get_if<std::string>(&it->second);
                                 if (version == nullptr)
                                 {
@@ -175,7 +176,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                     "xyz.openbmc_project.ObjectMapper",
                     "/xyz/openbmc_project/object_mapper",
                     "xyz.openbmc_project.ObjectMapper", "GetObject", fw,
-                    std::array<const char *, 1>{
+                    std::array<const char*, 1>{
                         "xyz.openbmc_project.Software.Activation"});
             }
         },
@@ -196,7 +197,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
  *
  * @return The corresponding Redfish state
  */
-std::string getRedfishFWState(const std::string &fwState)
+std::string getRedfishFWState(const std::string& fwState)
 {
     if (fwState == "xyz.openbmc_project.Software.Activation.Activations.Active")
     {
@@ -228,7 +229,7 @@ std::string getRedfishFWState(const std::string &fwState)
  *
  * @return The corresponding Redfish health state
  */
-std::string getRedfishFWHealth(const std::string &fwState)
+std::string getRedfishFWHealth(const std::string& fwState)
 {
     if ((fwState ==
          "xyz.openbmc_project.Software.Activation.Activations.Active") ||
@@ -260,15 +261,15 @@ std::string getRedfishFWHealth(const std::string &fwState)
  */
 void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
                  const std::shared_ptr<std::string> swId,
-                 const std::string &dbusSvc)
+                 const std::string& dbusSvc)
 {
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
 
     crow::connections::systemBus->async_method_call(
         [asyncResp,
          swId](const boost::system::error_code error_code,
-               const boost::container::flat_map<std::string, VariantType>
-                   &propertiesList) {
+               const boost::container::flat_map<std::string, VariantType>&
+                   propertiesList) {
             if (error_code)
             {
                 // not all fwtypes are updateable, this is ok
@@ -283,7 +284,7 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
                 messages::propertyMissing(asyncResp->res, "Activation");
                 return;
             }
-            const std::string *swInvActivation =
+            const std::string* swInvActivation =
                 std::get_if<std::string>(&it->second);
             if (swInvActivation == nullptr)
             {
@@ -318,7 +319,7 @@ void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, fwId](const boost::system::error_code ec,
-                          const std::variant<std::vector<std::string>> &resp) {
+                          const std::variant<std::vector<std::string>>& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << __FUNCTION__ << " error_code = " << ec
@@ -327,7 +328,7 @@ void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
                 // so don't throw error here.
                 return;
             }
-            const std::vector<std::string> *objPaths =
+            const std::vector<std::string>* objPaths =
                 std::get_if<std::vector<std::string>>(&resp);
             if (objPaths)
             {

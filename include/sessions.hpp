@@ -1,20 +1,21 @@
 #pragma once
 
+#include "logging.h"
+#include "utility.h"
+
 #include <openssl/rand.h>
 
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <csignal>
 #include <dbus_singleton.hpp>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
-#include <random>
 #include <sdbusplus/bus/match.hpp>
 
-#include "logging.h"
-#include "utility.h"
+#include <csignal>
+#include <random>
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
 #include <ibm/locks.hpp>
 #endif
@@ -366,8 +367,7 @@ class SessionStore
 
   private:
     SessionStore() : timeoutInMinutes(60)
-    {
-    }
+    {}
 
     void applySessionTimeouts()
     {
@@ -431,7 +431,8 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
     }
 };
 
-template <> struct adl_serializer<crow::persistent_data::AuthConfigMethods>
+template <>
+struct adl_serializer<crow::persistent_data::AuthConfigMethods>
 {
     static void to_json(nlohmann::json& j,
                         const crow::persistent_data::AuthConfigMethods& c)

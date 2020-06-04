@@ -28,7 +28,7 @@ class MessageRegistryFileCollection : public Node
 {
   public:
     template <typename CrowApp>
-    MessageRegistryFileCollection(CrowApp &app) :
+    MessageRegistryFileCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Registries/")
     {
         entityPrivileges = {
@@ -44,8 +44,8 @@ class MessageRegistryFileCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
@@ -70,7 +70,7 @@ class MessageRegistryFile : public Node
 {
   public:
     template <typename CrowApp>
-    MessageRegistryFile(CrowApp &app) :
+    MessageRegistryFile(CrowApp& app) :
         Node(app, "/redfish/v1/Registries/<str>/", std::string())
     {
         entityPrivileges = {
@@ -83,8 +83,8 @@ class MessageRegistryFile : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
@@ -93,10 +93,10 @@ class MessageRegistryFile : public Node
             return;
         }
 
-        const std::string &registry = params[0];
-        const message_registries::Header *header;
+        const std::string& registry = params[0];
+        const message_registries::Header* header;
         std::string dmtf = "DMTF ";
-        const char *url = nullptr;
+        const char* url = nullptr;
 
         if (registry == "Base")
         {
@@ -151,7 +151,7 @@ class MessageRegistry : public Node
 {
   public:
     template <typename CrowApp>
-    MessageRegistry(CrowApp &app) :
+    MessageRegistry(CrowApp& app) :
         Node(app, "/redfish/v1/Registries/<str>/<str>/", std::string(),
              std::string())
     {
@@ -165,8 +165,8 @@ class MessageRegistry : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         if (params.size() != 2)
         {
@@ -175,15 +175,15 @@ class MessageRegistry : public Node
             return;
         }
 
-        const std::string &registry = params[0];
-        const std::string &registry1 = params[1];
+        const std::string& registry = params[0];
+        const std::string& registry1 = params[1];
 
-        const message_registries::Header *header;
-        std::vector<const message_registries::MessageEntry *> registryEntries;
+        const message_registries::Header* header;
+        std::vector<const message_registries::MessageEntry*> registryEntries;
         if (registry == "Base")
         {
             header = &message_registries::base::header;
-            for (const message_registries::MessageEntry &entry :
+            for (const message_registries::MessageEntry& entry :
                  message_registries::base::registry)
             {
                 registryEntries.emplace_back(&entry);
@@ -192,7 +192,7 @@ class MessageRegistry : public Node
         else if (registry == "TaskEvent")
         {
             header = &message_registries::task_event::header;
-            for (const message_registries::MessageEntry &entry :
+            for (const message_registries::MessageEntry& entry :
                  message_registries::task_event::registry)
             {
                 registryEntries.emplace_back(&entry);
@@ -201,7 +201,7 @@ class MessageRegistry : public Node
         else if (registry == "OpenBMC")
         {
             header = &message_registries::openbmc::header;
-            for (const message_registries::MessageEntry &entry :
+            for (const message_registries::MessageEntry& entry :
                  message_registries::openbmc::registry)
             {
                 registryEntries.emplace_back(&entry);
@@ -233,12 +233,12 @@ class MessageRegistry : public Node
                          {"RegistryVersion", header->registryVersion},
                          {"OwningEntity", header->owningEntity}};
 
-        nlohmann::json &messageObj = res.jsonValue["Messages"];
+        nlohmann::json& messageObj = res.jsonValue["Messages"];
 
         // Go through the Message Registry and populate each Message
-        for (const message_registries::MessageEntry *message : registryEntries)
+        for (const message_registries::MessageEntry* message : registryEntries)
         {
-            nlohmann::json &obj = messageObj[message->first];
+            nlohmann::json& obj = messageObj[message->first];
             obj = {{"Description", message->second.description},
                    {"Message", message->second.message},
                    {"Severity", message->second.severity},
@@ -246,8 +246,8 @@ class MessageRegistry : public Node
                    {"Resolution", message->second.resolution}};
             if (message->second.numberOfArgs > 0)
             {
-                nlohmann::json &messageParamArray = obj["ParamTypes"];
-                for (const char *str : message->second.paramTypes)
+                nlohmann::json& messageParamArray = obj["ParamTypes"];
+                for (const char* str : message->second.paramTypes)
                 {
                     if (str == nullptr)
                     {

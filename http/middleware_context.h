@@ -9,10 +9,10 @@ namespace crow
 namespace detail
 {
 template <typename... Middlewares>
-struct PartialContext
-    : public black_magic::PopBack<Middlewares...>::template rebind<
-          PartialContext>,
-      public black_magic::LastElementType<Middlewares...>::type::Context
+struct PartialContext :
+    public black_magic::PopBack<Middlewares...>::template rebind<
+        PartialContext>,
+    public black_magic::LastElementType<Middlewares...>::type::Context
 {
     using parent_context = typename black_magic::PopBack<
         Middlewares...>::template rebind<::crow::detail::PartialContext>;
@@ -21,15 +21,18 @@ struct PartialContext
         N == sizeof...(Middlewares) - 1, PartialContext,
         typename parent_context::template partial<N>>::type;
 
-    template <typename T> typename T::Context& get()
+    template <typename T>
+    typename T::Context& get()
     {
         return static_cast<typename T::Context&>(*this);
     }
 };
 
-template <> struct PartialContext<>
+template <>
+struct PartialContext<>
 {
-    template <size_t> using partial = PartialContext;
+    template <size_t>
+    using partial = PartialContext;
 };
 
 template <size_t N, typename Context, typename Container, typename CurrentMW,
@@ -55,7 +58,8 @@ struct Context : private PartialContext<Middlewares...>
     friend bool middlewareCallHelper(Container& middlewares, Request& req,
                                      Response& res, Context& ctx);
 
-    template <typename T> typename T::Context& get()
+    template <typename T>
+    typename T::Context& get()
     {
         return static_cast<typename T::Context&>(*this);
     }

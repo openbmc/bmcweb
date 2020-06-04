@@ -24,6 +24,7 @@
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
+
 #include <variant>
 
 namespace redfish
@@ -38,9 +39,9 @@ namespace redfish
  * @return None.
  */
 void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
-                          const std::variant<bool> &dimmState)
+                          const std::variant<bool>& dimmState)
 {
-    const bool *isDimmFunctional = std::get_if<bool>(&dimmState);
+    const bool* isDimmFunctional = std::get_if<bool>(&dimmState);
     if (isDimmFunctional == nullptr)
     {
         messages::internalError(aResp->res);
@@ -51,7 +52,7 @@ void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
     // Set it as Enabled if atleast one DIMM is functional
     // Update STATE only if previous State was DISABLED and current Dimm is
     // ENABLED.
-    nlohmann::json &prevMemSummary =
+    nlohmann::json& prevMemSummary =
         aResp->res.jsonValue["MemorySummary"]["Status"]["State"];
     if (prevMemSummary == "Disabled")
     {
@@ -72,9 +73,9 @@ void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
-                            const std::variant<bool> &cpuPresenceState)
+                            const std::variant<bool>& cpuPresenceState)
 {
-    const bool *isCpuPresent = std::get_if<bool>(&cpuPresenceState);
+    const bool* isCpuPresent = std::get_if<bool>(&cpuPresenceState);
 
     if (isCpuPresent == nullptr)
     {
@@ -85,10 +86,10 @@ void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
 
     if (*isCpuPresent == true)
     {
-        nlohmann::json &procCount =
+        nlohmann::json& procCount =
             aResp->res.jsonValue["ProcessorSummary"]["Count"];
         auto procCountPtr =
-            procCount.get_ptr<nlohmann::json::number_integer_t *>();
+            procCount.get_ptr<nlohmann::json::number_integer_t*>();
         if (procCountPtr != nullptr)
         {
             // shouldn't be possible to be nullptr
@@ -107,9 +108,9 @@ void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
-                              const std::variant<bool> &cpuFunctionalState)
+                              const std::variant<bool>& cpuFunctionalState)
 {
-    const bool *isCpuFunctional = std::get_if<bool>(&cpuFunctionalState);
+    const bool* isCpuFunctional = std::get_if<bool>(&cpuFunctionalState);
 
     if (isCpuFunctional == nullptr)
     {
@@ -118,7 +119,7 @@ void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
     }
     BMCWEB_LOG_DEBUG << "Cpu Functional: " << *isCpuFunctional;
 
-    nlohmann::json &prevProcState =
+    nlohmann::json& prevProcState =
         aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
 
     // Set it as Enabled if atleast one CPU is functional
@@ -152,8 +153,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>
-                &subtree) {
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -163,14 +164,14 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
             // Iterate over all retrieved ObjectPaths.
             for (const std::pair<std::string,
                                  std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>
-                     &object : subtree)
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
             {
-                const std::string &path = object.first;
+                const std::string& path = object.first;
                 BMCWEB_LOG_DEBUG << "Got path: " << path;
                 const std::vector<
-                    std::pair<std::string, std::vector<std::string>>>
-                    &connectionNames = object.second;
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
                 if (connectionNames.size() < 1)
                 {
                     continue;
@@ -187,9 +188,9 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
 
                 // This is not system, so check if it's cpu, dimm, UUID or
                 // BiosVer
-                for (const auto &connection : connectionNames)
+                for (const auto& connection : connectionNames)
                 {
-                    for (const auto &interfaceName : connection.second)
+                    for (const auto& interfaceName : connection.second)
                     {
                         if (interfaceName ==
                             "xyz.openbmc_project.Inventory.Item.Dimm")
@@ -202,8 +203,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                  path(std::move(path))](
                                     const boost::system::error_code ec,
                                     const std::vector<
-                                        std::pair<std::string, VariantType>>
-                                        &properties) {
+                                        std::pair<std::string, VariantType>>&
+                                        properties) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -218,15 +219,15 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                     if (properties.size() > 0)
                                     {
                                         for (const std::pair<std::string,
-                                                             VariantType>
-                                                 &property : properties)
+                                                             VariantType>&
+                                                 property : properties)
                                         {
                                             if (property.first !=
                                                 "MemorySizeInKB")
                                             {
                                                 continue;
                                             }
-                                            const uint32_t *value =
+                                            const uint32_t* value =
                                                 std::get_if<uint32_t>(
                                                     &property.second);
                                             if (value == nullptr)
@@ -236,15 +237,15 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                        "MemorySize";
                                                 continue;
                                             }
-                                            nlohmann::json &totalMemory =
+                                            nlohmann::json& totalMemory =
                                                 aResp->res
                                                     .jsonValue["MemorySummar"
                                                                "y"]
                                                               ["TotalSystemMe"
                                                                "moryGiB"];
-                                            uint64_t *preValue =
+                                            uint64_t* preValue =
                                                 totalMemory
-                                                    .get_ptr<uint64_t *>();
+                                                    .get_ptr<uint64_t*>();
                                             if (preValue == nullptr)
                                             {
                                                 continue;
@@ -267,8 +268,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             [aResp](
                                                 const boost::system::error_code
                                                     ec,
-                                                const std::variant<bool>
-                                                    &dimmState) {
+                                                const std::variant<bool>&
+                                                    dimmState) {
                                                 if (ec)
                                                 {
                                                     BMCWEB_LOG_ERROR
@@ -309,8 +310,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                  path(std::move(path))](
                                     const boost::system::error_code ec,
                                     const std::vector<
-                                        std::pair<std::string, VariantType>>
-                                        &properties) {
+                                        std::pair<std::string, VariantType>>&
+                                        properties) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -324,29 +325,28 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
 
                                     if (properties.size() > 0)
                                     {
-                                        for (const auto &property : properties)
+                                        for (const auto& property : properties)
                                         {
                                             if (property.first ==
                                                 "ProcessorFamily")
                                             {
-                                                const std::string *value =
+                                                const std::string* value =
                                                     std::get_if<std::string>(
                                                         &property.second);
                                                 if (value != nullptr)
                                                 {
-                                                    nlohmann::json
-                                                        &procSummary =
+                                                    nlohmann::json&
+                                                        procSummary =
                                                             aResp->res.jsonValue
                                                                 ["ProcessorSumm"
                                                                  "ary"];
-                                                    nlohmann::json &procCount =
+                                                    nlohmann::json& procCount =
                                                         procSummary["Count"];
 
                                                     auto procCountPtr =
                                                         procCount.get_ptr<
                                                             nlohmann::json::
-                                                                number_integer_t
-                                                                    *>();
+                                                                number_integer_t*>();
                                                     if (procCountPtr != nullptr)
                                                     {
                                                         // shouldn't be possible
@@ -368,8 +368,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             [aResp](
                                                 const boost::system::error_code
                                                     ec,
-                                                const std::variant<bool>
-                                                    &cpuPresenceCheck) {
+                                                const std::variant<bool>&
+                                                    cpuPresenceCheck) {
                                                 if (ec)
                                                 {
                                                     BMCWEB_LOG_ERROR
@@ -386,8 +386,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             [aResp](
                                                 const boost::system::error_code
                                                     ec,
-                                                const std::variant<bool>
-                                                    &cpuFunctionalCheck) {
+                                                const std::variant<bool>&
+                                                    cpuFunctionalCheck) {
                                                 if (ec)
                                                 {
                                                     BMCWEB_LOG_ERROR
@@ -443,10 +443,11 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                             BMCWEB_LOG_DEBUG
                                 << "Found UUID, now get its properties.";
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
-                                        const std::vector<
-                                            std::pair<std::string, VariantType>>
-                                            &properties) {
+                                [aResp](
+                                    const boost::system::error_code ec,
+                                    const std::vector<
+                                        std::pair<std::string, VariantType>>&
+                                        properties) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_DEBUG
@@ -458,12 +459,12 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                      << properties.size()
                                                      << " UUID properties.";
                                     for (const std::pair<std::string,
-                                                         VariantType>
-                                             &property : properties)
+                                                         VariantType>&
+                                             property : properties)
                                     {
                                         if (property.first == "UUID")
                                         {
-                                            const std::string *value =
+                                            const std::string* value =
                                                 std::get_if<std::string>(
                                                     &property.second);
 
@@ -493,10 +494,11 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                  "xyz.openbmc_project.Inventory.Item.System")
                         {
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
-                                        const std::vector<
-                                            std::pair<std::string, VariantType>>
-                                            &propertiesList) {
+                                [aResp](
+                                    const boost::system::error_code ec,
+                                    const std::vector<
+                                        std::pair<std::string, VariantType>>&
+                                        propertiesList) {
                                     if (ec)
                                     {
                                         // doesn't have to include this
@@ -507,17 +509,17 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         << "Got " << propertiesList.size()
                                         << " properties for system";
                                     for (const std::pair<std::string,
-                                                         VariantType>
-                                             &property : propertiesList)
+                                                         VariantType>&
+                                             property : propertiesList)
                                     {
-                                        const std::string &propertyName =
+                                        const std::string& propertyName =
                                             property.first;
                                         if ((propertyName == "PartNumber") ||
                                             (propertyName == "SerialNumber") ||
                                             (propertyName == "Manufacturer") ||
                                             (propertyName == "Model"))
                                         {
-                                            const std::string *value =
+                                            const std::string* value =
                                                 std::get_if<std::string>(
                                                     &property.second);
                                             if (value != nullptr)
@@ -542,7 +544,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                             crow::connections::systemBus->async_method_call(
                                 [aResp](
                                     const boost::system::error_code ec,
-                                    const std::variant<std::string> &property) {
+                                    const std::variant<std::string>& property) {
                                     if (ec)
                                     {
                                         // doesn't have to include this
@@ -550,7 +552,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         return;
                                     }
 
-                                    const std::string *value =
+                                    const std::string* value =
                                         std::get_if<std::string>(&property);
                                     if (value != nullptr)
                                     {
@@ -572,7 +574,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char *, 5>{
+        std::array<const char*, 5>{
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Item.Dimm",
@@ -593,7 +595,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get host information.";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<std::string> &hostState) {
+                const std::variant<std::string>& hostState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -601,7 +603,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const std::string *s = std::get_if<std::string>(&hostState);
+            const std::string* s = std::get_if<std::string>(&hostState);
             BMCWEB_LOG_DEBUG << "Host state: " << *s;
             if (s != nullptr)
             {
@@ -643,7 +645,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
  * @return Returns as a string, the boot source in Redfish terms. If translation
  * cannot be done, returns an empty string.
  */
-static std::string dbusToRfBootSource(const std::string &dbusSource)
+static std::string dbusToRfBootSource(const std::string& dbusSource)
 {
     if (dbusSource == "xyz.openbmc_project.Control.Boot.Source.Sources.Default")
     {
@@ -683,7 +685,7 @@ static std::string dbusToRfBootSource(const std::string &dbusSource)
  * @return Returns as a string, the boot mode in Redfish terms. If translation
  * cannot be done, returns an empty string.
  */
-static std::string dbusToRfBootMode(const std::string &dbusMode)
+static std::string dbusToRfBootMode(const std::string& dbusMode)
 {
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
     {
@@ -713,8 +715,8 @@ static std::string dbusToRfBootMode(const std::string &dbusMode)
  * @return Integer error code.
  */
 static int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
-                                const std::string &rfSource,
-                                std::string &bootSource, std::string &bootMode)
+                                const std::string& rfSource,
+                                std::string& bootSource, std::string& bootMode)
 {
     // The caller has initialized the bootSource and bootMode to:
     // bootMode = "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
@@ -777,7 +779,7 @@ static void getBootMode(std::shared_ptr<AsyncResp> aResp,
 {
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<std::string> &bootMode) {
+                const std::variant<std::string>& bootMode) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -785,7 +787,7 @@ static void getBootMode(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
 
-            const std::string *bootModeStr =
+            const std::string* bootModeStr =
                 std::get_if<std::string>(&bootMode);
 
             if (!bootModeStr)
@@ -848,7 +850,7 @@ static void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
 
     crow::connections::systemBus->async_method_call(
         [aResp, bootDbusObj](const boost::system::error_code ec,
-                             const std::variant<std::string> &bootSource) {
+                             const std::variant<std::string>& bootSource) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -856,7 +858,7 @@ static void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
                 return;
             }
 
-            const std::string *bootSourceStr =
+            const std::string* bootSourceStr =
                 std::get_if<std::string>(&bootSource);
 
             if (!bootSourceStr)
@@ -893,7 +895,7 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<bool> &oneTime) {
+                const std::variant<bool>& oneTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -901,7 +903,7 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const bool *oneTimePtr = std::get_if<bool>(&oneTime);
+            const bool* oneTimePtr = std::get_if<bool>(&oneTime);
 
             if (!oneTimePtr)
             {
@@ -929,14 +931,14 @@ void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                std::variant<bool> &autoRebootEnabled) {
+                std::variant<bool>& autoRebootEnabled) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
                 return;
             }
 
-            const bool *autoRebootEnabledPtr =
+            const bool* autoRebootEnabledPtr =
                 std::get_if<bool>(&autoRebootEnabled);
 
             if (!autoRebootEnabledPtr)
@@ -954,14 +956,14 @@ void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
                 // attempts are left
                 crow::connections::systemBus->async_method_call(
                     [aResp](const boost::system::error_code ec,
-                            std::variant<uint32_t> &autoRebootAttemptsLeft) {
+                            std::variant<uint32_t>& autoRebootAttemptsLeft) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
                             return;
                         }
 
-                        const uint32_t *autoRebootAttemptsLeftPtr =
+                        const uint32_t* autoRebootAttemptsLeftPtr =
                             std::get_if<uint32_t>(&autoRebootAttemptsLeft);
 
                         if (!autoRebootAttemptsLeftPtr)
@@ -1020,7 +1022,7 @@ void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                std::variant<std::string> &policy) {
+                std::variant<std::string>& policy) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1039,7 +1041,7 @@ void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
                      "LastState",
                      "LastState"}};
 
-            const std::string *policyPtr = std::get_if<std::string>(&policy);
+            const std::string* policyPtr = std::get_if<std::string>(&policy);
 
             if (!policyPtr)
             {
@@ -1133,7 +1135,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG << "DBUS boot source: " << bootSourceStr;
     BMCWEB_LOG_DEBUG << "DBUS boot mode: " << bootModeStr;
-    const char *bootObj =
+    const char* bootObj =
         oneTimeSetting ? "/xyz/openbmc_project/control/host0/boot/one_time"
                        : "/xyz/openbmc_project/control/host0/boot";
 
@@ -1203,7 +1205,7 @@ static void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [aResp, bootSource{std::move(bootSource)},
          bootEnable{std::move(bootEnable)}](const boost::system::error_code ec,
-                                            const std::variant<bool> &oneTime) {
+                                            const std::variant<bool>& oneTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1211,7 +1213,7 @@ static void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
 
-            const bool *oneTimePtr = std::get_if<bool>(&oneTime);
+            const bool* oneTimePtr = std::get_if<bool>(&oneTime);
 
             if (!oneTimePtr)
             {
@@ -1239,7 +1241,7 @@ static void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 static void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
-                              const std::string &&automaticRetryConfig)
+                              const std::string&& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
 
@@ -1339,8 +1341,8 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::vector<std::pair<std::string, VariantType>>
-                    &propertiesList) {
+                const std::vector<std::pair<std::string, VariantType>>&
+                    propertiesList) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1348,9 +1350,9 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const bool *provState = nullptr;
-            const bool *lockState = nullptr;
-            for (const std::pair<std::string, VariantType> &property :
+            const bool* provState = nullptr;
+            const bool* lockState = nullptr;
+            for (const std::pair<std::string, VariantType>& property :
                  propertiesList)
             {
                 if (property.first == "UfmProvisioned")
@@ -1370,7 +1372,7 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            nlohmann::json &oemPFR =
+            nlohmann::json& oemPFR =
                 aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
             if (*provState == true)
             {
@@ -1402,7 +1404,7 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
  * @return Returns as a string, the timeout action in Redfish terms. If
  * translation cannot be done, returns an empty string.
  */
-static std::string dbusToRfWatchdogAction(const std::string &dbusAction)
+static std::string dbusToRfWatchdogAction(const std::string& dbusAction)
 {
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
     {
@@ -1435,7 +1437,7 @@ static std::string dbusToRfWatchdogAction(const std::string &dbusAction)
  *If translation cannot be done, returns an empty string.
  */
 
-static std::string rfToDbusWDTTimeOutAct(const std::string &rfAction)
+static std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
 {
     if (rfAction == "None")
     {
@@ -1469,7 +1471,7 @@ void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                PropertiesType &properties) {
+                PropertiesType& properties) {
             if (ec)
             {
                 // watchdog service is stopped
@@ -1479,18 +1481,18 @@ void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
 
             BMCWEB_LOG_DEBUG << "Got " << properties.size() << " wdt prop.";
 
-            nlohmann::json &hostWatchdogTimer =
+            nlohmann::json& hostWatchdogTimer =
                 aResp->res.jsonValue["HostWatchdogTimer"];
 
             // watchdog service is running/enabled
             hostWatchdogTimer["Status"]["State"] = "Enabled";
 
-            for (const auto &property : properties)
+            for (const auto& property : properties)
             {
                 BMCWEB_LOG_DEBUG << "prop=" << property.first;
                 if (property.first == "Enabled")
                 {
-                    const bool *state = std::get_if<bool>(&property.second);
+                    const bool* state = std::get_if<bool>(&property.second);
 
                     if (!state)
                     {
@@ -1502,7 +1504,7 @@ void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
                 }
                 else if (property.first == "ExpireAction")
                 {
-                    const std::string *s =
+                    const std::string* s =
                         std::get_if<std::string>(&property.second);
                     if (!s)
                     {
@@ -1537,7 +1539,7 @@ void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
  */
 static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
                              const std::optional<bool> wdtEnable,
-                             const std::optional<std::string> &wdtTimeOutAction)
+                             const std::optional<std::string>& wdtTimeOutAction)
 {
     BMCWEB_LOG_DEBUG << "Set host watchdog";
 
@@ -1596,7 +1598,7 @@ static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
 class SystemsCollection : public Node
 {
   public:
-    SystemsCollection(CrowApp &app) : Node(app, "/redfish/v1/Systems/")
+    SystemsCollection(CrowApp& app) : Node(app, "/redfish/v1/Systems/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1608,8 +1610,8 @@ class SystemsCollection : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
@@ -1619,11 +1621,11 @@ class SystemsCollection : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string> &hostName) {
-                nlohmann::json &iface_array =
+                        const std::variant<std::string>& hostName) {
+                nlohmann::json& iface_array =
                     asyncResp->res.jsonValue["Members"];
                 iface_array = nlohmann::json::array();
-                auto &count = asyncResp->res.jsonValue["Members@odata.count"];
+                auto& count = asyncResp->res.jsonValue["Members@odata.count"];
                 count = 0;
                 if (ec)
                 {
@@ -1652,7 +1654,7 @@ class SystemsCollection : public Node
 class SystemActionsReset : public Node
 {
   public:
-    SystemActionsReset(CrowApp &app) :
+    SystemActionsReset(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
     {
         entityPrivileges = {
@@ -1664,8 +1666,8 @@ class SystemActionsReset : public Node
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1782,15 +1784,15 @@ class SystemActionsReset : public Node
     /**
      * Function transceives data with dbus directly.
      */
-    void doNMI(const std::shared_ptr<AsyncResp> &asyncResp)
+    void doNMI(const std::shared_ptr<AsyncResp>& asyncResp)
     {
-        constexpr char const *serviceName =
+        constexpr char const* serviceName =
             "xyz.openbmc_project.Control.Host.NMI";
-        constexpr char const *objectPath =
+        constexpr char const* objectPath =
             "/xyz/openbmc_project/control/host0/nmi";
-        constexpr char const *interfaceName =
+        constexpr char const* interfaceName =
             "xyz.openbmc_project.Control.Host.NMI";
-        constexpr char const *method = "NMI";
+        constexpr char const* method = "NMI";
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
@@ -1815,7 +1817,7 @@ class Systems : public Node
     /*
      * Default Constructor
      */
-    Systems(CrowApp &app) : Node(app, "/redfish/v1/Systems/system/")
+    Systems(CrowApp& app) : Node(app, "/redfish/v1/Systems/system/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1830,8 +1832,8 @@ class Systems : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] = "#ComputerSystem.v1_11_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
@@ -1874,7 +1876,7 @@ class Systems : public Node
         };
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        constexpr const std::array<const char *, 4> inventoryForSystems = {
+        constexpr const std::array<const char*, 4> inventoryForSystems = {
             "xyz.openbmc_project.Inventory.Item.Dimm",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Item.Drive",
@@ -1883,7 +1885,7 @@ class Systems : public Node
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         crow::connections::systemBus->async_method_call(
             [health](const boost::system::error_code ec,
-                     std::vector<std::string> &resp) {
+                     std::vector<std::string>& resp) {
                 if (ec)
                 {
                     // no inventory
@@ -1899,7 +1901,7 @@ class Systems : public Node
 
         health->populate();
 
-        getMainChassisId(asyncResp, [](const std::string &chassisId,
+        getMainChassisId(asyncResp, [](const std::string& chassisId,
                                        std::shared_ptr<AsyncResp> aRsp) {
             aRsp->res.jsonValue["Links"]["Chassis"] = {
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
@@ -1918,8 +1920,8 @@ class Systems : public Node
 #endif
     }
 
-    void doPatch(crow::Response &res, const crow::Request &req,
-                 const std::vector<std::string> &params) override
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
     {
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;

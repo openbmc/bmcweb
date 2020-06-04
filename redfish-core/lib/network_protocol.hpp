@@ -18,8 +18,9 @@
 #include "error_messages.hpp"
 #include "node.hpp"
 
-#include <optional>
 #include <utils/json_utils.hpp>
+
+#include <optional>
 #include <variant>
 namespace redfish
 {

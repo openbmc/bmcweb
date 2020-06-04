@@ -19,27 +19,28 @@
 
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
+
 #include <variant>
 namespace redfish
 {
 namespace certs
 {
-constexpr char const *httpsObjectPath =
+constexpr char const* httpsObjectPath =
     "/xyz/openbmc_project/certs/server/https";
-constexpr char const *certInstallIntf = "xyz.openbmc_project.Certs.Install";
-constexpr char const *certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
-constexpr char const *objDeleteIntf = "xyz.openbmc_project.Object.Delete";
-constexpr char const *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
-constexpr char const *dbusPropIntf = "org.freedesktop.DBus.Properties";
-constexpr char const *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
-constexpr char const *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
-constexpr char const *httpsServiceName =
+constexpr char const* certInstallIntf = "xyz.openbmc_project.Certs.Install";
+constexpr char const* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
+constexpr char const* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
+constexpr char const* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
+constexpr char const* dbusPropIntf = "org.freedesktop.DBus.Properties";
+constexpr char const* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
+constexpr char const* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
+constexpr char const* httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
-constexpr char const *ldapServiceName =
+constexpr char const* ldapServiceName =
     "xyz.openbmc_project.Certs.Manager.Client.Ldap";
-constexpr char const *authorityServiceName =
+constexpr char const* authorityServiceName =
     "xyz.openbmc_project.Certs.Manager.Authority.Ldap";
-constexpr char const *authorityObjectPath =
+constexpr char const* authorityObjectPath =
     "/xyz/openbmc_project/certs/authority/ldap";
 } // namespace certs
 
@@ -51,7 +52,7 @@ constexpr char const *authorityObjectPath =
 class CertificateService : public Node
 {
   public:
-    CertificateService(CrowApp &app) :
+    CertificateService(CrowApp& app) :
         Node(app, "/redfish/v1/CertificateService/")
     {
         // TODO: Issue#61 No entries are available for Certificate
@@ -68,8 +69,8 @@ class CertificateService : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue = {
             {"@odata.type", "#CertificateService.v1_0_0.CertificateService"},
@@ -116,8 +117,8 @@ long getIDFromURL(const std::string_view url)
 }
 
 std::string
-    getCertificateFromReqBody(const std::shared_ptr<AsyncResp> &asyncResp,
-                              const crow::Request &req)
+    getCertificateFromReqBody(const std::shared_ptr<AsyncResp>& asyncResp,
+                              const crow::Request& req)
 {
     nlohmann::json reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
@@ -155,14 +156,14 @@ class CertificateFile
 {
   public:
     CertificateFile() = delete;
-    CertificateFile(const CertificateFile &) = delete;
-    CertificateFile &operator=(const CertificateFile &) = delete;
-    CertificateFile(CertificateFile &&) = delete;
-    CertificateFile &operator=(CertificateFile &&) = delete;
-    CertificateFile(const std::string &certString)
+    CertificateFile(const CertificateFile&) = delete;
+    CertificateFile& operator=(const CertificateFile&) = delete;
+    CertificateFile(CertificateFile&&) = delete;
+    CertificateFile& operator=(CertificateFile&&) = delete;
+    CertificateFile(const std::string& certString)
     {
         char dirTemplate[] = "/tmp/Certs.XXXXXX";
-        char *tempDirectory = mkdtemp(dirTemplate);
+        char* tempDirectory = mkdtemp(dirTemplate);
         if (tempDirectory)
         {
             certDirectory = tempDirectory;
@@ -184,7 +185,7 @@ class CertificateFile
             {
                 std::filesystem::remove_all(certDirectory);
             }
-            catch (const std::filesystem::filesystem_error &e)
+            catch (const std::filesystem::filesystem_error& e)
             {
                 BMCWEB_LOG_ERROR << "Failed to remove temp directory"
                                  << certDirectory;
@@ -212,17 +213,17 @@ static std::unique_ptr<sdbusplus::bus::match::match> csrMatcher;
  * @param[in] csrObjPath CSR D-Bus object path
  * @return None
  */
-static void getCSR(const std::shared_ptr<AsyncResp> &asyncResp,
-                   const std::string &certURI, const std::string &service,
-                   const std::string &certObjPath,
-                   const std::string &csrObjPath)
+static void getCSR(const std::shared_ptr<AsyncResp>& asyncResp,
+                   const std::string& certURI, const std::string& service,
+                   const std::string& certObjPath,
+                   const std::string& csrObjPath)
 {
     BMCWEB_LOG_DEBUG << "getCSR CertObjectPath" << certObjPath
                      << " CSRObjectPath=" << csrObjPath
                      << " service=" << service;
     crow::connections::systemBus->async_method_call(
         [asyncResp, certURI](const boost::system::error_code ec,
-                             const std::string &csr) {
+                             const std::string& csr) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -248,7 +249,7 @@ static void getCSR(const std::shared_ptr<AsyncResp> &asyncResp,
 class CertificateActionGenerateCSR : public Node
 {
   public:
-    CertificateActionGenerateCSR(CrowApp &app) :
+    CertificateActionGenerateCSR(CrowApp& app) :
         Node(app, "/redfish/v1/CertificateService/Actions/"
                   "CertificateService.GenerateCSR/")
     {
@@ -262,8 +263,8 @@ class CertificateActionGenerateCSR : public Node
     }
 
   private:
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         static const int RSA_KEY_BIT_LENGTH = 2048;
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -427,7 +428,7 @@ class CertificateActionGenerateCSR : public Node
         // Make this static so it survives outside this method
         static boost::asio::steady_timer timeout(*req.ioService);
         timeout.expires_after(std::chrono::seconds(TIME_OUT));
-        timeout.async_wait([asyncResp](const boost::system::error_code &ec) {
+        timeout.async_wait([asyncResp](const boost::system::error_code& ec) {
             csrMatcher = nullptr;
             if (ec)
             {
@@ -454,7 +455,7 @@ class CertificateActionGenerateCSR : public Node
         csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
             *crow::connections::systemBus, match,
             [asyncResp, service, objectPath,
-             certURI](sdbusplus::message::message &m) {
+             certURI](sdbusplus::message::message& m) {
                 timeout.cancel();
                 if (m.is_method_error())
                 {
@@ -469,7 +470,7 @@ class CertificateActionGenerateCSR : public Node
                 sdbusplus::message::object_path csrObjectPath;
                 m.read(csrObjectPath, interfacesProperties);
                 BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
-                for (auto &interface : interfacesProperties)
+                for (auto& interface : interfacesProperties)
                 {
                     if (interface.first == "xyz.openbmc_project.Certs.CSR")
                     {
@@ -480,8 +481,8 @@ class CertificateActionGenerateCSR : public Node
                 }
             });
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code &ec,
-                        const std::string &path) {
+            [asyncResp](const boost::system::error_code& ec,
+                        const std::string& path) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec.message();
@@ -506,7 +507,7 @@ class CertificateActionGenerateCSR : public Node
  * @param[in] type Issuer/Subject
  * @return None
  */
-static void updateCertIssuerOrSubject(nlohmann::json &out,
+static void updateCertIssuerOrSubject(nlohmann::json& out,
                                       const std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
@@ -576,9 +577,9 @@ static void updateCertIssuerOrSubject(nlohmann::json &out,
  * @return None
  */
 static void getCertificateProperties(
-    const std::shared_ptr<AsyncResp> &asyncResp, const std::string &objectPath,
-    const std::string &service, long certId, const std::string &certURL,
-    const std::string &name)
+    const std::shared_ptr<AsyncResp>& asyncResp, const std::string& objectPath,
+    const std::string& service, long certId, const std::string& certURL,
+    const std::string& name)
 {
     using PropertyType =
         std::variant<std::string, uint64_t, std::vector<std::string>>;
@@ -587,7 +588,7 @@ static void getCertificateProperties(
                      << " certId=" << certId << " certURl=" << certURL;
     crow::connections::systemBus->async_method_call(
         [asyncResp, certURL, certId, name](const boost::system::error_code ec,
-                                           const PropertiesMap &properties) {
+                                           const PropertiesMap& properties) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -601,12 +602,12 @@ static void getCertificateProperties(
                 {"Id", std::to_string(certId)},
                 {"Name", name},
                 {"Description", name}};
-            for (const auto &property : properties)
+            for (const auto& property : properties)
             {
                 if (property.first == "CertificateString")
                 {
                     asyncResp->res.jsonValue["CertificateString"] = "";
-                    const std::string *value =
+                    const std::string* value =
                         std::get_if<std::string>(&property.second);
                     if (value)
                     {
@@ -615,14 +616,14 @@ static void getCertificateProperties(
                 }
                 else if (property.first == "KeyUsage")
                 {
-                    nlohmann::json &keyUsage =
+                    nlohmann::json& keyUsage =
                         asyncResp->res.jsonValue["KeyUsage"];
                     keyUsage = nlohmann::json::array();
-                    const std::vector<std::string> *value =
+                    const std::vector<std::string>* value =
                         std::get_if<std::vector<std::string>>(&property.second);
                     if (value)
                     {
-                        for (const std::string &usage : *value)
+                        for (const std::string& usage : *value)
                         {
                             keyUsage.push_back(usage);
                         }
@@ -630,7 +631,7 @@ static void getCertificateProperties(
                 }
                 else if (property.first == "Issuer")
                 {
-                    const std::string *value =
+                    const std::string* value =
                         std::get_if<std::string>(&property.second);
                     if (value)
                     {
@@ -640,7 +641,7 @@ static void getCertificateProperties(
                 }
                 else if (property.first == "Subject")
                 {
-                    const std::string *value =
+                    const std::string* value =
                         std::get_if<std::string>(&property.second);
                     if (value)
                     {
@@ -650,7 +651,7 @@ static void getCertificateProperties(
                 }
                 else if (property.first == "ValidNotAfter")
                 {
-                    const uint64_t *value =
+                    const uint64_t* value =
                         std::get_if<uint64_t>(&property.second);
                     if (value)
                     {
@@ -661,7 +662,7 @@ static void getCertificateProperties(
                 }
                 else if (property.first == "ValidNotBefore")
                 {
-                    const uint64_t *value =
+                    const uint64_t* value =
                         std::get_if<uint64_t>(&property.second);
                     if (value)
                     {
@@ -686,7 +687,7 @@ using GetObjectType =
 class CertificateActionsReplaceCertificate : public Node
 {
   public:
-    CertificateActionsReplaceCertificate(CrowApp &app) :
+    CertificateActionsReplaceCertificate(CrowApp& app) :
         Node(app, "/redfish/v1/CertificateService/Actions/"
                   "CertificateService.ReplaceCertificate/")
     {
@@ -700,8 +701,8 @@ class CertificateActionsReplaceCertificate : public Node
     }
 
   private:
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         std::string certificate;
         nlohmann::json certificateUri;
@@ -812,7 +813,7 @@ class HTTPSCertificate : public Node
 {
   public:
     template <typename CrowApp>
-    HTTPSCertificate(CrowApp &app) :
+    HTTPSCertificate(CrowApp& app) :
         Node(app,
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"
              "<str>/",
@@ -827,8 +828,8 @@ class HTTPSCertificate : public Node
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
@@ -858,7 +859,7 @@ class HTTPSCertificateCollection : public Node
 {
   public:
     template <typename CrowApp>
-    HTTPSCertificateCollection(CrowApp &app) :
+    HTTPSCertificateCollection(CrowApp& app) :
         Node(app,
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
     {
@@ -870,8 +871,8 @@ class HTTPSCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue = {
             {"@odata.id",
@@ -882,16 +883,16 @@ class HTTPSCertificateCollection : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType &certs) {
+                        const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                nlohmann::json &members = asyncResp->res.jsonValue["Members"];
+                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
                 members = nlohmann::json::array();
-                for (const auto &cert : certs)
+                for (const auto& cert : certs)
                 {
                     long id = getIDFromURL(cert.first.str);
                     if (id >= 0)
@@ -910,8 +911,8 @@ class HTTPSCertificateCollection : public Node
             certs::dbusObjManagerIntf, "GetManagedObjects");
     }
 
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -932,7 +933,7 @@ class HTTPSCertificateCollection : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec,
-                                  const std::string &objectPath) {
+                                  const std::string& objectPath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -970,7 +971,7 @@ class CertificateLocations : public Node
 {
   public:
     template <typename CrowApp>
-    CertificateLocations(CrowApp &app) :
+    CertificateLocations(CrowApp& app) :
         Node(app, "/redfish/v1/CertificateService/CertificateLocations/")
     {
         entityPrivileges = {
@@ -983,8 +984,8 @@ class CertificateLocations : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue = {
             {"@odata.id",
@@ -997,7 +998,7 @@ class CertificateLocations : public Node
              "Defines a resource that an administrator can use in order to "
              "locate all certificates installed on a given service"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        nlohmann::json &links =
+        nlohmann::json& links =
             asyncResp->res.jsonValue["Links"]["Certificates"];
         links = nlohmann::json::array();
         getCertificateLocations(
@@ -1020,25 +1021,25 @@ class CertificateLocations : public Node
      * @param[in] path  Path of the D-Bus service object
      * @return None
      */
-    void getCertificateLocations(std::shared_ptr<AsyncResp> &asyncResp,
-                                 const std::string &certURL,
-                                 const std::string &path,
-                                 const std::string &service)
+    void getCertificateLocations(std::shared_ptr<AsyncResp>& asyncResp,
+                                 const std::string& certURL,
+                                 const std::string& path,
+                                 const std::string& service)
     {
         BMCWEB_LOG_DEBUG << "getCertificateLocations URI=" << certURL
                          << " Path=" << path << " service= " << service;
         crow::connections::systemBus->async_method_call(
             [asyncResp, certURL](const boost::system::error_code ec,
-                                 const ManagedObjectType &certs) {
+                                 const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                nlohmann::json &links =
+                nlohmann::json& links =
                     asyncResp->res.jsonValue["Links"]["Certificates"];
-                for (auto &cert : certs)
+                for (auto& cert : certs)
                 {
                     long id = getIDFromURL(cert.first.str);
                     if (id >= 0)
@@ -1061,7 +1062,7 @@ class LDAPCertificateCollection : public Node
 {
   public:
     template <typename CrowApp>
-    LDAPCertificateCollection(CrowApp &app) :
+    LDAPCertificateCollection(CrowApp& app) :
         Node(app, "/redfish/v1/AccountService/LDAP/Certificates/")
     {
         entityPrivileges = {
@@ -1072,8 +1073,8 @@ class LDAPCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
@@ -1083,16 +1084,16 @@ class LDAPCertificateCollection : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType &certs) {
+                        const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                nlohmann::json &members = asyncResp->res.jsonValue["Members"];
+                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
                 members = nlohmann::json::array();
-                for (const auto &cert : certs)
+                for (const auto& cert : certs)
                 {
                     long id = getIDFromURL(cert.first.str);
                     if (id >= 0)
@@ -1110,8 +1111,8 @@ class LDAPCertificateCollection : public Node
             certs::dbusObjManagerIntf, "GetManagedObjects");
     }
 
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
@@ -1128,7 +1129,7 @@ class LDAPCertificateCollection : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec,
-                                  const std::string &objectPath) {
+                                  const std::string& objectPath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -1165,7 +1166,7 @@ class LDAPCertificate : public Node
 {
   public:
     template <typename CrowApp>
-    LDAPCertificate(CrowApp &app) :
+    LDAPCertificate(CrowApp& app) :
         Node(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/",
              std::string())
     {
@@ -1178,8 +1179,8 @@ class LDAPCertificate : public Node
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         long id = getIDFromURL(req.url);
@@ -1206,7 +1207,7 @@ class TrustStoreCertificateCollection : public Node
 {
   public:
     template <typename CrowApp>
-    TrustStoreCertificateCollection(CrowApp &app) :
+    TrustStoreCertificateCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
     {
         entityPrivileges = {
@@ -1217,8 +1218,8 @@ class TrustStoreCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
@@ -1229,16 +1230,16 @@ class TrustStoreCertificateCollection : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType &certs) {
+                        const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                nlohmann::json &members = asyncResp->res.jsonValue["Members"];
+                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
                 members = nlohmann::json::array();
-                for (const auto &cert : certs)
+                for (const auto& cert : certs)
                 {
                     long id = getIDFromURL(cert.first.str);
                     if (id >= 0)
@@ -1256,8 +1257,8 @@ class TrustStoreCertificateCollection : public Node
             certs::dbusObjManagerIntf, "GetManagedObjects");
     }
 
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
@@ -1273,7 +1274,7 @@ class TrustStoreCertificateCollection : public Node
             std::make_shared<CertificateFile>(certFileBody);
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec,
-                                  const std::string &objectPath) {
+                                  const std::string& objectPath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -1311,7 +1312,7 @@ class TrustStoreCertificate : public Node
 {
   public:
     template <typename CrowApp>
-    TrustStoreCertificate(CrowApp &app) :
+    TrustStoreCertificate(CrowApp& app) :
         Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/",
              std::string())
     {
@@ -1324,8 +1325,8 @@ class TrustStoreCertificate : public Node
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         long id = getIDFromURL(req.url);
@@ -1348,8 +1349,8 @@ class TrustStoreCertificate : public Node
                                  "TrustStore Certificate");
     }
 
-    void doDelete(crow::Response &res, const crow::Request &req,
-                  const std::vector<std::string> &params) override
+    void doDelete(crow::Response& res, const crow::Request& req,
+                  const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 

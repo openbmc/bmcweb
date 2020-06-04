@@ -10,14 +10,14 @@ namespace redfish
 class BiosService : public Node
 {
   public:
-    BiosService(CrowApp &app) : Node(app, "/redfish/v1/Systems/system/Bios/")
+    BiosService(CrowApp& app) : Node(app, "/redfish/v1/Systems/system/Bios/")
     {
         entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -39,7 +39,7 @@ class BiosService : public Node
 class BiosReset : public Node
 {
   public:
-    BiosReset(CrowApp &app) :
+    BiosReset(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
     {
         entityPrivileges = {
@@ -51,8 +51,8 @@ class BiosReset : public Node
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 

@@ -3,8 +3,9 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
 #include <gzip_helper.hpp>
-#include <sstream>
 #include <webassets.hpp>
+
+#include <sstream>
 
 #include "gtest/gtest.h"
 #include <gmock/gmock.h>

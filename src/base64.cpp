@@ -2,7 +2,7 @@
 
 namespace base64
 {
-bool base64_encode(const std::string &input, std::string &output)
+bool base64_encode(const std::string& input, std::string& output)
 {
     //  As is, this array is 64 bytes long, which should be greater than the max
     //  of 0b00111111 when indexed NOLINT calls below are to silence clang-tidy
@@ -67,7 +67,7 @@ bool base64_encode(const std::string &input, std::string &output)
     return true;
 }
 
-bool base64_decode(const std::string &input, std::string &output)
+bool base64_decode(const std::string& input, std::string& output)
 {
     constexpr char nop = -1;
     // See note on encoding_data[] in above function
