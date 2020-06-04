@@ -5,8 +5,9 @@
 
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/process.hpp>
-#include <csignal>
 #include <webserver_common.hpp>
+
+#include <csignal>
 
 namespace crow
 {
@@ -27,8 +28,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         pipeOut(ios), pipeIn(ios), media(mediaIn), doingWrite(false),
         outputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>),
         inputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>)
-    {
-    }
+    {}
 
     ~Handler() = default;
 
@@ -155,7 +155,8 @@ class Handler : public std::enable_shared_from_this<Handler>
 
 static std::shared_ptr<Handler> handler;
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+template <typename... Middlewares>
+void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/vm/0/0")
         .requires({"ConfigureComponents", "ConfigureManager"})

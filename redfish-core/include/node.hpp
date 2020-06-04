@@ -15,15 +15,16 @@
 */
 #pragma once
 
+#include "http_request.h"
+#include "http_response.h"
+
 #include "privileges.hpp"
 #include "token_authorization_middleware.hpp"
 #include "webserver_common.hpp"
 
 #include <error_messages.hpp>
-#include <vector>
 
-#include "http_request.h"
-#include "http_response.h"
+#include <vector>
 
 namespace redfish
 {
@@ -36,8 +37,7 @@ class AsyncResp
 {
   public:
     AsyncResp(crow::Response& response) : res(response)
-    {
-    }
+    {}
 
     ~AsyncResp()
     {

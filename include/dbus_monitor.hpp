@@ -9,11 +9,13 @@
 #include <openbmc_dbus_rest.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
+
 #include <variant>
 
 namespace nlohmann
 {
-template <typename... Args> struct adl_serializer<std::variant<Args...>>
+template <typename... Args>
+struct adl_serializer<std::variant<Args...>>
 {
     static void to_json(json& j, const std::variant<Args...>& v)
     {
@@ -112,7 +114,8 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     return 0;
 }
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+template <typename... Middlewares>
+void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/subscribe")
         .requires({"Login"})

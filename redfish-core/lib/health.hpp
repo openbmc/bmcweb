@@ -20,6 +20,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
+
 #include <variant>
 
 namespace redfish
@@ -27,33 +28,31 @@ namespace redfish
 
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
-    HealthPopulate(const std::shared_ptr<AsyncResp> &asyncResp) :
+    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncResp) :
         asyncResp(asyncResp), jsonStatus(asyncResp->res.jsonValue["Status"])
-    {
-    }
+    {}
 
-    HealthPopulate(const std::shared_ptr<AsyncResp> &asyncResp,
-                   nlohmann::json &status) :
+    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncResp,
+                   nlohmann::json& status) :
         asyncResp(asyncResp),
         jsonStatus(status)
-    {
-    }
+    {}
 
     ~HealthPopulate()
     {
-        nlohmann::json &health = jsonStatus["Health"];
-        nlohmann::json &rollup = jsonStatus["HealthRollup"];
+        nlohmann::json& health = jsonStatus["Health"];
+        nlohmann::json& rollup = jsonStatus["HealthRollup"];
 
         health = "OK";
         rollup = "OK";
 
-        for (const std::shared_ptr<HealthPopulate> &health : children)
+        for (const std::shared_ptr<HealthPopulate>& health : children)
         {
             health->globalInventoryPath = globalInventoryPath;
             health->statuses = statuses;
         }
 
-        for (const auto &[path, interfaces] : statuses)
+        for (const auto& [path, interfaces] : statuses)
         {
             bool isChild = false;
 
@@ -65,7 +64,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 // of this association is an inventory item, or one of the
                 // endpoints in this association is a child
 
-                for (const std::string &child : inventory)
+                for (const std::string& child : inventory)
                 {
                     if (boost::starts_with(path.str, child))
                     {
@@ -88,7 +87,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                                          << path.str;
                         continue;
                     }
-                    const std::vector<std::string> *endpoints =
+                    const std::vector<std::string>* endpoints =
                         std::get_if<std::vector<std::string>>(
                             &endpointsIt->second);
                     if (endpoints == nullptr)
@@ -98,7 +97,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                         continue;
                     }
                     bool containsChild = false;
-                    for (const std::string &endpoint : *endpoints)
+                    for (const std::string& endpoint : *endpoints)
                     {
                         if (std::find(inventory.begin(), inventory.end(),
                                       endpoint) != inventory.end())
@@ -162,7 +161,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         std::shared_ptr<HealthPopulate> self = shared_from_this();
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   std::vector<std::string> &resp) {
+                   std::vector<std::string>& resp) {
                 if (ec || resp.size() != 1)
                 {
                     // no global item, or too many
@@ -173,7 +172,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", 0,
-            std::array<const char *, 1>{
+            std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Global"});
     }
 
@@ -182,7 +181,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         std::shared_ptr<HealthPopulate> self = shared_from_this();
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   dbus::utility::ManagedObjectType &resp) {
+                   dbus::utility::ManagedObjectType& resp) {
                 if (ec)
                 {
                     return;
@@ -204,7 +203,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     }
 
     std::shared_ptr<AsyncResp> asyncResp;
-    nlohmann::json &jsonStatus;
+    nlohmann::json& jsonStatus;
 
     // we store pointers to other HealthPopulate items so we can update their
     // members and reduce dbus calls. As we hold a shared_ptr to them, they get

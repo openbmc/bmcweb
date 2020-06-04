@@ -19,8 +19,7 @@ namespace black_magic
 struct OutOfRange
 {
     OutOfRange(unsigned /*pos*/, unsigned /*length*/)
-    {
-    }
+    {}
 };
 constexpr unsigned requiresInRange(unsigned i, unsigned len)
 {
@@ -124,7 +123,8 @@ constexpr bool isPath(ConstStr s, unsigned i)
     return isEquN(s, i, "<path>", 0, 6);
 }
 
-template <typename T> constexpr int getParameterTag()
+template <typename T>
+constexpr int getParameterTag()
 {
     if constexpr (std::is_same_v<int, T>)
     {
@@ -177,9 +177,11 @@ template <typename T> constexpr int getParameterTag()
     return 0;
 }
 
-template <typename... Args> struct compute_parameter_tag_from_args_list;
+template <typename... Args>
+struct compute_parameter_tag_from_args_list;
 
-template <> struct compute_parameter_tag_from_args_list<>
+template <>
+struct compute_parameter_tag_from_args_list<>
 {
     static constexpr int value = 0;
 };
@@ -305,110 +307,132 @@ constexpr uint64_t get_parameter_tag(ConstStr s, unsigned p = 0)
                      : get_parameter_tag(s, p + 1);
 }
 
-template <typename... T> struct S
+template <typename... T>
+struct S
 {
-    template <typename U> using push = S<U, T...>;
-    template <typename U> using push_back = S<T..., U>;
-    template <template <typename... Args> class U> using rebind = U<T...>;
+    template <typename U>
+    using push = S<U, T...>;
+    template <typename U>
+    using push_back = S<T..., U>;
+    template <template <typename... Args> class U>
+    using rebind = U<T...>;
 };
-template <typename F, typename Set> struct CallHelper;
-template <typename F, typename... Args> struct CallHelper<F, S<Args...>>
+template <typename F, typename Set>
+struct CallHelper;
+template <typename F, typename... Args>
+struct CallHelper<F, S<Args...>>
 {
     template <typename F1, typename... Args1,
               typename = decltype(std::declval<F1>()(std::declval<Args1>()...))>
     static char __test(int);
 
-    template <typename...> static int __test(...);
+    template <typename...>
+    static int __test(...);
 
     static constexpr bool value = sizeof(__test<F, Args...>(0)) == sizeof(char);
 };
 
-template <uint64_t N> struct SingleTagToType
-{
-};
+template <uint64_t N>
+struct SingleTagToType
+{};
 
-template <> struct SingleTagToType<1>
+template <>
+struct SingleTagToType<1>
 {
     using type = int64_t;
 };
 
-template <> struct SingleTagToType<2>
+template <>
+struct SingleTagToType<2>
 {
     using type = uint64_t;
 };
 
-template <> struct SingleTagToType<3>
+template <>
+struct SingleTagToType<3>
 {
     using type = double;
 };
 
-template <> struct SingleTagToType<4>
+template <>
+struct SingleTagToType<4>
 {
     using type = std::string;
 };
 
-template <> struct SingleTagToType<5>
+template <>
+struct SingleTagToType<5>
 {
     using type = std::string;
 };
 
-template <uint64_t Tag> struct Arguments
+template <uint64_t Tag>
+struct Arguments
 {
     using subarguments = typename Arguments<Tag / 6>::type;
     using type = typename subarguments::template push<
         typename SingleTagToType<Tag % 6>::type>;
 };
 
-template <> struct Arguments<0>
+template <>
+struct Arguments<0>
 {
     using type = S<>;
 };
 
-template <typename... T> struct LastElementType
+template <typename... T>
+struct LastElementType
 {
     using type =
         typename std::tuple_element<sizeof...(T) - 1, std::tuple<T...>>::type;
 };
 
-template <> struct LastElementType<>
-{
-};
+template <>
+struct LastElementType<>
+{};
 
 // from
 // http://stackoverflow.com/questions/13072359/c11-compile-time-array-with-logarithmic-evaluation-depth
-template <class T> using Invoke = typename T::type;
+template <class T>
+using Invoke = typename T::type;
 
-template <unsigned...> struct Seq
+template <unsigned...>
+struct Seq
 {
     using type = Seq;
 };
 
-template <class S1, class S2> struct concat;
+template <class S1, class S2>
+struct concat;
 
 template <unsigned... I1, unsigned... I2>
 struct concat<Seq<I1...>, Seq<I2...>> : Seq<I1..., (sizeof...(I1) + I2)...>
-{
-};
+{};
 
-template <class S1, class S2> using Concat = Invoke<concat<S1, S2>>;
+template <class S1, class S2>
+using Concat = Invoke<concat<S1, S2>>;
 
-template <size_t N> struct gen_seq;
-template <size_t N> using GenSeq = Invoke<gen_seq<N>>;
+template <size_t N>
+struct gen_seq;
+template <size_t N>
+using GenSeq = Invoke<gen_seq<N>>;
 
-template <size_t N> struct gen_seq : Concat<GenSeq<N / 2>, GenSeq<N - N / 2>>
-{
-};
+template <size_t N>
+struct gen_seq : Concat<GenSeq<N / 2>, GenSeq<N - N / 2>>
+{};
 
-template <> struct gen_seq<0> : Seq<>
-{
-};
-template <> struct gen_seq<1> : Seq<0>
-{
-};
+template <>
+struct gen_seq<0> : Seq<>
+{};
+template <>
+struct gen_seq<1> : Seq<0>
+{};
 
-template <typename Seq, typename Tuple> struct PopBackHelper;
+template <typename Seq, typename Tuple>
+struct PopBackHelper;
 
-template <unsigned... N, typename Tuple> struct PopBackHelper<Seq<N...>, Tuple>
+template <unsigned... N, typename Tuple>
+struct PopBackHelper<Seq<N...>, Tuple>
 {
     template <template <typename... Args> class U>
     using rebind = U<typename std::tuple_element<N, Tuple>::type...>;
@@ -424,39 +448,42 @@ struct PopBack //: public PopBackHelper<typename
                                std::tuple<T...>>::template rebind<U>;
 };
 
-template <> struct PopBack<>
+template <>
+struct PopBack<>
 {
-    template <template <typename... Args> class U> using rebind = U<>;
+    template <template <typename... Args> class U>
+    using rebind = U<>;
 };
 
 // from
 // http://stackoverflow.com/questions/2118541/check-if-c0x-parameter-pack-contains-a-type
-template <typename Tp, typename... List> struct Contains : std::true_type
-{
-};
+template <typename Tp, typename... List>
+struct Contains : std::true_type
+{};
 
 template <typename Tp, typename Head, typename... Rest>
-struct Contains<Tp, Head, Rest...>
-    : std::conditional<std::is_same<Tp, Head>::value, std::true_type,
-                       Contains<Tp, Rest...>>::type
-{
-};
+struct Contains<Tp, Head, Rest...> :
+    std::conditional<std::is_same<Tp, Head>::value, std::true_type,
+                     Contains<Tp, Rest...>>::type
+{};
 
-template <typename Tp> struct Contains<Tp> : std::false_type
-{
-};
+template <typename Tp>
+struct Contains<Tp> : std::false_type
+{};
 
-template <typename T> struct EmptyContext
-{
-};
+template <typename T>
+struct EmptyContext
+{};
 
-template <typename T> struct promote
+template <typename T>
+struct promote
 {
     using type = T;
 };
 
 #define BMCWEB_INTERNAL_PROMOTE_TYPE(t1, t2)                                   \
-    template <> struct promote<t1>                                             \
+    template <>                                                                \
+    struct promote<t1>                                                         \
     {                                                                          \
         using type = t2;                                                       \
     }
@@ -474,7 +501,8 @@ BMCWEB_INTERNAL_PROMOTE_TYPE(unsigned long long, uint64_t);
 BMCWEB_INTERNAL_PROMOTE_TYPE(float, double);
 #undef BMCWEB_INTERNAL_PROMOTE_TYPE
 
-template <typename T> using promote_t = typename promote<T>::type;
+template <typename T>
+using promote_t = typename promote<T>::type;
 
 } // namespace black_magic
 
@@ -504,13 +532,15 @@ struct GetIndexOfElementFromTupleByTypeImpl<T, N, U, Args...>
 
 namespace utility
 {
-template <class T, class... Args> T& getElementByType(std::tuple<Args...>& t)
+template <class T, class... Args>
+T& getElementByType(std::tuple<Args...>& t)
 {
     return std::get<
         detail::GetIndexOfElementFromTupleByTypeImpl<T, 0, Args...>::value>(t);
 }
 
-template <typename T> struct function_traits;
+template <typename T>
+struct function_traits;
 
 template <typename T>
 struct function_traits : public function_traits<decltype(&T::operator())>
@@ -518,7 +548,8 @@ struct function_traits : public function_traits<decltype(&T::operator())>
     using parent_t = function_traits<decltype(&T::operator())>;
     static const size_t arity = parent_t::arity;
     using result_type = typename parent_t::result_type;
-    template <size_t i> using arg = typename parent_t::template arg<i>;
+    template <size_t i>
+    using arg = typename parent_t::template arg<i>;
 };
 
 template <typename ClassType, typename r, typename... Args>

@@ -12,13 +12,14 @@
 #include <openssl/ssl.h>
 
 #include <boost/asio/ssl/context.hpp>
+
 #include <random>
 
 namespace ensuressl
 {
-constexpr char const *trustStorePath = "/etc/ssl/certs/authority";
+constexpr char const* trustStorePath = "/etc/ssl/certs/authority";
 static void initOpenssl();
-static EVP_PKEY *createEcKey();
+static EVP_PKEY* createEcKey();
 
 // Trust chain related errors.`
 inline bool isTrustChainError(int errnum)
@@ -37,10 +38,10 @@ inline bool isTrustChainError(int errnum)
     }
 }
 
-inline bool validateCertificate(X509 *const cert)
+inline bool validateCertificate(X509* const cert)
 {
     // Create an empty X509_STORE structure for certificate validation.
-    X509_STORE *x509Store = X509_STORE_new();
+    X509_STORE* x509Store = X509_STORE_new();
     if (!x509Store)
     {
         BMCWEB_LOG_ERROR << "Error occured during X509_STORE_new call";
@@ -48,7 +49,7 @@ inline bool validateCertificate(X509 *const cert)
     }
 
     // Load Certificate file into the X509 structure.
-    X509_STORE_CTX *storeCtx = X509_STORE_CTX_new();
+    X509_STORE_CTX* storeCtx = X509_STORE_CTX_new();
     if (!storeCtx)
     {
         BMCWEB_LOG_ERROR << "Error occured during X509_STORE_CTX_new call";
@@ -99,20 +100,20 @@ inline bool validateCertificate(X509 *const cert)
     return false;
 }
 
-inline bool verifyOpensslKeyCert(const std::string &filepath)
+inline bool verifyOpensslKeyCert(const std::string& filepath)
 {
     bool privateKeyValid = false;
     bool certValid = false;
 
     std::cout << "Checking certs in file " << filepath << "\n";
 
-    FILE *file = fopen(filepath.c_str(), "r");
+    FILE* file = fopen(filepath.c_str(), "r");
     if (file != nullptr)
     {
-        EVP_PKEY *pkey = PEM_read_PrivateKey(file, nullptr, nullptr, nullptr);
+        EVP_PKEY* pkey = PEM_read_PrivateKey(file, nullptr, nullptr, nullptr);
         if (pkey != nullptr)
         {
-            RSA *rsa = EVP_PKEY_get1_RSA(pkey);
+            RSA* rsa = EVP_PKEY_get1_RSA(pkey);
             if (rsa != nullptr)
             {
                 std::cout << "Found an RSA key\n";
@@ -129,7 +130,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
             }
             else
             {
-                EC_KEY *ec = EVP_PKEY_get1_EC_KEY(pkey);
+                EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
                 if (ec != nullptr)
                 {
                     std::cout << "Found an EC key\n";
@@ -154,7 +155,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                 // key order issue.
                 fseek(file, 0, SEEK_SET);
 
-                X509 *x509 = PEM_read_X509(file, nullptr, nullptr, nullptr);
+                X509* x509 = PEM_read_X509(file, nullptr, nullptr, nullptr);
                 if (x509 == nullptr)
                 {
                     std::cout << "error getting x509 cert " << ERR_get_error()
@@ -174,19 +175,19 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
     return certValid;
 }
 
-inline void generateSslCertificate(const std::string &filepath)
+inline void generateSslCertificate(const std::string& filepath)
 {
-    FILE *pFile = nullptr;
+    FILE* pFile = nullptr;
     std::cout << "Generating new keys\n";
     initOpenssl();
 
     std::cerr << "Generating EC key\n";
-    EVP_PKEY *pPrivKey = createEcKey();
+    EVP_PKEY* pPrivKey = createEcKey();
     if (pPrivKey != nullptr)
     {
         std::cerr << "Generating x509 Certificate\n";
         // Use this code to directly generate a certificate
-        X509 *x509;
+        X509* x509;
         x509 = X509_new();
         if (x509 != nullptr)
         {
@@ -208,18 +209,18 @@ inline void generateSslCertificate(const std::string &filepath)
             X509_set_pubkey(x509, pPrivKey);
 
             // get the subject name
-            X509_NAME *name;
+            X509_NAME* name;
             name = X509_get_subject_name(x509);
 
             X509_NAME_add_entry_by_txt(
                 name, "C", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char *>("US"), -1, -1, 0);
+                reinterpret_cast<const unsigned char*>("US"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "O", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char *>("OpenBMC"), -1, -1, 0);
+                reinterpret_cast<const unsigned char*>("OpenBMC"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "CN", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char *>("testhost"), -1, -1, 0);
+                reinterpret_cast<const unsigned char*>("testhost"), -1, -1, 0);
             // set the CSR options
             X509_set_issuer_name(x509, name);
 
@@ -248,13 +249,13 @@ inline void generateSslCertificate(const std::string &filepath)
     // cleanup_openssl();
 }
 
-EVP_PKEY *createEcKey()
+EVP_PKEY* createEcKey()
 {
-    EVP_PKEY *pKey = nullptr;
+    EVP_PKEY* pKey = nullptr;
     int eccgrp = 0;
     eccgrp = OBJ_txt2nid("secp384r1");
 
-    EC_KEY *myecc = EC_KEY_new_by_curve_name(eccgrp);
+    EC_KEY* myecc = EC_KEY_new_by_curve_name(eccgrp);
     if (myecc != nullptr)
     {
         EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
@@ -284,7 +285,7 @@ void initOpenssl()
 #endif
 }
 
-inline void ensureOpensslKeyPresentAndValid(const std::string &filepath)
+inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
 {
     bool pemFileValid = false;
 
@@ -298,7 +299,7 @@ inline void ensureOpensslKeyPresentAndValid(const std::string &filepath)
 }
 
 inline std::shared_ptr<boost::asio::ssl::context>
-    getSslContext(const std::string &ssl_pem_file)
+    getSslContext(const std::string& ssl_pem_file)
 {
     std::shared_ptr<boost::asio::ssl::context> mSslContext =
         std::make_shared<boost::asio::ssl::context>(

@@ -6,6 +6,7 @@
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/process.hpp>
+
 #include <cstdio>
 #include <cstdlib>
 
@@ -39,12 +40,10 @@ class Handler : public std::enable_shared_from_this<Handler>
                      boost::beast::flat_static_buffer<nbdBufferSize>>()),
         inputBuffer(
             std::make_unique<boost::beast::flat_static_buffer<nbdBufferSize>>())
-    {
-    }
+    {}
 
     ~Handler()
-    {
-    }
+    {}
 
     /**
      * @brief  Invokes InitiateOffload method of dump manager which

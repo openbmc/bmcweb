@@ -1,12 +1,13 @@
 #pragma once
-#include <array>
+#include "http_request.h"
+
 #include <async_resp.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/beast/websocket.hpp>
-#include <functional>
 
-#include "http_request.h"
+#include <array>
+#include <functional>
 
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/beast/websocket/ssl.hpp>
@@ -56,7 +57,8 @@ struct Connection : std::enable_shared_from_this<Connection>
     void* userdataPtr;
 };
 
-template <typename Adaptor> class ConnectionImpl : public Connection
+template <typename Adaptor>
+class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
