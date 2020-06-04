@@ -21,6 +21,7 @@
 
 #include <sys/inotify.h>
 
+#include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
 #include <cstdlib>
 #include <ctime>
@@ -983,7 +984,7 @@ class EventServiceManager
             });
     }
 
-    static int startEventLogMonitor(boost::asio::io_service& ioc)
+    static int startEventLogMonitor(boost::asio::io_context& ioc)
     {
         inotifyConn =
             std::make_shared<boost::asio::posix::stream_descriptor>(ioc);
