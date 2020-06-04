@@ -1,12 +1,13 @@
 #pragma once
 
+#include "utility.h"
+
 #include <boost/beast/http/verb.hpp>
+
 #include <iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
-
-#include "utility.h"
 
 namespace crow
 {
@@ -81,20 +82,24 @@ struct RoutingParams
         std::cerr << std::endl;
     }
 
-    template <typename T> T get(unsigned) const;
+    template <typename T>
+    T get(unsigned) const;
 };
 
-template <> inline int64_t RoutingParams::get<int64_t>(unsigned index) const
+template <>
+inline int64_t RoutingParams::get<int64_t>(unsigned index) const
 {
     return intParams[index];
 }
 
-template <> inline uint64_t RoutingParams::get<uint64_t>(unsigned index) const
+template <>
+inline uint64_t RoutingParams::get<uint64_t>(unsigned index) const
 {
     return uintParams[index];
 }
 
-template <> inline double RoutingParams::get<double>(unsigned index) const
+template <>
+inline double RoutingParams::get<double>(unsigned index) const
 {
     return doubleParams[index];
 }

@@ -1,5 +1,12 @@
 #pragma once
 
+#include "http_request.h"
+#include "http_server.h"
+#include "logging.h"
+#include "middleware_context.h"
+#include "routing.h"
+#include "utility.h"
+
 #include "privileges.hpp"
 
 #include <chrono>
@@ -10,13 +17,6 @@
 #include <string>
 #include <utility>
 
-#include "http_request.h"
-#include "http_server.h"
-#include "logging.h"
-#include "middleware_context.h"
-#include "routing.h"
-#include "utility.h"
-
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::black_magic::get_parameter_tag(url)>(url)
 
@@ -25,7 +25,8 @@ namespace crow
 #ifdef BMCWEB_ENABLE_SSL
 using ssl_context_t = boost::asio::ssl::context;
 #endif
-template <typename... Middlewares> class Crow
+template <typename... Middlewares>
+class Crow
 {
   public:
     using self_t = Crow;
@@ -41,8 +42,7 @@ template <typename... Middlewares> class Crow
     explicit Crow(std::shared_ptr<boost::asio::io_context> ioIn =
                       std::make_shared<boost::asio::io_context>()) :
         io(std::move(ioIn))
-    {
-    }
+    {}
     ~Crow()
     {
         this->stop();
@@ -64,7 +64,8 @@ template <typename... Middlewares> class Crow
         return router.newRuleDynamic(rule);
     }
 
-    template <uint64_t Tag> auto& route(std::string&& rule)
+    template <uint64_t Tag>
+    auto& route(std::string&& rule)
     {
         return router.newRuleTagged<Tag>(std::move(rule));
     }
@@ -190,7 +191,8 @@ template <typename... Middlewares> class Crow
     std::shared_ptr<ssl_context_t> sslContext = nullptr;
 
 #else
-    template <typename T, typename... Remain> self_t& ssl_file(T&&, Remain&&...)
+    template <typename T, typename... Remain>
+    self_t& ssl_file(T&&, Remain&&...)
     {
         // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
         // defined.
@@ -201,7 +203,8 @@ template <typename... Middlewares> class Crow
         return *this;
     }
 
-    template <typename T> self_t& ssl(T&&)
+    template <typename T>
+    self_t& ssl(T&&)
     {
         // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
         // defined.
@@ -215,7 +218,8 @@ template <typename... Middlewares> class Crow
 
     // middleware
     using context_t = detail::Context<Middlewares...>;
-    template <typename T> typename T::Context& getContext(const Request& req)
+    template <typename T>
+    typename T::Context& getContext(const Request& req)
     {
         static_assert(black_magic::Contains<T, Middlewares...>::value,
                       "App doesn't have the specified middleware type.");
@@ -223,12 +227,14 @@ template <typename... Middlewares> class Crow
         return ctx.template get<T>();
     }
 
-    template <typename T> T& getMiddleware()
+    template <typename T>
+    T& getMiddleware()
     {
         return utility::getElementByType<T, Middlewares...>(middlewares);
     }
 
-    template <typename Duration, typename Func> self_t& tick(Duration d, Func f)
+    template <typename Duration, typename Func>
+    self_t& tick(Duration d, Func f)
     {
         tickInterval = std::chrono::duration_cast<std::chrono::milliseconds>(d);
         tickFunction = f;
@@ -257,6 +263,7 @@ template <typename... Middlewares> class Crow
     std::unique_ptr<server_t> server;
 #endif
 };
-template <typename... Middlewares> using App = Crow<Middlewares...>;
+template <typename... Middlewares>
+using App = Crow<Middlewares...>;
 using SimpleApp = Crow<>;
 } // namespace crow

@@ -40,7 +40,7 @@ void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
             // proceed to get enclosure_identify state.
             if (!ec)
             {
-                const bool *blinking = std::get_if<bool>(&asserted);
+                const bool* blinking = std::get_if<bool>(&asserted);
                 if (!blinking)
                 {
                     BMCWEB_LOG_DEBUG << "Get identity blinking LED failed";
@@ -59,7 +59,7 @@ void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
                         const std::variant<bool> asserted) {
                     if (!ec)
                     {
-                        const bool *ledOn = std::get_if<bool>(&asserted);
+                        const bool* ledOn = std::get_if<bool>(&asserted);
                         if (!ledOn)
                         {
                             BMCWEB_LOG_DEBUG
@@ -99,7 +99,7 @@ void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
  * @return None.
  */
 void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
-                          const std::string &ledState)
+                          const std::string& ledState)
 {
     BMCWEB_LOG_DEBUG << "Set led groups";
     bool ledOn = false;

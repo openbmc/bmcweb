@@ -22,10 +22,11 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
-#include <memory>
-#include <sstream>
 #include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
+
+#include <memory>
+#include <sstream>
 #include <variant>
 
 namespace redfish
@@ -995,8 +996,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
     GetPIDValues(const std::shared_ptr<AsyncResp>& asyncResp) :
         asyncResp(asyncResp)
 
-    {
-    }
+    {}
 
     void run()
     {

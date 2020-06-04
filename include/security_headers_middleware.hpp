@@ -8,8 +8,7 @@ namespace crow
 struct SecurityHeadersMiddleware
 {
     struct Context
-    {
-    };
+    {};
 
     void beforeHandle(crow::Request& req, Response& res, Context& ctx)
     {

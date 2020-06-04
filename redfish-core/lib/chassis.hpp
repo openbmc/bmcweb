@@ -20,6 +20,7 @@
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
+
 #include <variant>
 
 namespace redfish
@@ -37,7 +38,7 @@ void getChassisState(std::shared_ptr<AsyncResp> aResp)
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const std::variant<std::string> &chassisState) {
+            const std::variant<std::string>& chassisState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -45,7 +46,7 @@ void getChassisState(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const std::string *s = std::get_if<std::string>(&chassisState);
+            const std::string* s = std::get_if<std::string>(&chassisState);
             BMCWEB_LOG_DEBUG << "Chassis state: " << *s;
             if (s != nullptr)
             {
@@ -85,14 +86,14 @@ using ManagedObjectsType = std::vector<std::pair<
 using PropertiesType = boost::container::flat_map<std::string, VariantType>;
 
 void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
-                           const std::string &service,
-                           const std::string &objPath)
+                           const std::string& service,
+                           const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string> &value) {
+                                  const std::variant<std::string>& value) {
             if (ec)
             {
                 // do not add err msg in redfish response, becaues this is not
@@ -101,7 +102,7 @@ void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
 
-            const std::string *status = std::get_if<std::string>(&value);
+            const std::string* status = std::get_if<std::string>(&value);
 
             if (status == nullptr)
             {
@@ -126,8 +127,8 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>
-                &subtree) {
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
             if (ec)
             {
                 // do not add err msg in redfish response, becaues this is not
@@ -137,9 +138,9 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
             // Iterate over all retrieved ObjectPaths.
-            for (const auto &object : subtree)
+            for (const auto& object : subtree)
             {
-                for (const auto &service : object.second)
+                for (const auto& service : object.second)
                 {
                     getIntrusionByService(aResp, service.first, object.first);
                     return;
@@ -150,7 +151,7 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/Intrusion", 1,
-        std::array<const char *, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
+        std::array<const char*, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
 }
 
 /**
@@ -159,7 +160,7 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
 class ChassisCollection : public Node
 {
   public:
-    ChassisCollection(CrowApp &app) : Node(app, "/redfish/v1/Chassis/")
+    ChassisCollection(CrowApp& app) : Node(app, "/redfish/v1/Chassis/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -174,30 +175,30 @@ class ChassisCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         res.jsonValue["Name"] = "Chassis Collection";
 
-        const std::array<const char *, 2> interfaces = {
+        const std::array<const char*, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string> &chassisList) {
+                        const std::vector<std::string>& chassisList) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                nlohmann::json &chassisArray =
+                nlohmann::json& chassisArray =
                     asyncResp->res.jsonValue["Members"];
                 chassisArray = nlohmann::json::array();
-                for (const std::string &objpath : chassisList)
+                for (const std::string& objpath : chassisList)
                 {
                     std::size_t lastPos = objpath.rfind("/");
                     if (lastPos == std::string::npos)
@@ -226,7 +227,7 @@ class ChassisCollection : public Node
 class Chassis : public Node
 {
   public:
-    Chassis(CrowApp &app) :
+    Chassis(CrowApp& app) :
         Node(app, "/redfish/v1/Chassis/<str>/", std::string())
     {
         entityPrivileges = {
@@ -242,10 +243,10 @@ class Chassis : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
-        const std::array<const char *, 2> interfaces = {
+        const std::array<const char*, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
@@ -257,13 +258,13 @@ class Chassis : public Node
             res.end();
             return;
         }
-        const std::string &chassisId = params[0];
+        const std::string& chassisId = params[0];
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp, chassisId(std::string(chassisId))](
                 const boost::system::error_code ec,
-                const crow::openbmc_mapper::GetSubTreeType &subtree) {
+                const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -273,13 +274,13 @@ class Chassis : public Node
                 for (const std::pair<
                          std::string,
                          std::vector<
-                             std::pair<std::string, std::vector<std::string>>>>
-                         &object : subtree)
+                             std::pair<std::string, std::vector<std::string>>>>&
+                         object : subtree)
                 {
-                    const std::string &path = object.first;
+                    const std::string& path = object.first;
                     const std::vector<
-                        std::pair<std::string, std::vector<std::string>>>
-                        &connectionNames = object.second;
+                        std::pair<std::string, std::vector<std::string>>>&
+                        connectionNames = object.second;
 
                     if (!boost::ends_with(path, chassisId))
                     {
@@ -290,12 +291,12 @@ class Chassis : public Node
 
                     crow::connections::systemBus->async_method_call(
                         [health](const boost::system::error_code ec,
-                                 std::variant<std::vector<std::string>> &resp) {
+                                 std::variant<std::vector<std::string>>& resp) {
                             if (ec)
                             {
                                 return; // no sensors = no failures
                             }
-                            std::vector<std::string> *data =
+                            std::vector<std::string>* data =
                                 std::get_if<std::vector<std::string>>(&resp);
                             if (data == nullptr)
                             {
@@ -326,16 +327,16 @@ class Chassis : public Node
                         {"@odata.id",
                          "/redfish/v1/Systems/system/PCIeDevices"}};
 
-                    const std::string &connectionName =
+                    const std::string& connectionName =
                         connectionNames[0].first;
 
-                    const std::vector<std::string> &interfaces =
+                    const std::vector<std::string>& interfaces =
                         connectionNames[0].second;
-                    const std::array<const char *, 2> hasIndicatorLed = {
+                    const std::array<const char*, 2> hasIndicatorLed = {
                         "xyz.openbmc_project.Inventory.Item.Panel",
                         "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
 
-                    for (const char *interface : hasIndicatorLed)
+                    for (const char* interface : hasIndicatorLed)
                     {
                         if (std::find(interfaces.begin(), interfaces.end(),
                                       interface) != interfaces.end())
@@ -349,20 +350,20 @@ class Chassis : public Node
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code ec,
                             const std::vector<std::pair<
-                                std::string, VariantType>> &propertiesList) {
-                            for (const std::pair<std::string, VariantType>
-                                     &property : propertiesList)
+                                std::string, VariantType>>& propertiesList) {
+                            for (const std::pair<std::string, VariantType>&
+                                     property : propertiesList)
                             {
                                 // Store DBus properties that are also Redfish
                                 // properties with same name and a string value
-                                const std::string &propertyName =
+                                const std::string& propertyName =
                                     property.first;
                                 if ((propertyName == "PartNumber") ||
                                     (propertyName == "SerialNumber") ||
                                     (propertyName == "Manufacturer") ||
                                     (propertyName == "Model"))
                                 {
-                                    const std::string *value =
+                                    const std::string* value =
                                         std::get_if<std::string>(
                                             &property.second);
                                     if (value != nullptr)
@@ -414,8 +415,8 @@ class Chassis : public Node
         getPhysicalSecurityData(asyncResp);
     }
 
-    void doPatch(crow::Response &res, const crow::Request &req,
-                 const std::vector<std::string> &params) override
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
     {
         std::optional<std::string> indicatorLed;
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -435,16 +436,16 @@ class Chassis : public Node
             return; // delete this when we support more patch properties
         }
 
-        const std::array<const char *, 2> interfaces = {
+        const std::array<const char*, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-        const std::string &chassisId = params[0];
+        const std::string& chassisId = params[0];
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, chassisId, indicatorLed](
                 const boost::system::error_code ec,
-                const crow::openbmc_mapper::GetSubTreeType &subtree) {
+                const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -455,13 +456,13 @@ class Chassis : public Node
                 for (const std::pair<
                          std::string,
                          std::vector<
-                             std::pair<std::string, std::vector<std::string>>>>
-                         &object : subtree)
+                             std::pair<std::string, std::vector<std::string>>>>&
+                         object : subtree)
                 {
-                    const std::string &path = object.first;
+                    const std::string& path = object.first;
                     const std::vector<
-                        std::pair<std::string, std::vector<std::string>>>
-                        &connectionNames = object.second;
+                        std::pair<std::string, std::vector<std::string>>>&
+                        connectionNames = object.second;
 
                     if (!boost::ends_with(path, chassisId))
                     {
@@ -474,17 +475,17 @@ class Chassis : public Node
                         continue;
                     }
 
-                    const std::vector<std::string> &interfaces =
+                    const std::vector<std::string>& interfaces =
                         connectionNames[0].second;
 
                     if (indicatorLed)
                     {
-                        const std::array<const char *, 2> hasIndicatorLed = {
+                        const std::array<const char*, 2> hasIndicatorLed = {
                             "xyz.openbmc_project.Inventory.Item.Panel",
                             "xyz.openbmc_project.Inventory.Item.Board."
                             "Motherboard"};
                         bool indicatorChassis = false;
-                        for (const char *interface : hasIndicatorLed)
+                        for (const char* interface : hasIndicatorLed)
                         {
                             if (std::find(interfaces.begin(), interfaces.end(),
                                           interface) != interfaces.end())

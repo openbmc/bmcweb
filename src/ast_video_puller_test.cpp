@@ -5,6 +5,7 @@
 
 #include <ast_jpeg_decoder.hpp>
 #include <ast_video_puller.hpp>
+
 #include <chrono>
 #include <fstream>
 #include <iomanip>
@@ -27,7 +28,7 @@ TEST(AstvideoPuller, BasicRead)
     }
     else
     {
-        FILE *fp =
+        FILE* fp =
             fopen("test_resources/ubuntu_444_800x600_0chrom_0lum.bin", "rb");
         if (fp)
         {
@@ -47,7 +48,7 @@ TEST(AstvideoPuller, BasicRead)
         }
     }
 
-    FILE *fp = fopen("/tmp/screendata.bin", "wb");
+    FILE* fp = fopen("/tmp/screendata.bin", "wb");
     fwrite(out.buffer.data(), sizeof(char), out.buffer.size(), fp);
     fclose(fp);
 

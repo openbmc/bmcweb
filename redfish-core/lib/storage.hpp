@@ -25,7 +25,7 @@ namespace redfish
 class StorageCollection : public Node
 {
   public:
-    StorageCollection(CrowApp &app) :
+    StorageCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Storage/")
     {
         entityPrivileges = {
@@ -38,8 +38,8 @@ class StorageCollection : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] = "#StorageCollection.StorageCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage";
@@ -54,7 +54,7 @@ class StorageCollection : public Node
 class Storage : public Node
 {
   public:
-    Storage(CrowApp &app) : Node(app, "/redfish/v1/Systems/system/Storage/1/")
+    Storage(CrowApp& app) : Node(app, "/redfish/v1/Systems/system/Storage/1/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -66,8 +66,8 @@ class Storage : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
@@ -81,11 +81,11 @@ class Storage : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, health](const boost::system::error_code ec,
-                                const std::vector<std::string> &storageList) {
-                nlohmann::json &storageArray =
+                                const std::vector<std::string>& storageList) {
+                nlohmann::json& storageArray =
                     asyncResp->res.jsonValue["Drives"];
                 storageArray = nlohmann::json::array();
-                auto &count = asyncResp->res.jsonValue["Drives@odata.count"];
+                auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
                 count = 0;
 
                 if (ec)
@@ -99,7 +99,7 @@ class Storage : public Node
                                          storageList.begin(),
                                          storageList.end());
 
-                for (const std::string &objpath : storageList)
+                for (const std::string& objpath : storageList)
                 {
                     std::size_t lastPos = objpath.rfind("/");
                     if (lastPos == std::string::npos ||
@@ -121,23 +121,23 @@ class Storage : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char *, 1>{
+            std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Drive"});
 
         crow::connections::systemBus->async_method_call(
             [asyncResp,
              health](const boost::system::error_code ec,
-                     const crow::openbmc_mapper::GetSubTreeType &subtree) {
+                     const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec || !subtree.size())
                 {
                     // doesn't have to be there
                     return;
                 }
 
-                nlohmann::json &root =
+                nlohmann::json& root =
                     asyncResp->res.jsonValue["StorageControllers"];
                 root = nlohmann::json::array();
-                for (const auto &[path, interfaceDict] : subtree)
+                for (const auto& [path, interfaceDict] : subtree)
                 {
                     std::size_t lastPos = path.rfind("/");
                     if (lastPos == std::string::npos ||
@@ -156,11 +156,11 @@ class Storage : public Node
                         return;
                     }
 
-                    const std::string &connectionName =
+                    const std::string& connectionName =
                         interfaceDict.front().first;
 
                     size_t index = root.size();
-                    nlohmann::json &storageController =
+                    nlohmann::json& storageController =
                         root.emplace_back(nlohmann::json::object());
 
                     std::string id = path.substr(lastPos + 1);
@@ -184,7 +184,7 @@ class Storage : public Node
                             {
                                 return;
                             }
-                            const bool *enabled = std::get_if<bool>(&present);
+                            const bool* enabled = std::get_if<bool>(&present);
                             if (enabled == nullptr)
                             {
                                 BMCWEB_LOG_DEBUG << "Illegal property present";
@@ -206,8 +206,8 @@ class Storage : public Node
                          index](const boost::system::error_code ec,
                                 const std::vector<std::pair<
                                     std::string,
-                                    std::variant<bool, std::string, uint64_t>>>
-                                    &propertiesList) {
+                                    std::variant<bool, std::string, uint64_t>>>&
+                                    propertiesList) {
                             if (ec)
                             {
                                 // this interface isn't necessary
@@ -215,15 +215,15 @@ class Storage : public Node
                             }
                             for (const std::pair<
                                      std::string,
-                                     std::variant<bool, std::string, uint64_t>>
-                                     &property : propertiesList)
+                                     std::variant<bool, std::string, uint64_t>>&
+                                     property : propertiesList)
                             {
                                 // Store DBus properties that are also
                                 // Redfish properties with same name and a
                                 // string value
-                                const std::string &propertyName =
+                                const std::string& propertyName =
                                     property.first;
-                                nlohmann::json &object =
+                                nlohmann::json& object =
                                     asyncResp->res
                                         .jsonValue["StorageControllers"][index];
                                 if ((propertyName == "PartNumber") ||
@@ -231,7 +231,7 @@ class Storage : public Node
                                     (propertyName == "Manufacturer") ||
                                     (propertyName == "Model"))
                                 {
-                                    const std::string *value =
+                                    const std::string* value =
                                         std::get_if<std::string>(
                                             &property.second);
                                     if (value == nullptr)
@@ -253,7 +253,7 @@ class Storage : public Node
                 // resized, as json::array uses vector underneath and we need
                 // references to its members that won't change
                 size_t count = 0;
-                for (const auto &[path, interfaceDict] : subtree)
+                for (const auto& [path, interfaceDict] : subtree)
                 {
                     auto subHealth = std::make_shared<HealthPopulate>(
                         asyncResp, root[count]["Status"]);
@@ -267,7 +267,7 @@ class Storage : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
             "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char *, 1>{
+            std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.StorageController"});
     }
 };
@@ -275,7 +275,7 @@ class Storage : public Node
 class Drive : public Node
 {
   public:
-    Drive(CrowApp &app) :
+    Drive(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/",
              std::string())
     {
@@ -289,8 +289,8 @@ class Drive : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
@@ -298,12 +298,12 @@ class Drive : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        const std::string &driveId = params[0];
+        const std::string& driveId = params[0];
 
         crow::connections::systemBus->async_method_call(
             [asyncResp,
              driveId](const boost::system::error_code ec,
-                      const crow::openbmc_mapper::GetSubTreeType &subtree) {
+                      const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Drive mapper call error";
@@ -312,8 +312,8 @@ class Drive : public Node
                 }
 
                 auto object = std::find_if(
-                    subtree.begin(), subtree.end(), [&driveId](auto &object) {
-                        const std::string &path = object.first;
+                    subtree.begin(), subtree.end(), [&driveId](auto& object) {
+                        const std::string& path = object.first;
                         return boost::ends_with(path, "/" + driveId);
                     });
 
@@ -324,10 +324,10 @@ class Drive : public Node
                     return;
                 }
 
-                const std::string &path = object->first;
+                const std::string& path = object->first;
                 const std::vector<
-                    std::pair<std::string, std::vector<std::string>>>
-                    &connectionNames = object->second;
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object->second;
 
                 asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
                 asyncResp->res.jsonValue["@odata.id"] =
@@ -345,19 +345,19 @@ class Drive : public Node
                 }
 
                 getMainChassisId(
-                    asyncResp, [](const std::string &chassisId,
+                    asyncResp, [](const std::string& chassisId,
                                   std::shared_ptr<AsyncResp> aRsp) {
                         aRsp->res.jsonValue["Links"]["Chassis"] = {
                             {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
                     });
 
-                const std::string &connectionName = connectionNames[0].first;
+                const std::string& connectionName = connectionNames[0].first;
                 crow::connections::systemBus->async_method_call(
                     [asyncResp](const boost::system::error_code ec,
                                 const std::vector<std::pair<
                                     std::string,
-                                    std::variant<bool, std::string, uint64_t>>>
-                                    &propertiesList) {
+                                    std::variant<bool, std::string, uint64_t>>>&
+                                    propertiesList) {
                         if (ec)
                         {
                             // this interface isn't necessary
@@ -365,19 +365,19 @@ class Drive : public Node
                         }
                         for (const std::pair<std::string,
                                              std::variant<bool, std::string,
-                                                          uint64_t>> &property :
+                                                          uint64_t>>& property :
                              propertiesList)
                         {
                             // Store DBus properties that are also
                             // Redfish properties with same name and a
                             // string value
-                            const std::string &propertyName = property.first;
+                            const std::string& propertyName = property.first;
                             if ((propertyName == "PartNumber") ||
                                 (propertyName == "SerialNumber") ||
                                 (propertyName == "Manufacturer") ||
                                 (propertyName == "Model"))
                             {
-                                const std::string *value =
+                                const std::string* value =
                                     std::get_if<std::string>(&property.second);
                                 if (value == nullptr)
                                 {
@@ -408,7 +408,7 @@ class Drive : public Node
                         {
                             return;
                         }
-                        const bool *enabled = std::get_if<bool>(&present);
+                        const bool* enabled = std::get_if<bool>(&present);
                         if (enabled == nullptr)
                         {
                             BMCWEB_LOG_DEBUG << "Illegal property present";
@@ -433,7 +433,7 @@ class Drive : public Node
                         {
                             return;
                         }
-                        const bool *updating = std::get_if<bool>(&rebuilding);
+                        const bool* updating = std::get_if<bool>(&rebuilding);
                         if (updating == nullptr)
                         {
                             BMCWEB_LOG_DEBUG << "Illegal property present";
@@ -457,7 +457,7 @@ class Drive : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
             "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char *, 1>{
+            std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Drive"});
     }
 };

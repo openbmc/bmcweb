@@ -22,7 +22,7 @@ TEST(AstJpegDecoder, AllBlue)
 
     // This binary blog was created on the aspeed hardware using a blue screen
     // consisting of the color 0x8EFFFA in a web browser window
-    FILE *fp = fopen("test_resources/aspeedbluescreen.bin", "rb");
+    FILE* fp = fopen("test_resources/aspeedbluescreen.bin", "rb");
     EXPECT_NE(fp, nullptr);
     size_t bufferlen =
         fread(out.buffer.data(), sizeof(decltype(out.buffer)::value_type),
@@ -47,7 +47,7 @@ TEST(AstJpegDecoder, AllBlue)
     // compression artifacts and quanitization)
     for (int i = 0; i < out.width * out.height; i++)
     {
-        ast_video::RGB &pixel = d.outBuffer[i];
+        ast_video::RGB& pixel = d.outBuffer[i];
         EXPECT_GT(pixel.r, 0x8E - tolerance);
         EXPECT_LT(pixel.r, 0x8E + tolerance);
         EXPECT_GT(pixel.g, 0xFF - tolerance);
@@ -62,7 +62,7 @@ TEST(AstJpegDecoder, AllBlack)
     ast_video::RawVideoBuffer out;
 
     // This binary blog was created on the aspeed hardware using a black screen
-    FILE *fp = fopen("test_resources/aspeedblackscreen.bin", "rb");
+    FILE* fp = fopen("test_resources/aspeedblackscreen.bin", "rb");
     EXPECT_NE(fp, nullptr);
     size_t bufferlen = fread(out.buffer.data(), sizeof(char),
                              out.buffer.size() * sizeof(long), fp);
@@ -100,7 +100,7 @@ TEST(AstJpegDecoder, TestColors)
 
     // This binary blog was created on the aspeed hardware using a blue screen
     // consisting of the color 0x8EFFFA in a web browser window
-    FILE *fp = fopen("test_resources/ubuntu_444_800x600_0chrom_0lum.bin", "rb");
+    FILE* fp = fopen("test_resources/ubuntu_444_800x600_0chrom_0lum.bin", "rb");
     EXPECT_NE(fp, nullptr);
     size_t bufferlen = fread(out.buffer.data(), sizeof(char),
                              out.buffer.size() * sizeof(long), fp);
@@ -138,7 +138,7 @@ TEST(AstJpegDecoder, BufferLimits)
     ast_video::RawVideoBuffer out;
 
     // This binary blog was created on the aspeed hardware using a black screen
-    FILE *fp = fopen("test_resources/aspeedblackscreen.bin", "rb");
+    FILE* fp = fopen("test_resources/aspeedblackscreen.bin", "rb");
     EXPECT_NE(fp, nullptr);
     size_t bufferlen = fread(out.buffer.data(), sizeof(char),
                              out.buffer.size() * sizeof(long), fp);
@@ -156,7 +156,7 @@ TEST(AstJpegDecoder, BufferLimits)
     d.decode(out.buffer, out.width, out.height, out.mode, out.ySelector,
              out.uvSelector);
     // reserved pixel should be default value
-    for (auto &pixel : d.outBuffer)
+    for (auto& pixel : d.outBuffer)
     {
         EXPECT_EQ(pixel.reserved, 0xAA);
     }

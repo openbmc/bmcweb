@@ -22,13 +22,14 @@
 #include <sys/inotify.h>
 
 #include <boost/container/flat_map.hpp>
+#include <error_messages.hpp>
+#include <http_client.hpp>
+#include <utils/json_utils.hpp>
+
 #include <cstdlib>
 #include <ctime>
-#include <error_messages.hpp>
 #include <fstream>
-#include <http_client.hpp>
 #include <memory>
-#include <utils/json_utils.hpp>
 #include <variant>
 
 namespace redfish
@@ -291,8 +292,7 @@ class Subscription
             crow::connections::systemBus->get_io_context(), host, port, path);
     }
     ~Subscription()
-    {
-    }
+    {}
 
     void sendEvent(const std::string& msg)
     {

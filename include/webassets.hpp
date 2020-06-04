@@ -7,6 +7,7 @@
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/container/flat_set.hpp>
+
 #include <filesystem>
 #include <fstream>
 #include <string>
@@ -28,7 +29,8 @@ struct CmpStr
 
 static boost::container::flat_set<std::string> routes;
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+template <typename... Middlewares>
+void requestRoutes(Crow<Middlewares...>& app)
 {
     const static boost::container::flat_map<const char*, const char*, CmpStr>
         contentTypes{

@@ -1,7 +1,7 @@
 #pragma once
-#include <boost/algorithm/string.hpp>
-
 #include "http_request.h"
+
+#include <boost/algorithm/string.hpp>
 
 namespace http_helpers
 {

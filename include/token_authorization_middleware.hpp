@@ -8,8 +8,9 @@
 #include <boost/container/flat_set.hpp>
 #include <pam_authenticate.hpp>
 #include <persistent_data_middleware.hpp>
-#include <random>
 #include <webassets.hpp>
+
+#include <random>
 
 namespace crow
 {
@@ -21,8 +22,7 @@ class Middleware
 {
   public:
     struct Context
-    {
-    };
+    {};
 
     void beforeHandle(crow::Request& req, Response& res, Context& ctx)
     {
@@ -282,7 +282,8 @@ class Middleware
 // TODO(ed) see if there is a better way to allow middlewares to request
 // routes.
 // Possibly an init function on first construction?
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+template <typename... Middlewares>
+void requestRoutes(Crow<Middlewares...>& app)
 {
     static_assert(
         black_magic::Contains<persistent_data::Middleware,
