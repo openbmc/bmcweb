@@ -20,6 +20,7 @@
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <utils/json_utils.hpp>
+
 #include <variant>
 
 namespace redfish

@@ -29,8 +29,8 @@ using InterfacesProperties = boost::container::flat_map<
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
 void getResourceList(std::shared_ptr<AsyncResp> aResp,
-                     const std::string &subclass,
-                     const std::vector<const char *> &collectionName)
+                     const std::string& subclass,
+                     const std::vector<const char*>& collectionName)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu/mem resources.";
     crow::connections::systemBus->async_method_call(
@@ -38,18 +38,18 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>
-                &subtree) {
+                                 std::string, std::vector<std::string>>>&
+                subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
                 messages::internalError(aResp->res);
                 return;
             }
-            nlohmann::json &members = aResp->res.jsonValue["Members"];
+            nlohmann::json& members = aResp->res.jsonValue["Members"];
             members = nlohmann::json::array();
 
-            for (const auto &object : subtree)
+            for (const auto& object : subtree)
             {
                 auto iter = object.first.rfind("/");
                 if ((iter != std::string::npos) && (iter < object.first.size()))
@@ -69,19 +69,19 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
 }
 
 void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
-                           const InterfacesProperties &cpuInterfacesProperties)
+                           const InterfacesProperties& cpuInterfacesProperties)
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
 
-    const bool *present = nullptr;
-    const bool *functional = nullptr;
-    for (const auto &interface : cpuInterfacesProperties)
+    const bool* present = nullptr;
+    const bool* functional = nullptr;
+    for (const auto& interface : cpuInterfacesProperties)
     {
-        for (const auto &property : interface.second)
+        for (const auto& property : interface.second)
         {
             if (property.first == "ProcessorCoreCount")
             {
-                const uint16_t *coresCount =
+                const uint16_t* coresCount =
                     std::get_if<uint16_t>(&property.second);
                 if (coresCount == nullptr)
                 {
@@ -106,7 +106,7 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
             }
             else if (property.first == "Manufacturer")
             {
-                const std::string *value =
+                const std::string* value =
                     std::get_if<std::string>(&property.second);
                 if (value != nullptr)
                 {
@@ -134,7 +134,7 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
             }
             else if (property.first == "Model")
             {
-                const std::string *value =
+                const std::string* value =
                     std::get_if<std::string>(&property.second);
                 if (value != nullptr)
                 {
@@ -193,15 +193,15 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
 }
 
 void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
-                         const std::string &cpuId, const std::string &service,
-                         const std::string &objPath)
+                         const std::string& cpuId, const std::string& service,
+                         const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
 
     crow::connections::systemBus->async_method_call(
         [cpuId, service, objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const dbus::utility::ManagedObjectType &dbusData) {
+            const dbus::utility::ManagedObjectType& dbusData) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -214,7 +214,7 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
 
             std::string corePath = objPath + "/core";
             size_t totalCores = 0;
-            for (const auto &object : dbusData)
+            for (const auto& object : dbusData)
             {
                 if (object.first.str == objPath)
                 {
@@ -222,16 +222,16 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
                 else if (boost::starts_with(object.first.str, corePath))
                 {
-                    for (const auto &interface : object.second)
+                    for (const auto& interface : object.second)
                     {
                         if (interface.first ==
                             "xyz.openbmc_project.Inventory.Item")
                         {
-                            for (const auto &property : interface.second)
+                            for (const auto& property : interface.second)
                             {
                                 if (property.first == "Present")
                                 {
-                                    const bool *present =
+                                    const bool* present =
                                         std::get_if<bool>(&property.second);
                                     if (present != nullptr)
                                     {
@@ -263,9 +263,9 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
 }
 
 void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
-                                 const std::string &acclrtrId,
-                                 const std::string &service,
-                                 const std::string &objPath)
+                                 const std::string& acclrtrId,
+                                 const std::string& service,
+                                 const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
@@ -274,7 +274,7 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, std::variant<std::string, uint32_t, uint16_t,
-                                          bool>> &properties) {
+                                          bool>>& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -283,11 +283,11 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
             }
             aResp->res.jsonValue["Id"] = acclrtrId;
             aResp->res.jsonValue["Name"] = "Processor";
-            const bool *accPresent = nullptr;
-            const bool *accFunctional = nullptr;
+            const bool* accPresent = nullptr;
+            const bool* accFunctional = nullptr;
             std::string state = "";
 
-            for (const auto &property : properties)
+            for (const auto& property : properties)
             {
                 if (property.first == "Functional")
                 {
@@ -326,8 +326,8 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId,
-                const std::vector<const char *> inventoryItems)
+void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId,
+                const std::vector<const char*> inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources.";
 
@@ -336,21 +336,21 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId,
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>
-                &subtree) {
+                                 std::string, std::vector<std::string>>>&
+                subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
                 messages::internalError(aResp->res);
                 return;
             }
-            for (const auto &object : subtree)
+            for (const auto& object : subtree)
             {
                 if (boost::ends_with(object.first, cpuId))
                 {
-                    for (const auto &service : object.second)
+                    for (const auto& service : object.second)
                     {
-                        for (const auto &inventory : service.second)
+                        for (const auto& inventory : service.second)
                             if (inventory ==
                                 "xyz.openbmc_project.Inventory.Item.Cpu")
                             {
@@ -378,8 +378,8 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId,
 }
 
 void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
-                          const std::string &dimmId, const std::string &service,
-                          const std::string &objPath)
+                          const std::string& dimmId, const std::string& service,
+                          const std::string& objPath)
 {
     auto health = std::make_shared<HealthPopulate>(aResp);
     health->selfPath = objPath;
@@ -390,8 +390,8 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t>>
-                &properties) {
+                std::string, std::variant<std::string, uint32_t, uint16_t>>&
+                properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -405,7 +405,7 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
             const auto memorySizeProperty = properties.find("MemorySizeInKB");
             if (memorySizeProperty != properties.end())
             {
-                const uint32_t *memorySize =
+                const uint32_t* memorySize =
                     std::get_if<uint32_t>(&memorySizeProperty->second);
                 if (memorySize == nullptr)
                 {
@@ -427,7 +427,7 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
 
-            for (const auto &property : properties)
+            for (const auto& property : properties)
             {
                 if (property.first == "MemoryDataWidth")
                 {
@@ -447,7 +447,7 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
                 else if (property.first == "MemoryType")
                 {
-                    const auto *value =
+                    const auto* value =
                         std::get_if<std::string>(&property.second);
                     if (value != nullptr)
                     {
@@ -463,7 +463,7 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
+void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
     crow::connections::systemBus->async_method_call(
@@ -471,8 +471,8 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>
-                &subtree) {
+                                 std::string, std::vector<std::string>>>&
+                subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -480,11 +480,11 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
 
                 return;
             }
-            for (const auto &object : subtree)
+            for (const auto& object : subtree)
             {
                 if (boost::ends_with(object.first, dimmId))
                 {
-                    for (const auto &service : object.second)
+                    for (const auto& service : object.second)
                     {
                         getDimmDataByService(aResp, dimmId, service.first,
                                              object.first);
@@ -500,7 +500,7 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char *, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
 }
 
 class ProcessorCollection : public Node
@@ -509,7 +509,7 @@ class ProcessorCollection : public Node
     /*
      * Default Constructor
      */
-    ProcessorCollection(CrowApp &app) :
+    ProcessorCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Processors/")
     {
         entityPrivileges = {
@@ -525,8 +525,8 @@ class ProcessorCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] =
             "#ProcessorCollection.ProcessorCollection";
@@ -547,7 +547,7 @@ class Processor : public Node
     /*
      * Default Constructor
      */
-    Processor(CrowApp &app) :
+    Processor(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Processors/<str>/", std::string())
     {
         entityPrivileges = {
@@ -563,8 +563,8 @@ class Processor : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
         // impossible
@@ -575,7 +575,7 @@ class Processor : public Node
             res.end();
             return;
         }
-        const std::string &processorId = params[0];
+        const std::string& processorId = params[0];
         res.jsonValue["@odata.type"] = "#Processor.v1_7_0.Processor";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
@@ -594,7 +594,7 @@ class MemoryCollection : public Node
     /*
      * Default Constructor
      */
-    MemoryCollection(CrowApp &app) :
+    MemoryCollection(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Memory/")
     {
         entityPrivileges = {
@@ -610,8 +610,8 @@ class MemoryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
         res.jsonValue["Name"] = "Memory Module Collection";
@@ -629,7 +629,7 @@ class Memory : public Node
     /*
      * Default Constructor
      */
-    Memory(CrowApp &app) :
+    Memory(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/Memory/<str>/", std::string())
     {
         entityPrivileges = {
@@ -645,8 +645,8 @@ class Memory : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
         // impossible
@@ -656,7 +656,7 @@ class Memory : public Node
             res.end();
             return;
         }
-        const std::string &dimmId = params[0];
+        const std::string& dimmId = params[0];
 
         res.jsonValue["@odata.type"] = "#Memory.v1_6_0.Memory";
         res.jsonValue["@odata.id"] =

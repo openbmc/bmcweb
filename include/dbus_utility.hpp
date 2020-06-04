@@ -15,8 +15,9 @@
  */
 #pragma once
 
-#include <regex>
 #include <sdbusplus/message.hpp>
+
+#include <regex>
 
 namespace dbus
 {

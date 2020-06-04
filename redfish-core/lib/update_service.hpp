@@ -19,6 +19,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
+
 #include <variant>
 
 namespace redfish
@@ -36,8 +37,8 @@ static void cleanUp()
     fwUpdateInProgress = false;
     fwUpdateMatcher = nullptr;
 }
-static void activateImage(const std::string &objPath,
-                          const std::string &service)
+static void activateImage(const std::string& objPath,
+                          const std::string& service)
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
     crow::connections::systemBus->async_method_call(
@@ -58,8 +59,8 @@ static void activateImage(const std::string &objPath,
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
-                                   sdbusplus::message::message &m,
-                                   const crow::Request &req)
+                                   sdbusplus::message::message& m,
+                                   const crow::Request& req)
 {
     std::vector<std::pair<
         std::string,
@@ -71,7 +72,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
     m.read(objPath, interfacesProperties);
 
     BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
-    for (auto &interface : interfacesProperties)
+    for (auto& interface : interfacesProperties)
     {
         BMCWEB_LOG_DEBUG << "interface = " << interface.first;
 
@@ -85,7 +86,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                 [objPath, asyncResp,
                  req](const boost::system::error_code error_code,
                       const std::vector<std::pair<
-                          std::string, std::vector<std::string>>> &objInfo) {
+                          std::string, std::vector<std::string>>>& objInfo) {
                     if (error_code)
                     {
                         BMCWEB_LOG_DEBUG << "error_code = " << error_code;
@@ -121,9 +122,9 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                         std::shared_ptr<task::TaskData> task =
                             task::TaskData::createTask(
                                 [](boost::system::error_code ec,
-                                   sdbusplus::message::message &msg,
-                                   const std::shared_ptr<task::TaskData>
-                                       &taskData) {
+                                   sdbusplus::message::message& msg,
+                                   const std::shared_ptr<task::TaskData>&
+                                       taskData) {
                                     if (ec)
                                     {
                                         return task::completed;
@@ -148,7 +149,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                         {
                                             return !task::completed;
                                         }
-                                        std::string *state =
+                                        std::string* state =
                                             std::get_if<std::string>(
                                                 &(findActivation->second));
 
@@ -205,7 +206,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                         {
                                             return !task::completed;
                                         }
-                                        uint8_t *progress =
+                                        uint8_t* progress =
                                             std::get_if<uint8_t>(
                                                 &(findProgress->second));
 
@@ -245,7 +246,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetObject", objPath.str,
-                std::array<const char *, 1>{
+                std::array<const char*, 1>{
                     "xyz.openbmc_project.Software.Activation"});
         }
     }
@@ -254,7 +255,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
-                                        const crow::Request &req,
+                                        const crow::Request& req,
                                         int timeoutTimeSeconds = 5)
 {
     // Only allow one FW update at a time
@@ -273,7 +274,7 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
     fwAvailableTimer->expires_after(std::chrono::seconds(timeoutTimeSeconds));
 
     fwAvailableTimer->async_wait(
-        [asyncResp](const boost::system::error_code &ec) {
+        [asyncResp](const boost::system::error_code& ec) {
             cleanUp();
             if (ec == boost::asio::error::operation_aborted)
             {
@@ -295,7 +296,7 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
             }
         });
 
-    auto callback = [asyncResp, req](sdbusplus::message::message &m) {
+    auto callback = [asyncResp, req](sdbusplus::message::message& m) {
         BMCWEB_LOG_DEBUG << "Match fired";
         softwareInterfaceAdded(asyncResp, m, req);
     };
@@ -316,7 +317,7 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
 class UpdateServiceActionsSimpleUpdate : public Node
 {
   public:
-    UpdateServiceActionsSimpleUpdate(CrowApp &app) :
+    UpdateServiceActionsSimpleUpdate(CrowApp& app) :
         Node(app,
              "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
     {
@@ -330,8 +331,8 @@ class UpdateServiceActionsSimpleUpdate : public Node
     }
 
   private:
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         std::optional<std::string> transferProtocol;
         std::string imageURI;
@@ -443,7 +444,7 @@ class UpdateServiceActionsSimpleUpdate : public Node
 class UpdateService : public Node
 {
   public:
-    UpdateService(CrowApp &app) : Node(app, "/redfish/v1/UpdateService/")
+    UpdateService(CrowApp& app) : Node(app, "/redfish/v1/UpdateService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -455,8 +456,8 @@ class UpdateService : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
@@ -471,7 +472,7 @@ class UpdateService : public Node
             {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         // Update Actions object.
-        nlohmann::json &updateSvcSimpleUpdate =
+        nlohmann::json& updateSvcSimpleUpdate =
             res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
         updateSvcSimpleUpdate["target"] =
             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
@@ -481,7 +482,7 @@ class UpdateService : public Node
         // Get the current ApplyTime value
         crow::connections::systemBus->async_method_call(
             [aResp](const boost::system::error_code ec,
-                    const std::variant<std::string> &applyTime) {
+                    const std::variant<std::string>& applyTime) {
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -489,7 +490,7 @@ class UpdateService : public Node
                     return;
                 }
 
-                const std::string *s = std::get_if<std::string>(&applyTime);
+                const std::string* s = std::get_if<std::string>(&applyTime);
                 if (s == nullptr)
                 {
                     return;
@@ -516,8 +517,8 @@ class UpdateService : public Node
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
     }
 
-    void doPatch(crow::Response &res, const crow::Request &req,
-                 const std::vector<std::string> &params) override
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "doPatch...";
 
@@ -596,8 +597,8 @@ class UpdateService : public Node
         }
     }
 
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "doPost...";
 
@@ -622,7 +623,7 @@ class SoftwareInventoryCollection : public Node
 {
   public:
     template <typename CrowApp>
-    SoftwareInventoryCollection(CrowApp &app) :
+    SoftwareInventoryCollection(CrowApp& app) :
         Node(app, "/redfish/v1/UpdateService/FirmwareInventory/")
     {
         entityPrivileges = {
@@ -635,8 +636,8 @@ class SoftwareInventoryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
@@ -650,8 +651,8 @@ class SoftwareInventoryCollection : public Node
                 const boost::system::error_code ec,
                 const std::vector<std::pair<
                     std::string, std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>>
-                    &subtree) {
+                                     std::string, std::vector<std::string>>>>>&
+                    subtree) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -660,7 +661,7 @@ class SoftwareInventoryCollection : public Node
                 asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
                 asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-                for (auto &obj : subtree)
+                for (auto& obj : subtree)
                 {
                     // if can't parse fw id then return
                     std::size_t idPos;
@@ -672,7 +673,7 @@ class SoftwareInventoryCollection : public Node
                     }
                     std::string swId = obj.first.substr(idPos + 1);
 
-                    nlohmann::json &members =
+                    nlohmann::json& members =
                         asyncResp->res.jsonValue["Members"];
                     members.push_back(
                         {{"@odata.id", "/redfish/v1/UpdateService/"
@@ -690,8 +691,7 @@ class SoftwareInventoryCollection : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
             "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Software.Version"});
+            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
     }
 };
 
@@ -699,7 +699,7 @@ class SoftwareInventory : public Node
 {
   public:
     template <typename CrowApp>
-    SoftwareInventory(CrowApp &app) :
+    SoftwareInventory(CrowApp& app) :
         Node(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
              std::string())
     {
@@ -715,17 +715,17 @@ class SoftwareInventory : public Node
   private:
     /* Fill related item links (i.e. bmc, bios) in for inventory */
     static void getRelatedItems(std::shared_ptr<AsyncResp> aResp,
-                                const std::string &purpose)
+                                const std::string& purpose)
     {
         if (purpose == fw_util::bmcPurpose)
         {
-            nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
+            nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
             members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
             aResp->res.jsonValue["Members@odata.count"] = members.size();
         }
         else if (purpose == fw_util::biosPurpose)
         {
-            nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
+            nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
             members.push_back(
                 {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
             aResp->res.jsonValue["Members@odata.count"] = members.size();
@@ -736,8 +736,8 @@ class SoftwareInventory : public Node
         }
     }
 
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -759,8 +759,8 @@ class SoftwareInventory : public Node
                 const boost::system::error_code ec,
                 const std::vector<std::pair<
                     std::string, std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>>
-                    &subtree) {
+                                     std::string, std::vector<std::string>>>>>&
+                    subtree) {
                 BMCWEB_LOG_DEBUG << "doGet callback...";
                 if (ec)
                 {
@@ -773,8 +773,8 @@ class SoftwareInventory : public Node
                 for (const std::pair<
                          std::string,
                          std::vector<
-                             std::pair<std::string, std::vector<std::string>>>>
-                         &obj : subtree)
+                             std::pair<std::string, std::vector<std::string>>>>&
+                         obj : subtree)
                 {
                     if (boost::ends_with(obj.first, *swId) != true)
                     {
@@ -793,7 +793,7 @@ class SoftwareInventory : public Node
                         [asyncResp,
                          swId](const boost::system::error_code error_code,
                                const boost::container::flat_map<
-                                   std::string, VariantType> &propertiesList) {
+                                   std::string, VariantType>& propertiesList) {
                             if (error_code)
                             {
                                 messages::internalError(asyncResp->res);
@@ -810,7 +810,7 @@ class SoftwareInventory : public Node
                                                           "Purpose");
                                 return;
                             }
-                            const std::string *swInvPurpose =
+                            const std::string* swInvPurpose =
                                 std::get_if<std::string>(&it->second);
                             if (swInvPurpose == nullptr)
                             {
@@ -835,7 +835,7 @@ class SoftwareInventory : public Node
 
                             BMCWEB_LOG_DEBUG << "Version found!";
 
-                            const std::string *version =
+                            const std::string* version =
                                 std::get_if<std::string>(&it->second);
 
                             if (version == nullptr)
@@ -896,8 +896,7 @@ class SoftwareInventory : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
             static_cast<int32_t>(0),
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Software.Version"});
+            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
     }
 };
 

@@ -1,11 +1,12 @@
 #pragma once
+#include "http_request.h"
+#include "logging.h"
+
 #include "nlohmann/json.hpp"
 
 #include <boost/beast/http.hpp>
-#include <string>
 
-#include "http_request.h"
-#include "logging.h"
+#include <string>
 
 namespace crow
 {
@@ -35,8 +36,7 @@ struct Response
     }
 
     Response() : stringResponse(response_type{})
-    {
-    }
+    {}
 
     Response(Response&& r)
     {

@@ -1,13 +1,13 @@
 #pragma once
 
+#include "common.h"
+#include "query_string.h"
+
 #include "sessions.hpp"
 
 #include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
-
-#include "common.h"
-#include "query_string.h"
 
 #if BOOST_VERSION >= 107000
 #include <boost/beast/ssl/ssl_stream.hpp>
@@ -45,8 +45,7 @@ struct Request
         boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
         req(reqIn),
         fields(reqIn.base()), body(reqIn.body())
-    {
-    }
+    {}
 
     boost::beast::http::verb method() const
     {

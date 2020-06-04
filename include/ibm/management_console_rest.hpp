@@ -6,13 +6,14 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <error_messages.hpp>
-#include <filesystem>
-#include <fstream>
 #include <ibm/locks.hpp>
 #include <nlohmann/json.hpp>
-#include <regex>
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
+
+#include <filesystem>
+#include <fstream>
+#include <regex>
 
 // Allow save area file size to 500KB
 #define MAX_SAVE_AREA_FILESIZE 500000
@@ -29,12 +30,12 @@ namespace crow
 {
 namespace ibm_mc
 {
-constexpr const char *methodNotAllowedMsg = "Method Not Allowed";
-constexpr const char *resourceNotFoundMsg = "Resource Not Found";
-constexpr const char *contentNotAcceptableMsg = "Content Not Acceptable";
-constexpr const char *internalServerError = "Internal Server Error";
+constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
+constexpr const char* resourceNotFoundMsg = "Resource Not Found";
+constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
+constexpr const char* internalServerError = "Internal Server Error";
 
-bool createSaveAreaPath(crow::Response &res)
+bool createSaveAreaPath(crow::Response& res)
 {
     // The path /var/lib/obmc will be created by initrdscripts
     // Create the directories for the save-area files, when we get
@@ -71,8 +72,8 @@ bool createSaveAreaPath(crow::Response &res)
     }
     return true;
 }
-void handleFilePut(const crow::Request &req, crow::Response &res,
-                   const std::string &fileID)
+void handleFilePut(const crow::Request& req, crow::Response& res,
+                   const std::string& fileID)
 {
     // Check the content-type of the request
     std::string_view contentType = req.getHeaderValue("content-type");
@@ -129,13 +130,13 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
     }
 }
 
-void handleConfigFileList(crow::Response &res)
+void handleConfigFileList(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
-        for (const auto &file : std::filesystem::directory_iterator(loc))
+        for (const auto& file : std::filesystem::directory_iterator(loc))
         {
             std::filesystem::path pathObj(file.path());
             pathObjList.push_back("/ibm/v1/Host/ConfigFiles/" +
@@ -154,7 +155,7 @@ void handleConfigFileList(crow::Response &res)
     res.end();
 }
 
-void deleteConfigFiles(crow::Response &res)
+void deleteConfigFiles(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
     std::error_code ec;
@@ -174,7 +175,7 @@ void deleteConfigFiles(crow::Response &res)
     res.end();
 }
 
-void getLockServiceData(crow::Response &res)
+void getLockServiceData(crow::Response& res)
 {
     res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
     res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
@@ -190,7 +191,7 @@ void getLockServiceData(crow::Response &res)
     res.end();
 }
 
-void handleFileGet(crow::Response &res, const std::string &fileID)
+void handleFileGet(crow::Response& res, const std::string& fileID)
 {
     BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: " << fileID;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/" +
@@ -222,7 +223,7 @@ void handleFileGet(crow::Response &res, const std::string &fileID)
     return;
 }
 
-void handleFileDelete(crow::Response &res, const std::string &fileID)
+void handleFileDelete(crow::Response& res, const std::string& fileID)
 {
     std::string filePath("/var/lib/obmc/bmc-console-mgmt/save-area/" + fileID);
     BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
@@ -249,8 +250,8 @@ void handleFileDelete(crow::Response &res, const std::string &fileID)
     return;
 }
 
-inline void handleFileUrl(const crow::Request &req, crow::Response &res,
-                          const std::string &fileID)
+inline void handleFileUrl(const crow::Request& req, crow::Response& res,
+                          const std::string& fileID)
 {
     if (req.method() == "PUT"_method)
     {
@@ -272,11 +273,11 @@ inline void handleFileUrl(const crow::Request &req, crow::Response &res,
     }
 }
 
-void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
+void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
                           std::vector<nlohmann::json> body)
 {
     LockRequests lockRequestStructure;
-    for (auto &element : body)
+    for (auto& element : body)
     {
         std::string lockType;
         uint64_t resourceId;
@@ -298,7 +299,7 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
 
         BMCWEB_LOG_DEBUG << "Segment Flags are present";
 
-        for (auto &e : segmentFlags)
+        for (auto& e : segmentFlags)
         {
             std::string lockFlags;
             uint32_t segmentLength;
@@ -329,13 +330,13 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
         BMCWEB_LOG_DEBUG << std::get<2>(lockRequestStructure[i]);
         BMCWEB_LOG_DEBUG << std::get<3>(lockRequestStructure[i]);
 
-        for (const auto &p : std::get<4>(lockRequestStructure[i]))
+        for (const auto& p : std::get<4>(lockRequestStructure[i]))
         {
             BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
         }
     }
 
-    const LockRequests &t = lockRequestStructure;
+    const LockRequests& t = lockRequestStructure;
 
     auto varAcquireLock = crow::ibm_mc_lock::Lock::getInstance().acquireLock(t);
 
@@ -407,7 +408,7 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
         }
     }
 }
-void handleRelaseAllAPI(const crow::Request &req, crow::Response &res)
+void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
 {
     crow::ibm_mc_lock::Lock::getInstance().releaseLock(req.session->uniqueId);
     res.result(boost::beast::http::status::ok);
@@ -415,8 +416,8 @@ void handleRelaseAllAPI(const crow::Request &req, crow::Response &res)
     return;
 }
 
-void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
-                          const std::vector<uint32_t> &listTransactionIds)
+void handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
+                          const std::vector<uint32_t>& listTransactionIds)
 {
     BMCWEB_LOG_DEBUG << listTransactionIds.size();
     BMCWEB_LOG_DEBUG << "Data is present";
@@ -483,8 +484,8 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     }
 }
 
-void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
-                          const ListOfSessionIds &listSessionIds)
+void handleGetLockListAPI(const crow::Request& req, crow::Response& res,
+                          const ListOfSessionIds& listSessionIds)
 {
     BMCWEB_LOG_DEBUG << listSessionIds.size();
 
@@ -494,9 +495,9 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
 
     nlohmann::json lockRecords = nlohmann::json::array();
 
-    for (const auto &transactionId : var)
+    for (const auto& transactionId : var)
     {
-        for (const auto &lockRecord : transactionId.second)
+        for (const auto& lockRecord : transactionId.second)
         {
             nlohmann::json returnJson;
 
@@ -509,7 +510,7 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
             nlohmann::json segments;
             nlohmann::json segmentInfoArray = nlohmann::json::array();
 
-            for (const auto &segment : std::get<4>(lockRecord))
+            for (const auto& segment : std::get<4>(lockRecord))
             {
                 segments["LockFlag"] = segment.first;
                 segments["SegmentLength"] = segment.second;
@@ -525,14 +526,15 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
     res.end();
 }
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
+template <typename... Middlewares>
+void requestRoutes(Crow<Middlewares...>& app)
 {
 
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("GET"_method)(
-            [](const crow::Request &req, crow::Response &res) {
+            [](const crow::Request& req, crow::Response& res) {
                 res.jsonValue["@odata.type"] =
                     "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
                 res.jsonValue["@odata.id"] = "/ibm/v1/";
@@ -548,7 +550,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("GET"_method)(
-            [](const crow::Request &req, crow::Response &res) {
+            [](const crow::Request& req, crow::Response& res) {
                 handleConfigFileList(res);
             });
 
@@ -556,27 +558,27 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                  "/ibm/v1/Host/ConfigFiles/Actions/FileCollection.DeleteAll")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
-            [](const crow::Request &req, crow::Response &res) {
+            [](const crow::Request& req, crow::Response& res) {
                 deleteConfigFiles(res);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("PUT"_method, "GET"_method, "DELETE"_method)(
-            [](const crow::Request &req, crow::Response &res,
-               const std::string &path) { handleFileUrl(req, res, path); });
+            [](const crow::Request& req, crow::Response& res,
+               const std::string& path) { handleFileUrl(req, res, path); });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("GET"_method)(
-            [](const crow::Request &req, crow::Response &res) {
+            [](const crow::Request& req, crow::Response& res) {
                 getLockServiceData(res);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
-            [](const crow::Request &req, crow::Response &res) {
+            [](const crow::Request& req, crow::Response& res) {
                 std::vector<nlohmann::json> body;
                 if (!redfish::json_util::readJson(req, res, "Request", body))
                 {
@@ -590,7 +592,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods(
-            "POST"_method)([](const crow::Request &req, crow::Response &res) {
+            "POST"_method)([](const crow::Request& req, crow::Response& res) {
             std::string type;
             std::vector<uint32_t> listTransactionIds;
 
@@ -620,7 +622,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
-            [](const crow::Request &req, crow::Response &res) {
+            [](const crow::Request& req, crow::Response& res) {
                 ListOfSessionIds listSessionIds;
 
                 if (!redfish::json_util::readJson(req, res, "SessionIDs",

@@ -5,8 +5,9 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <cstdio>
 #include <dbus_singleton.hpp>
+
+#include <cstdio>
 #include <fstream>
 #include <memory>
 
@@ -108,7 +109,8 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
     timeout.async_wait(timeoutHandler);
 }
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+template <typename... Middlewares>
+void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/upload/image/<str>")
         .requires({"ConfigureComponents", "ConfigureManager"})

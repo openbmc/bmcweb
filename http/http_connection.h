@@ -3,28 +3,31 @@
 
 #include "http_utility.hpp"
 
-#include <atomic>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
+
+#include <atomic>
 #if BOOST_VERSION >= 107000
 #include <boost/beast/ssl/ssl_stream.hpp>
 #else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
 #endif
-#include <boost/beast/http.hpp>
-#include <boost/beast/websocket.hpp>
-#include <chrono>
-#include <vector>
-
 #include "http_response.h"
 #include "logging.h"
 #include "middleware_context.h"
 #include "timer_queue.h"
 #include "utility.h"
+
+#include <boost/beast/http.hpp>
+#include <boost/beast/websocket.hpp>
+#include <ssl_key_handler.hpp>
+
+#include <chrono>
+#include <vector>
 
 namespace crow
 {
@@ -64,45 +67,46 @@ using tcp = asio::ip::tcp;
 
 namespace detail
 {
-template <typename MW> struct CheckBeforeHandleArity3Const
+template <typename MW>
+struct CheckBeforeHandleArity3Const
 {
     template <typename T,
               void (T::*)(Request&, Response&, typename MW::Context&) const =
                   &T::beforeHandle>
     struct Get
-    {
-    };
+    {};
 };
 
-template <typename MW> struct CheckBeforeHandleArity3
+template <typename MW>
+struct CheckBeforeHandleArity3
 {
     template <typename T, void (T::*)(Request&, Response&,
                                       typename MW::Context&) = &T::beforeHandle>
     struct Get
-    {
-    };
+    {};
 };
 
-template <typename MW> struct CheckAfterHandleArity3Const
+template <typename MW>
+struct CheckAfterHandleArity3Const
 {
     template <typename T,
               void (T::*)(Request&, Response&, typename MW::Context&) const =
                   &T::afterHandle>
     struct Get
-    {
-    };
+    {};
 };
 
-template <typename MW> struct CheckAfterHandleArity3
+template <typename MW>
+struct CheckAfterHandleArity3
 {
     template <typename T, void (T::*)(Request&, Response&,
                                       typename MW::Context&) = &T::afterHandle>
     struct Get
-    {
-    };
+    {};
 };
 
-template <typename T> struct IsBeforeHandleArity3Impl
+template <typename T>
+struct IsBeforeHandleArity3Impl
 {
     template <typename C>
     static std::true_type
@@ -112,13 +116,15 @@ template <typename T> struct IsBeforeHandleArity3Impl
     static std::true_type
         f(typename CheckBeforeHandleArity3<T>::template Get<C>*);
 
-    template <typename C> static std::false_type f(...);
+    template <typename C>
+    static std::false_type f(...);
 
   public:
     static constexpr bool value = decltype(f<T>(nullptr))::value;
 };
 
-template <typename T> struct IsAfterHandleArity3Impl
+template <typename T>
+struct IsAfterHandleArity3Impl
 {
     template <typename C>
     static std::true_type
@@ -128,7 +134,8 @@ template <typename T> struct IsAfterHandleArity3Impl
     static std::true_type
         f(typename CheckAfterHandleArity3<T>::template Get<C>*);
 
-    template <typename C> static std::false_type f(...);
+    template <typename C>
+    static std::false_type f(...);
 
   public:
     static constexpr bool value = decltype(f<T>(nullptr))::value;
@@ -207,8 +214,7 @@ template <size_t N, typename Context, typename Container>
 typename std::enable_if<(N < 0)>::type
     afterHandlersCallHelper(Container& /*middlewares*/, Context& /*Context*/,
                             Request& /*req*/, Response& /*res*/)
-{
-}
+{}
 
 template <size_t N, typename Context, typename Container>
 typename std::enable_if<(N == 0)>::type
@@ -248,8 +254,9 @@ constexpr unsigned int httpReqBodyLimit =
     1024 * 1024 * BMCWEB_HTTP_REQ_BODY_LIMIT_MB;
 
 template <typename Adaptor, typename Handler, typename... Middlewares>
-class Connection : public std::enable_shared_from_this<
-                       Connection<Adaptor, Handler, Middlewares...>>
+class Connection :
+    public std::enable_shared_from_this<
+        Connection<Adaptor, Handler, Middlewares...>>
 {
   public:
     Connection(boost::asio::io_context& ioService, Handler* handlerIn,
