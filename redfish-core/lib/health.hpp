@@ -56,9 +56,11 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         for (const auto &[path, interfaces] : statuses)
         {
             bool isChild = false;
+            bool isSelf =
+                selfPath ? boost::starts_with(path.str, *selfPath) : false;
 
             // managers inventory is all the inventory, don't skip any
-            if (!isManagersHealth)
+            if (!isManagersHealth && !isSelf)
             {
 
                 // We only want to look at this association if either the path
@@ -133,12 +135,22 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             else if (boost::ends_with(path.str, "critical"))
             {
                 rollup = "Critical";
+                if (isSelf)
+                {
+                    health = "Critical";
+                    return;
+                }
             }
             else if (boost::ends_with(path.str, "warning"))
             {
                 if (rollup != "Critical")
                 {
                     rollup = "Warning";
+                }
+
+                if (isSelf)
+                {
+                    health = "Warning";
                 }
             }
         }
@@ -210,6 +222,10 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     // members and reduce dbus calls. As we hold a shared_ptr to them, they get
     // destroyed last, and they need not call populate()
     std::vector<std::shared_ptr<HealthPopulate>> children;
+
+    // self is used if health is for an individual items status, as this is the
+    // 'lowest most' item, the rollup will equal the health
+    std::optional<std::string> selfPath;
 
     std::vector<std::string> inventory;
     bool isManagersHealth = false;
