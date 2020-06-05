@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "health.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
@@ -379,6 +381,10 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                           const std::string &dimmId, const std::string &service,
                           const std::string &objPath)
 {
+    auto health = std::make_shared<HealthPopulate>(aResp);
+    health->selfPath = objPath;
+    health->populate();
+
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
         [dimmId, aResp{std::move(aResp)}](
