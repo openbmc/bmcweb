@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25c470b3_ea507959",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-06-05T04:54:18Z",
+      "side": 1,
+      "message": "Can we improve the commit message and explain what we are supporting currently with this commit ?\n\nmay be we should also explain here that we support only just one transaction at a time ? rather than the technical details of the commit ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "15d05786ed7d937b5f1a4c9864a52bec1e6f8f9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b229812_47d6aa93",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-06-05T04:54:18Z",
+      "side": 1,
+      "message": "As far as i know private key length of 2048 is better than 4096, is there any specific reason why were are choosing 4096 for this purpose?\n\nhttps://expeditedsecurity.com/blog/measuring-ssl-rsa-keys/\n\nabove link states why lot of websites like github still use 2048 ,even when 4096 gives better encryption.The RSA signs per second varies drastically when we switch over to 4096.",
+      "range": {
+        "startLine": 47,
+        "startChar": 34,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "15d05786ed7d937b5f1a4c9864a52bec1e6f8f9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
