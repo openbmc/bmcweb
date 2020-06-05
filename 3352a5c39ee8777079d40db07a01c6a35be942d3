@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4c4b858_167686f7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-06-05T17:41:21Z",
+      "side": 1,
+      "message": "I don\u0027t think this should have a doGet. A doPost only\n\nhttps://redfish.dmtf.org/schemas/UpdateService_v1.xml is only allowed at /redfish/v1/UpdateService and  \"MultipartHttpPushUri\" is a URI in UpdateService_v1 that allows a POST. \n\n\n\n                \"MultipartHttpPushUri\": {\n                    \"description\": \"The URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS push update to the Update Service.\",\n                    \"format\": \"uri-reference\",\n                    \"longDescription\": \"This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.\",\n                    \"readonly\": true,\n                    \"type\": \"string\",\n                    \"versionAdded\": \"v1_6_0\"\n                },",
+      "revId": "3352a5c39ee8777079d40db07a01c6a35be942d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee03df1d_4fd9fa76",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-06-05T17:41:21Z",
+      "side": 1,
+      "message": "If you leave this trace in, it should be more clear, e.g. \"doPost Multipart update\"",
+      "revId": "3352a5c39ee8777079d40db07a01c6a35be942d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a24a6d3_a2834fb6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-06-05T17:41:21Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 739,
+        "startChar": 22,
+        "endLine": 739,
+        "endChar": 28
+      },
+      "revId": "3352a5c39ee8777079d40db07a01c6a35be942d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
