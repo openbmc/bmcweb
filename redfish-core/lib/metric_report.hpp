@@ -85,7 +85,7 @@ class MetricReport : public Node
         }
 
         const std::string& id = params[0];
-        telemetry::getReport(asyncResp, id, schemaType, getReportProperties);
+        telemetry::getReport(asyncResp, id, schemaType, updateReportIfRequired);
     }
 
     using Readings =
@@ -140,6 +140,29 @@ class MetricReport : public Node
             },
             "xyz.openbmc_project.MonitoringService", reportPath,
             "xyz.openbmc_project.MonitoringService.Report");
+    }
+
+    static void
+        updateReportIfRequired(const std::shared_ptr<AsyncResp> asyncResp,
+                               const std::string& reportPath,
+                               const std::string& id)
+    {
+        telemetry::asyncGetProperty<std::string>(
+            [asyncResp, id, reportPath](const std::string& reportingType) {
+                if (reportingType == "OnRequest")
+                {
+                    telemetry::asyncUpdate(
+                        [asyncResp, reportPath, id] {
+                            getReportProperties(asyncResp, reportPath, id);
+                        },
+                        asyncResp, reportPath);
+                }
+                else
+                {
+                    getReportProperties(asyncResp, reportPath, id);
+                }
+            },
+            asyncResp, reportPath, "ReportingType");
     }
 
     static constexpr const char* schemaType =
