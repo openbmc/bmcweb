@@ -26,7 +26,7 @@ namespace redfish
 class TelemetryService : public Node
 {
   public:
-    TelemetryService(CrowApp& app) : Node(app, "/redfish/v1/TelemetryService/")
+    TelemetryService(App& app) : Node(app, "/redfish/v1/TelemetryService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -38,8 +38,8 @@ class TelemetryService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
             "#TelemetryService.v1_2_0.TelemetryService";
@@ -49,6 +49,8 @@ class TelemetryService : public Node
 
         res.jsonValue["LogService"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal";
+        res.jsonValue["MetricDefinitions"]["@odata.id"] =
+            "/redfish/v1/TelemetryService/MetricDefinitions";
         res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
         res.jsonValue["MetricReports"]["@odata.id"] =
