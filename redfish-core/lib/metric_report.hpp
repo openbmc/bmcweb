@@ -91,6 +91,9 @@ class MetricReport : public Node
     using Readings =
         std::vector<std::tuple<std::string, std::string, double, std::string>>;
     using MetricValues = std::vector<std::map<std::string, std::string>>;
+    using ReadingParameters = std::vector<
+        std::tuple<std::vector<sdbusplus::message::object_path>, std::string,
+                   std::string, std::string>>;
 
     static MetricValues toMetricValues(const Readings& readings)
     {
@@ -109,6 +112,49 @@ class MetricReport : public Node
         return metricValues;
     }
 
+    static void addMetricDefinition(nlohmann::json& metrics,
+                                    const ReadingParameters& params)
+    {
+        for (auto& metric : metrics)
+        {
+            if (!metric.contains("MetricId"))
+            {
+                continue;
+            }
+
+            auto& id = metric["MetricId"].get_ref<std::string&>();
+            auto param =
+                std::find_if(params.begin(), params.end(), [id](const auto& x) {
+                    return id == std::get<2>(x);
+                });
+            if (param == params.end())
+            {
+                continue;
+            }
+
+            auto& dbusPaths =
+                std::get<std::vector<sdbusplus::message::object_path>>(*param);
+            if (dbusPaths.size() > 1)
+            {
+                continue;
+            }
+
+            auto dbusPath = dbusPaths.begin();
+            for (size_t i = 0; i < sensors::dbus::paths.size(); i++)
+            {
+                if (dbusPath->str.find(sensors::dbus::paths[i]) ==
+                    std::string::npos)
+                {
+                    continue;
+                }
+                metric["MetricDefinition"]["@odata.id"] =
+                    telemetry::metricDefinitionUri +
+                    std::string(sensors::dbus::names[i]);
+                break;
+            }
+        }
+    }
+
     static void getReportProperties(const std::shared_ptr<AsyncResp> asyncResp,
                                     const std::string& reportPath,
                                     const std::string& id)
@@ -124,7 +170,8 @@ class MetricReport : public Node
             [asyncResp](
                 const boost::system::error_code ec,
                 const boost::container::flat_map<
-                    std::string, std::variant<Readings, std::string>>& ret) {
+                    std::string, std::variant<Readings, std::string,
+                                              ReadingParameters>>& ret) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -137,6 +184,22 @@ class MetricReport : public Node
                 json_util::assignIfPresent<Readings>(
                     ret, "Readings", asyncResp->res.jsonValue["MetricValues"],
                     toMetricValues);
+
+                auto found = ret.find("ReadingParameters");
+                if (found != ret.end())
+                {
+                    auto params =
+                        std::get_if<ReadingParameters>(&found->second);
+                    if (params)
+                    {
+                        auto& jsonValue = asyncResp->res.jsonValue;
+                        if (jsonValue.contains("MetricValues"))
+                        {
+                            addMetricDefinition(jsonValue["MetricValues"],
+                                                *params);
+                        }
+                    }
+                }
             },
             "xyz.openbmc_project.MonitoringService", reportPath,
             "xyz.openbmc_project.MonitoringService.Report");
