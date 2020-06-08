@@ -26,6 +26,8 @@ static constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 static constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
+static constexpr const char* monitoringService =
+    "xyz.openbmc_project.MonitoringService";
 static constexpr const char* reportInterface =
     "xyz.openbmc_project.MonitoringService.Report";
 static constexpr const char* telemetryPath =
@@ -66,9 +68,9 @@ static void getReport(const std::shared_ptr<AsyncResp>& asyncResp,
     const std::array<const char*, 1> interfaces = {reportInterface};
 
     dbus::utility::getSubTreePaths(
-        [asyncResp, id, schemaType,
-         callback](const boost::system::error_code ec,
-                   const std::vector<std::string>& reports) {
+        [asyncResp, id, schemaType, callback = std::move(callback)](
+            const boost::system::error_code ec,
+            const std::vector<std::string>& reports) {
             if (ec == boost::system::errc::no_such_file_or_directory)
             {
                 messages::resourceNotFound(asyncResp->res, schemaType, id);
