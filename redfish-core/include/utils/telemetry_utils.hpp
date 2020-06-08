@@ -25,12 +25,44 @@ namespace telemetry
 constexpr const char* service = "xyz.openbmc_project.MonitoringService";
 constexpr const char* reportInterface =
     "xyz.openbmc_project.MonitoringService.Report";
+constexpr const char* metricDefinitionUri =
+    "/redfish/v1/TelemetryService/MetricDefinitions/";
 constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
 constexpr const char* reportDir =
     "/xyz/openbmc_project/MonitoringService/Reports/TelemetryService/";
+
+inline void dbusPathsToMembers(const std::shared_ptr<AsyncResp>& asyncResp,
+                               const std::vector<std::string> dbusPaths,
+                               const std::string& uri)
+{
+    nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    members = nlohmann::json::array();
+
+    for (const std::string& path : dbusPaths)
+    {
+        std::size_t pos = path.rfind("/");
+        if (pos == std::string::npos)
+        {
+            BMCWEB_LOG_ERROR << "Failed to find '/' in " << path;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (path.size() <= (pos + 1))
+        {
+            BMCWEB_LOG_ERROR << "Failed to parse path " << path;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        members.push_back({{"@odata.id", uri + path.substr(pos + 1)}});
+    }
+
+    asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+}
 
 inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
                                 const std::string& uri)
@@ -53,29 +85,7 @@ inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
                 return;
             }
 
-            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
-
-            for (const std::string& path : reportPaths)
-            {
-                std::size_t pos = path.rfind("/");
-                if (pos == std::string::npos)
-                {
-                    BMCWEB_LOG_ERROR << "Failed to find '/' in " << path;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                if (path.size() <= (pos + 1))
-                {
-                    BMCWEB_LOG_ERROR << "Failed to parse path " << path;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                members.push_back({{"@odata.id", uri + path.substr(pos + 1)}});
-            }
-
-            asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+            dbusPathsToMembers(asyncResp, reportPaths, uri);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
