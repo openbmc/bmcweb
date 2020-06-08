@@ -1,0 +1,12 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Jozef Wludzik <jozef.wludzik@intel.com>
+Code-Review+1: Karol Wachowski <karol.wachowski@intel.com>
+Code-Review+1: Krzysztof Grobelny <krzysztof.grobelny@intel.com>
+Code-Review+1: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: Adrian Ambrożewicz <adrian.ambrozewicz@linux.intel.com>
+Submitted-at: Mon, 08 Jun 2020 09:52:09 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33076
+Project: openbmc/bmcweb
+Branch: refs/heads/master
