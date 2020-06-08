@@ -25,6 +25,7 @@
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/message_registries.hpp"
+#include "../lib/metric_definition.hpp"
 #include "../lib/metric_report.hpp"
 #include "../lib/metric_report_definition.hpp"
 #include "../lib/network_protocol.hpp"
@@ -200,6 +201,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
 
         nodes.emplace_back(std::make_unique<TelemetryService>(app));
+        nodes.emplace_back(std::make_unique<MetricDefinitionCollection>(app));
+        nodes.emplace_back(std::make_unique<MetricDefinition>(app));
         nodes.emplace_back(
             std::make_unique<MetricReportDefinitionCollection>(app));
         nodes.emplace_back(std::make_unique<MetricReportDefinition>(app));
