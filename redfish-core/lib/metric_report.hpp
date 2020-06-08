@@ -25,7 +25,7 @@ namespace redfish
 class MetricReportCollection : public Node
 {
   public:
-    MetricReportCollection(CrowApp& app) :
+    MetricReportCollection(App& app) :
         Node(app, "/redfish/v1/TelemetryService/MetricReports/")
     {
         entityPrivileges = {
@@ -38,8 +38,8 @@ class MetricReportCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
             "#MetricReportCollection.MetricReportCollection";
@@ -55,7 +55,7 @@ class MetricReportCollection : public Node
 class MetricReport : public Node
 {
   public:
-    MetricReport(CrowApp& app) :
+    MetricReport(App& app) :
         Node(app, "/redfish/v1/TelemetryService/MetricReports/<str>/",
              std::string())
     {
@@ -69,7 +69,7 @@ class MetricReport : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -81,7 +81,7 @@ class MetricReport : public Node
         }
 
         const std::string& id = params[0];
-        telemetry::getReport(asyncResp, id, schemaType, fillReport);
+        updateReportIfRequired(asyncResp, id);
     }
 
     static nlohmann::json toMetricValues(const telemetry::Readings& readings)
@@ -127,6 +127,52 @@ class MetricReport : public Node
             asyncResp->res.jsonValue["MetricValues"] =
                 toMetricValues(*readings);
         }
+    }
+
+    static void
+        updateReportIfRequired(const std::shared_ptr<AsyncResp> asyncResp,
+                               const std::string& id)
+    {
+        const std::string reportPath = telemetry::getDbusReportPath(id);
+
+        dbus::utility::getProperty<telemetry::ReportingType>(
+            [asyncResp, reportPath,
+             id](const boost::system::error_code& ec,
+                 const telemetry::ReportingType& reportingType) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (reportingType == "OnRequest")
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, id](const boost::system::error_code& ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            telemetry::getReport(asyncResp, id, schemaType,
+                                                 fillReport);
+                        },
+                        telemetry::service, reportPath,
+                        telemetry::reportInterface, "Update");
+                }
+                else if (reportingType == "Periodic" ||
+                         reportingType == "OnChange")
+                {
+                    telemetry::getReport(asyncResp, id, schemaType, fillReport);
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            telemetry::service, reportPath, telemetry::reportInterface,
+            "ReportingType");
     }
 
     static constexpr const char* schemaType =
