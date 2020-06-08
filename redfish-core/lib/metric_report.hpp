@@ -81,28 +81,35 @@ class MetricReport : public Node
         }
 
         const std::string& id = params[0];
-        crow::connections::systemBus->async_method_call(
-            [asyncResp,
-             id](const boost::system::error_code& ec,
-                 const std::vector<std::pair<
-                     std::string, std::variant<int32_t, Readings>>>& ret) {
-                if (ec == boost::system::errc::no_such_file_or_directory)
-                {
-                    messages::resourceNotFound(asyncResp->res, schemaType, id);
-                    return;
-                }
-                else if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+        const std::string reportPath = telemetry::getDbusReportPath(id);
+        updateReportIfRequired(
+            asyncResp, reportPath, [asyncResp, id, reportPath]() {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp,
+                     id](const boost::system::error_code& ec,
+                         const std::vector<std::pair<
+                             std::string, std::variant<int32_t, Readings>>>&
+                             ret) {
+                        if (ec ==
+                            boost::system::errc::no_such_file_or_directory)
+                        {
+                            messages::resourceNotFound(asyncResp->res,
+                                                       schemaType, id);
+                            return;
+                        }
+                        else if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
 
-                fillReport(asyncResp, id, ret);
-            },
-            telemetry::service, telemetry::getDbusReportPath(id),
-            "org.freedesktop.DBus.Properties", "GetAll",
-            telemetry::reportInterface);
+                        fillReport(asyncResp, id, ret);
+                    },
+                    telemetry::service, telemetry::getDbusReportPath(id),
+                    "org.freedesktop.DBus.Properties", "GetAll",
+                    telemetry::reportInterface);
+            });
     }
 
     using Readings =
@@ -160,6 +167,60 @@ class MetricReport : public Node
         asyncResp->res.jsonValue["Timestamp"] =
             crow::utility::getDateTime(*timestamp);
         asyncResp->res.jsonValue["MetricValues"] = toMetricValues(*readings);
+    }
+
+    template <typename Callback>
+    static void updateReport(Callback&& callback,
+                             const std::shared_ptr<AsyncResp>& asyncResp,
+                             const std::string& path)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, callback = std::move(callback)](
+                const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                callback();
+            },
+            telemetry::service, path, telemetry::reportInterface, "Update");
+    }
+
+    template <typename Callback>
+    static void
+        updateReportIfRequired(const std::shared_ptr<AsyncResp> asyncResp,
+                               const std::string& reportPath,
+                               Callback&& callback)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, reportPath, callback = std::move(callback)](
+                const boost::system::error_code& ec,
+                const std::variant<std::string>& val) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                auto reportingType = std::get_if<std::string>(&val);
+                if (!reportingType)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+
+                if (*reportingType == "OnRequest")
+                {
+                    updateReport(callback, asyncResp, reportPath);
+                }
+                else
+                {
+                    callback();
+                }
+            },
+            telemetry::service, reportPath, "org.freedesktop.DBus.Properties",
+            "Get", telemetry::reportInterface, "ReportingType");
     }
 
     static constexpr const char* schemaType =
