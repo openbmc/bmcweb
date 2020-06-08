@@ -113,6 +113,56 @@ class MetricReport : public Node
         return metricValues;
     }
 
+    static void addMetricDefinition(nlohmann::json& metrics,
+                                    const telemetry::ReadingParameters& params)
+    {
+        for (auto& metric : metrics)
+        {
+            auto idIt = metric.find("MetricId");
+            if (idIt == metric.end() || !idIt->is_string())
+            {
+                continue;
+            }
+
+            auto idPtr = idIt->get_ptr<std::string*>();
+            if (!idPtr)
+            {
+                continue;
+            }
+
+            auto param = std::find_if(
+                params.begin(), params.end(), [idPtr](const auto& x) {
+                    auto& [sensors, type, metricId, metadata] = x;
+                    return *idPtr == metricId;
+                });
+            if (param == params.end())
+            {
+                continue;
+            }
+
+            auto& dbusPaths =
+                std::get<std::vector<sdbusplus::message::object_path>>(*param);
+            if (dbusPaths.size() != 1)
+            {
+                continue;
+            }
+
+            auto dbusPath = dbusPaths.begin();
+            for (size_t i = 0; i < sensors::dbus::paths.size(); i++)
+            {
+                if (dbusPath->str.find(sensors::dbus::paths[i]) ==
+                    std::string::npos)
+                {
+                    continue;
+                }
+                metric["MetricDefinition"]["@odata.id"] =
+                    telemetry::metricDefinitionUri +
+                    std::string(sensors::dbus::names[i]);
+                break;
+            }
+        }
+    }
+
     static void fillReport(
         const std::shared_ptr<AsyncResp>& asyncResp, const std::string& id,
         const std::vector<std::pair<std::string, telemetry::ReportProp>>& ret)
@@ -126,9 +176,11 @@ class MetricReport : public Node
 
         telemetry::Timestamp timestamp = 0;
         const telemetry::Readings* readings;
+        const telemetry::ReadingParameters* readingParams;
 
         if (!dbus::utility::readProperties(ret, "Timestamp", timestamp,
-                                           "Readings", readings))
+                                           "Readings", readings,
+                                           "ReadingParameters", readingParams))
         {
             messages::internalError(asyncResp->res);
             return;
@@ -141,6 +193,15 @@ class MetricReport : public Node
         {
             asyncResp->res.jsonValue["MetricValues"] =
                 toMetricValues(*readings);
+        }
+
+        if (readingParams)
+        {
+            auto& jsonValue = asyncResp->res.jsonValue;
+            if (jsonValue.contains("MetricValues"))
+            {
+                addMetricDefinition(jsonValue["MetricValues"], *readingParams);
+            }
         }
     }
 
