@@ -26,12 +26,57 @@ static constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 static constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
+static constexpr const char* monitoringService =
+    "xyz.openbmc_project.MonitoringService";
+static constexpr const char* reportInterface =
+    "xyz.openbmc_project.MonitoringService.Report";
+
+template <class T, class F>
+static void
+    asyncGetProperty(F&& callback, const std::shared_ptr<AsyncResp>& asyncResp,
+                     const std::string& path, const std::string& property)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback_ = std::move(callback)](
+            const boost::system::error_code ec, const std::variant<T>& value) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (auto v = std::get_if<T>(&value))
+            {
+                callback_(*v);
+            }
+        },
+        monitoringService, path, "org.freedesktop.DBus.Properties", "Get",
+        reportInterface, property);
+}
+
+template <class F>
+static void asyncUpdate(F&& callback,
+                        const std::shared_ptr<AsyncResp>& asyncResp,
+                        const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         callback_ = std::move(callback)](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            callback_();
+        },
+        monitoringService, path, reportInterface, "Update");
+}
 
 static void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
                                 const char* uri)
 {
-    const std::array<const char*, 1> interfaces = {
-        "xyz.openbmc_project.MonitoringService.Report"};
+    const std::array<const char*, 1> interfaces = {reportInterface};
 
     dbus::utility::getSubTreePaths(
         [asyncResp, uri](const boost::system::error_code ec,
@@ -61,13 +106,12 @@ static void getReport(const std::shared_ptr<AsyncResp>& asyncResp,
                       const std::string& id, const char* schemaType,
                       const Callback&& callback)
 {
-    const std::array<const char*, 1> interfaces = {
-        "xyz.openbmc_project.MonitoringService.Report"};
+    const std::array<const char*, 1> interfaces = {reportInterface};
 
     dbus::utility::getSubTreePaths(
-        [asyncResp, id, schemaType,
-         callback](const boost::system::error_code ec,
-                   const std::vector<std::string>& reports) {
+        [asyncResp, id, schemaType, interfaces, callback = std::move(callback)](
+            const boost::system::error_code ec,
+            const std::vector<std::string>& reports) {
             if (ec == boost::system::errc::no_such_file_or_directory)
             {
                 messages::resourceNotFound(asyncResp->res, schemaType, id);
@@ -91,7 +135,25 @@ static void getReport(const std::shared_ptr<AsyncResp>& asyncResp,
                 messages::resourceNotFound(asyncResp->res, schemaType, id);
                 return;
             }
-            callback(asyncResp, *path, id);
+
+            asyncGetProperty<std::string>(
+                [asyncResp, id, callback = std::move(callback),
+                 path_ = *path](const std::string& reportingType) {
+                    if (reportingType == "OnRequest")
+                    {
+                        asyncUpdate(
+                            [asyncResp, path_, id,
+                             callback = std::move(callback)] {
+                                callback(asyncResp, path_, id);
+                            },
+                            asyncResp, path_);
+                    }
+                    else
+                    {
+                        callback(asyncResp, path_, id);
+                    }
+                },
+                asyncResp, *path, "ReportingType");
         },
         "/xyz/openbmc_project/MonitoringService/Reports/TelemetryService", 1,
         interfaces);
