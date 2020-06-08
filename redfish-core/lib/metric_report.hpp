@@ -81,15 +81,18 @@ class MetricReport : public Node
         }
 
         const std::string& id = params[0];
+        const std::string reportPath = telemetry::getDbusReportPath(id);
 
-        dbus::utility::getAllProperties(
-            telemetry::service, telemetry::getDbusReportPath(id),
-            telemetry::reportInterface,
-            telemetry::handleErrorCode(asyncResp, schemaType, id),
-            [asyncResp,
-             id](const std::vector<
-                 std::pair<std::string, telemetry::ReportProp>>& ret) {
-                fillReport(asyncResp, id, ret);
+        updateReportIfRequired(
+            asyncResp, reportPath, [asyncResp, id, reportPath]() {
+                dbus::utility::getAllProperties(
+                    telemetry::service, reportPath, telemetry::reportInterface,
+                    telemetry::handleErrorCode(asyncResp, schemaType, id),
+                    [asyncResp,
+                     id](const std::vector<
+                         std::pair<std::string, telemetry::ReportProp>>& ret) {
+                        fillReport(asyncResp, id, ret);
+                    });
             });
     }
 
@@ -139,6 +142,60 @@ class MetricReport : public Node
             asyncResp->res.jsonValue["MetricValues"] =
                 toMetricValues(*readings);
         }
+    }
+
+    template <typename Callback>
+    static void updateReport(Callback&& callback,
+                             const std::shared_ptr<AsyncResp>& asyncResp,
+                             const std::string& path)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, callback = std::move(callback)](
+                const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                callback();
+            },
+            telemetry::service, path, telemetry::reportInterface, "Update");
+    }
+
+    template <typename Callback>
+    static void
+        updateReportIfRequired(const std::shared_ptr<AsyncResp> asyncResp,
+                               const std::string& reportPath,
+                               Callback&& callback)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, reportPath, callback = std::move(callback)](
+                const boost::system::error_code& ec,
+                const std::variant<std::string>& val) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                auto reportingType = std::get_if<std::string>(&val);
+                if (!reportingType)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+
+                if (*reportingType == "OnRequest")
+                {
+                    updateReport(callback, asyncResp, reportPath);
+                }
+                else
+                {
+                    callback();
+                }
+            },
+            telemetry::service, reportPath, "org.freedesktop.DBus.Properties",
+            "Get", telemetry::reportInterface, "ReportingType");
     }
 
     static constexpr const char* schemaType =

@@ -17,6 +17,7 @@
 
 #include <sdbusplus/message.hpp>
 
+#include <functional>
 #include <regex>
 
 namespace dbus
