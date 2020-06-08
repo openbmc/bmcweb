@@ -528,8 +528,7 @@ class MetricReportDefinition : public Node
         }
 
         const std::string& id = params[0];
-        const std::string target =
-            std::string(telemetry::reportPath) + "/" + id;
+        const std::string reportPath = telemetry::getDbusReportPath(id);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, id](const boost::system::error_code ec) {
@@ -552,7 +551,7 @@ class MetricReportDefinition : public Node
 
                 asyncResp->res.result(boost::beast::http::status::no_content);
             },
-            telemetry::service, target, "xyz.openbmc_project.Object.Delete",
+            telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
             "Delete");
     }
 

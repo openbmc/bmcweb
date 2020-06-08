@@ -86,7 +86,7 @@ class MetricReport : public Node
         }
 
         const std::string& id = params[0];
-        telemetry::getReport(asyncResp, id, schemaType, getReportProperties);
+        updateReportIfRequired(asyncResp, id);
     }
 
     static nlohmann::json toMetricValues(const telemetry::Readings& readings)
@@ -132,6 +132,53 @@ class MetricReport : public Node
             asyncResp->res.jsonValue["MetricValues"] =
                 toMetricValues(*readings);
         }
+    }
+
+    static void
+        updateReportIfRequired(const std::shared_ptr<AsyncResp> asyncResp,
+                               const std::string& id)
+    {
+        const std::string reportPath = telemetry::getDbusReportPath(id);
+
+        dbus::utility::getProperty<telemetry::ReportingType>(
+            [asyncResp, reportPath,
+             id](const boost::system::error_code& ec,
+                 const telemetry::ReportingType& reportingType) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (reportingType == "OnRequest")
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, id](const boost::system::error_code& ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            telemetry::getReport(asyncResp, id, schemaType,
+                                                 getReportProperties);
+                        },
+                        telemetry::service, reportPath,
+                        telemetry::reportInterface, "Update");
+                }
+                else if (reportingType == "Periodic" ||
+                         reportingType == "OnChange")
+                {
+                    telemetry::getReport(asyncResp, id, schemaType,
+                                         getReportProperties);
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            telemetry::service, reportPath, telemetry::reportInterface,
+            "ReportingType");
     }
 
     static constexpr const char* schemaType =
