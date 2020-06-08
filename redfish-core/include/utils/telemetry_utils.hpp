@@ -22,6 +22,8 @@ namespace redfish
 namespace telemetry
 {
 
+static constexpr const char* metricDefinitionUri =
+    "/redfish/v1/TelemetryService/MetricDefinitions/";
 static constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 static constexpr const char* metricReportUri =
