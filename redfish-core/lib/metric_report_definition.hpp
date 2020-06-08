@@ -214,9 +214,22 @@ class MetricReportDefinitionCollection : public Node
             {
                 dbusSensors.emplace_back(prop);
             }
+            nlohmann::json metadata;
+            metadata["MetricProperties"] = metricProperties;
+            if (metricProperties.size() == 1)
+            {
+                std::string sensorType;
+                metadata["MetricProperty"] = metricProperties[0];
+                if (dbus::utility::getNthStringFromPath(metricProperties[0], 3,
+                                                        sensorType))
+                {
+                    metadata["MetricDefinition"]["@odata.id"] =
+                        telemetry::metricDefinitionUri + sensorType;
+                }
+            }
 
             readingParams.emplace_back(dbusSensors, "SINGLE", metricId,
-                                       nlohmann::json(metricProperties).dump());
+                                       metadata.dump());
         }
         return true;
     }
@@ -466,13 +479,11 @@ class MetricReportDefinition : public Node
         for (auto& [sensorPaths, operationType, id, metadata] : *readingParams)
         {
             nlohmann::json metadataJson = nlohmann::json::parse(metadata);
-            if (!metadataJson.is_array())
-            {
-                metadataJson = nlohmann::json::array_t();
-            }
             metrics.push_back({
                 {"MetricId", id},
-                {"MetricProperties", metadataJson},
+                {"MetricProperties", metadataJson.contains("MetricProperties")
+                                         ? metadataJson["MetricProperties"]
+                                         : nlohmann::json()},
             });
         }
         asyncResp->res.jsonValue["Metrics"] = metrics;

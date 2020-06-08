@@ -113,18 +113,14 @@ class MetricReport : public Node
         for (auto& [id, metadata, sensorValue, timestamp] : readings)
         {
             nlohmann::json metadataJson = nlohmann::json::parse(metadata);
-            if (metadataJson.is_array() && metadataJson.size() == 1 &&
-                metadataJson[0].is_string())
-            {
-                metadataJson = metadataJson[0];
-            }
-            else
-            {
-                metadataJson = nullptr;
-            }
             metricValues.push_back({
                 {"MetricId", id},
-                {"MetricProperty", metadataJson},
+                {"MetricDefinition", metadataJson.contains("MetricDefinition")
+                                         ? metadataJson["MetricDefinition"]
+                                         : nlohmann::json()},
+                {"MetricProperty", metadataJson.contains("MetricProperty")
+                                       ? metadataJson["MetricProperty"]
+                                       : nlohmann::json()},
                 {"MetricValue", std::to_string(sensorValue)},
                 {"Timestamp",
                  crow::utility::getDateTime(static_cast<time_t>(timestamp))},
