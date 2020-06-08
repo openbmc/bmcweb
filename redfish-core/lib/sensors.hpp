@@ -52,20 +52,39 @@ static constexpr std::string_view thermal = "Thermal";
 
 namespace dbus
 {
+
+enum Index
+{
+    voltage = 0,
+    power,
+    current,
+    fan_tach,
+    temperature,
+    fan_pwm,
+    utilization,
+    max
+};
+
+static constexpr std::array<const char*, max> names = {
+    "voltage",     "power",   "current",    "fan_tach",
+    "temperature", "fan_pwm", "utilization"};
+
+static constexpr std::array<const char*, max> paths = {
+    "/xyz/openbmc_project/sensors/voltage",
+    "/xyz/openbmc_project/sensors/power",
+    "/xyz/openbmc_project/sensors/current",
+    "/xyz/openbmc_project/sensors/fan_tach",
+    "/xyz/openbmc_project/sensors/temperature",
+    "/xyz/openbmc_project/sensors/fan_pwm",
+    "/xyz/openbmc_project/sensors/utilization"};
+
 static const boost::container::flat_map<std::string_view,
                                         std::vector<const char*>>
-    types = {{node::power,
-              {"/xyz/openbmc_project/sensors/voltage",
-               "/xyz/openbmc_project/sensors/power"}},
-             {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
-               "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/utilization"}},
-             {node::thermal,
-              {"/xyz/openbmc_project/sensors/fan_tach",
-               "/xyz/openbmc_project/sensors/temperature",
-               "/xyz/openbmc_project/sensors/fan_pwm"}}};
-}
+    types = {
+        {node::power, {paths[voltage], paths[power]}},
+        {node::sensors, {paths[power], paths[current], paths[utilization]}},
+        {node::thermal, {paths[fan_tach], paths[temperature], paths[fan_pwm]}}};
+} // namespace dbus
 } // namespace sensors
 
 /**
