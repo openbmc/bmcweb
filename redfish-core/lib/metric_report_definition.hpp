@@ -20,6 +20,7 @@
 #include "sensors.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
+#include "utils/validate_params_length.hpp"
 
 #include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -149,8 +150,21 @@ class MetricReportDefinitionCollection : public Node
             return false;
         }
 
+        auto limits = std::make_tuple(
+            std::make_tuple(std::cref(name), "Id", 255),
+            std::make_tuple(std::cref(reportingType),
+                            "MetricReportDefinitionType", 255),
+            std::make_tuple(std::cref(reportActions), "ReportActions", 255),
+            std::make_tuple(metrics.size(), "Metrics", 255));
+
+        if (!validateParamsLength(res, std::move(limits)))
+        {
+            return false;
+        }
+
         constexpr const char* allowedCharactersInName =
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            "_";
         if (name.empty() || name.find_first_not_of(allowedCharactersInName) !=
                                 std::string::npos)
         {
@@ -192,6 +206,11 @@ class MetricReportDefinitionCollection : public Node
                 return false;
             }
 
+            if (!validateParamLength(res, interval, "RecurrenceInterval", 255))
+            {
+                return false;
+            }
+
             constexpr const char* durationPattern =
                 "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?";
             if (!std::regex_match(interval, std::regex(durationPattern)))
@@ -218,6 +237,16 @@ class MetricReportDefinitionCollection : public Node
             std::vector<std::string> metricProperties;
             if (!json_util::readJson(m, res, "MetricId", metricId,
                                      "MetricProperties", metricProperties))
+            {
+                return false;
+            }
+
+            auto limits = std::make_tuple(
+                std::make_tuple(std::cref(metricId), "MetricId", 1024),
+                std::make_tuple(std::cref(metricProperties), "MetricProperties",
+                                1024));
+
+            if (!validateParamsLength(res, std::move(limits)))
             {
                 return false;
             }
