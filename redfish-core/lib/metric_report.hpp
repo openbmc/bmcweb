@@ -85,7 +85,7 @@ class MetricReport : public Node
         }
 
         const std::string& id = params[0];
-        telemetry::getReport(asyncResp, id, schemaType, getReportProperties);
+        telemetry::getReport(asyncResp, id, schemaType, updateReportIfRequired);
     }
 
     using Readings =
@@ -140,6 +140,57 @@ class MetricReport : public Node
             },
             "xyz.openbmc_project.MonitoringService", reportPath,
             "xyz.openbmc_project.MonitoringService.Report");
+    }
+
+    template <typename Callback>
+    static void updateReport(Callback&& callback,
+                             const std::shared_ptr<AsyncResp>& asyncResp,
+                             const std::string& path)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, callback{std::move(callback)}](
+                const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                callback();
+            },
+            telemetry::monitoringService, path, telemetry::reportInterface,
+            "Update");
+    }
+
+    static void
+        updateReportIfRequired(const std::shared_ptr<AsyncResp> asyncResp,
+                               const std::string& reportPath,
+                               const std::string& id)
+    {
+        dbus::utility::getProperty<std::string>(
+            [asyncResp, id, reportPath](const boost::system::error_code& ec,
+                                        const std::string& reportingType) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (reportingType == "OnRequest")
+                {
+                    updateReport(
+                        [asyncResp, reportPath, id] {
+                            getReportProperties(asyncResp, reportPath, id);
+                        },
+                        asyncResp, reportPath);
+                }
+                else
+                {
+                    getReportProperties(asyncResp, reportPath, id);
+                }
+            },
+            telemetry::monitoringService, reportPath,
+            telemetry::reportInterface, "ReportingType");
     }
 
     static constexpr const char* schemaType =

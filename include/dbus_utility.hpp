@@ -17,6 +17,7 @@
 
 #include <sdbusplus/message.hpp>
 
+#include <functional>
 #include <regex>
 
 namespace dbus
@@ -128,6 +129,35 @@ inline void getAllProperties(Callback&& callback, const std::string& service,
     crow::connections::systemBus->async_method_call(
         callback, service, path, "org.freedesktop.DBus.Properties", "GetAll",
         interface);
+}
+
+template <typename T>
+static void getProperty(
+    std::function<void(const boost::system::error_code&, const T&)> callback,
+    const std::string& service, const std::string& path,
+    const std::string& interface, const std::string& property)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback](const boost::system::error_code ec,
+                   const std::variant<T>& value) {
+            if (ec)
+            {
+                callback(ec, T{});
+                return;
+            }
+
+            if (auto v = std::get_if<T>(&value))
+            {
+                callback(ec, *v);
+                return;
+            }
+
+            callback(boost::system::errc::make_error_code(
+                         boost::system::errc::io_error),
+                     T{});
+        },
+        service, path, "org.freedesktop.DBus.Properties", "Get", interface,
+        property);
 }
 
 } // namespace utility
