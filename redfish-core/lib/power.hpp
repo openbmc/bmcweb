@@ -153,7 +153,7 @@ class Power : public Node
         res.jsonValue["PowerControl"] = nlohmann::json::array();
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::types.at(sensors::node::power),
+            res, chassisName, sensors::dbus::paths.at(sensors::node::power),
             sensors::node::power);
 
         getChassisData(sensorAsyncResp);
@@ -336,7 +336,7 @@ class Power : public Node
 
         const std::string& chassisName = params[0];
         auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::types.at(sensors::node::power),
+            res, chassisName, sensors::dbus::paths.at(sensors::node::power),
             sensors::node::power);
 
         std::optional<std::vector<nlohmann::json>> voltageCollections;

@@ -269,6 +269,8 @@ class MetricReportDefinitionCollection : public Node
             {
                 std::vector<sdbusplus::message::object_path> dbusPaths;
                 dbusPaths.reserve(uris.size());
+                std::string sensorType;
+                bool invalidType = false;
 
                 for (size_t i = 0; i < uris.size(); i++)
                 {
@@ -286,6 +288,21 @@ class MetricReportDefinitionCollection : public Node
                     }
 
                     dbusPaths.emplace_back(el->second);
+
+                    if (invalidType)
+                    {
+                        continue;
+                    }
+                    std::string tmp;
+                    dbus::utility::getNthStringFromPath(el->second, 3, tmp);
+                    if (sensorType.empty())
+                    {
+                        sensorType = std::move(tmp);
+                    }
+                    else if (sensorType != tmp)
+                    {
+                        invalidType = true;
+                    }
                 }
 
                 nlohmann::json metadata;
@@ -293,6 +310,11 @@ class MetricReportDefinitionCollection : public Node
                 if (uris.size() == 1)
                 {
                     metadata["MetricProperty"] = uris[0];
+                }
+                if (!sensorType.empty() && !invalidType)
+                {
+                    metadata["MetricDefinition"]["@odata.id"] =
+                        telemetry::metricDefinitionUri + sensorType;
                 }
                 readingParams.emplace_back(std::move(dbusPaths), "SINGLE", id,
                                            metadata.dump());
