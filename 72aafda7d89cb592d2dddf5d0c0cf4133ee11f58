@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "172dc45a_0f8d8048",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-06-09T05:18:16Z",
+      "side": 1,
+      "message": "Agree, the existing file needs changes . I am planning to refactor lock management and there would be a separate commit in future.",
+      "parentUuid": "800e6a4d_9224007f",
+      "range": {
+        "startLine": 582,
+        "startChar": 6,
+        "endLine": 583,
+        "endChar": 59
+      },
+      "revId": "72aafda7d89cb592d2dddf5d0c0cf4133ee11f58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74ff1e53_f57ce34c",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 33
