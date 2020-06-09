@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3368139c_44a7ac84",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-06-09T11:57:42Z",
+      "side": 1,
+      "message": "Hi George.\n\nI see that, for parsing this multipart data, you are actually doing it manually.\nInstead, there is a library called \u0027libmimetic\u0027 to do the parsing work for you.\n\nPlease check the commit: https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/28979 and see if you can use the same.\n\nOne of the use cases is listed in this commit: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/31030",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 57
+      },
+      "revId": "b3b0d24495c7a73ad153fdfbdfbde6d1a0e87961",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
