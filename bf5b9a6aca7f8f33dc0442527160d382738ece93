@@ -231,6 +231,24 @@
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a0aac61_7b1d2d48",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000312
+      },
+      "writtenOn": "2020-06-10T12:36:01Z",
+      "side": 1,
+      "message": "@Ratan- the HTTP request to bmcweb comes as below. Its as per redfish format.\n\nJun 10 10:00:52 intel-obmc bmcweb[817]: updateservice... entered doPost()...\nJun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..reqheader..multipart/form-data; boundary\u003d--------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Length: 23644668\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: multipart/form-data; boundary\u003d--------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Connection: keep-alive\nJun 10 10:00:52 intel-obmc bmcweb[817]: X-Auth-Token:\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition:\nJun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..boundary..--------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..reqBody..----------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition: form-data; name\u003d\"UpdateParameters\"\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: application/json\nJun 10 10:00:52 intel-obmc bmcweb[817]:\nJun 10 10:00:52 intel-obmc bmcweb[817]: {\"Targets\":[\"/redfish/v1/Managers/1\"],\"@Redfish.OperationApplyTime\":\"Immediate\",\"Oem\":{}}\nJun 10 10:00:52 intel-obmc bmcweb[817]: ----------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"intel-platforms-image-update-intel-ast2500-20200609152836.tar\"\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: application/x-tar",
+      "parentUuid": "69da3843_16246a75",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
