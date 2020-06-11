@@ -63,6 +63,8 @@ constexpr char bmcDumpEntryCollectionPath[] =
 constexpr char bmcDumpEntryPath[] =
     "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>";
 constexpr char bmcDumpInterface[] = "xyz.openbmc_project.Dump.Entry.BMC";
+constexpr char bmcDumpServicePath[] =
+    "/redfish/v1/Managers/bmc/LogServices/Dump/";
 
 constexpr char systemDumpClearPath[] =
     "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog/";
@@ -76,6 +78,8 @@ constexpr char systemDumpEntryCollectionPath[] =
 constexpr char systemDumpEntryPath[] =
     "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>";
 constexpr char systemDumpInterface[] = "xyz.openbmc_project.Dump.Entry.System";
+constexpr char systemDumpServicePath[] =
+    "/redfish/v1/Systems/system/LogServices/Dump/";
 
 #endif
 
@@ -134,11 +138,13 @@ class RedfishService
         nodes.emplace_back(std::make_unique<PostCodesEntryCollection>(app));
 
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
-        nodes.emplace_back(std::make_unique<SystemDumpService>(app));
-        nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
-        nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
-
-        nodes.emplace_back(std::make_unique<BMCDumpService>(app));
+        nodes.emplace_back(
+            std::make_unique<DumpService<bmcDumpServicePath, bmcDumpInterface,
+                                         bmcDumpEntryCollectionPath>>(app));
+        nodes.emplace_back(
+            std::make_unique<
+                DumpService<systemDumpServicePath, systemDumpInterface,
+                            systemDumpEntryCollectionPath>>(app));
 
         nodes.emplace_back(
             std::make_unique<DumpEntryCollection<bmcDumpEntryCollectionPath,
