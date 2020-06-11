@@ -524,7 +524,7 @@ class SystemLogServiceCollection : public Node
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
 #ifdef BMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/System"}});
+            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/Dump"}});
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
@@ -1558,7 +1558,7 @@ class SystemDumpService : public Node
   public:
     template <typename CrowApp>
     SystemDumpService(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/System/")
+        Node(app, "/redfish/v1/Systems/system/LogServices/Dump/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1576,25 +1576,26 @@ class SystemDumpService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/System";
+            "/redfish/v1/Systems/system/LogServices/Dump";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
-        asyncResp->res.jsonValue["Name"] = "Dump Log Service";
-        asyncResp->res.jsonValue["Description"] = "System Dump Log Service";
+        asyncResp->res.jsonValue["Name"] = "Dump LogService";
+        asyncResp->res.jsonValue["Description"] = "System Dump LogService";
         asyncResp->res.jsonValue["Id"] = "System";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
-        asyncResp->res.jsonValue["LogEntryTypes"] = "Dump";
-        asyncResp->res.jsonValue["Oem"]["DumpType"] = "System";
-
+        asyncResp->res.jsonValue["LogEntryType"] = "OEM";
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
-             "/redfish/v1/Systems/system/LogServices/System/Entries"}};
+             "/redfish/v1/Systems/system/LogServices/Dump/Entries"}};
         asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
-            {"target", "/redfish/v1/Systems/system/LogServices/System/"
+            {"target", "/redfish/v1/Systems/system/LogServices/Dump/"
                        "Actions/LogService.ClearLog"}};
-        asyncResp->res.jsonValue["Actions"]["#LogService.CreateLog"] = {
-            {"target", "/redfish/v1/Systems/system/LogServices/System/"
-                       "Actions/LogService.CreateLog"}};
+        asyncResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
+            "#OemLogService.v1_0_0.OpenBmc";
+        asyncResp->res.jsonValue["Oem"]["OpenBmc"]["Actions"]
+                                ["#LogService.CollectDiagnosticData"] = {
+            {"target", "/redfish/v1/Systems/system/LogServices/Dump/"
+                       "Actions/Oem/OpenBmc/LogService.CollectDiagnosticData"}};
     }
 };
 
@@ -1603,7 +1604,7 @@ class SystemDumpEntryCollection : public Node
   public:
     template <typename CrowApp>
     SystemDumpEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/System/Entries/")
+        Node(app, "/redfish/v1/Systems/system/LogServices/Dump/Entries/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1626,7 +1627,7 @@ class SystemDumpEntryCollection : public Node
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/System/Entries";
+            "/redfish/v1/Systems/system/LogServices/Dump/Entries";
         asyncResp->res.jsonValue["Name"] = "System Dump Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Dump Entries";
@@ -1655,7 +1656,7 @@ class SystemDumpEntryCollection : public Node
                     std::string logID = path.substr(lastPos + 1);
                     logArray.push_back(
                         {{"@odata.id", "/redfish/v1/Systems/system/LogServices/"
-                                       "System/Entries/" +
+                                       "Dump/Entries/" +
                                            logID}});
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
@@ -1674,8 +1675,7 @@ class SystemDumpEntry : public Node
 {
   public:
     SystemDumpEntry(CrowApp &app) :
-        Node(app,
-             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/",
+        Node(app, "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -1730,7 +1730,7 @@ class SystemDumpEntry : public Node
                     }
                     if (foundSystemDumpEntry == false)
                     {
-                        BMCWEB_LOG_DEBUG << "Can't find System Dump Entry";
+                        BMCWEB_LOG_ERROR << "Can't find System Dump Entry";
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -1785,22 +1785,28 @@ class SystemDumpEntry : public Node
                     asyncResp->res.jsonValue = {
                         {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
                         {"@odata.id",
-                         "/redfish/v1/Systems/system/LogServices/System/"
+                         "/redfish/v1/Systems/system/LogServices/Dump/"
                          "Entries/" +
                              entryID},
                         {"Name", "System Dump Entry"},
                         {"Id", entryID},
-                        {"SizeInB", size},
-                        {"EntryType", "Dump"},
-                        {"EntryCode", "User generated dump"},
+                        {"EntryType", "Oem"},
                         {"Created", timestamp}};
-
+                    asyncResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
+                        "#OemLogEntry.v1_0_0.OpenBmc";
                     asyncResp->res
-                        .jsonValue["Actions"]["#LogEntry.DownloadLog"] = {
-                        {"target",
-                         "/redfish/v1/Systems/system/LogServices/System/"
-                         "Entries/" +
-                             entryID + "/Actions/LogEntry.DownloadLog"}};
+                        .jsonValue["Oem"]["OpenBmc"]["DiagnosticDataType"] =
+                        "OS";
+                    asyncResp->res
+                        .jsonValue["Oem"]["OpenBmc"]["OEMDiagnosticDataType"] =
+                        "System";
+                    asyncResp->res.jsonValue["Oem"]["OpenBmc"]
+                                            ["AdditionalDataSizeBytes"] = size;
+                    asyncResp->res
+                        .jsonValue["Oem"]["OpenBmc"]["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/"
+                        "attachment/" +
+                        entryID;
                 }
             },
             "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
@@ -1810,8 +1816,6 @@ class SystemDumpEntry : public Node
     void doDelete(crow::Response &res, const crow::Request &req,
                   const std::vector<std::string> &params) override
     {
-        BMCWEB_LOG_DEBUG << "Do delete single dump entry";
-
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
@@ -1845,6 +1849,8 @@ class SystemDumpEntry : public Node
                         return;
                     }
                 }
+                BMCWEB_LOG_ERROR << "Invalid System Dump ID";
+                messages::resourceNotFound(asyncResp->res, "EntryID", entryID);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -1860,20 +1866,16 @@ class SystemDumpEntryDownload : public Node
   public:
     SystemDumpEntryDownload(CrowApp &app) :
         Node(app,
-             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
-             "Actions/"
-             "LogEntry.DownloadLog/",
+             "/redfish/v1/Systems/system/LogServices/Dump/attachment/<str>/",
              std::string())
     {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                            {boost::beast::http::verb::head, {{"Login"}}}};
     }
 
   private:
-    void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
     {
         if (params.size() != 1)
         {
@@ -1889,7 +1891,7 @@ class SystemDumpClear : public Node
 {
   public:
     SystemDumpClear(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/System/"
+        Node(app, "/redfish/v1/Systems/system/LogServices/Dump/"
                   "Actions/"
                   "LogService.ClearLog/")
     {
