@@ -523,7 +523,7 @@ class SystemLogServiceCollection : public Node
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/System"}});
+            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/Dump"}});
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
@@ -1556,12 +1556,12 @@ class BMCJournalLogEntry : public Node
     }
 };
 
-class BMCDumpService : public Node
+template <const char* PATH, const char* INTERFACE, const char* DUMPENTRYPATH>
+class DumpService : public Node
 {
   public:
     template <typename CrowApp>
-    BMCDumpService(CrowApp& app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/")
+    DumpService(CrowApp& app) : Node(app, PATH)
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1578,25 +1578,33 @@ class BMCDumpService : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/Dump";
+        std::string dumpType;
+        if (std::strcmp(INTERFACE, "xyz.openbmc_project.Dump.Entry.BMC") == 0)
+        {
+            dumpType = "BMC";
+        }
+        else
+        {
+            dumpType = "System";
+        }
+
+        asyncResp->res.jsonValue["@odata.id"] = std::string(PATH);
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_3.LogService";
         asyncResp->res.jsonValue["Name"] = "Dump LogService";
-        asyncResp->res.jsonValue["Description"] = "BMC Dump LogService";
-        asyncResp->res.jsonValue["Id"] = "BMC";
+        asyncResp->res.jsonValue["Description"] = dumpType + "Dump LogService";
+        asyncResp->res.jsonValue["Id"] = dumpType;
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["Entries"] = {
-            {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Dump/Entries"}};
+            {"@odata.id", std::string(DUMPENTRYPATH)}};
         asyncResp->res.jsonValue["Actions"] = {
             {"#LogService.ClearLog",
-             {{"target", "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                         "Actions/LogService.ClearLog"}}},
+             {{"target", std::string(PATH) + "Actions/LogService.ClearLog"}}},
             {"Oem",
              {{"#OemLogService.CollectDiagnosticData",
                {{"target",
-                 "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                 "Actions/Oem/OemLogService.CollectDiagnosticData"}}}}}};
+                 std::string(PATH) +
+                     "Actions/Oem/OemLogService.CollectDiagnosticData"}}}}}};
     }
 };
 
@@ -2216,129 +2224,6 @@ class DumpEntryDownload : public Node
         }
         const std::string& entryID = params[0];
         crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
-    }
-};
-
-class SystemDumpService : public Node
-{
-  public:
-    template <typename CrowApp>
-    SystemDumpService(CrowApp& app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/System/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
-
-  private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/System";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
-        asyncResp->res.jsonValue["Name"] = "Dump Log Service";
-        asyncResp->res.jsonValue["Description"] = "System Dump Log Service";
-        asyncResp->res.jsonValue["Id"] = "System";
-        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
-        asyncResp->res.jsonValue["LogEntryTypes"] = "Dump";
-        asyncResp->res.jsonValue["Oem"]["DumpType"] = "System";
-
-        asyncResp->res.jsonValue["Entries"] = {
-            {"@odata.id",
-             "/redfish/v1/Systems/system/LogServices/System/Entries"}};
-        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
-            {"target", "/redfish/v1/Systems/system/LogServices/System/"
-                       "Actions/LogService.ClearLog"}};
-        asyncResp->res.jsonValue["Actions"]["#LogService.CreateLog"] = {
-            {"target", "/redfish/v1/Systems/system/LogServices/System/"
-                       "Actions/LogService.CreateLog"}};
-    }
-};
-
-class SystemDumpEntryDownload : public Node
-{
-  public:
-    SystemDumpEntryDownload(CrowApp& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
-             "Actions/"
-             "LogEntry.DownloadLog/",
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
-
-  private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
-            messages::internalError(res);
-            return;
-        }
-        const std::string& entryID = params[0];
-        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
-    }
-};
-
-class SystemDumpClear : public Node
-{
-  public:
-    SystemDumpClear(CrowApp& app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/System/"
-                  "Actions/"
-                  "LogService.ClearLog/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
-
-  private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
-    {
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string>& dumpList) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                for (const std::string& objectPath : dumpList)
-                {
-                    std::size_t pos = objectPath.rfind("/");
-                    if (pos != std::string::npos)
-                    {
-                        std::string logID = objectPath.substr(pos + 1);
-                        deleteDumpEntry(asyncResp->res, logID);
-                    }
-                }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/dump", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Dump.Entry.System"});
     }
 };
 
