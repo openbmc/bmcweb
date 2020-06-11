@@ -1725,6 +1725,31 @@ void passwordChangeRequired(crow::Response& res, const std::string& arg1)
                            "provided."}});
 }
 
+void invalidUpload(crow::Response& res, const std::string& arg1,
+                   const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, invalidUpload(arg1, arg2));
+}
+
+/**
+ * @internal
+ * @brief Formats Invalid File message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
+{
+    return nlohmann::json{
+        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"MessageId", "OpenBMC.0.1.0.InvalidUpload"},
+        {"Message", "Invalid file uploaded to " + arg1 + ": " + arg2 + "."},
+        {"MessageArgs", {arg1, arg2}},
+        {"Severity", "Warning"},
+        {"Resolution", "None."}};
+}
+
 } // namespace messages
 
 } // namespace redfish
