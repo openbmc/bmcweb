@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 155> registry = {
+constexpr std::array<MessageEntry, 156> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -443,6 +443,15 @@ constexpr std::array<MessageEntry, 155> registry = {
             {"string"},
             "None.",
         }},
+    MessageEntry{"InvalidFile",
+                 {
+                     "Indicates that the uploaded file was invalid.",
+                     "Invalid file uploaded to %1: %2.",
+                     "Warning",
+                     2,
+                     {"string", "string"},
+                     "None.",
+                 }},
     MessageEntry{"InvalidLoginAttempted",
                  {
                      "Indicates that a login was attempted on the specified "
