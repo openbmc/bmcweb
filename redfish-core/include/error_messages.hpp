@@ -775,6 +775,18 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
  * @returns Message PasswordChangeRequired formatted to JSON */
 void passwordChangeRequired(crow::Response& res, const std::string& arg1);
 
+/**
+ * @brief Formats InvalidFile message into JSON
+ * Message body: Invalid file uploaded to %1: %2.*
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message InvalidFile formatted to JSON */
+nlohmann::json invalidFile(const std::string& arg1, const std::string& arg2);
+
+void invalidFile(crow::Response& res, const std::string& arg1,
+                 const std::string& arg2);
+
 } // namespace messages
 
 } // namespace redfish
