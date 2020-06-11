@@ -231,12 +231,14 @@ int formatEventLogEntry(const std::string& logEntryID,
     int i = 0;
     for (const std::string& messageArg : messageArgs)
     {
+                BMCWEB_LOG_DEBUG << "Before replacement : " << msg;
         std::string argStr = "%" + std::to_string(++i);
         size_t argPos = msg.find(argStr);
         if (argPos != std::string::npos)
         {
             msg.replace(argPos, argStr.length(), messageArg);
         }
+                BMCWEB_LOG_DEBUG << "After replacement : " << msg;
     }
 
     // Get the Created time from the timestamp. The log timestamp is in
@@ -355,6 +357,7 @@ class Subscription
     void filterAndSendEventLogs(
         const std::vector<EventLogObjectsType>& eventRecords)
     {
+                BMCWEB_LOG_DEBUG << "filterAndSendEventLogs : " << " event records count : " << eventRecords.size();
         nlohmann::json logEntryArray;
         for (const EventLogObjectsType& logEntry : eventRecords)
         {
@@ -377,6 +380,7 @@ class Subscription
                     continue;
                 }
             }
+                BMCWEB_LOG_DEBUG << "Registry prefix list is empty";
 
             // If registryMsgIds list is empty, don't filter events
             // send everything.
@@ -389,6 +393,7 @@ class Subscription
                     continue;
                 }
             }
+                BMCWEB_LOG_DEBUG << "Registry msgIds list is empty";
 
             logEntryArray.push_back({});
             nlohmann::json& bmcLogEntry = logEntryArray.back();
@@ -399,6 +404,8 @@ class Subscription
                 BMCWEB_LOG_DEBUG << "Read eventLog entry failed";
                 continue;
             }
+                BMCWEB_LOG_DEBUG << "messageID : " << messageID;
+                BMCWEB_LOG_DEBUG << "Timestamp : " << timestamp;
         }
 
         if (logEntryArray.size() < 1)
@@ -915,6 +922,7 @@ class EventServiceManager
         std::string logEntry;
         while (std::getline(logStream, logEntry))
         {
+                BMCWEB_LOG_DEBUG << "Entries : "  << logEntry;
             if (!startLogCollection)
             {
                 if (boost::starts_with(logEntry, lastEventTStr))
@@ -929,6 +937,7 @@ class EventServiceManager
             {
                 continue;
             }
+                BMCWEB_LOG_DEBUG << "After calling getUniqueEntryID....";
             firstEntry = false;
 
             std::string timestamp;
@@ -941,6 +950,7 @@ class EventServiceManager
                 continue;
             }
 
+                BMCWEB_LOG_DEBUG << "Before calling getRegistryAndMessageKey";
             std::string registryName;
             std::string messageKey;
             event_log::getRegistryAndMessageKey(messageID, registryName,
@@ -950,6 +960,8 @@ class EventServiceManager
                 continue;
             }
 
+                BMCWEB_LOG_DEBUG << "After calling getRegistryAndMessageKey";
+                BMCWEB_LOG_DEBUG << "messageID : " << messageID << " registryName : " << registryName << " messageKey " << messageKey;
             lastEventTStr = timestamp;
             eventRecords.emplace_back(idStr, timestamp, messageID, registryName,
                                       messageKey, messageArgs);

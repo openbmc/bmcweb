@@ -36,7 +36,7 @@ const Header header = {
 constexpr const char* url =
     "https://redfish.dmtf.org/registries/Base.1.4.0.json";
 
-constexpr std::array<MessageEntry, 58> registry = {
+constexpr std::array<MessageEntry, 59> registry = {
     MessageEntry{
         "AccessDenied",
         {
@@ -200,6 +200,17 @@ constexpr std::array<MessageEntry, 58> registry = {
                      },
                      "Correct the value for the parameter in the request body "
                      "and resubmit the request if the operation failed.",
+                 }},
+    MessageEntry{"ChassisStateChanged",
+                 {
+                     "Indicates that the chassis state has changed.",
+                     "Chassis state has changed to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None",
                  }},
     MessageEntry{
         "CouldNotEstablishConnection",
