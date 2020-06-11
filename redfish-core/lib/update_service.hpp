@@ -27,6 +27,7 @@ namespace redfish
 
 // Match signals added on software path
 static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
+static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateErrorMatcher;
 // Only allow one update at a time
 static bool fwUpdateInProgress = false;
 // Timer for software available
@@ -36,6 +37,7 @@ static void cleanUp()
 {
     fwUpdateInProgress = false;
     fwUpdateMatcher = nullptr;
+    fwUpdateErrorMatcher = nullptr;
 }
 static void activateImage(const std::string& objPath,
                           const std::string& service)
@@ -256,6 +258,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 // then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
                                         const crow::Request& req,
+                                        const std::string& url,
                                         int timeoutTimeSeconds = 5)
 {
     // Only allow one FW update at a time
@@ -308,6 +311,62 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
+
+    fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match::match>(
+        *crow::connections::systemBus,
+        "type='signal',member='PropertiesChanged',path_namespace='/xyz/"
+        "openbmc_project/logging/entry',"
+        "arg0='xyz.openbmc_project.Logging.Entry'",
+        [asyncResp, url](sdbusplus::message::message& m) {
+            BMCWEB_LOG_DEBUG << "Error Match fired";
+            boost::container::flat_map<std::string, std::variant<std::string>>
+                values;
+            std::string objName;
+            m.read(objName, values);
+            auto find = values.find("Message");
+            if (find == values.end())
+            {
+                return;
+            }
+            std::string* type = std::get_if<std::string>(&(find->second));
+            if (type == nullptr)
+            {
+                return; // if this was our message, timeout will cover it
+            }
+            if (!boost::starts_with(*type,
+                                    "xyz.openbmc_project.Software.Image.Error"))
+            {
+                return;
+            }
+            if (*type ==
+                "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
+            {
+                redfish::messages::invalidUpload(asyncResp->res, url,
+                                                 "Invalid archive");
+            }
+            else if (*type == "xyz.openbmc_project.Software.Image.Error."
+                              "ManifestFileFailure")
+            {
+                redfish::messages::invalidUpload(asyncResp->res, url,
+                                                 "Invalid manifest");
+            }
+            else if (*type ==
+                     "xyz.openbmc_project.Software.Image.Error.ImageFailure")
+            {
+                redfish::messages::invalidUpload(asyncResp->res, url,
+                                                 "Invalid image format");
+            }
+            else if (*type ==
+                     "xyz.openbmc_project.Software.Image.Error.BusyFailure")
+            {
+                redfish::messages::resourceExhaustion(asyncResp->res, url);
+            }
+            else
+            {
+                redfish::messages::internalError(asyncResp->res);
+            }
+            fwAvailableTimer = nullptr;
+        });
 }
 
 /**
@@ -410,7 +469,10 @@ class UpdateServiceActionsSimpleUpdate : public Node
 
         // Setup callback for when new software detected
         // Give TFTP 2 minutes to complete
-        monitorForSoftwareAvailable(nullptr, req, 120);
+        monitorForSoftwareAvailable(
+            nullptr, req,
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate",
+            120);
 
         // TFTP can take up to 2 minutes depending on image size and
         // connection speed. Return to caller as soon as the TFTP operation
@@ -605,7 +667,8 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req);
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
 
         std::string filepath(
             "/tmp/images/" +
