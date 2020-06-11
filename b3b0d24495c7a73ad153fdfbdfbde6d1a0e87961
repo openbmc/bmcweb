@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c1f8140b_ed573189",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-06-11T21:22:00Z",
+      "side": 1,
+      "message": "Change to move bmcweb\u0027s .clang-format to match the docs/ repo was merged. \nJust an FYI, please rebase this and run clang-format before this is merged. \nThanks!",
+      "range": {
+        "startLine": 626,
+        "startChar": 34,
+        "endLine": 626,
+        "endChar": 36
+      },
+      "revId": "b3b0d24495c7a73ad153fdfbdfbde6d1a0e87961",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3368139c_44a7ac84",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 7
