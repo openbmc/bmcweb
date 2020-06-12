@@ -4,51 +4,23 @@
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
-    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
-    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
-    <edmx:Include Namespace="Resource"/>
-    <edmx:Include Namespace="Resource.v1_0_0"/>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LogService_v1.xml">
+    <edmx:Include Namespace="LogService"/>
+    <edmx:Include Namespace="LogService.v1_0_0"/>
   </edmx:Reference>
 
   <edmx:DataServices>
-
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemLogService">
-      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
-    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemLogService.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
       <Annotation Term="Redfish.Release" String="1.0"/>
 
-      <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
-        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
-          <Action Name="CreateLog" IsBound="true">
-            <Parameter Name="LogService" Type="LogService.v1_0_0.OemActions"/>
-            <Annotation Term="OData.Description" String="The action to create the log for this Log Service."/>
-            <Annotation Term="OData.LongDescription" String="This action is used to trigger a new system dump."/>
-          </Action>
-          <Property Name="Type" Type="Edm.String">
-            <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-            <Annotation Term="OData.Description" String="The entry type"/>
-            <Annotation Term="OData.LongDescription" String="This property shall contain the EntryType is `Dump`."/>
-          </Property>
-          <Property Name="DumpType" Type="Edm.String">
-            <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-            <Annotation Term="OData.Description" String="The dump entry type"/>
-            <Annotation Term="OData.LongDescription" String="This property shall contain dump entry type."/>
-          </Property>
-      </ComplexType>
+      <Action Name="CollectDiagnosticData" IsBound="true">
+        <Parameter Name="OemLogService" Type="LogService.v1_0_0.OemActions"/>
+        <Annotation Term="OData.Description" String="This action is used to trigger the creation of a dump." />
+        <Annotation Term="OData.LongDescription" String="This action is used to trigger the creation of a dump." />
+      </Action>
 
-      <EntityType Name="LogService" BaseType="Resource.OemObject" Abstract="true">
-          <Annotation Term="OData.Description" String="OEM Extension for LogService"/>
-          <Annotation Term="OData.LongDescription" String="OEM Extension of LogService for dump"/>
-      </EntityType>
     </Schema>
 
   </edmx:DataServices>
