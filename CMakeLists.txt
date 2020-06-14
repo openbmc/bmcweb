@@ -265,7 +265,7 @@ if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
 endif ()
 
-find_package (Boost 1.71 REQUIRED)
+find_package (Boost 1.73 REQUIRED)
 include_directories (SYSTEM ${BOOST_SRC_DIR})
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
