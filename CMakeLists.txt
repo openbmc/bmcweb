@@ -265,7 +265,8 @@ if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
 endif ()
 
-find_package (Boost 1.71 REQUIRED)
+find_package (Boost 1.73 REQUIRED)
+message (BOOST_VERSION = ${Boost_VERSION})
 include_directories (SYSTEM ${BOOST_SRC_DIR})
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
@@ -273,7 +274,6 @@ add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
-message (BOOST_VERSION = ${Boost_VERSION})
 if ("${Boost_VERSION}" STREQUAL "107100")
     add_definitions (-DBOOST_ASIO_NO_DEPRECATED)
 endif ()
