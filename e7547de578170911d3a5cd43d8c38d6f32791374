@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a1fd28b9_a3f76d09",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-15T08:39:05Z",
+      "side": 1,
+      "message": "I wish i would have used it but they are already in encapsulated in this class and all operations like async_write, async_read,connect etc are encapsulated. Thanks for suggestion Adrian. Adding one more just for this will increase duplicate and complexity.",
+      "parentUuid": "10601a2a_0840fc21",
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abcc7550_b0ab45af",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2020-06-03T09:34:46Z",
       "side": 1,
       "message": "nit: Is there a reason we need that? Couldn\u0027t async_write(getConn().. be used instead? I suspect that might be limitation (or design choice?) of the boost implementation, but I\u0027m interested in the answer",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 9
+      },
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ae27cb5_19d0e0f5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-15T08:39:05Z",
+      "side": 1,
+      "message": "The getConn() return the tcp_stream but async_write() accept ssl_stream in case of SSL. In fact started with it and where ever possible i used getConn() and simplified code and only in async_write \u0026 async_read case, I got to use ssl_stream while using secure connection.",
+      "parentUuid": "abcc7550_b0ab45af",
       "range": {
         "startLine": 201,
         "startChar": 0,
@@ -86,6 +128,30 @@
       "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89e635ac_a9eda5c4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-15T08:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "185254f4_33a5cab5",
+      "range": {
+        "startLine": 410,
+        "startChar": 24,
+        "endLine": 410,
+        "endChar": 53
+      },
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
