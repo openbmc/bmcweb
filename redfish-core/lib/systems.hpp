@@ -1697,8 +1697,12 @@ class SystemActionsReset : public Node
         }
         else if (resetType == "ForceRestart")
         {
+#ifdef BMCWEB_ENABLE_WARM_REBOOT
             command =
                 "xyz.openbmc_project.State.Host.Transition.ForceWarmReboot";
+#else
+            command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+#endif
             hostCommand = true;
         }
         else if (resetType == "GracefulShutdown")
@@ -1708,8 +1712,12 @@ class SystemActionsReset : public Node
         }
         else if (resetType == "GracefulRestart")
         {
+#ifdef BMCWEB_ENABLE_WARM_REBOOT
             command =
                 "xyz.openbmc_project.State.Host.Transition.GracefulWarmReboot";
+#else
+            command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+#endif
             hostCommand = true;
         }
         else if (resetType == "PowerCycle")

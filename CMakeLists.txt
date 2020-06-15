@@ -100,6 +100,12 @@ option (
     '/ibm/v1/'."
     OFF
 )
+option (
+    BMCWEB_ENABLE_WARM_REBOOT
+    "Enable the warm reboot of a system. This will leave the chassis power on
+    when Redfish API's such as GracefulRestart are executed."
+    ON
+)
 
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
