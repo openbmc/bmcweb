@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfab8540_3bb27567",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-06-15T20:50:41Z",
+      "side": 1,
+      "message": "deprecated, you can remove this, asyncResp is defaulted to success",
+      "range": {
+        "startLine": 670,
+        "startChar": 15,
+        "endLine": 670,
+        "endChar": 50
+      },
+      "revId": "4b1d0c655189189362eb1d5cce994ec9882c814b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c686af5c_7088e6d5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-06-15T20:50:41Z",
+      "side": 1,
+      "message": "shouldn\u0027t this result in an error for the payload? Not just ignoring it?\n\nalso, can this be a readjson call?",
+      "range": {
+        "startLine": 683,
+        "startChar": 9,
+        "endLine": 684,
+        "endChar": 54
+      },
+      "revId": "4b1d0c655189189362eb1d5cce994ec9882c814b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd8c9aa9_7fd3f1d7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-06-15T20:50:41Z",
+      "side": 1,
+      "message": "readjson?",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 689,
+        "endChar": 67
+      },
+      "revId": "4b1d0c655189189362eb1d5cce994ec9882c814b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77e3d05f_d209ce44",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-06-15T20:50:41Z",
+      "side": 1,
+      "message": "same as below",
+      "range": {
+        "startLine": 779,
+        "startChar": 12,
+        "endLine": 779,
+        "endChar": 21
+      },
+      "revId": "4b1d0c655189189362eb1d5cce994ec9882c814b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0fd7a6b_b9974265",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-06-15T20:50:41Z",
+      "side": 1,
+      "message": "this isn\u0027t the correct error, this isn\u0027t a privilege error, maybe  invalidObject? or generalError? or I\u0027m addding invalid file here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33510/5/redfish-core/src/error_messages.cpp#1728",
+      "range": {
+        "startLine": 790,
+        "startChar": 22,
+        "endLine": 790,
+        "endChar": 43
+      },
+      "revId": "4b1d0c655189189362eb1d5cce994ec9882c814b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3e3acac_9ab060c7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-06-15T20:50:41Z",
+      "side": 1,
+      "message": "nit: not required due to raii",
+      "range": {
+        "startLine": 813,
+        "startChar": 6,
+        "endLine": 813,
+        "endChar": 20
+      },
+      "revId": "4b1d0c655189189362eb1d5cce994ec9882c814b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
