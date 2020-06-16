@@ -7,13 +7,8 @@
 
 #include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
-#include <boost/beast/websocket.hpp>
-
-#if BOOST_VERSION >= 107000
 #include <boost/beast/ssl/ssl_stream.hpp>
-#else
-#include <boost/beast/experimental/core/ssl_stream.hpp>
-#endif
+#include <boost/beast/websocket.hpp>
 
 namespace crow
 {

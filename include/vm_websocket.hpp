@@ -189,13 +189,8 @@ void requestRoutes(Crow<Middlewares...>& app)
             [](crow::websocket::Connection& conn, const std::string& reason) {
                 session = nullptr;
                 handler->doClose();
-#if BOOST_VERSION >= 107000
                 handler->inputBuffer->clear();
                 handler->outputBuffer->clear();
-#else
-                handler->inputBuffer->reset();
-                handler->outputBuffer->reset();
-#endif
                 handler.reset();
             })
         .onmessage([](crow::websocket::Connection& conn,

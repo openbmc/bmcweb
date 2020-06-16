@@ -1,25 +1,19 @@
 #pragma once
 
+#include "http_connection.h"
+#include "logging.h"
+#include "timer_queue.h"
+
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/steady_timer.hpp>
-
-#include <atomic>
-#if BOOST_VERSION >= 107000
 #include <boost/beast/ssl/ssl_stream.hpp>
-#else
-#include <boost/beast/experimental/core/ssl_stream.hpp>
-#endif
-
-#include "http_connection.h"
-#include "logging.h"
-#include "timer_queue.h"
-
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <ssl_key_handler.hpp>
 
+#include <atomic>
 #include <chrono>
 #include <cstdint>
 #include <filesystem>
