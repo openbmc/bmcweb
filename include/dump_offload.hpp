@@ -247,13 +247,8 @@ class Handler : public std::enable_shared_from_this<Handler>
      */
     void resetBuffers()
     {
-#if BOOST_VERSION >= 107000
         this->inputBuffer->clear();
         this->outputBuffer->clear();
-#else
-        this->inputBuffer->reset();
-        this->outputBuffer->reset();
-#endif
     }
 
     boost::process::async_pipe pipeOut;

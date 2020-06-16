@@ -1,6 +1,12 @@
 #pragma once
 #include "config.h"
 
+#include "http_response.h"
+#include "logging.h"
+#include "middleware_context.h"
+#include "timer_queue.h"
+#include "utility.h"
+
 #include "http_utility.hpp"
 
 #include <boost/algorithm/string.hpp>
@@ -9,23 +15,12 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
-
-#include <atomic>
-#if BOOST_VERSION >= 107000
-#include <boost/beast/ssl/ssl_stream.hpp>
-#else
-#include <boost/beast/experimental/core/ssl_stream.hpp>
-#endif
-#include "http_response.h"
-#include "logging.h"
-#include "middleware_context.h"
-#include "timer_queue.h"
-#include "utility.h"
-
 #include <boost/beast/http.hpp>
+#include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
 #include <ssl_key_handler.hpp>
 
+#include <atomic>
 #include <chrono>
 #include <vector>
 
