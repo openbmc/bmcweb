@@ -66,6 +66,34 @@ inline void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
         interfaceName, destProperty, dbusPropertyValue);
 }
 
+void doBMCForceRestart(std::shared_ptr<AsyncResp> asyncResp)
+{
+    const char* processName = "xyz.openbmc_project.State.BMC";
+    const char* objectPath = "/xyz/openbmc_project/state/bmc0";
+    const char* interfaceName = "xyz.openbmc_project.State.BMC";
+    const std::string& propertyValue =
+        "xyz.openbmc_project.State.BMC.Transition.HardReboot";
+    const char* destProperty = "RequestedBMCTransition";
+
+    // Create the D-Bus variant for D-Bus call.
+    VariantType dbusPropertyValue(propertyValue);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            // Use "Set" method to set the property value.
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            messages::success(asyncResp->res);
+        },
+        processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
+        interfaceName, destProperty, dbusPropertyValue);
+}
+
 /**
  * ManagerResetAction class supports the POST method for the Reset (reboot)
  * action.
@@ -84,7 +112,7 @@ class ManagerResetAction : public Node
     /**
      * Function handles POST method request.
      * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
-     * OpenBMC only supports ResetType "GracefulRestart".
+     * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
      */
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>&) override
@@ -99,7 +127,19 @@ class ManagerResetAction : public Node
             return;
         }
 
-        if (resetType != "GracefulRestart")
+        if (resetType == "GracefulRestart")
+        {
+            BMCWEB_LOG_DEBUG << "Proceeding with " << resetType;
+            doBMCGracefulRestart(asyncResp);
+            return;
+        }
+        else if (resetType == "ForceRestart")
+        {
+            BMCWEB_LOG_DEBUG << "Proceeding with " << resetType;
+            doBMCForceRestart(asyncResp);
+            return;
+        }
+        else
         {
             BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
                              << resetType;
@@ -108,7 +148,6 @@ class ManagerResetAction : public Node
 
             return;
         }
-        doBMCGracefulRestart(asyncResp);
     }
 };
 
@@ -222,7 +261,7 @@ class ManagerResetActionInfo : public Node
              {{{"Name", "ResetType"},
                {"Required", true},
                {"DataType", "String"},
-               {"AllowableValues", {"GracefulRestart"}}}}}};
+               {"AllowableValues", {"GracefulRestart", "ForceRestart"}}}}}};
         res.end();
     }
 };
