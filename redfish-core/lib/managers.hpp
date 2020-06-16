@@ -83,7 +83,7 @@ class ManagerResetAction : public Node
     /**
      * Function handles POST method request.
      * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
-     * OpenBMC only supports ResetType "GracefulRestart".
+     * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
      */
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
@@ -98,7 +98,7 @@ class ManagerResetAction : public Node
             return;
         }
 
-        if (resetType != "GracefulRestart")
+        if (resetType != "GracefulRestart" || resetType != "ForceRestart")
         {
             BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
                              << resetType;
@@ -1674,7 +1674,8 @@ class Manager : public Node
             res.jsonValue["Actions"]["#Manager.Reset"];
         managerReset["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
-        managerReset["ResetType@Redfish.AllowableValues"] = {"GracefulRestart"};
+        managerReset["ResetType@Redfish.AllowableValues"] = {"GracefulRestart",
+                                                             "ForceRestart"};
 
         // ResetToDefaults (Factory Reset) has values like
         // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
