@@ -1,0 +1,10 @@
+Code-Review+1: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Code-Review+1: Sunitha Harish <sunithaharish04@gmail.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Submitted-by: ManojKiran Eda <manojkiran.eda@gmail.com>
+Submitted-at: Wed, 17 Jun 2020 04:23:15 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32704
+Project: openbmc/bmcweb
+Branch: refs/heads/master
