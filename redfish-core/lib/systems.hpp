@@ -1689,7 +1689,8 @@ class SystemsCollection : public Node
                     {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                 count = iface_array.size();
             },
-            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/hypervisor",
             "org.freedesktop.DBus.Properties", "Get",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName");
     }
