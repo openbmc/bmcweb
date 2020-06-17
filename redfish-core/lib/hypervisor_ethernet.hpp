@@ -64,7 +64,8 @@ class HypervisorSystem : public Node
                                   "EthernetInterfaces"}};
                 // TODO: Add "SystemType" : "hypervisor"
             },
-            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/hypervisor",
             "org.freedesktop.DBus.Properties", "Get",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName");
     }
@@ -112,9 +113,8 @@ class HypervisorInterfaceCollection : public Node
                     "EthernetInterfaceCollection";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
-                asyncResp->res.jsonValue["Name"] =
-                    "Virtual Management Ethernet "
-                    "Network Interface Collection";
+                asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet "
+                                                   "Interface Collection";
                 asyncResp->res.jsonValue["Description"] =
                     "Collection of Virtual Management "
                     "Interfaces for the hypervisor";
@@ -139,7 +139,7 @@ class HypervisorInterfaceCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/network/vmi", 0, interfaces);
+            "/xyz/openbmc_project/network/hypervisor", 0, interfaces);
     }
 };
 
@@ -154,7 +154,7 @@ inline bool extractHypervisorInterfaceData(
         for (const auto& ifacePair : objpath.second)
         {
             if (objpath.first ==
-                "/xyz/openbmc_project/network/vmi/" + ethifaceId)
+                "/xyz/openbmc_project/network/hypervisor/" + ethifaceId)
             {
                 idFound = true;
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
@@ -173,7 +173,7 @@ inline bool extractHypervisorInterfaceData(
                     }
                 }
             }
-            if (objpath.first == "/xyz/openbmc_project/network/vmi/" +
+            if (objpath.first == "/xyz/openbmc_project/network/hypervisor/" +
                                      ethifaceId + "/ipv4/addr0")
             {
                 if (ifacePair.first == "xyz.openbmc_project.Network.IP")
@@ -224,7 +224,7 @@ inline bool extractHypervisorInterfaceData(
                     }
                 }
             }
-            if (objpath.first == "/xyz/openbmc_project/network/vmi")
+            if (objpath.first == "/xyz/openbmc_project/network/hypervisor")
             {
                 // System configuration shows up in the global namespace, so no
                 // need to check eth number
@@ -309,8 +309,8 @@ inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Aaddress
                      << " on Iface: " << ethifaceId;
     std::string path =
-        "/xyz/openbmc_project/network/vmi/" + ethifaceId + "/ipv4/addr0";
-    const char* vmiObj = path.c_str();
+        "/xyz/openbmc_project/network/hypervisor/" + ethifaceId + "/ipv4/addr0";
+    const char* hypervisorObj = path.c_str();
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec) {
@@ -322,7 +322,7 @@ inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
             }
             BMCWEB_LOG_DEBUG << "Hypervisor IPaddress is Set";
         },
-        "xyz.openbmc_project.Settings", vmiObj,
+        "xyz.openbmc_project.Settings", hypervisorObj,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "Address",
         std::variant<std::string>(ipv4Aaddress));
@@ -344,8 +344,8 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
                      << " on Iface: " << ethifaceId;
     std::string path =
-        "/xyz/openbmc_project/network/vmi/" + ethifaceId + "/ipv4/addr0";
-    const char* vmiObj = path.c_str();
+        "/xyz/openbmc_project/network/hypervisor/" + ethifaceId + "/ipv4/addr0";
+    const char* hypervisorObj = path.c_str();
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec) {
@@ -357,7 +357,7 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
             }
             BMCWEB_LOG_DEBUG << "SubnetMask is Set";
         },
-        "xyz.openbmc_project.Settings", vmiObj,
+        "xyz.openbmc_project.Settings", hypervisorObj,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "PrefixLength",
         std::variant<uint8_t>(subnet));
@@ -389,7 +389,8 @@ inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
             }
             BMCWEB_LOG_DEBUG << "Default Gateway is Set";
         },
-        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
         std::variant<std::string>(gateway));
@@ -628,7 +629,8 @@ class HypervisorInterface : public Node
                     messages::internalError(asyncResp->res);
                 }
             },
-            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/hypervisor",
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
             std::variant<std::string>(hostName));
@@ -661,9 +663,9 @@ class HypervisorInterface : public Node
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#EthernetInterface.v1_5_1.EthernetInterface";
                 asyncResp->res.jsonValue["Name"] =
-                    "Virtual Management Ethernet Interface";
+                    "Hypervisor Ethernet Interface";
                 asyncResp->res.jsonValue["Description"] =
-                    "Virtual Interface Management Network Interface";
+                    "Hypervisor's Virtual Management Ethernet Interface";
                 parseInterfaceData(asyncResp->res.jsonValue, ifaceId, ethData,
                                    ipv4Data);
             });
