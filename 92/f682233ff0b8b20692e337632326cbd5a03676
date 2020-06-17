@@ -1,0 +1,9 @@
+Code-Review+1: ManojKiran Eda <manojkiran.eda@gmail.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Submitted-by: Sunitha Harish <sunithaharish04@gmail.com>
+Submitted-at: Wed, 17 Jun 2020 04:32:44 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32911
+Project: openbmc/bmcweb
+Branch: refs/heads/master
