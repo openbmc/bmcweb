@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "0c4c2757_6ef931fb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-06-18T12:39:37Z",
+      "side": 1,
+      "message": "I got it , it was a recursive function and each mimetic object gives the capacity of individual file?\nI thought it was for the full body.\nNo need to move the check",
+      "parentUuid": "bbbdc43e_bd5969bf",
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36de753d_5f1f3544",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
@@ -260,6 +278,30 @@
       "side": 1,
       "message": "So here, the req body is not directly given. Instead, the mimetic obj is constructed using the input iterators.\n\nWe are just constructing an object here! And then the method is called recursively from within until the end of the file. So all the parsing work is done only in the method above.\n\n\nAs you mentioned in the comment in line 19, yes there is another way around, by not using temp files.",
       "parentUuid": "41eaaec4_189cb2bf",
+      "range": {
+        "startLine": 200,
+        "startChar": 34,
+        "endLine": 200,
+        "endChar": 44
+      },
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb64617b_d4f2f4ca",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-06-18T12:39:37Z",
+      "side": 1,
+      "message": "got it, thanks for the explanation.",
+      "parentUuid": "9f77fa9c_d15ee448",
       "range": {
         "startLine": 200,
         "startChar": 34,
