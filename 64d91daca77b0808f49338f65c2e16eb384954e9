@@ -49,6 +49,69 @@
     },
     {
       "key": {
+        "uuid": "f27d3a3d_901a5a3a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-06-18T11:33:53Z",
+      "side": 1,
+      "message": "Invalid Request??",
+      "range": {
+        "startLine": 171,
+        "startChar": 27,
+        "endLine": 171,
+        "endChar": 48
+      },
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1993ed12_1f488c47",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-06-18T11:33:53Z",
+      "side": 1,
+      "message": "You can also have the check for Max save area file size here from line no 102 and once we find it is a valid request then give the req-body to the createMultipartfiles..\n\nSee comment below at line no 200.",
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36de753d_5f1f3544",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-06-18T11:33:53Z",
+      "side": 1,
+      "message": "Why we are writing on the temporary file??? why can\u0027t we give the (req-\u003e body) to line no 193??",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 20
+      },
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c15bbaa9_d7b645a9",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
@@ -93,6 +156,29 @@
       "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41eaaec4_189cb2bf",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-06-18T11:33:53Z",
+      "side": 1,
+      "message": "Can we give the req-body here and do all the mimetic business in the createMultipartfiles function??",
+      "range": {
+        "startLine": 200,
+        "startChar": 34,
+        "endLine": 200,
+        "endChar": 44
+      },
+      "revId": "64d91daca77b0808f49338f65c2e16eb384954e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
