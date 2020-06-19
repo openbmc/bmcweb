@@ -39,7 +39,6 @@ namespace redfish
 
 constexpr char const* crashdumpObject = "com.intel.crashdump";
 constexpr char const* crashdumpPath = "/com/intel/crashdump";
-constexpr char const* crashdumpOnDemandPath = "/com/intel/crashdump/OnDemand";
 constexpr char const* crashdumpInterface = "com.intel.crashdump";
 constexpr char const* deleteAllInterface =
     "xyz.openbmc_project.Collection.DeleteAll";
@@ -47,6 +46,8 @@ constexpr char const* crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr char const* crashdumpRawPECIInterface =
     "com.intel.crashdump.SendRawPeci";
+constexpr char const *crashdumpTelemetryInterface =
+    "com.intel.crashdump.Telemetry";
 
 namespace message_registries
 {
@@ -1980,7 +1981,10 @@ class CrashdumpService : public Node
             {"Oem",
              {{"#Crashdump.OnDemand",
                {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                           "Actions/Oem/Crashdump.OnDemand"}}}}}};
+                           "Actions/Oem/Crashdump.OnDemand"}}},
+              {"#Crashdump.Telemetry",
+               {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                           "Actions/Oem/Crashdump.Telemetry"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
@@ -2376,6 +2380,78 @@ class OnDemandCrashdump : public Node
         crow::connections::systemBus->async_method_call(
             std::move(generateonDemandLogCallback), crashdumpObject,
             crashdumpPath, crashdumpOnDemandInterface, "GenerateOnDemandLog");
+    }
+};
+
+class TelemetryCrashdump : public Node
+{
+  public:
+    TelemetryCrashdump(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
+             "Crashdump.Telemetry/")
+    {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        auto generateTelemetryLogCallback = [asyncResp,
+            req](const boost::system::error_code
+                 ec,
+                 const std::string &resp) {
+          if (ec)
+          {
+              if (ec.value() == boost::system::errc::operation_not_supported)
+              {
+                  messages::resourceInStandby(asyncResp->res);
+              }
+              else if (ec.value() ==
+                       boost::system::errc::device_or_resource_busy)
+              {
+                  messages::serviceTemporarilyUnavailable(asyncResp->res,
+                                                          "60");
+              }
+              else
+              {
+                  messages::internalError(asyncResp->res);
+              }
+              return;
+          }
+          std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+              [](boost::system::error_code err, sdbusplus::message::message &,
+                 const std::shared_ptr<task::TaskData> &taskData) {
+                if (!err)
+                {
+                    taskData->messages.emplace_back(
+                        messages::taskCompletedOK(
+                            std::to_string(taskData->index)));
+                    taskData->state = "Completed";
+                }
+                return task::completed;
+              },
+              "type='signal',interface='org.freedesktop.DBus.Properties',"
+              "member='PropertiesChanged',arg0namespace='com.intel."
+              "crashdump'");
+          task->startTimer(std::chrono::minutes(5));
+          task->populateResp(asyncResp->res);
+          task->payload.emplace(req);
+        };
+        crow::connections::systemBus->async_method_call(
+            std::move(generateTelemetryLogCallback), crashdumpObject,
+            crashdumpPath, crashdumpTelemetryInterface, "GenerateTelemetryLog");
     }
 };
 
