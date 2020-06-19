@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c5733720_2c9f94d1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-06-19T07:55:56Z",
+      "side": 1,
+      "message": "I understand your point, I\u0027m just always fan of encapsulating related code in one place, so then higher level logic won\u0027t bother about that. When I see \u0027if(someBool){do this}else{do that}\u0027 in multiple places in code it gives me a hint, that we\u0027re dealing with \na) strategy pattern\nb) an abstract object\nwhich hasn\u0027t been yet implemented as such:) But I won\u0027t insist if you dont see value in that.",
+      "parentUuid": "a1fd28b9_a3f76d09",
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abcc7550_b0ab45af",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
@@ -81,6 +99,30 @@
       "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3baef1_e740ba03",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-06-19T07:55:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1ae27cb5_19d0e0f5",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 9
+      },
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
