@@ -13,7 +13,7 @@
             "enumDescriptions": {
                 "Manager": "Indicates Manager diagnostic data.",
                 "OEM": "Indicates OEM diagnostic data.",
-                "OS": "Indicates Operation system(OS) diagnostic data.",
+                "OS": "Indicates Operating system(OS) diagnostic data.",
                 "PreOS": "Indicates Pre-OS diagnostic data."
             },
             "type": "string"
@@ -38,7 +38,7 @@
             "properties": {
                 "AdditionalDataSizeBytes": {
                     "description": "The size of diagnostic data in bytes for the log entry if the entry type is `DUMP`.",
-                    "longDescription": "This property shall contain the size of diagnostic data in bytes for the log entry if the entry if the entry type is `DUMP`.",
+                    "longDescription": "This property shall contain the size of diagnostic data in bytes for the log entry if the entry type is `DUMP`.",
                     "readonly": true,
                     "type": [
                         "integer",
