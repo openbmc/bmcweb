@@ -19,8 +19,32 @@
         <Parameter Name="OemLogService" Type="LogService.v1_0_0.OemActions"/>
         <Annotation Term="OData.Description" String="This action is used to trigger the creation of a dump." />
         <Annotation Term="OData.LongDescription" String="This action is used to trigger the creation of a dump." />
+          <Parameter Name="DiagnosticDataType" Type="OemLogService.v1_0_0.DiagnosticDataType" Nullable="false">
+              <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+              <Annotation Term="OData.Description" String="The type of diagnostic data entry"/>
+              <Annotation Term="OData.LongDescription" String="This property shall contain the type of diagnostic data entry."/>
+          </Parameter>
+          <Parameter Name="OEMDiagnosticDataType" Type="Edm.String" Nullable="false">
+              <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+              <Annotation Term="OData.Description" String="The OEM type of diagnostic data entry"/>
+              <Annotation Term="OData.LongDescription" String="This property shall contain the OEM type of diagnostic data entry."/>
+          </Parameter>
       </Action>
 
+      <EnumType Name="DiagnosticDataType">
+        <Member Name="Manager">
+          <Annotation Term="OData.Description" String="Indicates Manager diagnostic data."/>
+        </Member>
+        <Member Name="PreOS">
+          <Annotation Term="OData.Description" String="Indicates Pre-OS diagnostic data."/>
+        </Member>
+        <Member Name="OS">
+          <Annotation Term="OData.Description" String="Indicates Operating system(OS) diagnostic data."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="Indicates OEM diagnostic data."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>
