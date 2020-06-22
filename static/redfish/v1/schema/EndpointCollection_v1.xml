@@ -64,7 +64,7 @@
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
       </EntityType>
-
     </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

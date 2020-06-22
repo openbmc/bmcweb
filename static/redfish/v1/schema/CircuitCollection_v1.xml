@@ -33,7 +33,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="CircuitCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The CircuitCollection schema describes a collection of Circuit resource instances."/>
+        <Annotation Term="OData.Description" String="The collection of Circuit resource instances."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of Circuit instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -65,7 +65,7 @@
         <NavigationProperty Name="Members" Type="Collection(Circuit.Circuit)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this resource collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>

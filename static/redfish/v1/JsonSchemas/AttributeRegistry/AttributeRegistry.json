@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_3.json",
     "$ref": "#/definitions/AttributeRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "AttributeRegistry": {
             "additionalProperties": false,
-            "description": "The AttributeRegistry schema contains a set of key-value pairs that represent the structure of an Attribute Registry.  It includes mechanisms for building user interfaces, or menus, allowing consistent navigation of the contents.  The Attribute Registry is specific to an implementation or product.  The attributes and property names are not standardized.",
-            "longDescription": "This Resource shall represent an Attribute Registry for a Redfish implementation.",
+            "description": "The AttributeRegistry schema contains a set of key-value pairs that represent the structure of an attribute registry.  It includes mechanisms for building user interfaces, or menus, allowing consistent navigation of the contents.  The attribute registry is specific to an implementation or product.  The attributes and property names are not standardized.",
+            "longDescription": "This resource shall represent an attribute registry for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -56,8 +56,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Description": {
@@ -76,7 +76,7 @@
                     "readonly": true
                 },
                 "Language": {
-                    "description": "The RFC5646-conformant language code for the Attribute Registry.",
+                    "description": "The RFC5646-conformant language code for the attribute registry.",
                     "longDescription": "This property shall contain an RFC5646-conformant language code.",
                     "readonly": true,
                     "type": "string"
@@ -91,8 +91,8 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "OwningEntity": {
-                    "description": "The organization or company that publishes this Attribute Registry.",
-                    "longDescription": "This property shall represent the publisher of this Attribute Registry.",
+                    "description": "The organization or company that publishes this attribute registry.",
+                    "longDescription": "This property shall represent the publisher of this attribute registry.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -102,18 +102,18 @@
                     "longDescription": "This property shall list attributes for this component, along with their possible values, dependencies, and other metadata."
                 },
                 "RegistryVersion": {
-                    "description": "The Attribute Registry version.",
-                    "longDescription": "This property shall contain the version of this Attribute Registry.",
+                    "description": "The attribute registry version.",
+                    "longDescription": "This property shall contain the version of this attribute registry.",
                     "pattern": "^\\d+\\.\\d+\\.\\d+$",
                     "readonly": true,
                     "type": "string"
                 },
                 "SupportedSystems": {
-                    "description": "An array of systems that this Attribute Registry supports.",
+                    "description": "An array of systems that this attribute registry supports.",
                     "items": {
                         "$ref": "#/definitions/SupportedSystems"
                     },
-                    "longDescription": "This property shall contain an array containing a list of systems that this Attribute Registry supports.",
+                    "longDescription": "This property shall contain an array containing a list of systems that this attribute registry supports.",
                     "type": "array"
                 }
             },
@@ -205,7 +205,7 @@
             "properties": {
                 "AttributeName": {
                     "description": "The unique name for the attribute.",
-                    "longDescription": "This property shall contain the name of this attribute that is unique in this Attribute Registry.",
+                    "longDescription": "This property shall contain the name of this attribute that is unique in this attribute registry.",
                     "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
                     "readonly": true,
                     "type": "string"
@@ -467,8 +467,8 @@
             "properties": {
                 "Dependency": {
                     "$ref": "#/definitions/Dependency",
-                    "description": "The dependency expression for one or more attributes in this Attribute Registry.",
-                    "longDescription": "This property shall contain the dependency expression for one or more attributes in this Attribute Registry."
+                    "description": "The dependency expression for one or more attributes in this attribute registry.",
+                    "longDescription": "This property shall contain the dependency expression for one or more attributes in this attribute registry."
                 },
                 "DependencyFor": {
                     "description": "The AttributeName of the attribute whose change triggers the evaluation of this dependency expression.",
@@ -488,8 +488,8 @@
         },
         "Dependency": {
             "additionalProperties": false,
-            "description": "The dependency expression for one or more attributes in this Attribute Registry.",
-            "longDescription": "This type shall describe the dependency expression for one or more attributes in this Attribute Registry.",
+            "description": "The dependency expression for one or more attributes in this attribute registry.",
+            "longDescription": "This type shall describe the dependency expression for one or more attributes in this attribute registry.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -765,7 +765,7 @@
                 },
                 "MenuName": {
                     "description": "The unique name string of this menu.",
-                    "longDescription": "This property shall contain the name of this menu that is unique in this Attribute Registry.",
+                    "longDescription": "This property shall contain the name of this menu that is unique in this attribute registry.",
                     "pattern": "^[^/]+$",
                     "readonly": true,
                     "type": "string"
@@ -800,8 +800,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -839,11 +839,11 @@
             },
             "properties": {
                 "Attributes": {
-                    "description": "An array of attributes and their possible values in the Attribute Registry.",
+                    "description": "An array of attributes and their possible values in the attribute registry.",
                     "items": {
                         "$ref": "#/definitions/Attributes"
                     },
-                    "longDescription": "This property shall contain an array containing the attributes and their possible values and other metadata in the Attribute Registry.",
+                    "longDescription": "This property shall contain an array containing the attributes and their possible values and other metadata in the attribute registry.",
                     "type": "array"
                 },
                 "Dependencies": {
@@ -855,11 +855,11 @@
                     "type": "array"
                 },
                 "Menus": {
-                    "description": "An array for the attributes menus and their hierarchy in the Attribute Registry.",
+                    "description": "An array for the attributes menus and their hierarchy in the attribute registry.",
                     "items": {
                         "$ref": "#/definitions/Menus"
                     },
-                    "longDescription": "This property shall contain an array containing the attributes menus and their hierarchy in the Attribute Registry.",
+                    "longDescription": "This property shall contain an array containing the attributes menus and their hierarchy in the attribute registry.",
                     "type": "array"
                 }
             },
@@ -867,8 +867,8 @@
         },
         "SupportedSystems": {
             "additionalProperties": false,
-            "description": "A system that this Attribute Registry supports.",
-            "longDescription": "This type shall describe a system that this Attribute Registry supports.",
+            "description": "A system that this attribute registry supports.",
+            "longDescription": "This type shall describe a system that this attribute registry supports.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -886,7 +886,7 @@
             "properties": {
                 "FirmwareVersion": {
                     "description": "Firmware version.",
-                    "longDescription": "The version of the component firmware image to which this Attribute Registry applies.",
+                    "longDescription": "The version of the component firmware image to which this attribute registry applies.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -895,8 +895,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "ProductName": {
-                    "description": "The product name of the computer system to which this Attribute Registry applies.",
-                    "longDescription": "This property shall contain the product name of the computer system to which this Attribute Registry applies.",
+                    "description": "The product name of the computer system to which this attribute registry applies.",
+                    "longDescription": "This property shall contain the product name of the computer system to which this attribute registry applies.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -904,8 +904,8 @@
                     ]
                 },
                 "SystemId": {
-                    "description": "The ID of the systems to which this Attribute Registry applies.",
-                    "longDescription": "This property shall contain the system ID that identifies the systems to which this Attribute Registry applies.  This may be identified by one or more properties in the ComputerSystem Resource, such as Model, SubModel, or SKU.",
+                    "description": "The ID of the systems to which this attribute registry applies.",
+                    "longDescription": "This property shall contain the system ID that identifies the systems to which this attribute registry applies.  This might be identified by one or more properties in the computer system resource, such as Model, SubModel, or SKU.",
                     "pattern": "^[A-Za-z0-9]+$",
                     "readonly": true,
                     "type": [
@@ -919,5 +919,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#AttributeRegistry.v1_3_2.AttributeRegistry"
+    "title": "#AttributeRegistry.v1_3_3.AttributeRegistry"
 }

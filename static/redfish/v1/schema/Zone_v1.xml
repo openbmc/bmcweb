@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Zone v1.4.1                                                         -->
+<!--# Redfish Schema:  Zone v1.4.2                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -67,7 +67,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_0">
@@ -256,8 +255,8 @@
 
       <EnumType Name="ExternalAccessibility">
         <Member Name="GloballyAccessible">
-          <Annotation Term="OData.Description" String="Any external entity with the correct access details, which may include authorization information, can access the endpoints that this zone lists."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate that any external entity with the correct access details, which may include authorization information, can access the endpoints that this zone lists, regardless of zone."/>
+          <Annotation Term="OData.Description" String="Any external entity with the correct access details, which might include authorization information, can access the endpoints that this zone lists."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that any external entity with the correct access details, which might include authorization information, can access the endpoints that this zone lists, regardless of zone."/>
         </Member>
         <Member Name="NonZonedAccessible">
           <Annotation Term="OData.Description" String="Any external entity that another zone does not explicitly list can access the endpoints that this zone lists."/>
@@ -280,6 +279,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Zone" BaseType="Zone.v1_3_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_3_2.Zone"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_0">
@@ -340,6 +345,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Zone" BaseType="Zone.v1_4_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_4_1.Zone"/>
     </Schema>
 
   </edmx:DataServices>

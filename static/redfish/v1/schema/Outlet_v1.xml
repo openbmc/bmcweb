@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Outlet v1.0.0                                                       -->
+<!--# Redfish Schema:  Outlet v1.0.1                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -41,7 +41,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Outlet" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for an electrical outlet."/>
+        <Annotation Term="OData.Description" String="The Outlet schema contains definition for an electrical outlet."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an electrical outlet for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -69,19 +69,19 @@
       </EntityType>
 
       <Action Name="PowerControl" IsBound="true">
+        <Annotation Term="OData.Description" String="This action turns the outlet on or off."/>
+        <Annotation Term="OData.LongDescription" String="This action shall control the power state of the outlet."/>
         <Parameter Name="Outlet" Type="Outlet.v1_0_0.Actions"/>
         <Parameter Name="PowerState" Type="Outlet.PowerState">
           <Annotation Term="OData.Description" String="The desired power state of the outlet."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the desired power state of the outlet."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action turns the outlet on or off."/>
-        <Annotation Term="OData.LongDescription" String="This action shall control the power state of the outlet."/>
       </Action>
 
       <Action Name="ResetMetrics" IsBound="true">
-        <Parameter Name="Outlet" Type="Outlet.v1_0_0.Actions"/>
         <Annotation Term="OData.Description" String="This action resets metrics related to this outlet."/>
         <Annotation Term="OData.LongDescription" String="This action shall reset any time intervals or counted values for this outlet."/>
+        <Parameter Name="Outlet" Type="Outlet.v1_0_0.Actions"/>
       </Action>
 
       <EnumType Name="PowerState">
@@ -147,12 +147,12 @@
           <Annotation Term="OData.LongDescription" String="This value shall represent a receptacle that matches the British BS 1363 Type G receptacle (250V; 13A)."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
+
       <EntityType Name="Outlet" BaseType="Outlet.Outlet">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
@@ -228,7 +228,7 @@
         <Property Name="PowerEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates if the outlet can be powered."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the power enable state of the outlet.  The value `true` shall indicate that the outlet may be powered on, and `false` shall indicate that the outlet cannot be powered."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the power enable state of the outlet.  The value `true` shall indicate that the outlet can be powered on, and `false` shall indicate that the outlet cannot be powered."/>
         </Property>
         <NavigationProperty Name="Voltage" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -272,7 +272,7 @@
 
         <Property Name="Links" Type="Outlet.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="Actions" Type="Outlet.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -282,7 +282,7 @@
 
       <ComplexType Name="Links" BaseType="Resource.Links">
         <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="BranchCircuit" Type="Circuit.Circuit">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A reference to the branch circuit related to this outlet."/>
@@ -387,6 +387,12 @@
           <Annotation Term="OData.Description" String="Direct Current (DC) outlet."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_0_0.Outlet"/>
     </Schema>
 
   </edmx:DataServices>

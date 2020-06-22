@@ -33,12 +33,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="BootOptionCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The BootOptionCollection schema describes a collection of BootOption Resource instances."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of BootOption instances for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The collection of BootOption resource instances."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of BootOption instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Some implementations may allow the creation of boot option entries through a POST to the boot options collection."/>
+            <Annotation Term="OData.Description" String="Some implementations might allow the creation of boot option entries through a POST to the boot options collection."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
@@ -61,12 +61,12 @@
         <NavigationProperty Name="Members" Type="Collection(BootOption.BootOption)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this Resource Collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
       </EntityType>
-
     </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_2_1.json",
     "$ref": "#/definitions/TelemetryService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -28,8 +28,8 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -53,8 +53,8 @@
         },
         "MetricValue": {
             "additionalProperties": false,
-            "description": "A metric value.",
-            "longDescription": "A metric value in the context of a Metric.",
+            "description": "Properties that capture a metric value and other associated information.",
+            "longDescription": "This type shall contain properties that capture a metric value and other associated information.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -72,14 +72,14 @@
             "properties": {
                 "MetricDefinition": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json#/definitions/MetricDefinition",
-                    "description": "The link to the metric.",
-                    "longDescription": "The link to the Metric Definition Resource that describes what this metric report captures.",
+                    "description": "The link to the metric definition for this metric.",
+                    "longDescription": "This property shall contain a link to a resource of type MetricDefinition that describes what this metric value captures.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "MetricId": {
                     "description": "The metric definitions identifier for this metric.",
-                    "longDescription": "This property shall contain the same as the Id property of the source metric within the associated MetricDefinition.",
+                    "longDescription": "This property shall contain the same value as the Id property of the source metric within the associated metric definition.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -90,7 +90,7 @@
                 "MetricProperty": {
                     "description": "The URI for the property from which this metric is derived.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI to the property, which follows the RFC6901-defined JSON fragment notation, to identify an individual property in a Redfish Resource.",
+                    "longDescription": "The value shall be URI to the property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -109,9 +109,9 @@
                     "versionAdded": "v1_1_0"
                 },
                 "Timestamp": {
-                    "description": "The time when the metric value is obtained.  A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp.",
+                    "description": "The date and time when the metric is obtained.  A management application can establish a time series of metric data by retrieving the instances of metric value and sorting them according to their timestamp.",
                     "format": "date-time",
-                    "longDescription": "This property shall contain the time when the metric value was obtained.  Note that this may be different from the time when this instance is created.",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this value might be different from the time when this instance is created.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -124,8 +124,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -201,8 +201,8 @@
         },
         "TelemetryService": {
             "additionalProperties": false,
-            "description": "The TelemetryService schema describes a Telemetry Service.  The Telemetry Service is used to for collecting and reporting metric data within the Redfish Service.",
-            "longDescription": "This Resource contains a Telemetry Service for a Redfish implementation.",
+            "description": "The TelemetryService schema describes a telemetry service.  The telemetry service is used to for collecting and reporting metric data within the Redfish Service.",
+            "longDescription": "This resource contains a telemetry service for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -232,8 +232,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "Description": {
                     "anyOf": [
@@ -252,8 +252,8 @@
                 },
                 "LogService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogService.json#/definitions/LogService",
-                    "description": "The link to a Log Service that the Telemetry Service uses.  This service may be a dedicated Log Service or a pointer a Log Service under another entity, such as Manager.",
-                    "longDescription": "This property shall contain a link to a Log Service that this Telemetry Service uses.",
+                    "description": "The link to a log service that the telemetry service uses.  This service can be a dedicated log service or a pointer a log service under another resource, such as a manager.",
+                    "longDescription": "This property shall contain a link to a resource of type LogService that this telemetry service uses.",
                     "readonly": true
                 },
                 "MaxReports": {
@@ -268,19 +268,19 @@
                 "MetricDefinitions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinitionCollection.json#/definitions/MetricDefinitionCollection",
                     "description": "The link to the collection of metric definitions.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type MetricDefinitionCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type MetricDefinitionCollection.",
                     "readonly": true
                 },
                 "MetricReportDefinitions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinitionCollection.json#/definitions/MetricReportDefinitionCollection",
                     "description": "The link to the collection of metric report definitions.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type MetricReportDefinitionCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type MetricReportDefinitionCollection.",
                     "readonly": true
                 },
                 "MetricReports": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportCollection.json#/definitions/MetricReportCollection",
                     "description": "The link to the collection of metric reports.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type MetricReportCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type MetricReportCollection.",
                     "readonly": true
                 },
                 "MinCollectionInterval": {
@@ -314,8 +314,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SupportedCollectionFunctions": {
                     "description": "The functions that can be performed over each metric.",
@@ -335,8 +335,8 @@
                 },
                 "Triggers": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TriggersCollection.json#/definitions/TriggersCollection",
-                    "description": "The link to the collection of triggers, which apply to metrics.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type TriggersCollection.",
+                    "description": "The link to the collection of triggers that apply to metrics.",
+                    "longDescription": "This property shall contain a link to a resource collection of type TriggersCollection.",
                     "readonly": true
                 }
             },
@@ -351,5 +351,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#TelemetryService.v1_2_0.TelemetryService"
+    "title": "#TelemetryService.v1_2_1.TelemetryService"
 }

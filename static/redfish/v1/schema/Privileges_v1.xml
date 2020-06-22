@@ -44,7 +44,6 @@
           <Annotation Term="OData.LongDescription" String="This value shall be used to indicate an operation does not require authentication.  This privilege shall not be used in Redfish Roles."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_0">
@@ -52,18 +51,17 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <Term Name="OemGetPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="The OEM GET operations privileges may be defined on a Link element to provide read privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP GET operation privileges might be defined on a Link element to provide read privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
       <Term Name="OemPostPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="The OEM POST privileges may be defined on a Link element to provide create privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP POST operation privileges might be defined on a Link element to provide create privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
       <Term Name="OemPatchPutPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM PatchPut privileges may be defined on a Link element to provide update privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP PATCH/PUT operation privileges might be defined on a Link element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
       <Term Name="OemDeletePrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM Delete privileges may be defined on a Link element to provide update privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP DELETE operation privileges might be defined on a Link element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_2">

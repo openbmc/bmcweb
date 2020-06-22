@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VLanNetworkInterface v1.1.4                                         -->
+<!--# Redfish Schema:  VLanNetworkInterface v1.1.5                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -32,7 +32,7 @@
 
       <EntityType Name="VLanNetworkInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The VLanNetworkInterface schema describes a VLAN network instance that is available on a manager, system, or other device."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains information for a VLAN network instance that is available on a manager, system, or other device for a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains information for a VLAN network instance that is available on a manager, system, or other device for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -47,7 +47,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="In some implementations, VLAN network interfaces can be deleted.  However, because other implementations may keep a fixed number of interfaces in the collection, they do not allow deletion of interfaces."/>
+            <Annotation Term="OData.Description" String="In some implementations, VLAN network interfaces can be deleted.  However, because other implementations can keep a fixed number of interfaces in the collection, they do not allow deletion of interfaces."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -68,7 +68,6 @@
         <Annotation Term="OData.Description" String="The attributes of a VLAN."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any attributes of a VLAN."/>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_0_0">
@@ -76,8 +75,6 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.VLanNetworkInterface">
-        <Annotation Term="OData.Description" String="The attributes of a VLAN."/>
-        <Annotation Term="OData.LongDescription" String="The VLanNetworkInterface Schema shall contain any attributes of a VLAN."/>
         <Property Name="VLANEnable" Type="Edm.Boolean">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -111,7 +108,6 @@
         <Annotation Term="Validation.Minimum" Int="0"/>
         <Annotation Term="Validation.Maximum" Int="4094"/>
       </TypeDefinition>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_0_1">
@@ -162,30 +158,37 @@
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_0_7.VLanNetworkInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_0_8.VLanNetworkInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_0_4.VLanNetworkInterface">
         <Property Name="Actions" Type="VLanNetworkInterface.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="VLanNetworkInterface.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -211,6 +214,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_1_3.VLanNetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_1_4.VLanNetworkInterface"/>
     </Schema>
 
   </edmx:DataServices>

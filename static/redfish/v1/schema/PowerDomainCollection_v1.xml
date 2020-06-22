@@ -33,12 +33,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="PowerDomainCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The PowerDomainCollection schema describes a collection of PowerDomain resource instances."/>
+        <Annotation Term="OData.Description" String="The collection of PowerDomain resource instances."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of PowerDomain instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Implementations may allow power domains to be created through a POST to the power domain collection."/>
+            <Annotation Term="OData.Description" String="Some implementations might allow power domains to be created through a POST to the power domain collection."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
@@ -59,12 +59,12 @@
         <NavigationProperty Name="Members" Type="Collection(PowerDomain.PowerDomain)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this resource collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
       </EntityType>
-
     </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

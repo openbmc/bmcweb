@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_13_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -414,7 +414,7 @@
                 "Card": "A loose device or circuit board intended to be installed in a system or other enclosure.",
                 "Cartridge": "A small self-contained system intended to be plugged into a multi-system chassis.",
                 "Component": "A small chassis, card, or device that contains devices for a particular subsystem or function.",
-                "Drawer": "An enclosed or semi-enclosed, typically horizontally-oriented, system chassis that may be slid into a multi-system chassis.",
+                "Drawer": "An enclosed or semi-enclosed, typically horizontally-oriented, system chassis that can be slid into a multi-system chassis.",
                 "Enclosure": "A generic term for a chassis that does not fit any other description.",
                 "Expansion": "A chassis that expands the capabilities or capacity of another chassis.",
                 "IPBasedDrive": "A chassis in a drive form factor with IP-based network connections.",
@@ -540,7 +540,7 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this chassis.",
                     "longDescription": "This property shall contain a link to a resource of type Chassis that represents the chassis that contains this chassis.",
-                    "readonly": true
+                    "readonly": false
                 },
                 "Contains": {
                     "description": "An array of links to any other chassis that this chassis has in it.",
@@ -548,7 +548,7 @@
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
                     },
                     "longDescription": "This property shall contain an array of links to resources of type Chassis that represent the chassis instances that this chassis contains.",
-                    "readonly": true,
+                    "readonly": false,
                     "type": "array"
                 },
                 "Contains@odata.count": {
@@ -787,7 +787,7 @@
                 "PoweringOff"
             ],
             "enumDescriptions": {
-                "Off": "The components within the chassis have no power, except some components may continue to have AUX power, such as the management controller.",
+                "Off": "The components within the chassis have no power, except some components might continue to have AUX power, such as the management controller.",
                 "On": "The components within the chassis have power.",
                 "PoweringOff": "A temporary state between on and off.  The components within the chassis can take time to process the power off action.",
                 "PoweringOn": "A temporary state between off and on.  The components within the chassis can take time to process the power on action."
@@ -796,13 +796,13 @@
         },
         "Reset": {
             "additionalProperties": false,
-            "description": "This action resets the chassis but does not reset systems or other contained resources, although side effects may occur that affect those resources.",
-            "longDescription": "This action shall reset the chassis but shall not reset systems or other contained resources, although side effects may occur that affect those resources.",
+            "description": "This action resets the chassis but does not reset systems or other contained resources, although side effects might occur that affect those resources.",
+            "longDescription": "This action shall reset the chassis but shall not reset systems or other contained resources, although side effects might occur that affect those resources.",
             "parameters": {
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service may accept a request without the parameter and complete an implementation-specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and complete an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -834,6 +834,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#Chassis.v1_12_0.Chassis"
+    "release": "2020.2",
+    "title": "#Chassis.v1_13_0.Chassis"
 }

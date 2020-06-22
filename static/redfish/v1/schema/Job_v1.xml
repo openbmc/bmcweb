@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Job v1.0.3                                                          -->
+<!--# Redfish Schema:  Job v1.0.4                                                          -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -43,8 +43,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Job" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Job schema contains information about a job that a a Redfish Job Service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall contain a job in a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Job schema contains information about a job that a Redfish job service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall contain a job in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -75,6 +75,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
+
       <EntityType Name="Job" BaseType="Job.Job">
         <Property Name="JobStatus" Type="Resource.Health" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -128,21 +129,21 @@
         <NavigationProperty Name="Steps" Type="JobCollection.JobCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of steps for this job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a Resource Collection of type JobCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource collection of type JobCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="StepOrder" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The serialized execution order of the job Steps."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and may occur in parallel or in series as determined by the service."/>
+          <Annotation Term="OData.Description" String="The serialized execution order of the job steps."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and might occur in parallel or in series as determined by the service."/>
         </Property>
         <Property Name="Messages" Type="Collection(Message.Message)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of messages associated with the job."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of messages associated with the job."/>
         </Property>
         <Property Name="Actions" Type="Job.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -226,23 +227,22 @@
           <Annotation Term="OData.Description" String="The JSON payload to use in the execution of this job."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain JSON-formatted payload for this job."/>
         </Property>
-
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Job.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -254,7 +254,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the resource description."/>
       <EntityType Name="Job" BaseType="Job.v1_0_1.Job"/>
     </Schema>
 
@@ -262,6 +262,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description of the HidePayload property.  It was also created to make the EndTime property not nullable.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="Job" BaseType="Job.v1_0_2.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Job" BaseType="Job.v1_0_3.Job"/>
     </Schema>
 
   </edmx:DataServices>

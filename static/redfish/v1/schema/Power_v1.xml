@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Power v1.6.0                                                        -->
+<!--# Redfish Schema:  Power v1.6.1                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -45,7 +45,7 @@
 
       <EntityType Name="Power" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The Power schema describes power metrics and represents the properties for power consumption and power limiting."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains a Power Metrics Resource for a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall contain the power metrics for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -70,17 +70,17 @@
       </EntityType>
 
       <Action Name="PowerSupplyReset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets the targeted power supply."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType might affect the power supply output."/>
         <Parameter Name="Power" Type="Power.v1_3_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and shall perform a `GracefulRestart`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and shall perform a `GracefulRestart`."/>
         </Parameter>
         <Parameter Name="MemberId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The MemberId of the power supply within the PowerSupplies array on which to perform the reset."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the identifier of the member within the PowerSupplies array on which to perform the reset."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action resets the targeted power supply."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType may affect the power supply output."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -134,7 +134,7 @@
         </Property>
         <Property Name="PowerRequestedWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The potential power, in watts, that the chassis requests, which may be higher than the current level being consumed because the requested power includes a budget that the chassis wants for future use."/>
+          <Annotation Term="OData.Description" String="The potential power, in watts, that the chassis requests, which might be higher than the current level being consumed because the requested power includes a budget that the chassis wants for future use."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the amount of power, in watts, that the chassis currently requests to be budgeted for future use."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="W"/>
@@ -169,20 +169,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain power limit status and configuration information for this chassis."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of one or more IDs of the Resources associated with this power limit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is being limited."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects associated with this power limit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects associated with this power limit."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
 
       <ComplexType Name="PowerMetric">
-        <Annotation Term="OData.Description" String="The power metrics for a Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain power metrics for power readings, such as interval, minimum, maximum, and average power consumption, for a Resource."/>
+        <Annotation Term="OData.Description" String="The power metrics for a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain power metrics for power readings, such as interval, minimum, maximum, and average power consumption, for a resource."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="IntervalInMin" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -221,14 +221,14 @@
         <Property Name="LimitInWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The power limit, in watts.  If `null`, power capping is disabled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the power capping limit, in watts, for the Resource.  If `null`, power capping shall be disabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the power capping limit, in watts, for the resource.  If `null`, power capping shall be disabled."/>
           <Annotation Term="Measures.Unit" String="W"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="LimitException" Type="Power.v1_0_0.PowerLimitException">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The action that is taken if the power cannot be maintained below the LimitInWatts."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the action to be taken if the Resource power consumption cannot be limited below the specified limit after several correction time periods."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the action to be taken if the resource power consumption cannot be limited below the specified limit after several correction time periods."/>
         </Property>
         <Property Name="CorrectionInMs" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -262,11 +262,11 @@
         <Property Name="SensorNumber" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A numerical identifier to represent the voltage sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a numerical identifier for this voltage sensor that is unique within this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a numerical identifier for this voltage sensor that is unique within this resource."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <Property Name="ReadingVolts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -329,8 +329,8 @@
         </Property>
         <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The areas or devices to which this voltage measurement applies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the areas or devices to which this voltage measurement applies."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects to which this voltage measurement applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects to which this voltage measurement applies."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -398,12 +398,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the spare or replacement part number as defined by the manufacturer for the associated power supply."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
-          <Annotation Term="OData.Description" String="The ID(s) of the Resources associated with this power limit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is being limited."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects associated with this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects associated with this power supply."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Redundancy" Type="Collection(Redundancy.Redundancy)">
@@ -541,7 +541,6 @@
           </Annotation>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_1">
@@ -609,7 +608,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_0_7.Power"/>
       <EntityType Name="PowerControl" BaseType="Power.v1_0_7.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_0_7.Voltage"/>
@@ -632,6 +631,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_0_9.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_0_9.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_0_9.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_0_10.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_10.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_10.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_10.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_0">
@@ -761,7 +769,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_1_5.Power"/>
       <EntityType Name="PowerControl" BaseType="Power.v1_1_5.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_1_5.Voltage"/>
@@ -786,6 +794,15 @@
       <EntityType Name="PowerSupply" BaseType="Power.v1_1_7.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_1_8.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_8.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_8.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_8.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -803,7 +820,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the indicator light state for the indicator light associated with this power supply."/>
         </Property>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_1">
@@ -853,7 +869,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_2_5.Power"/>
       <EntityType Name="PowerControl" BaseType="Power.v1_2_5.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_2_5.Voltage"/>
@@ -878,100 +894,109 @@
       <EntityType Name="PowerSupply" BaseType="Power.v1_2_7.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_2_8.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_8.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_8.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_8.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
 
       <EntityType Name="Power" BaseType="Power.v1_2_2.Power">
         <Property Name="Actions" Type="Power.v1_3_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <EntityType Name="PowerControl" BaseType="Power.v1_2_2.PowerControl">
         <Property Name="Actions" Type="Power.v1_3_0.PowerControlActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <EntityType Name="Voltage" BaseType="Power.v1_2_2.Voltage">
         <Property Name="Actions" Type="Power.v1_3_0.VoltageActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <EntityType Name="PowerSupply" BaseType="Power.v1_2_2.PowerSupply">
         <Property Name="Actions" Type="Power.v1_3_0.PowerSupplyActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Power.v1_3_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <ComplexType Name="PowerControlActions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Power.v1_3_0.PowerControlOemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="PowerControlOemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <ComplexType Name="VoltageActions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Power.v1_3_0.VoltageOemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="VoltageOemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <ComplexType Name="PowerSupplyActions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Power.v1_3_0.PowerSupplyOemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="PowerSupplyOemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -1004,7 +1029,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_3_3.Power"/>
       <EntityType Name="PowerControl" BaseType="Power.v1_3_3.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_3_3.Voltage"/>
@@ -1027,6 +1052,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_3_5.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_3_5.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_3_5.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_3_6.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_6.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_6.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_6.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_0">
@@ -1068,7 +1102,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_4_2.Power"/>
       <EntityType Name="PowerControl" BaseType="Power.v1_4_2.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_4_2.Voltage"/>
@@ -1093,6 +1127,15 @@
       <EntityType Name="PowerSupply" BaseType="Power.v1_4_4.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_4_5.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_5.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_5.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_5.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1110,8 +1153,8 @@
         </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the assembly Resource associated with this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type assembly."/>
+          <Annotation Term="OData.Description" String="The link to the assembly resource associated with this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="PowerInputWatts" Type="Edm.Decimal">
@@ -1155,7 +1198,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_5_1.Power"/>
       <EntityType Name="PowerControl" BaseType="Power.v1_5_1.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_5_1.Voltage"/>
@@ -1180,6 +1223,15 @@
       <EntityType Name="PowerSupply" BaseType="Power.v1_5_3.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_5_4.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_4.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_5_4.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_4.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1192,6 +1244,15 @@
       <EntityType Name="Voltage" BaseType="Power.v1_5_4.Voltage"/>
 
       <EntityType Name="PowerSupply" BaseType="Power.v1_5_4.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Power" BaseType="Power.v1_6_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_6_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_6_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_6_0.PowerSupply"/>
     </Schema>
 
   </edmx:DataServices>

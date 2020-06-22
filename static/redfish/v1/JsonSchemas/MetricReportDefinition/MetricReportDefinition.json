@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_3_2.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -187,7 +187,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "Each value may contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition.",
+                    "longDescription": "Each value can contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition.",
                     "readonly": false,
                     "type": "array"
                 }
@@ -197,7 +197,7 @@
         "MetricReportDefinition": {
             "additionalProperties": false,
             "description": "The MetricReportDefinition schema describes set of metrics that are collected into a metric report.",
-            "longDescription": "This resource specifies a set of metrics that shall be collected into a metric report.",
+            "longDescription": "This resource shall specify a set of metrics that shall be collected into a metric report in a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -312,11 +312,11 @@
                     "versionAdded": "v1_2_0"
                 },
                 "Metrics": {
-                    "description": "The list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property.",
+                    "description": "The list of metrics to include in the metric report.  The metrics might include metric properties or calculations applied to a metric property.",
                     "items": {
                         "$ref": "#/definitions/Metric"
                     },
-                    "longDescription": "The property shall contain a list of metrics to include in the metric report.  The metrics may include metric properties or calculations that are applied to a metric property.",
+                    "longDescription": "The property shall contain a list of metrics to include in the metric report.  The metrics might include metric properties or calculations that are applied to a metric property.",
                     "type": "array"
                 },
                 "Name": {
@@ -365,8 +365,8 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SuppressRepeatedMetricValue": {
-                    "description": "An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same metric in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values of the same metrics in the previously generated metric report.",
-                    "longDescription": "This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same metric in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values of the same metrics in the previously generated metric report.",
+                    "description": "An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report.",
+                    "longDescription": "This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -528,5 +528,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.2",
-    "title": "#MetricReportDefinition.v1_3_1.MetricReportDefinition"
+    "title": "#MetricReportDefinition.v1_3_2.MetricReportDefinition"
 }

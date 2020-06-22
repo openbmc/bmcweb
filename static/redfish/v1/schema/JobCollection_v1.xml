@@ -33,8 +33,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="JobCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The collection of Job Resource instances."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of Job instances for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The collection of Job resource instances."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of Job instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="true"/>
@@ -51,6 +51,12 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/JobService/Jobs</String>
+            <String>/redfish/v1/JobService/Jobs/{JobId}/Steps</String>
+          </Collection>
+        </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Job.Job)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
@@ -58,14 +64,8 @@
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
-        <Annotation Term="Redfish.Uris">
-          <Collection>
-            <String>/redfish/v1/JobService/Jobs</String>
-            <String>/redfish/v1/JobService/Jobs/{JobId}/Steps</String>
-          </Collection>
-        </Annotation>
       </EntityType>
-
     </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

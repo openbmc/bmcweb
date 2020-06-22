@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_7_0.json",
     "$ref": "#/definitions/EventService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -382,6 +382,9 @@
                 "Login",
                 "CRAM_MD5"
             ],
+            "enumDeprecated": {
+                "Login": "This value has been deprecated in favor of `Plain`, which supersedes the LOGIN authentication method for SASL."
+            },
             "enumDescriptions": {
                 "AutoDetect": "Auto-detect.",
                 "CRAM_MD5": "CRAM-MD5 authentication.",
@@ -395,6 +398,9 @@
                 "Login": "This value shall indicate authentication conforms to the RFC4954-defined AUTH LOGIN mechanism.",
                 "None": "This value shall indicate authentication is not required.",
                 "Plain": "This value shall indicate authentication conforms to the RFC4954-defined AUTH PLAIN mechanism."
+            },
+            "enumVersionDeprecated": {
+                "Login": "v1_7_0"
             },
             "type": "string"
         },
@@ -512,7 +518,7 @@
                 },
                 "EventId": {
                     "description": "The ID for the event to add.",
-                    "longDescription": "This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service may ignore this value and replace it with its own.",
+                    "longDescription": "This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service can ignore this value and replace it with its own.",
                     "type": "string"
                 },
                 "EventTimestamp": {
@@ -588,6 +594,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#EventService.v1_6_0.EventService"
+    "release": "2020.2",
+    "title": "#EventService.v1_7_0.EventService"
 }

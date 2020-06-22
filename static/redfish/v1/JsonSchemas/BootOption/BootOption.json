@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/BootOption.v1_0_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/BootOption.v1_0_4.json",
     "$ref": "#/definitions/BootOption",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,16 +25,16 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "BootOption": {
             "additionalProperties": false,
-            "description": "The BootOption schema describes a boot option.  It represents the properties of a bootable device available in the system.",
-            "longDescription": "This Resource shall represent a single boot option within a system.",
+            "description": "The BootOption schema reports information about a single boot option in a system.  It represents the properties of a bootable device available in the system.",
+            "longDescription": "This resource shall represent a single boot option within a system.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -64,8 +64,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "Alias": {
                     "anyOf": [
@@ -91,7 +91,7 @@
                 },
                 "BootOptionReference": {
                     "description": "The unique boot option.",
-                    "longDescription": "This property shall correspond to the boot option or device.  For UEFI systems, this string shall match the UEFI boot option variable name, such as `Boot####`.  The BootOrder array of a ComputerSystem contains this value.",
+                    "longDescription": "This property shall correspond to the boot option or device.  For UEFI systems, this string shall match the UEFI boot option variable name, such as `Boot####`.  The BootOrder array of a computer system resource contains this value.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -132,11 +132,11 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "RelatedItem": {
-                    "description": "An array of one or more IDs for the Resources associated with this boot option.",
+                    "description": "An array of links to resources or objects associated with this boot option.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is being used for this Boot Option.",
+                    "longDescription": "This property shall contain an array of links to resources or objects that are associated with this boot option.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -144,7 +144,7 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "UefiDevicePath": {
-                    "description": "The UEFI device path to access this UEFI Boot Option.",
+                    "description": "The UEFI device path to access this UEFI boot option.",
                     "longDescription": "This property shall contain the UEFI Specification-defined UEFI device path that identifies and locates the device for this boot option.",
                     "readonly": true,
                     "type": [
@@ -164,8 +164,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -186,5 +186,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.3",
-    "title": "#BootOption.v1_0_3.BootOption"
+    "title": "#BootOption.v1_0_4.BootOption"
 }

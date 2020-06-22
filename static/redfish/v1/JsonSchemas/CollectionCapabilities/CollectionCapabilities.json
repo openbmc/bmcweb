@@ -1,12 +1,12 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_2_1.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Capability": {
             "additionalProperties": false,
             "description": "This type describes a capability of a collection for a specific use case.",
-            "longDescription": "This type shall describe a capability of a Resource Collection in terms of how a client can create Resources within the collection for the specified use case.",
+            "longDescription": "This type shall describe a capability of a resource collection in terms of how a client can create resources within the collection for the specified use case.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -24,18 +24,18 @@
             "properties": {
                 "CapabilitiesObject": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
-                    "description": "The link to the Resource the client may GET to understand how to form a POST request for a collection.",
-                    "longDescription": "This property shall contain a link to a Resource that matches the type for a Resource Collection and shall contain annotations that describe the properties allowed in the POST request.",
+                    "description": "The link to the resource the client can issue a GET request against to understand how to form a POST request for a collection.",
+                    "longDescription": "This property shall contain a link to a resource that matches the type for a resource collection and shall contain annotations that describe the properties allowed in the POST request.",
                     "readonly": true
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "UseCase": {
                     "$ref": "#/definitions/UseCase",
-                    "description": "The use case in which a client may issue a POST request to the collection.",
+                    "description": "The use case in which a client can issue a POST request to the collection.",
                     "longDescription": "This property shall contain an enumerated value that describes the use case for this capability instance.",
                     "readonly": true
                 }
@@ -50,7 +50,7 @@
         "CollectionCapabilities": {
             "additionalProperties": false,
             "description": "This type describes the capabilities of a collection.",
-            "longDescription": "This type shall describe any capabilities of a Resource Collection in terms of how a client can create Resources within the Resource Collection.",
+            "longDescription": "This type shall describe any capabilities of a resource collection in terms of how a client can create resources within the resource collection.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -67,16 +67,16 @@
             },
             "properties": {
                 "Capabilities": {
-                    "description": "The list of capabilities supported by this Resource.",
+                    "description": "The list of capabilities supported by this resource.",
                     "items": {
                         "$ref": "#/definitions/Capability"
                     },
-                    "longDescription": "This property shall contain an array of Capability structures.",
+                    "longDescription": "This property shall contain an array of objects that describe the capabilities of this resource collection.",
                     "type": "array"
                 },
                 "MaxMembers": {
                     "description": "The maximum number of members allowed in this collection.",
-                    "longDescription": "This integer property shall contain the maximum number of members allowed in this Resource Collection.",
+                    "longDescription": "This property shall contain the maximum number of members allowed in this resource collection.",
                     "minimum": 1,
                     "readonly": true,
                     "type": "integer",
@@ -87,8 +87,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -110,11 +110,11 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 },
                 "RelatedItem": {
-                    "description": "The ID(s) of the Resources associated with this capability.",
+                    "description": "An array of links to resources associated with this capability.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is related to this capability.",
+                    "longDescription": "This property shall contain an array of links to resources that are related to this capability.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -123,8 +123,8 @@
                 },
                 "TargetCollection": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResourceCollection",
-                    "description": "Reference to the collection that this capabilities structure is describing.",
-                    "longDescription": "This property shall contain a link to a Resource Collection that this structure describes.  A client may use this structure to understand how to form the POST request for the collection.",
+                    "description": "The link to the collection that this capabilities structure is describing.",
+                    "longDescription": "This property shall contain a link to a resource collection that this structure describes.  A client can use this structure to understand how to form the POST request for the collection.",
                     "readonly": true
                 }
             },
@@ -140,9 +140,9 @@
                 "VolumeCreation"
             ],
             "enumDescriptions": {
-                "ComputerSystemComposition": "This capability describes a client creating a new ComputerSystem instance from a set of disaggregated hardware.",
-                "ComputerSystemConstrainedComposition": "This capability describes a client creating a new ComputerSystem instance from a set of constraints.",
-                "VolumeCreation": "This capability describes a client creating a new Volume instance as part of an existing storage subsystem."
+                "ComputerSystemComposition": "This capability describes a client creating a new computer system resource from a set of disaggregated hardware.",
+                "ComputerSystemConstrainedComposition": "This capability describes a client creating a new computer system resource from a set of constraints.",
+                "VolumeCreation": "This capability describes a client creating a new volume resource as part of an existing storage subsystem."
             },
             "enumVersionAdded": {
                 "ComputerSystemConstrainedComposition": "v1_1_0"
@@ -152,5 +152,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.2",
-    "title": "#CollectionCapabilities.v1_2_0"
+    "title": "#CollectionCapabilities.v1_2_1"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_9_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -34,6 +34,17 @@
                 }
             },
             "type": "object"
+        },
+        "BaseSpeedPriorityState": {
+            "enum": [
+                "Enabled",
+                "Disabled"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Base speed priority is disabled.",
+                "Enabled": "Base speed priority is enabled."
+            },
+            "type": "string"
         },
         "EthernetInterface": {
             "additionalProperties": false,
@@ -127,11 +138,13 @@
                     "versionAdded": "v1_4_0"
                 },
                 "FirmwareVersion": {
+                    "deprecated": "This property has been deprecated in favor of the FirmwareVersion property in the root of this resource.",
                     "description": "The FPGA firmware version.",
                     "longDescription": "This property shall contain a string describing the FPGA firmware version.",
                     "readonly": true,
                     "type": "string",
-                    "versionAdded": "v1_4_0"
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_9_0"
                 },
                 "FpgaType": {
                     "$ref": "#/definitions/FpgaType",
@@ -170,7 +183,7 @@
                 },
                 "ProgrammableFromHost": {
                     "description": "An indication of whether the FPGA firmware can be reprogrammed from the host by using system software.",
-                    "longDescription": "This property shall indicate whether the FPGA firmware can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the FPGA firmware from the system interface.  In either state, a management controller may be able to program the FPGA firmware by using the sideband interface.",
+                    "longDescription": "This property shall indicate whether the FPGA firmware can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the FPGA firmware from the system interface.  In either state, a management controller might be able to program the FPGA firmware by using the sideband interface.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -218,7 +231,7 @@
                 },
                 "ProgrammableFromHost": {
                     "description": "An indication of whether the reconfiguration slot can be reprogrammed from the host by using system software.",
-                    "longDescription": "This property shall indicate whether the reconfiguration slot can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the reconfiguration slot from the system interface.  In either state, a management controller may be able to program the reconfiguration slot by using the sideband interface.",
+                    "longDescription": "This property shall indicate whether the reconfiguration slot can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the reconfiguration slot from the system interface.  In either state, a management controller might be able to program the reconfiguration slot by using the sideband interface.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -437,12 +450,33 @@
                     "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
+                "AppliedOperatingConfig": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfig.json#/definitions/OperatingConfig",
+                    "description": "The link to the operating configuration that is applied to this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type OperatingConfig that specifies the configuration is applied to this processor.",
+                    "readonly": false,
+                    "versionAdded": "v1_9_0"
+                },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "The link to an assembly associated with this processor.",
                     "longDescription": "This property shall contain a link to a resource of type Assembly.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
+                },
+                "BaseSpeedPriorityState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BaseSpeedPriorityState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the base frequency settings of the operation configuration applied to this processor.",
+                    "longDescription": "This property shall contain the state of the base frequency settings of the operating configuration applied to this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -467,6 +501,19 @@
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_7_0"
+                },
+                "HighSpeedCoreIDs": {
+                    "description": "The list of core identifiers corresponding to the cores that have been configured with the higher clock speed from the operating configuration applied to this processor.",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of core identifiers corresponding to the cores that have been configured with the higher clock speed from the operating configuration applied to this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -563,9 +610,16 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "OperatingConfigs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfigCollection.json#/definitions/OperatingConfigCollection",
+                    "description": "The link to the collection operating configurations that can be applied to this processor.",
+                    "longDescription": "This property shall contain a link to a resource collection of type OperatingConfigCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
                 "OperatingSpeedMHz": {
                     "description": "Operating speed of the processor in MHz.",
-                    "longDescription": "This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor may change more frequently than the manager is able to monitor.",
+                    "longDescription": "This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor might change more frequently than the manager is able to monitor.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -699,6 +753,20 @@
                         "integer",
                         "null"
                     ]
+                },
+                "TurboState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TurboState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the turbo for this processor.",
+                    "longDescription": "This property shall contain the state of turbo for this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
                 },
                 "UUID": {
                     "anyOf": [
@@ -1042,7 +1110,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
                 }
             },
             "patternProperties": {
@@ -1100,9 +1168,20 @@
                 "CXL": "v1_8_0"
             },
             "type": "string"
+        },
+        "TurboState": {
+            "enum": [
+                "Enabled",
+                "Disabled"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Turbo is disabled.",
+                "Enabled": "Turbo is enabled."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#Processor.v1_8_0.Processor"
+    "release": "2020.2",
+    "title": "#Processor.v1_9_0.Processor"
 }

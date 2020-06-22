@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.6.0                                            -->
+<!--# Redfish Schema:  EthernetInterface v1.6.1                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -158,7 +158,7 @@
         </Property>
         <Property Name="IPv4Addresses" Type="Collection(IPAddresses.IPv4Address)" Nullable="false">
           <Annotation Term="OData.Description" String="The IPv4 addresses currently assigned to this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services may reject updates to this array for this reason."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services might reject updates to this array for this reason."/>
         </Property>
         <Property Name="IPv6AddressPolicyTable" Type="Collection(EthernetInterface.v1_0_0.IPv6AddressPolicyEntry)">
           <Annotation Term="OData.Description" String="An array that represents the RFC6724-defined address selection policy table."/>
@@ -270,9 +270,16 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_8.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_9.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
+
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_2.EthernetInterface">
         <Property Name="LinkStatus" Type="EthernetInterface.v1_1_0.LinkStatus">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -351,9 +358,16 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_6.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_7.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
+
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_1.EthernetInterface"/>
 
       <ComplexType Name="Links" BaseType="EthernetInterface.v1_1_0.Links">
@@ -402,9 +416,16 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_6.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_1.EthernetInterface">
         <Property Name="Actions" Type="EthernetInterface.v1_3_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -468,9 +489,16 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_4.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_5.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
+
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_1.EthernetInterface">
         <Property Name="DHCPv4" Type="EthernetInterface.v1_4_0.DHCPv4Configuration" Nullable="false">
           <Annotation Term="OData.Description" String="DHCPv4 configuration for this interface."/>
@@ -491,7 +519,7 @@
         <Property Name="StaticNameServers" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The statically-defined set of DNS server IPv4 and IPv6 addresses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they may also be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assignments."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they can be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assignments."/>
         </Property>
         <Property Name="IPv4StaticAddresses" Type="Collection(IPAddresses.IPv4Address)">
           <Annotation Term="OData.Description" String="The IPv4 static addresses assigned to this interface."/>
@@ -596,7 +624,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv6 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_1">
@@ -623,9 +650,16 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_3.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_4.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
+
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_2.EthernetInterface"/>
 
       <ComplexType Name="DHCPv4Configuration" BaseType="EthernetInterface.v1_4_0.DHCPv4Configuration">
@@ -664,6 +698,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_1.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_2.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -695,6 +735,12 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate a network device function has multiple VLANs and is representing one of them as a virtual Ethernet interface.  The NetworkDeviceFunction property within Links shall contain the locator for the parent network device function."/>
         </Member>
       </EnumType>      
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_0.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>

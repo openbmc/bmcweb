@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkPort v1.2.4                                                  -->
+<!--# Redfish Schema:  NetworkPort v1.2.5                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -37,8 +37,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="NetworkPort" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="A network port, which is a discrete physical port that can connect to a network."/>
-        <Annotation Term="OData.LongDescription" String="A network port represents a discrete physical port that can connect to a network."/>
+        <Annotation Term="OData.Description" String="The NetworkPort schema describes a network port, which is a discrete physical port that can connect to a network."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a discrete physical port that can connect to a network in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -235,13 +235,13 @@
           <Annotation Term="OData.Description" String="No IEEE 802.3x flow control is enabled on this port." />
         </Member>
         <Member Name="TX">
-          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by this station." />
+          <Annotation Term="OData.Description" String="This station can initiate IEEE 802.3x flow control." />
         </Member>
         <Member Name="RX">
-          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by the link partner." />
+          <Annotation Term="OData.Description" String="The link partner can initiate IEEE 802.3x flow control." />
         </Member>
         <Member Name="TX_RX">
-          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by this station or the link partner." />
+          <Annotation Term="OData.Description" String="This station or the link partner can initiate IEEE 802.3x flow control." />
         </Member>
       </EnumType>
     </Schema>
@@ -280,6 +280,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_5.NetworkPort"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_6.NetworkPort"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_1_0">
@@ -338,6 +344,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_1_4.NetworkPort"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_1_5.NetworkPort"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_2_0">
@@ -440,6 +452,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_2_3.NetworkPort"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_2_4.NetworkPort"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_8_1.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -42,7 +42,7 @@
                 "RetryForever"
             ],
             "enumDescriptions": {
-                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the after the maximum number of retries is reached.",
+                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the maximum number of retries is reached.",
                 "SuspendRetries": "The subscription is suspended after the maximum number of retries is reached.",
                 "TerminateAfterRetries": "The subscription is terminated after the maximum number of retries is reached."
             },
@@ -557,5 +557,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.1",
-    "title": "#EventDestination.v1_8_0.EventDestination"
+    "title": "#EventDestination.v1_8_1.EventDestination"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.8.0                                                      -->
+<!--# Redfish Schema:  Manager v1.9.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -68,7 +68,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Manager" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="In Redfish, a manager is a systems management entity that may implement or provide access to a Redfish service.  Examples of managers are BMCs, enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation may have multiple managers, which may or may not be directly accessible through a Redfish-defined interface."/>
+        <Annotation Term="OData.Description" String="In Redfish, a manager is a systems management entity that can implement or provide access to a Redfish service.  Examples of managers are BMCs, enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation can have multiple managers, which might be directly accessible through a Redfish-defined interface."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a management subsystem for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -99,7 +99,7 @@
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."/>
         </Parameter>
       </Action>
 
@@ -128,8 +128,8 @@
       </Action>
 
       <Action Name="ResetToDefaults" IsBound="true">
-        <Annotation Term="OData.Description" String="The reset action resets the manager settings to factory defaults.  This may cause the manager to reset."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the manager settings.  This action may impact other resources."/>
+        <Annotation Term="OData.Description" String="The reset action resets the manager settings to factory defaults.  This might cause the manager to reset."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the manager settings.  This action might impact other resources."/>
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Manager.v1_8_0.ResetToDefaultsType" Nullable="false">
           <Annotation Term="OData.Description" String="The type of reset to defaults."/>
@@ -158,7 +158,7 @@
         </Property>
         <Property Name="Links" Type="Manager.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <NavigationProperty Name="EthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -193,7 +193,7 @@
         <Property Name="ServiceEntryPointUUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UUID of the Redfish service that is hosted by this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property may imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property might imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point."/>
         </Property>
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -431,7 +431,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to remove the Nullable=false term on ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to remove the `Nullable=false` term on ServiceEntryPointUUID."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_5.Manager"/>
     </Schema>
 
@@ -463,6 +463,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_10.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_0_11.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_0">
@@ -501,7 +507,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to remove the Nullable=false term on ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to remove the `Nullable=false` term on ServiceEntryPointUUID."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_3.Manager"/>
     </Schema>
 
@@ -533,6 +539,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_8.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_1_9.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_0">
@@ -568,7 +580,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change PowerState to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions and to remove the Nullable=false term from ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to change PowerState to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions and to remove the `Nullable=false` term from ServiceEntryPointUUID."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_3.Manager"/>
     </Schema>
 
@@ -600,6 +612,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_8.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_2_9.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_0">
@@ -664,6 +682,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_3_7.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_3_8.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -716,6 +740,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_4_4.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_5.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -760,6 +790,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_5_3.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_5_4.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -786,6 +822,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_6_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_0">
@@ -816,6 +858,12 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_7_0.Manager"/>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_7_1.Manager"/>
+    </Schema>
     
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -835,6 +883,41 @@
           <Annotation Term="OData.Description" String="Reset all settings except network settings to factory defaults."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_8_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the LastResetTime."/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_8_1.Manager">
+        <Property Name="LastResetTime" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the manager was last reset or rebooted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the manager last came out of a reset or was rebooted."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Manager.v1_6_0.Links">
+        <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The array of links to the managers responsible for managing this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers for this manager."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ManagerForManagers" Type="Collection(Manager.Manager)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the managers that are managed by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers being managed by this manager."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

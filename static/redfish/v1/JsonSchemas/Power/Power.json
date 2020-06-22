@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Power.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Power.v1_6_1.json",
     "$ref": "#/definitions/Power",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -28,8 +28,8 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -197,8 +197,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -219,7 +219,7 @@
         "Power": {
             "additionalProperties": false,
             "description": "The Power schema describes power metrics and represents the properties for power consumption and power limiting.",
-            "longDescription": "This Resource contains a Power Metrics Resource for a Redfish implementation.",
+            "longDescription": "This resource shall contain the power metrics for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -249,8 +249,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "Description": {
@@ -356,8 +356,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/PowerControlActions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "MemberId": {
@@ -442,7 +442,7 @@
                     "longDescription": "This property shall contain power metrics for power readings, such as interval, minimum, maximum, and average power consumption, for the chassis."
                 },
                 "PowerRequestedWatts": {
-                    "description": "The potential power, in watts, that the chassis requests, which may be higher than the current level being consumed because the requested power includes a budget that the chassis wants for future use.",
+                    "description": "The potential power, in watts, that the chassis requests, which might be higher than the current level being consumed because the requested power includes a budget that the chassis wants for future use.",
                     "longDescription": "This property shall represent the amount of power, in watts, that the chassis currently requests to be budgeted for future use.",
                     "minimum": 0,
                     "readonly": true,
@@ -453,11 +453,11 @@
                     "units": "W"
                 },
                 "RelatedItem": {
-                    "description": "An array of one or more IDs of the Resources associated with this power limit.",
+                    "description": "An array of links to resources or objects associated with this power limit.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is being limited.",
+                    "longDescription": "This property shall contain an array of links to resources or objects associated with this power limit.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -466,8 +466,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
@@ -478,8 +478,8 @@
         },
         "PowerControlActions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -497,8 +497,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/PowerControlOemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -506,8 +506,8 @@
         },
         "PowerControlOemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -564,12 +564,12 @@
                         }
                     ],
                     "description": "The action that is taken if the power cannot be maintained below the LimitInWatts.",
-                    "longDescription": "This property shall represent the action to be taken if the Resource power consumption cannot be limited below the specified limit after several correction time periods.",
+                    "longDescription": "This property shall represent the action to be taken if the resource power consumption cannot be limited below the specified limit after several correction time periods.",
                     "readonly": false
                 },
                 "LimitInWatts": {
                     "description": "The power limit, in watts.  If `null`, power capping is disabled.",
-                    "longDescription": "This property shall represent the power capping limit, in watts, for the Resource.  If `null`, power capping shall be disabled.",
+                    "longDescription": "This property shall represent the power capping limit, in watts, for the resource.  If `null`, power capping shall be disabled.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -598,8 +598,8 @@
         },
         "PowerMetric": {
             "additionalProperties": false,
-            "description": "The power metrics for a Resource.",
-            "longDescription": "This type shall contain power metrics for power readings, such as interval, minimum, maximum, and average power consumption, for a Resource.",
+            "description": "The power metrics for a resource.",
+            "longDescription": "This type shall contain power metrics for power readings, such as interval, minimum, maximum, and average power consumption, for a resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -685,14 +685,14 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/PowerSupplyActions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
-                    "description": "The link to the assembly Resource associated with this power supply.",
-                    "longDescription": "This property shall contain a link to a Resource of type assembly.",
+                    "description": "The link to the assembly resource associated with this power supply.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
@@ -899,11 +899,11 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "RelatedItem": {
-                    "description": "The ID(s) of the Resources associated with this power limit.",
+                    "description": "An array of links to resources or objects associated with this power supply.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is being limited.",
+                    "longDescription": "This property shall contain an array of links to resources or objects associated with this power supply.",
                     "type": "array"
                 },
                 "RelatedItem@odata.count": {
@@ -929,8 +929,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
@@ -941,8 +941,8 @@
         },
         "PowerSupplyActions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -960,8 +960,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/PowerSupplyOemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -969,8 +969,8 @@
         },
         "PowerSupplyOemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -991,7 +991,7 @@
         "PowerSupplyReset": {
             "additionalProperties": false,
             "description": "This action resets the targeted power supply.",
-            "longDescription": "This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType may affect the power supply output.",
+            "longDescription": "This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType might affect the power supply output.",
             "parameters": {
                 "MemberId": {
                     "description": "The MemberId of the power supply within the PowerSupplies array on which to perform the reset.",
@@ -1002,7 +1002,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without the parameter and shall perform a `GracefulRestart`."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and shall perform a `GracefulRestart`."
                 }
             },
             "patternProperties": {
@@ -1070,8 +1070,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/VoltageActions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "LowerThresholdCritical": {
@@ -1161,11 +1161,11 @@
                     "units": "V"
                 },
                 "RelatedItem": {
-                    "description": "The areas or devices to which this voltage measurement applies.",
+                    "description": "An array of links to resources or objects to which this voltage measurement applies.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the areas or devices to which this voltage measurement applies.",
+                    "longDescription": "This property shall contain an array of links to resources or objects to which this voltage measurement applies.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -1174,7 +1174,7 @@
                 },
                 "SensorNumber": {
                     "description": "A numerical identifier to represent the voltage sensor.",
-                    "longDescription": "This property shall contain a numerical identifier for this voltage sensor that is unique within this Resource.",
+                    "longDescription": "This property shall contain a numerical identifier for this voltage sensor that is unique within this resource.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1183,8 +1183,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UpperThresholdCritical": {
                     "description": "The value at which the reading is above normal range but not yet fatal.",
@@ -1225,8 +1225,8 @@
         },
         "VoltageActions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1244,8 +1244,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/VoltageOemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -1253,8 +1253,8 @@
         },
         "VoltageOemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1275,5 +1275,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.3",
-    "title": "#Power.v1_6_0.Power"
+    "title": "#Power.v1_6_1.Power"
 }

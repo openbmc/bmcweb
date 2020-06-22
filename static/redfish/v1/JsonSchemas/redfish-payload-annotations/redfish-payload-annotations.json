@@ -1,20 +1,20 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_1_1.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "properties": {
         "@Redfish.ActionInfo": {
-            "description": "The term can be applied to an action to specify a URI to an ActionInfo Resource that describes the parameters supported by this instance of the action.",
+            "description": "The term can be applied to an action to specify a URI to an ActionInfo resource that describes the parameters supported by this instance of the action.",
             "type": "string",
             "format": "uri-reference",
             "readonly": true
         },
         "@Redfish.Settings": {
-            "description": "The link to the Settings Resource that represents the settings to apply to this Resource.",
+            "description": "The link to the settings resource that represents the settings to apply to this resource.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/Settings"
         },
         "@Redfish.SettingsApplyTime": {
-            "description": "The configuration settings for when the values in the settings object are applied to a Resource.",
+            "description": "The configuration settings for when the values in the settings object are applied to a resource.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/PreferredApplyTime"
         },
         "@Redfish.OperationApplyTime": {
@@ -22,15 +22,15 @@
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTime"
         },
         "@Redfish.OperationApplyTimeSupport": {
-            "description": "An indication of whether a client can request an apply time for a create, delete, or action operation of a Resource through the OperationApplyTime term.",
+            "description": "An indication of whether a client can request an apply time for a create, delete, or action operation of a resource through the OperationApplyTime term.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTimeSupport"
         },
         "@Redfish.MaintenanceWindow": {
-            "description": "The maintenance window configuration for a Resource for when to apply settings or operations.",
+            "description": "The maintenance window configuration for a resource for when to apply settings or operations.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/MaintenanceWindow"
         },
         "@Redfish.CollectionCapabilities": {
-            "description": "The link to the Resource that represents the POST capabilities of a collection.",
+            "description": "The link to the resource that represents the POST capabilities of a collection.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.json#/definitions/CollectionCapabilities"
         },
         "@Redfish.RequestedCount": {
@@ -44,16 +44,16 @@
         },
         "@Redfish.AllowOverprovisioning": {
             "type": "boolean",
-            "description": "The term specifies that a client allows the Service to provide more Resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.",
-            "longDescription": "The term shall specify that a client allows the Service to provide more Resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, the Service shall treat this as `false`."
+            "description": "The term specifies that a client allows the service to provide more resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.",
+            "longDescription": "The term shall specify that a client allows the service to provide more resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, the service shall treat this as `false`."
         },
         "@Redfish.ZoneAffinity": {
             "type": "string",
-            "description": "The term specifies that a client requests that the Service fulfills a request with Resources available within a specific Zone Resource.  The term value is the Id property of the Zone Resource.",
-            "longDescription": "The term shall specify that a client requests that the Service fulfills a request with Resources available in a specific Zone Resource.  The term value shall contain the Id property of the Zone Resource.  This term shall only be at the root level of the request payload."
+            "description": "The term specifies that a client requests that the service fulfills a request with resources available within a specific zone resource.  The term value is the Id property of the zone resource.",
+            "longDescription": "The term shall specify that a client requests that the service fulfills a request with resources available in a specific zone resource.  The term value shall contain the Id property of the zone resource.  This term shall only be at the root level of the request payload."
         },
         "@Redfish.ResourceBlockLimits": {
-            "description": "The term specifies the allowable quantities of types of Resource Blocks for a composition request.",
+            "description": "The term specifies the allowable quantities of types of resource blocks for a composition request.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlockLimits"
         },
         "@Redfish.SupportedCertificates": {
@@ -101,22 +101,22 @@
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.RequiredOnCreate$": {
-            "description": "The term specifies that a property is required to be specified in the body of a POST request to create the Resource.",
+            "description": "The term specifies that a property is required to be specified in the body of a POST request to create the resource.",
             "type": "boolean",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.SetOnlyOnCreate$": {
-            "description": "The term specifies that a property can only be set when a client creates an instance of a Resource through POST.",
+            "description": "The term specifies that a property can only be set when a client creates an instance of a resource through POST.",
             "type": "boolean",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.OptionalOnCreate$": {
-            "description": "The term specifies that a property may be set when a client creates an instance of a Resource through POST.",
+            "description": "The term specifies that a property can be set when a client creates an instance of a resource through POST.",
             "type": "boolean",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.UpdatableAfterCreate$": {
-            "description": "The term specifies that a property may be set by a client that uses PATCH after it creates an instance of a Resource through POST.",
+            "description": "The term specifies that a property can be set by a client that uses PATCH after it creates an instance of a resource through POST.",
             "type": "boolean",
             "readonly": true
         },

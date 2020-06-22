@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_9_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -222,6 +222,19 @@
                     "readonly": false,
                     "versionAdded": "v1_6_0"
                 },
+                "ManagedBy": {
+                    "description": "The array of links to the managers responsible for managing this manager.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the managers for this manager.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "ManagedBy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "ManagerForChassis": {
                     "description": "An array of links to the chassis this manager controls.",
                     "items": {
@@ -232,6 +245,19 @@
                     "type": "array"
                 },
                 "ManagerForChassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ManagerForManagers": {
+                    "description": "An array of links to the managers that are managed by this manager.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the managers being managed by this manager.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "ManagerForManagers@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ManagerForServers": {
@@ -289,7 +315,7 @@
         },
         "Manager": {
             "additionalProperties": false,
-            "description": "In Redfish, a manager is a systems management entity that may implement or provide access to a Redfish service.  Examples of managers are BMCs, enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation may have multiple managers, which may or may not be directly accessible through a Redfish-defined interface.",
+            "description": "In Redfish, a manager is a systems management entity that can implement or provide access to a Redfish service.  Examples of managers are BMCs, enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation can have multiple managers, which might be directly accessible through a Redfish-defined interface.",
             "longDescription": "This resource shall represent a management subsystem for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -397,10 +423,18 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "LastResetTime": {
+                    "description": "The date and time when the manager was last reset or rebooted.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the manager last came out of a reset or was rebooted.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
+                },
                 "Links": {
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
-                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
@@ -533,7 +567,7 @@
                         }
                     ],
                     "description": "The UUID of the Redfish service that is hosted by this manager.",
-                    "longDescription": "This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property may imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point.",
+                    "longDescription": "This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property might imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point.",
                     "readonly": true
                 },
                 "Status": {
@@ -703,7 +737,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
                 }
             },
             "patternProperties": {
@@ -735,8 +769,8 @@
         },
         "ResetToDefaults": {
             "additionalProperties": false,
-            "description": "The reset action resets the manager settings to factory defaults.  This may cause the manager to reset.",
-            "longDescription": "This action shall reset the manager settings.  This action may impact other resources.",
+            "description": "The reset action resets the manager settings to factory defaults.  This might cause the manager to reset.",
+            "longDescription": "This action shall reset the manager settings.  This action might impact other resources.",
             "parameters": {
                 "ResetType": {
                     "$ref": "#/definitions/ResetToDefaultsType",
@@ -847,6 +881,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#Manager.v1_8_0.Manager"
+    "release": "2020.2",
+    "title": "#Manager.v1_9_0.Manager"
 }

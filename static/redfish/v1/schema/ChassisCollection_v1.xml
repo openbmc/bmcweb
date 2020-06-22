@@ -38,7 +38,7 @@
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Implementations may allow creation and deletion of chassis resources to show containment relationships, such as a rack enclosure."/>
+            <Annotation Term="OData.Description" String="Implementations can allow creation and deletion of chassis resources to show containment relationships, such as a rack enclosure."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">

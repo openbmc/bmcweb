@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_3.json",
     "$ref": "#/definitions/CertificateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -31,16 +31,16 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "CertificateService": {
             "additionalProperties": false,
-            "description": "The CertificateService schema describes a Certificate Service that represents the actions available to manage certificates and links to the certificates.",
-            "longDescription": "This Resource shall represent the Certificate Service properties for a Redfish implementation.",
+            "description": "The CertificateService schema describes a certificate service that represents the actions available to manage certificates and links to the certificates.",
+            "longDescription": "This resource shall represent the certificate service properties for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -70,13 +70,13 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "CertificateLocations": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateLocations.json#/definitions/CertificateLocations",
                     "description": "The information about the location of certificates.",
-                    "longDescription": "This property shall contain the link to a Resource of type CertificateLocations.",
+                    "longDescription": "This property shall contain a link to a resource of type CertificateLocations.",
                     "readonly": true
                 },
                 "Description": {
@@ -118,7 +118,7 @@
             },
             "additionalProperties": false,
             "description": "This action makes a certificate signing request.",
-            "longDescription": "This action shall make a certificate signing request.  The response shall contain a signing request that a certificate authority (CA) must sign.  The Service should retain the private key that was generated during this request for installation of the certificate.  The private key should not be part of the response.",
+            "longDescription": "This action shall make a certificate signing request.  The response shall contain a signing request that a certificate authority (CA) must sign.  The service should retain the private key that was generated during this request for installation of the certificate.  The private key should not be part of the response.",
             "parameters": {
                 "AlternativeNames": {
                     "description": "The additional host names of the component to secure.",
@@ -130,8 +130,8 @@
                 },
                 "CertificateCollection": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
-                    "description": "The URI of the Certificate Resource Collection where the certificate is installed after the certificate authority (CA) signs the certificate.",
-                    "longDescription": "This parameter shall contain the URI of the Certificate Resource Collection where the certificate is installed after the certificate authority (CA) signs the certificate.",
+                    "description": "The link to the certificate collection where the certificate is installed after the certificate authority (CA) signs the certificate.",
+                    "longDescription": "This parameter shall contain a link to a resource collection of type CertificateCollection where the certificate is installed after the certificate authority (CA) signs the certificate.",
                     "requiredParameter": true
                 },
                 "ChallengePassword": {
@@ -197,7 +197,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/KeyUsage"
                     },
-                    "longDescription": "This parameter shall contain the usage of the key contained in the certificate.  If the client does not provide this value, the service may determine the appropriate key usage settings in the certificate signing request.",
+                    "longDescription": "This parameter shall contain the usage of the key contained in the certificate.  If the client does not provide this value, the service can determine the appropriate key usage settings in the certificate signing request.",
                     "type": "array"
                 },
                 "Organization": {
@@ -283,8 +283,8 @@
                 },
                 "CertificateCollection": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
-                    "description": "The link to the Certificate Resource Collection where the certificate is installed.",
-                    "longDescription": "This property shall contain the URI of the Certificate Resource Collection where the certificate is installed after the certificate authority (CA) has signed the certificate.",
+                    "description": "The link to the certificate collection where the certificate is installed.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection where the certificate is installed after the certificate authority (CA) has signed the certificate.",
                     "readonly": true
                 }
             },
@@ -296,8 +296,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -318,7 +318,7 @@
         "ReplaceCertificate": {
             "additionalProperties": false,
             "description": "This action replaces a certificate.",
-            "longDescription": "This action shall replace a certificate.  The Location header in the response shall contain the URI of the new Certificate Resource.",
+            "longDescription": "This action shall replace a certificate.  The `Location` header in the response shall contain the URI of the new certificate resource.",
             "parameters": {
                 "CertificateString": {
                     "description": "The string for the certificate.",
@@ -335,7 +335,7 @@
                 "CertificateUri": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
                     "description": "The link to the certificate that is being replaced.",
-                    "longDescription": "This parameter shall contain the URI of the Certificate Resource that is being replaced.",
+                    "longDescription": "This parameter shall contain a link to a resource of type Certificate that is being replaced.",
                     "requiredParameter": true
                 }
             },
@@ -369,5 +369,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#CertificateService.v1_0_2.CertificateService"
+    "title": "#CertificateService.v1_0_3.CertificateService"
 }

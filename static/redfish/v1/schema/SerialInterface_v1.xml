@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SerialInterface v1.1.5                                              -->
+<!--# Redfish Schema:  SerialInterface v1.1.6                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -31,7 +31,7 @@
 
       <EntityType Name="SerialInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The SerialInterface schema describes an asynchronous serial interface, such as an RS-232 interface, available to a system or device."/>
-        <Annotation Term="OData.LongDescription" String="This resource contains SerialInterface resources as part of the Redfish Specification."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a serial interface as part of the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -54,7 +54,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_0">
@@ -333,6 +332,12 @@
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_8.SerialInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_9.SerialInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -395,6 +400,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_5.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_6.SerialInterface"/>
     </Schema>
 
   </edmx:DataServices>

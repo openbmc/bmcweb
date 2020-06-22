@@ -33,12 +33,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="FacilityCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The FacilityCollection schema describes a collection of Facility resource instances."/>
+        <Annotation Term="OData.Description" String="The collection of Facility resource instances."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of Facility instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="true"/>
-            <Annotation Term="OData.Description" String="In some implementations, facilities can be added through a POST to the facility collection.  In other implementations, the collection may be pre-populated with a fixed number of facilities."/>
+            <Annotation Term="OData.Description" String="In some implementations, facilities can be added through a POST to the facility collection.  In other implementations, the collection might be pre-populated with a fixed number of facilities."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
@@ -59,7 +59,7 @@
         <NavigationProperty Name="Members" Type="Collection(Facility.Facility)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this resource collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>

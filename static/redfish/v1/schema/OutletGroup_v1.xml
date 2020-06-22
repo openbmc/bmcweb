@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  OutletGroup v1.0.0                                                  -->
+<!--# Redfish Schema:  OutletGroup v1.0.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -40,7 +40,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="OutletGroup" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for an electrical outlet group."/>
+        <Annotation Term="OData.Description" String="The OutletGroup schema contains definitions for an electrical outlet group."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an electrical outlet group for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -56,7 +56,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Some implementations may allow outlet groups to be deleted."/>
+            <Annotation Term="OData.Description" String="Some implementations can allow outlet groups to be deleted."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -68,13 +68,13 @@
       </EntityType>
 
       <Action Name="PowerControl" IsBound="true">
+        <Annotation Term="OData.Description" String="This action turns the outlet group on or off."/>
+        <Annotation Term="OData.LongDescription" String="This action shall control the power state of the outlet group."/>
         <Parameter Name="OutletGroup" Type="OutletGroup.v1_0_0.Actions"/>
         <Parameter Name="PowerState" Type="OutletGroup.PowerState">
           <Annotation Term="OData.Description" String="The desired power state of the outlet group."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the desired power state of the OutletGroup."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the desired power state of the outlet group."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action turns the outlet group on or off."/>
-        <Annotation Term="OData.LongDescription" String="This action shall control the power state of the outlet group."/>
       </Action>
 
       <Action Name="ResetMetrics" IsBound="true">
@@ -91,7 +91,6 @@
           <Annotation Term="OData.Description" String="The outlet group is powered off."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_0_0">
@@ -141,7 +140,7 @@
         <Property Name="PowerEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates if the outlet group can be powered."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power enable state of the outlet group.  True shall indicate that the group may be powered on, and false shall indicate that the group cannot be powered."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power enable state of the outlet group.  True shall indicate that the group can be powered on, and false shall indicate that the group cannot be powered."/>
         </Property>
 
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
@@ -159,7 +158,7 @@
 
         <Property Name="Links" Type="OutletGroup.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="Actions" Type="OutletGroup.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -169,7 +168,7 @@
 
       <ComplexType Name="Links" BaseType="Resource.Links">
         <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Outlets" Type="Collection(Outlet.Outlet)" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The set of outlets in this outlet group."/>
@@ -193,7 +192,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_0_0.OutletGroup"/>
     </Schema>
 
   </edmx:DataServices>
