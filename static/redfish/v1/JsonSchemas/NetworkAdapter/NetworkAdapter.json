@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_4_0.json",
     "$ref": "#/definitions/NetworkAdapter",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -192,23 +192,23 @@
                     ]
                 },
                 "Identifiers": {
-                    "description": "The durable names for the network adapter.",
+                    "description": "The durable names for the network adapter controller.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
                     },
-                    "longDescription": "This property shall contain a list of all known durable names for the associated network adapter.",
+                    "longDescription": "This property shall contain a list of all known durable names for the controller associated with the network adapter.",
                     "type": "array",
                     "versionAdded": "v1_3_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/ControllerLinks",
                     "description": "The links to other resources that are related to this resource.",
-                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the network adapter controller.",
-                    "longDescription": "This property shall contain location information of the associated network adapter controller.",
+                    "longDescription": "This property shall contain location information of the controller associated with the network adapter.",
                     "versionAdded": "v1_1_0"
                 },
                 "PCIeInterface": {
@@ -293,8 +293,8 @@
         },
         "NetworkAdapter": {
             "additionalProperties": false,
-            "description": "A network adapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters.",
-            "longDescription": "A network adapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters.",
+            "description": "The NetworkAdapter schema represents a physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters.",
+            "longDescription": "This resource shall represent a physical network adapter capable of connecting to a computer network in a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -356,6 +356,21 @@
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The durable names for the network adapter.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the network adapter.",
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the network adapter.",
+                    "longDescription": "This property shall contain location information of the network adapter.",
+                    "versionAdded": "v1_4_0"
                 },
                 "Manufacturer": {
                     "description": "The manufacturer or OEM of this network adapter.",
@@ -646,6 +661,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#NetworkAdapter.v1_3_1.NetworkAdapter"
+    "release": "2020.2",
+    "title": "#NetworkAdapter.v1_4_0.NetworkAdapter"
 }

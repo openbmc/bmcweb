@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkInterface.v1_1_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkInterface.v1_1_4.json",
     "$ref": "#/definitions/NetworkInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -54,7 +54,7 @@
                 "NetworkAdapter": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.json#/definitions/NetworkAdapter",
                     "description": "The link to the network adapter that contains this network interface.",
-                    "longDescription": "This property shall contain a link to a Resource of type NetworkAdapter that represents the physical container associated with this NetworkInterface.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkAdapter that represents the physical container associated with this network interface.",
                     "readonly": true
                 },
                 "Oem": {
@@ -67,8 +67,8 @@
         },
         "NetworkInterface": {
             "additionalProperties": false,
-            "description": "The NetworkInterface schema describes links to the NetworkAdapter, NetworkPort, and NetworkDeviceFunction Resources and represents the functionality available to the containing system.",
-            "longDescription": "This Resource contains links to the NetworkAdapter, NetworkPort, and NetworkDeviceFunction Resources and represents the functionality available to the containing system.",
+            "description": "The NetworkInterface schema describes links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system.",
+            "longDescription": "This resource contains links to the network adapters, network porta, and network device functions, and represents the functionality available to the containing system.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -98,8 +98,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Description": {
@@ -119,8 +119,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links.",
-                    "longDescription": "Links for this controller."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -129,13 +129,13 @@
                 "NetworkDeviceFunctions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionCollection.json#/definitions/NetworkDeviceFunctionCollection",
                     "description": "The link to the network device functions associated with this network interface.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type NetworkDeviceFunctionCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type NetworkDeviceFunctionCollection.",
                     "readonly": true
                 },
                 "NetworkPorts": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPortCollection.json#/definitions/NetworkPortCollection",
                     "description": "The link to the network ports associated with this network interface.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type NetworkPortCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type NetworkPortCollection.",
                     "readonly": true
                 },
                 "Oem": {
@@ -145,8 +145,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
@@ -159,8 +159,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -181,5 +181,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.1",
-    "title": "#NetworkInterface.v1_1_3.NetworkInterface"
+    "title": "#NetworkInterface.v1_1_4.NetworkInterface"
 }

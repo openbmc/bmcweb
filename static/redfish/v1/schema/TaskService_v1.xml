@@ -44,7 +44,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The task service can be updated to enable or disable it, though some implementations may fail the update operation."/>
+            <Annotation Term="OData.Description" String="The task service can be updated to enable or disable it, though some implementations might fail the update operation."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">

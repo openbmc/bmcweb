@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.9.1                                                       -->
+<!--# Redfish Schema:  Memory v1.9.2                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -153,13 +153,13 @@
       </Action>
 
       <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets this memory."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset this memory."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action resets this memory."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset this memory."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -873,6 +873,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_0_7.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_0_8.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -927,6 +933,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_1_6.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_1_7.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -968,7 +980,7 @@
         </Property>
         <Property Name="Links" Type="Memory.v1_2_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
       </EntityType>
 
@@ -1018,6 +1030,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_5.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_2_6.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_0">
@@ -1086,6 +1104,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_5.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_3_6.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_0">
@@ -1166,6 +1190,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_4_5.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_4_6.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -1211,10 +1241,17 @@
       <EntityType Name="Memory" BaseType="Memory.v1_5_4.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_5.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
       <Annotation Term="OData.Description" String="This version was created to change the long description for SecureEraseUnit.  It was also created to define a new OverwriteUnit action, and adds IntelOptane to the MemoryType list."/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_5_1.Memory"/>
     </Schema>
 
@@ -1240,6 +1277,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Memory" BaseType="Memory.v1_6_3.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_6_4.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_0">
@@ -1297,6 +1340,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_7_2.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_7_3.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1310,10 +1359,17 @@
       <EntityType Name="Memory" BaseType="Memory.v1_8_0.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_8_1.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate the DeviceLocator property in favor of the common ServiceLabel property within Location."/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_8_0.Memory"/>
     </Schema>
 
@@ -1321,6 +1377,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Memory" BaseType="Memory.v1_9_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_9_1.Memory"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/OutletGroup.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/OutletGroup.v1_0_1.json",
     "$ref": "#/definitions/OutletGroup",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -40,7 +40,7 @@
         "Links": {
             "additionalProperties": false,
             "description": "The links to other resources that are related to this resource.",
-            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -99,7 +99,7 @@
         },
         "OutletGroup": {
             "additionalProperties": false,
-            "description": "This is the schema definition for an electrical outlet group.",
+            "description": "The OutletGroup schema contains definitions for an electrical outlet group.",
             "longDescription": "This resource shall be used to represent an electrical outlet group for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -174,7 +174,7 @@
                 "Links": {
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
-                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -196,7 +196,7 @@
                 },
                 "PowerEnabled": {
                     "description": "Indicates if the outlet group can be powered.",
-                    "longDescription": "This property shall contain the power enable state of the outlet group.  True shall indicate that the group may be powered on, and false shall indicate that the group cannot be powered.",
+                    "longDescription": "This property shall contain the power enable state of the outlet group.  True shall indicate that the group can be powered on, and false shall indicate that the group cannot be powered.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -285,7 +285,7 @@
                 "PowerState": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/OutletGroup.json#/definitions/PowerState",
                     "description": "The desired power state of the outlet group.",
-                    "longDescription": "This parameter shall contain the desired power state of the OutletGroup."
+                    "longDescription": "This parameter shall contain the desired power state of the outlet group."
                 }
             },
             "patternProperties": {
@@ -350,5 +350,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#OutletGroup.v1_0_0.OutletGroup"
+    "title": "#OutletGroup.v1_0_1.OutletGroup"
 }

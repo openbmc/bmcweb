@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_2.json",
     "$ref": "#/definitions/Endpoint",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -536,7 +536,7 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "MutuallyExclusiveEndpoints": {
-                    "description": "An array of links to the endpoints that may not be used in zones if this endpoint is in a zone.",
+                    "description": "An array of links to the endpoints that cannot be used in zones if this endpoint is in a zone.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
@@ -687,5 +687,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Endpoint.v1_4_1.Endpoint"
+    "title": "#Endpoint.v1_4_2.Endpoint"
 }

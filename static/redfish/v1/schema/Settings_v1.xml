@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Settings v1.3.0                                                     -->
+<!--# Redfish Schema:  Settings v1.3.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -32,6 +32,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
       <ComplexType Name="Settings" Abstract="true"/>
       <ComplexType Name="PreferredApplyTime" Abstract="true"/>
       <ComplexType Name="OperationApplyTimeSupport" Abstract="true"/>
@@ -56,15 +57,15 @@
         </Member>
         <Member Name="AtMaintenanceWindowStart">
           <Annotation Term="OData.Description" String="The requested operation is applied within the administrator-specified maintenance window."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied during the maintenance window that the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties specify.  A service may complete resets during this maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied during the maintenance window that the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties specify.  A service can complete resets during this maintenance window."/>
         </Member>
         <Member Name="InMaintenanceWindowOnReset">
           <Annotation Term="OData.Description" String="The requested operation is applied after a reset but within the administrator-specified maintenance window."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied during the maintenance window that the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties specify, and if a reset occurs within the maintenance window."/>
         </Member>
         <Member Name="OnStartUpdateRequest">
-          <Annotation Term="OData.Description" String="The requested operation is applied when the StartUpdate action of the Update Service is invoked."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied when the StartUpdate action of the Update Service is invoked."/>
+          <Annotation Term="OData.Description" String="The requested operation is applied when the StartUpdate action of the update service is invoked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied when the StartUpdate action of the update service is invoked."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -82,23 +83,23 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <ComplexType Name="Settings" BaseType="Settings.Settings">
-        <Annotation Term="OData.Description" String="The Resource settings."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe any settings of a Resource."/>
+        <Annotation Term="OData.Description" String="The resource settings."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe any settings of a resource."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="Time" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The time when the settings were applied."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the time when the settings were applied to the Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the time when the settings were applied to the resource."/>
         </Property>
         <Property Name="ETag" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The entity tag (ETag) of the Resource to which the settings were applied, after the application."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the entity tag (ETag) of the Resource to which the settings were applied, after the application.  The client can check this value against the ETag of this Resource to determine whether the Resource had other changes."/>
+          <Annotation Term="OData.Description" String="The entity tag (ETag) of the resource to which the settings were applied, after the application."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the entity tag (ETag) of the resource to which the settings were applied, after the application.  The client can check this value against the ETag of this resource to determine whether the resource had other changes."/>
         </Property>
         <NavigationProperty Name="SettingsObject" Type="Resource.Item" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Resource that the client may PUT or PATCH to modify the Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Resource that the client may PUT or PATCH to modify the Resource."/>
+          <Annotation Term="OData.Description" String="The link to the resource that the client can PUT or PATCH to modify the resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the resource that the client can PUT or PATCH to modify the resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Messages" Type="Collection(Message.Message)" Nullable="false">
@@ -106,7 +107,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of messages associated with the settings."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_0_2">
@@ -139,9 +139,16 @@
       <ComplexType Name="Settings" BaseType="Settings.v1_0_5.Settings"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_0_6.Settings"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
+
       <ComplexType Name="Settings" BaseType="Settings.v1_0_4.Settings">
         <Property Name="SupportedApplyTimes" Type="Collection(Settings.v1_1_0.ApplyTime)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -156,7 +163,7 @@
         <Property Name="ApplyTime" Type="Settings.v1_1_0.ApplyTime" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The time when to apply the settings."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate when to apply the values in this Settings Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate when to apply the values in this settings resource."/>
         </Property>
         <Property Name="MaintenanceWindowStartTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -175,19 +182,19 @@
       <EnumType Name="ApplyTime">
         <Member Name="Immediate">
           <Annotation Term="OData.Description" String="Apply immediately."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the Settings Resource are applied immediately."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied immediately."/>
         </Member>
         <Member Name="OnReset">
           <Annotation Term="OData.Description" String="Apply on a reset."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within Settings Resource are applied when the system or service is reset."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within settings resource are applied when the system or service is reset."/>
         </Member>
         <Member Name="AtMaintenanceWindowStart">
           <Annotation Term="OData.Description" String="Apply during a maintenance window as specified by an administrator."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the Settings Resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service may perform resets during this maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service can perform resets during this maintenance window."/>
         </Member>
         <Member Name="InMaintenanceWindowOnReset">
           <Annotation Term="OData.Description" String="Apply after a reset but within maintenance window as specified by an adminstrator."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the Settings Resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
         </Member>
       </EnumType>
     </Schema>
@@ -206,22 +213,30 @@
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_1.PreferredApplyTime"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_1_2.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_2.PreferredApplyTime"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <ComplexType Name="Settings" BaseType="Settings.v1_1_0.Settings">
         <NavigationProperty Name="MaintenanceWindowResource" Type="Resource.ItemOrCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The location of the maintenance window settings."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource that contains the @Redfish.MaintenanceWindow property that governs this Resource.  This property should be supported if the SupportedApplyTimes property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource that contains the @Redfish.MaintenanceWindow property that governs this resource.  This property should be supported if the SupportedApplyTimes property contains `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`."/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_0.PreferredApplyTime"/>
 
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.OperationApplyTimeSupport">
-        <Annotation Term="OData.Description" String="The client can request a specific apply time of a create, delete, or action operation of a Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall indicate that a client can request a specific apply time of a create, delete, or action operation of a Resource."/>
+        <Annotation Term="OData.Description" String="The client can request a specific apply time of a create, delete, or action operation of a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall indicate that a client can request a specific apply time of a create, delete, or action operation of a resource."/>
         <Property Name="SupportedValues" Type="Collection(Settings.OperationApplyTime)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The types of apply times that the client can request when performing a create, delete, or action operation."/>
@@ -231,25 +246,25 @@
         <Property Name="MaintenanceWindowStartTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The start time of a maintenance window."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the same as the MaintenanceWindowStartTime property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the same as the MaintenanceWindowStartTime property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`."/>
         </Property>
         <Property Name="MaintenanceWindowDurationInSeconds" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The expiry time of maintenance window in seconds."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the same as the MaintenanceWindowDurationInSeconds property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the same as the MaintenanceWindowDurationInSeconds property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="s"/>
         </Property>
         <NavigationProperty Name="MaintenanceWindowResource" Type="Resource.ItemOrCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The location of the maintenance window settings."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource that contains the @Redfish.MaintenanceWindow property that governs this Resource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource that contains the @Redfish.MaintenanceWindow property that governs this resource.  This property shall be required if the SupportedValues property contains `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`."/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.MaintenanceWindow">
-        <Annotation Term="OData.Description" String="The maintenance window assignment for applying settings or operations to a Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall indicate that a Resource has a maintenance window assignment for applying settings or operations.  Other Resources may link to this object to convey a common control surface for the configuration of the maintenance window."/>
+        <Annotation Term="OData.Description" String="The maintenance window assignment for applying settings or operations to a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall indicate that a resource has a maintenance window assignment for applying settings or operations.  Other resources can link to this object to convey a common control surface for the configuration of the maintenance window."/>
         <Property Name="MaintenanceWindowStartTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The start time of a maintenance window."/>
@@ -285,14 +300,33 @@
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_1.MaintenanceWindow"/>
     </Schema>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="Redfish.Release" String="2019.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add the OnStartUpdateRequest value to the OperationApplyTime enumeration."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <ComplexType Name="Settings" BaseType="Settings.v1_2_2.Settings"/>
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_2.PreferredApplyTime"/>
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_2.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_2.MaintenanceWindow"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `OnStartUpdateRequest` value to the OperationApplyTime enumeration."/>
+
+      <ComplexType Name="Settings" BaseType="Settings.v1_2_2.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_2.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_2.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_2.MaintenanceWindow"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_3_0.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_0.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_0.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_0.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_11_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_12_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -174,7 +174,7 @@
                 },
                 "BootNext": {
                     "description": "The BootOptionReference of the Boot Option to perform a one-time boot from when BootSourceOverrideTarget is `UefiBootNext`.",
-                    "longDescription": "This property shall contain the BootOptionReference of the UEFI boot option for one time boot, as defined by the UEFI Specification.  The valid values for this property are specified in the values of the BootOrder array.  BootSourceOverrideEnabled set to `Continuous` is not supported for UEFI BootNext because this setting is defined in UEFI as a one-time boot only.",
+                    "longDescription": "This property shall contain the BootOptionReference of the UEFI boot option for one time boot, as defined by the UEFI Specification.  The valid values for this property are specified in the values of the BootOrder array.  BootSourceOverrideEnabled set to `Continuous` is not supported for BootSourceOverrideTarget set to `UefiBootNext` because this setting is defined in UEFI as a one-time boot setting.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -226,7 +226,7 @@
                         }
                     ],
                     "description": "The state of the boot source override feature.",
-                    "longDescription": "This property shall contain `Once` for a one-time boot override, and `Continuous` for a remain-active-until-cancelled override.  The `Continuous` value is not supported for this property for UEFI boot source override because UEFI supports one-time boot only.  If set to `Once`, the value is reset to `Disabled` after the BootSourceOverrideTarget actions have completed successfully.  Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "longDescription": "This property shall contain `Once` for a one-time boot override, and `Continuous` for a remain-active-until-cancelled override.  If set to `Once`, the value is reset to `Disabled` after the BootSourceOverrideTarget actions have completed successfully.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false
                 },
                 "BootSourceOverrideMode": {
@@ -287,7 +287,7 @@
                 },
                 "UefiTargetBootSourceOverride": {
                     "description": "The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`.",
-                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  BootSourceOverrideEnabled set to `Continuous` is not supported for BootSourceOverrideTarget set to `UefiTarget` because this setting is defined in UEFI as a one-time boot setting.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -387,7 +387,7 @@
                 },
                 "BiosVersion": {
                     "description": "The version of the system BIOS or primary system firmware.",
-                    "longDescription": "This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property may contain a version string that represents the primary system firmware.",
+                    "longDescription": "This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property might contain a version string that represents the primary system firmware.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -470,6 +470,14 @@
                     "description": "The state of the indicator LED, which identifies the system.",
                     "longDescription": "This property shall contain the state of the indicator light, which identifies this system.",
                     "readonly": false
+                },
+                "LastResetTime": {
+                    "description": "The date and time when the system was last reset or rebooted.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the system last came out of a reset or was rebooted.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_12_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
@@ -707,7 +715,7 @@
         },
         "HostedServices": {
             "additionalProperties": false,
-            "description": "The services that may be running or installed on the system.",
+            "description": "The services that might be running or installed on the system.",
             "longDescription": "This type shall describe services that a computer system supports.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -1080,7 +1088,7 @@
                 "PoweringOff"
             ],
             "enumDescriptions": {
-                "Off": "The system is powered off, although some components may continue to have AUX power such as management controller.",
+                "Off": "The system is powered off, although some components might continue to have AUX power such as management controller.",
                 "On": "The system is powered on.",
                 "PoweringOff": "A temporary state between on and off.  The power off action can take time while the OS is in the shutdown process.",
                 "PoweringOn": "A temporary state between off and on.  This temporary state can be very short."
@@ -1209,7 +1217,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation-specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -1500,6 +1508,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#ComputerSystem.v1_11_0.ComputerSystem"
+    "release": "2020.2",
+    "title": "#ComputerSystem.v1_12_0.ComputerSystem"
 }

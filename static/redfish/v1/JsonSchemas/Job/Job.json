@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Job.v1_0_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Job.v1_0_4.json",
     "$ref": "#/definitions/Job",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,16 +25,16 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "Job": {
             "additionalProperties": false,
-            "description": "The Job schema contains information about a job that a a Redfish Job Service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals.",
-            "longDescription": "This Resource shall contain a job in a Redfish implementation.",
+            "description": "The Job schema contains information about a job that a Redfish job service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals.",
+            "longDescription": "This resource shall contain a job in a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -64,8 +64,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "CreatedBy": {
                     "description": "The person or program that created this job entry.",
@@ -167,18 +167,18 @@
                     "type": "string"
                 },
                 "StepOrder": {
-                    "description": "The serialized execution order of the job Steps.",
+                    "description": "The serialized execution order of the job steps.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain an array of IDs for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and may occur in parallel or in series as determined by the service.",
+                    "longDescription": "This property shall contain an array of IDs for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and might occur in parallel or in series as determined by the service.",
                     "readonly": true,
                     "type": "array"
                 },
                 "Steps": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/JobCollection.json#/definitions/JobCollection",
                     "description": "The link to a collection of steps for this job.",
-                    "longDescription": "This property shall contain the link to a Resource Collection of type JobCollection.",
+                    "longDescription": "This property shall contain the link to a resource collection of type JobCollection.",
                     "readonly": true
                 }
             },
@@ -240,8 +240,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -312,5 +312,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.2",
-    "title": "#Job.v1_0_3.Job"
+    "title": "#Job.v1_0_4.Job"
 }

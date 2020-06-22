@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_2.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -469,7 +469,7 @@
         "PostalAddress": {
             "additionalProperties": false,
             "description": "The postal address for a resource.",
-            "longDescription": "Instances shall describe a postal address for a resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location.",
+            "longDescription": "Instances shall describe a postal address for a resource.  For more information, see RFC5139.  Depending on use, the instance can represent a past, current, or future location.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -874,7 +874,7 @@
         "ReferenceableMember": {
             "additionalProperties": false,
             "description": "The base type for addressable members of an array.",
-            "longDescription": "References array members by using the value returned in the @odata.id property, which may be a dereferenceable URL.  The @odata.id of this entity shall contain the location of this element within an item.",
+            "longDescription": "References array members by using the value returned in the @odata.id property, which can be a dereferenceable URL.  The @odata.id of this entity shall contain the location of this element within an item.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1034,5 +1034,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Resource.v1_9_1"
+    "title": "#Resource.v1_9_2"
 }

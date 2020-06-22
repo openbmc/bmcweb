@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.11.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.12.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -133,19 +133,19 @@
       </EntityType>
 
       <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets the system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action."/>
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation-specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action resets the system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action."/>
       </Action>
 
       <Action Name="SetDefaultBootOrder" IsBound="true">
-        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Annotation Term="OData.Description" String="This action sets the BootOrder to the default settings."/>
         <Annotation Term="OData.LongDescription" String="This action shall set the BootOrder array to the default settings."/>
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -157,6 +157,8 @@
       </Action>
 
       <Action Name="AddResourceBlock" IsBound="true">
+        <Annotation Term="OData.Description" String="This action adds a resource block to a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add a resource block to a system."/>
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResourceBlock" Type="ResourceBlock.ResourceBlock" Nullable="false">
           <Annotation Term="OData.Description" String="The resource block to add to the system."/>
@@ -170,8 +172,6 @@
           <Annotation Term="OData.Description" String="The current ETag of the system."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action adds a resource block to a system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall add a resource block to a system."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -183,6 +183,8 @@
       </Action>
 
       <Action Name="RemoveResourceBlock" IsBound="true">
+        <Annotation Term="OData.Description" String="This action removes a resource block from a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall remove a resource block from a system."/>
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResourceBlock" Type="ResourceBlock.ResourceBlock" Nullable="false">
           <Annotation Term="OData.Description" String="The resource block to remove from the system."/>
@@ -196,8 +198,6 @@
           <Annotation Term="OData.Description" String="The current ETag of the system."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action removes a resource block from a system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall remove a resource block from a system."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -360,7 +360,7 @@
         <Property Name="BiosVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The version of the system BIOS or primary system firmware."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property may contain a version string that represents the primary system firmware."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property might contain a version string that represents the primary system firmware."/>
         </Property>
         <Property Name="ProcessorSummary" Type="ComputerSystem.v1_0_0.ProcessorSummary"  Nullable="false">
           <Annotation Term="OData.Description" String="The central processors of the system in general detail."/>
@@ -517,7 +517,7 @@
           <Annotation Term="OData.Description" String="The system is powered on."/>
         </Member>
         <Member Name="Off">
-          <Annotation Term="OData.Description" String="The system is powered off, although some components may continue to have AUX power such as management controller."/>
+          <Annotation Term="OData.Description" String="The system is powered off, although some components might continue to have AUX power such as management controller."/>
         </Member>
         <Member Name="PoweringOn">
           <Annotation Term="OData.Description" String="A temporary state between off and on.  This temporary state can be very short."/>
@@ -539,12 +539,12 @@
         <Property Name="BootSourceOverrideEnabled" Type="ComputerSystem.v1_0_0.BootSourceOverrideEnabled">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The state of the boot source override feature."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain `Once` for a one-time boot override, and `Continuous` for a remain-active-until-cancelled override.  The `Continuous` value is not supported for this property for UEFI boot source override because UEFI supports one-time boot only.  If set to `Once`, the value is reset to `Disabled` after the BootSourceOverrideTarget actions have completed successfully.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `Once` for a one-time boot override, and `Continuous` for a remain-active-until-cancelled override.  If set to `Once`, the value is reset to `Disabled` after the BootSourceOverrideTarget actions have completed successfully.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
         </Property>
         <Property Name="UefiTargetBootSourceOverride" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path of the override boot target.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path of the override boot target.  BootSourceOverrideEnabled set to `Continuous` is not supported for BootSourceOverrideTarget set to `UefiTarget` because this setting is defined in UEFI as a one-time boot setting.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
         </Property>
       </ComplexType>
 
@@ -675,6 +675,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_12.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_13.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
@@ -855,6 +861,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_10.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_11.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -891,7 +903,7 @@
 
       <ComplexType Name="HostedServices">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The services that may be running or installed on the system."/>
+        <Annotation Term="OData.Description" String="The services that might be running or installed on the system."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe services that a computer system supports."/>
         <NavigationProperty Name="StorageServices" Type="HostedStorageServices.HostedStorageServices" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1032,6 +1044,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1129,6 +1147,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1202,6 +1226,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1233,7 +1263,7 @@
         <Property Name="BootNext" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The BootOptionReference of the Boot Option to perform a one-time boot from when BootSourceOverrideTarget is `UefiBootNext`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the BootOptionReference of the UEFI boot option for one time boot, as defined by the UEFI Specification.  The valid values for this property are specified in the values of the BootOrder array.  BootSourceOverrideEnabled set to `Continuous` is not supported for UEFI BootNext because this setting is defined in UEFI as a one-time boot only."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the BootOptionReference of the UEFI boot option for one time boot, as defined by the UEFI Specification.  The valid values for this property are specified in the values of the BootOrder array.  BootSourceOverrideEnabled set to `Continuous` is not supported for BootSourceOverrideTarget set to `UefiBootNext` because this setting is defined in UEFI as a one-time boot setting."/>
         </Property>
         <Property Name="BootOrder" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -1375,6 +1405,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_5.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_6.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1447,6 +1483,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1488,6 +1530,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1512,6 +1560,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_2.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -1540,6 +1594,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1558,6 +1618,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_1.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -1601,6 +1667,26 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate that the system will always automatically retry booting."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add LastResetTime."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_1.ComputerSystem">
+        <Property Name="LastResetTime" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the system was last reset or rebooted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the system last came out of a reset or was rebooted."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

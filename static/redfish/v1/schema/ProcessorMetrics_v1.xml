@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ProcessorMetrics v1.1.0                                             -->
+<!--# Redfish Schema:  ProcessorMetrics v1.1.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -35,7 +35,7 @@
 
       <EntityType Name="ProcessorMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The ProcessorMetrics schema contains usage and health statistics for a processor."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains the Processor Metrics for a single Processor in a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains the processor metrics for a single processor in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -80,14 +80,14 @@
         <Property Name="BandwidthPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The CPU bandwidth as a percentage."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain CPU utilization of the processor as a percentage.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the CPU utilization over all processors as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain CPU utilization of the processor as a percentage.  When this resource is subordinate to the ProcessorSummary object, this property shall be the CPU utilization over all processors as a percentage."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
         <Property Name="AverageFrequencyMHz" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The average frequency of the processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain average frequency in MHz, across all enabled cores in the processor.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain average frequency in MHz, across all enabled cores in the processor.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
           <Annotation Term="Measures.Unit" String="MHz"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -102,63 +102,63 @@
         <Property Name="ThrottlingCelsius" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The CPU margin to throttle (temperature offset in degree Celsius)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the CPU margin to throttle based on an offset between the maximum temperature in which the processor can operate, and the processor's current temperature.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CPU margin to throttle based on an offset between the maximum temperature in which the processor can operate, and the processor's current temperature.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
           <Annotation Term="Measures.Unit" String="Cel"/>
         </Property>
         <Property Name="TemperatureCelsius" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The temperature of the processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in Celsius, of the processor.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average temperature, in Celcius, over all processors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in Celsius, of the processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average temperature, in Celcius, over all processors."/>
           <Annotation Term="Measures.Unit" String="Cel"/>
         </Property>
         <Property Name="ConsumedPowerWatt" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The power, in watts, that the processor has consumed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watts, that the processor has consumed.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of power, in watts, that all processors have consumed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watts, that the processor has consumed.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of power, in watts, that all processors have consumed."/>
           <Annotation Term="Measures.Unit" String="W"/>
         </Property>
         <Property Name="FrequencyRatio" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The frequency relative to the nominal processor frequency ratio."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the frequency relative to the nominal processor frequency ratio of this processor.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average FrequencyRatio over all processors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the frequency relative to the nominal processor frequency ratio of this processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average FrequencyRatio over all processors."/>
         </Property>
         <Property Name="Cache" Type="Collection(ProcessorMetrics.v1_0_0.CacheMetrics)" Nullable="false">
           <Annotation Term="OData.Description" String="The processor cache metrics."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe this processor's cache.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe this processor's cache.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
         </Property>
         <Property Name="LocalMemoryBandwidthBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The local memory bandwidth usage in bytes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the local memory bandwidth usage of this processor in bytes.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of LocalMemoryBandwidthBytes over all processors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the local memory bandwidth usage of this processor in bytes.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of LocalMemoryBandwidthBytes over all processors."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="RemoteMemoryBandwidthBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The remote memory bandwidth usage in bytes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the remote memory bandwidth usage of this processor in bytes.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of RemoteMemoryBandwidthBytes over all processors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the remote memory bandwidth usage of this processor in bytes.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of RemoteMemoryBandwidthBytes over all processors."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="KernelPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The percentage of time spent in kernel mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain total percentage of time the processor has spent in kernel mode.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average KernelPercent over all processors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain total percentage of time the processor has spent in kernel mode.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average KernelPercent over all processors."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
         <Property Name="UserPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The percentage of time spent in user mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain total percentage of time the processor has spent in user mode.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average UserPercent over all processors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain total percentage of time the processor has spent in user mode.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average UserPercent over all processors."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
         <Property Name="CoreMetrics" Type="Collection(ProcessorMetrics.v1_0_0.CoreMetrics)" Nullable="false">
           <Annotation Term="OData.Description" String="The processor core metrics."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the cores of this processor.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the cores of this processor.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
         </Property>
         <Property Name="Actions" Type="ProcessorMetrics.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -244,12 +244,12 @@
         <Property Name="Level" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The C-state level, such as C0, C1, or C2."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the C-state level, such as C0, C1, or C2.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the C-state level, such as C0, C1, or C2.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
         </Property>
         <Property Name="ResidencyPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The percentage of time that the processor or core has spent in this particular level of C-state."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of time that the processor or core has spent in this particular level of C-state.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of time that the processor or core has spent in this particular level of C-state.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
@@ -257,18 +257,18 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="ProcessorMetrics.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -284,6 +284,12 @@
       <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_1.ProcessorMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_2.ProcessorMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -293,10 +299,16 @@
         <Property Name="OperatingSpeedMHz" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Operating speed of the processor in MHz."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor may change more frequently than the manager is able to monitor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor might change more frequently than the manager is able to monitor."/>
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_1_0.ProcessorMetrics"/>
     </Schema>
 
   </edmx:DataServices>

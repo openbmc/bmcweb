@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkAdapter v1.3.1                                               -->
+<!--# Redfish Schema:  NetworkAdapter v1.4.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -49,8 +49,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="NetworkAdapter" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="A network adapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
-        <Annotation Term="OData.LongDescription" String="A network adapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
+        <Annotation Term="OData.Description" String="The NetworkAdapter schema represents a physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a physical network adapter capable of connecting to a computer network in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -74,11 +74,10 @@
       </EntityType>
 
       <Action Name="ResetSettingsToDefault" IsBound="true">
-        <Parameter Name="NetworkAdapter" Type="NetworkAdapter.v1_0_0.Actions"/>
         <Annotation Term="OData.Description" String="This action is to clear the settings back to factory defaults."/>
         <Annotation Term="OData.LongDescription" String="This action shall reset of all active and pending settings back to factory default settings upon reset of the network adapter."/>
+        <Parameter Name="NetworkAdapter" Type="NetworkAdapter.v1_0_0.Actions"/>
       </Action>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_0_0">
@@ -163,7 +162,7 @@
         </Property>
         <Property Name="Links" Type="NetworkAdapter.v1_0_0.ControllerLinks" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="ControllerCapabilities" Type="NetworkAdapter.v1_0_0.ControllerCapabilities" Nullable="false">
           <Annotation Term="OData.Description" String="The capabilities of this controller."/>
@@ -288,7 +287,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of N_Port ID Virtualization (NPIV) logins allowed per physical port on this controller."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_0_1">
@@ -321,9 +319,16 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_4.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct inconsistencies with the descriptions of Identifiers and Location."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_5.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
+
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_1.NetworkAdapter">
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -336,7 +341,7 @@
       <ComplexType Name="Controllers" BaseType="NetworkAdapter.v1_0_0.Controllers">
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the network adapter controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated network adapter controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the controller associated with the network adapter."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -363,6 +368,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_1_3.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct inconsistencies with the descriptions of Identifiers and Location."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_1_4.NetworkAdapter"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_2_0">
@@ -418,6 +429,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_2_2.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct inconsistencies with the descriptions of Identifiers and Location."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_2_3.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -425,8 +442,8 @@
 
       <ComplexType Name="Controllers" BaseType="NetworkAdapter.v1_2_0.Controllers">
         <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
-          <Annotation Term="OData.Description" String="The durable names for the network adapter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the associated network adapter."/>
+          <Annotation Term="OData.Description" String="The durable names for the network adapter controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the controller associated with the network adapter."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -435,6 +452,34 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_0.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_1.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct inconsistencies with the descriptions of Identifiers and Location."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_2.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_3.NetworkAdapter">
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location of the network adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the network adapter."/>
+        </Property>
+        <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
+          <Annotation Term="OData.Description" String="The durable names for the network adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the network adapter."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

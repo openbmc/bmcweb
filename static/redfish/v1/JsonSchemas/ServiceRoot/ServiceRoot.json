@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_8_0.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -243,6 +243,13 @@
                     "longDescription": "This property shall contain a link to a Resource of type AccountService.",
                     "readonly": true
                 },
+                "AggregationService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AggregationService.json#/definitions/AggregationService",
+                    "description": "The link to the aggregation service.",
+                    "longDescription": "This property shall contain a link to a resource of type AggregationService.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
                 "CertificateService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateService.json#/definitions/CertificateService",
                     "description": "The link to the Certificate Service.",
@@ -455,6 +462,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#ServiceRoot.v1_7_0.ServiceRoot"
+    "release": "2020.2",
+    "title": "#ServiceRoot.v1_8_0.ServiceRoot"
 }

@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_1_2.json",
     "$ref": "#/definitions/Triggers",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -92,7 +92,7 @@
                         }
                     ],
                     "description": "The severity of the event message.",
-                    "longDescription": "This property shall contain the Severity property to be used in the Event message.",
+                    "longDescription": "This property shall contain the Severity property to be used in the event message.",
                     "readonly": false
                 },
                 "Value": {
@@ -122,8 +122,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "This Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -175,8 +175,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -288,7 +288,7 @@
                 "LowerCritical": {
                     "$ref": "#/definitions/Threshold",
                     "description": "The value at which the reading is below normal range and requires attention.",
-                    "longDescription": "This property shall contain the value at which the MetricProperties property is below the normal range and may require attention.  The value of the property shall use the same units as the MetricProperties property."
+                    "longDescription": "This property shall contain the value at which the MetricProperties property is below the normal range and might require attention.  The value of the property shall use the same units as the MetricProperties property."
                 },
                 "LowerWarning": {
                     "$ref": "#/definitions/Threshold",
@@ -298,7 +298,7 @@
                 "UpperCritical": {
                     "$ref": "#/definitions/Threshold",
                     "description": "The value at which the reading is above normal range and requires attention.",
-                    "longDescription": "This property shall contain the value at which the MetricProperties property is above the normal range and may require attention.  The value of the property shall use the same units as the MetricProperties property."
+                    "longDescription": "This property shall contain the value at which the MetricProperties property is above the normal range and might require attention.  The value of the property shall use the same units as the MetricProperties property."
                 },
                 "UpperWarning": {
                     "$ref": "#/definitions/Threshold",
@@ -317,13 +317,13 @@
             ],
             "enumDescriptions": {
                 "LogToLogService": "When a trigger condition is met, record in a log.",
-                "RedfishEvent": "When a trigger condition is met, the Service sends an event to subscribers.",
+                "RedfishEvent": "When a trigger condition is met, the service sends an event to subscribers.",
                 "RedfishMetricReport": "When a trigger condition is met, force an update of the specified metric reports."
             },
             "enumLongDescriptions": {
-                "LogToLogService": "This value indicates that when a trigger condition is met, the Service shall log the occurrence of the condition to the log that the LogService property in the TelemetryService Resource describes.",
-                "RedfishEvent": "This value indicates that when a trigger condition is met, the Service shall send an event to subscribers.",
-                "RedfishMetricReport": "This value indicates that when a trigger condition is met, the Service shall force the metric reports managed by the MetricReportDefinitions specified by the MetricReportDefinitions property to be updated, regardless of the MetricReportDefinitionType property value.  The actions specified in the ReportActions property of each MetricReportDefinition shall be performed."
+                "LogToLogService": "This value indicates that when a trigger condition is met, the service shall log the occurrence of the condition to the log that the LogService property in the telemetry service resource describes.",
+                "RedfishEvent": "This value indicates that when a trigger condition is met, the service shall send an event to subscribers.",
+                "RedfishMetricReport": "This value indicates that when a trigger condition is met, the service shall force the metric reports managed by the MetricReportDefinitions specified by the MetricReportDefinitions property to be updated, regardless of the MetricReportDefinitionType property value.  The actions specified in the ReportActions property of each MetricReportDefinition shall be performed."
             },
             "enumVersionAdded": {
                 "RedfishMetricReport": "v1_1_0"
@@ -334,7 +334,7 @@
         "Triggers": {
             "additionalProperties": false,
             "description": "The Triggers schema describes a trigger that applies to metrics.",
-            "longDescription": "This Resource shall contain a trigger that applies to metrics.",
+            "longDescription": "This resource shall contain a trigger that applies to metrics.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -364,8 +364,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "Description": {
                     "anyOf": [
@@ -407,7 +407,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of MessageIds that specify when a trigger condition is met based on an event.  When the Service generates an event and if it contains a MessageId within this array, a trigger condition shall be met.",
+                    "longDescription": "This property shall contain an array of MessageIds that specify when a trigger condition is met based on an event.  When the service generates an event and if it contains a MessageId within this array, a trigger condition shall be met.",
                     "pattern": "^[A-Za-z0-9]+\\.\\d+\\.\\d+\\.[A-Za-z0-9.]+$",
                     "readonly": false,
                     "type": "array",
@@ -419,8 +419,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource.",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "MetricProperties": {
@@ -432,7 +432,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of URIs with wildcards and property identifiers for this trigger.  Use a set of curly braces to delimit each wildcard in the URI.  Replace each wildcard with its corresponding entry in the Wildcard array property.  A URI that contains wildcards shall link to a Resource property to which the metric definition applies after all wildcards are replaced with their corresponding entries in the Wildcard array property.  The property identifiers portion of the URI shall follow the RFC6901-defined JSON fragment notation rules.",
+                    "longDescription": "This property shall contain an array of URIs with wildcards and property identifiers for this trigger.  Use a set of curly braces to delimit each wildcard in the URI.  Replace each wildcard with its corresponding entry in the Wildcard array property.  A URI that contains wildcards shall link to a resource property to which the metric definition applies after all wildcards are replaced with their corresponding entries in the Wildcard array property.  The property identifiers portion of the URI shall follow the RFC6901-defined JSON fragment notation rules.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -465,8 +465,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status and health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "TriggerActions": {
                     "description": "The actions that the trigger initiates.",
@@ -540,5 +540,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.1",
-    "title": "#Triggers.v1_1_1.Triggers"
+    "title": "#Triggers.v1_1_2.Triggers"
 }

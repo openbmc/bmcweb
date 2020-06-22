@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.2.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.2.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -31,7 +31,7 @@
 
       <EntityType Name="Certificate" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The Certificate schema describes a certificate that proves the identify of a component, account, or service."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains a certificate for a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a certificate for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -76,7 +76,7 @@
         </Member>
         <Member Name="PKCS7">
           <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded PKCS7 certificate."/>
-          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280- and RFC2315-defined structures.  The Service may discard additional certificates or other data in the structure."/>
+          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280- and RFC2315-defined structures.  The service can discard additional certificates or other data in the structure."/>
         </Member>
       </EnumType>
 
@@ -131,6 +131,8 @@
       </EnumType>
 
       <Action Name="Rekey" IsBound="true">
+        <Annotation Term="OData.Description" String="This action generates a new key-pair for a certificate and produces a certificate signing request."/>
+        <Annotation Term="OData.LongDescription" String="This action shall use the certificate data to generate a new key-pair for a certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The service should retain the private key that generated this request for installation of the certificate.  The private key should not be part of the response.  The private key should not be part of the response."/>
         <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
         <Parameter Name="KeyPairAlgorithm" Type="Edm.String">
           <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
@@ -149,8 +151,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute."/>
         </Parameter>
         <ReturnType Type="Certificate.v1_1_0.RekeyResponse" Nullable="false"/>
-        <Annotation Term="OData.Description" String="This action generates a new key-pair for a certificate and produces a certificate signing request."/>
-        <Annotation Term="OData.LongDescription" String="This action shall use the certificate data to generate a new key-pair for a certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The Service should retain the private key that generated this request for installation of the certificate.  The private key should not be part of the response.  The private key should not be part of the response."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -162,14 +162,14 @@
       </Action>
 
       <Action Name="Renew" IsBound="true">
+        <Annotation Term="OData.Description" String="This action generates a certificate signing request by using the existing information and key-pair of the certificate."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate a certificate signing request using the existing information and key-pair of the certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The service should retain the private key that this request generates for when the certificate is installed.  The private key should not be part of the response."/>
         <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
         <Parameter Name="ChallengePassword" Type="Edm.String">
           <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute."/>
         </Parameter>
         <ReturnType Type="Certificate.v1_1_0.RenewResponse" Nullable="false"/>
-        <Annotation Term="OData.Description" String="This action generates a certificate signing request by using the existing information and key-pair of the certificate."/>
-        <Annotation Term="OData.LongDescription" String="This action shall generate a certificate signing request using the existing information and key-pair of the certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The Service should retain the private key that this request generates for when the certificate is installed.  The private key should not be part of the response."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -223,8 +223,8 @@
         </Property>
 
         <Property Name="Actions" Type="Certificate.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -271,18 +271,18 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Certificate.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -298,6 +298,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_0_1.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_2.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -311,7 +317,7 @@
         <NavigationProperty Name="Certificate" Type="Certificate.Certificate" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the certificate being rekeyed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Certificate Resource that is replaced after the certificate authority (CA) signs the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Certificate that is replaced after the certificate authority (CA) signs the certificate."/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
         <Property Name="CSRString" Type="Edm.String" Nullable="false">
@@ -329,7 +335,7 @@
         <NavigationProperty Name="Certificate" Type="Certificate.Certificate" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the certificate being renewed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Certificate Resource that is replaced after the certificate authority (CA) signs the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Certificate that is replaced after the certificate authority (CA) signs the certificate."/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
         <Property Name="CSRString" Type="Edm.String" Nullable="false">
@@ -347,6 +353,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_1_0.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_1_1.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -358,6 +370,12 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for secure boot database certificates."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_0.Certificate"/>
     </Schema>
 
   </edmx:DataServices>

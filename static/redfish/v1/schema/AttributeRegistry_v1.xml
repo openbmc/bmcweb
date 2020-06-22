@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry v1.3.2                                            -->
+<!--# Redfish Schema:  AttributeRegistry v1.3.3                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -32,8 +32,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="AttributeRegistry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The AttributeRegistry schema contains a set of key-value pairs that represent the structure of an Attribute Registry.  It includes mechanisms for building user interfaces, or menus, allowing consistent navigation of the contents.  The Attribute Registry is specific to an implementation or product.  The attributes and property names are not standardized."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent an Attribute Registry for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The AttributeRegistry schema contains a set of key-value pairs that represent the structure of an attribute registry.  It includes mechanisms for building user interfaces, or menus, allowing consistent navigation of the contents.  The attribute registry is specific to an implementation or product.  The attributes and property names are not standardized."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an attribute registry for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -50,7 +50,6 @@
           </Record>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_0">
@@ -60,26 +59,26 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.AttributeRegistry">
         <Property Name="Language" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The RFC5646-conformant language code for the Attribute Registry."/>
+          <Annotation Term="OData.Description" String="The RFC5646-conformant language code for the attribute registry."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an RFC5646-conformant language code."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="RegistryVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Attribute Registry version."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this Attribute Registry."/>
+          <Annotation Term="OData.Description" String="The attribute registry version."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this attribute registry."/>
           <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OwningEntity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The organization or company that publishes this Attribute Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this Attribute Registry."/>
+          <Annotation Term="OData.Description" String="The organization or company that publishes this attribute registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this attribute registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="SupportedSystems" Type="Collection(AttributeRegistry.v1_0_0.SupportedSystems)" Nullable="false">
-          <Annotation Term="OData.Description" String="An array of systems that this Attribute Registry supports."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing a list of systems that this Attribute Registry supports."/>
+          <Annotation Term="OData.Description" String="An array of systems that this attribute registry supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing a list of systems that this attribute registry supports."/>
         </Property>
         <Property Name="RegistryEntries" Type="AttributeRegistry.v1_0_0.RegistryEntries" Nullable="false">
           <Annotation Term="OData.Description" String="The list of all attributes and their metadata for this component."/>
@@ -88,17 +87,17 @@
       </EntityType>
 
       <ComplexType Name="SupportedSystems">
-        <Annotation Term="OData.Description" String="A system that this Attribute Registry supports."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a system that this Attribute Registry supports."/>
+        <Annotation Term="OData.Description" String="A system that this attribute registry supports."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a system that this attribute registry supports."/>
         <Property Name="ProductName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The product name of the computer system to which this Attribute Registry applies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the product name of the computer system to which this Attribute Registry applies."/>
+          <Annotation Term="OData.Description" String="The product name of the computer system to which this attribute registry applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the product name of the computer system to which this attribute registry applies."/>
         </Property>
         <Property Name="SystemId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The ID of the systems to which this Attribute Registry applies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the system ID that identifies the systems to which this Attribute Registry applies.  This may be identified by one or more properties in the ComputerSystem Resource, such as Model, SubModel, or SKU."/>
+          <Annotation Term="OData.Description" String="The ID of the systems to which this attribute registry applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the system ID that identifies the systems to which this attribute registry applies.  This might be identified by one or more properties in the computer system resource, such as Model, SubModel, or SKU."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]+$"/>
         </Property>
       </ComplexType>
@@ -107,12 +106,12 @@
         <Annotation Term="OData.Description" String="The list of all attributes and metadata for this component."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a list of all attributes for this component, along with their possible values, dependencies, and other metadata."/>
         <Property Name="Attributes" Type="Collection(AttributeRegistry.v1_0_0.Attributes)" Nullable="false">
-          <Annotation Term="OData.Description" String="An array of attributes and their possible values in the Attribute Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the attributes and their possible values and other metadata in the Attribute Registry."/>
+          <Annotation Term="OData.Description" String="An array of attributes and their possible values in the attribute registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the attributes and their possible values and other metadata in the attribute registry."/>
         </Property>
         <Property Name="Menus" Type="Collection(AttributeRegistry.v1_0_0.Menus)" Nullable="false">
-          <Annotation Term="OData.Description" String="An array for the attributes menus and their hierarchy in the Attribute Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the attributes menus and their hierarchy in the Attribute Registry."/>
+          <Annotation Term="OData.Description" String="An array for the attributes menus and their hierarchy in the attribute registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the attributes menus and their hierarchy in the attribute registry."/>
         </Property>
         <Property Name="Dependencies" Type="Collection(AttributeRegistry.v1_0_0.Dependencies)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of dependencies of attributes on this component."/>
@@ -126,7 +125,7 @@
         <Property Name="AttributeName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The unique name for the attribute."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of this attribute that is unique in this Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of this attribute that is unique in this attribute registry."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
           <Annotation Term="Redfish.Required"/>
         </Property>
@@ -243,7 +242,7 @@
         <Property Name="MenuName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The unique name string of this menu."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of this menu that is unique in this Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of this menu that is unique in this attribute registry."/>
           <Annotation Term="Validation.Pattern" String="^[^/]+$"/>
         </Property>
         <Property Name="DisplayName" Type="Edm.String">
@@ -278,8 +277,8 @@
         <Annotation Term="OData.Description" String="The dependency of attributes on this component."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a dependency of attributes on this component."/>
         <Property Name="Dependency" Type="AttributeRegistry.v1_0_0.Dependency" Nullable="false">
-          <Annotation Term="OData.Description" String="The dependency expression for one or more attributes in this Attribute Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the dependency expression for one or more attributes in this Attribute Registry."/>
+          <Annotation Term="OData.Description" String="The dependency expression for one or more attributes in this attribute registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the dependency expression for one or more attributes in this attribute registry."/>
         </Property>
         <Property Name="DependencyFor" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -311,8 +310,8 @@
       </ComplexType>
 
       <ComplexType Name="Dependency">
-        <Annotation Term="OData.Description" String="The dependency expression for one or more attributes in this Attribute Registry."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the dependency expression for one or more attributes in this Attribute Registry."/>
+        <Annotation Term="OData.Description" String="The dependency expression for one or more attributes in this attribute registry."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the dependency expression for one or more attributes in this attribute registry."/>
         <Property Name="MapFrom" Type="Collection(AttributeRegistry.v1_0_0.MapFrom)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of the map-from conditions for a mapping dependency."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the map-from conditions for a dependency of the Map type."/>
@@ -509,7 +508,6 @@
           <Annotation Term="OData.Description" String="The dependency that affects an attribute's ValueExpression."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_1">
@@ -554,37 +552,44 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_6.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_7.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_2.AttributeRegistry">
         <Property Name="Actions" Type="AttributeRegistry.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="AttributeRegistry.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <ComplexType Name="SupportedSystems" BaseType="AttributeRegistry.v1_0_0.SupportedSystems">
         <Property Name="FirmwareVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Firmware version."/>
-          <Annotation Term="OData.LongDescription" String="The version of the component firmware image to which this Attribute Registry applies."/>
+          <Annotation Term="OData.LongDescription" String="The version of the component firmware image to which this attribute registry applies."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -625,9 +630,16 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_5.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_6.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_2.AttributeRegistry"/>
 
       <ComplexType Name="Attributes" BaseType="AttributeRegistry.v1_0_0.Attributes">
@@ -680,9 +692,16 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_3.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_4.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
+
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_2.AttributeRegistry"/>
 
       <ComplexType Name="Attributes" BaseType="AttributeRegistry.v1_2_0.Attributes">
@@ -715,6 +734,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It was also created to update the description of AttributeType Password enumeration.  It also updates descriptions that this schema defines."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_1.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_2.AttributeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

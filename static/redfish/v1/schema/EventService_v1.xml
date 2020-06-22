@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.6.0                                                 -->
+<!--# Redfish Schema:  EventService v1.7.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -88,7 +88,7 @@
         </Parameter>
         <Parameter Name="EventId" Type="Edm.String">
           <Annotation Term="OData.Description" String="The ID for the event to add."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service may ignore this value and replace it with its own."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service can ignore this value and replace it with its own."/>
         </Parameter>
         <Parameter Name="EventTimestamp" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Description" String="The date and time for the event to add."/>
@@ -258,6 +258,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_0_10.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_0_11.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -294,6 +300,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_1_3.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_1_4.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_0">
@@ -406,10 +418,17 @@
       <EntityType Name="EventService" BaseType="EventService.v1_2_2.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_2_3.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate the EventTypesForSubscription and SSEFilterPropertiesSupported\EventType properties.  It was also created to update the description of the RegistryPrefix property.  It was also updated to deprecate the EventType parameter in SubmitTestEvent, and add the EventGroupId parameter in SubmitTestEvent."/>
+
       <EntityType Name="EventService" BaseType="EventService.v1_2_1.EventService"/>
     </Schema>
 
@@ -423,6 +442,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_3_1.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_3_2.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_0">
@@ -444,6 +469,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_4_0.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_4_1.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_0">
@@ -540,6 +571,15 @@
         <Member Name="Login">
           <Annotation Term="OData.Description" String="LOGIN authentication."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC4954-defined AUTH LOGIN mechanism."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `Plain`, which supersedes the LOGIN authentication method for SASL."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="CRAM_MD5">
           <Annotation Term="OData.Description" String="CRAM-MD5 authentication."/>
@@ -554,6 +594,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_5_0.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_5_1.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -565,6 +611,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports including the resource payload of the origin of condition in the event payload.  If `true`, event subscriptions are allowed to specify the IncludeOriginOfCondition property."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_6_0.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `Login` enumeration in SMTPAuthenticationMethods."/>
+
+      <EntityType Name="EventService" BaseType="EventService.v1_6_1.EventService"/>
     </Schema>
 
   </edmx:DataServices>

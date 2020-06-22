@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Role.v1_2_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Role.v1_2_5.json",
     "$ref": "#/definitions/Role",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -55,8 +55,8 @@
         },
         "Role": {
             "additionalProperties": false,
-            "description": "The Role schema contains a Redfish Role to use in conjunction with a manager account.",
-            "longDescription": "This Resource represents the Redfish Role for the user account.",
+            "description": "The Role schema contains a Redfish role to use in conjunction with a manager account.",
+            "longDescription": "This resource represents the Redfish role for the user account.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -86,16 +86,16 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "AssignedPrivileges": {
-                    "description": "The Redfish privileges for this Role.",
+                    "description": "The Redfish privileges for this role.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Privileges.json#/definitions/PrivilegeType"
                     },
-                    "longDescription": "This property shall contain the Redfish privileges for this Role.  For predefined Roles, this property shall be read-only.  For custom Roles, some implementations may not allow writing to this property.",
+                    "longDescription": "This property shall contain the Redfish privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations might prevent writing to this property.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -115,8 +115,8 @@
                     "readonly": true
                 },
                 "IsPredefined": {
-                    "description": "An indication of whether the Role is a Redfish-predefined Role rather than a custom Redfish Role.",
-                    "longDescription": "This property shall indicate whether the Role is a Redfish-predefined Role rather than a custom Redfish Role.",
+                    "description": "An indication of whether the role is a Redfish-predefined role rather than a custom Redfish role.",
+                    "longDescription": "This property shall indicate whether the role is a Redfish-predefined role rather than a custom Redfish role.",
                     "readonly": true,
                     "type": "boolean"
                 },
@@ -130,17 +130,17 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "OemPrivileges": {
-                    "description": "The OEM privileges for this Role.",
+                    "description": "The OEM privileges for this role.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain the OEM privileges for this Role.  For predefined Roles, this property shall be read-only.  For custom Roles, some implementations may not allow writing to this property.",
+                    "longDescription": "This property shall contain the OEM privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations might prevent writing to this property.",
                     "readonly": false,
                     "type": "array"
                 },
                 "RoleId": {
-                    "description": "The name of the Role.",
-                    "longDescription": "This property shall contain the string name of the Role.  This property shall contain the same value as the Id property.",
+                    "description": "The name of the role.",
+                    "longDescription": "This property shall contain the string name of the role.  This property shall contain the same value as the Id property.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_2_0"
@@ -160,5 +160,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.2",
-    "title": "#Role.v1_2_4.Role"
+    "title": "#Role.v1_2_5.Role"
 }

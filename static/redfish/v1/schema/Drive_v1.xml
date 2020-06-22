@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Drive v1.9.1                                                                    -->
+<!--# Redfish Schema:  Drive v1.10.0                                                                   -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -91,19 +91,19 @@
       </EntityType>
 
       <Action Name="SecureErase" IsBound="true">
-        <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
         <Annotation Term="OData.Description" String="This action securely erases the contents of the drive."/>
         <Annotation Term="OData.LongDescription" String="This action shall securely erase the drive."/>
+        <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
       </Action>
 
       <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets this drive."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset this drive."/>
         <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action resets this drive."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset this drive."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -254,7 +254,7 @@
         </Property>
         <Property Name="Links" Type="Drive.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="Actions" Type="Drive.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -386,7 +386,6 @@
           <Annotation Term="OData.Description" String="The array to which this drive belongs has failed."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_1">
@@ -441,6 +440,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_8.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_0_9.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_0">
@@ -535,6 +540,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_1_7.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_1_8.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -586,6 +597,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_2_5.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_2_6.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -629,6 +646,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_3_4.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_3_5.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -668,6 +691,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_4.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_4_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_0">
@@ -715,6 +744,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_5_3.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_5_4.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -742,6 +777,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_6_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_6_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -759,6 +800,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_7_1.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_0">
@@ -783,6 +830,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_8_0.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_8_1.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -801,6 +854,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_9_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_9_1.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add ReadyToRemove property."/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_9_2.Drive">
+        <Property Name="ReadyToRemove" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the drive is prepared by the system for removal."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the system is prepared for the removal of this drive."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

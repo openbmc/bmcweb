@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  OperatingConfig v1.0.0                                              -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingConfig">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="OperatingConfig" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The OperatingConfig schema specifies a configuration that can be used when the processor is operational."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an operational configuration for a processor in the Redfish Specification."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/OperatingConfigs/{OperatingConfigId}</String>
+           </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingConfig.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+
+      <EntityType Name="OperatingConfig" BaseType="OperatingConfig.OperatingConfig">
+        <Property Name="TotalAvailableCoreCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of cores in the processor that can be configured."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cores in the processor that can be configured."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="TDPWatts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The thermal design point of the processor in watts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the thermal design point of the processor in watts."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="W"/>
+        </Property>
+        <Property Name="BaseSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The base ?? clock speed of the processor in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the base clock speed of the processor in MHz."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+        <Property Name="MaxSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum clock speed to which the processor can be configured in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum clock speed to which the processor can be configured in MHz."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+        <Property Name="MaxJunctionTemperatureCelsius" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum temperature of the junction in degrees Celsius."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum temperature of the junction in degrees Celsius."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+        </Property>
+        <Property Name="BaseSpeedPrioritySettings" Type="Collection(OperatingConfig.v1_0_0.BaseSpeedPrioritySettings)">
+          <Annotation Term="OData.Description" String="The clock speed for sets of cores when the configuration is operational."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that specify the clock speed for sets of cores when the configuration is operational."/>
+        </Property>
+        <Property Name="TurboProfile" Type="Collection(OperatingConfig.v1_0_0.TurboProfileDatapoint)">
+          <Annotation Term="OData.Description" String="The turbo profiles for the processor.  A turbo profile is the maximum turbo clock speed as a function of the number of active cores."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain an array of objects that specify the turbo profile for a set of active cores."/>
+        </Property>
+        <Property Name="Actions" Type="OperatingConfig.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="TurboProfileDatapoint">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The turbo profile for a set of active cores."/>
+        <Annotation Term="OData.LongDescription" String="This type shall specify the turbo profile for a set of active cores."/>
+        <Property Name="ActiveCoreCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of active cores to be configured with the specified maximum clock speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cores to be configured with the maximum turbo clock speed.  The value shall be less than or equal the TotalAvailableCoreCount property."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum turbo clock speed that correspond to the number of active cores in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum turbo clock speed that correspond to the number of active cores in MHz."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="BaseSpeedPrioritySettings">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The clock speed for a set of cores."/>
+        <Annotation Term="OData.LongDescription" String="This type shall specify the clock speed for a set of cores."/>
+        <Property Name="CoreCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of cores to configure with a specified speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cores to configure with the speed specified by the BaseSpeedMHz property.  The sum of all CoreCount properties shall equal the value of the TotalAvailableCoreCount property."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="CoreIDs" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the cores to configure with the specified speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array identifying the cores to configure with the speed specified by the BaseSpeedMHz property.  The length of the array shall equal the value of the CoreCount property."/>
+        </Property>
+        <Property Name="BaseSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The clock speed to configure the set of cores in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the clock speed to configure the set of cores in MHz."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="OperatingConfig.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

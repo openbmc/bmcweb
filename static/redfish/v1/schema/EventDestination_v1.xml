@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.8.0                                             -->
+<!--# Redfish Schema:  EventDestination v1.8.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -508,9 +508,15 @@
           <Annotation Term="OData.Description" String="The subscription is suspended after the maximum number of retries is reached."/>
         </Member>
         <Member Name="RetryForever">
-          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the after the maximum number of retries is reached."/>
+          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the maximum number of retries is reached."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct typographic errors in DeliveryRetryPolicy."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_0.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_0">
@@ -592,7 +598,13 @@
         </Member>
       </EnumType>
     </Schema>
-	
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct typographic errors in DeliveryRetryPolicy."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_0.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -606,6 +618,12 @@
         </Property>
       </EntityType>
     </Schema>
-	
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct typographic errors in DeliveryRetryPolicy."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_0.EventDestination"/>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

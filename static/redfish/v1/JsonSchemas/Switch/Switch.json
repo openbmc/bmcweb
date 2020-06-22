@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_3_1.json",
     "$ref": "#/definitions/Switch",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -28,16 +28,16 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -56,7 +56,7 @@
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this switch.",
-                    "longDescription": "This property shall contain a link to the Resource of type Chassis with which this switch is associated.",
+                    "longDescription": "This property shall contain a link to a resource of type Chassis with which this switch is associated.",
                     "readonly": true
                 },
                 "Endpoints": {
@@ -64,7 +64,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain a link to the Resources of type Endpoint with which this switch is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint with which this switch is associated.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_3_0"
@@ -77,7 +77,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
                     },
-                    "longDescription": "This property shall contain a link to the Resource of type Manager with which this switch is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type Manager with which this switch is associated.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -94,8 +94,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -121,7 +121,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without this parameter and can complete an implementation-specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without this parameter and can complete an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -154,7 +154,7 @@
         "Switch": {
             "additionalProperties": false,
             "description": "The Switch schema contains properties that describe a fabric switch.",
-            "longDescription": "This Resource contains a switch for a Redfish implementation.",
+            "longDescription": "This resource contains a switch for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -184,8 +184,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "AssetTag": {
                     "description": "The user-assigned asset tag for this switch.",
@@ -254,8 +254,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
@@ -265,8 +265,8 @@
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
-                    "description": "The link to the collection of Log Services associated with this switch.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type LogServiceCollection.",
+                    "description": "The link to the collection of log services associated with this switch.",
+                    "longDescription": "This property shall contain a link to a resource collection of type LogServiceCollection.",
                     "readonly": true
                 },
                 "Manufacturer": {
@@ -308,7 +308,7 @@
                 "Ports": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
                     "description": "The link to the collection ports for this switch.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type PortCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.",
                     "readonly": true
                 },
                 "PowerState": {
@@ -356,8 +356,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SupportedProtocols": {
                     "description": "The protocols this switch supports.",
@@ -417,5 +417,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Switch.v1_3_0.Switch"
+    "title": "#Switch.v1_3_1.Switch"
 }

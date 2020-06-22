@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition v1.3.1                                       -->
+<!--# Redfish Schema:  MetricReportDefinition v1.3.2                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,7 +42,7 @@
 
       <EntityType Name="MetricReportDefinition" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The MetricReportDefinition schema describes set of metrics that are collected into a metric report."/>
-        <Annotation Term="OData.LongDescription" String="This resource specifies a set of metrics that shall be collected into a metric report."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall specify a set of metrics that shall be collected into a metric report in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -113,8 +113,8 @@
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Metrics" Type="Collection(MetricReportDefinition.v1_0_0.Metric)" Nullable="false">
-          <Annotation Term="OData.Description" String="The list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property."/>
-          <Annotation Term="OData.LongDescription" String="The property shall contain a list of metrics to include in the metric report.  The metrics may include metric properties or calculations that are applied to a metric property."/>
+          <Annotation Term="OData.Description" String="The list of metrics to include in the metric report.  The metrics might include metric properties or calculations applied to a metric property."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain a list of metrics to include in the metric report.  The metrics might include metric properties or calculations that are applied to a metric property."/>
         </Property>
         <NavigationProperty Name="MetricReport" Type="MetricReport.MetricReport" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -167,7 +167,7 @@
         <Property Name="MetricProperties" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The set of URIs for the properties on which this metric is collected."/>
-          <Annotation Term="OData.LongDescription" String="Each value may contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition."/>
+          <Annotation Term="OData.LongDescription" String="Each value can contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="CollectionFunction" Type="MetricReportDefinition.v1_0_0.CalculationAlgorithmEnum">
@@ -314,6 +314,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_3.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_4.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_0">
       <Annotation Term="OData.Description" String="This version was created to add the Values property to the Wildcard property."/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -346,6 +352,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_2.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_3.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -353,8 +365,8 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_1.MetricReportDefinition">
         <Property Name="SuppressRepeatedMetricValue" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same metric in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values of the same metrics in the previously generated metric report."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same metric in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values of the same metrics in the previously generated metric report."/>
+          <Annotation Term="OData.Description" String="An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report."/>
         </Property>
         <Property Name="MetricReportHeartbeatInterval" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -396,6 +408,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_1.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_2.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -413,6 +431,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of `OnRequest` metric report definitions with regards to ReportUpdates and ReportActions.  It was also created to clarify the behavior when a metric report definition stops updating a metric report.  It was also created to clarify the description for the ReportTimespan property."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_0.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_1.MetricReportDefinition"/>
     </Schema>
 
   </edmx:DataServices>

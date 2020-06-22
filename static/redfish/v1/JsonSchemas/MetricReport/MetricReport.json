@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_4_0.json",
     "$ref": "#/definitions/MetricReport",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -64,8 +64,15 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Context": {
+                    "description": "A context can be supplied at subscription time.  This property is the context value supplied by the subscriber.",
+                    "longDescription": "This property shall contain a client supplied context for the event destination to which this event is being sent.  This property shall only be present when sent as a payload in an event.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -84,16 +91,16 @@
                 },
                 "MetricReportDefinition": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.json#/definitions/MetricReportDefinition",
-                    "description": "The definitions in the metric report.",
-                    "longDescription": "The definitions in this metric report.",
+                    "description": "The link to the definition of this metric report.",
+                    "longDescription": "This property shall contain a link to a resource of type MetricReportDefinition.",
                     "readonly": true
                 },
                 "MetricValues": {
-                    "description": "An array of metric values for the metered items of this Metric.",
+                    "description": "An array of metric values for the metered items of this metric report.",
                     "items": {
                         "$ref": "#/definitions/MetricValue"
                     },
-                    "longDescription": "The values shall be metric values for this MetricReport.",
+                    "longDescription": "The values shall be metric values for this metric report.",
                     "type": "array"
                 },
                 "Name": {
@@ -114,7 +121,7 @@
                     "versionDeprecated": "v1_3_0"
                 },
                 "Timestamp": {
-                    "description": "The time associated with the metric report in its entirety.  The time of the metric report may be relevant when the time of individual metrics are minimally different.",
+                    "description": "The time associated with the metric report in its entirety.  The time of the metric report can be relevant when the time of individual metrics are minimally different.",
                     "format": "date-time",
                     "longDescription": "This property shall contain the time when the metric report was generated.",
                     "readonly": true,
@@ -135,8 +142,8 @@
         },
         "MetricValue": {
             "additionalProperties": false,
-            "description": "A metric Value.",
-            "longDescription": "A metric value in the context of a Metric.",
+            "description": "Properties that capture a metric value and other associated information.",
+            "longDescription": "This type shall contain properties that capture a metric value and other associated information.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -154,13 +161,13 @@
             "properties": {
                 "MetricDefinition": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json#/definitions/MetricDefinition",
-                    "description": "The link to the metric.",
-                    "longDescription": "The Metric Definition Resource that describes what this Metric Report captures.",
+                    "description": "The link to the metric definition for this metric.",
+                    "longDescription": "This property shall contain a link to a resource of type MetricDefinition that describes what this metric value captures.",
                     "readonly": true
                 },
                 "MetricId": {
                     "description": "The metric definitions identifier for this metric.",
-                    "longDescription": "This property shall contain the same as the Id property of the source metric within the associated MetricDefinition.",
+                    "longDescription": "This property shall contain the same value as the Id property of the source metric within the associated metric definition.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -170,7 +177,7 @@
                 "MetricProperty": {
                     "description": "The URI for the property from which this metric is derived.",
                     "format": "uri-reference",
-                    "longDescription": "The value shall be URI to the property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish Resource.",
+                    "longDescription": "The value shall be URI to the property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -193,9 +200,9 @@
                     "versionAdded": "v1_2_0"
                 },
                 "Timestamp": {
-                    "description": "The time when the metric is obtained.  A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp.",
+                    "description": "The date and time when the metric is obtained.  A management application can establish a time series of metric data by retrieving the instances of metric value and sorting them according to their timestamp.",
                     "format": "date-time",
-                    "longDescription": "The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this value might be different from the time when this instance is created.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -207,8 +214,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -228,6 +235,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#MetricReport.v1_3_0.MetricReport"
+    "release": "2020.2",
+    "title": "#MetricReport.v1_4_0.MetricReport"
 }

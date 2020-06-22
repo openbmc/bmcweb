@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MediaController v1.0.0                                              -->
+<!--# Redfish Schema:  MediaController v1.1.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -50,8 +50,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="MediaController" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The schema definition of the media controller and its configuration."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains the media controller in a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The MediaController schema contains the definition of the media controller and its configuration."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains the media controller in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -76,15 +76,14 @@
       </EntityType>
 
       <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets this media controller."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset this media controller."/>
         <Parameter Name="MediaController" Type="MediaController.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation-specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action resets this media controller."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset this media controller."/>
       </Action>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MediaController.v1_0_0">
@@ -93,8 +92,8 @@
 
       <EntityType Name="MediaController" BaseType="MediaController.MediaController">
         <Property Name="Links" Type="MediaController.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -117,13 +116,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate the part number as provided by the manufacturer of this media controller."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of ports associated with this media controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type PortCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="MediaControllerType" Type="MediaController.v1_0_0.MediaControllerType">
@@ -132,25 +131,25 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the type of media controller."/>
         </Property>
         <Property Name="Actions" Type="MediaController.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="MediaController.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <EnumType Name="MediaControllerType">
@@ -161,21 +160,40 @@
       </EnumType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this media controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to Resources of type Endpoint with which this media controller is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint with which this media controller is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="MemoryDomains" Type="Collection(MemoryDomain.MemoryDomain)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory domains associated with this media controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to Resources of type MemoryDomain that represent the memory domains associated with this memory controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryDomain that represent the memory domains associated with this memory controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MediaController.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MediaController" BaseType="MediaController.v1_0_0.MediaController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MediaController.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+
+      <EntityType Name="MediaController" BaseType="MediaController.v1_0_1.MediaController">
+        <Property Name="UUID" Type="Resource.UUID">
+           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+           <Annotation Term="OData.Description" String="The UUID for this media controller."/>
+           <Annotation Term="OData.LongDescription" String="This property shall contain a universal unique identifier number for the media controller."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
