@@ -30,7 +30,22 @@
             "additionalProperties": false,
             "description": "This action is used to trigger the creation of a dump.",
             "longDescription": "This action is used to trigger the creation of a dump.",
-            "parameters": {},
+            "parameters": {
+                "DiagnosticDataType": {
+                    "$ref": "#/definitions/DiagnosticDataType",
+                    "description": "The type of diagnostic data entry",
+                    "longDescription": "This property shall contain the type of diagnostic data entry.",
+                    "readonly": true,
+                    "requiredParameter": true
+                },
+                "OEMDiagnosticDataType": {
+                    "description": "The OEM type of diagnostic data entry",
+                    "longDescription": "This property shall contain the OEM type of diagnostic data entry.",
+                    "readonly": true,
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -57,6 +72,21 @@
                 }
             },
             "type": "object"
+        },
+        "DiagnosticDataType": {
+            "enum": [
+                "Manager",
+                "PreOS",
+                "OS",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Manager": "Indicates Manager diagnostic data.",
+                "OEM": "Indicates OEM diagnostic data.",
+                "OS": "Indicates Operation system(OS) diagnostic data.",
+                "PreOS": "Indicates Pre-OS diagnostic data."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "OpenBMC",
