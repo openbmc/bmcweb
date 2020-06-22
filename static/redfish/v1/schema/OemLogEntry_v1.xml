@@ -31,7 +31,7 @@
             <Property Name="AdditionalDataSizeBytes" Type="Edm.Int64">
                 <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
                 <Annotation Term="OData.Description" String="The size of diagnostic data in bytes for the log entry if the entry type is `DUMP`."/>
-                <Annotation Term="OData.LongDescription" String="This property shall contain the size of diagnostic data in bytes for the log entry if the entry if the entry type is `DUMP`."/>
+                <Annotation Term="OData.LongDescription" String="This property shall contain the size of diagnostic data in bytes for the log entry if the entry type is `DUMP`."/>
             </Property>
             <Property Name="AdditionalDataURI" Type="Edm.String">
                 <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -58,7 +58,7 @@
           <Annotation Term="OData.Description" String="Indicates Pre-OS diagnostic data."/>
         </Member>
         <Member Name="OS">
-          <Annotation Term="OData.Description" String="Indicates Operation system(OS) diagnostic data."/>
+          <Annotation Term="OData.Description" String="Indicates Operating system(OS) diagnostic data."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="Indicates OEM diagnostic data."/>
