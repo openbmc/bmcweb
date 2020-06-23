@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "651df134_fa8276ea",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-23T19:02:08Z",
+      "side": 1,
+      "message": "Thanks Adrian for this suggestions. There is some level of code already encapsulated to this class. If i further does only for this purpose, It will duplicate lot of code especially aync_read, async_Write etc. So didn\u0027t went with further just to avoid if-else block here. But i can keep it as future reference and see can accomidate.",
+      "parentUuid": "c5733720_2c9f94d1",
+      "revId": "e7547de578170911d3a5cd43d8c38d6f32791374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abcc7550_b0ab45af",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
