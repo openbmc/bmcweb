@@ -402,8 +402,8 @@ void requestRoutes(Crow<Middlewares...>& app)
             if (!username.empty() && !password.empty())
             {
                 int pamrc = pamAuthenticateUser(username, password);
-                bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
-                if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
+                bool passwordChangeRequired = pamrc == PAM_NEW_AUTHTOK_REQD;
+                if ((pamrc != PAM_SUCCESS) && !passwordChangeRequired)
                 {
                     res.result(boost::beast::http::status::unauthorized);
                 }
@@ -414,7 +414,7 @@ void requestRoutes(Crow<Middlewares...>& app)
                             .generateUserSession(
                                 username,
                                 crow::persistent_data::PersistenceType::TIMEOUT,
-                                isConfigureSelfOnly);
+                                passwordChangeRequired);
 
                     if (looksLikePhosphorRest)
                     {
@@ -426,7 +426,8 @@ void requestRoutes(Crow<Middlewares...>& app)
                             {"data",
                              "User '" + std::string(username) + "' logged in"},
                             {"message", "200 OK"},
-                            {"status", "ok"}};
+                            {"status", "ok"},
+                            {"passwordChangeRequired", passwordChangeRequired}};
 
                         // Hack alert.  Boost beast by default doesn't let you
                         // declare multiple headers of the same name, and in
