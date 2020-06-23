@@ -22,6 +22,30 @@
       "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "247b7177_0c446fea",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-23T19:06:01Z",
+      "side": 1,
+      "message": "CheckQueue function is single place where we handles all the retry or terminate actions related support. doClose will get called when there is failure in send/receive. At that time, we will close existing connection and re-open connection (inside checkQueue()) after configured timeout interval, depending on retry count and terminate actions.",
+      "parentUuid": "a5e96a4c_b57ddc20",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
