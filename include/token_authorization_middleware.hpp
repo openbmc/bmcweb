@@ -426,7 +426,8 @@ void requestRoutes(Crow<Middlewares...>& app)
                             {"data",
                              "User '" + std::string(username) + "' logged in"},
                             {"message", "200 OK"},
-                            {"status", "ok"}};
+                            {"status", "ok"},
+                            {"passwordChangeRequired", isConfigureSelfOnly}};
 
                         // Hack alert.  Boost beast by default doesn't let you
                         // declare multiple headers of the same name, and in
