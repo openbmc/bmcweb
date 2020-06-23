@@ -467,6 +467,64 @@ inline void deleteHypervisorIPv4(const std::string& ifaceId,
 }
 
 /**
+ * @brief Starts a Task to monitor the xyz.openbmc_project.Object.Enable
+ * interface which will be set when the new interface settings at the hypervisor
+ * is applied.
+ */
+inline void startInterfaceMonitor(crow::Response& res, const crow::Request& req,
+                                  const std::string& ethifaceId)
+{
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+    BMCWEB_LOG_DEBUG << "Started monitor task for interface : " << ethifaceId;
+    sdbusplus::message::object_path objPath(
+        "/xyz/openbmc_project/network/hypervisor/" + ethifaceId +
+        "/ipv4/addr0");
+
+    std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+        [objPath, ethifaceId](boost::system::error_code err,
+                              sdbusplus::message::message& m,
+                              const std::shared_ptr<task::TaskData>& taskData) {
+            std::string iface;
+            boost::container::flat_map<std::string,
+                                       std::variant<std::string, bool>>
+                values;
+            m.read(iface, values);
+            if (iface == "xyz.openbmc_project.Object.Enable")
+            {
+                auto enabled = values.find("Enabled");
+                bool* intfEnabled = std::get_if<bool>(&enabled->second);
+                BMCWEB_LOG_DEBUG << "intfEnabled: " << *intfEnabled;
+                if (intfEnabled == nullptr)
+                {
+                    taskData->messages.emplace_back(messages::internalError());
+                    return task::completed;
+                }
+                if (true == *intfEnabled)
+                {
+                    BMCWEB_LOG_DEBUG << "Task completed";
+                    taskData->messages.emplace_back(messages::taskCompletedOK(
+                        std::to_string(taskData->index)));
+                    taskData->state = "Completed";
+                    return task::completed;
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG << "Extending Task timer";
+                    taskData->extendTimer(std::chrono::minutes(5));
+                }
+            }
+            return !task::completed;
+        },
+        "type='signal',interface='org.freedesktop.DBus.Properties',"
+        "member='PropertiesChanged', path='" +
+            objPath.str + "'");
+
+    task->startTimer(std::chrono::minutes(5));
+    task->populateResp(asyncResp->res);
+    task->payload.emplace(req);
+}
+
+/**
  * HypervisorInterface derived class for delivering Ethernet Schema
  */
 class HypervisorInterface : public Node
@@ -647,9 +705,6 @@ class HypervisorInterface : public Node
             {
                 deleteHypervisorIPv4(ifaceId, asyncResp);
             }
-            // Set this interface to inActive
-            const bool isActive = false;
-            setIPv4IntfStatus(ifaceId, isActive, asyncResp);
         }
     }
 
@@ -705,7 +760,8 @@ class HypervisorInterface : public Node
                 }
             },
             "xyz.openbmc_project.Settings",
-            "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "ipv4/addr0",
+            "/xyz/openbmc_project/network/hypervisor/" + ifaceId +
+                "/ipv4/addr0",
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Object.Enable", "Enabled",
             std::variant<bool>(isActive));
@@ -729,10 +785,6 @@ class HypervisorInterface : public Node
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
             std::variant<std::string>{dhcp});
-
-        // Set this interface to inActive
-        const bool isActive = false;
-        setIPv4IntfStatus(ifaceId, isActive, asyncResp);
 
         // If DHCPEnabled is set to true. Delete the current IPv4 settings
         // to receive the new values from DHCP server.
@@ -855,6 +907,13 @@ class HypervisorInterface : public Node
                                                "EthernetInterface", ifaceId);
                     return;
                 }
+
+                // Set this interface to inActive
+                const bool isActive = false;
+                setIPv4IntfStatus(ifaceId, isActive, asyncResp);
+                BMCWEB_LOG_DEBUG
+                    << "Updating the interface. Interface is set to Inactive";
+
                 if (ipv4StaticAddresses)
                 {
                     nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
@@ -876,7 +935,7 @@ class HypervisorInterface : public Node
         // TODO : Task will be created for monitoring the Hypervisor interface
         // Hypervisor will notify once the IP is applied to the Hypervisor.
         // The status will be sent over to the client.
-        res.result(boost::beast::http::status::accepted);
+        startInterfaceMonitor(res, req, ifaceId);
     }
 };
 } // namespace redfish
