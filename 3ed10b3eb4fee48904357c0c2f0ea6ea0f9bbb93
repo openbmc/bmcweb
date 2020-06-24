@@ -46,6 +46,30 @@
       "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a648d699_f977056f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2020-06-24T02:06:42Z",
+      "side": 1,
+      "message": "Please change the function name then doClose() seems confusing as it indicates we are stopping the connection.\ncloseAndRecheckQueue() ?",
+      "parentUuid": "247b7177_0c446fea",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
