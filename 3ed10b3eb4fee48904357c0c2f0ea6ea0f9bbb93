@@ -70,6 +70,30 @@
       "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1717f7_313cc930",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-24T10:50:58Z",
+      "side": 1,
+      "message": "Since actual business logic of retries are done in checkQueue, In all other functions also we are doing required operations(Connect, close, send, Recv etc..) and leaving control to checkQueue. So i think we are good here.",
+      "parentUuid": "a648d699_f977056f",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
