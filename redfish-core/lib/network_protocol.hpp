@@ -231,6 +231,15 @@ class NetworkProtocol : public Node
         for (auto& protocol : protocolToDBus)
         {
             asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
+
+            // SSH is Mandatory attribute as per OCP Baseline Profile - v1.0.0
+            // but from security perspective port is initilised to zero if SSH
+            // is not enable. Hence using protocolEnabled as false to make it
+            // OCP and security-wise compliant
+            if (strcmp(protocol.first, "SSH") == 0)
+            {
+                asyncResp->res.jsonValue["SSH"]["Port"] = 0;
+            }
         }
 
         std::string hostName = getHostName();
