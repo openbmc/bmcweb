@@ -230,6 +230,8 @@ class NetworkProtocol : public Node
 
         for (auto& protocol : protocolToDBus)
         {
+            asyncResp->res.jsonValue[protocol.first]["Port"] =
+                nlohmann::detail::value_t::null;
             asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
         }
 
