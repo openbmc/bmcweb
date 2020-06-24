@@ -1633,7 +1633,7 @@ class Manager : public Node
                const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        res.jsonValue["@odata.type"] = "#Manager.v1_8_0.Manager";
+        res.jsonValue["@odata.type"] = "#Manager.v1_9_0.Manager";
         res.jsonValue["Id"] = "bmc";
         res.jsonValue["Name"] = "OpenBmc Manager";
         res.jsonValue["Description"] = "Baseboard Management Controller";
@@ -1711,6 +1711,8 @@ class Manager : public Node
 
         fw_util::getActiveFwVersion(asyncResp, fw_util::bmcPurpose,
                                     "FirmwareVersion");
+
+        getLastResetTime(asyncResp);
 
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
@@ -1801,6 +1803,41 @@ class Manager : public Node
         {
             setDateTime(response, std::move(*datetime));
         }
+    }
+
+    void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
+    {
+        BMCWEB_LOG_DEBUG << "Getting Manager Last Reset Time";
+
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec,
+                    std::variant<uint64_t>& lastResetTime) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                    return;
+                }
+
+                const uint64_t* lastResetTimePtr =
+                    std::get_if<uint64_t>(&lastResetTime);
+
+                if (!lastResetTimePtr)
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                // LastRebootTime is epoch time, in milliseconds
+                // https://github.com/openbmc/phosphor-dbus-interfaces/blob/7f9a128eb9296e926422ddc312c148b625890bb6/xyz/openbmc_project/State/BMC.interface.yaml#L19
+                time_t lastResetTimeStamp =
+                    static_cast<time_t>(*lastResetTimePtr / 1000);
+
+                // Convert to ISO 8601 standard
+                aResp->res.jsonValue["LastResetTime"] =
+                    crow::utility::getDateTime(lastResetTimeStamp);
+            },
+            "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.State.BMC", "LastRebootTime");
     }
 
     void setDateTime(std::shared_ptr<AsyncResp> aResp,
