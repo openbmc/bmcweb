@@ -230,6 +230,7 @@ class NetworkProtocol : public Node
 
         for (auto& protocol : protocolToDBus)
         {
+            asyncResp->res.jsonValue[protocol.first]["Port"] = 0;
             asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
         }
 
