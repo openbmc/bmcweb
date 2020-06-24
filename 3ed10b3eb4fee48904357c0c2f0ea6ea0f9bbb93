@@ -94,6 +94,30 @@
       "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4cf3130_2004daa6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2020-06-24T13:30:49Z",
+      "side": 1,
+      "message": "You meant to say doClose() function name conveys what is done inside the function.\n\nSay when there is failure, we call doClose() (any reader will assume that it is closing the connection), but in reality it is not, it may re-open based on the need.",
+      "parentUuid": "9c1717f7_313cc930",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
