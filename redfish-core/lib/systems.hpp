@@ -1853,7 +1853,6 @@ class Systems : public Node
         res.jsonValue["Storage"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
 
-        // TODO Need to support ForceRestart.
         res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
             {"target",
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
