@@ -118,6 +118,30 @@
       "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b863b15_24e5d1bb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-06-25T17:43:54Z",
+      "side": 1,
+      "message": "Yes, In this file. As said above overall this file is design in such a way that any operation should call checkQueue which has final power to take decisions. Be it send, Recv, Connect, close.\n\nI understood your point in changing name of function to doCloseAndCheck() but  may be i feel its unnecessary in this file\u0026design context.",
+      "parentUuid": "a4cf3130_2004daa6",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
