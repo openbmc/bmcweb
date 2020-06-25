@@ -19,6 +19,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/resource_event_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 
 namespace redfish
@@ -60,6 +61,7 @@ class MessageRegistryFileCollection : public Node
             {"Members",
              {{{"@odata.id", "/redfish/v1/Registries/Base"}},
               {{"@odata.id", "/redfish/v1/Registries/TaskEvent"}},
+              {{"@odata.id", "/redfish/v1/Registries/ResourceEvent"}},
               {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
 
         res.end();
@@ -112,6 +114,11 @@ class MessageRegistryFile : public Node
         {
             header = &message_registries::openbmc::header;
             dmtf.clear();
+        }
+        else if (registry == "ResourceEvent")
+        {
+            header = &message_registries::resource_event::header;
+            url = message_registries::resource_event::url;
         }
         else
         {
@@ -203,6 +210,15 @@ class MessageRegistry : public Node
             header = &message_registries::openbmc::header;
             for (const message_registries::MessageEntry& entry :
                  message_registries::openbmc::registry)
+            {
+                registryEntries.emplace_back(&entry);
+            }
+        }
+        else if (registry == "ResourceEvent")
+        {
+            header = &message_registries::resource_event::header;
+            for (const message_registries::MessageEntry& entry :
+                 message_registries::resource_event::registry)
             {
                 registryEntries.emplace_back(&entry);
             }
