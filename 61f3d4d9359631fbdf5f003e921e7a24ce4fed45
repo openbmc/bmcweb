@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ebfad72_ab5be5c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-06-25T14:23:30Z",
+      "side": 1,
+      "message": "The previous IBM way was to use an extendedMessage that said to use old Phosphor REST password changing URL.  See https://github.com/ibm-openbmc/bmcweb/pull/54/files  I believe the old web app checked for that.  I don\u0027t see any test cases for it though.",
+      "parentUuid": "ac4db9c6_4cd9ee84",
+      "revId": "61f3d4d9359631fbdf5f003e921e7a24ce4fed45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb4a830d_16c4ab04",
         "filename": "include/token_authorization_middleware.hpp",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2020-06-25T03:33:03Z",
       "side": 1,
       "message": "I don\u0027t understand the var name here, isn\u0027t this saying if a password change is required?\nWould something like be better:\npasswordChangeRequired\npasswordExpired\nisPasswordChangeRequired\nisPasswordExpired\n\nI think beyond this scope.",
+      "range": {
+        "startLine": 430,
+        "startChar": 55,
+        "endLine": 430,
+        "endChar": 74
+      },
+      "revId": "61f3d4d9359631fbdf5f003e921e7a24ce4fed45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84860556_240ff7a8",
+        "filename": "include/token_authorization_middleware.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-06-25T14:23:30Z",
+      "side": 1,
+      "message": "Yes, its a bad name.  I can change it to passwordChangeRequired here and lines 405 and 417.",
+      "parentUuid": "fb4a830d_16c4ab04",
       "range": {
         "startLine": 430,
         "startChar": 55,
