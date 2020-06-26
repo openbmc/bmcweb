@@ -86,6 +86,7 @@ class Subscription
         }
         conn->setHeaders(reqHeaders);
         conn->sendData(msg);
+        this->eventSeqNum++;
     }
 
     void sendTestEventLog()
@@ -109,7 +110,6 @@ class Subscription
                               {"Events", logEntryArray}};
 
         this->sendEvent(msg.dump());
-        this->eventSeqNum++;
     }
 
     void filterAndSendReports(const std::string& id,
@@ -152,6 +152,11 @@ class Subscription
             {"MetricValues", metricValuesArray}};
 
         this->sendEvent(msg.dump());
+    }
+
+    uint64_t getEventSeqNum()
+    {
+        return eventSeqNum;
     }
 
   private:
@@ -552,6 +557,35 @@ class EventServiceManager
         {
             std::shared_ptr<Subscription> entry = it.second;
             entry->sendTestEventLog();
+        }
+    }
+
+    void sendEvent(const std::string& eventId, nlohmann::json eventMessage,
+                   const std::string& origin)
+    {
+        nlohmann::json eventRecord = nlohmann::json::array();
+        // TODO Find a way to generate unique MemberId
+        nlohmann::json event = {
+            {"EventId", eventId},
+            {"MemberId", eventId},
+            {"EventTimestamp", crow::utility::dateTimeNow()},
+            {"OriginOfCondition", origin}};
+        for (nlohmann::json::iterator it = event.begin(); it != event.end();
+             ++it)
+        {
+            eventMessage[it.key()] = it.value();
+        }
+        eventRecord.push_back(eventMessage);
+        std::string record = eventMessage.dump();
+
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            nlohmann::json msgJson = {{"@odata.type", "#Event.v1_4_0.Event"},
+                                      {"Name", "Event Log"},
+                                      {"Id", entry->getEventSeqNum()},
+                                      {"Events", eventRecord}};
+            entry->sendEvent(msgJson.dump());
         }
     }
 
