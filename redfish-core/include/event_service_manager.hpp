@@ -58,7 +58,7 @@ static int fileWatchDesc = -1;
 // <ID, timestamp, RedfishLogId, registryPrefix, MessageId, MessageArgs>
 using EventLogObjectsType =
     std::tuple<std::string, std::string, std::string, std::string, std::string,
-               boost::beast::span<std::string>>;
+               std::vector<std::string>>;
 
 namespace message_registries
 {
@@ -150,7 +150,7 @@ bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
 
 int getEventLogParams(const std::string& logEntry, std::string& timestamp,
                       std::string& messageID,
-                      boost::beast::span<std::string>& messageArgs)
+                      std::vector<std::string>& messageArgs)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -184,13 +184,11 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     {
         std::string& messageArgsStart = logEntryFields[1];
         // If the first string is empty, assume there are no MessageArgs
-        std::size_t messageArgsSize = 0;
         if (!messageArgsStart.empty())
         {
-            messageArgsSize = logEntryFields.size() - 1;
+            messageArgs.assign(logEntryFields.begin() + 1,
+                               logEntryFields.end());
         }
-
-        messageArgs = boost::beast::span(&messageArgsStart, messageArgsSize);
     }
 
     return 0;
@@ -215,7 +213,7 @@ void getRegistryAndMessageKey(const std::string& messageID,
 
 int formatEventLogEntry(const std::string& logEntryID,
                         const std::string& messageID,
-                        const boost::beast::span<std::string>& messageArgs,
+                        const std::vector<std::string>& messageArgs,
                         std::string timestamp, const std::string customText,
                         nlohmann::json& logEntryJson)
 {
@@ -351,8 +349,7 @@ class Subscription
             const std::string& messageID = std::get<2>(logEntry);
             const std::string& registryName = std::get<3>(logEntry);
             const std::string& messageKey = std::get<4>(logEntry);
-            const boost::beast::span<std::string>& messageArgs =
-                std::get<5>(logEntry);
+            const std::vector<std::string>& messageArgs = std::get<5>(logEntry);
 
             // If registryPrefixes list is empty, don't filter events
             // send everything.
@@ -920,7 +917,7 @@ class EventServiceManager
 
             std::string timestamp;
             std::string messageID;
-            boost::beast::span<std::string> messageArgs;
+            std::vector<std::string> messageArgs;
             if (event_log::getEventLogParams(logEntry, timestamp, messageID,
                                              messageArgs) != 0)
             {
