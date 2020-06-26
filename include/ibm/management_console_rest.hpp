@@ -6,8 +6,10 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <error_messages.hpp>
+#include <event_service_manager.hpp>
 #include <ibm/locks.hpp>
 #include <nlohmann/json.hpp>
+#include <resource_messages.hpp>
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
 
@@ -30,6 +32,7 @@ namespace crow
 {
 namespace ibm_mc
 {
+using namespace redfish;
 constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
@@ -127,6 +130,10 @@ void handleFilePut(const crow::Request& req, crow::Response& res,
         file << data;
         BMCWEB_LOG_DEBUG << "save-area file is created";
         res.jsonValue["Description"] = "File Created";
+        // Push an event
+        std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::ResourceCreated(), origin, "IBMConfigFile");
     }
 }
 
