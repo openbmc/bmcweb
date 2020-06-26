@@ -2379,6 +2379,168 @@ class OnDemandCrashdump : public Node
     }
 };
 
+void peciCommandsExecution(const std::shared_ptr<AsyncResp>& asyncResp, crow::Response &res,
+                const crow::Request& req, const std::vector<std::string> &params )
+{
+            std::vector<std::vector<uint8_t>> peciCommands;
+
+            nlohmann::json reqJson =
+                nlohmann::json::parse(req.body, nullptr, false);
+            if (reqJson.find("PECICommands") != reqJson.end())
+            {
+                if (!json_util::readJson(req, res, "PECICommands",
+                                         peciCommands))
+                {
+                    return;
+                }
+                uint32_t idx = 0;
+                for (auto const& cmd : peciCommands)
+                {
+                    if (cmd.size() < 3)
+                    {
+                        std::string s("[");
+                        for (auto const& val : cmd)
+                        {
+                            if (val != *cmd.begin())
+                            {
+                                s += ",";
+                            }
+                            s += std::to_string(val);
+                        }
+                        s += "]";
+                        messages::actionParameterValueFormatError(
+                            res, s, "PECICommands[" + std::to_string(idx) + "]",
+                            "SendRawPeci");
+                        return;
+                    }
+                    idx++;
+                }
+            }
+            else
+            {
+                /* This interface is deprecated */
+                uint8_t clientAddress = 0;
+                uint8_t readLength = 0;
+                std::vector<uint8_t> peciCommand;
+                if (!json_util::readJson(
+                        req, res, "ClientAddress", clientAddress, "ReadLength",
+                        readLength, "PECICommand", peciCommand))
+                {
+                    return;
+                }
+                peciCommands.push_back({clientAddress, 0, readLength});
+                peciCommands[0].insert(peciCommands[0].end(),
+                                       peciCommand.begin(), peciCommand.end());
+            }
+            // Callback to return the Raw PECI response
+            auto sendRawPECICallback =
+                [asyncResp](const boost::system::error_code ec,
+                            const std::vector<std::vector<uint8_t>>& resp) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "failed to process PECI commands ec: "
+                            << ec.message();
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue = {
+                        {"Name", "PECI Command Response"},
+                        {"PECIResponse", resp}};
+                };
+            // Call the SendRawPECI command with the provided data
+            crow::connections::systemBus->async_method_call(
+                std::move(sendRawPECICallback), crashdumpObject, crashdumpPath,
+                crashdumpRawPECIInterface, "SendRawPeci", peciCommands);
+}
+
+void checkMfgStatusAndExecutePECIcommands(
+		const std::shared_ptr<AsyncResp>& asyncResp, crow::Response &res,
+		const crow::Request &req, const std::vector<std::string>& params)
+{
+    const std::array<std::string, 1> interfaces = {
+        "xyz.openbmc_project.Security.SpecialMode"};
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, &res, &req, &params](const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Error in querying GetSubTree with Object Mapper. "
+                    << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (resp.size() != 1)
+            {
+                BMCWEB_LOG_WARNING
+                    << "Internal error in querying SpecialMode property.";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string& path = resp[0].first;
+            const std::string& serviceName = resp[0].second.begin()->first;
+
+            if (path.empty() || serviceName.empty())
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Path or service name is returned as empty. ";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, &res, &req, &params, path](const boost::system::error_code ec,
+                                  std::variant<std::string>& getManufactMode) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Error in querying Special mode property " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    const std::string* manufacturingModeStatus =
+                        std::get_if<std::string>(&getManufactMode);
+
+                    if (nullptr == manufacturingModeStatus)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Manufacturing mode is not "
+                               "Enabled, can't process PECI commands ";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    if (*manufacturingModeStatus ==
+                        "xyz.openbmc_project.Control.Security.SpecialMode."
+                        "Modes."
+                        "Manufacturing")
+                    {
+                        BMCWEB_LOG_INFO << "Manufacturing mode is Enabled. "
+                                           "Proceeding further... ";
+                        peciCommandsExecution(asyncResp, res, req, params );
+                    }
+		    else
+		    {
+                       BMCWEB_LOG_WARNING << "Manufacturing mode is not Enabled...can't "
+			                     "process PECI commands ";
+
+		       messages::actionNotSupported(asyncResp->res,
+				                    "Execution of PECI Commands "
+						    "in Non-Manufacturing mode");
+		       return;
+		    }
+                },
+                serviceName, path, "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Security.SpecialMode", "SpecialMode");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 5, interfaces);
+}
+
 class SendRawPECI : public Node
 {
   public:
@@ -2403,73 +2565,10 @@ class SendRawPECI : public Node
                 const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        std::vector<std::vector<uint8_t>> peciCommands;
 
-        nlohmann::json reqJson =
-            nlohmann::json::parse(req.body, nullptr, false);
-        if (reqJson.find("PECICommands") != reqJson.end())
-        {
-            if (!json_util::readJson(req, res, "PECICommands", peciCommands))
-            {
-                return;
-            }
-            uint32_t idx = 0;
-            for (auto const& cmd : peciCommands)
-            {
-                if (cmd.size() < 3)
-                {
-                    std::string s("[");
-                    for (auto const& val : cmd)
-                    {
-                        if (val != *cmd.begin())
-                        {
-                            s += ",";
-                        }
-                        s += std::to_string(val);
-                    }
-                    s += "]";
-                    messages::actionParameterValueFormatError(
-                        res, s, "PECICommands[" + std::to_string(idx) + "]",
-                        "SendRawPeci");
-                    return;
-                }
-                idx++;
-            }
-        }
-        else
-        {
-            /* This interface is deprecated */
-            uint8_t clientAddress = 0;
-            uint8_t readLength = 0;
-            std::vector<uint8_t> peciCommand;
-            if (!json_util::readJson(req, res, "ClientAddress", clientAddress,
-                                     "ReadLength", readLength, "PECICommand",
-                                     peciCommand))
-            {
-                return;
-            }
-            peciCommands.push_back({clientAddress, 0, readLength});
-            peciCommands[0].insert(peciCommands[0].end(), peciCommand.begin(),
-                                   peciCommand.end());
-        }
-        // Callback to return the Raw PECI response
-        auto sendRawPECICallback =
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::vector<uint8_t>>& resp) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "failed to process PECI commands ec: "
-                                     << ec.message();
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                asyncResp->res.jsonValue = {{"Name", "PECI Command Response"},
-                                            {"PECIResponse", resp}};
-            };
-        // Call the SendRawPECI command with the provided data
-        crow::connections::systemBus->async_method_call(
-            std::move(sendRawPECICallback), crashdumpObject, crashdumpPath,
-            crashdumpRawPECIInterface, "SendRawPeci", peciCommands);
+        // Checking the manufacturing mode status before doing PECI commands
+        // execution
+	checkMfgStatusAndExecutePECIcommands(asyncResp, res, req, params );
     }
 };
 
