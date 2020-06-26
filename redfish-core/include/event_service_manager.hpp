@@ -412,6 +412,7 @@ class Subscription
             }
             conn->setHeaders(reqHeaders);
             conn->sendData(msg);
+            this->eventSeqNum++;
         }
 
         if (sseConn != nullptr)
@@ -441,7 +442,6 @@ class Subscription
                               {"Events", logEntryArray}};
 
         this->sendEvent(msg.dump());
-        this->eventSeqNum++;
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -505,7 +505,6 @@ class Subscription
                               {"Events", logEntryArray}};
 
         this->sendEvent(msg.dump());
-        this->eventSeqNum++;
     }
 #endif
 
@@ -566,6 +565,11 @@ class Subscription
         {
             conn->setRetryPolicy(retryPolicy);
         }
+    }
+
+    uint64_t getEventSeqNum()
+    {
+        return eventSeqNum;
     }
 
   private:
@@ -1015,6 +1019,67 @@ class EventServiceManager
         {
             std::shared_ptr<Subscription> entry = it.second;
             entry->sendTestEventLog();
+        }
+    }
+
+    void sendEvent(const std::string& eventId, nlohmann::json eventMessage,
+                   const std::string& origin)
+    {
+        nlohmann::json eventRecord = nlohmann::json::array();
+        // TODO Generate unique MemberId and EventId
+        nlohmann::json event = {
+            {"EventId", eventId},
+            {"MemberId", eventId},
+            {"EventTimestamp", crow::utility::dateTimeNow()},
+            {"OriginOfCondition", origin}};
+        for (nlohmann::json::iterator it = event.begin(); it != event.end();
+             ++it)
+        {
+            eventMessage[it.key()] = it.value();
+        }
+        eventRecord.push_back(eventMessage);
+
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            bool isSubscribed = false;
+            // Search the resourceTypes list for the subscription.
+            // If resourceTypes list is empty, don't filter events
+            // send everything.
+            if (entry->resourceTypes.size())
+            {
+                BMCWEB_LOG_INFO << "origin : " << origin;
+                for (std::vector<std::string>::iterator resource =
+                         entry->resourceTypes.begin();
+                     resource != entry->resourceTypes.end(); ++resource)
+                {
+                    BMCWEB_LOG_INFO << "resource Type : " << *resource;
+                    if (origin.find(*resource) != std::string::npos)
+                    {
+                        BMCWEB_LOG_INFO
+                            << "Origin found in the subscribed list";
+                        isSubscribed = true;
+                        break;
+                    }
+                }
+            }
+            else // resourceTypes list is empty.
+            {
+                isSubscribed = true;
+            }
+            if (isSubscribed)
+            {
+                nlohmann::json msgJson = {
+                    {"@odata.type", "#Event.v1_4_0.Event"},
+                    {"Name", "Event Log"},
+                    {"Id", entry->getEventSeqNum()},
+                    {"Events", eventRecord}};
+                entry->sendEvent(msgJson.dump());
+            }
+            else
+            {
+                BMCWEB_LOG_INFO << "Not subscribed to this resource";
+            }
         }
     }
 
