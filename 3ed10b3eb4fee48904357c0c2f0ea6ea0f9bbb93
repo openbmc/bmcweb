@@ -142,6 +142,30 @@
       "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e0fb357_74ab27aa",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2020-06-26T03:47:00Z",
+      "side": 1,
+      "message": "Disagree, File \u0026 design context must be for readability \u0026 manageability of code and not the other way around.",
+      "parentUuid": "2b863b15_24e5d1bb",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 21
+      },
+      "revId": "3ed10b3eb4fee48904357c0c2f0ea6ea0f9bbb93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
