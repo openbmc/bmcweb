@@ -412,6 +412,7 @@ class Subscription
             }
             conn->setHeaders(reqHeaders);
             conn->sendData(msg);
+            this->eventSeqNum++;
         }
 
         if (sseConn != nullptr)
@@ -441,7 +442,6 @@ class Subscription
                               {"Events", logEntryArray}};
 
         this->sendEvent(msg.dump());
-        this->eventSeqNum++;
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -505,7 +505,6 @@ class Subscription
                               {"Events", logEntryArray}};
 
         this->sendEvent(msg.dump());
-        this->eventSeqNum++;
     }
 #endif
 
@@ -568,6 +567,11 @@ class Subscription
         }
     }
 
+    uint64_t getEventSeqNum()
+    {
+        return eventSeqNum;
+    }
+
   private:
     uint64_t eventSeqNum;
     std::string host;
@@ -598,7 +602,7 @@ class EventServiceManager
     EventServiceManager& operator=(EventServiceManager&&) = delete;
 
     EventServiceManager() :
-        noOfEventLogSubscribers(0), noOfMetricReportSubscribers(0)
+        noOfEventLogSubscribers(0), noOfMetricReportSubscribers(0), eventId(1)
     {
         // Load config from persist store.
         initConfig();
@@ -610,6 +614,8 @@ class EventServiceManager
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
+
+    uint64_t eventId;
 
   public:
     static EventServiceManager& getInstance()
@@ -1015,6 +1021,67 @@ class EventServiceManager
         {
             std::shared_ptr<Subscription> entry = it.second;
             entry->sendTestEventLog();
+        }
+    }
+
+    void sendEvent(const nlohmann::json& eventMessageIn,
+                   const std::string& origin, const std::string& resType)
+    {
+        nlohmann::json eventRecord = nlohmann::json::array();
+        nlohmann::json eventMessage = eventMessageIn;
+        // MemberId is 0 : since we are sending one event record.
+        uint64_t memberId = 0;
+
+        nlohmann::json event = {
+            {"EventId", eventId},
+            {"MemberId", memberId},
+            {"EventTimestamp", crow::utility::dateTimeNow()},
+            {"OriginOfCondition", origin}};
+        for (nlohmann::json::iterator it = event.begin(); it != event.end();
+             ++it)
+        {
+            eventMessage[it.key()] = it.value();
+        }
+        eventRecord.push_back(eventMessage);
+
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            bool isSubscribed = false;
+            // Search the resourceTypes list for the subscription.
+            // If resourceTypes list is empty, don't filter events
+            // send everything.
+            if (entry->resourceTypes.size())
+            {
+                for (auto resource : entry->resourceTypes)
+                {
+                    if (resType == resource)
+                    {
+                        BMCWEB_LOG_INFO << "ResourceType " << resource
+                                        << " found in the subscribed list";
+                        isSubscribed = true;
+                        break;
+                    }
+                }
+            }
+            else // resourceTypes list is empty.
+            {
+                isSubscribed = true;
+            }
+            if (isSubscribed)
+            {
+                nlohmann::json msgJson = {
+                    {"@odata.type", "#Event.v1_4_0.Event"},
+                    {"Name", "Event Log"},
+                    {"Id", eventId},
+                    {"Events", eventRecord}};
+                entry->sendEvent(msgJson.dump());
+                eventId++; // increament the eventId
+            }
+            else
+            {
+                BMCWEB_LOG_INFO << "Not subscribed to this resource";
+            }
         }
     }
 
