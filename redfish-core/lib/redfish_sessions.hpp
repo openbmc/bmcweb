@@ -227,8 +227,13 @@ class SessionCollection : public Node
             }
         }
 #endif
+
+#ifdef BMCWEB_ENABLE_SSL
         clientIp =
             req.socket().next_layer().remote_endpoint().address().to_string();
+#else
+        clientIp = req.socket().remote_endpoint().address().to_string();
+#endif
 
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
