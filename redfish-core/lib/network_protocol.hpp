@@ -200,7 +200,12 @@ class NetworkProtocol : public Node
         asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         asyncResp->res.jsonValue["SNMP"]["ProtocolEnabled"] = true;
-        asyncResp->res.jsonValue["SNMP"]["Port"] = 161;
+
+        // Now we have in openbmc(backend) stack is "SNMP Trap" functionality,
+        // we don't have SNMP agent functionality.So temporarily use the port
+        // number 162 that belongs to SNMPtrap to identify that we don't have an
+        // SNMPagent.To avoid misunderstandings.
+        asyncResp->res.jsonValue["SNMP"]["Port"] = 162;
         asyncResp->res.jsonValue["SNMP"]["AuthenticationProtocol"] =
             "CommunityString";
         asyncResp->res.jsonValue["SNMP"]["CommunityAccessMode"] = "Full";
