@@ -200,7 +200,7 @@ class NetworkProtocol : public Node
         asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         asyncResp->res.jsonValue["SNMP"]["ProtocolEnabled"] = true;
-        asyncResp->res.jsonValue["SNMP"]["Port"] = 161;
+        asyncResp->res.jsonValue["SNMP"]["Port"] = 162;
         asyncResp->res.jsonValue["SNMP"]["AuthenticationProtocol"] =
             "CommunityString";
         asyncResp->res.jsonValue["SNMP"]["CommunityAccessMode"] = "Full";
