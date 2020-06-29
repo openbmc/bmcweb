@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 182> registry = {
+constexpr std::array<MessageEntry, 183> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -633,6 +633,21 @@ constexpr std::array<MessageEntry, 182> registry = {
                      {
                          "number",
                          "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"LockAcquired",
+                 {
+                     "Indicates that the management console has acquired lock "
+                     "on a resource successfully.",
+                     "Management console %1 has acquired the lock using "
+                     "session %2 with transaction id %3.",
+                     "OK",
+                     3,
+                     {
+                         "string",
+                         "string",
                          "number",
                      },
                      "None.",
@@ -2356,6 +2371,5 @@ constexpr std::array<MessageEntry, 182> registry = {
             {"string"},
             "None.",
         }},
-
 };
 } // namespace redfish::message_registries::openbmc
