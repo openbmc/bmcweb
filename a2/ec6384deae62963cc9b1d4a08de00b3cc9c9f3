@@ -1,0 +1,8 @@
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Chalapathi Venkataramashetty <chalapathix.venkataramashetty@intel.com>
+Submitted-at: Mon, 29 Jun 2020 11:56:25 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33021
+Project: openbmc/bmcweb
+Branch: refs/heads/master
