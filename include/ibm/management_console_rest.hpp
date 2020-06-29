@@ -34,6 +34,10 @@ constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
+constexpr uint32_t maxCSRLength = 4096;
+constexpr auto CLIENT_CERT_PATH =
+    "/var/lib/phosphor-certificate-manager/vmi-cert/";
+constexpr auto ROOT_CERT_PATH = "/var/lib/bmcweb/RootCert";
 
 bool createSaveAreaPath(crow::Response& res)
 {
@@ -525,10 +529,156 @@ void handleGetLockListAPI(const crow::Request& req, crow::Response& res,
     res.end();
 }
 
+void handleCsrRequest(const crow::Request& req, crow::Response& res,
+                      const std::string& csrString)
+{
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, req, csrString](const boost::system::error_code errorCode,
+                                    const std::variant<std::string>& value) {
+            if (errorCode)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error in getting OperatingSystemState. ec : "
+                    << errorCode;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+            const std::string* status = std::get_if<std::string>(&value);
+            if ((*status != "xyz.openbmc_project.State.OperatingSystem.Status."
+                            "OSStatus.BootComplete") &&
+                (*status != "xyz.openbmc_project.State.OperatingSystem.Status."
+                            "OSStatus.Standby"))
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = "Invalid HOSTState";
+                return;
+            }
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, req, csrString](const boost::system::error_code ec,
+                                            const uint32_t& entryId) {
+                    BMCWEB_LOG_DEBUG << "Error in creating CSR Entry object : "
+                                     << ec;
+                    if (errorCode)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Error in creating CSR Entry object : "
+                            << errorCode;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        return;
+                    }
+                    BMCWEB_LOG_ERROR << "Created csr entry id : " << entryId;
+                    std::unique_ptr<sdbusplus::bus::match::match> ackMatch;
+                    auto callback = [asyncResp, entryId,
+                                     req](sdbusplus::message::message& m) {
+                        BMCWEB_LOG_DEBUG << "Match fired";
+                        std::ifstream inFile;
+                        inFile.open(CLIENT_CERT_PATH + std::to_string(entryId) +
+                                    "/cert");
+                        if (inFile.fail())
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Error while opening the client "
+                                   "certificate file for reading";
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            asyncResp->res.jsonValue["Description"] =
+                                internalServerError;
+                            return;
+                        }
+
+                        std::stringstream strStream;
+                        strStream << inFile.rdbuf();
+                        std::string str = strStream.str();
+                        inFile.close();
+
+                        asyncResp->res.jsonValue["Certificate"] = str;
+                    };
+
+                    ackMatch = std::make_unique<sdbusplus::bus::match::match>(
+                        *crow::connections::systemBus,
+                        "interface='org.freedesktop.DBus.Properties',type='"
+                        "signal',"
+                        "member='PropertiesChanged',path='/com/ibm/"
+                        "VMICertificate/entry/'+std::to_string(entryId)",
+                        callback);
+                },
+                "com.ibm.VMICertificate", "/com/ibm/VMICertificate",
+                "com.ibm.VMICertificate.VMICreateCSREntry", "VMICreateCSREntry",
+                csrString);
+        },
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.OperatingSystem.Status",
+        "OperatingSystemState");
+}
+
+void createRootCertFile()
+{
+    std::error_code ec;
+    if (!std::filesystem::is_directory("/var/lib/bmcweb", ec))
+    {
+        std::filesystem::create_directory("/var/lib/bmcweb", ec);
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "createRootCertFile: Failed to prepare certificate "
+                            "directory. ec : "
+                         << ec;
+        return;
+    }
+    // Creating an empty root certificate file for the PLDM to write the root
+    // certificate. PLDM gets VMI root certificate when the VMI partition boots.
+    std::filesystem::path rootCert = ROOT_CERT_PATH;
+    if (!std::filesystem::exists(rootCert))
+    {
+        std::fstream file;
+        file.open(rootCert, std::ios::out);
+        if (file.fail())
+        {
+            BMCWEB_LOG_ERROR << "Error while opening the root certificate file";
+            return;
+        }
+        file.close();
+    }
+#if 0
+    crow::connections::systemBus->async_method_call(
+                [asyncResp, req,
+                 csrString](const boost::system::error_code errorCode,
+                            const std::variant<sdbusplus::message::unix_fd>& value) {
+                    if (errorCode)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Error in reading certfd property from Entry object : "
+                            << errorCode;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        return;
+                    }
+               sdbusplus::message::unix_fd certfd = std::get<sdbusplus::message::unix_fd>(value);
+               char buf[] = "certificate signed by vmi"
+               ssize_t size = write(certfd, buf, 24);
+
+    },
+    "com.ibm.VMICertificate", "/com/ibm/VMICertificate/entry/1",
+    "org.freedesktop.DBus.Properties","Get","com.ibm.VMICertificate.Entry", "certfd");
+
+#endif
+}
+
 template <typename... Middlewares>
 void requestRoutes(Crow<Middlewares...>& app)
 {
-
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .requires({"ConfigureComponents", "ConfigureManager"})
@@ -543,6 +693,8 @@ void requestRoutes(Crow<Middlewares...>& app)
                     {"@odata.id", "/ibm/v1/Host/ConfigFiles"}};
                 res.jsonValue["LockService"] = {
                     {"@odata.id", "/ibm/v1/HMC/LockService"}};
+                res.jsonValue["Certificate"] = {
+                    {"@odata.id", "/ibm/v1/Host/Certificate"}};
                 res.end();
             });
 
@@ -566,6 +718,124 @@ void requestRoutes(Crow<Middlewares...>& app)
         .methods("PUT"_method, "GET"_method, "DELETE"_method)(
             [](const crow::Request& req, crow::Response& res,
                const std::string& path) { handleFileUrl(req, res, path); });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "GET"_method)([](const crow::Request& req, crow::Response& res) {
+            res.jsonValue["@odata.type"] = "#Certificate.v1_0_0.Certificate";
+            res.jsonValue["@odata.id"] = "/ibm/v1/Host/Certificate";
+            res.jsonValue["Id"] = "Certificate";
+            res.jsonValue["Name"] = "Certificate";
+            res.jsonValue["Actions"]["SignCSR"] = {
+                {"target", "/ibm/v1/Host/Actions/SignCSR"}};
+            res.jsonValue["root"] = {
+                {"target", "/ibm/v1/Host/Certificate/root"}};
+        });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate/root")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "GET"_method)([](const crow::Request& req, crow::Response& res) {
+            std::filesystem::path rootCert = ROOT_CERT_PATH;
+            if (!std::filesystem::exists(rootCert))
+            {
+                BMCWEB_LOG_ERROR << "RootCert file does not exist";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+            std::ifstream inFile;
+            inFile.open(ROOT_CERT_PATH);
+            if (inFile.fail())
+            {
+                BMCWEB_LOG_DEBUG << "Error while opening the root certificate "
+                                    "file for reading";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                std::make_shared<bmcweb::AsyncResp>(res);
+            crow::connections::systemBus->async_method_call(
+                [asyncResp,
+                 req](const boost::system::error_code errorCode,
+                      const std::variant<sdbusplus::message::unix_fd>& value) {
+                    if (errorCode)
+                    {
+                        BMCWEB_LOG_ERROR << "Error in reading certfd property "
+                                            "from Entry object : "
+                                         << errorCode;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        return;
+                    }
+                    sdbusplus::message::unix_fd certfd =
+                        std::get<sdbusplus::message::unix_fd>(value);
+                    char buf[64] = "certificate signed by vmi";
+                    ssize_t size = write(certfd, buf, 24);
+                    // ssize_t size = read(certfd, buf, 9);
+                    BMCWEB_LOG_DEBUG << size;
+            // BMCWEB_LOG_DEBUG << " csr data "<<buf;
+#if 0
+            std::error_code ec;
+            if (!std::filesystem::is_directory("/var/lib/bmcweb", ec))
+            {
+                std::filesystem::create_directory("/var/lib/bmcweb", ec);
+            }
+            std::ofstream CSRFile;
+            CSRFile.open("/var/lib/bmcweb/csr");
+            if (CSRFile.fail())
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error while opening the CSR file for writing";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+            CSRFile << buf;
+            CSRFile.close();
+#endif
+                },
+                "com.ibm.VMICertificate", "/com/ibm/VMICertificate/entry/1",
+                "org.freedesktop.DBus.Properties", "Get",
+                "com.ibm.VMICertificate.Entry", "certfd");
+
+            std::stringstream strStream;
+            strStream << inFile.rdbuf();
+            std::string certStr = strStream.str();
+            inFile.close();
+            res.jsonValue["Certificate"] = certStr;
+            res.end();
+        });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Actions/SignCSR")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "POST"_method)([](const crow::Request& req, crow::Response& res) {
+            std::string csrString;
+            if (!redfish::json_util::readJson(req, res, "CsrString", csrString))
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+            // Return error if CsrString is bigger than 4K
+            // Usually CSR size is aroung 1-2K
+            // so added max length check for 4K
+            if (csrString.length() > maxCSRLength)
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+
+            handleCsrRequest(req, res, csrString);
+        });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .requires({"ConfigureComponents", "ConfigureManager"})
@@ -633,6 +903,10 @@ void requestRoutes(Crow<Middlewares...>& app)
                 }
                 handleGetLockListAPI(req, res, listSessionIds);
             });
+    // Calling this function here to create RootCert file duing registering
+    // requestRoutes so that pldm writes to this file as soon as it receives VMI
+    // root certificate.
+    createRootCertFile();
 }
 
 } // namespace ibm_mc
