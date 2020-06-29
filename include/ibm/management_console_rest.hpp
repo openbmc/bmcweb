@@ -6,6 +6,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <error_messages.hpp>
+#include <event_messages.hpp>
 #include <event_service_manager.hpp>
 #include <ibm/locks.hpp>
 #include <nlohmann/json.hpp>
@@ -386,6 +387,14 @@ void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
             returnJson["id"] = var;
             res.jsonValue["TransactionID"] = var;
             res.end();
+            // Push an event before sending the response back
+            std::string origin = "/ibm/v1/HMC/LockService";
+            std::string eventId = "LockAcquired";
+            redfish::EventServiceManager::getInstance().sendEvent(
+                eventId,
+                redfish::messages::LockAcquired(req.session->clientId,
+                                                req.session->uniqueId, var),
+                origin);
             return;
         }
         else
