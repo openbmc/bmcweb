@@ -4,6 +4,7 @@
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <error_messages.hpp>
 #include <event_service_manager.hpp>
@@ -32,6 +33,8 @@ constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
+constexpr uint32_t maxCSRLength = 4096;
+std::filesystem::path rootCertPath = "/var/lib/ibm/bmcweb/RootCert";
 
 constexpr size_t maxSaveareaDirSize =
     10000000; // Allow save area dir size to be max 10MB
@@ -41,6 +44,48 @@ constexpr size_t maxSaveareaFileSize =
     500000; // Allow save area file size upto 500KB
 constexpr size_t maxBroadcastMsgSize =
     1000; // Allow Broadcast message size upto 1KB
+
+static boost::container::flat_map<std::string,
+                                  std::unique_ptr<sdbusplus::bus::match::match>>
+    ackMatches;
+
+inline bool createSaveAreaPath(crow::Response& res)
+{
+    // The path /var/lib/obmc will be created by initrdscripts
+    // Create the directories for the save-area files, when we get
+    // first file upload request
+    std::error_code ec;
+    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt", ec))
+    {
+        std::filesystem::create_directory("/var/lib/obmc/bmc-console-mgmt", ec);
+    }
+    if (ec)
+    {
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPost: Failed to prepare save-area directory. ec : "
+            << ec;
+        return false;
+    }
+
+    if (!std::filesystem::is_directory(
+            "/var/lib/obmc/bmc-console-mgmt/save-area", ec))
+    {
+        std::filesystem::create_directory(
+            "/var/lib/obmc/bmc-console-mgmt/save-area", ec);
+    }
+    if (ec)
+    {
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPost: Failed to prepare save-area directory. ec : "
+            << ec;
+        return false;
+    }
+    return true;
+}
 
 inline void handleFilePut(const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -683,9 +728,234 @@ inline bool isValidConfigFileName(const std::string& fileName,
     return true;
 }
 
+inline void
+    deleteVMIDbusEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& entryId)
+{
+    auto respHandler = [asyncResp,
+                        entryId](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "deleteVMIDbusEntry respHandler got error "
+                             << ec;
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+    };
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca/entry/" + entryId,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+inline void
+    getCSREntryCertificate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& entryId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::variant<std::string>& certificate) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR
+                    << "getCSREntryCertificate respHandler got error " << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get request status";
+                return;
+            }
+
+            const std::string* cert = std::get_if<std::string>(&certificate);
+            if (cert == nullptr)
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get certificate from host";
+                return;
+            }
+
+            if (cert->empty())
+            {
+                BMCWEB_LOG_ERROR << "Empty Client Certificate";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Empty Client Certificate";
+                return;
+            }
+            asyncResp->res.jsonValue["Certificate"] = *cert;
+        },
+        "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca/entry/" + entryId,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Certs.Entry", "ClientCertificate");
+}
+
+inline void getCSREntryAck(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& entryId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, entryId](const boost::system::error_code ec,
+                             const std::variant<std::string>& hostAck) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "getCSREntryAck respHandler got error "
+                                 << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get request status";
+                return;
+            }
+
+            const std::string* status = std::get_if<std::string>(&hostAck);
+            if (status == nullptr)
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get host ack status";
+                return;
+            }
+
+            if (*status == "xyz.openbmc_project.Certs.Entry.State.Pending")
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "HostInterface didn't serve request";
+            }
+            else if (*status == "xyz.openbmc_project.Certs.Entry.State.BadCSR")
+            {
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] = "Bad CSR";
+            }
+            else if (*status ==
+                     "xyz.openbmc_project.Certs.Entry.State.Complete")
+            {
+                getCSREntryCertificate(asyncResp, entryId);
+            }
+
+            deleteVMIDbusEntry(asyncResp, entryId);
+            auto entry = ackMatches.find(entryId);
+            if (entry != ackMatches.end())
+            {
+                BMCWEB_LOG_DEBUG << "Erasing match of entryId " << entryId;
+                ackMatches.erase(entryId);
+            }
+        },
+        "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca/entry/" + entryId,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Certs.Entry", "Status");
+}
+
+void handleCsrRequest(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& csrString)
+{
+    // std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+    //    std::make_shared<bmcweb::AsyncResp>(res);
+
+    std::shared_ptr<boost::asio::steady_timer> timeout =
+        std::make_shared<boost::asio::steady_timer>(
+            crow::connections::systemBus->get_io_context());
+
+    timeout->expires_after(std::chrono::seconds(5));
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, timeout](const boost::system::error_code ec,
+                             sdbusplus::message::message& m) {
+            sdbusplus::message::object_path objPath;
+            m.read(objPath);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Error in creating CSR Entry object : "
+                                 << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            std::string entryId = objPath.filename();
+            if (entryId.empty())
+            {
+                BMCWEB_LOG_ERROR << "Invalid ID in objPath";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            auto timeoutHandler = [asyncResp, timeout, entryId](
+                                      const boost::system::error_code ec) {
+                if (ec)
+                {
+                    if (ec != boost::asio::error::operation_aborted)
+                    {
+                        BMCWEB_LOG_ERROR << "Async_wait failed " << ec;
+                    }
+                    return;
+                }
+
+                auto entry = ackMatches.find(entryId);
+                if (entry != ackMatches.end())
+                {
+                    BMCWEB_LOG_DEBUG << "Erasing match of entryId " << entryId;
+                    ackMatches.erase(entryId);
+                    deleteVMIDbusEntry(asyncResp, entryId);
+                }
+
+                timeout->cancel();
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Timed out waiting for HostInterface to serve request";
+            };
+
+            timeout->async_wait(timeoutHandler);
+
+            auto callback = [asyncResp, timeout,
+                             entryId](sdbusplus::message::message& m) {
+                BMCWEB_LOG_DEBUG << "Match fired" << m.get();
+                boost::container::flat_map<std::string,
+                                           std::variant<std::string>>
+                    values;
+                std::string iface;
+                m.read(iface, values);
+                if (iface == "xyz.openbmc_project.Certs.Entry")
+                {
+                    auto findStatus = values.find("Status");
+                    if (findStatus != values.end())
+                    {
+                        BMCWEB_LOG_DEBUG << "found Status prop change";
+                        getCSREntryAck(asyncResp, entryId);
+                        timeout->cancel();
+                    }
+                }
+            };
+
+            std::string matchStr(
+                "interface='org.freedesktop.DBus.Properties',type='"
+                "signal',"
+                "member='PropertiesChanged',path='/xyz/openbmc_project/certs/"
+                "ca/entry/" +
+                entryId + "'");
+
+            ackMatches.emplace(
+                entryId,
+                std::make_unique<sdbusplus::bus::match::match>(
+                    *crow::connections::systemBus, matchStr, callback));
+        },
+        "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca", "xyz.openbmc_project.Certs.Authority",
+        "SignCSR", csrString);
+}
+
 inline void requestRoutes(App& app)
 {
-
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .privileges({"ConfigureComponents", "ConfigureManager"})
@@ -703,6 +973,8 @@ inline void requestRoutes(App& app)
                     {"@odata.id", "/ibm/v1/HMC/LockService"}};
                 asyncResp->res.jsonValue["BroadcastService"] = {
                     {"@odata.id", "/ibm/v1/HMC/BroadcastService"}};
+                asyncResp->res.jsonValue["Certificate"] = {
+                    {"@odata.id", "/ibm/v1/Host/Certificate"}};
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
@@ -738,6 +1010,79 @@ inline void requestRoutes(App& app)
                     return;
                 }
                 handleFileUrl(req, asyncResp, fileName);
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate")
+        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/ibm/v1/Host/Certificate";
+                asyncResp->res.jsonValue["Id"] = "Certificate";
+                asyncResp->res.jsonValue["Name"] = "Certificate";
+                asyncResp->res.jsonValue["Actions"]["SignCSR"] = {
+                    {"target", "/ibm/v1/Host/Actions/SignCSR"}};
+                asyncResp->res.jsonValue["root"] = {
+                    {"target", "/ibm/v1/Host/Certificate/root"}};
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate/root")
+        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!std::filesystem::exists(rootCertPath))
+                {
+                    BMCWEB_LOG_ERROR << "RootCert file does not exist";
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    asyncResp->res.jsonValue["Description"] =
+                        internalServerError;
+                    return;
+                }
+                std::ifstream inFile;
+                inFile.open(rootCertPath.c_str());
+                if (inFile.fail())
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Error while opening the root certificate "
+                           "file for reading";
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    asyncResp->res.jsonValue["Description"] =
+                        internalServerError;
+                    return;
+                }
+
+                std::stringstream strStream;
+                strStream << inFile.rdbuf();
+                inFile.close();
+                asyncResp->res.jsonValue["Certificate"] = strStream.str();
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Actions/SignCSR")
+        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::string csrString;
+                if (!redfish::json_util::readJson(req, asyncResp->res,
+                                                  "CsrString", csrString))
+                {
+                    return;
+                }
+
+                // Return error if CsrString is bigger than 4K
+                // Usually CSR size is aroung 1-2K
+                // so added max length check for 4K
+                if ((csrString.length() > maxCSRLength) || csrString.empty())
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                handleCsrRequest(asyncResp, csrString);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
