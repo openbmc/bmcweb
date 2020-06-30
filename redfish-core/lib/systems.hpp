@@ -178,7 +178,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                 }
 
                 auto memoryHealth = std::make_shared<HealthPopulate>(
-                    aResp, aResp->res.jsonValue["MemorySummary"]["Status"]);
+                    aResp, aResp->res.jsonValue[""]["StaMemorySummarytus"]);
 
                 auto cpuHealth = std::make_shared<HealthPopulate>(
                     aResp, aResp->res.jsonValue["ProcessorSummary"]["Status"]);
@@ -517,7 +517,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         if ((propertyName == "PartNumber") ||
                                             (propertyName == "SerialNumber") ||
                                             (propertyName == "Manufacturer") ||
-                                            (propertyName == "Model"))
+                                            (propertyName == "Model")) ||
+                                            (propertyName == "SubModel")
                                         {
                                             const std::string* value =
                                                 std::get_if<std::string>(
