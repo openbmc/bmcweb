@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ee53ba4_2b6afafe",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-06-30T17:06:03Z",
+      "side": 1,
+      "message": "I suggest removing the operations that are not supported!",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 1
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4ed6d90_35fca5a3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-06-30T17:06:03Z",
+      "side": 1,
+      "message": "This name seems slightly not relevant here because we ain\u0027t creating any files, but just parsing the mime content and populating the \u0027multipartMaps\u0027",
+      "range": {
+        "startLine": 766,
+        "startChar": 9,
+        "endLine": 766,
+        "endChar": 29
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9313fd_477dc2e2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-06-30T17:06:03Z",
+      "side": 1,
+      "message": "Or maybe we could say that this property is missing",
+      "range": {
+        "startLine": 814,
+        "startChar": 16,
+        "endLine": 814,
+        "endChar": 76
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39cf714a_2c0a30f5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-06-30T17:06:03Z",
+      "side": 1,
+      "message": "Don\u0027t we need an else part here and for line 807, if the parameters are not found?",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 820,
+        "endChar": 68
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
