@@ -919,6 +919,54 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
 }
 
 /**
+ * @brief Retrieves the Last Reset Time
+ *
+ * "Reset" is an overloaded term in Redfish, "Reset" includes power on
+ * and power off. Even though this is the "system" Redfish object look at the
+ * chassis D-Bus interface for the LastStateChangeTime since this has the
+ * last power operation time.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Getting System Last Reset Time";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                std::variant<uint64_t>& lastResetTime) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                return;
+            }
+
+            const uint64_t* lastResetTimePtr =
+                std::get_if<uint64_t>(&lastResetTime);
+
+            if (!lastResetTimePtr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            // LastStateChangeTime is epoch time, in milliseconds
+            // https://github.com/openbmc/phosphor-dbus-interfaces/blob/33e8e1dd64da53a66e888d33dc82001305cd0bf9/xyz/openbmc_project/State/Chassis.interface.yaml#L19
+            time_t lastResetTimeStamp =
+                static_cast<time_t>(*lastResetTimePtr / 1000);
+
+            // Convert to ISO 8601 standard
+            aResp->res.jsonValue["LastResetTime"] =
+                crow::utility::getDateTime(lastResetTimeStamp);
+        },
+        "xyz.openbmc_project.State.Chassis",
+        "/xyz/openbmc_project/state/chassis0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Chassis", "LastStateChangeTime");
+}
+
+/**
  * @brief Retrieves Automatic Retry properties. Known on D-Bus as AutoReboot.
  *
  * @param[in] aResp     Shared pointer for generating response message.
@@ -1835,7 +1883,7 @@ class Systems : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_11_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_12_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
@@ -1914,6 +1962,7 @@ class Systems : public Node
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
         getAutomaticRetry(asyncResp);
+        getLastResetTime(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
