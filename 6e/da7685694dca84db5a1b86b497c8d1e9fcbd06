@@ -1,0 +1,9 @@
+Ok-To-Test+1: Jason Bills <jason.m.bills@linux.intel.com>
+Ok-To-Test+1: James Feist <james.feist@linux.intel.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: <kenny.k.ku@intel.com>
+Submitted-at: Tue, 30 Jun 2020 18:25:37 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/34080
+Project: openbmc/bmcweb
+Branch: refs/heads/master
