@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "554d6f4c_91ab3214",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-01T02:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee53ba4_2b6afafe",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 1
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4ed6d90_35fca5a3",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9a041d_33decf63",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-01T02:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ed6d90_35fca5a3",
+      "range": {
+        "startLine": 766,
+        "startChar": 9,
+        "endLine": 766,
+        "endChar": 29
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a89a0219_493376ae",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-01T02:30:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dd9313fd_477dc2e2",
+      "range": {
+        "startLine": 814,
+        "startChar": 16,
+        "endLine": 814,
+        "endChar": 76
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39cf714a_2c0a30f5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c254f5_7370c364",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-01T02:30:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39cf714a_2c0a30f5",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 820,
+        "endChar": 68
+      },
+      "revId": "fd69af39261e344a552cf358c8cabd6d8703aaad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
