@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cb656c6_a7ea8e80",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-01T21:43:13Z",
+      "side": 1,
+      "message": "why would we not want to use ssl? Http is insecure?",
+      "range": {
+        "startLine": 69,
+        "startChar": 3,
+        "endLine": 69,
+        "endChar": 16
+      },
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
