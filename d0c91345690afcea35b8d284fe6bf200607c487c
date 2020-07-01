@@ -22,6 +22,76 @@
       "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b0bde3b_4f7ea5cb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-01T12:49:15Z",
+      "side": 1,
+      "message": "+1\n\nIt is not \u0027Files\u0027 but \u0027data\u0027.",
+      "parentUuid": "51053f11_f6d90ca6",
+      "range": {
+        "startLine": 763,
+        "startChar": 9,
+        "endLine": 763,
+        "endChar": 31
+      },
+      "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9401d1eb_cba810df",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-01T12:49:15Z",
+      "side": 1,
+      "message": "can we have else for this as well?",
+      "range": {
+        "startLine": 804,
+        "startChar": 8,
+        "endLine": 804,
+        "endChar": 74
+      },
+      "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf39dae4_8ff0063f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-01T12:49:15Z",
+      "side": 1,
+      "message": "can we have BMCWEB_LOG_ERROR instead?",
+      "range": {
+        "startLine": 836,
+        "startChar": 22,
+        "endLine": 836,
+        "endChar": 28
+      },
+      "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
