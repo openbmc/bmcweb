@@ -22,6 +22,30 @@
       "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "185dbae7_a4f9837c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-02T04:37:34Z",
+      "side": 1,
+      "message": "Yes, We use ssl(https) only and default value is true. There is the BUIld flag (BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING) to enable insecure PUSH style events. Default value of this is OFF.",
+      "parentUuid": "6cb656c6_a7ea8e80",
+      "range": {
+        "startLine": 69,
+        "startChar": 3,
+        "endLine": 69,
+        "endChar": 16
+      },
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
