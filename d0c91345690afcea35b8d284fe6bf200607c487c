@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "52780c2a_d5789222",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-02T00:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b0bde3b_4f7ea5cb",
+      "range": {
+        "startLine": 763,
+        "startChar": 9,
+        "endLine": 763,
+        "endChar": 31
+      },
+      "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9401d1eb_cba810df",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 17
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0a674a3a_d66c687d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-02T00:36:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9401d1eb_cba810df",
+      "range": {
+        "startLine": 804,
+        "startChar": 8,
+        "endLine": 804,
+        "endChar": 74
+      },
+      "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf39dae4_8ff0063f",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 17
@@ -92,6 +140,30 @@
       "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77907ad4_ee50ce40",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-02T00:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf39dae4_8ff0063f",
+      "range": {
+        "startLine": 836,
+        "startChar": 22,
+        "endLine": 836,
+        "endChar": 28
+      },
+      "revId": "d0c91345690afcea35b8d284fe6bf200607c487c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
