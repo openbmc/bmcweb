@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "154a7d4c_484177dc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T10:31:46Z",
+      "side": 1,
+      "message": "fair enough. Fine",
+      "parentUuid": "3ff62260_8051673c",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 21
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f6eda4_f294e4dd",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 24
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "Say, if the file size is 2 MB, and the save area dir size is 9 MB, in this case, this transaction must fail and we should not be creating any files.\n\nThe second case, say save area dir size is 9 MB, the size of the files is 1.5 MB, but the same files are already present in the save area directory (which we must be over-written) and in that case, the save area dir count may come within 10 MB (if the size of the common files in /tmp is lesser than that in save area dir) -- Common files basically.\n\nSo for this, I hope we must be proceeding with these computations.",
       "parentUuid": "f724fdd8_b5691cd4",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 9
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a3f11ab_1ec4ad18",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T10:31:46Z",
+      "side": 1,
+      "message": "Got the logic Asmitha. Thanks.\n\nI think we can have a better way where :\n1. Copy the original save area dir to /tmp when you get the PUT or POST. Check if /tmp can contain this or not.\n2. Use this /tmp to create files as you are doing now\n3. Keep finding duplicate files and replace them at /tmp path itself\n4. Keep adding the filesize ; until all the files are received.\n5. If  total size fits, then move the /tmp dir to the original dir. If does not fit , discard the /tmp\n\nSo as a first step don\u0027t start with empty /tmp directory. It can be a duplicate copy of the existing original save area dir\n\nWhats your views on this ?\n\nWe can fit the ResourceUpdate logic in this where we can determine if there is any file which is getting updated or newly added.",
+      "parentUuid": "70bdb0d8_83bcefc6",
       "range": {
         "startLine": 254,
         "startChar": 0,
