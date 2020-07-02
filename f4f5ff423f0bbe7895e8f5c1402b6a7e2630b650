@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3ff62260_8051673c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-02T08:28:53Z",
+      "side": 1,
+      "message": "If the file name is empty, then we must be returning an error (since we follow \"Create All or Create Nothing\" way).",
+      "parentUuid": "3ea4eb9a_b0132b48",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 21
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f6eda4_f294e4dd",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 24
@@ -59,6 +83,30 @@
       "writtenOn": "2020-07-02T04:44:02Z",
       "side": 1,
       "message": "remove the commented lines",
+      "range": {
+        "startLine": 250,
+        "startChar": 7,
+        "endLine": 252,
+        "endChar": 44
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69491936_bffb9709",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-02T08:28:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d2f6eda4_f294e4dd",
       "range": {
         "startLine": 250,
         "startChar": 7,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "70bdb0d8_83bcefc6",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-02T08:28:53Z",
+      "side": 1,
+      "message": "Say, if the file size is 2 MB, and the save area dir size is 9 MB, in this case, this transaction must fail and we should not be creating any files.\n\nThe second case, say save area dir size is 9 MB, the size of the files is 1.5 MB, but the same files are already present in the save area directory (which we must be over-written) and in that case, the save area dir count may come within 10 MB (if the size of the common files in /tmp is lesser than that in save area dir) -- Common files basically.\n\nSo for this, I hope we must be proceeding with these computations.",
+      "parentUuid": "f724fdd8_b5691cd4",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 9
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ae1bad_16345158",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 24
@@ -105,6 +177,30 @@
       "writtenOn": "2020-07-02T04:44:02Z",
       "side": 1,
       "message": "misplaced ? comment should go to line 281",
+      "range": {
+        "startLine": 277,
+        "startChar": 8,
+        "endLine": 277,
+        "endChar": 58
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8801a574_d9244d39",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-02T08:28:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26ae1bad_16345158",
       "range": {
         "startLine": 277,
         "startChar": 8,
