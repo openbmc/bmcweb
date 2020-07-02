@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9749f16d_87f4f77a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T08:27:28Z",
+      "side": 1,
+      "message": "please make it hypervisor-cert",
+      "range": {
+        "startLine": 39,
+        "startChar": 43,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "4e13aef47fa5ac370ff6978e19532fe2e44e5977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b71339f0_efd53757",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T08:27:28Z",
+      "side": 1,
+      "message": "HypervisorRootCert - to be more clear that its something related to the hypervisor\n\nJust RootCert may be confusing.",
+      "range": {
+        "startLine": 40,
+        "startChar": 49,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "4e13aef47fa5ac370ff6978e19532fe2e44e5977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb0cffc5_1956169e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T08:27:28Z",
+      "side": 1,
+      "message": "deleteHypervisorDbusEntry",
+      "range": {
+        "startLine": 533,
+        "startChar": 12,
+        "endLine": 533,
+        "endChar": 30
+      },
+      "revId": "4e13aef47fa5ac370ff6978e19532fe2e44e5977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68cf64ee_c5ccd086",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T08:27:28Z",
+      "side": 1,
+      "message": "Where ever there is VMI -- replace with Hypervisor",
+      "range": {
+        "startLine": 541,
+        "startChar": 33,
+        "endLine": 541,
+        "endChar": 51
+      },
+      "revId": "4e13aef47fa5ac370ff6978e19532fe2e44e5977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17a09cd9_acceb93b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T08:27:28Z",
+      "side": 1,
+      "message": "Needs update as per the latest DBus path",
+      "range": {
+        "startLine": 550,
+        "startChar": 18,
+        "endLine": 550,
+        "endChar": 32
+      },
+      "revId": "4e13aef47fa5ac370ff6978e19532fe2e44e5977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
