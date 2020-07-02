@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bed57ab_e3429a3b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T04:44:02Z",
+      "side": 1,
+      "message": "createMultiSaveareaFiles",
+      "range": {
+        "startLine": 85,
+        "startChar": 5,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ea4eb9a_b0132b48",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T04:44:02Z",
+      "side": 1,
+      "message": "i dont think we should stop if the file in the middle is empty. As long as we get the data with proper format we should continue parsing and creating the files.",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 21
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2f6eda4_f294e4dd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T04:44:02Z",
+      "side": 1,
+      "message": "remove the commented lines",
+      "range": {
+        "startLine": 250,
+        "startChar": 7,
+        "endLine": 252,
+        "endChar": 44
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f724fdd8_b5691cd4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T04:44:02Z",
+      "side": 1,
+      "message": "I think you can keep adding the filesize when you create files at /tmp/savearea in the method createMultipartFiles(). If you see they are exceeding the max directory size, return false. Then you need not have all these logic in this calling method.",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 9
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26ae1bad_16345158",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-02T04:44:02Z",
+      "side": 1,
+      "message": "misplaced ? comment should go to line 281",
+      "range": {
+        "startLine": 277,
+        "startChar": 8,
+        "endLine": 277,
+        "endChar": 58
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
