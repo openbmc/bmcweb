@@ -22,6 +22,30 @@
       "revId": "a0eca5498740a05ec6206f551281937a59839646",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69b193b5_0e372dbb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-02T04:36:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5367a64d_8979af56",
+      "range": {
+        "startLine": 819,
+        "startChar": 12,
+        "endLine": 819,
+        "endChar": 63
+      },
+      "revId": "a0eca5498740a05ec6206f551281937a59839646",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
