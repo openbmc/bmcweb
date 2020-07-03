@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3064fc2_12c12b5a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-07-03T08:24:18Z",
+      "side": 1,
+      "message": "Property Value format error????",
+      "revId": "e31d489030e169622fd26cdbf511f8db079c8f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa89b686_4f3514ff",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-07-03T08:24:18Z",
+      "side": 1,
+      "message": "ahh, const \u0026,",
+      "range": {
+        "startLine": 768,
+        "startChar": 8,
+        "endLine": 768,
+        "endChar": 19
+      },
+      "revId": "e31d489030e169622fd26cdbf511f8db079c8f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de6372e4_4b3e9dee",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-07-03T08:24:18Z",
+      "side": 1,
+      "message": "move??",
+      "range": {
+        "startLine": 798,
+        "startChar": 41,
+        "endLine": 798,
+        "endChar": 45
+      },
+      "revId": "e31d489030e169622fd26cdbf511f8db079c8f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed35f308_c467ebdd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-07-03T08:24:18Z",
+      "side": 1,
+      "message": "Can we reverse it? trying to remove else. \nif (multipartMaps.find(\"UpdateParameters\") \u003d\u003d multipartMaps.end())\n{\n    Invalid Object\n    return;\n}",
+      "range": {
+        "startLine": 804,
+        "startChar": 1,
+        "endLine": 805,
+        "endChar": 9
+      },
+      "revId": "e31d489030e169622fd26cdbf511f8db079c8f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c2dd93_12abf4d3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-07-03T08:24:18Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 823,
+        "startChar": 2,
+        "endLine": 842,
+        "endChar": 9
+      },
+      "revId": "e31d489030e169622fd26cdbf511f8db079c8f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
