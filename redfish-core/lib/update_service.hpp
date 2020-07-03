@@ -886,32 +886,94 @@ class SoftwareInventory : public Node
 
                             BMCWEB_LOG_DEBUG << "swInvPurpose = "
                                              << *swInvPurpose;
-                            it = propertiesList.find("Version");
-                            if (it == propertiesList.end())
+                            if (*swId == "cpld_active")
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "Can't find property \"Version\"!";
-                                messages::propertyMissing(asyncResp->res,
-                                                          "Version");
-                                return;
+                                // find cpldRoTVer
+                                it = propertiesList.find("cpldRoTVer");
+                                if (it == propertiesList.end())
+                                {
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"cpldRoTVer\"!";
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Version");
+                                    return;
+                                }
+
+                                BMCWEB_LOG_DEBUG << "cpldRoT Version found!";
+
+                                const std::string* cpldRoTVer =
+                                    std::get_if<std::string>(&it->second);
+
+                                if (cpldRoTVer == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"cpldRoTVer\"!";
+
+                                    messages::propertyValueTypeError(
+                                        asyncResp->res, "", "Version");
+                                    return;
+                                }
+
+                                // find cpldfwHash
+                                it = propertiesList.find("cpldfwHash");
+                                if (it == propertiesList.end())
+                                {
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"cpldfwHash\"!";
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "cpldfwHash");
+                                    return;
+                                }
+
+                                BMCWEB_LOG_DEBUG << "cpldfw Hash found!";
+
+                                const std::string* cpldfwHash =
+                                    std::get_if<std::string>(&it->second);
+
+                                if (cpldfwHash == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"cpldfwHash\"!";
+
+                                    messages::propertyValueTypeError(
+                                        asyncResp->res, "", "cpldfwHash");
+                                    return;
+                                }
+                                asyncResp->res.jsonValue["cpldRoTVer"] =
+                                    *cpldRoTVer;
+                                asyncResp->res.jsonValue["cpldfwHash"] =
+                                    *cpldfwHash;
+                                asyncResp->res.jsonValue["Id"] = *swId;
                             }
-
-                            BMCWEB_LOG_DEBUG << "Version found!";
-
-                            const std::string* version =
-                                std::get_if<std::string>(&it->second);
-
-                            if (version == nullptr)
+                            else
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "Can't find property \"Version\"!";
+                                it = propertiesList.find("Version");
+                                if (it == propertiesList.end())
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Can't find property \"Version\"!";
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Version");
+                                    return;
+                                }
 
-                                messages::propertyValueTypeError(asyncResp->res,
-                                                                 "", "Version");
-                                return;
+                                BMCWEB_LOG_DEBUG << "Version found!";
+
+                                const std::string* version =
+                                    std::get_if<std::string>(&it->second);
+
+                                if (version == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Can't find property \"Version\"!";
+
+                                    messages::propertyValueTypeError(
+                                        asyncResp->res, "", "Version");
+                                    return;
+                                }
+                                asyncResp->res.jsonValue["Version"] = *version;
+                                asyncResp->res.jsonValue["Id"] = *swId;
                             }
-                            asyncResp->res.jsonValue["Version"] = *version;
-                            asyncResp->res.jsonValue["Id"] = *swId;
 
                             // swInvPurpose is of format:
                             // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
