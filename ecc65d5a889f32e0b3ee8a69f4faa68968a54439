@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "cdb315f9_5b0cc6b9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "Suspect you meant to use flat_static_buffer here to bound your input size.  Flat buffer is allowed to grow forever.",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "108be25e_0715795d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "This is a security issue.  You\u0027ve used an unbounded body type (std::string), which means the server could send you a 10GB payload back as a response, and run the BMC out of memory.",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cb656c6_a7ea8e80",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -91,6 +125,132 @@
         "endLine": 69,
         "endChar": 16
       },
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17fc7d76_a53833af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "I\u0027m not sure why this needs a BMCWEB_INSECURE:\n1. The user has opted into not using SSL by providing an http interface definition.\n2. There are a lot of subscriptions you could make that don\u0027t contain any secrets, and a user would rather not take the SSL overhead to send them, so it\u0027s not like there isn\u0027t a valid use case here.",
+      "parentUuid": "70574957_9595022d",
+      "range": {
+        "startLine": 69,
+        "startChar": 3,
+        "endLine": 69,
+        "endChar": 16
+      },
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b167bb2_61ded6de",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "extra parens.\n\nAlso missing nullptr check.",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f6f1a8d_bc428712",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "extra parens.\n\nAlso, missing nullptr check",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c93782da_15784019",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "There are more things you need to set here.  content-type, user-agent and accepts headers come to mind, but you really need to go look at an http request from a browser and sort through which ones you need.",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe98093_2ca63440",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "Security issue: You forgot to check if the user is setting headers that already exist.  For example, setting a host header would allow possible injection attacks.  We don\u0027t want that.\n\nAlso, you don\u0027t seem to check for validity of the headers anywhere.  For example, if I put \\n in a request, I can now escape in whatever header I want.  That\u0027s incorrect.",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a80cc38e_66c2a5d3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "This is wrong.  You need to verify that the sending server didn\u0027t return a 4XX error that should be retried.",
+      "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bdc2b12_fa6f2a55",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "This is wrong.  If it\u0027s done properly, there should be no way that control flow returns to a callback handler like this without the timer being stopped.  It should be the first thing done when an async handler returns.  I think you need to debug this more, rather than simply adding the flag.",
       "revId": "ecc65d5a889f32e0b3ee8a69f4faa68968a54439",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
