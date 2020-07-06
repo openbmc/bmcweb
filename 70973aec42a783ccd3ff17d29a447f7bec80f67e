@@ -1,0 +1,353 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "809dd0d7_6ec472cb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "These should probably be std::optional.  I don\u0027t see any shared ownership in any of your usages.\n\nOnce you\u0027ve done that, you can also delete the \"useSsl\" parameter, and simply use the filled state.\n\n\nSaid more concretely, this declaration should be\nstd::optional\u003cstd::boost::beast::ssl_stream\u003cboost::beast::tcp_stream\u0026\u003e\u003e sslCon;\nboost::beast::tcp:stream conn;\n\nsslCon \u003d\u003d nullptr will tell you if ssl is enabled;\n\nTo construct it, use\nsslCon.emplace(conn);  // I might be missing a set of braces here\n\nIt also makes your getConn() method go away, as methods can simply use the conn object to access the underlying connection, although your other bugs will still need fixed.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef7011a_582f6b75",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "See above, this goes away.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 16
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ce16e7_7a484e0a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "Doesn\u0027t need inline if it\u0027s declared in a class.",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 11
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fe2bf9c_ea33d8bc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "extra parens",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 61
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2466f71_742697f4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "extra parens.",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 26
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6426e951_8d173f9e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "You forgot to add a state for ssl handshake.  It is distinct from connecting.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c0dba57_99a81b57",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "missing pointer check.",
+      "range": {
+        "startLine": 204,
+        "startChar": 45,
+        "endLine": 204,
+        "endChar": 52
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a725205_6423ec6b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "you\u0027re mixing between using the timer in tcp_stream and using your own timer, which is probably why you had issues below tracking the \"timer is running\" state.  You should really pick one and stick to it.",
+      "range": {
+        "startLine": 251,
+        "startChar": 18,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ed90cef_98612c85",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "This doesn\u0027t work for SSL.  The socket needs to be shut down properly, with an async_shutdown (which will also need a timer for if it fails).",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 15
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d542056_13cfd484",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "Not implementing keepalive will not meet your performance targets for openssl.  While opening a TCP connection is relatively cheap, SSL is expensive.  Do you have a plan to implement socket reuse?",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37c7a7fa_4e7b5e4e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "This error will go away once you shutdown the stream properly.",
+      "range": {
+        "startLine": 272,
+        "startChar": 24,
+        "endLine": 272,
+        "endChar": 46
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343dc0be_4baaf867",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "In the case of most servers, this is because you\u0027re shutting the stream down hard, not shutting it down properly.  While you will still need this check, you will need to use it less often if you shut the stream down correctly.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627d9a49_1343c988",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "See above, same comment.  SSL connections cannot be shut down this way.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bce7816_59f1f0dc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "Check your error code.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27642e3_a89cb425",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "this else does nothing considering line 361 is \"return\"\n\nRemove.",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 12
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ad66ed_b413384d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "This is a blocking io call, which is banned in bmcweb.  Please change to async_resolve;",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a8cd50d_44607f38",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:38:34Z",
+      "side": 1,
+      "message": "Initialize this in the constructor to avoid double initialization.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
