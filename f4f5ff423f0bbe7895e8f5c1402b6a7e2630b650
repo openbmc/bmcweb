@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "45166ea8_953cfb3a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-07-06T09:14:37Z",
+      "side": 1,
+      "message": "\u003e 1. Copy the original save area dir to /tmp when you get the PUT or POST. Check if /tmp can contain this or not.\n\nCopy the entire directory content? I would suggest that why we can\u0027t do like below.\nDuring parsing of multipart data \n  -\u003e Get the file content and name\n  -\u003e If the file is already there then get the size of the file which is already there then get the difference between file exist on the BMC v/s received through this request which could be positive or negative.\n  -\u003e  Keep adding the filesize if it is a new file otherwise difference(file size).  \n       /var/lib/../save-area directory size + /tmp/save-area directory size(having new files) + difference(could be positive or negative) should be less then the allowed size",
+      "parentUuid": "8a3f11ab_1ec4ad18",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 9
+      },
+      "revId": "f4f5ff423f0bbe7895e8f5c1402b6a7e2630b650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ae1bad_16345158",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 24
