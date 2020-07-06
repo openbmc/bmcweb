@@ -277,6 +277,23 @@
     },
     {
       "key": {
+        "uuid": "44d48d3f_20ef1e04",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-06T23:49:29Z",
+      "side": 1,
+      "message": "This method doesn\u0027t retry properly on a DNS resolution failure properly, which in the case of failover servers, it should",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bce7816_59f1f0dc",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
