@@ -1208,6 +1208,10 @@ static void
                                     }
                                 }
 
+                                size_t minNumNeeded =
+                                    collection->size() > 0
+                                        ? collection->size() - *allowedFailures
+                                        : 0;
                                 nlohmann::json& jResp =
                                     sensorsAsyncResp->res
                                         .jsonValue["Redundancy"];
@@ -1220,8 +1224,7 @@ static void
                                           std::to_string(jResp.size())},
                                      {"@odata.type",
                                       "#Redundancy.v1_3_2.Redundancy"},
-                                     {"MinNumNeeded",
-                                      collection->size() - *allowedFailures},
+                                     {"MinNumNeeded", minNumNeeded},
                                      {"MemberId", name},
                                      {"Mode", "N+m"},
                                      {"Name", name},
