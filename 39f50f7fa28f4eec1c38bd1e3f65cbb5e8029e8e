@@ -1,0 +1,926 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d95aff40_1d29f2cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please list the dependent patches this change requires.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffab9393_f237e6d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "you forgot to mention that you wrote these functions you tested.  You might also want to mention why you wrote \"utils\" classes that are used in one place, without updating the rest of bmcweb to the new paradigm.\n\nI suspect the utils classes probably need to be reviews on their own, as they\u0027re changing some major semantics of how bmcweb treats json and dbus today.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc9ab565_9febe162",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Need more tests here.  You\u0027ve added several new handlers that I\u0027m hoping you validated ahead of time.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ce3d89d_51ce566f",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "You need to take some effort to constrain these two, to avoid very confusing error messages when used.\nArray needs to meet the forward iterable class, and the value_type needs to be a string\nCallback needs to be callable.\n\nSimply handing them blindly to async_method_call is dangerous, and leads to code that compiles fine, but doesn\u0027t work.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63de8d8c_fb2d8549",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "If this is something you\u0027d like to see done, please update all the uses in bmcweb to use this helper.  I personally don\u0027t like the way it obfuscates what\u0027s going on, and I don\u0027t find it a useful abstraction, but push it to the rest of the uses, and we\u0027ll see if we can get some consensus.\n\npath should be accepted by std::string_view.\n\nNormal semantics would put the callback at the end, to allow lambdas to be used in a clean way.\n\nArray should also be const",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a2fd48e_eed28535",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "again, please update std::String to std::string_view.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d424a09_9a1c53a0",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please put this in a different file.  \"is std function\" has nothing to do with json.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b07f5b41_28dec25e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "These kinds of abstractions are exactly what bmcweb was built to try to avoid.\n\n1. They create a lot of ancillary data structures\n2. They\u0027re difficult to read.\n3. They are slower at runtime, and consume more memory\n4. They\u0027re slower to compile.\n\nIn almost all cases where this is used, you\u0027re constructing a map, then doing a bunch of map lookups, rather than simply looping over a vector, which is much more efficient at both compile time and runtime, as well as using less memory.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740b997d_dc903dc0",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "a static_assert would be better here.  With that said, you need to do a better job delineating types of S here more than just \"isn\u0027t a std::function\".  Is a reference to a function ok?  Does it have to be callable?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2f4ed6_2e3598c9",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "This seems like a good utilities function to add, but I\u0027m worried about duplicating logic.  Can you find the other collections that might benefit from this, and move them over to this one?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2600d2d_8c34bcfb",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "considering you put this in a generit \"utils\" class, this probably shouldn\u0027t be called \"reports\"",
+      "range": {
+        "startLine": 520,
+        "startChar": 68,
+        "endLine": 520,
+        "endChar": 75
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5de6926d_81587dab",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "should be string_view.",
+      "range": {
+        "startLine": 521,
+        "startChar": 48,
+        "endLine": 521,
+        "endChar": 52
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88e58a96_e466bdfa",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "missing range check.",
+      "range": {
+        "startLine": 534,
+        "startChar": 73,
+        "endLine": 534,
+        "endChar": 74
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b1a770_773df42b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please include these URLs in the structures that require them, instead of constexpr defining them in one place.  This makes the code easier to audit in the future, and means that fewer urls (and strings) will be generated at runtime.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8c722e_932d6dcd",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "pass by string_view",
+      "range": {
+        "startLine": 35,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 47
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc6eac5c_a6ec73ee",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "I don\u0027t see any dbus escaping of uri in either the caller of this code, or here.  it will need to be done.\n\n(note) I don\u0027t see any dbus escaping at all in any function.  Please audit all the places where user facing strings are placed on dbus, and make sure errors are handled properly.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82fafad5_f2b4a627",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "uri is captured by pointer here.  This could lead to lifetime issues.  fix.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64dba449_ad2a78b2",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "If the report was not found, this needs to return 404, not an empty array.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7719bf75_e9b2171d",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "This is only called in one place, it does not need to accept the callback by template parameter.  Simply call the callback directly.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d16a62_5eb002b8",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please pass schemaType by string_view",
+      "range": {
+        "startLine": 63,
+        "startChar": 45,
+        "endLine": 63,
+        "endChar": 67
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9692cc1_5da6d231",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "id is not escaped for dbus here.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "704eceab_2ccce386",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "nit: For consistency, compare against reports.end().",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f370fd1_f3c28f80",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Considering that this function (see below) is going to boil down to 2 lines per entry, I suspect that this can simply be inlined.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce7b7859_e2816a07",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "I\u0027m not liking this as an input parameter.  for the types you care about, this can either be done in calling code, or the mapping can exist in a branch in the code here, but passing it in makes it possible for a user to call this with an incorrect character in a non obvious way.",
+      "range": {
+        "startLine": 37,
+        "startChar": 34,
+        "endLine": 37,
+        "endChar": 52
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b2d82b_4ca2785b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Given the size of the strings here, it seems unlikely that stringstream would be anything but a performance impediment.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "105c35a5_4acd5a73",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "I suspect you don\u0027t want to type check milliseconds here, you want to check if T::period::den \u003e 0.  Otherwise, this helper won\u0027t work for nanoseconds (which I realize doesn\u0027t effect you in this case)\n\nedit: see below.  I suspect you don\u0027t need this special case at all.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a2b0d0_208eada0",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "This should likely be using a fixed point printing, instead of printing the float as is to avoid rounding errors.\n\nI suspect that if it ended up as scientific notation (unlikely, but possible) that would go out of spec.",
+      "range": {
+        "startLine": 48,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf521c91_beadc5e4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "You\u0027re doing a lot of fancy arithmetic here that I think the std library already does in duration cast.\n\nI suspect what you want here is\nstd::chrono::duration_cast\u003cstd::chrono::duration\u003cfloat\u003e\u003e(t).count();\n\nThat will properly handle any std library eccentricities as well as rounding for you.\n\nNote, I\u0027m pretty sure with that, you can also remove the branch.\n\nContinuing to look at it more, I suspect this whole function can be replaced with a call to std::chrono::duration cast, and std::chrono::floor, with no branches at all.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb29732_996dec09",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "It\u0027s really non-obvious that duration is getting modified here.  I suspect simply using the next types floor would avoid quite a few rounding errors, and be easier to grok.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "304ad806_a60b1644",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "nit, it\u0027s a duration value, not a time value.",
+      "range": {
+        "startLine": 63,
+        "startChar": 18,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "642db928_aa8fc31d",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "you might be better off simply giving some examples.  Giving a double escaped regex isn\u0027t very helpful in a comment.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a2921fc_04a27d04",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please don\u0027t reference the design doc.  The code should stand on its own.\n\nAlso, I see no mention of this duration format in the design doc.  Can you give a better reference?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e9ce9b3_99b93e2e",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Better variable name needed here.\n\nAlso, would it make more sense to simply take in a duration here?",
+      "range": {
+        "startLine": 67,
+        "startChar": 44,
+        "endLine": 67,
+        "endChar": 46
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd5b83bd_d001a6b8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "You\u0027re doing a type conversion of the underlying type here, as std::chrono::milliseconds contains an implementation defined type, and you\u0027re reading it in as a uint32_t.  I\u0027m guessing you didn\u0027t intend that.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812ee8a9_18008420",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Is this branch even needed?  It seems odd that it would be done has a hardcoded string instead of simply making the algorithm handle it properly.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7728155e_6ca6e5be",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "You\u0027re reserving up to 999 days here.  Might want to consider adding 1 more in case an event gets more than 3+ years old,",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418db7b5_75358e5a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "instead of int, you should be using similar type to the one the library uses.\n\nIn this case the closest is probably std::chrono::hours::rep.\n\nWhile in theory this won\u0027t be perfect, it will cover the cases that openbmc is likely to care about.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ecd8f12_8303d298",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "This is going to stop the parsing there.  In the case of this, does it make sense to print out the zeros anyway, to:\n1. remove the extra branches.\n2. Make parsing easier by the user?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9147b205_3c478837",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "DOesn\u0027t look used?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "021df36d_bdf567bf",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please simply include the correct route string here, instead of constructing it at runtime.  This makes the code eisier to audit and grep.  There are other places where this needs fixed as well, please fix all of them.",
+      "range": {
+        "startLine": 63,
+        "startChar": 18,
+        "endLine": 63,
+        "endChar": 61
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57c8b2af_a11f5355",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "See other comments.  This line is really really hard to grok at first look, for something that would be relatively simple if written out in code.  If written out in code, it would remove the need for toMetricValues, the MetricValues type, and all the extra allocations, and data structures that go with them.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ab47c9c_253102e2",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "There are only 2 actions here.  Please use a simple \"if (action \u003d\u003d \u0027Event\u0027)\" type branch here, instead of constructing a map for every single call.\n\nOnce you\u0027ve done that, I suspect this method doesn\u0027t need to exist, and could be inlined to simplify this quite a bit.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "015fec91_c74b0d34",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Please put a comment explaining what this type is.\n\nIt\u0027s a list of maps of paths and properties (I think).",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f86e3ae8_e983cb1d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 36
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39a78188_90d08327",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "I don\u0027t find these abstractions  very helpful in practice.  They obfuscate a lot of what\u0027s going on here, and don\u0027t handle errors properly, by returning a 500 if the properties doesn\u0027t exist, or explicitly noting that the error is not handled and why.\n\nAlso, taking a json value by operator[] will create the key in the map, even if it doesn\u0027t exist, so this in practice has the effect of \"assign if present or null)\" which isn\u0027t expected.\n\nPlease inline the logic for handling properties here.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "520b4560_a6bfc97f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Again, this is another case where the code to handle this is about as much code as the helper, and would be much clearer.\n\nAlso, in this case, you again, haven\u0027t handled the error branch, where this result might be false.  Please fix.",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 35
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5295b3_7bfa974a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "DOes this really need to be public?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff10cf6_98ce5926",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "considering getMonitoringServiceProperties is only used here, on the line below it, does it make sense to just inline it?  That would also let you declare asyncResp at the top.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476a8015_62228431",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "If the path doesn\u0027t exist, it is 404, not absent.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5604d63c_ed48b319",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-07T06:31:50Z",
+      "side": 1,
+      "message": "Again, this line is very hard to grok, and would by much simpler written out without templates, and for the types expected.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
