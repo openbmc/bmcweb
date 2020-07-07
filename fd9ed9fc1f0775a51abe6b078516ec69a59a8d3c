@@ -376,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "540f23e1_9980f406",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-07T23:52:10Z",
+      "side": 1,
+      "message": "+1 at throws",
+      "parentUuid": "b7762b96_4eb00891",
+      "range": {
+        "startLine": 834,
+        "startChar": 29,
+        "endLine": 834,
+        "endChar": 31
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a502c78_f8ba6e2d",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
