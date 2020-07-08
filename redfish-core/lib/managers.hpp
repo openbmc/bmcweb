@@ -1497,7 +1497,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 if (createNewObject && it.value() == nullptr)
                 {
-                    // can't delete a non-existant object
+                    // can't delete a non-existent object
                     messages::invalidObject(response->res, name);
                     continue;
                 }
