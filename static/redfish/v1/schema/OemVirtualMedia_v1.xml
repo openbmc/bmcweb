@@ -25,20 +25,20 @@
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
       <Annotation Term="Redfish.Release" String="1.0"/>
 
-      <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
-        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-	<Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
-
-	<Property Name="WebSocketEndpoint" Type="Edm.String">
+        <Property Name="WebSocketEndpoint" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates endpoint socket name and location."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a structure ring indicating location and name of the socket used to communicate with nbd server."/>
 	</Property>
-      </ComplexType>
 
       <EntityType Name="VirtualMedia" BaseType="Resource.OemObject" Abstract="true">
         <Annotation Term="OData.Description" String="OEM Extension for VirtualMedia"/>
         <Annotation Term="OData.LongDescription" String="OEM Extension for VirtualMedia to support Proxy mode."/>
+        <Property Name="WebSocketEndpoint" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates endpoint socket name and location."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a structure ring indicating location and name of the socket used to communicate with nbd server."/>
+	</Property>
       </EntityType>
     </Schema>
 
