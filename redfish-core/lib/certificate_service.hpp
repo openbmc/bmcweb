@@ -56,7 +56,7 @@ class CertificateService : public Node
         Node(app, "/redfish/v1/CertificateService/")
     {
         // TODO: Issue#61 No entries are available for Certificate
-        // sevice at https://www.dmtf.org/standards/redfish
+        // service at https://www.dmtf.org/standards/redfish
         // "redfish standard registries". Need to modify after DMTF
         // publish Privilege details for certificate service
         entityPrivileges = {
@@ -500,7 +500,7 @@ class CertificateActionGenerateCSR : public Node
 }; // CertificateActionGenerateCSR
 
 /**
- * @brief Parse and update Certficate Issue/Subject property
+ * @brief Parse and update Certificate Issue/Subject property
  *
  * @param[in] asyncResp Shared pointer to the response message
  * @param[in] str  Issuer/Subject value in key=value pairs

@@ -174,7 +174,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             [self = shared_from_this()](boost::system::error_code ec) {
                 if (ec == boost::asio::error::operation_aborted)
                 {
-                    return; // completed succesfully
+                    return; // completed successfully
                 }
                 if (!ec)
                 {

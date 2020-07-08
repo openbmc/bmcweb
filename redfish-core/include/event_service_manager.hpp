@@ -311,9 +311,9 @@ bool readSSEQueryParams(std::string sseFilter, std::string& formatType,
 
         if ((i + minTokenSize) < result.size())
         {
-            std::string& seperator = result[i + minTokenSize];
+            std::string& separator = result[i + minTokenSize];
             // SSE supports only "or" and "and" in query params.
-            if ((seperator != "or") && (seperator != "and"))
+            if ((separator != "or") && (separator != "and"))
             {
                 BMCWEB_LOG_ERROR
                     << "Invalid group operator in SSE query parameters";

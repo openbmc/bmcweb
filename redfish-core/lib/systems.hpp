@@ -49,7 +49,7 @@ void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
     }
     BMCWEB_LOG_DEBUG << "Dimm Functional: " << *isDimmFunctional;
 
-    // Set it as Enabled if atleast one DIMM is functional
+    // Set it as Enabled if at least one DIMM is functional
     // Update STATE only if previous State was DISABLED and current Dimm is
     // ENABLED.
     nlohmann::json& prevMemSummary =
@@ -122,7 +122,7 @@ void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
     nlohmann::json& prevProcState =
         aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
 
-    // Set it as Enabled if atleast one CPU is functional
+    // Set it as Enabled if at least one CPU is functional
     // Update STATE only if previous State was Non_Functional and current CPU is
     // Functional.
     if (prevProcState == "Disabled")
