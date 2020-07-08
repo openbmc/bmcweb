@@ -308,7 +308,7 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
  * @brief Updates programmable status of input swId into json response
  *
  * This function checks whether firmware inventory component
- * can be programable or not and fill's the "Updateable"
+ * can be programmable or not and fill's the "Updateable"
  * Property.
  *
  * @param[i,o] asyncResp  Async response object

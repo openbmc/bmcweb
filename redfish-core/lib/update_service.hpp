@@ -400,8 +400,8 @@ class UpdateServiceActionsSimpleUpdate : public Node
         BMCWEB_LOG_DEBUG << "Enter UpdateService.SimpleUpdate doPost";
 
         // User can pass in both TransferProtocol and ImageURI parameters or
-        // they can pass in just the ImageURI with the transfer protocl embedded
-        // within it.
+        // they can pass in just the ImageURI with the transfer protocol
+        // embedded within it.
         // 1) TransferProtocol:TFTP ImageURI:1.1.1.1/myfile.bin
         // 2) ImageURI:tftp://1.1.1.1/myfile.bin
 
