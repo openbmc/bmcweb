@@ -638,7 +638,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
 }
 
 /**
- * @brief Traslates boot source DBUS property value to redfish.
+ * @brief Translates boot source DBUS property value to redfish.
  *
  * @param[in] dbusSource    The boot source in DBUS speak.
  *
@@ -678,7 +678,7 @@ static std::string dbusToRfBootSource(const std::string& dbusSource)
 }
 
 /**
- * @brief Traslates boot mode DBUS property value to redfish.
+ * @brief Translates boot mode DBUS property value to redfish.
  *
  * @param[in] dbusMode    The boot mode in DBUS speak.
  *
@@ -706,7 +706,7 @@ static std::string dbusToRfBootMode(const std::string& dbusMode)
 }
 
 /**
- * @brief Traslates boot source from Redfish to the DBus boot paths.
+ * @brief Translates boot source from Redfish to the DBus boot paths.
  *
  * @param[in] rfSource    The boot source in Redfish.
  * @param[out] bootSource The DBus source
