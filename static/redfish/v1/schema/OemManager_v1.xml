@@ -126,20 +126,20 @@
                     <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID." />
                 </Property>
                 <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Integral limit maxiumum for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Integral limit maxiumum for the PID." />
+                    <Annotation Term="OData.Description" String="Integral limit maximum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit maximum for the PID." />
                 </Property>
                 <Property Name="ILimitMin" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Integral limit miniumum for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Integral limit miniumum for the PID." />
+                    <Annotation Term="OData.Description" String="Integral limit minimum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit minimum for the PID." />
                 </Property>
                 <Property Name="Inputs" Type="Collection(Edm.String)">
                     <Annotation Term="OData.Description" String="Input sensors to the PID controller."/>
                     <Annotation Term="OData.LongDescription" String="Input sensors to the PID controller."/>
                 </Property>
                 <Property Name="OutLimitMax" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Output limit maxiumum for the pwm." />
-                    <Annotation Term="OData.LongDescription" String="Output limit maxiumum for the pwm." />
+                    <Annotation Term="OData.Description" String="Output limit maximum for the pwm." />
+                    <Annotation Term="OData.LongDescription" String="Output limit maximum for the pwm." />
                 </Property>
                 <Property Name="OutLimitMin" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Output limit minimum for the pwm." />
@@ -210,20 +210,20 @@
                     <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID." />
                 </Property>
                 <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Integral limit maxiumum for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Integral limit maxiumum for the PID." />
+                    <Annotation Term="OData.Description" String="Integral limit maximum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit maximum for the PID." />
                 </Property>
                 <Property Name="ILimitMin" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Integral limit miniumum for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Integral limit miniumum for the PID." />
+                    <Annotation Term="OData.Description" String="Integral limit minimum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit minimum for the PID." />
                 </Property>
                 <Property Name="Inputs" Type="Collection(Edm.String)">
                     <Annotation Term="OData.Description" String="Input sensors to the PID controller."/>
                     <Annotation Term="OData.LongDescription" String="Input sensors to the PID controller."/>
                 </Property>
                 <Property Name="OutLimitMax" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Output limit maxiumum for the pwm." />
-                    <Annotation Term="OData.LongDescription" String="Output limit maxiumum for the pwm." />
+                    <Annotation Term="OData.Description" String="Output limit maximum for the pwm." />
+                    <Annotation Term="OData.LongDescription" String="Output limit maximum for the pwm." />
                 </Property>
                 <Property Name="OutLimitMin" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Output limit minimum for the pwm." />

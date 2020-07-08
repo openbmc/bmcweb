@@ -103,13 +103,13 @@
                     "type": "number"
                 },
                 "ILimitMax": {
-                    "description": "Integral limit maxiumum for the PID.",
-                    "longDescription": "Integral limit maxiumum for the PID.",
+                    "description": "Integral limit maximum for the PID.",
+                    "longDescription": "Integral limit maximum for the PID.",
                     "type": "number"
                 },
                 "ILimitMin": {
-                    "description": "Integral limit miniumum for the PID.",
-                    "longDescription": "Integral limit miniumum for the PID.",
+                    "description": "Integral limit minimum for the PID.",
+                    "longDescription": "Integral limit minimum for the PID.",
                     "type": "number"
                 },
                 "Inputs": {
@@ -129,8 +129,8 @@
                     "type": "number"
                 },
                 "OutLimitMax": {
-                    "description": "Output limit maxiumum for the pwm.",
-                    "longDescription": "Output limit maxiumum for the pwm.",
+                    "description": "Output limit maximum for the pwm.",
+                    "longDescription": "Output limit maximum for the pwm.",
                     "type": "number"
                 },
                 "OutLimitMin": {
@@ -358,13 +358,13 @@
                     "type": "number"
                 },
                 "ILimitMax": {
-                    "description": "Integral limit maxiumum for the PID.",
-                    "longDescription": "Integral limit maxiumum for the PID.",
+                    "description": "Integral limit maximum for the PID.",
+                    "longDescription": "Integral limit maximum for the PID.",
                     "type": "number"
                 },
                 "ILimitMin": {
-                    "description": "Integral limit miniumum for the PID.",
-                    "longDescription": "Integral limit miniumum for the PID.",
+                    "description": "Integral limit minimum for the PID.",
+                    "longDescription": "Integral limit minimum for the PID.",
                     "type": "number"
                 },
                 "Inputs": {
@@ -384,8 +384,8 @@
                     "type": "number"
                 },
                 "OutLimitMax": {
-                    "description": "Output limit maxiumum for the pwm.",
-                    "longDescription": "Output limit maxiumum for the pwm.",
+                    "description": "Output limit maximum for the pwm.",
+                    "longDescription": "Output limit maximum for the pwm.",
                     "type": "number"
                 },
                 "OutLimitMin": {

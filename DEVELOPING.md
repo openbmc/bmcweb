@@ -219,7 +219,7 @@
 ## clang-tidy
 
 clang-tidy is a tool that can be used to identify coding style violations, bad
-design patterns, and bug prone contructs.  It's not guaranteed that all tests
+design patterns, and bug prone constructs.  It's not guaranteed that all tests
 pass, but ideally should be run on new code to find issues.  To run, make sure
 you have clang++-9 installed, and clang-tidy-9 installed, and run.  the -checks
 field can be modified to enable or disable which clang-tidy checks are run.

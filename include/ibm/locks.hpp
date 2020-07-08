@@ -149,7 +149,7 @@ class Lock
      * This function implements the logic for acquiring a lock on a
      * resource if the incoming request is legitimate without any
      * conflicting requirements & without any conflicting requirement
-     * with the exsiting locks in the lock table.
+     * with the existing locks in the lock table.
      *
      */
 
@@ -387,7 +387,7 @@ inline void Lock::releaseLock(const ListOfTransactionIds& refRids)
         else
         {
             BMCWEB_LOG_DEBUG << "Removing the locks from the lock table "
-                                "failed, tranasction ID: "
+                                "failed, transaction ID: "
                              << id;
         }
     }
@@ -469,7 +469,7 @@ inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
         }
         else
         {
-            BMCWEB_LOG_DEBUG << "Atleast 1 inValid Request id";
+            BMCWEB_LOG_DEBUG << "At least 1 inValid Request id";
             return false;
         }
     }
@@ -496,7 +496,7 @@ inline bool Lock::isValidLockRequest(const LockRequest refLockRecord)
     if ((static_cast<int>(std::get<4>(refLockRecord).size()) > 6) ||
         (static_cast<int>(std::get<4>(refLockRecord).size()) < 2))
     {
-        BMCWEB_LOG_DEBUG << "Validation of Number of Segements Failed";
+        BMCWEB_LOG_DEBUG << "Validation of Number of Segments Failed";
         BMCWEB_LOG_DEBUG << "Number of Segments provied : "
                          << sizeof(std::get<4>(refLockRecord));
         return false;
@@ -642,11 +642,11 @@ inline bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
 }
 
 // This function converts the provided uint64_t resource id's from the two
-// lock requests subjected for comparision, and this function also compares
+// lock requests subjected for comparison, and this function also compares
 // the content by bytes mentioned by a uint32_t number.
 
 // If all the elements in the lock requests which are subjected for comparison
-// are same, then the last comparision would be to check for the respective
+// are same, then the last comparison would be to check for the respective
 // bytes in the resourceid based on the segment length.
 
 inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
@@ -729,7 +729,7 @@ inline bool Lock::isConflictRecord(const LockRequest refLockRecord1,
                 // different resource So no conflict between the lock
                 // records.
                 // BMC is little endian , but the resourceID is formed by
-                // the Managament Console in such a way that, the first byte
+                // the Management Console in such a way that, the first byte
                 // from the MSB Position corresponds to the First Segment
                 // data. Therefore we need to convert the in-comming
                 // resourceID into Big Endian before processing further.
