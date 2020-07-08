@@ -55,7 +55,7 @@ class KvmSession
                          << " bytes from websocket";
         boost::asio::buffer_copy(inputBuffer.prepare(data.size()),
                                  boost::asio::buffer(data));
-        BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Commiting " << data.size()
+        BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Committing " << data.size()
                          << " bytes from websocket";
         inputBuffer.commit(data.size());
 

@@ -670,7 +670,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     output.reserve(((inputLength + 2) / 3) * 4);
 
     // for each 4-bytes sequence from the input, extract 4 6-bits sequences by
-    // droping first two bits
+    // dropping first two bits
     // and regenerate into 3 8-bits sequences
 
     for (size_t i = 0; i < inputLength; i++)
