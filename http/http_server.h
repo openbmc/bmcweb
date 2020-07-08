@@ -273,7 +273,7 @@ class Server
     std::string dateStr;
 
     Handler* handler;
-    std::string serverName = "iBMC";
+    std::string serverName = "bmcweb";
 
     std::chrono::milliseconds tickInterval{};
     std::function<void()> tickFunction;
