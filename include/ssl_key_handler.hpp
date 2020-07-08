@@ -44,7 +44,7 @@ inline bool validateCertificate(X509* const cert)
     X509_STORE* x509Store = X509_STORE_new();
     if (!x509Store)
     {
-        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_new call";
+        BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_new call";
         return false;
     }
 
@@ -52,7 +52,7 @@ inline bool validateCertificate(X509* const cert)
     X509_STORE_CTX* storeCtx = X509_STORE_CTX_new();
     if (!storeCtx)
     {
-        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_CTX_new call";
+        BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_CTX_new call";
         X509_STORE_free(x509Store);
         return false;
     }
@@ -60,7 +60,7 @@ inline bool validateCertificate(X509* const cert)
     int errCode = X509_STORE_CTX_init(storeCtx, x509Store, cert, nullptr);
     if (errCode != 1)
     {
-        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_CTX_init call";
+        BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_CTX_init call";
         X509_STORE_CTX_free(storeCtx);
         X509_STORE_free(x509Store);
         return false;
@@ -94,7 +94,8 @@ inline bool validateCertificate(X509* const cert)
     }
 
     BMCWEB_LOG_ERROR
-        << "Error occured during X509_verify_cert call. ErrorCode: " << errCode;
+        << "Error occurred during X509_verify_cert call. ErrorCode: "
+        << errCode;
     X509_STORE_CTX_free(storeCtx);
     X509_STORE_free(x509Store);
     return false;
