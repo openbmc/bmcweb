@@ -129,7 +129,7 @@ static nlohmann::json vmItemTemplate(const std::string& name,
     item["MediaTypes"] = {"CD", "USBStick"};
     item["TransferMethod"] = "Stream";
     item["TransferProtocolType"] = nullptr;
-    item["Oem"]["OpenBmc"]["WebSocketEndpoint"] = nullptr;
+    item["Oem"]["OpenBMC"]["WebSocketEndpoint"] = nullptr;
     item["Oem"]["OpenBMC"]["@odata.type"] =
         "#OemVirtualMedia.v1_0_0.VirtualMedia";
 
@@ -1039,7 +1039,7 @@ class VirtualMediaCollection : public Node
             "#VirtualMediaCollection.VirtualMediaCollection";
         res.jsonValue["Name"] = "Virtual Media Services";
         res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/" + name + "/VirtualMedia/";
+            "/redfish/v1/Managers/" + name + "/VirtualMedia";
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, name](const boost::system::error_code ec,
