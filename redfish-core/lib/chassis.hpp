@@ -96,7 +96,7 @@ void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
                                   const std::variant<std::string>& value) {
             if (ec)
             {
-                // do not add err msg in redfish response, becaues this is not
+                // do not add err msg in redfish response, because this is not
                 //     mandatory property
                 BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
                 return;
@@ -131,7 +131,7 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
                 subtree) {
             if (ec)
             {
-                // do not add err msg in redfish response, becaues this is not
+                // do not add err msg in redfish response, because this is not
                 //     mandatory property
                 BMCWEB_LOG_ERROR << "DBUS error: no matched iface " << ec
                                  << "\n";

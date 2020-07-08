@@ -713,7 +713,7 @@ constexpr std::array<MessageEntry, 58> registry = {
             "that for the operation destination.  Examples of when this can "
             "happen include during a POST to a collection using the wrong "
             "resource type, an update where the @odata.types do not match or "
-            "on a major version incompatability.",
+            "on a major version incompatibility.",
             "The @odata.type of the request body %1 is incompatible with the "
             "@odata.type of the resource which is %2.",
             "Critical",

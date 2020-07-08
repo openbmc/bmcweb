@@ -2729,7 +2729,7 @@ static void fillPostCodeEntry(
             continue;
         }
 
-        // skip if a sepcific codeIndex is specified and does not match the
+        // skip if a specific codeIndex is specified and does not match the
         // currentIndex
         if ((codeIndex > 0) && (currentCodeIndex != codeIndex))
         {

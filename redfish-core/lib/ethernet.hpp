@@ -880,7 +880,7 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
         }
     };
     // Passing null for gateway, as per redfish spec IPv6StaticAddresses object
-    // does not have assosiated gateway property
+    // does not have associated gateway property
     crow::connections::systemBus->async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
@@ -936,7 +936,7 @@ void getEthernetIfaceData(const std::string& ethiface_id,
             }
 
             extractIPV6Data(ethiface_id, resp, ipv6Data);
-            // Finally make a callback with usefull data
+            // Finally make a callback with useful data
             callback(true, ethData, ipv4Data, ipv6Data);
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
@@ -978,7 +978,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                     if (interface.first ==
                         "xyz.openbmc_project.Network.EthernetInterface")
                     {
-                        // Cut out everyting until last "/", ...
+                        // Cut out everything until last "/", ...
                         const std::string& iface_id = objpath.first.str;
                         std::size_t last_pos = iface_id.rfind("/");
                         if (last_pos != std::string::npos)
