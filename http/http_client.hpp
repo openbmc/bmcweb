@@ -197,7 +197,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         if (requestDataQueue.empty())
         {
             // TODO: Having issue in keeping connection alive. So lets close if
-            // nothing to be trasferred.
+            // nothing to be transferred.
             doClose();
 
             BMCWEB_LOG_DEBUG << "requestDataQueue is empty\n";
