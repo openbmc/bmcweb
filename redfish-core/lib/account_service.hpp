@@ -656,7 +656,7 @@ class AccountService : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG
-                        << "Error Occured in updating the service address";
+                        << "Error Occurred in updating the service address";
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -697,7 +697,7 @@ class AccountService : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG
-                        << "Error occured in updating the username";
+                        << "Error occurred in updating the username";
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -730,7 +730,7 @@ class AccountService : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG
-                        << "Error occured in updating the password";
+                        << "Error occurred in updating the password";
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -762,7 +762,7 @@ class AccountService : public Node
              ldapServerElementName](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << "Error Occured in Updating the base DN";
+                    BMCWEB_LOG_DEBUG << "Error Occurred in Updating the base DN";
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -805,7 +805,7 @@ class AccountService : public Node
              ldapServerElementName](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << "Error Occured in Updating the "
+                    BMCWEB_LOG_DEBUG << "Error Occurred in Updating the "
                                         "username attribute";
                     messages::internalError(asyncResp->res);
                     return;
@@ -840,7 +840,7 @@ class AccountService : public Node
              ldapServerElementName](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << "Error Occured in Updating the "
+                    BMCWEB_LOG_DEBUG << "Error Occurred in Updating the "
                                         "groupname attribute";
                     messages::internalError(asyncResp->res);
                     return;
@@ -876,7 +876,7 @@ class AccountService : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG
-                        << "Error Occured in Updating the service enable";
+                        << "Error Occurred in Updating the service enable";
                     messages::internalError(asyncResp->res);
                     return;
                 }
