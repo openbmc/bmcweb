@@ -16,7 +16,7 @@ using namespace testing;
 // Tests static files are loaded correctly
 TEST(Kvm, BasicRfb)
 {
-    return; // TODO(ed) Make hte code below work again
+    return; // TODO(ed) Make the code below work again
     SimpleApp app;
 
     crow::kvm::requestRoutes(app);

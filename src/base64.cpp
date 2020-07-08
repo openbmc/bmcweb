@@ -99,7 +99,7 @@ bool base64_decode(const std::string& input, std::string& output)
     output.reserve(((input_length + 2) / 3) * 4);
 
     // for each 4-bytes sequence from the input, extract 4 6-bits sequences by
-    // droping first two bits
+    // dropping first two bits
     // and regenerate into 3 8-bits sequences
 
     for (size_t i = 0; i < input_length; i++)
