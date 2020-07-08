@@ -97,7 +97,7 @@ class HypervisorInterfaceCollection : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         const std::array<const char*, 1> interfaces = {
-            "xyz.openbmc_project.Network.EthernetInterface"};
+            "xyz.openbmc_project.Network.MACAddress"};
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code error,
