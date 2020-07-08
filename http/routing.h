@@ -478,7 +478,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     }
 
     // enable_if Arg1 == request && Arg2 == Response
-    // enable_if Arg1 == request && Arg2 != resposne
+    // enable_if Arg1 == request && Arg2 != response
     // enable_if Arg1 != request
 
     template <typename Func, unsigned... Indices>
@@ -551,7 +551,7 @@ class TaggedRule :
             !std::is_same<void, decltype(f(std::declval<Args>()...))>::value,
             "Handler function cannot have void return type; valid return "
             "types: "
-            "string, int, crow::resposne, nlohmann::json");
+            "string, int, crow::response, nlohmann::json");
 
         handler = [f = std::move(f)](const Request&, Response& res,
                                      Args... args) {
@@ -578,7 +578,7 @@ class TaggedRule :
                                            std::declval<Args>()...))>::value,
             "Handler function cannot have void return type; valid return "
             "types: "
-            "string, int, crow::resposne,nlohmann::json");
+            "string, int, crow::response,nlohmann::json");
 
         handler = [f = std::move(f)](const crow::Request& req,
                                      crow::Response& res, Args... args) {
