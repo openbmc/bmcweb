@@ -246,7 +246,7 @@ class EventDestinationCollection : public Node
         // Format: <protocol>://<host>:<port>/<uri>
         // protocol: http/https
         // host: Exclude ' ', ':', '#', '?'
-        // port: Empty or numeric value with ':' seperator.
+        // port: Empty or numeric value with ':' separator.
         // uri: Start with '/' and Exclude '#', ' '
         //      Can include query params(ex: '/event?test=1')
         // TODO: Need to validate hostname extensively(as per rfc)

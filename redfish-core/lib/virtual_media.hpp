@@ -559,7 +559,7 @@ class VirtualMediaActionInsertMedia : public Node
                                 std::optional<bool> writeProtected = true;
                                 std::optional<bool> inserted;
 
-                                // Read obligatory paramters (url of image)
+                                // Read obligatory parameters (url of image)
                                 if (!json_util::readJson(
                                         req, aResp->res, "Image", imageUrl,
                                         "WriteProtected", writeProtected,
