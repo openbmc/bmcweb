@@ -88,18 +88,18 @@
             },
             "properties": {
                 "FFGainCoefficient": {
-                    "description": "Feed forward gain coefficent for the PID.",
-                    "longDescription": "Feed forward gain coefficent for the PID.",
+                    "description": "Feed forward gain coefficient for the PID.",
+                    "longDescription": "Feed forward gain coefficient for the PID.",
                     "type": "number"
                 },
                 "FFOffCoefficient": {
-                    "description": "Feed forward offset coefficent for the PID.",
-                    "longDescription": "Feed forward offset coefficent for the PID.",
+                    "description": "Feed forward offset coefficient for the PID.",
+                    "longDescription": "Feed forward offset coefficient for the PID.",
                     "type": "number"
                 },
                 "ICoefficient": {
-                    "description": "Integral Coefficent for the PID.",
-                    "longDescription": "Integral Coefficent for the PID.",
+                    "description": "Integral Coefficient for the PID.",
+                    "longDescription": "Integral Coefficient for the PID.",
                     "type": "number"
                 },
                 "ILimitMax": {
@@ -150,8 +150,8 @@
                     "type": "array"
                 },
                 "PCoefficient": {
-                    "description": "Polynomial coefficent for the PID.",
-                    "longDescription": "Polynomial coefficent for the PID.",
+                    "description": "Polynomial coefficient for the PID.",
+                    "longDescription": "Polynomial coefficient for the PID.",
                     "type": "number"
                 },
                 "PositiveHysteresis": {
@@ -343,18 +343,18 @@
             },
             "properties": {
                 "FFGainCoefficient": {
-                    "description": "Feed forward gain coefficent for the PID.",
-                    "longDescription": "Feed forward gain coefficent for the PID.",
+                    "description": "Feed forward gain coefficient for the PID.",
+                    "longDescription": "Feed forward gain coefficient for the PID.",
                     "type": "number"
                 },
                 "FFOffCoefficient": {
-                    "description": "Feed forward offset coefficent for the PID.",
-                    "longDescription": "Feed forward offset coefficent for the PID.",
+                    "description": "Feed forward offset coefficient for the PID.",
+                    "longDescription": "Feed forward offset coefficient for the PID.",
                     "type": "number"
                 },
                 "ICoefficient": {
-                    "description": "Integral Coefficent for the PID.",
-                    "longDescription": "Integral Coefficent for the PID.",
+                    "description": "Integral Coefficient for the PID.",
+                    "longDescription": "Integral Coefficient for the PID.",
                     "type": "number"
                 },
                 "ILimitMax": {
@@ -394,8 +394,8 @@
                     "type": "number"
                 },
                 "PCoefficient": {
-                    "description": "Polynomial coefficent for the PID.",
-                    "longDescription": "Polynomial coefficent for the PID.",
+                    "description": "Polynomial coefficient for the PID.",
+                    "longDescription": "Polynomial coefficient for the PID.",
                     "type": "number"
                 },
                 "PositiveHysteresis": {

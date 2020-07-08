@@ -114,16 +114,16 @@
                 <Annotation Term="OData.AdditionalProperties" Bool="false" />
                 <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
                 <Property Name="FFGainCoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Feed forward gain coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Feed forward gain coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Feed forward gain coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward gain coefficient for the PID." />
                 </Property>
                 <Property Name="FFOffCoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Feed forward offset coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Feed forward offset coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Feed forward offset coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward offset coefficient for the PID." />
                 </Property>
                 <Property Name="ICoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Integral Coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Integral Coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Integral Coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID." />
                 </Property>
                 <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Integral limit maxiumum for the PID." />
@@ -158,8 +158,8 @@
                     <Annotation Term="OData.LongDescription" String="Output sensors to the PID controller."/>
                 </Property>
                 <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Polynomial coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Polynomial coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Polynomial coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Polynomial coefficient for the PID." />
                 </Property>
                 <Property Name="SlewNeg" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Negative slew rate for the PID." />
@@ -198,16 +198,16 @@
                 <Annotation Term="OData.AdditionalProperties" Bool="false" />
                 <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
                 <Property Name="FFGainCoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Feed forward gain coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Feed forward gain coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Feed forward gain coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward gain coefficient for the PID." />
                 </Property>
                 <Property Name="FFOffCoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Feed forward offset coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Feed forward offset coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Feed forward offset coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward offset coefficient for the PID." />
                 </Property>
                 <Property Name="ICoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Integral Coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Integral Coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Integral Coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID." />
                 </Property>
                 <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Integral limit maxiumum for the PID." />
@@ -238,8 +238,8 @@
                     <Annotation Term="OData.LongDescription" String="Positive hysteresis for the controller." />
                </Property>
                 <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
-                    <Annotation Term="OData.Description" String="Polynomial coefficent for the PID." />
-                    <Annotation Term="OData.LongDescription" String="Polynomial coefficent for the PID." />
+                    <Annotation Term="OData.Description" String="Polynomial coefficient for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Polynomial coefficient for the PID." />
                 </Property>
                <Property Name="SetPoint" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Setpoint for the PID." />
