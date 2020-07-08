@@ -2079,7 +2079,7 @@ void requestRoutes(Crow<Middlewares...>& app)
         .requires({"Login"})
         .methods("GET"_method)(
             [](const crow::Request& req, crow::Response& res) {
-                res.jsonValue = {{"busses", {{{"name", "system"}}}},
+                res.jsonValue = {{"buses", {{{"name", "system"}}}},
                                  {"status", "ok"}};
                 res.end();
             });
@@ -2253,7 +2253,7 @@ void requestRoutes(Crow<Middlewares...>& app)
                 if (it->find(".") != std::string::npos)
                 {
                     break;
-                    // This check is neccesary as the trailing slash gets
+                    // This check is necessary as the trailing slash gets
                     // parsed as part of our <path> specifier above, which
                     // causes the normal trailing backslash redirector to
                     // fail.

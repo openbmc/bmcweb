@@ -65,7 +65,7 @@ class TimerQueue
                 }
 
                 BMCWEB_LOG_DEBUG << "timer call: " << this << ' ' << step;
-                // we know that timer handlers are very simple currenty; call
+                // we know that timer handlers are very simple currently; call
                 // here
                 x.second();
             }

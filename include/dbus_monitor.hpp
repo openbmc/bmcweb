@@ -130,7 +130,7 @@ void requestRoutes(Crow<Middlewares...>& app)
         .onmessage([&](crow::websocket::Connection& conn,
                        const std::string& data, bool is_binary) {
             DbusWebsocketSession& thisSession = sessions[&conn];
-            BMCWEB_LOG_DEBUG << "Connection " << &conn << " recevied " << data;
+            BMCWEB_LOG_DEBUG << "Connection " << &conn << " received " << data;
             nlohmann::json j = nlohmann::json::parse(data, nullptr, false);
             if (j.is_discarded())
             {
