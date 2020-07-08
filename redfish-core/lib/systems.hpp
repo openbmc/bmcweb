@@ -1391,10 +1391,13 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
         [aResp](const boost::system::error_code ec,
                 const std::vector<std::pair<std::string, VariantType>>&
                     propertiesList) {
+            nlohmann::json& oemPFR =
+                aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
+                // not an error, don't have to have the interface
+                oemPFR["ProvisioningStatus"] = "NotProvisioned";
                 return;
             }
 
@@ -1420,8 +1423,6 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            nlohmann::json& oemPFR =
-                aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
             if (*provState == true)
             {
                 if (*lockState == true)
