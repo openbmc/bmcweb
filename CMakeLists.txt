@@ -300,7 +300,7 @@ message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 # bmcweb
 message ("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    message ("Logging disabled")
+    message ("Logging enabled")
     add_definitions (-DBMCWEB_ENABLE_LOGGING)
     add_definitions (-DBMCWEB_ENABLE_DEBUG)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
