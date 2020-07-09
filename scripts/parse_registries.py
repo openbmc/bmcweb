@@ -64,9 +64,9 @@ def make_getter(dmtf_name, header_name, type_name):
 
 
 files = []
-files.append(make_getter('Base.1.4.0.json',
+files.append(make_getter('Base.1.8.1.json',
                          'base_message_registry.hpp', 'base'))
-files.append(make_getter('TaskEvent.1.0.1.json',
+files.append(make_getter('TaskEvent.1.0.2.json',
                          'task_event_message_registry.hpp', 'task_event'))
 
 # Remove the old files
@@ -102,6 +102,7 @@ for file, json, namespace, url in files:
             registry.write("\"{}\",".format(message["Description"]))
             registry.write("\"{}\",".format(message["Message"]))
             registry.write("\"{}\",".format(message["Severity"]))
+            registry.write("\"{}\",".format(message["MessageSeverity"]))
             registry.write("{},".format(message["NumberOfArgs"]))
             registry.write("{")
             paramTypes = message.get("ParamTypes")
