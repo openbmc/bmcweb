@@ -20,7 +20,7 @@ namespace redfish::message_registries::openbmc
 {
 const Header header = {
     "Copyright 2018 OpenBMC. All rights reserved.",
-    "#MessageRegistry.v1_0_0.MessageRegistry",
+    "#MessageRegistry.v1_4_0.MessageRegistry",
     "OpenBMC.0.1.0",
     "OpenBMC Message Registry",
     "en",
@@ -35,6 +35,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates an ADDDC Correctable Error.",
             "ADDDC Correctable Error.Socket=%1 Channel=%2 DIMM=%3 Rank=%4.",
+            "Warning",
             "Warning",
             4,
             {
@@ -51,6 +52,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that At-Scale Debug enable is detected in hardware.",
             "At-Scale Debug Feature is enabled in hardware.",
             "Critical",
+            "Critical",
             0,
             {},
             "None.",
@@ -61,6 +63,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that At-Scale Debug disable is detected in hardware.",
             "At-Scale Debug Feature is disabled in hardware.",
             "OK",
+            "OK",
             0,
             {},
             "None.",
@@ -69,6 +72,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that At-Scale Debug service is started.",
                      "At-Scale Debug service is started.",
+                     "Critical",
                      "Critical",
                      0,
                      {},
@@ -79,6 +83,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that At-Scale Debug service is stopped.",
                      "At-Scale Debug service is stopped.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -87,6 +92,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates At-Scale Debug connection has been established",
                      "At-Scale Debug service is now connected %1",
+                     "Critical",
                      "Critical",
                      1,
                      {"string"},
@@ -97,6 +103,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates At-Scale Debug connection has ended",
                      "At-Scale Debug service is now disconnected",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -105,6 +112,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates At-Scale Debug connection aborted/failed",
                      "At-Scale Debug connection aborted/failed",
+                     "Critical",
                      "Critical",
                      0,
                      {},
@@ -115,6 +123,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that special user is enabled.",
                      "At-Scale Debug special user is enabled",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -123,6 +132,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that special user is disabled.",
                      "At-Scale Debug special user is disabled",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -135,6 +145,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates BIOS has transitioned control to the OS Loader.",
             "BIOS System Boot.",
             "OK",
+            "OK",
             0,
             {},
             "None.",
@@ -143,6 +154,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates the reason for BIOS firmware panic.",
                      "BIOS firmware panic occurred due to %1.",
+                     "Warning",
                      "Warning",
                      1,
                      {
@@ -155,6 +167,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the reason for BIOS firmware recovery.",
                      "BIOS firmware recovery occurred due to %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {
                          "string",
@@ -165,6 +178,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates BIOS firmware encountered resilience error.",
                      "BIOS firmware resiliency error. Error reason: %1.",
+                     "Critical",
                      "Critical",
                      1,
                      {
@@ -177,6 +191,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "BIOS Power-On Self-Test Code received",
                      "Boot Count: %1: TS Offset: %2; POST Code: %3",
                      "OK",
+                     "OK",
                      3,
                      {"number", "number", "number"},
                      "None.",
@@ -185,6 +200,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates BIOS POST has encountered an error.",
                      "BIOS POST Error. Error Code=%1",
+                     "Warning",
                      "Warning",
                      1,
                      {"number"},
@@ -195,6 +211,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates BIOS Recovery has completed.",
                      "BIOS Recovery Complete.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -203,6 +220,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates BIOS Recovery has started.",
                      "BIOS Recovery Start.",
+                     "Warning",
                      "Warning",
                      0,
                      {},
@@ -213,6 +231,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that BMC kernel panic occurred.",
                      "BMC rebooted due to kernel panic.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -221,6 +240,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates the reason for last BMC firmware panic.",
                      "BMC firmware panic occurred due to %1.",
+                     "Warning",
                      "Warning",
                      1,
                      {
@@ -233,6 +253,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the reason for last BMC firmware recovery.",
                      "BMC firmware recovery occurred due to %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {
                          "string",
@@ -243,6 +264,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates BMC firmware encountered resilience error.",
                      "BMC firmware resiliency error. Error reason: %1.",
+                     "Critical",
                      "Critical",
                      1,
                      {
@@ -256,6 +278,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "of the chassis intrusion has occurred.",
                      "Chassis Intrusion Detected.",
                      "Warning",
+                     "Warning",
                      0,
                      {},
                      "None.",
@@ -265,6 +288,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that chassis intrusion status has recovered.",
                      "Chassis Intrusion Reset.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -273,6 +297,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates the reason for CPLD firmware panic.",
                      "CPLD firmware panic occurred due to %1.",
+                     "Warning",
                      "Warning",
                      1,
                      {
@@ -285,6 +310,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the reason for CPLD firmware recovery.",
                      "CPLD firmware recovery occurred due to %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {
                          "string",
@@ -295,6 +321,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates CPLD firmware encountered resilience error.",
                      "CPLD firmware resiliency error. Error reason: %1.",
+                     "Critical",
                      "Critical",
                      1,
                      {
@@ -308,6 +335,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "the specified type or cause.",
                      "CPU Error Occurred: %1.",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "None.",
@@ -317,6 +345,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the specified CPU power/current "
                      "rating is incompatible with the board.",
                      "CPU %1 Mismatch.",
+                     "Critical",
                      "Critical",
                      1,
                      {"number"},
@@ -328,6 +357,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "trip has been asserted.",
                      "CPU %1 Thermal Trip.",
                      "Critical",
+                     "Critical",
                      1,
                      {"number"},
                      "None.",
@@ -337,6 +367,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the system DC power is off.",
                      "Host system DC power is off",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -345,6 +376,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that the system DC power is on.",
                      "Host system DC power is on",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -356,6 +388,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "the specified type or cause.",
                      "Drive Error Occurred: %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
@@ -364,6 +397,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that the event log has been cleared.",
                      "Event Log Cleared.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -374,6 +408,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that a system fan has been inserted.",
                      "%1 inserted.",
                      "OK",
+                     "OK",
                      1,
                      {"string"},
                      "None.",
@@ -382,6 +417,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that system fan redundancy has been lost.",
                      "Fan redundancy lost.",
+                     "Warning",
                      "Warning",
                      0,
                      {},
@@ -392,6 +428,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that system fan redundancy has been regained.",
                      "Fan redundancy regained.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -400,6 +437,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that a system fan has been removed.",
                      "%1 removed.",
+                     "OK",
                      "OK",
                      1,
                      {"string"},
@@ -411,6 +449,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "%1 firmware update to version %2 completed "
                      "successfully.",
                      "OK",
+                     "OK",
                      2,
                      {"string", "string"},
                      "None.",
@@ -420,6 +459,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a firmware update has failed.",
                      "%1 firmware update to version %2 failed: %3.",
                      "Warning",
+                     "Warning",
                      3,
                      {"string", "string", "string"},
                      "None.",
@@ -428,6 +468,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates a firmware update has started.",
                      "%1 firmware update to version %2 started.",
+                     "OK",
                      "OK",
                      2,
                      {"string", "string"},
@@ -439,6 +480,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates a general firmware security violation has occurred.",
             "Firmware security violation: %1.",
             "Critical",
+            "Critical",
             1,
             {"string"},
             "None.",
@@ -449,6 +491,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "interface with an invalid username or password.",
                      "Invalid username or password attempted on %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
@@ -457,6 +500,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that the uploaded file was invalid.",
                      "Invalid file uploaded to %1: %2.",
+                     "Warning",
                      "Warning",
                      2,
                      {"string", "string"},
@@ -468,6 +512,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that an inventory item with the specified model, "
             "type, and serial number was installed.",
             "%1 %2 with serial number %3 was installed.",
+            "OK",
             "OK",
             3,
 
@@ -485,6 +530,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "type, and serial number was removed.",
             "%1 %2 with serial number %3 was removed.",
             "OK",
+            "OK",
             3,
 
             {
@@ -500,6 +546,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates Intel UPI link width has reduced to half width.",
             "Intel UPI link width reduced to half. Node=%1.",
             "Warning",
+            "Warning",
             1,
 
             {
@@ -512,6 +559,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates Intel UPI link width has reduced to quarter width.",
             "Intel UPI link width reduced to quarter. Node=%1.",
+            "Warning",
             "Warning",
             1,
 
@@ -526,6 +574,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that there is a host watchdog event.",
                      "Host Watchdog Event: %1",
                      "OK",
+                     "OK",
                      1,
 
                      {
@@ -539,6 +588,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "of the LAN leash has lost.",
                      "%1 LAN leash lost.",
                      "Warning",
+                     "Warning",
                      1,
                      {
                          "string",
@@ -550,6 +600,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that LAN link status has reconnected.",
                      "%1 LAN leash regained.",
                      "OK",
+                     "OK",
                      1,
                      {
                          "string",
@@ -560,6 +611,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates a Legacy PCI PERR.",
                      "Legacy PCI PERR. Bus=%1 Device=%2 Function=%3.",
+                     "Warning",
                      "Warning",
                      3,
 
@@ -574,6 +626,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates a Legacy PCI SERR.",
                      "Legacy PCI SERR. Bus=%1 Device=%2 Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -590,6 +643,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "or Manufacturing mode.",
                      "Entered Manufacturing Mode.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -599,6 +653,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the BMC exited Factory, "
                      "or Manufacturing mode.",
                      "Exited Manufacturing Mode.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -611,6 +666,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Intel ME power sensor auto-configuration failed. Power "
                      "monitoring, limiting and HW protection features might "
                      "be unavailable. Failure reason: %1",
+                     "Critical",
                      "Critical",
                      1,
                      {"string"},
@@ -626,6 +682,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Determined sources for domain readings are: DC Power: %1 ; "
             "Chassis Power: %2 ; PSU Efficiency: %3 ; Unamanaged power: %4",
             "OK",
+            "OK",
             4,
             {"string", "string", "string", "string"},
             "None.",
@@ -637,6 +694,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Intel ME has detected following issue with Intel Boot "
                      "Guard: %1",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "None.",
@@ -646,6 +704,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that Intel ME has detected situation in "
                      "which CPU Debug Capability is disabled.",
                      "CPU Debug Capability disabled",
+                     "Warning",
                      "Warning",
                      0,
                      {},
@@ -657,6 +716,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Update (DFU) of Intel ME",
                      "Intel ME Firmware switched to recovery mode to perform "
                      "full update from BIOS.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -673,6 +733,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "failure action and Intel ME forced shutdown. BMC probably did "
             "not respond correctly to Chassis Control.",
             "Warning",
+            "Warning",
             0,
             {},
             "Verify the Intel Node Manager policy configuration.",
@@ -683,6 +744,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that Intel ME has ben restored to factory preset.",
             "Intel ME has performed automatic reset to factory "
             "presets due to following reason: %1",
+            "Critical",
             "Critical",
             1,
             {"string"},
@@ -695,6 +757,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Intel ME has performed automatic reset to factory "
             "presets due to following reason: %1",
             "OK",
+            "OK",
             1,
             {"string"},
             "If error is persistent the Flash device must be replaced.",
@@ -705,6 +768,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that Intel ME has encountered firmware "
             "exception during execution.",
             "Intel ME has encountered firmware exception. Error code = %1",
+            "Warning",
             "Warning",
             1,
             {"string"},
@@ -721,6 +785,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the reason for ME firmware panic.",
                      "ME firmware panic occurred due to %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {
                          "string",
@@ -732,6 +797,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the reason for ME firmware recovery.",
                      "ME firmware recovery occurred due to %1.",
                      "Warning",
+                     "Warning",
                      1,
                      {
                          "string",
@@ -742,6 +808,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates ME firmware encountered resilience error.",
                      "ME firmware resiliency error. Error reason: %1.",
+                     "Critical",
                      "Critical",
                      1,
                      {
@@ -757,6 +824,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Intel ME has encountered an error during Flash erasure "
                      "procedure probably due to Flash part corruption.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "The Flash device must be replaced.",
@@ -767,6 +835,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "during IO to flash device.",
                      "Intel ME has encountered problem during IO to flash "
                      "device. Reason: %1",
+                     "Critical",
                      "Critical",
                      1,
                      {"string"},
@@ -780,6 +849,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Intel ME has encountered problem during IO to flash "
                      "device. Reason: %1",
                      "OK",
+                     "OK",
                      1,
                      {"string"},
                      "If flash wear-out protection occurred wait until it "
@@ -792,6 +862,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Intel ME has detected invalid flash descriptor region. "
                      "Following error is detected: %1",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "Flash Descriptor Region must be created correctly.",
@@ -803,6 +874,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "threshold of flash write operations.",
             "Warning threshold for number of flash operations has been "
             "exceeded. Current percentage of write operations capacity: %1",
+            "Warning",
             "Warning",
             1,
             {"number"},
@@ -818,6 +890,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "may be either caused by Flash device corruption or "
             "failed upgrade procedure.",
             "Critical",
+            "Critical",
             0,
             {},
             "Either the Flash device must be replaced (if error is "
@@ -832,6 +905,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Error during Intel ME execution. Watchdog "
             "timeout has expired.",
             "Critical",
+            "Critical",
             0,
             {},
             "Firmware should automatically recover from error state. "
@@ -844,6 +918,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "operational mode due to wrong configuration.",
                      "Wrong manufacturing configuration detected by Intel ME "
                      "Firmware. Unable to start operational mode. Reason: %1",
+                     "Critical",
                      "Critical",
                      1,
                      {"string"},
@@ -860,6 +935,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "when MCTP was not configured by BIOS or a defect which "
                      "may need a Host reset to recover from. Details: %1",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "Recovery via CPU Host reset or platform reset. If error "
@@ -871,6 +947,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a Correctable Memory ECC error.",
                      "Memory ECC correctable error. Socket=%1 "
                      "Channel=%2 DIMM=%3 Rank=%4.",
+                     "Warning",
                      "Warning",
                      4,
 
@@ -888,6 +965,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Memory ECC uncorrectable error. Socket=%1 Channel=%2 "
                      "DIMM=%3 Rank=%4.",
                      "Critical",
+                     "Critical",
                      4,
 
                      {
@@ -903,6 +981,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a Command and Address parity error.",
                      "Command and Address parity error. Socket=%1 Channel=%2 "
                      "DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
+                     "Critical",
                      "Critical",
                      5,
 
@@ -921,6 +1000,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Memory parity error. Socket=%1 Channel=%2 "
                      "DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
                      "Critical",
+                     "Critical",
                      5,
 
                      {
@@ -937,6 +1017,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates Memory RAS Disabled Configuration Status.",
                      "Memory RAS Configuration Disabled. Error=%1 Mode=%2.",
                      "OK",
+                     "OK",
                      2,
 
                      {
@@ -949,6 +1030,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates Memory RAS Enabled Configuration Status.",
                      "Memory RAS Configuration Enabled. Error=%1 Mode=%2.",
+                     "OK",
                      "OK",
                      2,
 
@@ -964,6 +1046,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Memory RAS Mode Select Disabled. Prior Mode=%1 "
                      "Selected Mode=%2.",
                      "OK",
+                     "OK",
                      2,
 
                      {
@@ -977,6 +1060,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates Memory RAS Enabled Mode Selection.",
                      "Memory RAS Mode Select Enabled. Prior Mode=%1 Selected "
                      "Mode=%2.",
+                     "OK",
                      "OK",
                      2,
 
@@ -992,6 +1076,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "by the specified component.",
                      "Memory ThermTrip asserted: %1.",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "None.",
@@ -1001,6 +1086,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that Intel ME has encountered "
                      "problems in initializing Multi-PCH mode.",
                      "Intel ME error in Multi-PCH mode: %1",
+                     "Critical",
                      "Critical",
                      1,
                      {"string"},
@@ -1017,6 +1103,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "BIOS or a defect which may require a CPU Host reset to "
             "recover from. Details: %1",
             "Critical",
+            "Critical",
             1,
             {"string"},
             "Recovery via CPU Host reset or platform reset. If error is "
@@ -1027,6 +1114,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates that Intel ME has encountered issue with Intel PTT",
             "Intel ME has detected following issue with Intel PTT: %1",
+            "Warning",
             "Warning",
             1,
             {"string"},
@@ -1041,6 +1129,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "pin asserted. Pin number is configurable in factory "
             "presets, Default recovery pin is MGPIO1.",
             "OK",
+            "OK",
             0,
             {},
             "Deassert recovery GPIO and reset the Intel ME back to "
@@ -1053,6 +1142,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates events related to Intel ME restricted mode.",
                      "Intel ME restricted mode information: %1",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "None.",
@@ -1063,6 +1153,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicate that Intel ME encountered SMBus link error.",
             "Intel ME has detected SMBus link error. "
             "Sensor Bus: %1 , MUX Address: %2 ",
+            "Critical",
             "Critical",
             2,
             {"string", "string"},
@@ -1075,6 +1166,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates that Intel ME has encountered UMA operation error.",
             "Intel ME has encountered UMA operation error. Details: %1",
+            "Critical",
             "Critical",
             1,
             {"string"},
@@ -1090,6 +1182,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Feature not supported in current segment detected by "
                      "Intel ME Firmware. Details: %1",
                      "Critical",
+                     "Critical",
                      1,
                      {"string"},
                      "Proper FW configuration must be updated or use the "
@@ -1100,6 +1193,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the mirroring redundancy state is degraded.",
                      "Mirroring redundancy state degraded. Socket=%1 "
                      "Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
+                     "Warning",
                      "Warning",
                      5,
 
@@ -1119,6 +1213,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Mirroring redundancy state fully redundant. Socket=%1 "
             "Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
             "OK",
+            "OK",
             5,
 
             {
@@ -1135,6 +1230,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the NMI button was pressed.",
                      "NMI Button Pressed.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1145,6 +1241,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Interrupt has been generated.",
                      "NMI Diagnostic Interrupt.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1154,6 +1251,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Correctable Advisory Non-fatal Error.",
                      "PCIe Correctable Advisory Non-fatal Error. Bus=%1 "
                      "Device=%2 Function=%3.",
+                     "Warning",
                      "Warning",
                      3,
 
@@ -1170,6 +1268,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
                      "PCIe Correctable Bad DLLP. Bus=%1 Device=%2 Function=%3.",
                      "Warning",
+                     "Warning",
                      3,
 
                      {
@@ -1184,6 +1283,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Correctable Bad TLP Error.",
 
                      "PCIe Correctable Bad TLP. Bus=%1 Device=%2 Function=%3.",
+                     "Warning",
                      "Warning",
                      3,
 
@@ -1200,6 +1300,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Correctable Header Log Overflow. Bus=%1 Device=%2 "
                      "Function=%3.",
                      "Warning",
+                     "Warning",
                      3,
 
                      {
@@ -1214,6 +1315,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Correctable Internal Error.",
                      "PCIe Correctable Internal Error. Bus=%1 Device=%2 "
                      "Function=%3.",
+                     "Warning",
                      "Warning",
                      3,
 
@@ -1230,6 +1332,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Correctable Link BW Changed. Bus=%1 "
                      "Device=%2 Function=%3.",
                      "Warning",
+                     "Warning",
                      3,
 
                      {
@@ -1244,6 +1347,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Correctable Receiver Error.",
                      "PCIe Correctable Receiver Error. Bus=%1 Device=%2 "
                      "Function=%3.",
+                     "Warning",
                      "Warning",
                      3,
 
@@ -1260,6 +1364,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Correctable Replay Num Rollover. Bus=%1 Device=%2 "
                      "Function=%3.",
                      "Warning",
+                     "Warning",
                      3,
 
                      {
@@ -1274,6 +1379,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Correctable Replay Timer Timeout.",
                      "PCIe Correctable Replay Timer Timeout. Bus=%1 "
                      "Device=%2 Function=%3.",
+                     "Warning",
                      "Warning",
                      3,
 
@@ -1290,6 +1396,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Correctable Unspecified AER Error. "
                      "Bus=%1 Device=%2 Function=%3.",
                      "Warning",
+                     "Warning",
                      3,
 
                      {
@@ -1305,6 +1412,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
                      "PCIe Fatal ACS Violation. Bus=%1 Device=%2 Function=%3.",
                      "Critical",
+                     "Critical",
                      3,
 
                      {
@@ -1319,6 +1427,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Atomic Egress Blocked Error.",
                      "PCIe Fatal Atomic Egress Blocked. Bus=%1 Device=%2 "
                      "Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -1336,6 +1445,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
             "PCIe Fatal Completer Abort. Bus=%1 Device=%2 Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1351,6 +1461,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates a PCIe Completion Timeout Error.",
 
             "PCIe Fatal Completion Timeout. Bus=%1 Device=%2 Function=%3.",
+            "Critical",
             "Critical",
             3,
 
@@ -1369,6 +1480,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "PCIe Fatal Data Link Layer Protocol Error. Bus=%1 Device=%2 "
             "Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1382,6 +1494,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates a PCIe ECRC Error.",
                      "PCIe Fatal ECRC Error. Bus=%1 Device=%2 Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -1399,6 +1512,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Fatal Flow Control Protocol Error. Bus=%1 Device=%2 "
                      "Function=%3.",
                      "Critical",
+                     "Critical",
                      3,
 
                      {
@@ -1415,6 +1529,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
             "PCIe Fatal Malformed TLP Error. Bus=%1 Device=%2 Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1429,6 +1544,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe MC Blocked TLP Error.",
                      "PCIe Fatal MC Blocked TLP Error. Bus=%1 "
                      "Device=%2 Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -1446,6 +1562,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
             "PCIe Fatal Poisoned TLP Error. Bus=%1 Device=%2 Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1460,6 +1577,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Receiver Buffer Overflow Error.",
                      "PCIe Fatal Receiver Buffer Overflow. Bus=%1 Device=%2 "
                      "Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -1478,6 +1596,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "PCIe Fatal Received ERR_NONFATAL Message. Bus=%1 Device=%2 "
             "Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1495,6 +1614,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Fatal Received Fatal Message From Downstream. "
                      "Bus=%1 Device=%2 Function=%3.",
                      "Critical",
+                     "Critical",
                      3,
 
                      {
@@ -1510,6 +1630,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Fatal Surprise Link Down Error. Bus=%1 Device=%2 "
                      "Function=%3.",
                      "Critical",
+                     "Critical",
                      3,
 
                      {
@@ -1524,6 +1645,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe TLP Prefix Blocked Error.",
                      "PCIe Fatal TLP Prefix Blocked Error. Bus=%1 Device=%2 "
                      "Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -1542,6 +1664,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "PCIe Fatal Uncorrectable Internal Error. Bus=%1 Device=%2 "
             "Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1557,6 +1680,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "PCIe Fatal Unexpected Completion. Bus=%1 Device=%2 "
                      "Function=%3.",
                      "Critical",
+                     "Critical",
                      3,
 
                      {
@@ -1571,6 +1695,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a PCIe Unspecified Non-AER Fatal Error.",
                      "PCIe Fatal Unspecified Non-AER Fatal Error. Bus=%1 "
                      "Device=%2 Function=%3.",
+                     "Critical",
                      "Critical",
                      3,
 
@@ -1588,6 +1713,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
             "PCIe Fatal Unsupported Request. Bus=%1 Device=%2 Function=%3.",
             "Critical",
+            "Critical",
             3,
 
             {
@@ -1602,6 +1728,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the power button was pressed.",
                      "Power Button Pressed.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -1612,6 +1739,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "BMC has applied the restore policy.",
                      "Power restore policy applied.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -1620,6 +1748,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates an error in power supply configuration.",
                      "Power supply %1 configuration error.",
+                     "Warning",
                      "Warning",
                      1,
                      {"string"},
@@ -1632,6 +1761,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "from a failure.",
             "Power supply %1 configuration error recovered.",
             "OK",
+            "OK",
             1,
             {"string"},
             "None.",
@@ -1641,6 +1771,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates that the specified power supply fan has failed.",
             "Power supply %1 fan %2 failed.",
+            "Warning",
             "Warning",
             2,
             {"string", "string"},
@@ -1652,6 +1783,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that the power supply fan recovered from a failure.",
             "Power supply %1 fan %2 recovered.",
             "OK",
+            "OK",
             2,
             {"string", "string"},
             "None.",
@@ -1660,6 +1792,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that a power supply has failed.",
                      "Power supply %1 failed.",
+                     "Warning",
                      "Warning",
                      1,
                      {"string"},
@@ -1670,6 +1803,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that a power supply is predicted to fail.",
                      "Power supply %1 failure predicted.",
                      "Warning",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
@@ -1678,6 +1812,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that a power supply has been inserted.",
                      "Power supply %1 inserted.",
+                     "OK",
                      "OK",
                      1,
                      {"string"},
@@ -1690,6 +1825,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Power supply power good failed to assert within %1 "
                      "milliseconds.",
                      "Critical",
+                     "Critical",
                      1,
                      {"number"},
                      "None.",
@@ -1699,6 +1835,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that a power supply has lost input power.",
                      "Power supply %1 power lost.",
                      "Warning",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
@@ -1707,6 +1844,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that a power supply input power was restored.",
                      "Power supply %1 power restored.",
+                     "OK",
                      "OK",
                      1,
                      {"string"},
@@ -1718,6 +1856,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "from a predicted failure.",
                      "Power supply %1 predicted failure recovered.",
                      "OK",
+                     "OK",
                      1,
                      {"string"},
                      "None.",
@@ -1727,6 +1866,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that a power supply recovered from a failure.",
                      "Power supply %1 recovered.",
                      "OK",
+                     "OK",
                      1,
                      {"string"},
                      "None.",
@@ -1735,6 +1875,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that a power supply has been removed.",
                      "Power supply %1 removed.",
+                     "Warning",
                      "Warning",
                      1,
                      {"string"},
@@ -1746,6 +1887,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "nonredundant but is still not in full redundancy mode.",
                      "Power Unit degraded from nonredundant.",
                      "Warning",
+                     "Warning",
                      0,
                      {},
                      "None.",
@@ -1756,6 +1898,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "redundancy mode.",
                      "Power Unit degraded from redundant.",
                      "Warning",
+                     "Warning",
                      0,
                      {},
                      "None.",
@@ -1764,6 +1907,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that power unit redundancy has been degraded.",
                      "Power Unit Redundancy degraded.",
+                     "Warning",
                      "Warning",
                      0,
                      {},
@@ -1778,6 +1922,7 @@ constexpr std::array<MessageEntry, 182> registry = {
 
             "Power Unit NonRedundant from insufficient to sufficient.",
             "Warning",
+            "Warning",
             0,
             {},
             "None.",
@@ -1788,6 +1933,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "power to support redundancy.",
                      "Power Unit NonRedundant and has insufficient resource.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1796,6 +1942,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that power unit redundancy has been lost.",
                      "Power Unit Redundancy lost.",
+                     "Warning",
                      "Warning",
                      0,
                      {},
@@ -1806,6 +1953,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates that power unit full redundancy has been regained.",
             "Power Unit Redundancy regained.",
+            "OK",
             "OK",
             0,
             {},
@@ -1818,6 +1966,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "has sufficient power to support redundancy.",
             "Power Unit Nonredundant but has sufficient resource.",
             "Warning",
+            "Warning",
             0,
             {},
             "None.",
@@ -1826,6 +1975,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that the reset button was pressed.",
                      "Reset Button Pressed.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -1836,6 +1986,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the BMC 2nd boot flash is enabled.",
                      "BMC 2nd boot flash is enabled.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1845,6 +1996,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the P2A bridge is enabled.",
                      "P2A(PCIe to AHB) bridge is enabled.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1853,6 +2005,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that the uart port debug is enabled.",
                      "Uart port debug is enabled.",
+                     "Critical",
                      "Critical",
                      0,
                      {},
@@ -1864,6 +2017,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that password computing hash algorithm changed.",
             "Password computing hash algorithm is changed to sha256/sha512.",
             "OK",
+            "OK",
             0,
             {},
             "None.",
@@ -1874,6 +2028,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that non root user assigned with user ID zero.",
                      "User ID Zero is assigned with non-root user.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1882,6 +2037,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that non root user ID is removed",
                      "Non root user assigned with user ID zero is removed.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -1893,6 +2049,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that system root user is enabled.",
                      "User root is enabled.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1901,6 +2058,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that system root user is disabled.",
                      "User root is disabled.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -1912,6 +2070,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that unsupported shell is enabled.",
                      "Unsupported shell is enabled.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -1920,6 +2079,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that unsupported shell is removed.",
                      "Unsupported shell is removed.",
+                     "OK",
                      "OK",
                      0,
                      {},
@@ -1932,6 +2092,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Indicates that weak password computing hash algorithm is enabled.",
             "Weak password computing hash algorithm is enabled.",
             "Critical",
+            "Critical",
             0,
             {},
             "None.",
@@ -1941,6 +2102,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates a SEL entry was added using the "
                      "Add SEL Entry or Platform Event command.",
                      "SEL Entry Added: %1",
+                     "OK",
                      "OK",
                      1,
 
@@ -1956,6 +2118,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "%1 sensor crossed a critical high threshold going "
                      "high. Reading=%2 Threshold=%3.",
                      "Critical",
+                     "Critical",
                      3,
                      {"string", "number", "number"},
                      "Check the sensor or subsystem for errors.",
@@ -1966,6 +2129,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "critical high threshold going low.",
                      "%1 sensor crossed a critical high threshold going low. "
                      "Reading=%2 Threshold=%3.",
+                     "OK",
                      "OK",
                      3,
                      {"string", "number", "number"},
@@ -1978,6 +2142,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "%1 sensor crossed a critical low threshold going high. "
                      "Reading=%2 Threshold=%3.",
                      "OK",
+                     "OK",
                      3,
                      {"string", "number", "number"},
                      "None.",
@@ -1988,6 +2153,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "critical low threshold going low.",
                      "%1 sensor crossed a critical low threshold going low. "
                      "Reading=%2 Threshold=%3.",
+                     "Critical",
                      "Critical",
                      3,
                      {"string", "number", "number"},
@@ -2000,6 +2166,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "%1 sensor crossed a warning high threshold going high. "
                      "Reading=%2 Threshold=%3.",
                      "Warning",
+                     "Warning",
                      3,
                      {"string", "number", "number"},
                      "Check the sensor or subsystem for errors.",
@@ -2010,6 +2177,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "warning high threshold going low.",
                      "%1 sensor crossed a warning high threshold going low. "
                      "Reading=%2 Threshold=%3.",
+                     "OK",
                      "OK",
                      3,
                      {"string", "number", "number"},
@@ -2022,6 +2190,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "%1 sensor crossed a warning low threshold going high. "
                      "Reading=%2 Threshold=%3.",
                      "OK",
+                     "OK",
                      3,
                      {"string", "number", "number"},
                      "None.",
@@ -2033,6 +2202,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "%1 sensor crossed a warning low threshold going low. "
                      "Reading=%2 Threshold=%3.",
                      "Warning",
+                     "Warning",
                      3,
                      {"string", "number", "number"},
                      "Check the sensor or subsystem for errors.",
@@ -2041,6 +2211,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that a service has exited unsuccessfully.",
                      "Service %1 has exited unsuccessfully.",
+                     "Warning",
                      "Warning",
                      1,
                      {"string"},
@@ -2051,6 +2222,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates the sparing redundancy state is degraded.",
                      "Sparing redundancy state degraded. Socket=%1 "
                      "Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
+                     "Warning",
                      "Warning",
                      5,
 
@@ -2070,6 +2242,7 @@ constexpr std::array<MessageEntry, 182> registry = {
             "Sparing redundancy state fully redundant. Socket=%1 "
             "Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
             "OK",
+            "OK",
             5,
 
             {
@@ -2086,6 +2259,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that an SSB Thermal trip has been asserted.",
                      "SSB Thermal trip.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -2098,6 +2272,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "The system interface is in the disabled provisioned "
                      "state.",
                      "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
@@ -2108,6 +2283,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "unprovisioned state. All commands are permitted to "
                      "execute through the system interface.",
                      "The system interface is in the unprovisioned state.",
+                     "Critical",
                      "Critical",
                      0,
                      {},
@@ -2121,6 +2297,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "The system interface is in the whitelist provisioned "
                      "state.",
                      "Warning",
+                     "Warning",
                      0,
                      {},
                      "None.",
@@ -2132,6 +2309,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "System power good failed to assert within %1 "
                      "milliseconds (VR failure).",
                      "Critical",
+                     "Critical",
                      1,
                      {"number"},
                      "None.",
@@ -2142,6 +2320,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "system was powered on.",
                      "System Power Lost.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -2150,6 +2329,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                  {
                      "Indicates that the system failed to power off.",
                      "System Power-Off Failed.",
+                     "Critical",
                      "Critical",
                      0,
                      {},
@@ -2160,6 +2340,7 @@ constexpr std::array<MessageEntry, 182> registry = {
                      "Indicates that the system failed to power on.",
                      "System Power-On Failed.",
                      "Critical",
+                     "Critical",
                      0,
                      {},
                      "None.",
@@ -2169,6 +2350,7 @@ constexpr std::array<MessageEntry, 182> registry = {
         {
             "Indicates that the specified voltage regulator overheated.",
             "%1 Voltage Regulator Overheated.",
+            "Critical",
             "Critical",
             1,
             {"string"},
