@@ -258,8 +258,8 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["TotalCores"] = totalCores;
             return;
         },
-        service, "/xyz/openbmc_project/inventory",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        service, "/xyz/openbmc_project", "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
 }
 
 void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
@@ -375,6 +375,63 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0, inventoryItems);
+}
+
+void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId)
+{
+    BMCWEB_LOG_DEBUG << "Get Cpu Data Extra.";
+    std ::cerr << "getCpuDataExtra cpuId " << cpuId << "\n";
+    crow::connections::systemBus->async_method_call(
+        [cpuId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::ManagedObjectType& dbusData) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (const auto& object : dbusData)
+            {
+                if (boost::starts_with(object.first.str,
+                                       "/xyz/openbmc_project/CPUInfo/cpu") &&
+                    boost::ends_with(object.first.str, cpuId))
+                {
+                    for (const auto& interface : object.second)
+                    {
+                        if (interface.first == "xyz.openbmc_project.CPUInfo")
+                        {
+                            for (const auto& property : interface.second)
+                            {
+                                if (property.first == "PPIN")
+                                {
+                                    const uint64_t* ppin =
+                                        std::get_if<uint64_t>(&property.second);
+                                    if (ppin != nullptr)
+                                    {
+                                        aResp->res.jsonValue["SerialNumber"] =
+                                            *ppin;
+                                    }
+                                }
+                                else if (property.first == "SSpec")
+                                {
+                                    const std::string* sspec =
+                                        std::get_if<std::string>(
+                                            &property.second);
+                                    if (sspec != nullptr)
+                                    {
+                                        aResp->res.jsonValue["Model"] = *sspec;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "xyz.openbmc_project.CPUInfo", "/",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
 void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
@@ -585,6 +642,7 @@ class Processor : public Node
         getCpuData(asyncResp, processorId,
                    {"xyz.openbmc_project.Inventory.Item.Cpu",
                     "xyz.openbmc_project.Inventory.Item.Accelerator"});
+        getCpuData(asyncResp, processorId);
     }
 };
 
