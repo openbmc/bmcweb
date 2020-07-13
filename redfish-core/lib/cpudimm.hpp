@@ -262,6 +262,49 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
+                     const std::string& service, const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
+    crow::connections::systemBus->async_method_call(
+        [objPath, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<std::string, uint32_t, uint16_t,
+                                          bool>>& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (const auto& property : properties)
+            {
+                if (property.first == "SerialNumber")
+                {
+                    const std::string* sn =
+                        std::get_if<std::string>(&property.second);
+                    if (sn != nullptr)
+                    {
+                        aResp->res.jsonValue["SerialNumber"] = *sn;
+                    }
+                }
+                else if (property.first == "Model")
+                {
+                    const std::string* model =
+                        std::get_if<std::string>(&property.second);
+                    if (model != nullptr)
+                    {
+                        aResp->res.jsonValue["Model"] = *model;
+                    }
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Decorator.Asset");
+}
+
 void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
                                  const std::string& acclrtrId,
                                  const std::string& service,
@@ -351,8 +394,15 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId,
                     for (const auto& service : object.second)
                     {
                         for (const auto& inventory : service.second)
-                            if (inventory ==
-                                "xyz.openbmc_project.Inventory.Item.Cpu")
+                        {
+                            if (inventory == "xyz.openbmc_project."
+                                             "Inventory.Decorator.Asset")
+                            {
+                                getCpuAssetData(aResp, service.first,
+                                                object.first);
+                            }
+                            else if (inventory ==
+                                     "xyz.openbmc_project.Inventory.Item.Cpu")
                             {
                                 getCpuDataByService(aResp, cpuId, service.first,
                                                     object.first);
@@ -363,8 +413,9 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId,
                                 getAcceleratorDataByService(
                                     aResp, cpuId, service.first, object.first);
                             }
-                        return;
+                        }
                     }
+                    return;
                 }
             }
             // Object not found
@@ -584,6 +635,7 @@ class Processor : public Node
 
         getCpuData(asyncResp, processorId,
                    {"xyz.openbmc_project.Inventory.Item.Cpu",
+                    "xyz.openbmc_project.Inventory.Decorator.Asset",
                     "xyz.openbmc_project.Inventory.Item.Accelerator"});
     }
 };
