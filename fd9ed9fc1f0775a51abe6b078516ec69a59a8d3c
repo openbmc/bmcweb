@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "fda69059_01cbed70",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-13T22:03:03Z",
+      "side": 1,
+      "message": "So, for example, this parser: https://github.com/FooBarWidget/multipart-parser\n\nIs a single header that we could just include here.  When compiled with the same flags that bmcweb uses, and gzip compressed, it compresses down to 8.3kB, which is much closer to what I would expect for a simple parser like this, and nearly 10X smaller.  By any chance, did you take a look at that parser before you included this one?  Looking at the API, it\u0027s also a parser style, which means that we can directly link it to the request body type in beast, and reduce our memory footprint for large files even more.\n\n\ncompile flags:\ng++ --std\u003dc++17 -Os -flto -fno-rtti -fvisibility\u003dhidden -fvisibility-inlines-hidden -Wl,--exclude-libs,ALL multipart.cpp\ngzip a.out\nls -alh a.out.gz\n➜  multipart-parser git:(master) ✗ ls -alh a.out.gz\n-rwxrwxr-x 1 ed ed 8.3K Jul 13 14:34 a.out.gz\n\n\nDigging more into mimetic it\u0027s very clear why it\u0027s large: it implements a number of library features for internal data structures (presumably for speed).  The one i linked relies on std library implementations, which the bmc already has, so it requires nothing to add.\n\nIt should be noted, in the case where I pointed out that mimetic can\u0027t tell the difference between a parse error and a missing key, this one has a feed() call, that returns the characters parsed, and can be compared directly.\n\nOverall, on first glance, I suspect it\u0027s a much better fit for the project.",
+      "parentUuid": "68927832_09f7acd0",
+      "range": {
+        "startLine": 391,
+        "startChar": 31,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "035ad007_9783f8af",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
