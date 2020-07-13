@@ -971,6 +971,30 @@
     },
     {
       "key": {
+        "uuid": "88320fe8_d49ef5c6",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-13T13:51:29Z",
+      "side": 1,
+      "message": "It uses the default floating-point formatting. It is not scientific and fixed.",
+      "parentUuid": "a4a2b0d0_208eada0",
+      "range": {
+        "startLine": 48,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf521c91_beadc5e4",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
@@ -982,6 +1006,24 @@
       "writtenOn": "2020-07-07T06:31:50Z",
       "side": 1,
       "message": "You\u0027re doing a lot of fancy arithmetic here that I think the std library already does in duration cast.\n\nI suspect what you want here is\nstd::chrono::duration_cast\u003cstd::chrono::duration\u003cfloat\u003e\u003e(t).count();\n\nThat will properly handle any std library eccentricities as well as rounding for you.\n\nNote, I\u0027m pretty sure with that, you can also remove the branch.\n\nContinuing to look at it more, I suspect this whole function can be replaced with a call to std::chrono::duration cast, and std::chrono::floor, with no branches at all.",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e6f2f0_f1e4c4af",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-13T13:51:29Z",
+      "side": 1,
+      "message": "Yes, I will change to duration cast. You are right with this math, it is properly handled by\nstd::chrono::duration_cast\u003cstd::chrono::duration\u003cfloat\u003e\u003e(t).count()\n\nI do not see how you can change it using only single call to duration_cast and floor. You have to differentiate between milliseconds and days/hours/minutes to store it value in integer or float.",
+      "parentUuid": "cf521c91_beadc5e4",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -1338,6 +1380,24 @@
       "writtenOn": "2020-07-07T06:31:50Z",
       "side": 1,
       "message": "This is going to stop the parsing there.  In the case of this, does it make sense to print out the zeros anyway, to:\n1. remove the extra branches.\n2. Make parsing easier by the user?",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e544e6a5_2b2c2c23",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-13T13:51:29Z",
+      "side": 1,
+      "message": "Yes, we can print zeros for every value but it will make duration format less readable. In the patch with support for POST on MetricReportDefinition we convert duration value from string to milliseconds value. User will pass it to bmcweb in the shortest possible form, for ex. PT1M30S.",
+      "parentUuid": "8ecd8f12_8303d298",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
