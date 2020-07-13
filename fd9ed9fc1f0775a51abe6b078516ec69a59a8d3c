@@ -436,6 +436,24 @@
     },
     {
       "key": {
+        "uuid": "08e4cf2a_4b89e7c3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-13T03:37:23Z",
+      "side": 1,
+      "message": "If the library doesn\u0027t have a way to differentiate between a failed parse, and a missing key, then frankly, we need to find a new library.\n\nAlso, in the line you reference, you also don\u0027t properly handle your errors (by returning some kind of code), so my comment is still valid.",
+      "parentUuid": "2db7ee3e_8c1c1f48",
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9b3e485_4442aa66",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
