@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "060a03c0_356499c4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-14T21:32:56Z",
+      "side": 1,
+      "message": "if disabled, then health should always be OK",
+      "range": {
+        "startLine": 1128,
+        "startChar": 25,
+        "endLine": 1128,
+        "endChar": 47
+      },
+      "revId": "2684e0b58174dd4aa525df0677176ca0d644dc6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c75ca9_fb5c3a8c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-14T21:32:56Z",
+      "side": 1,
+      "message": "plan to populate this?",
+      "range": {
+        "startLine": 1145,
+        "startChar": 27,
+        "endLine": 1145,
+        "endChar": 72
+      },
+      "revId": "2684e0b58174dd4aa525df0677176ca0d644dc6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
