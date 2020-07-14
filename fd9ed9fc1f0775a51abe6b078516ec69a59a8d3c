@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "2c48ddf6_d72d7b85",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-14T09:57:04Z",
+      "side": 1,
+      "message": "sure.\nbut can we customize resolution without relying on any library?\nlike this:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32174/6/redfish-core/lib/update_service.hpp#658",
+      "parentUuid": "fda69059_01cbed70",
+      "range": {
+        "startLine": 391,
+        "startChar": 31,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "035ad007_9783f8af",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
