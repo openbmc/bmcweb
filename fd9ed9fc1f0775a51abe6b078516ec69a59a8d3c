@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "2c413245_d5c3de7b",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-14T14:27:31Z",
+      "side": 1,
+      "message": "If you want to write a compliant single-pass parser that doesn\u0027t hardcode the paths you need, then sure, that\u0027s fine, but the one you linked is definitely not compliant.  If you want to write your own parser, I\u0027d start with something like the MultiPartParser object from the library I linked, then adapt it to your needs in a generic way that can be used by others.",
+      "parentUuid": "2c48ddf6_d72d7b85",
+      "range": {
+        "startLine": 391,
+        "startChar": 31,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "035ad007_9783f8af",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
