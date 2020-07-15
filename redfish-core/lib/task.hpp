@@ -101,7 +101,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         status("OK"), state("Running"), messages(nlohmann::json::array()),
         timer(crow::connections::systemBus->get_io_context())
 
-    {}
+    {
+        // Send event : TaskStarted
+        sendTaskEvent(state, index);
+    }
     TaskData() = delete;
 
   public:
@@ -188,8 +191,41 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 self->status = "Warning";
                 self->messages.emplace_back(
                     messages::taskAborted(std::to_string(self->index)));
+                // Send event :TaskAborted
+                self->sendTaskEvent(self->state, self->index);
                 self->callback(ec, msg, self);
             });
+    }
+
+    void sendTaskEvent(std::string state, size_t index)
+    {
+        std::string origin =
+            "/redfish/v1/TaskService/Tasks/" + std::to_string(index);
+        if ((state == "Exception") || (state == "Cancelled"))
+        {
+            redfish::EventServiceManager::getInstance().sendEvent(
+                "TaskAborted",
+                redfish::messages::taskAborted(std::to_string(index)), origin);
+        }
+        else if (state == "Completed")
+        {
+            redfish::EventServiceManager::getInstance().sendEvent(
+                "TaskCompletedOK",
+                redfish::messages::taskCompletedOK(std::to_string(index)),
+                origin);
+        }
+        else if (state == "Stopping")
+        {
+            redfish::EventServiceManager::getInstance().sendEvent(
+                "TaskPaused",
+                redfish::messages::taskPaused(std::to_string(index)), origin);
+        }
+        else if (state == "Running")
+        {
+            redfish::EventServiceManager::getInstance().sendEvent(
+                "TaskStarted",
+                redfish::messages::taskStarted(std::to_string(index)), origin);
+        }
     }
 
     void startTimer(const std::chrono::seconds& timeout)
@@ -210,6 +246,9 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 {
                     self->timer.cancel();
                     self->finishTask();
+
+                    // Send event
+                    self->sendTaskEvent(self->state, self->index);
 
                     // reset the match after the callback was successful
                     boost::asio::post(
@@ -441,7 +480,7 @@ class TaskService : public Node
         asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] = "Oldest";
 
         // todo: if we enable events, change this to true
-        asyncResp->res.jsonValue["LifeCycleEventOnTaskStateChange"] = false;
+        asyncResp->res.jsonValue["LifeCycleEventOnTaskStateChange"] = true;
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         health->populate();
