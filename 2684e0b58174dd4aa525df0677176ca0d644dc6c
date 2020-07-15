@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "a5623c76_4fb79053",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-15T05:47:58Z",
+      "side": 1,
+      "message": "Add debug log here which helps in debugging issue.",
+      "revId": "2684e0b58174dd4aa525df0677176ca0d644dc6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3858dea3_7925e253",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-15T05:47:58Z",
+      "side": 1,
+      "message": "nit: property",
+      "range": {
+        "startLine": 1105,
+        "startChar": 59,
+        "endLine": 1105,
+        "endChar": 68
+      },
+      "revId": "2684e0b58174dd4aa525df0677176ca0d644dc6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3d19bc0_87d39fa1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-15T05:47:58Z",
+      "side": 1,
+      "message": "Why its treated as warning when we have single PSU. It should be \"OK\" with State set to \"Disabled\"  right?",
+      "range": {
+        "startLine": 1117,
+        "startChar": 24,
+        "endLine": 1119,
+        "endChar": 25
+      },
+      "revId": "2684e0b58174dd4aa525df0677176ca0d644dc6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "060a03c0_356499c4",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
