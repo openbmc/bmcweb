@@ -166,7 +166,7 @@ class ConnectionImpl : public Connection
     void close(const std::string_view msg) override
     {
         ws.async_close(
-            boost::beast::websocket::close_code::normal,
+            {boost::beast::websocket::close_code::normal, msg},
             [self(shared_from_this())](boost::system::error_code ec) {
                 if (ec == boost::asio::error::operation_aborted)
                 {
