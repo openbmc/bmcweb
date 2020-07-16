@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4526711_04fb496c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-16T12:32:58Z",
+      "side": 1,
+      "message": "Should be \u0027255 - len(/xyz/openbmc_project/MonitoringService/Reports/TelemetryService/)\n\nConsider defining constant for that (maxSupportedIdLen)",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f65799d7_0ac78af4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-16T12:32:58Z",
+      "side": 1,
+      "message": "Consider changing all \u0027255\u0027 with some friendly constant, like \u0027maxShortParamLen\u0027 and all 1024 with \u0027maxLongParamLen\u0027.\n\nAdd comment above all three newly defined constants, that they are defined to prevent Denial of Service attacks.",
+      "range": {
+        "startLine": 156,
+        "startChar": 58,
+        "endLine": 156,
+        "endChar": 61
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
