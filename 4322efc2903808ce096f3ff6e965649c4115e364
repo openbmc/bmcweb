@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c87d918c_5d192b36",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5edc2fa3_ba02e24b",
+      "range": {
+        "startLine": 840,
+        "startChar": 48,
+        "endLine": 840,
+        "endChar": 49
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0af3d83a_92b9ba48",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "33cc241e_63f24d90",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0af3d83a_92b9ba48",
+      "range": {
+        "startLine": 848,
+        "startChar": 16,
+        "endLine": 848,
+        "endChar": 21
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da82bedd_93e7bf90",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2020-07-15T16:33:43Z",
       "side": 1,
       "message": "kind of surprised this doesn\u0027t just respond with an ec on error, instead of a bool.. but that\u0027s not really part of this review",
+      "range": {
+        "startLine": 850,
+        "startChar": 16,
+        "endLine": 853,
+        "endChar": 31
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a8ee14_d45265cd",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "I agree, it feels like it would simplify things here.",
+      "parentUuid": "da82bedd_93e7bf90",
       "range": {
         "startLine": 850,
         "startChar": 16,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8755ad95_cc37b083",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd0ccda9_f2eb9ec0",
+      "range": {
+        "startLine": 1016,
+        "startChar": 20,
+        "endLine": 1016,
+        "endChar": 61
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ef185d_8bc17a84",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa9f694_d5b6de14",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1ef185d_8bc17a84",
+      "range": {
+        "startLine": 1024,
+        "startChar": 16,
+        "endLine": 1024,
+        "endChar": 21
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "3c3ffcf8_92a49d48",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2db1b683_7e006359",
+      "range": {
+        "startLine": 1029,
+        "startChar": 50,
+        "endLine": 1029,
+        "endChar": 73
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd60cbeb_1539de98",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "930efbe1_5e9c176c",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd60cbeb_1539de98",
+      "range": {
+        "startLine": 1029,
+        "startChar": 0,
+        "endLine": 1075,
+        "endChar": 33
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "518abfa0_c0cd3416",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d044280_11222072",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-16T08:48:05Z",
+      "side": 1,
+      "message": "Done, This was actually great idea. Function reduce to half of the original one and I feel like it\u0027s more readable now.",
+      "parentUuid": "518abfa0_c0cd3416",
+      "range": {
+        "startLine": 1078,
+        "startChar": 11,
+        "endLine": 1080,
+        "endChar": 71
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
