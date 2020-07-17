@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19d85c5e_3e9d18a8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "It is simpler to pass a pointer then a variable.",
+      "parentUuid": "05ae5f16_c0bb678b",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f52d000_83b03327",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -36,6 +60,24 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Please implement this as a single pass parser.  it will be simpler and more efficient, and it becomes much easier to define how things like negative numbers and overflow will work.  Pseudocode is below.\n\nvalue \u003d 0;\nloop over character in fmt:\n    if !isdigit(character)\n        if (character !\u003d postfix)\n            return error\n        return value\n    new \u003d value * 10 + character - \u00270\u0027\n    if new \u003c value\n         return error;  // overflow\n    value \u003d new;\n\nreturn error",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360dc1e3_8e061580",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "How is possible that std::strtol is less efficient then your proposition? std::strtol always check if actual pointer is null so it is safe and it verify more other errors such overflow on int variable. Implementing own parser sounds like reinventing a wheel.",
+      "parentUuid": "9f52d000_83b03327",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d27d3f2d_598153a1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Yes, I have tested it.",
+      "parentUuid": "78754b0c_c79de612",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15a106b0_03d64692",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "e04da39c_3f3a0ec4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Next branches initialize it.",
+      "parentUuid": "15a106b0_03d64692",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9b63a1c_27a8ecfb",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -93,6 +177,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "?  Use a dedicated rounding routine then?",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e715d36f_aad8419b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "I will change it to std::roundf. Sounds more reasonable. Sorry for my mistake.",
+      "parentUuid": "d9b63a1c_27a8ecfb",
       "range": {
         "startLine": 73,
         "startChar": 11,
@@ -151,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "8b510fa6_f8bac451",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Yes, it holds a reference to a sequence of characters. What\u0027s exactly wrong here? Thanks in advance",
+      "parentUuid": "62744028_f56fbd15",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5086253_2164c8e1",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -162,6 +294,24 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "this function fails to account for overflow.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ffcccb4_9be093fa",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "What do you mean? Do you mean that std:strtol or string_view can cause an overflow? How is it possible? Thanks in advance",
+      "parentUuid": "f5086253_2164c8e1",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -191,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "fd0ba49d_50c5e230",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "string_view has a static_assert on nullptr so it is not possible to create string_view with nullptr. Same when you create string_view from std::string. string is not possible to be nullptr.",
+      "parentUuid": "b4b11719_65f58027",
+      "range": {
+        "startLine": 124,
+        "startChar": 27,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "787ace3a_bbe57c3c",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -202,6 +376,24 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "you need a way to differentiate P0D0H0M0S from a parse failure.  POssibly return a std::optional?",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb98cef_6669fa9a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Zero as output is intended. There is no need to return error if passed format is invalid. What you suggest is a future improvement for cases when advance error verification is required.",
+      "parentUuid": "787ace3a_bbe57c3c",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -231,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "5f28a034_22620ebe",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Please, according to c++20 we should use an signed integer type of at least 25 bits. If I use hours, than the limitation is different (23 bits). I can change it to int32_t to be sure that it always cover specification.",
+      "parentUuid": "1fc58d9f_b1302b5f",
+      "range": {
+        "startLine": 128,
+        "startChar": 39,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "582fcd59_b584a5b8",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -242,6 +458,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Again, I\u0027m seeing a function that doesn\u0027t handle errors, has pretty bad failure modes (like overflows, and zeros on failure), and could be written in about half the code as a single pass parser.  Can you take another shot at implementing this?",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 73
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7243c31f_baa5e726",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Are you sure? This function uses safe calls from standard library. I\u0027ve already covered it in previous comments.",
+      "parentUuid": "582fcd59_b584a5b8",
       "range": {
         "startLine": 138,
         "startChar": 0,
@@ -669,6 +909,24 @@
     },
     {
       "key": {
+        "uuid": "4e39f694_2847e94c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Using algorithm like std::any_of make it more readable, easier to use and is more optimize. Are you sure?",
+      "parentUuid": "c555f157_0e02e2ac",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9e5f1a6_9acf68f6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -680,6 +938,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "you\u0027ve captured by value here, which I suspect you didn\u0027t intend.",
+      "range": {
+        "startLine": 180,
+        "startChar": 17,
+        "endLine": 180,
+        "endChar": 30
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "113cc779_8a9f0076",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Ok, we will change to reference.",
+      "parentUuid": "a9e5f1a6_9acf68f6",
       "range": {
         "startLine": 180,
         "startChar": 17,
@@ -726,6 +1008,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Please parse this out on line 152 as a std::optional",
+      "range": {
+        "startLine": 202,
+        "startChar": 24,
+        "endLine": 202,
+        "endChar": 32
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2e27bf_42b173f3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "It is possible to fetch data from embedded json elements?",
+      "parentUuid": "f910bdcd_bebeb4fb",
       "range": {
         "startLine": 202,
         "startChar": 24,
@@ -808,6 +1114,24 @@
     },
     {
       "key": {
+        "uuid": "6be66be3_3500b94a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "In this case pattern is very complex and it is hard to move it to parser. Writing own parser is a reinventing a wheel. Validation of it does not point that performance is a problem. We have additional limitation for input argument to 255 signs.",
+      "parentUuid": "61f9c8ff_c80c7779",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3933644_92274585",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -878,6 +1202,30 @@
     },
     {
       "key": {
+        "uuid": "dc0c1971_75ed886c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "It is done as simply as possible. We uses a provided API from boost, so it is safe, quick and reliable. Rewriting it requires additional branching for handling trailing whitespaces and commas.\nAnyway dbusSensors is a vector of sdbusplus::message::object_path and metricProperties is a vector of std::string, so it is require to create two independent vectors.",
+      "parentUuid": "4ec85776_e8f04eae",
+      "range": {
+        "startLine": 262,
+        "startChar": 16,
+        "endLine": 262,
+        "endChar": 62
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "581af681_b8a14f39",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -936,6 +1284,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Please don\u0027t override operators in this way.",
+      "range": {
+        "startLine": 381,
+        "startChar": 19,
+        "endLine": 381,
+        "endChar": 27
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1fe458d_4e859179",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T11:55:31Z",
+      "side": 1,
+      "message": "Can you provide an explanation why? What is a proper way? Thanks in advance.",
+      "parentUuid": "a0a00865_1cf3a73c",
       "range": {
         "startLine": 381,
         "startChar": 19,
