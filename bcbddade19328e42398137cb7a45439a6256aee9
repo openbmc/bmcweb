@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dcd0c48_4b3b27c3",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "see comment from other commit.  These definitions don\u0027t belong here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 50
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5455eff5_1d95d897",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "please avoid using definitions like this.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 29
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8672377d_80ccd5a4",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Declare a struct.  Tuple is not needed here.",
+      "range": {
+        "startLine": 95,
+        "startChar": 25,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9f7e9b_eaf24ca2",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "This should be a fatal error.",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 24
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e68e34_30026f8a",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "nlohmann::json[] creates if the object doesn\u0027t exist.  I suspect you wanted find here.",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa8534a_dcf813c1",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Please familiarize yourself with the error conditions this call uses, and the coding standard for error handling that bmcweb uses.  This is incorrect.",
+      "range": {
+        "startLine": 125,
+        "startChar": 42,
+        "endLine": 125,
+        "endChar": 49
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f790049c_0caf75ae",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "magic number",
+      "range": {
+        "startLine": 128,
+        "startChar": 42,
+        "endLine": 128,
+        "endChar": 43
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfc2e6dc_5147a994",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Should be fatal error?  Log?",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af3409fb_b3fc9cb9",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "what if dbus paths size is \u003c 1?  nullptr dereference below?",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6c61f10_ba4b05ae",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "nit, this is the only place i is used in this function.  Use a range based for instead?",
+      "range": {
+        "startLine": 145,
+        "startChar": 60,
+        "endLine": 145,
+        "endChar": 61
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b15f36dc_dc53597f",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Please inline this.",
+      "range": {
+        "startLine": 151,
+        "startChar": 31,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b50d8ed_e3908412",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "invert this check to save horizontal space.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 39
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7295ec9b_35333b13",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "invert this check to save horizontal space.",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 21
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e168e2e_27fcad24",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Pick a better class name (although I suspect this is going away anyway)",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 10
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84075fec_b0435ace",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Please use enum class.",
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed846e00_a42bc68f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:44:27Z",
+      "side": 1,
+      "message": "Looking at these, in no cases do you use them as arrays and loop them.  Simply declare them as variables\n\nstatic constexpr char* voltage_path \u003d \"/xyz/openbmc_project/sensors/voltage\";\nstatic constexpr char* power_path \u003d \"/xyz/openbmc_project/sensors/voltage\";\n\nect",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 48
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
