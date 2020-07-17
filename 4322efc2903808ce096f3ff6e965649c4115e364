@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2f15e4ca_0b6e1d3f",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-17T06:40:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1e5ce0c_1a88aa38",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7f94ad7_598d9f57",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -65,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "bc76c5ff_5b8fa1e1",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-17T06:40:02Z",
+      "side": 1,
+      "message": "Done with duration type and cast.\nuint64_t is used because sync_method_call_timed() has an uint64_t timeout parameter.",
+      "parentUuid": "2268af25_6c49ad47",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 31
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be10ba13_98d3b58b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -76,6 +118,24 @@
       "writtenOn": "2020-07-17T00:56:34Z",
       "side": 1,
       "message": "This seems really odd that we\u0027re letting a dbus call (which might itself time out) determine what our timeouts should be.\n\nThis whole patch really feels like a bug in the dbus daemon thats being called (to return a response in a timely mannger), not fixed in bmcweb.",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "763f7635_dbae396c",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-17T06:40:02Z",
+      "side": 1,
+      "message": "VirtualMedia deamon can actually block for quite some time in cases when resources are unavailable or just simply when there is huge delay getting them over the network.\nThis was solved by adding settable timeout in the deamon itself.\n\nIssue with that approach is any default dbus call on mount or unmount will timeout under such conditions.\n\nI agree that this seems more like an issue of the service itself, but to be able to use short dbus timeout values we would need to change simple mount/unmount calls to some kind of polling protocol with requests and responses.\nOther solution would be to limit users to have quickly accessible resources which I don\u0027t think is feasible.",
+      "parentUuid": "be10ba13_98d3b58b",
       "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
