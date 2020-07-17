@@ -505,6 +505,24 @@
     },
     {
       "key": {
+        "uuid": "db468b6e_6923d8ac",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-07-17T10:18:36Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "b4526711_04fb496c",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f65799d7_0ac78af4",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -516,6 +534,30 @@
       "writtenOn": "2020-07-16T12:32:58Z",
       "side": 1,
       "message": "Consider changing all \u0027255\u0027 with some friendly constant, like \u0027maxShortParamLen\u0027 and all 1024 with \u0027maxLongParamLen\u0027.\n\nAdd comment above all three newly defined constants, that they are defined to prevent Denial of Service attacks.",
+      "range": {
+        "startLine": 156,
+        "startChar": 58,
+        "endLine": 156,
+        "endChar": 61
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293f46b2_b2787673",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-07-17T10:18:36Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "f65799d7_0ac78af4",
       "range": {
         "startLine": 156,
         "startChar": 58,
@@ -777,6 +819,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "This is unessesary overkill.  Please write this loop like normal, using either iterators or indexes.  Constructing a lambda to use in a std::algorithm is extreme, and incorrect, given that you\u0027re relying on ordering guarantees.",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 74
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f03b80c_afcc9ba4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-07-17T10:18:36Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e3933644_92274585",
       "range": {
         "startLine": 256,
         "startChar": 0,
