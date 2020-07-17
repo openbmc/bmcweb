@@ -17,9 +17,6 @@
 #include <fstream>
 #include <regex>
 
-// Allow save area file size to 500KB
-#define MAX_SAVE_AREA_FILESIZE 500000
-
 using SType = std::string;
 using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
 using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
@@ -37,6 +34,9 @@ constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
+
+constexpr size_t maxSaveareaFileSize = 500000; // Allow save area file size upto 500KB
+constexpr size_t maxBroadcastMsgSize = 1000; // Allow Broadcast message size upto 1KB
 
 bool createSaveAreaPath(crow::Response& res)
 {
@@ -109,7 +109,7 @@ void handleFilePut(const crow::Request& req, crow::Response& res,
 
     std::string data = std::move(req.body);
     BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
-    if (data.capacity() > MAX_SAVE_AREA_FILESIZE)
+    if (data.capacity() > maxSaveareaFileSize)
     {
         res.result(boost::beast::http::status::bad_request);
         res.jsonValue["Description"] =
@@ -254,6 +254,28 @@ void handleFileDelete(crow::Response& res, const std::string& fileID)
         res.result(boost::beast::http::status::not_found);
         res.jsonValue["Description"] = resourceNotFoundMsg;
     }
+    return;
+}
+
+inline void handleBroadcastService(const crow::Request& req,
+                                   crow::Response& res)
+{
+    std::string broadcastMsg;
+
+    if (!redfish::json_util::readJson(req, res, "Message", broadcastMsg))
+    {
+        BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+        res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+    if (broadcastMsg.size() > maxBroadcastMsgSize)
+    {
+        BMCWEB_LOG_ERROR << "Message size exceeds maximum allowed size[1KB]";
+        res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+    redfish::EventServiceManager::getInstance().sendBroadcastMsg(broadcastMsg);
+    res.end();
     return;
 }
 
@@ -550,6 +572,8 @@ void requestRoutes(Crow<Middlewares...>& app)
                     {"@odata.id", "/ibm/v1/Host/ConfigFiles"}};
                 res.jsonValue["LockService"] = {
                     {"@odata.id", "/ibm/v1/HMC/LockService"}};
+                res.jsonValue["BroadcastService"] = {
+                    {"@odata.id", "/ibm/v1/HMC/BroadcastService"}};
                 res.end();
             });
 
@@ -640,6 +664,13 @@ void requestRoutes(Crow<Middlewares...>& app)
                     return;
                 }
                 handleGetLockListAPI(req, res, listSessionIds);
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req, crow::Response& res) {
+                handleBroadcastService(req, res);
             });
 }
 
