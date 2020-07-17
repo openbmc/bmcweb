@@ -326,7 +326,9 @@ class Chassis : public Node
                     asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] = {
                         {"target", "/redfish/v1/Chassis/" + chassisId +
                                        "/Actions/Chassis.Reset"},
-                        {"ResetType@Redfish.AllowableValues", {"PowerCycle"}}};
+                        {"@Redfish.ActionInfo", "/redfish/v1/Chassis/" +
+                                                    chassisId +
+                                                    "/ResetActionInfo"}};
                     asyncResp->res.jsonValue["PCIeDevices"] = {
                         {"@odata.id",
                          "/redfish/v1/Systems/system/PCIeDevices"}};
@@ -592,4 +594,56 @@ class ChassisResetAction : public Node
         doChassisPowerCycle(asyncResp);
     }
 };
+
+/**
+ * ChassisResetActionInfo derived class for delivering Chassis
+ * ResetType AllowableValues using ResetInfo schema.
+ */
+class ChassisResetActionInfo : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    ChassisResetActionInfo(CrowApp& app) :
+        Node(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+        const std::string& chassisId = params[0];
+
+        res.jsonValue = {{"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+                         {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                           "/ResetActionInfo"},
+                         {"Name", "Reset Action Info"},
+                         {"Id", "ResetActionInfo"},
+                         {"Parameters",
+                          {{{"Name", "ResetType"},
+                            {"Required", true},
+                            {"DataType", "String"},
+                            {"AllowableValues", {"PowerCycle"}}}}}};
+        res.end();
+    }
+};
+
 } // namespace redfish

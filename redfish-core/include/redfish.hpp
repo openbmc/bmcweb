@@ -75,11 +75,13 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
         nodes.emplace_back(std::make_unique<ManagerResetAction>(app));
+        nodes.emplace_back(std::make_unique<ManagerResetActionInfo>(app));
         nodes.emplace_back(std::make_unique<ManagerResetToDefaultsAction>(app));
         nodes.emplace_back(std::make_unique<Power>(app));
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
         nodes.emplace_back(std::make_unique<ChassisResetAction>(app));
+        nodes.emplace_back(std::make_unique<ChassisResetActionInfo>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
         nodes.emplace_back(std::make_unique<StorageCollection>(app));
         nodes.emplace_back(std::make_unique<Storage>(app));
@@ -145,6 +147,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+        nodes.emplace_back(std::make_unique<SystemResetActionInfo>(app));
         nodes.emplace_back(std::make_unique<BiosService>(app));
         nodes.emplace_back(std::make_unique<BiosReset>(app));
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY

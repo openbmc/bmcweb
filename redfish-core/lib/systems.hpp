@@ -1906,9 +1906,8 @@ class Systems : public Node
         res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
             {"target",
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
-            {"ResetType@Redfish.AllowableValues",
-             {"On", "ForceOff", "ForceOn", "ForceRestart", "GracefulRestart",
-              "GracefulShutdown", "PowerCycle", "Nmi"}}};
+            {"@Redfish.ActionInfo",
+             "/redfish/v1/Systems/system/ResetActionInfo"}};
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
@@ -2036,6 +2035,51 @@ class Systems : public Node
         {
             setPowerRestorePolicy(asyncResp, std::move(*powerRestorePolicy));
         }
+    }
+};
+
+/**
+ * SystemResetActionInfo derived class for delivering Computer Systems
+ * ResetType AllowableValues using ResetInfo schema.
+ */
+class SystemResetActionInfo : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    SystemResetActionInfo(CrowApp& app) :
+        Node(app, "/redfish/v1/Systems/system/ResetActionInfo/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        res.jsonValue = {
+            {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+            {"@odata.id", "/redfish/v1/Systems/system/ResetActionInfo"},
+            {"Name", "Reset Action Info"},
+            {"Id", "ResetActionInfo"},
+            {"Parameters",
+             {{{"Name", "ResetType"},
+               {"Required", true},
+               {"DataType", "String"},
+               {"AllowableValues",
+                {"On", "ForceOff", "ForceOn", "ForceRestart", "GracefulRestart",
+                 "GracefulShutdown", "PowerCycle", "Nmi"}}}}}};
+        res.end();
     }
 };
 } // namespace redfish

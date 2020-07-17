@@ -183,6 +183,49 @@ class ManagerResetToDefaultsAction : public Node
     }
 };
 
+/**
+ * ManagerResetActionInfo derived class for delivering Manager
+ * ResetType AllowableValues using ResetInfo schema.
+ */
+class ManagerResetActionInfo : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    ManagerResetActionInfo(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        res.jsonValue = {
+            {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+            {"@odata.id", "/redfish/v1/Managers/bmc/ResetActionInfo"},
+            {"Name", "Reset Action Info"},
+            {"Id", "ResetActionInfo"},
+            {"Parameters",
+             {{{"Name", "ResetType"},
+               {"Required", true},
+               {"DataType", "String"},
+               {"AllowableValues", {"GracefulRestart"}}}}}};
+        res.end();
+    }
+};
+
 static constexpr const char* objectManagerIface =
     "org.freedesktop.DBus.ObjectManager";
 static constexpr const char* pidConfigurationIface =
@@ -1674,7 +1717,8 @@ class Manager : public Node
             res.jsonValue["Actions"]["#Manager.Reset"];
         managerReset["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
-        managerReset["ResetType@Redfish.AllowableValues"] = {"GracefulRestart"};
+        managerReset["@Redfish.ActionInfo"] =
+            "/redfish/v1/Managers/bmc/ResetActionInfo";
 
         // ResetToDefaults (Factory Reset) has values like
         // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
