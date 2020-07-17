@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69666360_d745bda9",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T01:15:22Z",
+      "side": 1,
+      "message": "Um.... we realize we\u0027re changing schema of the the most heavily used API in bmcweb, and we\u0027re changing it in cases where it doesn\u0027t matter (ie, password change isn\u0027t required).  This feels like it should be either a secondary api, or a different http code so the user can know that it\u0027s not following the existing methods.\n\nChanging the schema for this one corner case feels really wrong, and complicates what should be a simple and easy API.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 80
+      },
+      "revId": "a50dfe90488f1bfb7397bc1db97e3d1e83ec9a1d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
