@@ -318,6 +318,24 @@
     },
     {
       "key": {
+        "uuid": "3e407517_ff2ec124",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "In general I would agree with your comment, but tuple here (and this whole nested structure overall) is unfortunately necessary as type passed directly to D-Bus call. \n\nAFAIK struct cannot be broken down by sdbusplus right?",
+      "parentUuid": "30050ded_e8090c29",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0152a787_7f2120c9",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -329,6 +347,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Please avoid \"using\" definitions like this.  Simply inline your types, as it improves the readability.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2d52edf_57b9b1af",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "+1\nCurrently MetricParam and MetricParams in the code differ only by one letter and at first glance it might be confusing for someone unfamiliar with the code.",
+      "parentUuid": "0152a787_7f2120c9",
       "range": {
         "startLine": 67,
         "startChar": 0,
@@ -358,6 +400,24 @@
     },
     {
       "key": {
+        "uuid": "eda7f109_a403461f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "25d4129e_e33e1d76",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51733c3f_8bfd7c1b",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -375,6 +435,24 @@
     },
     {
       "key": {
+        "uuid": "62d6a947_d5a8b0a9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "+1, while auto makes sense for complex iterators etc, meaning of this variable is not obvious without jumping to function definition.",
+      "parentUuid": "51733c3f_8bfd7c1b",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91e0b4b5_576493d5",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -386,6 +464,24 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Please don\u0027t construct a map for every iteration of this, especially for only 2 lookup values.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a0c13cb_2a8f0d66",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "Ed, what do you think about meeting in the middle and replacing this map with std::array of std::pairs?\n\nAlleged performance impact of unnecessary sorting and lookups could be mitigated by simple for-loop. That change would then reduce the performance overhead while still keeping code easy to follow and extend.",
+      "parentUuid": "91e0b4b5_576493d5",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -443,6 +539,24 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "There is already a utils function for this.  escapePathForDbus.  This IS something that needs to be a generic utils function, as it\u0027s used all over the place.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9997ce49_864c3345",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "From what I\u0027ve checked escapePathForDbus does a regex_replace of all \u0027illegal\u0027 letters with \u0027_\u0027 so that\u0027s actually not the same use case.\n\nDo you rather suggest extracting lines 165-169 as a new dbus_utility function?",
+      "parentUuid": "b33f85d9_f7cd7edd",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -617,6 +731,24 @@
     },
     {
       "key": {
+        "uuid": "50c2920c_7862d1fb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "I believe intent of this check was rather different. \nFellows from security team have recently started stressing bmcweb with fuzzer. Intent of all \u0027validateParamLength\u0027 is to prevent unnecessary processing of unnecessary big (in principle - incorrect) chunks of data.",
+      "parentUuid": "5bc712df_4d2d6793",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61f9c8ff_c80c7779",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -691,6 +823,30 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Please don\u0027t use regex here.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 55
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4529f9ee_7eb695ca",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-07-17T10:10:26Z",
+      "side": 1,
+      "message": "Are you against regex here because of it\u0027s performance impact? What would you suggest here? boost::split + manual validation of members? \n\nIt could be more error prone as regex already does validation + splitting correctly, while manual implementation of code like this tends to be unnecessary convoluted.",
+      "parentUuid": "581af681_b8a14f39",
       "range": {
         "startLine": 282,
         "startChar": 0,
