@@ -142,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7183de01_9402ef0c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "It is expected behavior. There is no need to return fatal error in this condition. We can receive partially completed metrics and we should handle it without error. In case of error user won\u0027t see \"MetricDefinition\" element in response, it meets redfish requirements.",
+      "parentUuid": "2d9f7e9b_eaf24ca2",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 24
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43e68e34_30026f8a",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -188,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "885723e7_7f4740c4",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Presence of \"MetricId\" is verify in line 120.",
+      "parentUuid": "43e68e34_30026f8a",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d83378b6_cba913bc",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Ok, we will change it to get_if.",
+      "parentUuid": "cfa8534a_dcf813c1",
+      "range": {
+        "startLine": 125,
+        "startChar": 42,
+        "endLine": 125,
+        "endChar": 49
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f790049c_0caf75ae",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -199,6 +271,30 @@
       "writtenOn": "2020-07-17T00:44:27Z",
       "side": 1,
       "message": "magic number",
+      "range": {
+        "startLine": 128,
+        "startChar": 42,
+        "endLine": 128,
+        "endChar": 43
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9eb3e3e_7a1ab988",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Yes, we will change it.",
+      "parentUuid": "f790049c_0caf75ae",
       "range": {
         "startLine": 128,
         "startChar": 42,
@@ -234,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "951d37a4_7cfe1aac",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "See response in comment in line 122",
+      "parentUuid": "cfc2e6dc_5147a994",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af3409fb_b3fc9cb9",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -245,6 +365,30 @@
       "writtenOn": "2020-07-17T00:44:27Z",
       "side": 1,
       "message": "what if dbus paths size is \u003c 1?  nullptr dereference below?",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91294bdf_3dccf728",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "If less then 1 than object_path is invalid, we can skip it.\nobject_path is a wrapper of std::string so there is no nullptr dereference.",
+      "parentUuid": "af3409fb_b3fc9cb9",
       "range": {
         "startLine": 137,
         "startChar": 16,
@@ -280,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "50a03212_265ab180",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "It is used in two places, line 145 and 152.",
+      "parentUuid": "b6c61f10_ba4b05ae",
+      "range": {
+        "startLine": 145,
+        "startChar": 60,
+        "endLine": 145,
+        "endChar": 61
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b15f36dc_dc53597f",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -291,6 +459,30 @@
       "writtenOn": "2020-07-17T00:44:27Z",
       "side": 1,
       "message": "Please inline this.",
+      "range": {
+        "startLine": 151,
+        "startChar": 31,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9af4ed_38d2b1e3",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Why? It helps to keep same metricDefinitionUri everywhere and keeps us away from copy-paste error",
+      "parentUuid": "b15f36dc_dc53597f",
       "range": {
         "startLine": 151,
         "startChar": 31,
@@ -326,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "d49bc64e_d16fe553",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "0b50d8ed_e3908412",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 39
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7295ec9b_35333b13",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -337,6 +553,30 @@
       "writtenOn": "2020-07-17T00:44:27Z",
       "side": 1,
       "message": "invert this check to save horizontal space.",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 21
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7529eafe_a649687c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "7295ec9b_35333b13",
       "range": {
         "startLine": 193,
         "startChar": 0,
@@ -389,6 +629,48 @@
     },
     {
       "key": {
+        "uuid": "13728165_7fbb27b3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "enum is used to easily convert it. It is not used anywhere as Index type. This code require some improvement.",
+      "parentUuid": "84075fec_b0435ace",
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d29ec32_85553e70",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "0e168e2e_27fcad24",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 10
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed846e00_a42bc68f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 17
@@ -400,6 +682,30 @@
       "writtenOn": "2020-07-17T00:44:27Z",
       "side": 1,
       "message": "Looking at these, in no cases do you use them as arrays and loop them.  Simply declare them as variables\n\nstatic constexpr char* voltage_path \u003d \"/xyz/openbmc_project/sensors/voltage\";\nstatic constexpr char* power_path \u003d \"/xyz/openbmc_project/sensors/voltage\";\n\nect",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 48
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e9e7602_223468c0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T12:50:03Z",
+      "side": 1,
+      "message": "It is meant to be array. We uses element of those arrays in code, ex\nstd::string(sensors::dbus::names[i])",
+      "parentUuid": "ed846e00_a42bc68f",
       "range": {
         "startLine": 69,
         "startChar": 0,
