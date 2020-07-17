@@ -277,6 +277,30 @@
     },
     {
       "key": {
+        "uuid": "125d7220_82eaaa78",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-07-17T10:04:25Z",
+      "side": 1,
+      "message": "We wanted to achieve something like this.\n\nauto limits \u003d { sizeLimit(name, \"Name\", 255),\n                sizeLimit(id, \"Id\", 255), ... }; // easy to add more verifications and can be reused in other places in bmcweb in the future\nif (!validate(limits)) {\n     return false;\n}\n\nWhen you inline it you have to read it every time and check for typos for example, if you change one place you need to look for other similar cases and change all of them. Code will evolve and some change will make it hard to grep and you will miss one key place where you should make change but you didn\u0027t.\n\nWe have to validate 2 arrays and 5 string values and that would give us code below:\n\nif (array1.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}\nfor (const auto\u0026 item : array1) {\n  if (item.size() \u003e limit) {\n      messageStringValueTooLong(res, \"name\", limit);\n      return false;\n  }\n}\nif (array2.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}\nfor (const auto\u0026 item : array2) {\n  if (item.size() \u003e limit) {\n      messageStringValueTooLong(res, \"name\", limit);\n      return false;\n  }\n}\nif (field1.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}\nif (field2.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}\nif (field3.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}\nif (field4.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}\nif (field5.size() \u003e limit) {\n  messageStringValueTooLong(res, \"name\", limit);\n  return false;\n}",
+      "parentUuid": "a25fb55d_9d6bdfd0",
+      "range": {
+        "startLine": 3,
+        "startChar": 11,
+        "endLine": 3,
+        "endChar": 12
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30050ded_e8090c29",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -448,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "2f732520_8424f129",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-07-17T10:04:25Z",
+      "side": 1,
+      "message": "Yes, but we have another requirement for name to be at least one character long. I guess LOG_ERROR needs to be updated to be more descriptive.",
+      "parentUuid": "b47148d8_af0f485a",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 16
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c555f157_0e02e2ac",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -545,6 +593,24 @@
       "writtenOn": "2020-07-17T00:08:27Z",
       "side": 1,
       "message": "Why is this check even necessary?  A properly written parser should be able to chug through a payload limit worth of zero padding no problem, or, if there are really limits to impose, they need to be done there, on things like overflows.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c4d54a6_aa729c4a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-07-17T10:04:25Z",
+      "side": 1,
+      "message": "We want to cut off every attempt to DoS us as early as we can. For not this value bigger than necessary. Still we can stop processing request early instead of trying to parse string of 40000 characters or run regexp on string longer than 255 characters.\n\nWe known that regexp are slow, we measured them and they don\u0027t seem to be real issue with this length limitation.",
+      "parentUuid": "5bc712df_4d2d6793",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
