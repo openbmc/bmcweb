@@ -6,6 +6,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <error_messages.hpp>
+#include <event_service_manager.hpp>
 #include <ibm/locks.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/types.hpp>
@@ -17,6 +18,9 @@
 
 // Allow save area file size to 500KB
 #define MAX_SAVE_AREA_FILESIZE 500000
+
+// Maximum allowed size of Broadcast message - 1KB
+#define MAX_BROADCAST_MSG_SIZE 1000
 
 using SType = std::string;
 using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
@@ -247,6 +251,28 @@ void handleFileDelete(crow::Response& res, const std::string& fileID)
         res.result(boost::beast::http::status::not_found);
         res.jsonValue["Description"] = resourceNotFoundMsg;
     }
+    return;
+}
+
+inline void handleBroadcastService(const crow::Request& req,
+                                   crow::Response& res)
+{
+    std::string broadcastMsg;
+
+    if (!redfish::json_util::readJson(req, res, "Message", broadcastMsg))
+    {
+        BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+        res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+    if (broadcastMsg.size() > MAX_BROADCAST_MSG_SIZE)
+    {
+        BMCWEB_LOG_ERROR << "Message size exceeds maximum allowed size[1KB]";
+        res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+    redfish::EventServiceManager::getInstance().sendBroadcastMsg(broadcastMsg);
+    res.end();
     return;
 }
 
@@ -543,6 +569,8 @@ void requestRoutes(Crow<Middlewares...>& app)
                     {"@odata.id", "/ibm/v1/Host/ConfigFiles"}};
                 res.jsonValue["LockService"] = {
                     {"@odata.id", "/ibm/v1/HMC/LockService"}};
+                res.jsonValue["BroadcastService"] = {
+                    {"@odata.id", "/ibm/v1/HMC/BroadcastService"}};
                 res.end();
             });
 
@@ -633,6 +661,13 @@ void requestRoutes(Crow<Middlewares...>& app)
                     return;
                 }
                 handleGetLockListAPI(req, res, listSessionIds);
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req, crow::Response& res) {
+                handleBroadcastService(req, res);
             });
 }
 
