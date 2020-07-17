@@ -2,6 +2,86 @@
   "comments": [
     {
       "key": {
+        "uuid": "b1e5ce0c_1a88aa38",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:56:34Z",
+      "side": 1,
+      "message": "init your variables.",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f94ad7_598d9f57",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:56:34Z",
+      "side": 1,
+      "message": "This should really be logging the error and returning MAX_INT or 0.  If this gets hit, the daemon has broken the dbus contract.",
+      "range": {
+        "startLine": 130,
+        "startChar": 18,
+        "endLine": 130,
+        "endChar": 48
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2268af25_6c49ad47",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:56:34Z",
+      "side": 1,
+      "message": "Simply declare a duration type that uses the correct rep type, instead of casting to the wrong type, then casting again.  Something like\n\nreturn std::chrono::duration_cast\u003cstd::chrono::duration\u003cuint64_t, std::ratio\u003c1, 100000\u003e\u003e(std::chrono::seconds(timeout)).count();\n\nWith that said, are you sure you want to be returning a uint here?  int seems like a better choice.",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 31
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be10ba13_98d3b58b",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:56:34Z",
+      "side": 1,
+      "message": "This seems really odd that we\u0027re letting a dbus call (which might itself time out) determine what our timeouts should be.\n\nThis whole patch really feels like a bug in the dbus daemon thats being called (to return a response in a timely mannger), not fixed in bmcweb.",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5edc2fa3_ba02e24b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
