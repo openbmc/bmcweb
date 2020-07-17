@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "53ff34d1_1e29db50",
+        "filename": "include/token_authorization_middleware.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T01:15:22Z",
+      "side": 1,
+      "message": "Hah.  3 year old TODO that kinda got done. :)",
+      "revId": "61f3d4d9359631fbdf5f003e921e7a24ce4fed45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb4a830d_16c4ab04",
         "filename": "include/token_authorization_middleware.hpp",
         "patchSetId": 1
@@ -96,6 +113,30 @@
       "side": 1,
       "message": "I don\u0027t see a new patch set. Forget to push?",
       "parentUuid": "84860556_240ff7a8",
+      "range": {
+        "startLine": 430,
+        "startChar": 55,
+        "endLine": 430,
+        "endChar": 74
+      },
+      "revId": "61f3d4d9359631fbdf5f003e921e7a24ce4fed45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "144a145d_000d0002",
+        "filename": "include/token_authorization_middleware.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T01:15:22Z",
+      "side": 1,
+      "message": "Are you sure we want to be changing this api?  This feels like a property that should only be included if isConfigureSelfOnly \u003d\u003d true.\n\nOtherwise, given that most phosphor-rest users are using this api, it\u0027s possible you break them if they don\u0027t handle extra properties well.",
+      "parentUuid": "7d63f2a6_5a24f5a1",
       "range": {
         "startLine": 430,
         "startChar": 55,
