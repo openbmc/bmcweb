@@ -618,6 +618,24 @@
     },
     {
       "key": {
+        "uuid": "cfd288d2_fb9d84b0",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T13:23:24Z",
+      "side": 1,
+      "message": "Yes, you are right with your example. We are aware of it. But using same value like \"/redfish/v1/TelemetryService/...\" in many places is less readable than a simple constexpr variable that is same everywhere. This is a main reason why we define it as constexpr.\nIf you are afraid of constexpr and keeping strings in pointers, we can change it to macros as in C and thanks to ## join them in compile time.\n#define METRIC_REPORT_URI \"/redfish/v1/TelemetryService/MetricReports/\"",
+      "parentUuid": "900a80a2_2dc595ad",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b8c722e_932d6dcd",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 26
@@ -1205,6 +1223,24 @@
     },
     {
       "key": {
+        "uuid": "99cfede3_1afa0828",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T13:23:24Z",
+      "side": 1,
+      "message": "How can you be sure that std::to_string is better optimize than std::stringstream? Have you verified it on yocto system?",
+      "parentUuid": "63a39f07_82b40c17",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "105c35a5_4acd5a73",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
@@ -1340,6 +1376,24 @@
       "side": 1,
       "message": "More concretely, this is the function I would\u0027ve expected to see here (compiled, but untested)\n\nIt is about a third the code, uses no details utils functions, includes no templates, has no compile time branching, requires no complete string copies (unless you count the intermediate to_string calls), does not use iostreams and is only doing pretty standard std::library conversions.  It does need zero padding added.  If the shortened version is require then that will need to be added back.\n\nI was also incorrect, you don\u0027t even need duration_cast to do this the way the library intends, only floor.\n\n\n\nstd::string toDurationFormat(std::chrono::milliseconds ms)\n{\n    std::string fmt;\n    fmt.reserve(sizeof(\"PxxxDTxxHxxMxx.xxxxxxS\"));\n    fmt +\u003d \"P\";\n\n    using Days \u003d std::chrono::duration\u003cstd::chrono::hours::rep, std::ratio\u003c24 * 60 * 60\u003e\u003e;\n    Days d \u003d std::chrono::floor\u003cDays\u003e(ms);\n    fmt +\u003d std::to_string(d.count());\n    ms -\u003d d;\n\n    fmt +\u003d \"DT\";\n    std::chrono::hours h \u003d std::chrono::floor\u003cstd::chrono::hours\u003e(ms);\n    fmt +\u003d std::to_string(h.count());\n    ms -\u003d h;\n    fmt +\u003d \"H\";\n\n\n    std::chrono::minutes m \u003d std::chrono::floor\u003cstd::chrono::minutes\u003e(ms);\n    fmt +\u003d std::to_string(m.count());\n    fmt +\u003d \"M\";\n    ms -\u003d m;\n\n    std::chrono::seconds s \u003d std::chrono::floor\u003cstd::chrono::seconds\u003e(ms);\n    fmt +\u003d std::to_string(s.count());\n    ms -\u003d s;\n\n    fmt +\u003d \".\";\n    fmt +\u003d std::to_string(ms.count());\n    fmt +\u003d \"S\";\n\n    return fmt;\n}",
       "parentUuid": "63e6f2f0_f1e4c4af",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948e8602_64309399",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T13:23:24Z",
+      "side": 1,
+      "message": "floor is not required. We do not need to round it. duration_cast is enough for our use case.\n\nYour code is not exactly what we want because using std::to_string causes some numeric errors.\nfmt +\u003d std::to_string(std::chrono::duration_cast\u003cstd::chrono::duration\u003cfloat\u003e\u003e(ms).count());\nFor example:\nUser input: P48DT20H50M59.626S -\u003e Counted to ms: 4222259626, back to user output: P48DT20H50M59.625999S\n\nUsing stringstream is less problematic in this case because it does not add numeric error.",
+      "parentUuid": "d051b5ef_67f80837",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -1722,6 +1776,24 @@
       "side": 1,
       "message": "I didn\u0027t think about that, but that\u0027s worrisome.  What happens when a duration exceeds that?",
       "parentUuid": "280a8f4a_2362dbf8",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25f80d53_7c7f1704",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-07-17T13:23:24Z",
+      "side": 1,
+      "message": "std::string will allocate more memory then. We only reserve some length to make it less memory consuming when appending new signs. It is limited to uint32 size.",
+      "parentUuid": "288004f3_0205c89b",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
