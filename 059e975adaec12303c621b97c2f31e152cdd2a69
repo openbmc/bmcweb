@@ -2,6 +2,372 @@
   "comments": [
     {
       "key": {
+        "uuid": "05ae5f16_c0bb678b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be simply char, not char*?",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f52d000_83b03327",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please implement this as a single pass parser.  it will be simpler and more efficient, and it becomes much easier to define how things like negative numbers and overflow will work.  Pseudocode is below.\n\nvalue \u003d 0;\nloop over character in fmt:\n    if !isdigit(character)\n        if (character !\u003d postfix)\n            return error\n        return value\n    new \u003d value * 10 + character - \u00270\u0027\n    if new \u003c value\n         return error;  // overflow\n    value \u003d new;\n\nreturn error",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78754b0c_c79de612",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "have you tested this?  Zero is a valid thing this could return.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15a106b0_03d64692",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "initialize your variables.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9b63a1c_27a8ecfb",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "?  Use a dedicated rounding routine then?",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e889bf_9c1797d6",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "This is going to accept more than you intended.  Please fix.  (see below about single pass parser)",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 64
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62744028_f56fbd15",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "You need to go take a look at the man page on how string_views work.  This is completely incorrect.",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5086253_2164c8e1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "this function fails to account for overflow.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b11719_65f58027",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "nullptr derefernce.",
+      "range": {
+        "startLine": 124,
+        "startChar": 27,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "787ace3a_bbe57c3c",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "you need a way to differentiate P0D0H0M0S from a parse failure.  POssibly return a std::optional?",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fc58d9f_b1302b5f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "pick a more appropriate integer type (I\u0027ve commented a similar issue on your other review)",
+      "range": {
+        "startLine": 128,
+        "startChar": 39,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "582fcd59_b584a5b8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Again, I\u0027m seeing a function that doesn\u0027t handle errors, has pretty bad failure modes (like overflows, and zeros on failure), and could be written in about half the code as a single pass parser.  Can you take another shot at implementing this?",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 73
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a25fb55d_9d6bdfd0",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please discard this whole file, and simply inline these checks.  This is obfuscation to an extreme extent that does not help the readability of the code.  Range checks should be obvious in calling scope.",
+      "range": {
+        "startLine": 3,
+        "startChar": 11,
+        "endLine": 3,
+        "endChar": 12
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30050ded_e8090c29",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please don\u0027t use tuple here, as you\u0027re not doing any dynamic template programming.  Use a struct.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0152a787_7f2120c9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please avoid \"using\" definitions like this.  Simply inline your types, as it improves the readability.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25d4129e_e33e1d76",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "If you need this, use a struct.  Tuple is not required here.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51733c3f_8bfd7c1b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please avoid auto here.  It makes the readability more difficult.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91e0b4b5_576493d5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please don\u0027t construct a map for every iteration of this, especially for only 2 lookup values.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4526711_04fb496c",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
@@ -35,6 +401,258 @@
         "startChar": 58,
         "endLine": 156,
         "endChar": 61
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b33f85d9_f7cd7edd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "There is already a utils function for this.  escapePathForDbus.  This IS something that needs to be a generic utils function, as it\u0027s used all over the place.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b47148d8_af0f485a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "this is redundant to the find_first_not_of",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 16
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c555f157_0e02e2ac",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "There are 2 values in this array.  Please simply write them out.  This obfuscates the intent a lot.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e5f1a6_9acf68f6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "you\u0027ve captured by value here, which I suspect you didn\u0027t intend.",
+      "range": {
+        "startLine": 180,
+        "startChar": 17,
+        "endLine": 180,
+        "endChar": 30
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10bb5410_06ef49a0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please avoid auto.",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f910bdcd_bebeb4fb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please parse this out on line 152 as a std::optional",
+      "range": {
+        "startLine": 202,
+        "startChar": 24,
+        "endLine": 202,
+        "endChar": 32
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc712df_4d2d6793",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Why is this check even necessary?  A properly written parser should be able to chug through a payload limit worth of zero padding no problem, or, if there are really limits to impose, they need to be done there, on things like overflows.",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f9c8ff_c80c7779",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "This regex check is redundant, and expensive (std::regex is pretty darn slow).  Please see the other comment.  Simply write an appropriate, correct, and secure parser that is capable of returning errors",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3933644_92274585",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "This is unessesary overkill.  Please write this loop like normal, using either iterators or indexes.  Constructing a lambda to use in a std::algorithm is extreme, and incorrect, given that you\u0027re relying on ordering guarantees.",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 74
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec85776_e8f04eae",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please simplfy this.  You don\u0027t need to generate 2 independent vectors to create a single string.",
+      "range": {
+        "startLine": 262,
+        "startChar": 16,
+        "endLine": 262,
+        "endChar": 62
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "581af681_b8a14f39",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please don\u0027t use regex here.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 55
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a00865_1cf3a73c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-17T00:08:27Z",
+      "side": 1,
+      "message": "Please don\u0027t override operators in this way.",
+      "range": {
+        "startLine": 381,
+        "startChar": 19,
+        "endLine": 381,
+        "endChar": 27
       },
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
