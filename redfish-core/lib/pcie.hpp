@@ -72,8 +72,7 @@ static inline void getPCIeDeviceList(std::shared_ptr<AsyncResp> asyncResp,
 class SystemPCIeDeviceCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    SystemPCIeDeviceCollection(CrowApp& app) :
+    SystemPCIeDeviceCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/PCIeDevices/")
     {
         entityPrivileges = {
@@ -107,7 +106,7 @@ class SystemPCIeDeviceCollection : public Node
 class SystemPCIeDevice : public Node
 {
   public:
-    SystemPCIeDevice(CrowApp& app) :
+    SystemPCIeDevice(App& app) :
         Node(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/",
              std::string())
     {
@@ -192,8 +191,7 @@ class SystemPCIeDevice : public Node
 class SystemPCIeFunctionCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    SystemPCIeFunctionCollection(CrowApp& app) :
+    SystemPCIeFunctionCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/",
              std::string())
     {
@@ -287,7 +285,7 @@ class SystemPCIeFunctionCollection : public Node
 class SystemPCIeFunction : public Node
 {
   public:
-    SystemPCIeFunction(CrowApp& app) :
+    SystemPCIeFunction(App& app) :
         Node(
             app,
             "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/",

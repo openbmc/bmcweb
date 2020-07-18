@@ -39,7 +39,7 @@ static constexpr const uint8_t maxNoOfSubscriptions = 20;
 class EventService : public Node
 {
   public:
-    EventService(CrowApp& app) : Node(app, "/redfish/v1/EventService/")
+    EventService(App& app) : Node(app, "/redfish/v1/EventService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -153,7 +153,7 @@ class EventService : public Node
 class SubmitTestEvent : public Node
 {
   public:
-    SubmitTestEvent(CrowApp& app) :
+    SubmitTestEvent(App& app) :
         Node(app,
              "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
     {
@@ -179,7 +179,7 @@ class SubmitTestEvent : public Node
 class EventDestinationCollection : public Node
 {
   public:
-    EventDestinationCollection(CrowApp& app) :
+    EventDestinationCollection(App& app) :
         Node(app, "/redfish/v1/EventService/Subscriptions/")
     {
         entityPrivileges = {
@@ -435,7 +435,7 @@ class EventDestinationCollection : public Node
 class EventServiceSSE : public Node
 {
   public:
-    EventServiceSSE(CrowApp& app) :
+    EventServiceSSE(App& app) :
         Node(app, "/redfish/v1/EventService/Subscriptions/SSE/")
     {
         entityPrivileges = {
@@ -540,7 +540,7 @@ class EventServiceSSE : public Node
 class EventDestination : public Node
 {
   public:
-    EventDestination(CrowApp& app) :
+    EventDestination(App& app) :
         Node(app, "/redfish/v1/EventService/Subscriptions/<str>/",
              std::string())
     {
