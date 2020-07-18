@@ -244,7 +244,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 class TaskMonitor : public Node
 {
   public:
-    TaskMonitor(CrowApp& app) :
+    TaskMonitor(App& app) :
         Node((app), "/redfish/v1/TaskService/Tasks/<str>/Monitor/",
              std::string())
     {
@@ -301,7 +301,7 @@ class TaskMonitor : public Node
 class Task : public Node
 {
   public:
-    Task(CrowApp& app) :
+    Task(App& app) :
         Node((app), "/redfish/v1/TaskService/Tasks/<str>/", std::string())
     {
         entityPrivileges = {
@@ -376,7 +376,7 @@ class Task : public Node
 class TaskCollection : public Node
 {
   public:
-    TaskCollection(CrowApp& app) : Node(app, "/redfish/v1/TaskService/Tasks/")
+    TaskCollection(App& app) : Node(app, "/redfish/v1/TaskService/Tasks/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -416,7 +416,7 @@ class TaskCollection : public Node
 class TaskService : public Node
 {
   public:
-    TaskService(CrowApp& app) : Node(app, "/redfish/v1/TaskService/")
+    TaskService(App& app) : Node(app, "/redfish/v1/TaskService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},

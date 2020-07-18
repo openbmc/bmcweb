@@ -3,7 +3,6 @@
 
 #include "http_response.h"
 #include "logging.h"
-#include "middleware_context.h"
 #include "timer_queue.h"
 #include "utility.h"
 
@@ -19,6 +18,7 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
+#include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
 
 #include <atomic>
@@ -61,186 +61,6 @@ inline void prettyPrintJson(crow::Response& res)
 using namespace boost;
 using tcp = asio::ip::tcp;
 
-namespace detail
-{
-template <typename MW>
-struct CheckBeforeHandleArity3Const
-{
-    template <typename T,
-              void (T::*)(Request&, Response&, typename MW::Context&) const =
-                  &T::beforeHandle>
-    struct Get
-    {};
-};
-
-template <typename MW>
-struct CheckBeforeHandleArity3
-{
-    template <typename T, void (T::*)(Request&, Response&,
-                                      typename MW::Context&) = &T::beforeHandle>
-    struct Get
-    {};
-};
-
-template <typename MW>
-struct CheckAfterHandleArity3Const
-{
-    template <typename T,
-              void (T::*)(Request&, Response&, typename MW::Context&) const =
-                  &T::afterHandle>
-    struct Get
-    {};
-};
-
-template <typename MW>
-struct CheckAfterHandleArity3
-{
-    template <typename T, void (T::*)(Request&, Response&,
-                                      typename MW::Context&) = &T::afterHandle>
-    struct Get
-    {};
-};
-
-template <typename T>
-struct IsBeforeHandleArity3Impl
-{
-    template <typename C>
-    static std::true_type
-        f(typename CheckBeforeHandleArity3Const<T>::template Get<C>*);
-
-    template <typename C>
-    static std::true_type
-        f(typename CheckBeforeHandleArity3<T>::template Get<C>*);
-
-    template <typename C>
-    static std::false_type f(...);
-
-  public:
-    static constexpr bool value = decltype(f<T>(nullptr))::value;
-};
-
-template <typename T>
-struct IsAfterHandleArity3Impl
-{
-    template <typename C>
-    static std::true_type
-        f(typename CheckAfterHandleArity3Const<T>::template Get<C>*);
-
-    template <typename C>
-    static std::true_type
-        f(typename CheckAfterHandleArity3<T>::template Get<C>*);
-
-    template <typename C>
-    static std::false_type f(...);
-
-  public:
-    static constexpr bool value = decltype(f<T>(nullptr))::value;
-};
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<!IsBeforeHandleArity3Impl<MW>::value>::type
-    beforeHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                      ParentContext& /*parent_ctx*/)
-{
-    mw.beforeHandle(req, res, ctx.template get<MW>(), ctx);
-}
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<IsBeforeHandleArity3Impl<MW>::value>::type
-    beforeHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                      ParentContext& /*parent_ctx*/)
-{
-    mw.beforeHandle(req, res, ctx.template get<MW>());
-}
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<!IsAfterHandleArity3Impl<MW>::value>::type
-    afterHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                     ParentContext& /*parent_ctx*/)
-{
-    mw.afterHandle(req, res, ctx.template get<MW>(), ctx);
-}
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<IsAfterHandleArity3Impl<MW>::value>::type
-    afterHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                     ParentContext& /*parent_ctx*/)
-{
-    mw.afterHandle(req, res, ctx.template get<MW>());
-}
-
-template <size_t N, typename Context, typename Container, typename CurrentMW,
-          typename... Middlewares>
-bool middlewareCallHelper(Container& middlewares, Request& req, Response& res,
-                          Context& ctx)
-{
-    using parent_context_t = typename Context::template partial<N - 1>;
-    beforeHandlerCall<CurrentMW, Context, parent_context_t>(
-        std::get<N>(middlewares), req, res, ctx,
-        static_cast<parent_context_t&>(ctx));
-
-    if (res.isCompleted())
-    {
-        afterHandlerCall<CurrentMW, Context, parent_context_t>(
-            std::get<N>(middlewares), req, res, ctx,
-            static_cast<parent_context_t&>(ctx));
-        return true;
-    }
-
-    if (middlewareCallHelper<N + 1, Context, Container, Middlewares...>(
-            middlewares, req, res, ctx))
-    {
-        afterHandlerCall<CurrentMW, Context, parent_context_t>(
-            std::get<N>(middlewares), req, res, ctx,
-            static_cast<parent_context_t&>(ctx));
-        return true;
-    }
-
-    return false;
-}
-
-template <size_t N, typename Context, typename Container>
-bool middlewareCallHelper(Container& /*middlewares*/, Request& /*req*/,
-                          Response& /*res*/, Context& /*ctx*/)
-{
-    return false;
-}
-
-template <size_t N, typename Context, typename Container>
-typename std::enable_if<(N < 0)>::type
-    afterHandlersCallHelper(Container& /*middlewares*/, Context& /*Context*/,
-                            Request& /*req*/, Response& /*res*/)
-{}
-
-template <size_t N, typename Context, typename Container>
-typename std::enable_if<(N == 0)>::type
-    afterHandlersCallHelper(Container& middlewares, Context& ctx, Request& req,
-                            Response& res)
-{
-    using parent_context_t = typename Context::template partial<N - 1>;
-    using CurrentMW = typename std::tuple_element<
-        N, typename std::remove_reference<Container>::type>::type;
-    afterHandlerCall<CurrentMW, Context, parent_context_t>(
-        std::get<N>(middlewares), req, res, ctx,
-        static_cast<parent_context_t&>(ctx));
-}
-
-template <size_t N, typename Context, typename Container>
-typename std::enable_if<(N > 0)>::type
-    afterHandlersCallHelper(Container& middlewares, Context& ctx, Request& req,
-                            Response& res)
-{
-    using parent_context_t = typename Context::template partial<N - 1>;
-    using CurrentMW = typename std::tuple_element<
-        N, typename std::remove_reference<Container>::type>::type;
-    afterHandlerCall<CurrentMW, Context, parent_context_t>(
-        std::get<N>(middlewares), req, res, ctx,
-        static_cast<parent_context_t&>(ctx));
-    afterHandlersCallHelper<N - 1, Context, Container>(middlewares, ctx, req,
-                                                       res);
-}
-} // namespace detail
-
 #ifdef BMCWEB_ENABLE_DEBUG
 static std::atomic<int> connectionCount;
 #endif
@@ -261,21 +81,18 @@ static constexpr const size_t loggedInAttempts =
 static constexpr const size_t loggedOutAttempts =
     (15 / timerQueueTimeoutSeconds);
 
-template <typename Adaptor, typename Handler, typename... Middlewares>
+template <typename Adaptor, typename Handler>
 class Connection :
-    public std::enable_shared_from_this<
-        Connection<Adaptor, Handler, Middlewares...>>
+    public std::enable_shared_from_this<Connection<Adaptor, Handler>>
 {
   public:
     Connection(boost::asio::io_context& ioService, Handler* handlerIn,
                const std::string& ServerNameIn,
-               std::tuple<Middlewares...>* middlewaresIn,
                std::function<std::string()>& get_cached_date_str_f,
                detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
         handler(handlerIn), serverName(ServerNameIn),
-        middlewares(middlewaresIn), getCachedDateStr(get_cached_date_str_f),
-        timerQueue(timerQueueIn)
+        getCachedDateStr(get_cached_date_str_f), timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
@@ -285,7 +102,7 @@ class Connection :
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         auto ca_available = !std::filesystem::is_empty(
             std::filesystem::path(ensuressl::trustStorePath));
-        if (ca_available && crow::persistent_data::SessionStore::getInstance()
+        if (ca_available && persistent_data::SessionStore::getInstance()
                                 .getAuthMethodsConfig()
                                 .tls)
         {
@@ -301,7 +118,7 @@ class Connection :
                                         bool preverified,
                                         boost::asio::ssl::verify_context& ctx) {
             // do nothing if TLS is disabled
-            if (!crow::persistent_data::SessionStore::getInstance()
+            if (!persistent_data::SessionStore::getInstance()
                      .getAuthMethodsConfig()
                      .tls)
             {
@@ -444,10 +261,10 @@ class Connection :
             }
             sslUser.resize(lastChar);
 
-            session = persistent_data::SessionStore::getInstance()
-                          .generateUserSession(
-                              sslUser,
-                              crow::persistent_data::PersistenceType::TIMEOUT);
+            session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(
+                        sslUser, persistent_data::PersistenceType::TIMEOUT);
             if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this
@@ -538,15 +355,50 @@ class Connection :
             res.completeRequestHandler = [] {};
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
-            ctx = detail::Context<Middlewares...>();
-            req->middlewareContext = static_cast<void*>(&ctx);
             req->ioService = static_cast<decltype(req->ioService)>(
                 &adaptor.get_executor().context());
 
+<<<<<<< HEAD
             detail::middlewareCallHelper<
                 0U, decltype(ctx), decltype(*middlewares), Middlewares...>(
                 *middlewares, *req, res, ctx);
 
+=======
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION if (auto sp =
+                                                                   session
+                                                                       .lock())
+            {
+                // set cookie only if this is req from the browser.
+                if (req->getHeaderValue("User-Agent").empty())
+                {
+                    BMCWEB_LOG_DEBUG << this << " TLS session: " << sp->uniqueId
+                                     << " will be used for this request.";
+                    req->session = sp;
+                }
+                else
+                {
+                    std::string_view cookieValue =
+                        req->getHeaderValue("Cookie");
+                    if (cookieValue.empty() ||
+                        cookieValue.find("SESSION=") == std::string::npos)
+                    {
+                        res.addHeader("Set-Cookie",
+                                      "XSRF-TOKEN=" + sp->csrfToken +
+                                          "; Secure\r\nSet-Cookie: SESSION=" +
+                                          sp->sessionToken +
+                                          "; Secure; HttpOnly\r\nSet-Cookie: "
+                                          "IsAuthenticated=true; Secure");
+                        BMCWEB_LOG_DEBUG
+                            << this << " TLS session: " << sp->uniqueId
+                            << " with cookie will be used for this request.";
+                        req->session = sp;
+                    }
+                }
+            }
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+
+            addSecurityHeaders(res);
+>>>>>>> 7eb6e5f... Remove middlewares
             if (!res.completed)
             {
                 needToCallAfterHandlers = true;
@@ -620,14 +472,6 @@ class Connection :
 
         if (needToCallAfterHandlers)
         {
-            needToCallAfterHandlers = false;
-
-            // call all afterHandler of middlewares
-            detail::afterHandlersCallHelper<sizeof...(Middlewares) - 1,
-                                            decltype(ctx),
-                                            decltype(*middlewares)>(
-                *middlewares, ctx, *req, res);
-
             crow::authorization::cleanupTempSession(*req);
         }
 
@@ -949,6 +793,7 @@ class Connection :
 
     std::optional<crow::Request> req;
     crow::Response res;
+
     std::weak_ptr<crow::persistent_data::UserSession> session;
 
     const std::string& serverName;
@@ -958,13 +803,10 @@ class Connection :
     bool needToCallAfterHandlers{};
     bool needToStartReadAfterComplete{};
 
-    std::tuple<Middlewares...>* middlewares;
-    detail::Context<Middlewares...> ctx;
-
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;
 
     using std::enable_shared_from_this<
-        Connection<Adaptor, Handler, Middlewares...>>::shared_from_this;
+        Connection<Adaptor, Handler>>::shared_from_this;
 };
 } // namespace crow
