@@ -52,8 +52,7 @@ constexpr char const* authorityObjectPath =
 class CertificateService : public Node
 {
   public:
-    CertificateService(CrowApp& app) :
-        Node(app, "/redfish/v1/CertificateService/")
+    CertificateService(App& app) : Node(app, "/redfish/v1/CertificateService/")
     {
         // TODO: Issue#61 No entries are available for Certificate
         // service at https://www.dmtf.org/standards/redfish
@@ -249,7 +248,7 @@ static void getCSR(const std::shared_ptr<AsyncResp>& asyncResp,
 class CertificateActionGenerateCSR : public Node
 {
   public:
-    CertificateActionGenerateCSR(CrowApp& app) :
+    CertificateActionGenerateCSR(App& app) :
         Node(app, "/redfish/v1/CertificateService/Actions/"
                   "CertificateService.GenerateCSR/")
     {
@@ -687,7 +686,7 @@ using GetObjectType =
 class CertificateActionsReplaceCertificate : public Node
 {
   public:
-    CertificateActionsReplaceCertificate(CrowApp& app) :
+    CertificateActionsReplaceCertificate(App& app) :
         Node(app, "/redfish/v1/CertificateService/Actions/"
                   "CertificateService.ReplaceCertificate/")
     {
@@ -812,8 +811,7 @@ class CertificateActionsReplaceCertificate : public Node
 class HTTPSCertificate : public Node
 {
   public:
-    template <typename CrowApp>
-    HTTPSCertificate(CrowApp& app) :
+    HTTPSCertificate(App& app) :
         Node(app,
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"
              "<str>/",
@@ -858,8 +856,7 @@ class HTTPSCertificate : public Node
 class HTTPSCertificateCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    HTTPSCertificateCollection(CrowApp& app) :
+    HTTPSCertificateCollection(App& app) :
         Node(app,
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
     {
@@ -970,8 +967,7 @@ class HTTPSCertificateCollection : public Node
 class CertificateLocations : public Node
 {
   public:
-    template <typename CrowApp>
-    CertificateLocations(CrowApp& app) :
+    CertificateLocations(App& app) :
         Node(app, "/redfish/v1/CertificateService/CertificateLocations/")
     {
         entityPrivileges = {
@@ -1061,8 +1057,7 @@ class CertificateLocations : public Node
 class LDAPCertificateCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    LDAPCertificateCollection(CrowApp& app) :
+    LDAPCertificateCollection(App& app) :
         Node(app, "/redfish/v1/AccountService/LDAP/Certificates/")
     {
         entityPrivileges = {
@@ -1165,8 +1160,7 @@ class LDAPCertificateCollection : public Node
 class LDAPCertificate : public Node
 {
   public:
-    template <typename CrowApp>
-    LDAPCertificate(CrowApp& app) :
+    LDAPCertificate(App& app) :
         Node(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/",
              std::string())
     {
@@ -1206,8 +1200,7 @@ class LDAPCertificate : public Node
 class TrustStoreCertificateCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    TrustStoreCertificateCollection(CrowApp& app) :
+    TrustStoreCertificateCollection(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
     {
         entityPrivileges = {
@@ -1311,8 +1304,7 @@ class TrustStoreCertificateCollection : public Node
 class TrustStoreCertificate : public Node
 {
   public:
-    template <typename CrowApp>
-    TrustStoreCertificate(CrowApp& app) :
+    TrustStoreCertificate(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/",
              std::string())
     {

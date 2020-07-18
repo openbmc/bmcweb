@@ -25,7 +25,7 @@ namespace redfish
 class Power : public Node
 {
   public:
-    Power(CrowApp& app) :
+    Power(App& app) :
         Node((app), "/redfish/v1/Chassis/<str>/Power/", std::string())
     {
         entityPrivileges = {
