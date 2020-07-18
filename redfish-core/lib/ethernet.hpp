@@ -1002,8 +1002,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
 class EthernetCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    EthernetCollection(CrowApp& app) :
+    EthernetCollection(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
     {
         entityPrivileges = {
@@ -1075,8 +1074,7 @@ class EthernetInterface : public Node
     /*
      * Default Constructor
      */
-    template <typename CrowApp>
-    EthernetInterface(CrowApp& app) :
+    EthernetInterface(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/",
              std::string())
     {
@@ -2065,8 +2063,7 @@ class VlanNetworkInterface : public Node
     /*
      * Default Constructor
      */
-    template <typename CrowApp>
-    VlanNetworkInterface(CrowApp& app) :
+    VlanNetworkInterface(App& app) :
         Node(app,
              "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/",
              std::string(), std::string())
@@ -2308,8 +2305,7 @@ class VlanNetworkInterface : public Node
 class VlanNetworkInterfaceCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    VlanNetworkInterfaceCollection(CrowApp& app) :
+    VlanNetworkInterfaceCollection(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/",
              std::string())
     {
