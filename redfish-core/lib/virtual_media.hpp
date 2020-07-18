@@ -248,7 +248,7 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
 class VirtualMediaActionInsertMedia : public Node
 {
   public:
-    VirtualMediaActionInsertMedia(CrowApp& app) :
+    VirtualMediaActionInsertMedia(App& app) :
         Node(app,
              "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
              "VirtualMedia.InsertMedia",
@@ -831,7 +831,7 @@ class VirtualMediaActionInsertMedia : public Node
 class VirtualMediaActionEjectMedia : public Node
 {
   public:
-    VirtualMediaActionEjectMedia(CrowApp& app) :
+    VirtualMediaActionEjectMedia(App& app) :
         Node(app,
              "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
              "VirtualMedia.EjectMedia",
@@ -996,7 +996,7 @@ class VirtualMediaCollection : public Node
     /*
      * Default Constructor
      */
-    VirtualMediaCollection(CrowApp& app) :
+    VirtualMediaCollection(App& app) :
         Node(app, "/redfish/v1/Managers/<str>/VirtualMedia/", std::string())
     {
         entityPrivileges = {
@@ -1070,7 +1070,7 @@ class VirtualMedia : public Node
     /*
      * Default Constructor
      */
-    VirtualMedia(CrowApp& app) :
+    VirtualMedia(App& app) :
         Node(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/",
              std::string(), std::string())
     {

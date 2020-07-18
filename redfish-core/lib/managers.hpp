@@ -72,7 +72,7 @@ void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
 class ManagerResetAction : public Node
 {
   public:
-    ManagerResetAction(CrowApp& app) :
+    ManagerResetAction(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
     {
         entityPrivileges = {
@@ -118,7 +118,7 @@ class ManagerResetAction : public Node
 class ManagerResetToDefaultsAction : public Node
 {
   public:
-    ManagerResetToDefaultsAction(CrowApp& app) :
+    ManagerResetToDefaultsAction(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
     {
         entityPrivileges = {
@@ -193,7 +193,7 @@ class ManagerResetActionInfo : public Node
     /*
      * Default Constructor
      */
-    ManagerResetActionInfo(CrowApp& app) :
+    ManagerResetActionInfo(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
     {
         entityPrivileges = {
@@ -1658,10 +1658,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 class Manager : public Node
 {
   public:
-    Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/bmc/")
+    Manager(App& app) : Node(app, "/redfish/v1/Managers/bmc/")
     {
-        uuid = app.template getMiddleware<crow::persistent_data::Middleware>()
-                   .systemUuid;
+
+        uuid = persistent_data::getConfig().systemUuid;
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -1941,7 +1941,7 @@ class Manager : public Node
 class ManagerCollection : public Node
 {
   public:
-    ManagerCollection(CrowApp& app) : Node(app, "/redfish/v1/Managers/")
+    ManagerCollection(App& app) : Node(app, "/redfish/v1/Managers/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},

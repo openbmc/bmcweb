@@ -28,8 +28,7 @@ namespace redfish
 class MessageRegistryFileCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    MessageRegistryFileCollection(CrowApp& app) :
+    MessageRegistryFileCollection(App& app) :
         Node(app, "/redfish/v1/Registries/")
     {
         entityPrivileges = {
@@ -71,8 +70,7 @@ class MessageRegistryFileCollection : public Node
 class MessageRegistryFile : public Node
 {
   public:
-    template <typename CrowApp>
-    MessageRegistryFile(CrowApp& app) :
+    MessageRegistryFile(App& app) :
         Node(app, "/redfish/v1/Registries/<str>/", std::string())
     {
         entityPrivileges = {
@@ -157,8 +155,7 @@ class MessageRegistryFile : public Node
 class MessageRegistry : public Node
 {
   public:
-    template <typename CrowApp>
-    MessageRegistry(CrowApp& app) :
+    MessageRegistry(App& app) :
         Node(app, "/redfish/v1/Registries/<str>/<str>/", std::string(),
              std::string())
     {
