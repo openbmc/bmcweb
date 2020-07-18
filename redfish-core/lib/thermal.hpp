@@ -24,7 +24,7 @@ namespace redfish
 class Thermal : public Node
 {
   public:
-    Thermal(CrowApp& app) :
+    Thermal(App& app) :
         Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string())
     {
         entityPrivileges = {
