@@ -946,8 +946,7 @@ constexpr char const* postCodeIface = "xyz.openbmc_project.State.Boot.PostCode";
 class SystemLogServiceCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    SystemLogServiceCollection(CrowApp& app) :
+    SystemLogServiceCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/")
     {
         entityPrivileges = {
@@ -982,13 +981,14 @@ class SystemLogServiceCollection : public Node
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/Dump"}});
+            {{ "@odata.id",
+               "/redfish/v1/Systems/system/LogServices/Dump" }});
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
-            {{"@odata.id",
-              "/redfish/v1/Systems/system/LogServices/Crashdump"}});
+            {{ "@odata.id",
+               "/redfish/v1/Systems/system/LogServices/Crashdump" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -1027,8 +1027,7 @@ class SystemLogServiceCollection : public Node
 class EventLogService : public Node
 {
   public:
-    template <typename CrowApp>
-    EventLogService(CrowApp& app) :
+    EventLogService(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/")
     {
         entityPrivileges = {
@@ -1067,7 +1066,7 @@ class EventLogService : public Node
 class JournalEventLogClear : public Node
 {
   public:
-    JournalEventLogClear(CrowApp& app) :
+    JournalEventLogClear(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
                   "LogService.ClearLog/")
     {
@@ -1215,8 +1214,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
 class JournalEventLogEntryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    JournalEventLogEntryCollection(CrowApp& app) :
+    JournalEventLogEntryCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
     {
         entityPrivileges = {
@@ -1317,7 +1315,7 @@ class JournalEventLogEntryCollection : public Node
 class JournalEventLogEntry : public Node
 {
   public:
-    JournalEventLogEntry(CrowApp& app) :
+    JournalEventLogEntry(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/",
              std::string())
@@ -1394,8 +1392,7 @@ class JournalEventLogEntry : public Node
 class DBusEventLogEntryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    DBusEventLogEntryCollection(CrowApp& app) :
+    DBusEventLogEntryCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
     {
         entityPrivileges = {
@@ -1539,7 +1536,7 @@ class DBusEventLogEntryCollection : public Node
 class DBusEventLogEntry : public Node
 {
   public:
-    DBusEventLogEntry(CrowApp& app) :
+    DBusEventLogEntry(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/",
              std::string())
@@ -1698,8 +1695,7 @@ class DBusEventLogEntry : public Node
 class BMCLogServiceCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    BMCLogServiceCollection(CrowApp& app) :
+    BMCLogServiceCollection(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/")
     {
         entityPrivileges = {
@@ -1732,11 +1728,13 @@ class BMCLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Dump"}});
+            {{ "@odata.id",
+               "/redfish/v1/Managers/bmc/LogServices/Dump" }});
 #endif
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
+            {{ "@odata.id",
+               "/redfish/v1/Managers/bmc/LogServices/Journal" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -1746,8 +1744,7 @@ class BMCLogServiceCollection : public Node
 class BMCJournalLogService : public Node
 {
   public:
-    template <typename CrowApp>
-    BMCJournalLogService(CrowApp& app) :
+    BMCJournalLogService(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/")
     {
         entityPrivileges = {
@@ -1827,8 +1824,7 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
 class BMCJournalLogEntryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    BMCJournalLogEntryCollection(CrowApp& app) :
+    BMCJournalLogEntryCollection(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/")
     {
         entityPrivileges = {
@@ -1931,7 +1927,7 @@ class BMCJournalLogEntryCollection : public Node
 class BMCJournalLogEntry : public Node
 {
   public:
-    BMCJournalLogEntry(CrowApp& app) :
+    BMCJournalLogEntry(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/<str>/",
              std::string())
     {
@@ -2191,8 +2187,7 @@ class BMCDumpClear : public Node
 class SystemDumpService : public Node
 {
   public:
-    template <typename CrowApp>
-    SystemDumpService(CrowApp& app) :
+    SystemDumpService(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Dump/")
     {
         entityPrivileges = {
@@ -2236,8 +2231,7 @@ class SystemDumpService : public Node
 class SystemDumpEntryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    SystemDumpEntryCollection(CrowApp& app) :
+    SystemDumpEntryCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Dump/Entries/")
     {
         entityPrivileges = {
@@ -2273,8 +2267,14 @@ class SystemDumpEntryCollection : public Node
 class SystemDumpEntry : public Node
 {
   public:
+<<<<<<< HEAD
     SystemDumpEntry(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/",
+=======
+    SystemDumpEntry(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/",
+>>>>>>> 1dca3f9... Remove middlewares
              std::string())
     {
         entityPrivileges = {
@@ -2340,7 +2340,7 @@ class SystemDumpCreate : public Node
 class SystemDumpEntryDownload : public Node
 {
   public:
-    SystemDumpEntryDownload(CrowApp& app) :
+    SystemDumpEntryDownload(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
              "Actions/"
@@ -2370,8 +2370,13 @@ class SystemDumpEntryDownload : public Node
 class SystemDumpClear : public Node
 {
   public:
+<<<<<<< HEAD
     SystemDumpClear(CrowApp& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Dump/"
+=======
+    SystemDumpClear(App& app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/System/"
+>>>>>>> 1dca3f9... Remove middlewares
                   "Actions/"
                   "LogService.ClearLog/")
     {
@@ -2395,8 +2400,7 @@ class SystemDumpClear : public Node
 class CrashdumpService : public Node
 {
   public:
-    template <typename CrowApp>
-    CrashdumpService(CrowApp& app) :
+    CrashdumpService(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/")
     {
         // Note: Deviated from redfish privilege registry for GET & HEAD
@@ -2446,8 +2450,9 @@ class CrashdumpService : public Node
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
             {"#Crashdump.SendRawPeci",
-             {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                         "Actions/Oem/Crashdump.SendRawPeci"}}});
+             { { "target",
+                 "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                 "Actions/Oem/Crashdump.SendRawPeci" } }});
 #endif
     }
 };
@@ -2455,7 +2460,7 @@ class CrashdumpService : public Node
 class CrashdumpClear : public Node
 {
   public:
-    CrashdumpClear(CrowApp& app) :
+    CrashdumpClear(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/"
                   "LogService.ClearLog/")
     {
@@ -2548,8 +2553,7 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
 class CrashdumpEntryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    CrashdumpEntryCollection(CrowApp& app) :
+    CrashdumpEntryCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/")
     {
         // Note: Deviated from redfish privilege registry for GET & HEAD
@@ -2634,7 +2638,7 @@ class CrashdumpEntryCollection : public Node
 class CrashdumpEntry : public Node
 {
   public:
-    CrashdumpEntry(CrowApp& app) :
+    CrashdumpEntry(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/<str>/",
              std::string())
@@ -2668,7 +2672,7 @@ class CrashdumpEntry : public Node
 class CrashdumpFile : public Node
 {
   public:
-    CrashdumpFile(CrowApp& app) :
+    CrashdumpFile(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/<str>/"
              "<str>/",
@@ -2771,7 +2775,7 @@ class CrashdumpFile : public Node
 class OnDemandCrashdump : public Node
 {
   public:
-    OnDemandCrashdump(CrowApp& app) :
+    OnDemandCrashdump(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
              "Crashdump.OnDemand/")
@@ -2843,7 +2847,7 @@ class OnDemandCrashdump : public Node
 class TelemetryCrashdump : public Node
 {
   public:
-    TelemetryCrashdump(CrowApp& app) :
+    TelemetryCrashdump(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
              "Crashdump.Telemetry/")
@@ -2915,7 +2919,7 @@ class TelemetryCrashdump : public Node
 class SendRawPECI : public Node
 {
   public:
-    SendRawPECI(CrowApp& app) :
+    SendRawPECI(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
              "Crashdump.SendRawPeci/")
@@ -3012,7 +3016,7 @@ class SendRawPECI : public Node
 class DBusLogServiceActionsClear : public Node
 {
   public:
-    DBusLogServiceActionsClear(CrowApp& app) :
+    DBusLogServiceActionsClear(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
                   "LogService.ClearLog/")
     {
@@ -3067,7 +3071,7 @@ class DBusLogServiceActionsClear : public Node
 class PostCodesLogService : public Node
 {
   public:
-    PostCodesLogService(CrowApp& app) :
+    PostCodesLogService(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/PostCodes/")
     {
         entityPrivileges = {
@@ -3105,7 +3109,7 @@ class PostCodesLogService : public Node
 class PostCodesClear : public Node
 {
   public:
-    PostCodesClear(CrowApp& app) :
+    PostCodesClear(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/PostCodes/Actions/"
                   "LogService.ClearLog/")
     {
@@ -3386,8 +3390,7 @@ static void getCurrentBootNumber(std::shared_ptr<AsyncResp> aResp,
 class PostCodesEntryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    PostCodesEntryCollection(CrowApp& app) :
+    PostCodesEntryCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/")
     {
         entityPrivileges = {
@@ -3435,7 +3438,7 @@ class PostCodesEntryCollection : public Node
 class PostCodesEntry : public Node
 {
   public:
-    PostCodesEntry(CrowApp& app) :
+    PostCodesEntry(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/<str>/",
              std::string())
