@@ -160,7 +160,7 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
 class ChassisCollection : public Node
 {
   public:
-    ChassisCollection(CrowApp& app) : Node(app, "/redfish/v1/Chassis/")
+    ChassisCollection(App& app) : Node(app, "/redfish/v1/Chassis/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -227,8 +227,7 @@ class ChassisCollection : public Node
 class Chassis : public Node
 {
   public:
-    Chassis(CrowApp& app) :
-        Node(app, "/redfish/v1/Chassis/<str>/", std::string())
+    Chassis(App& app) : Node(app, "/redfish/v1/Chassis/<str>/", std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -554,7 +553,7 @@ void doChassisPowerCycle(std::shared_ptr<AsyncResp> asyncResp)
 class ChassisResetAction : public Node
 {
   public:
-    ChassisResetAction(CrowApp& app) :
+    ChassisResetAction(App& app) :
         Node(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/",
              std::string())
     {

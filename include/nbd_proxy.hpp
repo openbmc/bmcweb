@@ -23,7 +23,6 @@
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <privileges.hpp>
-#include <webserver_common.hpp>
 
 #include <variant>
 
@@ -247,7 +246,7 @@ static boost::container::flat_map<crow::websocket::Connection*,
                                   std::shared_ptr<NbdProxyServer>>
     sessions;
 
-void requestRoutes(CrowApp& app)
+void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/nbd/<str>")
         .websocket()

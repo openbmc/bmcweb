@@ -1647,7 +1647,7 @@ static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
 class SystemsCollection : public Node
 {
   public:
-    SystemsCollection(CrowApp& app) : Node(app, "/redfish/v1/Systems/")
+    SystemsCollection(App& app) : Node(app, "/redfish/v1/Systems/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1704,7 +1704,7 @@ class SystemsCollection : public Node
 class SystemActionsReset : public Node
 {
   public:
-    SystemActionsReset(CrowApp& app) :
+    SystemActionsReset(App& app) :
         Node(app, "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
     {
         entityPrivileges = {
@@ -1867,7 +1867,7 @@ class Systems : public Node
     /*
      * Default Constructor
      */
-    Systems(CrowApp& app) : Node(app, "/redfish/v1/Systems/system/")
+    Systems(App& app) : Node(app, "/redfish/v1/Systems/system/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
