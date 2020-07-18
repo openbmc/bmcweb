@@ -54,10 +54,10 @@ using UnitStruct =
                std::string, sdbusplus::message::object_path, uint32_t,
                std::string, sdbusplus::message::object_path>;
 
-const static boost::container::flat_map<const char*, std::string>
-    protocolToDBus{{"SSH", "dropbear"},
+const static std::array<std::pair<const char*, const char*>, 3>
+    protocolToDBus{{{"SSH", "dropbear"},
                    {"HTTPS", "bmcweb"},
-                   {"IPMI", "phosphor-ipmi-net"}};
+                   {"IPMI", "phosphor-ipmi-net"}}};
 
 inline void
     extractNTPServersAndDomainNamesData(const GetManagedObjects& dbus_data,
