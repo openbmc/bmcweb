@@ -11,7 +11,6 @@
 #include <boost/container/flat_set.hpp>
 #include <http_utility.hpp>
 #include <pam_authenticate.hpp>
-#include <persistent_data_middleware.hpp>
 
 #include <random>
 
@@ -29,13 +28,13 @@ static void cleanupTempSession(Request& req)
     // user session?
     if (req.session != nullptr &&
         req.session->persistence ==
-            crow::persistent_data::PersistenceType::SINGLE_REQUEST)
+            persistent_data::PersistenceType::SINGLE_REQUEST)
     {
         persistent_data::SessionStore::getInstance().removeSession(req.session);
     }
 }
 
-static const std::shared_ptr<crow::persistent_data::UserSession>
+static const std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(std::string_view auth_header)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
@@ -76,11 +75,11 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     // This whole flow needs to be revisited anyway, as we can't be
     // calling directly into pam for every request
     return persistent_data::SessionStore::getInstance().generateUserSession(
-        user, crow::persistent_data::PersistenceType::SINGLE_REQUEST,
+        user, persistent_data::PersistenceType::SINGLE_REQUEST,
         isConfigureSelfOnly);
 }
 
-static const std::shared_ptr<crow::persistent_data::UserSession>
+static const std::shared_ptr<persistent_data::UserSession>
     performTokenAuth(std::string_view auth_header)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
@@ -91,7 +90,7 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     return session;
 }
 
-static const std::shared_ptr<crow::persistent_data::UserSession>
+static const std::shared_ptr<persistent_data::UserSession>
     performXtokenAuth(const crow::Request& req)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
@@ -106,7 +105,7 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     return session;
 }
 
-static const std::shared_ptr<crow::persistent_data::UserSession>
+static const std::shared_ptr<persistent_data::UserSession>
     performCookieAuth(const crow::Request& req)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
@@ -131,7 +130,7 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     std::string_view authKey =
         cookieValue.substr(startIndex, endIndex - startIndex);
 
-    const std::shared_ptr<crow::persistent_data::UserSession> session =
+    const std::shared_ptr<persistent_data::UserSession> session =
         persistent_data::SessionStore::getInstance().loginSessionByToken(
             authKey);
     if (session == nullptr)
@@ -149,7 +148,7 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
             return nullptr;
         }
 
-        if (csrf.size() != crow::persistent_data::sessionTokenSize)
+        if (csrf.size() != persistent_data::sessionTokenSize)
         {
             return nullptr;
         }
@@ -163,9 +162,9 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     return session;
 }
 
-static const std::shared_ptr<crow::persistent_data::UserSession>
+static const std::shared_ptr<persistent_data::UserSession>
     performTLSAuth(const crow::Request& req, Response& res,
-                   std::weak_ptr<crow::persistent_data::UserSession> session)
+                   std::weak_ptr<persistent_data::UserSession> session)
 {
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (auto sp = session.lock())
@@ -237,16 +236,15 @@ static bool isOnWhitelist(const crow::Request& req)
 
 static void
     authenticate(crow::Request& req, Response& res,
-                 std::weak_ptr<crow::persistent_data::UserSession> session)
+                 std::weak_ptr<persistent_data::UserSession> session)
 {
     if (isOnWhitelist(req))
     {
         return;
     }
 
-    const crow::persistent_data::AuthConfigMethods& authMethodsConfig =
-        crow::persistent_data::SessionStore::getInstance()
-            .getAuthMethodsConfig();
+    const persistent_data::AuthConfigMethods& authMethodsConfig =
+        persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
     if (req.session == nullptr && authMethodsConfig.tls)
     {
