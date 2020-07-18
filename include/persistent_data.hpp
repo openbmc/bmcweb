@@ -16,15 +16,10 @@
 #include <fstream>
 #include <random>
 
-namespace crow
-{
-
 namespace persistent_data
 {
 
-namespace fs = std::filesystem;
-
-class Middleware
+class ConfigFile
 {
     uint64_t jsonRevision = 1;
 
@@ -32,27 +27,18 @@ class Middleware
     // todo(ed) should read this from a fixed location somewhere, not CWD
     static constexpr const char* filename = "bmcweb_persistent_data.json";
 
-    struct Context
-    {};
-
-    Middleware()
+    ConfigFile()
     {
         readData();
     }
 
-    ~Middleware()
+    ~ConfigFile()
     {
         if (persistent_data::SessionStore::getInstance().needsWrite())
         {
             writeData();
         }
     }
-
-    void beforeHandle(crow::Request& req, Response& res, Context& ctx)
-    {}
-
-    void afterHandle(Request& req, Response& res, Context& ctx)
-    {}
 
     // TODO(ed) this should really use protobuf, or some other serialization
     // library, but adding another dependency is somewhat outside the scope of
@@ -161,9 +147,11 @@ class Middleware
         std::ofstream persistentFile(filename);
 
         // set the permission of the file to 640
-        fs::perms permission = fs::perms::owner_read | fs::perms::owner_write |
-                               fs::perms::group_read;
-        fs::permissions(filename, permission);
+        std::filesystem::perms permission =
+            std::filesystem::perms::owner_read |
+            std::filesystem::perms::owner_write |
+            std::filesystem::perms::group_read;
+        std::filesystem::permissions(filename, permission);
 
         nlohmann::json data{
             {"sessions", SessionStore::getInstance().authTokens},
@@ -176,5 +164,10 @@ class Middleware
     std::string systemUuid{""};
 };
 
+inline ConfigFile& getConfig()
+{
+    static ConfigFile f;
+    return f;
+}
+
 } // namespace persistent_data
-} // namespace crow

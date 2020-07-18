@@ -2998,7 +2998,7 @@ void retrieveUriToDbusMap(const std::string& chassis, const std::string& node,
 class SensorCollection : public Node
 {
   public:
-    SensorCollection(CrowApp& app) :
+    SensorCollection(App& app) :
         Node(app, "/redfish/v1/Chassis/<str>/Sensors/", std::string())
     {
         entityPrivileges = {
@@ -3069,7 +3069,7 @@ class SensorCollection : public Node
 class Sensor : public Node
 {
   public:
-    Sensor(CrowApp& app) :
+    Sensor(App& app) :
         Node(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/", std::string(),
              std::string())
     {
