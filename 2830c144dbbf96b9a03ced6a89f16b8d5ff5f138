@@ -22,6 +22,29 @@
       "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "676f9aed_139b4a5d",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:42:18Z",
+      "side": 1,
+      "message": "Can you please document this api in phosphor-dbus-interfaces before merging this?  It looks like this was never done (or I\u0027m just not seeing the virtual media section)\n\nAlso, assuming we don\u0027t just fix this in the virtual media daemon, can we avoid the double dbus call and simply pick a reasonable timeout?",
+      "range": {
+        "startLine": 880,
+        "startChar": 13,
+        "endLine": 880,
+        "endChar": 56
+      },
+      "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
