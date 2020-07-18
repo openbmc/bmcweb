@@ -5,7 +5,6 @@
 
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
-#include <webserver_common.hpp>
 
 namespace crow
 {
@@ -155,7 +154,7 @@ static boost::container::flat_map<crow::websocket::Connection*,
                                   std::unique_ptr<KvmSession>>
     sessions;
 
-inline void requestRoutes(CrowApp& app)
+inline void requestRoutes(App& app)
 {
     sessions.reserve(maxSessions);
 
