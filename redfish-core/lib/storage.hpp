@@ -25,7 +25,7 @@ namespace redfish
 class StorageCollection : public Node
 {
   public:
-    StorageCollection(CrowApp& app) :
+    StorageCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/Storage/")
     {
         entityPrivileges = {
@@ -54,7 +54,7 @@ class StorageCollection : public Node
 class Storage : public Node
 {
   public:
-    Storage(CrowApp& app) : Node(app, "/redfish/v1/Systems/system/Storage/1/")
+    Storage(App& app) : Node(app, "/redfish/v1/Systems/system/Storage/1/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -275,7 +275,7 @@ class Storage : public Node
 class Drive : public Node
 {
   public:
-    Drive(CrowApp& app) :
+    Drive(App& app) :
         Node(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/",
              std::string())
     {

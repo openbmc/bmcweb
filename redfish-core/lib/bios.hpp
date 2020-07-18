@@ -11,7 +11,7 @@ namespace redfish
 class BiosService : public Node
 {
   public:
-    BiosService(CrowApp& app) : Node(app, "/redfish/v1/Systems/system/Bios/")
+    BiosService(App& app) : Node(app, "/redfish/v1/Systems/system/Bios/")
     {
         entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
     }
@@ -43,7 +43,7 @@ class BiosService : public Node
 class BiosReset : public Node
 {
   public:
-    BiosReset(CrowApp& app) :
+    BiosReset(App& app) :
         Node(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
     {
         entityPrivileges = {
