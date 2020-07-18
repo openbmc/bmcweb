@@ -276,7 +276,7 @@ class ConnectionImpl : public Connection
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;
-    std::shared_ptr<crow::persistent_data::UserSession> session;
+    std::shared_ptr<persistent_data::UserSession> session;
 };
 } // namespace websocket
 } // namespace crow

@@ -22,8 +22,7 @@ class HypervisorSystem : public Node
     /*
      * Default Constructor
      */
-    HypervisorSystem(CrowApp& app) :
-        Node(app, "/redfish/v1/Systems/hypervisor/")
+    HypervisorSystem(App& app) : Node(app, "/redfish/v1/Systems/hypervisor/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -78,8 +77,7 @@ class HypervisorSystem : public Node
 class HypervisorInterfaceCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    HypervisorInterfaceCollection(CrowApp& app) :
+    HypervisorInterfaceCollection(App& app) :
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
     {
         entityPrivileges = {
@@ -473,8 +471,7 @@ class HypervisorInterface : public Node
     /*
      * Default Constructor
      */
-    template <typename CrowApp>
-    HypervisorInterface(CrowApp& app) :
+    HypervisorInterface(App& app) :
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
              std::string())
     {

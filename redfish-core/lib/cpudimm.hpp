@@ -1028,7 +1028,7 @@ class ProcessorCollection : public Node
     /*
      * Default Constructor
      */
-    ProcessorCollection(CrowApp& app) :
+    ProcessorCollection(App& app) :
         Node(app, "/redfish/v1/Systems/system/Processors/")
     {
         entityPrivileges = {
@@ -1066,7 +1066,7 @@ class Processor : public Node
     /*
      * Default Constructor
      */
-    Processor(CrowApp& app) :
+    Processor(App& app) :
         Node(app, "/redfish/v1/Systems/system/Processors/<str>/", std::string())
     {
         entityPrivileges = {
@@ -1114,8 +1114,7 @@ class MemoryCollection : public Node
     /*
      * Default Constructor
      */
-    MemoryCollection(CrowApp& app) :
-        Node(app, "/redfish/v1/Systems/system/Memory/")
+    MemoryCollection(App& app) : Node(app, "/redfish/v1/Systems/system/Memory/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1149,7 +1148,7 @@ class Memory : public Node
     /*
      * Default Constructor
      */
-    Memory(CrowApp& app) :
+    Memory(App& app) :
         Node(app, "/redfish/v1/Systems/system/Memory/<str>/", std::string())
     {
         entityPrivileges = {
