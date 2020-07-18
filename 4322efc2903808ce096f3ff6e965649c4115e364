@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "e2027664_19fa68e5",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:42:18Z",
+      "side": 1,
+      "message": "\"VirtualMedia deamon can actually block for quite some time in cases when resources are unavailable or just simply when there is huge delay getting them over the network.\"\n\nSo it\u0027s breaking the dbus contract.  That\u0027s a bug that should be fixed in the virtual media daemon.  If it needs an incremental or status based api, that seems like what\u0027s needed here, not getting bmcweb to set arbitrarily long timeouts.\n\n\"I agree that this seems more like an issue of the service itself, but to be able to use short dbus timeout values we would need to change simple mount/unmount calls to some kind of polling protocol with requests and responses.\"\nOr do the mount/unmount in a separate thread/task, with a timer running that is able to fire a response if it takes too long?  Given the complexities with mounting filesystems, that seems like a good separation to have anyway.\n\n\"Other solution would be to limit users to have quickly accessible resources which I don\u0027t think is feasible\"\nYeah, that seems like a non-starter.",
+      "parentUuid": "763f7635_dbae396c",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5edc2fa3_ba02e24b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -271,6 +289,30 @@
       "side": 1,
       "message": "I agree, it feels like it would simplify things here.",
       "parentUuid": "da82bedd_93e7bf90",
+      "range": {
+        "startLine": 850,
+        "startChar": 16,
+        "endLine": 853,
+        "endChar": 31
+      },
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e22cc53_cbb65e2d",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:42:18Z",
+      "side": 1,
+      "message": "So go fix it?",
+      "parentUuid": "75a8ee14_d45265cd",
       "range": {
         "startLine": 850,
         "startChar": 16,
