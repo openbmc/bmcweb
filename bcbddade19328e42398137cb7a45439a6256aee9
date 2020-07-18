@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7d5a7e8b_a298ab5c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "See all other bmcweb code that simply inlines the types.  If I\u0027m understanding you correctly, you\u0027re saying \"The code needs to be harder to read so it can match the documentation\"\nSorry, but that\u0027s not acceptable.  Follow the patterns that bmcweb already uses.",
+      "parentUuid": "c8488bf6_36791179",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 29
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8672377d_80ccd5a4",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "b80aa05f_edf629cd",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "Ah, I see that now, you\u0027re right, that usage of tuple is acceptible (although the method being speced there seems quite odd).  That usage is ok, but please inline it to make it more obvious.",
+      "parentUuid": "005d3cb0_789cf2c5",
+      "range": {
+        "startLine": 95,
+        "startChar": 25,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d9f7e9b_eaf24ca2",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -154,6 +202,30 @@
       "side": 1,
       "message": "It is expected behavior. There is no need to return fatal error in this condition. We can receive partially completed metrics and we should handle it without error. In case of error user won\u0027t see \"MetricDefinition\" element in response, it meets redfish requirements.",
       "parentUuid": "2d9f7e9b_eaf24ca2",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 24
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec44ff2_8cefec23",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "\" We can receive partially completed metrics and we should handle it without error.\"\nNo, at this level, you should propagate the error.  \"partial\" results on bad service interfaces need to result in an error.  If the service isn\u0027t posting an appropriate dbus interface, that needs to be fixed in the service itself, not covered up.",
+      "parentUuid": "7183de01_9402ef0c",
       "range": {
         "startLine": 122,
         "startChar": 16,
@@ -260,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "fb98b0c6_4253c603",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "In that case you\u0027re doing a hash lookup twice.  I suspect you want find here, not .contains() and operator[]",
+      "parentUuid": "885723e7_7f4740c4",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f790049c_0caf75ae",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -354,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "6377fdac_2e174b9a",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "See my response.  This needs to be a hard error if the interface is incorrect.",
+      "parentUuid": "951d37a4_7cfe1aac",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af3409fb_b3fc9cb9",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -389,6 +509,30 @@
       "side": 1,
       "message": "If less then 1 than object_path is invalid, we can skip it.\nobject_path is a wrapper of std::string so there is no nullptr dereference.",
       "parentUuid": "af3409fb_b3fc9cb9",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457fa7ff_15847098",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "\"If less then 1 than object_path is invalid, we can skip it.\"\nGreat, that\u0027s not what your code does today, please fix it.  Also, log/throw an error.\n\nstd::string::begin() can definitely have a nullptr dereference (technically undefined behavior)",
+      "parentUuid": "91294bdf_3dccf728",
       "range": {
         "startLine": 137,
         "startChar": 16,
@@ -448,6 +592,30 @@
     },
     {
       "key": {
+        "uuid": "4860483c_f158605c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "AH, missed that.  fine as is.",
+      "parentUuid": "50a03212_265ab180",
+      "range": {
+        "startLine": 145,
+        "startChar": 60,
+        "endLine": 145,
+        "endChar": 61
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b15f36dc_dc53597f",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -483,6 +651,30 @@
       "side": 1,
       "message": "Why? It helps to keep same metricDefinitionUri everywhere and keeps us away from copy-paste error",
       "parentUuid": "b15f36dc_dc53597f",
+      "range": {
+        "startLine": 151,
+        "startChar": 31,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e356e091_c2bf80ca",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:24:48Z",
+      "side": 1,
+      "message": "it\u0027s easier to read.\n1\n\n\"It helps to keep same metricDefinitionUri everywhere and keeps us away from copy-paste error\"\nThe fact that you tested this code already prevents a copy paste error, so we gain nothing else from having global level usings.",
+      "parentUuid": "ce9af4ed_38d2b1e3",
       "range": {
         "startLine": 151,
         "startChar": 31,
