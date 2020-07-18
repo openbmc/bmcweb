@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c389880e_991ff513",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:35:14Z",
+      "side": 1,
+      "message": "myfunction(char c);\nis simpler, and easier to get functionally correct than\nmyfunction(const char* c)\n\nWith that said, if you want to use a full string as input, which (in my opinon) will be more complicated, modern coding guidelines would say to use a string view, or at a minimum pointer and a length.  I\u0027m happy with either, but null terminated strings on api boundaries aren\u0027t really modern.\n\nIt should be noted, you\u0027ve also forgot to check it against nullptr.",
+      "parentUuid": "19d85c5e_3e9d18a8",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f52d000_83b03327",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "How is possible that std::strtol is less efficient then your proposition? std::strtol always check if actual pointer is null so it is safe and it verify more other errors such overflow on int variable. Implementing own parser sounds like reinventing a wheel.",
       "parentUuid": "9f52d000_83b03327",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f7d4a8_475042dd",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:35:14Z",
+      "side": 1,
+      "message": "lots of things make it better:\n1. strtol allows negative numbers, which in the strtol case you\u0027ve failed to handle.\n2. the above parser handles errors (bad/unexpected characters, ect), which your current implementation does not.\n3. strtol does handle overflow, but your code doesn\u0027t check for it properly.\n4. (optional)The above parser could be written to operate directly on a std::chrono::milliseconds object, and parse the entire string in one shot (although I haven\u0027t written it here), and avoid all intermediates.\n\nThe parser above is IMO, the simplest way to implement all of the above, as it would lead to very little code.  I never said you couldn\u0027t do it with strtol, and if that\u0027s what you want to do, by all means, but make sure that you\u0027ve handled all degenerate and error cases.  Assume that a fuzzer will be run on it (because people do), or run a fuzzer of your own (if you want to learn, this would be a great side project for you).\n\nIf you want to do it with std library approaches, that\u0027s a totally valid solution, it\u0027s just harder to get right.\n https://en.cppreference.com/w/cpp/utility/from_chars\nis probably what you want.",
+      "parentUuid": "360dc1e3_8e061580",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -131,6 +173,30 @@
     },
     {
       "key": {
+        "uuid": "6899c44b_61e956f6",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:35:14Z",
+      "side": 1,
+      "message": "so when this function gets \"foobar\" as an input, it returns 0.  Is there somewhere else that error is handled?  I must\u0027ve missed it.  What I meant to say is, have you tested this branch works properly at a system level, it looks like it doesn\u0027t.",
+      "parentUuid": "d27d3f2d_598153a1",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15a106b0_03d64692",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -160,6 +226,24 @@
       "side": 1,
       "message": "Next branches initialize it.",
       "parentUuid": "15a106b0_03d64692",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "320aeb67_92d6b5fa",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:35:14Z",
+      "side": 1,
+      "message": "That\u0027s great, but coding guidelines ask for all variables to be initialized at the time they\u0027re declared\n\nlong out \u003d 0; is what you want here.",
+      "parentUuid": "e04da39c_3f3a0ec4",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -201,6 +285,30 @@
       "side": 1,
       "message": "I will change it to std::roundf. Sounds more reasonable. Sorry for my mistake.",
       "parentUuid": "d9b63a1c_27a8ecfb",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677b6a75_aee4bb7a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:35:14Z",
+      "side": 1,
+      "message": "no need to apologize.  We\u0027re working through this together.",
+      "parentUuid": "e715d36f_aad8419b",
       "range": {
         "startLine": 73,
         "startChar": 11,
@@ -271,6 +379,30 @@
       "side": 1,
       "message": "Yes, it holds a reference to a sequence of characters. What\u0027s exactly wrong here? Thanks in advance",
       "parentUuid": "62744028_f56fbd15",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5de2bc6_c4f8a1eb",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:35:14Z",
+      "side": 1,
+      "message": "I\u0027ll give you a couple questions to look up, and I think the answers will inform what you\u0027ve done wrong here.  Are string_views guaranteed to be null terminated?  Are pointers to unbounded memory allowed in the current security coding standards?\n\nReally good hint;  If you really want to go down this path, you probably want this, or one of it\u0027s bretheren.\nhttps://en.cppreference.com/w/cpp/utility/from_chars",
+      "parentUuid": "8b510fa6_f8bac451",
       "range": {
         "startLine": 80,
         "startChar": 26,
