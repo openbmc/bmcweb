@@ -130,7 +130,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
 class NetworkProtocol : public Node
 {
   public:
-    NetworkProtocol(CrowApp& app) :
+    NetworkProtocol(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
     {
         entityPrivileges = {

@@ -5,7 +5,6 @@
 
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/process.hpp>
-#include <webserver_common.hpp>
 
 #include <csignal>
 
@@ -155,8 +154,7 @@ class Handler : public std::enable_shared_from_this<Handler>
 
 static std::shared_ptr<Handler> handler;
 
-template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/vm/0/0")
         .requires({"ConfigureComponents", "ConfigureManager"})

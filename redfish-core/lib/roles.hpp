@@ -73,7 +73,7 @@ inline bool getAssignedPrivFromRole(std::string_view role,
 class Roles : public Node
 {
   public:
-    Roles(CrowApp& app) :
+    Roles(App& app) :
         Node(app, "/redfish/v1/AccountService/Roles/<str>/", std::string())
     {
         entityPrivileges = {
@@ -121,8 +121,7 @@ class Roles : public Node
 class RoleCollection : public Node
 {
   public:
-    RoleCollection(CrowApp& app) :
-        Node(app, "/redfish/v1/AccountService/Roles/")
+    RoleCollection(App& app) : Node(app, "/redfish/v1/AccountService/Roles/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},

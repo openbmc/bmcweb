@@ -41,7 +41,6 @@
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/hypervisor_ethernet.hpp"
-#include "webserver_common.hpp"
 
 namespace redfish
 {
@@ -58,7 +57,7 @@ class RedfishService
      *
      * @param[in] app   Crow app on which Redfish will initialize
      */
-    RedfishService(CrowApp& app)
+    RedfishService(App& app)
     {
         nodes.emplace_back(std::make_unique<AccountService>(app));
         nodes.emplace_back(std::make_unique<AccountsCollection>(app));
