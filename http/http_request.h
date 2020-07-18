@@ -29,10 +29,9 @@ struct Request
 
     const std::string& body;
 
-    void* middlewareContext{};
     boost::asio::io_context* ioService{};
 
-    std::shared_ptr<crow::persistent_data::UserSession> session;
+    std::shared_ptr<persistent_data::UserSession> session;
 
     std::string userRole{};
     std::function<Adaptor&()> socket;

@@ -19,7 +19,6 @@
 #include "http_response.h"
 
 #include "privileges.hpp"
-#include "webserver_common.hpp"
 
 #include <error_messages.hpp>
 
@@ -54,7 +53,7 @@ class Node
 {
   public:
     template <typename... Params>
-    Node(CrowApp& app, std::string&& entityUrl, Params... paramsIn)
+    Node(App& app, std::string&& entityUrl, Params... paramsIn)
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;

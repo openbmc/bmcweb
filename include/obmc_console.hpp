@@ -6,7 +6,6 @@
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
-#include <webserver_common.hpp>
 
 namespace crow
 {
@@ -102,7 +101,7 @@ void connectHandler(const boost::system::error_code& ec)
     doRead();
 }
 
-void requestRoutes(CrowApp& app)
+void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
         .requires({"ConfigureComponents", "ConfigureManager"})

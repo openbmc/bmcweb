@@ -19,6 +19,7 @@
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
+#include <persistent_data.hpp>
 #include <utils/json_utils.hpp>
 
 #include <variant>
@@ -556,7 +557,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
 class AccountService : public Node
 {
   public:
-    AccountService(CrowApp& app) :
+    AccountService(App& app) :
         Node(app, "/redfish/v1/AccountService/"), app(app)
     {
         entityPrivileges = {
@@ -909,9 +910,8 @@ class AccountService : public Node
         }
 
         // Make a copy of methods configuration
-        crow::persistent_data::AuthConfigMethods authMethodsConfig =
-            crow::persistent_data::SessionStore::getInstance()
-                .getAuthMethodsConfig();
+        persistent_data::AuthConfigMethods authMethodsConfig =
+            persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
         if (basicAuth)
         {
@@ -948,11 +948,10 @@ class AccountService : public Node
             return;
         }
 
-        crow::persistent_data::SessionStore::getInstance()
-            .updateAuthMethodsConfig(authMethodsConfig);
+        persistent_data::SessionStore::getInstance().updateAuthMethodsConfig(
+            authMethodsConfig);
         // Save configuration immediately
-        app.template getMiddleware<crow::persistent_data::Middleware>()
-            .writeData();
+        persistent_data::getConfig().writeData();
 
         messages::success(asyncResp->res);
     }
@@ -1126,9 +1125,8 @@ class AccountService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        const crow::persistent_data::AuthConfigMethods& authMethodsConfig =
-            crow::persistent_data::SessionStore::getInstance()
-                .getAuthMethodsConfig();
+        const persistent_data::AuthConfigMethods& authMethodsConfig =
+            persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = {
@@ -1315,13 +1313,13 @@ class AccountService : public Node
         }
     }
 
-    CrowApp& app;
+    App& app;
 };
 
 class AccountsCollection : public Node
 {
   public:
-    AccountsCollection(CrowApp& app) :
+    AccountsCollection(App& app) :
         Node(app, "/redfish/v1/AccountService/Accounts/")
     {
         entityPrivileges = {
@@ -1510,7 +1508,7 @@ class AccountsCollection : public Node
 class ManagerAccount : public Node
 {
   public:
-    ManagerAccount(CrowApp& app) :
+    ManagerAccount(App& app) :
         Node(app, "/redfish/v1/AccountService/Accounts/<str>/", std::string())
     {
         entityPrivileges = {

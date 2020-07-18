@@ -376,7 +376,7 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
 class UpdateServiceActionsSimpleUpdate : public Node
 {
   public:
-    UpdateServiceActionsSimpleUpdate(CrowApp& app) :
+    UpdateServiceActionsSimpleUpdate(App& app) :
         Node(app,
              "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
     {
@@ -506,7 +506,7 @@ class UpdateServiceActionsSimpleUpdate : public Node
 class UpdateService : public Node
 {
   public:
-    UpdateService(CrowApp& app) : Node(app, "/redfish/v1/UpdateService/")
+    UpdateService(App& app) : Node(app, "/redfish/v1/UpdateService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -685,8 +685,7 @@ class UpdateService : public Node
 class SoftwareInventoryCollection : public Node
 {
   public:
-    template <typename CrowApp>
-    SoftwareInventoryCollection(CrowApp& app) :
+    SoftwareInventoryCollection(App& app) :
         Node(app, "/redfish/v1/UpdateService/FirmwareInventory/")
     {
         entityPrivileges = {
@@ -761,8 +760,7 @@ class SoftwareInventoryCollection : public Node
 class SoftwareInventory : public Node
 {
   public:
-    template <typename CrowApp>
-    SoftwareInventory(CrowApp& app) :
+    SoftwareInventory(App& app) :
         Node(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
              std::string())
     {

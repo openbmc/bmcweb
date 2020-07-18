@@ -20,9 +20,6 @@
 #include <ibm/locks.hpp>
 #endif
 
-namespace crow
-{
-
 namespace persistent_data
 {
 
@@ -364,10 +361,6 @@ class SessionStore
         return std::chrono::seconds(timeoutInMinutes).count();
     };
 
-    // Persistent data middleware needs to be able to serialize our authTokens
-    // structure, which is private
-    friend Middleware;
-
     static SessionStore& getInstance()
     {
         static SessionStore sessionStore;
@@ -376,6 +369,16 @@ class SessionStore
 
     SessionStore(const SessionStore&) = delete;
     SessionStore& operator=(const SessionStore&) = delete;
+
+    std::unordered_map<std::string, std::shared_ptr<UserSession>,
+                       std::hash<std::string>,
+                       crow::utility::ConstantTimeCompare>
+        authTokens;
+
+    std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
+    bool needWrite{false};
+    std::chrono::minutes timeoutInMinutes;
+    AuthConfigMethods authMethodsConfig;
 
   private:
     SessionStore() : timeoutInMinutes(60)
@@ -408,32 +411,20 @@ class SessionStore
             }
         }
     }
-
-    std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
-    std::unordered_map<std::string, std::shared_ptr<UserSession>,
-                       std::hash<std::string>,
-                       crow::utility::ConstantTimeCompare>
-        authTokens;
-    bool needWrite{false};
-    std::chrono::minutes timeoutInMinutes;
-    AuthConfigMethods authMethodsConfig;
 };
 
 } // namespace persistent_data
-} // namespace crow
 
 // to_json(...) definition for objects of UserSession type
 namespace nlohmann
 {
 template <>
-struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
+struct adl_serializer<std::shared_ptr<persistent_data::UserSession>>
 {
-    static void
-        to_json(nlohmann::json& j,
-                const std::shared_ptr<crow::persistent_data::UserSession>& p)
+    static void to_json(nlohmann::json& j,
+                        const std::shared_ptr<persistent_data::UserSession>& p)
     {
-        if (p->persistence !=
-            crow::persistent_data::PersistenceType::SINGLE_REQUEST)
+        if (p->persistence != persistent_data::PersistenceType::SINGLE_REQUEST)
         {
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             j = nlohmann::json{
@@ -452,10 +443,10 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
 };
 
 template <>
-struct adl_serializer<crow::persistent_data::AuthConfigMethods>
+struct adl_serializer<persistent_data::AuthConfigMethods>
 {
     static void to_json(nlohmann::json& j,
-                        const crow::persistent_data::AuthConfigMethods& c)
+                        const persistent_data::AuthConfigMethods& c)
     {
         j = nlohmann::json{{"XToken", c.xtoken},
                            {"Cookie", c.cookie},
