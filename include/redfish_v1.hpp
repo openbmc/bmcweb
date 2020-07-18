@@ -2,19 +2,11 @@
 
 #include <app.h>
 
-#include <boost/algorithm/string.hpp>
-#include <dbus_singleton.hpp>
-#include <persistent_data_middleware.hpp>
-
-#include <fstream>
-#include <streambuf>
-#include <string>
 namespace crow
 {
 namespace redfish
 {
-template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/")
         .methods(boost::beast::http::verb::get)(

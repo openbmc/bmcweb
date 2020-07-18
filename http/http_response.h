@@ -11,12 +11,12 @@
 namespace crow
 {
 
-template <typename Adaptor, typename Handler, typename... Middlewares>
+template <typename Adaptor, typename Handler>
 class Connection;
 
 struct Response
 {
-    template <typename Adaptor, typename Handler, typename... Middlewares>
+    template <typename Adaptor, typename Handler>
     friend class crow::Connection;
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;

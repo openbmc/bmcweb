@@ -17,7 +17,7 @@
 
 #include "error_messages.hpp"
 #include "node.hpp"
-#include "persistent_data_middleware.hpp"
+#include "persistent_data.hpp"
 
 namespace redfish
 {
@@ -27,7 +27,7 @@ class SessionCollection;
 class Sessions : public Node
 {
   public:
-    Sessions(CrowApp& app) :
+    Sessions(App& app) :
         Node(app, "/redfish/v1/SessionService/Sessions/<str>/", std::string())
     {
         entityPrivileges = {
@@ -46,7 +46,7 @@ class Sessions : public Node
     {
         // Note that control also reaches here via doPost and doDelete.
         auto session =
-            crow::persistent_data::SessionStore::getInstance().getSessionByUid(
+            persistent_data::SessionStore::getInstance().getSessionByUid(
                 params[0]);
 
         if (session == nullptr)
@@ -88,7 +88,7 @@ class Sessions : public Node
         }
 
         auto session =
-            crow::persistent_data::SessionStore::getInstance().getSessionByUid(
+            persistent_data::SessionStore::getInstance().getSessionByUid(
                 params[0]);
 
         if (session == nullptr)
@@ -117,8 +117,7 @@ class Sessions : public Node
         // DELETE should return representation of object that will be removed
         doGet(res, req, params);
 
-        crow::persistent_data::SessionStore::getInstance().removeSession(
-            session);
+        persistent_data::SessionStore::getInstance().removeSession(session);
     }
 
     /**
@@ -133,7 +132,7 @@ class Sessions : public Node
 class SessionCollection : public Node
 {
   public:
-    SessionCollection(CrowApp& app) :
+    SessionCollection(App& app) :
         Node(app, "/redfish/v1/SessionService/Sessions/"), memberSession(app)
     {
         entityPrivileges = {
@@ -150,8 +149,8 @@ class SessionCollection : public Node
                const std::vector<std::string>& params) override
     {
         std::vector<const std::string*> sessionIds =
-            crow::persistent_data::SessionStore::getInstance().getUniqueIds(
-                false, crow::persistent_data::PersistenceType::TIMEOUT);
+            persistent_data::SessionStore::getInstance().getUniqueIds(
+                false, persistent_data::PersistenceType::TIMEOUT);
 
         res.jsonValue["Members@odata.count"] = sessionIds.size();
         res.jsonValue["Members"] = nlohmann::json::array();
@@ -236,11 +235,10 @@ class SessionCollection : public Node
 #endif
 
         // User is authenticated - create session
-        std::shared_ptr<crow::persistent_data::UserSession> session =
-            crow::persistent_data::SessionStore::getInstance()
-                .generateUserSession(
-                    username, crow::persistent_data::PersistenceType::TIMEOUT,
-                    isConfigureSelfOnly, clientId, clientIp);
+        std::shared_ptr<persistent_data::UserSession> session =
+            persistent_data::SessionStore::getInstance().generateUserSession(
+                username, persistent_data::PersistenceType::TIMEOUT,
+                isConfigureSelfOnly, clientId, clientIp);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
@@ -264,7 +262,7 @@ class SessionCollection : public Node
 class SessionService : public Node
 {
   public:
-    SessionService(CrowApp& app) : Node(app, "/redfish/v1/SessionService/")
+    SessionService(App& app) : Node(app, "/redfish/v1/SessionService/")
     {
 
         entityPrivileges = {
@@ -286,8 +284,7 @@ class SessionService : public Node
         res.jsonValue["Id"] = "SessionService";
         res.jsonValue["Description"] = "Session Service";
         res.jsonValue["SessionTimeout"] =
-            crow::persistent_data::SessionStore::getInstance()
-                .getTimeoutInSeconds();
+            persistent_data::SessionStore::getInstance().getTimeoutInSeconds();
         res.jsonValue["ServiceEnabled"] = true;
 
         res.jsonValue["Sessions"] = {
