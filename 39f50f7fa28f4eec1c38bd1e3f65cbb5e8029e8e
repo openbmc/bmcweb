@@ -636,6 +636,24 @@
     },
     {
       "key": {
+        "uuid": "5ec9f9cf_d3b01b26",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:28:04Z",
+      "side": 1,
+      "message": "\" But using same value like \"/redfish/v1/TelemetryService/...\" in many places is less readable than a simple constexpr variable that is same everywhere. \"\n\nThis is not true, especially when doing endpoint url audits.  You might try to put yourself in the maintainers shoes for a second, and attempt doing an endpoint and permissions audit on your code (along with every other handler) to see how hard it is.\nWithout your code, it can be done largely with a single grep statement.  With your code, it has to be done by hand.",
+      "parentUuid": "cfd288d2_fb9d84b0",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b8c722e_932d6dcd",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 26
@@ -1241,6 +1259,24 @@
     },
     {
       "key": {
+        "uuid": "47b4531a_b62a1199",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:28:04Z",
+      "side": 1,
+      "message": "I haven\u0027t looked at the assembly for this specific case, but I\u0027ve done many profiles, and for short strings, std::string (with reserve) and operator +\u003d has to optimized better on ast2500 yocto systems in the past.\n\nWhat I really should\u0027ve said here is that when built with std::to_string, this code is smaller, simpler, and easier to read.  You\u0027re right, I did jump too quickly to performance in my question.  See my proposed implementation below.",
+      "parentUuid": "99cfede3_1afa0828",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "105c35a5_4acd5a73",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
@@ -1394,6 +1430,24 @@
       "side": 1,
       "message": "floor is not required. We do not need to round it. duration_cast is enough for our use case.\n\nYour code is not exactly what we want because using std::to_string causes some numeric errors.\nfmt +\u003d std::to_string(std::chrono::duration_cast\u003cstd::chrono::duration\u003cfloat\u003e\u003e(ms).count());\nFor example:\nUser input: P48DT20H50M59.626S -\u003e Counted to ms: 4222259626, back to user output: P48DT20H50M59.625999S\n\nUsing stringstream is less problematic in this case because it does not add numeric error.",
       "parentUuid": "d051b5ef_67f80837",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643ad2a0_efcf01f3",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:28:04Z",
+      "side": 1,
+      "message": "\"floor is not required.\"\nYou are functionally implementing floor in your code.  Using the library function for floor makes it easier to read, and better documented.\n\n\nCan you be more clear in your example of where my code is broken?  You\u0027ve said \"user input\" but this function does not accept a string, so your test case doesn\u0027t make sense to me.  What input did you use in the ms duration?\n\nWhen I compile the below test app, using your data point of 4222259626 it returns the correct string (P48DT20H50M59.626S).  It\u0027s surprising that it would have floating point errors, as it uses zero floating point values, and everything in done as ints (which should also help performance in a minor way).  Are you sure that your parser doesn\u0027t have an issue somewhere?\n\nHere is an isolated test app\n#include \u003cstring\u003e\n#include \u003cchrono\u003e\n#include \u003ciostream\u003e\n\nstd::string toDurationFormat(std::chrono::milliseconds ms)\n{\n    std::string fmt;\n    fmt.reserve(sizeof(\"PxxxDTxxHxxMxx.xxxxxxS\"));\n    fmt +\u003d \"P\";\n\n    using Days \u003d std::chrono::duration\u003cstd::chrono::hours::rep, std::ratio\u003c24 * 60 * 60\u003e\u003e;\n    Days d \u003d std::chrono::floor\u003cDays\u003e(ms);\n    fmt +\u003d std::to_string(d.count());\n    ms -\u003d d;\n\n    fmt +\u003d \"DT\";\n    std::chrono::hours h \u003d std::chrono::floor\u003cstd::chrono::hours\u003e(ms);\n    fmt +\u003d std::to_string(h.count());\n    ms -\u003d h;\n    fmt +\u003d \"H\";\n\n\n    std::chrono::minutes m \u003d std::chrono::floor\u003cstd::chrono::minutes\u003e(ms);\n    fmt +\u003d std::to_string(m.count());\n    fmt +\u003d \"M\";\n    ms -\u003d m;\n\n    std::chrono::seconds s \u003d std::chrono::floor\u003cstd::chrono::seconds\u003e(ms);\n    fmt +\u003d std::to_string(s.count());\n    ms -\u003d s;\n\n    fmt +\u003d \".\";\n    fmt +\u003d std::to_string(ms.count());\n    fmt +\u003d \"S\";\n\n    return fmt;\n}\n\n\nint main(int argc, char** argv){\n   std::cout \u003c\u003c toDurationFormat(std::chrono::milliseconds(std::chrono::milliseconds(4222259626)));\n\n}",
+      "parentUuid": "948e8602_64309399",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -1676,6 +1730,24 @@
     },
     {
       "key": {
+        "uuid": "c4da9a6b_e8655edb",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:28:04Z",
+      "side": 1,
+      "message": "sure.  Technically the standard guarantees minimum 48 bit type in std::chrono::milliseconds, so there\u0027s no danger of overflow here, although the underlying type might be signed, which might cause issues.  With that said, having this api take std::chrono::milliseconds instead of a uint32_t makes the code cleaner, and seaparates concerns better.",
+      "parentUuid": "610f454b_915c1afb",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "812ee8a9_18008420",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
@@ -1794,6 +1866,24 @@
       "side": 1,
       "message": "std::string will allocate more memory then. We only reserve some length to make it less memory consuming when appending new signs. It is limited to uint32 size.",
       "parentUuid": "288004f3_0205c89b",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5532a805_2a3855a9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-18T15:28:04Z",
+      "side": 1,
+      "message": "49 days isn\u0027t very long, and well within a duration that the system would see.  Should this parameter be upgraded to a uint64_t to reduce the possibility of overflow?",
+      "parentUuid": "25f80d53_7c7f1704",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
