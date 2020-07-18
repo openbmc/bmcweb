@@ -526,7 +526,7 @@ void handleGetLockListAPI(const crow::Request& req, crow::Response& res,
 }
 
 template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(Crow& app)
 {
 
     // allowed only for admin

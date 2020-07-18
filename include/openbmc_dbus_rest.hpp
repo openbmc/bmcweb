@@ -2073,7 +2073,7 @@ inline void handleDBusUrl(const crow::Request& req, crow::Response& res,
 }
 
 template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(Crow& app)
 {
     BMCWEB_ROUTE(app, "/bus/")
         .requires({"Login"})

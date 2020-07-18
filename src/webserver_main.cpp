@@ -14,13 +14,12 @@
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
 #include <ibm/management_console_rest.hpp>
 #endif
-#include <persistent_data_middleware.hpp>
 #include <redfish.hpp>
 #include <redfish_v1.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>
-#include <security_headers_middleware.hpp>
+#include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
 #include <vm_websocket.hpp>
 #include <webassets.hpp>
@@ -35,7 +34,7 @@
 constexpr int defaultPort = 18080;
 
 template <typename... Middlewares>
-void setupSocket(crow::Crow<Middlewares...>& app)
+void setupSocket(crow::Crow& app)
 {
     int listenFd = sd_listen_fds(0);
     if (1 == listenFd)
@@ -102,6 +101,10 @@ int main(int argc, char** argv)
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     crow::ibm_mc::requestRoutes(app);
     crow::ibm_mc_lock::Lock::getInstance();
+#endif
+
+#ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
+    cors_preflight::requestRoutes(app);
 #endif
 
     crow::login_routes::requestRoutes(app);

@@ -3,7 +3,6 @@
 #include "http_request.h"
 #include "http_server.h"
 #include "logging.h"
-#include "middleware_context.h"
 #include "routing.h"
 #include "utility.h"
 
@@ -25,7 +24,6 @@ namespace crow
 #ifdef BMCWEB_ENABLE_SSL
 using ssl_context_t = boost::asio::ssl::context;
 #endif
-template <typename... Middlewares>
 class Crow
 {
   public:
@@ -33,10 +31,10 @@ class Crow
 
 #ifdef BMCWEB_ENABLE_SSL
     using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
-    using ssl_server_t = Server<Crow, ssl_socket_t, Middlewares...>;
+    using ssl_server_t = Server<Crow, ssl_socket_t>;
 #else
     using socket_t = boost::asio::ip::tcp::socket;
-    using server_t = Server<Crow, socket_t, Middlewares...>;
+    using server_t = Server<Crow, socket_t>;
 #endif
 
     explicit Crow(std::shared_ptr<boost::asio::io_context> ioIn =
@@ -100,12 +98,12 @@ class Crow
         if (-1 == socketFd)
         {
             sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, bindaddrStr, portUint, sslContext, &middlewares, io));
+                this, bindaddrStr, portUint, sslContext, io));
         }
         else
         {
             sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, socketFd, sslContext, &middlewares, io));
+                this, socketFd, sslContext, io));
         }
         sslServer->setTickFunction(tickInterval, tickFunction);
         sslServer->run();
@@ -115,12 +113,12 @@ class Crow
         if (-1 == socketFd)
         {
             server = std::move(std::make_unique<server_t>(
-                this, bindaddrStr, portUint, nullptr, &middlewares, io));
+                this, bindaddrStr, portUint, nullptr, io));
         }
         else
         {
             server = std::move(std::make_unique<server_t>(
-                this, socketFd, nullptr, &middlewares, io));
+                this, socketFd, nullptr, io));
         }
         server->setTickFunction(tickInterval, tickFunction);
         server->run();
@@ -216,23 +214,6 @@ class Crow
     }
 #endif
 
-    // middleware
-    using context_t = detail::Context<Middlewares...>;
-    template <typename T>
-    typename T::Context& getContext(const Request& req)
-    {
-        static_assert(black_magic::Contains<T, Middlewares...>::value,
-                      "App doesn't have the specified middleware type.");
-        auto& ctx = *reinterpret_cast<context_t*>(req.middlewareContext);
-        return ctx.template get<T>();
-    }
-
-    template <typename T>
-    T& getMiddleware()
-    {
-        return utility::getElementByType<T, Middlewares...>(middlewares);
-    }
-
     template <typename Duration, typename Func>
     self_t& tick(Duration d, Func f)
     {
@@ -255,15 +236,11 @@ class Crow
     std::chrono::milliseconds tickInterval{};
     std::function<void()> tickFunction;
 
-    std::tuple<Middlewares...> middlewares;
-
 #ifdef BMCWEB_ENABLE_SSL
     std::unique_ptr<ssl_server_t> sslServer;
 #else
     std::unique_ptr<server_t> server;
 #endif
 };
-template <typename... Middlewares>
-using App = Crow<Middlewares...>;
-using SimpleApp = Crow<>;
+using App = Crow;
 } // namespace crow

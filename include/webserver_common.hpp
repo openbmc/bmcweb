@@ -15,8 +15,5 @@
 */
 #pragma once
 
-#include "persistent_data_middleware.hpp"
-#include "security_headers_middleware.hpp"
-
-using CrowApp = crow::App<crow::SecurityHeadersMiddleware,
-                          crow::persistent_data::Middleware>;
+#include <app.h>
+using CrowApp = crow::App;

@@ -7,7 +7,6 @@
 
 #include <boost/container/flat_set.hpp>
 #include <pam_authenticate.hpp>
-#include <persistent_data_middleware.hpp>
 #include <webassets.hpp>
 
 #include <random>
@@ -19,14 +18,8 @@ namespace login_routes
 {
 
 template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(Crow& app)
 {
-    static_assert(
-        black_magic::Contains<persistent_data::Middleware,
-                              Middlewares...>::value,
-        "token_authorization middleware must be enabled in app to use "
-        "auth routes");
-
     BMCWEB_ROUTE(app, "/login")
         .methods(boost::beast::http::verb::post)([](const crow::Request& req,
                                                     crow::Response& res) {
@@ -149,7 +142,7 @@ void requestRoutes(Crow<Middlewares...>& app)
                         persistent_data::SessionStore::getInstance()
                             .generateUserSession(
                                 username,
-                                crow::persistent_data::PersistenceType::TIMEOUT,
+                                persistent_data::PersistenceType::TIMEOUT,
                                 isConfigureSelfOnly);
 
                     if (looksLikePhosphorRest)

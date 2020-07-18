@@ -110,7 +110,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
 }
 
 template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(Crow& app)
 {
     BMCWEB_ROUTE(app, "/upload/image/<str>")
         .requires({"ConfigureComponents", "ConfigureManager"})

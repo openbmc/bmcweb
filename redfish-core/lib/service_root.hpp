@@ -27,8 +27,7 @@ class ServiceRoot : public Node
   public:
     ServiceRoot(CrowApp& app) : Node(app, "/redfish/v1/")
     {
-        uuid = app.template getMiddleware<crow::persistent_data::Middleware>()
-                   .systemUuid;
+        uuid = persistent_data::getConfig().systemUuid;
         entityPrivileges = {
             {boost::beast::http::verb::get, {}},
             {boost::beast::http::verb::head, {}},

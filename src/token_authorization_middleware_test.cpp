@@ -72,9 +72,7 @@ TEST_F(TokenAuth, SpecialResourcesAreAcceptedWithoutAuth)
 // Tests that Base64 basic strings work
 TEST(TokenAuthentication, TestRejectedResource)
 {
-    App<crow::persistent_data::Middleware,
-        crow::token_authorization::Middleware>
-        app;
+    App<persistent_data::Middleware, crow::token_authorization::Middleware> app;
     app.bindaddr("127.0.0.1").port(45451);
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
@@ -108,9 +106,7 @@ TEST(TokenAuthentication, TestRejectedResource)
 // Tests that Base64 basic strings work
 TEST(TokenAuthentication, TestGetLoginUrl)
 {
-    App<crow::persistent_data::Middleware,
-        crow::token_authorization::Middleware>
-        app;
+    App<persistent_data::Middleware, crow::token_authorization::Middleware> app;
     app.bindaddr("127.0.0.1").port(45451);
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
@@ -144,9 +140,7 @@ TEST(TokenAuthentication, TestGetLoginUrl)
 // Tests boundary conditions on login
 TEST(TokenAuthentication, TestPostBadLoginUrl)
 {
-    App<crow::persistent_data::Middleware,
-        crow::token_authorization::Middleware>
-        app;
+    App<persistent_data::Middleware, crow::token_authorization::Middleware> app;
     app.bindaddr("127.0.0.1").port(45451);
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
@@ -236,9 +230,7 @@ class KnownLoginAuthenticator
 
 TEST(TokenAuthentication, TestSuccessfulLogin)
 {
-    App<crow::persistent_data::Middleware,
-        crow::token_authorization::Middleware>
-        app;
+    App<persistent_data::Middleware, crow::token_authorization::Middleware> app;
     app.bindaddr("127.0.0.1").port(45451);
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });

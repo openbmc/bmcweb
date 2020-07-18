@@ -156,7 +156,7 @@ class Handler : public std::enable_shared_from_this<Handler>
 static std::shared_ptr<Handler> handler;
 
 template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(Crow& app)
 {
     BMCWEB_ROUTE(app, "/vm/0/0")
         .requires({"ConfigureComponents", "ConfigureManager"})

@@ -1617,8 +1617,8 @@ class Manager : public Node
   public:
     Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/bmc/")
     {
-        uuid = app.template getMiddleware<crow::persistent_data::Middleware>()
-                   .systemUuid;
+
+        uuid = persistent_data::getConfig().systemUuid;
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},

@@ -30,7 +30,7 @@ struct CmpStr
 };
 
 template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(Crow& app)
 {
     const static boost::container::flat_map<const char*, const char*, CmpStr>
         contentTypes{

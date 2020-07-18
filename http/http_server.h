@@ -27,44 +27,40 @@ namespace crow
 using namespace boost;
 using tcp = asio::ip::tcp;
 
-template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket,
-          typename... Middlewares>
+template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
   public:
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
-           std::tuple<Middlewares...>* middlewares = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        timer(*ioService), handler(handler), middlewares(middlewares),
+        timer(*ioService), handler(handler), 
         adaptorCtx(adaptor_ctx)
     {}
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
-           std::tuple<Middlewares...>* middlewares = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
-               adaptor_ctx, middlewares, io)
+               adaptor_ctx, io)
     {}
 
     Server(Handler* handler, int existing_socket,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
-           std::tuple<Middlewares...>* middlewares = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
-               adaptor_ctx, middlewares, io)
+               adaptor_ctx, io)
     {}
 
     void setTickFunction(std::chrono::milliseconds d, std::function<void()> f)
@@ -224,8 +220,8 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
             auto p =
-                std::make_shared<Connection<Adaptor, Handler, Middlewares...>>(
-                    *ioService, handler, serverName, middlewares,
+                std::make_shared<Connection<Adaptor, Handler>>(
+                    *ioService, handler, serverName,
                     getCachedDateStr, timerQueue,
                     std::move(adaptorTemp.value()));
 
@@ -244,8 +240,8 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService);
             auto p =
-                std::make_shared<Connection<Adaptor, Handler, Middlewares...>>(
-                    *ioService, handler, serverName, middlewares,
+                std::make_shared<Connection<Adaptor, Handler>>(
+                    *ioService, handler, serverName,
                     getCachedDateStr, timerQueue,
                     std::move(adaptorTemp.value()));
 
@@ -279,7 +275,6 @@ class Server
     std::function<void()> tickFunction;
     std::function<void(const boost::system::error_code& ec)> timerHandler;
 
-    std::tuple<Middlewares...>* middlewares;
 
 #ifdef BMCWEB_ENABLE_SSL
     bool useSsl{false};
