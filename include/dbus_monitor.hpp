@@ -114,8 +114,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     return 0;
 }
 
-template <typename... Middlewares>
-void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/subscribe")
         .requires({"Login"})
