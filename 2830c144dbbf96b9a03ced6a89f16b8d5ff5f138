@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c346daf6_15caae97",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-20T07:12:50Z",
+      "side": 1,
+      "message": "This was intentionally changed to std::duration type to avoid casting it to microseconds and again to uint64_t.\n\nBut yeah it seems that there is no need to explicitly cast it to uint64_t as std::chrono::microseconds.count() returns matching type.",
+      "parentUuid": "1c8bd6c5_83b6d186",
+      "range": {
+        "startLine": 126,
+        "startChar": 42,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "676f9aed_139b4a5d",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2020-07-18T15:42:18Z",
       "side": 1,
       "message": "Can you please document this api in phosphor-dbus-interfaces before merging this?  It looks like this was never done (or I\u0027m just not seeing the virtual media section)\n\nAlso, assuming we don\u0027t just fix this in the virtual media daemon, can we avoid the double dbus call and simply pick a reasonable timeout?",
+      "range": {
+        "startLine": 880,
+        "startChar": 13,
+        "endLine": 880,
+        "endChar": 56
+      },
+      "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85bd87d_f391eb0f",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-20T07:12:50Z",
+      "side": 1,
+      "message": "It\u0027s already there:  - name: Timeout\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/VirtualMedia/MountPoint.interface.yaml\n\nI don\u0027t know what reasonable timeout would be. VirtualMedia can be configured to access resources with configurable timeout.",
+      "parentUuid": "676f9aed_139b4a5d",
       "range": {
         "startLine": 880,
         "startChar": 13,
