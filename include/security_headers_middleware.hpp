@@ -13,7 +13,7 @@ struct SecurityHeadersMiddleware
     void beforeHandle(crow::Request& req, Response& res, Context& ctx)
     {
 #ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
-        if (boost::beast::http::verb::options == req.method())
+        if ("OPTIONS"_method == req.method())
         {
             res.end();
         }

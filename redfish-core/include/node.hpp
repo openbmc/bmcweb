@@ -19,6 +19,7 @@
 #include "http_response.h"
 
 #include "privileges.hpp"
+#include "token_authorization_middleware.hpp"
 #include "webserver_common.hpp"
 
 #include <error_messages.hpp>
@@ -58,48 +59,39 @@ class Node
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;
-        get.methods(boost::beast::http::verb::get)(
-            [this](const crow::Request& req, crow::Response& res,
-                   Params... params) {
-                std::vector<std::string> paramVec = {params...};
-                doGet(res, req, paramVec);
-            });
+        get.methods("GET"_method)([this](const crow::Request& req,
+                                         crow::Response& res,
+                                         Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doGet(res, req, paramVec);
+        });
 
         crow::DynamicRule& patch = app.routeDynamic(entityUrl.c_str());
         patchRule = &patch;
-        patch.methods(boost::beast::http::verb::patch)(
-            [this](const crow::Request& req, crow::Response& res,
-                   Params... params) {
-                std::vector<std::string> paramVec = {params...};
-                doPatch(res, req, paramVec);
-            });
+        patch.methods("PATCH"_method)([this](const crow::Request& req,
+                                             crow::Response& res,
+                                             Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doPatch(res, req, paramVec);
+        });
 
         crow::DynamicRule& post = app.routeDynamic(entityUrl.c_str());
         postRule = &post;
-        post.methods(boost::beast::http::verb::post)(
-            [this](const crow::Request& req, crow::Response& res,
-                   Params... params) {
-                std::vector<std::string> paramVec = {params...};
-                doPost(res, req, paramVec);
-            });
-
-        crow::DynamicRule& put = app.routeDynamic(entityUrl.c_str());
-        putRule = &put;
-        put.methods(boost::beast::http::verb::put)(
-            [this](const crow::Request& req, crow::Response& res,
-                   Params... params) {
-                std::vector<std::string> paramVec = {params...};
-                doPut(res, req, paramVec);
-            });
+        post.methods("POST"_method)([this](const crow::Request& req,
+                                           crow::Response& res,
+                                           Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doPost(res, req, paramVec);
+        });
 
         crow::DynamicRule& delete_ = app.routeDynamic(entityUrl.c_str());
         deleteRule = &delete_;
-        delete_.methods(boost::beast::http::verb::delete_)(
-            [this](const crow::Request& req, crow::Response& res,
-                   Params... params) {
-                std::vector<std::string> paramVec = {params...};
-                doDelete(res, req, paramVec);
-            });
+        delete_.methods("DELETE"_method)([this](const crow::Request& req,
+                                                crow::Response& res,
+                                                Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doDelete(res, req, paramVec);
+        });
     }
 
     void initPrivileges()
@@ -128,14 +120,6 @@ class Node
                 patchRule->requires(it->second);
             }
         }
-        it = entityPrivileges.find(boost::beast::http::verb::put);
-        if (it != entityPrivileges.end())
-        {
-            if (putRule != nullptr)
-            {
-                putRule->requires(it->second);
-            }
-        }
         it = entityPrivileges.find(boost::beast::http::verb::delete_);
         if (it != entityPrivileges.end())
         {
@@ -153,7 +137,6 @@ class Node
     crow::DynamicRule* getRule = nullptr;
     crow::DynamicRule* postRule = nullptr;
     crow::DynamicRule* patchRule = nullptr;
-    crow::DynamicRule* putRule = nullptr;
     crow::DynamicRule* deleteRule = nullptr;
 
   protected:
@@ -174,13 +157,6 @@ class Node
 
     virtual void doPost(crow::Response& res, const crow::Request& req,
                         const std::vector<std::string>& params)
-    {
-        res.result(boost::beast::http::status::method_not_allowed);
-        res.end();
-    }
-
-    virtual void doPut(crow::Response& res, const crow::Request& req,
-                       const std::vector<std::string>& params)
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();

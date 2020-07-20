@@ -10,11 +10,10 @@
 
 namespace crow
 {
-
-constexpr const size_t timerQueueTimeoutSeconds = 5;
 namespace detail
 {
 
+constexpr const size_t timerQueueTimeoutSeconds = 5;
 constexpr const size_t maxSize = 100;
 // fast timer queue for fixed tick value.
 class TimerQueue

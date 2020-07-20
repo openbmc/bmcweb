@@ -114,15 +114,15 @@ void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/upload/image/<str>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
-            [](const crow::Request& req, crow::Response& res,
-               const std::string& filename) {
-                uploadImageHandler(req, res, filename);
-            });
+        .methods("POST"_method,
+                 "PUT"_method)([](const crow::Request& req, crow::Response& res,
+                                  const std::string& filename) {
+            uploadImageHandler(req, res, filename);
+        });
 
     BMCWEB_ROUTE(app, "/upload/image")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
+        .methods("POST"_method, "PUT"_method)(
             [](const crow::Request& req, crow::Response& res) {
                 uploadImageHandler(req, res, "");
             });

@@ -78,6 +78,16 @@ constexpr bool isValid(ConstStr s, unsigned i = 0, int f = 0)
                                                  : isValid(s, i + 1, f);
 }
 
+constexpr bool isEquP(const char* a, const char* b, unsigned n)
+{
+    return *a == 0 && *b == 0 && n == 0
+               ? true
+               : (*a == 0 || *b == 0)
+                     ? false
+                     : n == 0 ? true
+                              : *a != *b ? false : isEquP(a + 1, b + 1, n - 1);
+}
+
 constexpr bool isEquN(ConstStr a, unsigned ai, ConstStr b, unsigned bi,
                       unsigned n)
 {

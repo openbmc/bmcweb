@@ -111,3 +111,23 @@ inline std::string RoutingParams::get<std::string>(unsigned index) const
 }
 
 } // namespace crow
+
+constexpr boost::beast::http::verb operator"" _method(const char* str,
+                                                      size_t /*len*/)
+{
+    using verb = boost::beast::http::verb;
+    // clang-format off
+  return
+    crow::black_magic::isEquP(str, "GET", 3) ? verb::get :
+    crow::black_magic::isEquP(str, "DELETE", 6) ? verb::delete_ :
+    crow::black_magic::isEquP(str, "HEAD", 4) ? verb::head :
+    crow::black_magic::isEquP(str, "POST", 4) ? verb::post :
+    crow::black_magic::isEquP(str, "PUT", 3) ? verb::put :
+    crow::black_magic::isEquP(str, "OPTIONS", 7) ? verb::options :
+    crow::black_magic::isEquP(str, "CONNECT", 7) ? verb::connect :
+    crow::black_magic::isEquP(str, "TRACE", 5) ? verb::trace :
+    crow::black_magic::isEquP(str, "PATCH", 5) ? verb::patch :
+    crow::black_magic::isEquP(str, "PURGE", 5) ? verb::purge :
+    throw std::runtime_error("invalid http method");
+    // clang-format on
+}
