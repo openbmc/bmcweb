@@ -869,6 +869,8 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " async_write " << bytes_transferred
                                  << " bytes";
 
+                cancelDeadlineTimer();
+
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << this << " from write(2)";
