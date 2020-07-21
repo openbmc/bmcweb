@@ -186,6 +186,53 @@
     },
     {
       "key": {
+        "uuid": "fd7e6fc4_d1708b67",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:44:14Z",
+      "side": 1,
+      "message": "actually just change this to a std::array, and do a range based for loop with a reference?",
+      "parentUuid": "0eaf6177_1a25f046",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdf538bb_18cfc26f",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:44:14Z",
+      "side": 1,
+      "message": "if you move this to a std::array, could just do a for(bool \u0026 item : boundaryIndex)",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 62
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "216f7e12_71fd8abe",
         "filename": "redfish-core/include/MultipartParser.hpp",
         "patchSetId": 27
