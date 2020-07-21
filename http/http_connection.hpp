@@ -5,6 +5,7 @@
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
+#include "multipart_parser.hpp"
 #include "timer_queue.hpp"
 #include "utility.hpp"
 
@@ -356,6 +357,26 @@ class Connection :
                     res.completeRequestHandler = nullptr;
                     return;
                 }
+
+                std::string_view ct = req->getHeaderValue(
+                    boost::beast::http::field::content_type);
+                if (boost::starts_with(ct, "multipart/form-data;"))
+                {
+                    BMCWEB_LOG_INFO << "Parsing multipart form data\n";
+
+                    std::error_code ec;
+                    MultipartParser parser(*req, ec);
+                    if (ec)
+                    {
+                        // handle error
+                        BMCWEB_LOG_ERROR
+                            << "mime parse failed, ec : " << ec.value()
+                            << " , ec message : " << ec.message();
+                        res.result(boost::beast::http::status::bad_request);
+                        completeRequest();
+                    }
+                }
+
                 auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
                 handler->handle(*req, asyncResp);
             }

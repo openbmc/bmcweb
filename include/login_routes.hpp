@@ -32,6 +32,7 @@ inline void requestRoutes(App& app)
             // This object needs to be declared at this scope so the strings
             // within it are not destroyed before we can use them
             nlohmann::json loginCredentials;
+
             // Check if auth was provided by a payload
             if (boost::starts_with(contentType, "application/json"))
             {
@@ -118,6 +119,33 @@ inline void requestRoutes(App& app)
                                 }
                             }
                         }
+                    }
+                }
+            }
+            else if (boost::starts_with(contentType, "multipart/form-data"))
+            {
+                looksLikePhosphorRest = true;
+                for (const FormPart& formpart : req.mime_fields)
+                {
+                    boost::beast::http::fields::const_iterator it =
+                        formpart.fields.find("Content-Disposition");
+                    if (it == formpart.fields.end())
+                    {
+                        BMCWEB_LOG_ERROR << "Couldn't find Content-Disposition";
+                        asyncResp->res.result(
+                            boost::beast::http::status::bad_request);
+                        continue;
+                    }
+
+                    BMCWEB_LOG_INFO << "Parsing value " << it->value();
+
+                    if (it->value() == "form-data; name=\"username\"")
+                    {
+                        username = formpart.content;
+                    }
+                    else if (it->value() == "form-data; name=\"password\"")
+                    {
+                        password = formpart.content;
                     }
                 }
             }
