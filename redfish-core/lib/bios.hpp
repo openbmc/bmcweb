@@ -2,6 +2,7 @@
 
 #include "node.hpp"
 
+#include <utils/fw_utils.hpp>
 namespace redfish
 {
 /**
@@ -30,6 +31,9 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+
+        // Get the ActiveSoftwareImage
+        fw_util::getActiveFwVersion(asyncResp, fw_util::biosPurpose, "", true);
     }
 };
 /**
