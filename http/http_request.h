@@ -13,6 +13,12 @@
 namespace crow
 {
 
+struct FormPart
+{
+    boost::beast::http::fields fields;
+    std::string content;
+};
+
 struct Request
 {
 #ifdef BMCWEB_ENABLE_SSL
@@ -29,12 +35,15 @@ struct Request
 
     const std::string& body;
 
+    std::vector<FormPart> mime_fields;
+
     void* middlewareContext{};
     boost::asio::io_context* ioService{};
 
     std::shared_ptr<crow::persistent_data::UserSession> session;
 
     std::string userRole{};
+
     std::function<Adaptor&()> socket;
     Request(
         boost::beast::http::request<boost::beast::http::string_body>& reqIn) :

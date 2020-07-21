@@ -4,6 +4,7 @@
 #include "http_response.h"
 #include "logging.h"
 #include "middleware_context.h"
+#include "multipart_parser.h"
 #include "timer_queue.h"
 #include "utility.h"
 
@@ -596,6 +597,29 @@ class Connection :
                     res.completeRequestHandler = nullptr;
                     return;
                 }
+                std::string_view ct = req->getHeaderValue(
+                    boost::beast::http::field::content_type);
+                if (boost::starts_with(ct, "multipart/form-data;"))
+                {
+                    ct = ct.substr(sizeof("multipart/form-data;"));
+                    std::string boundary;
+                    if (boost::starts_with(ct, "boundary="))
+                    {
+                        ct = ct.substr(sizeof("boundary="));
+                        boundary = ct;
+                    }
+
+                    MultipartParser parser(*req);
+                    size_t parsed = parser.parse();
+
+                    if (parsed != req->body.size() || !parser.succeeded())
+                    {
+                        // handle error
+                    }
+                    else
+                    {}
+                }
+
                 handler->handle(*req, res);
             }
             else
