@@ -9,10 +9,17 @@
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/websocket.hpp>
+#include <boost/container/small_vector.hpp>
 #include <boost/url/url_view.hpp>
 
 namespace crow
 {
+
+struct FormPart
+{
+    boost::beast::http::fields fields;
+    std::string content;
+};
 
 struct Request
 {
@@ -24,6 +31,8 @@ struct Request
     bool isSecure{false};
 
     const std::string& body;
+
+    boost::container::small_vector<FormPart, 4> mime_fields;
 
     boost::asio::io_context* ioService{};
     boost::asio::ip::address ipAddress;
