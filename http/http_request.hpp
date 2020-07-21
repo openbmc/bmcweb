@@ -10,8 +10,16 @@
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url_view.hpp>
 
+#include <vector>
+
 namespace crow
 {
+
+struct FormPart
+{
+    boost::beast::http::fields fields;
+    std::string content;
+};
 
 struct Request
 {
@@ -23,6 +31,8 @@ struct Request
     bool isSecure{false};
 
     const std::string& body;
+
+    std::vector<FormPart> mime_fields;
 
     boost::asio::io_context* ioService{};
     boost::asio::ip::address ipAddress{};
