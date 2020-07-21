@@ -3,6 +3,7 @@
 
 #include "http_response.h"
 #include "logging.h"
+#include "multipart_parser.h"
 #include "timer_queue.h"
 #include "utility.h"
 
@@ -430,6 +431,25 @@ class Connection :
             res.completeRequestHandler = nullptr;
             return;
         }
+        std::string_view ct =
+            req->getHeaderValue(boost::beast::http::field::content_type);
+        if (boost::starts_with(ct, "multipart/form-data;"))
+        {
+            BMCWEB_LOG_INFO << "Parsing multipart form data\n";
+
+            MultipartParser parser(*req);
+            parser.parse();
+
+            if (!parser.succeeded())
+            {
+                // handle error
+                BMCWEB_LOG_ERROR << "mime parse failed "
+                                 << parser.getErrorMessage();
+                res.result(boost::beast::http::status::bad_request);
+                completeRequest();
+            }
+        }
+
         handler->handle(*req, res);
     }
 
@@ -453,6 +473,7 @@ class Connection :
         }
         adaptor.close();
     }
+
     void completeRequest()
     {
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
@@ -501,7 +522,7 @@ class Connection :
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         // Allow keepalive for secure connections only
-        if (sslConn)
+        if (sslStream)
         {
             res.keepAlive(req->keepAlive());
         }
