@@ -7,6 +7,7 @@
 #include "logging.hpp"
 #include "timer_queue.hpp"
 #include "utility.hpp"
+#include "multipart_parser.h"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
@@ -367,6 +368,26 @@ class Connection :
         {
             completeRequest();
         }
+        std::string_view ct =
+            req->getHeaderValue(boost::beast::http::field::content_type);
+        if (boost::starts_with(ct, "multipart/form-data;"))
+        {
+            BMCWEB_LOG_INFO << "Parsing multipart form data\n";
+
+            MultipartParser parser(*req);
+            parser.parse();
+
+            if (!parser.succeeded())
+            {
+                // handle error
+                BMCWEB_LOG_ERROR << "mime parse failed "
+                                 << parser.getErrorMessage();
+                res.result(boost::beast::http::status::bad_request);
+                completeRequest();
+            }
+        }
+
+        handler->handle(*req, res);
     }
 
     bool isAlive()
