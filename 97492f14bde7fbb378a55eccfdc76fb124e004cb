@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "379f201d_3e9e6d50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Please also plan on doing some kind of fuzz testing.  This mime parser will need to be used in unauthenticated contexts, so we need to have some assurance that it\u0027s secure.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6083d683_1fb8a5c7",
+        "filename": "http/http_request.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t really belong in here given the current pattern, also, because it uses no class variables, it doesn\u0027t need to be a class method anyway.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec7ad7b2_661dd135",
         "filename": "redfish-core/include/MultipartParser.hpp",
         "patchSetId": 27
@@ -273,6 +307,29 @@
     },
     {
       "key": {
+        "uuid": "825ac6ab_2194d76a",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "bmcweb uses #pragma once notation.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 28
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcd626e2_68e662ab",
         "filename": "redfish-core/include/MultipartReader.hpp",
         "patchSetId": 27
@@ -296,6 +353,75 @@
     },
     {
       "key": {
+        "uuid": "847ec5f7_a273cc58",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "There\u0027s already a data structure that\u0027s already riddiculously optimized for http headers.  Use boost::beast::http::fields instead.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cec7fe_3cfe08d4",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "I suspect this shouldn\u0027t be plural",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c7dc19_9b6eefab",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Declare your variables on separate lines for readability.",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "beb77dd2_e65f9c9e",
         "filename": "redfish-core/include/MultipartReader.hpp",
         "patchSetId": 27
@@ -312,6 +438,608 @@
         "startChar": 22,
         "endLine": 37,
         "endChar": 26
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d771fe1_a3d2104e",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "use string_view here.  It\u0027s a better fit (and might avoid a copy)",
+      "range": {
+        "startLine": 110,
+        "startChar": 31,
+        "endLine": 110,
+        "endChar": 37
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ea4192_e10d7fe6",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "unfortunately, secure coding guidelines say all these pointer callbacks need to be checked for nullptr.  I think if you combine the reader and parser objects, the complexity goes away, but I haven\u0027t tried it.",
+      "range": {
+        "startLine": 114,
+        "startChar": 32,
+        "endLine": 114,
+        "endChar": 40
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32e9311d_73a45636",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Nit, can this be built inplace by using multipartObj.rend()-\u003e  instead of building it, then moving it into the structure?",
+      "range": {
+        "startLine": 123,
+        "startChar": 47,
+        "endLine": 123,
+        "endChar": 61
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f577ffe_1d31b3e8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "nit: use a std::filesystem::path here.  I realize this isn\u0027t your code, and is just moved, so it\u0027s optionalhttps://en.cppreference.com/w/cpp/filesystem/path",
+      "range": {
+        "startLine": 375,
+        "startChar": 9,
+        "endLine": 375,
+        "endChar": 16
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27b6d3e_4098952a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "NIT: Set your filesystem chmod permissions correctly.  The defaults are overly permissive.",
+      "range": {
+        "startLine": 379,
+        "startChar": 18,
+        "endLine": 379,
+        "endChar": 21
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc78482e_3ec01e6d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Is this needed?  Doesn\u0027t this happen automatically on ofstream destruction?",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 13
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03cf8b1c_8778ae7e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Good refactor here.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c041fb_f7e1b0f9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "this needs to set an appropriate 400 http response.",
+      "range": {
+        "startLine": 719,
+        "startChar": 0,
+        "endLine": 719,
+        "endChar": 75
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e2afd71_fc1b72da",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "You\u0027re writing your own json parsing loop here instead of using the helpers, and as such, your code has implementation bugs.  Please use readJson instead, as it has all the corner cases of json parsing in redfish handled correctly already in a type safe way.  I haven\u0027t looked in detail, but you might consider adding a string overload for readJson.  Today there are nlohmann and request overloads, but this case seems to require a direct std::string, and it seems like a good overload to have anyway.\n\nPointer to the file:\nhttps://github.com/openbmc/bmcweb/blob/7f1538cc79b9613c6d5536c6e6951ee6372eabf3/redfish-core/include/utils/json_utils.hpp",
+      "range": {
+        "startLine": 742,
+        "startChar": 23,
+        "endLine": 742,
+        "endChar": 42
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82c85808_bbaee95b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "See below.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce548edd_f6341bdd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This needs to set an appropriate redfish error code.  Please see one of the many examples for how to do that.",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 69
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b8b16bb_666fab93",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This is one of the bugs.  Use the library functions for this.",
+      "range": {
+        "startLine": 761,
+        "startChar": 15,
+        "endLine": 761,
+        "endChar": 16
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc800f9_f50b6238",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Given that mime is going to be used all over, and at some point in the future, we will need a \"no memory copy, stream to filesystem\" variant of this, I\u0027d like to see this parser moved up into the connection object.  I have an untested prototype of what I think this could look like",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f42f3614_21b68fcf",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "invalid Object seems like the wrong error here, but I don\u0027t know the right one.  Could you take a look and see if there\u0027s an error that fits better?\n\nTechnically this should be some form of 400 error, so make sure that gets in there as well.",
+      "range": {
+        "startLine": 776,
+        "startChar": 22,
+        "endLine": 776,
+        "endChar": 35
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f564f30_dfcb47e6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "You don\u0027t search for the keyword boundary here.",
+      "range": {
+        "startLine": 780,
+        "startChar": 0,
+        "endLine": 780,
+        "endChar": 61
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960bf810_b081235a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Why is this here?  I suspect you need to put all this parsing code above monitorForSoftwareAvailable and this line will go away.\n\nSaid another way:\nParse the request completely (including mime) before starting anything that cannot be undone without errors.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d40c370_4138d8d3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This is definitely the wrong error.",
+      "range": {
+        "startLine": 784,
+        "startChar": 22,
+        "endLine": 784,
+        "endChar": 43
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c30130_356bf761",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "missing range check.",
+      "range": {
+        "startLine": 787,
+        "startChar": 61,
+        "endLine": 787,
+        "endChar": 67
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aee03c2f_aba2d713",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This is going to make a 3rd complete copy of a large file in memory.  That\u0027s not going to fly for low memory systems.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6750f1fc_64f6561c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "nit.  Use the more common size() here.  It\u0027s the same thing.",
+      "range": {
+        "startLine": 791,
+        "startChar": 38,
+        "endLine": 791,
+        "endChar": 44
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef2d688_a69cc566",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This will loop forever on bad inputs.  Given you have the whole thing in memory, I suspect you don\u0027t need the loop at all.\n\nAlso, handle your errors properly here.  This needs to return 400 on parser errors.",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 798,
+        "endChar": 58
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e6278bc_09a3a38c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This needs to be an error, not silently skipped.",
+      "range": {
+        "startLine": 807,
+        "startChar": 16,
+        "endLine": 807,
+        "endChar": 24
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3175cbeb_76a2aaf7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This copy is unneeded.  Refactor and remove.",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 42
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f2a041c_4a9c3f0f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This copy is also unneeded.  Refactor and remove.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac386e4c_1547eb69",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This should be an exact match, not a find.",
+      "range": {
+        "startLine": 812,
+        "startChar": 28,
+        "endLine": 812,
+        "endChar": 32
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74bc54c1_c9826519",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "This call needs to handle parse errors properly.\n\nAlso, if this object (being optional after all) doesn\u0027t exist, you still need to set apply time.  Your current code doesn\u0027t.",
+      "range": {
+        "startLine": 814,
+        "startChar": 40,
+        "endLine": 814,
+        "endChar": 59
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8497d08b_7abe9119",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "same as above.",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb2a212_b9f52764",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-21T21:58:22Z",
+      "side": 1,
+      "message": "Because this (and setApplyTime) aren\u0027t recoverable once they\u0027ve been started, these should be done outside of your loop over the mime objects.",
+      "range": {
+        "startLine": 818,
+        "startChar": 16,
+        "endLine": 818,
+        "endChar": 31
       },
       "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
