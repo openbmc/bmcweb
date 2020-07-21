@@ -1,5 +1,7 @@
 #pragma once
 
+#include "multipart_parser.hpp"
+
 #include <app.hpp>
 #include <boost/container/flat_set.hpp>
 #include <common.hpp>
@@ -118,6 +120,45 @@ inline void requestRoutes(App& app)
                                 }
                             }
                         }
+                    }
+                }
+            }
+            else if (boost::starts_with(contentType, "multipart/form-data"))
+            {
+                looksLikePhosphorRest = true;
+                std::error_code ec;
+                MultipartParser parser(req, ec);
+                if (ec)
+                {
+                    // handle error
+                    BMCWEB_LOG_ERROR << "MIME parse failed, ec : " << ec.value()
+                                     << " , ec message : " << ec.message();
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+
+                for (const FormPart& formpart : parser.mime_fields)
+                {
+                    boost::beast::http::fields::const_iterator it =
+                        formpart.fields.find("Content-Disposition");
+                    if (it == formpart.fields.end())
+                    {
+                        BMCWEB_LOG_ERROR << "Couldn't find Content-Disposition";
+                        asyncResp->res.result(
+                            boost::beast::http::status::bad_request);
+                        continue;
+                    }
+
+                    BMCWEB_LOG_INFO << "Parsing value " << it->value();
+
+                    if (it->value() == "form-data; name=\"username\"")
+                    {
+                        username = formpart.content;
+                    }
+                    else if (it->value() == "form-data; name=\"password\"")
+                    {
+                        password = formpart.content;
                     }
                 }
             }
