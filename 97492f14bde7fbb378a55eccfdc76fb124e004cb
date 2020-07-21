@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec7ad7b2_661dd135",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nit: everything else in this repo uses pragma once",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 28
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3fc5b0c_c76ed6c6",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nit lowerCamel",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c0e4b18_acd0629e",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nit: enum class",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a0f98d3_a90a9b5b",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nit: enum class",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e4f06f2_f5a7b203",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nit, std::array?",
+      "range": {
+        "startLine": 50,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 28
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7213725d_94769075",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nit: nullptr",
+      "range": {
+        "startLine": 63,
+        "startChar": 22,
+        "endLine": 63,
+        "endChar": 26
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f6ae059_0507566f",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "declare where used?",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eaf6177_1a25f046",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "std::fill?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216f7e12_71fd8abe",
+        "filename": "redfish-core/include/MultipartParser.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 87,
+        "startChar": 52,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e26a257_089be5bc",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "pragma once",
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd626e2_68e662ab",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 14
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb77dd2_e65f9c9e",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-21T21:42:26Z",
+      "side": 1,
+      "message": "nullptr, continued in this file",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
