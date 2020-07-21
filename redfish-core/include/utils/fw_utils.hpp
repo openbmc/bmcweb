@@ -2,6 +2,7 @@
 #include <async_resp.hpp>
 
 #include <string>
+#include <variant>
 
 namespace redfish
 {
@@ -20,19 +21,24 @@ constexpr const char* bmcPurpose =
  *
  * @param[i,o] aResp             Async response object
  * @param[i]   fwVersionPurpose  Indicates what target to look for
- * @param[i]   jsonIdxStr        Index in aResp->res.jsonValue to write fw ver
+ * @param[i]   activeVersionPropName  Index in aResp->res.jsonValue to write
+ * the running firmware version to
+ * @param[i]   populateLinkToActiveImage  Populate aResp->res "Links"
+ * "ActiveSoftwareImage" with a link to the running firmware image
  *
  * @return void
  */
 void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                         const std::string& fwVersionPurpose,
-                        const std::string& jsonIdxStr)
+                        const std::string& activeVersionPropName,
+                        const bool populateLinkToActiveImage)
 {
     // Get active FW images
     crow::connections::systemBus->async_method_call(
-        [aResp, fwVersionPurpose,
-         jsonIdxStr](const boost::system::error_code ec,
-                     const std::variant<std::vector<std::string>>& resp) {
+        [aResp, fwVersionPurpose, activeVersionPropName,
+         populateLinkToActiveImage](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "error_code = " << ec;
@@ -72,7 +78,8 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
 
                 // Now find service that hosts it
                 crow::connections::systemBus->async_method_call(
-                    [aResp, fw, swId, fwVersionPurpose, jsonIdxStr](
+                    [aResp, fw, swId, fwVersionPurpose, activeVersionPropName,
+                     populateLinkToActiveImage](
                         const boost::system::error_code ec,
                         const std::vector<std::pair<
                             std::string, std::vector<std::string>>>& objInfo) {
@@ -107,10 +114,13 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
 
                         // Now grab its version info
                         crow::connections::systemBus->async_method_call(
-                            [aResp, swId, fwVersionPurpose, jsonIdxStr](
+                            [aResp, swId, fwVersionPurpose,
+                             activeVersionPropName, populateLinkToActiveImage](
                                 const boost::system::error_code ec,
                                 const boost::container::flat_map<
-                                    std::string, VariantType>& propertiesList) {
+                                    std::string,
+                                    std::variant<bool, std::string, uint64_t,
+                                                 uint32_t>>& propertiesList) {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_ERROR << "error_code = " << ec;
@@ -126,8 +136,10 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                                 // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
 
                                 boost::container::flat_map<
-                                    std::string, VariantType>::const_iterator
-                                    it = propertiesList.find("Purpose");
+                                    std::string,
+                                    std::variant<bool, std::string, uint64_t,
+                                                 uint32_t>>::const_iterator it =
+                                    propertiesList.find("Purpose");
                                 if (it == propertiesList.end())
                                 {
                                     BMCWEB_LOG_DEBUG
@@ -150,24 +162,45 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                                     // Not purpose we're looking for
                                     return;
                                 }
-                                it = propertiesList.find("Version");
-                                if (it == propertiesList.end())
+                                if (populateLinkToActiveImage)
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-                                    messages::internalError(aResp->res);
-                                    return;
+                                    // Firmware images are at
+                                    // /redfish/v1/UpdateService/FirmwareInventory/<Id>
+                                    // e.g. .../FirmwareInventory/82d3ec86
+                                    // Create the link to the running one
+                                    aResp->res
+                                        .jsonValue["Links"]
+                                                  ["ActiveSoftwareImage"] = {
+                                        {"@odata.id",
+                                         "/redfish/v1/UpdateService/"
+                                         "FirmwareInventory/" +
+                                             swId}};
                                 }
-                                const std::string* version =
-                                    std::get_if<std::string>(&it->second);
-                                if (version == nullptr)
+                                if (!activeVersionPropName.empty())
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Error getting fw version";
-                                    messages::internalError(aResp->res);
-                                    return;
+                                    it = propertiesList.find("Version");
+                                    if (it == propertiesList.end())
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "Can't find property "
+                                               "\"Version\"!";
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    const std::string* version =
+                                        std::get_if<std::string>(&it->second);
+                                    if (version == nullptr)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "Error getting fw version";
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+
+                                    aResp->res
+                                        .jsonValue[activeVersionPropName] =
+                                        *version;
                                 }
-                                aResp->res.jsonValue[jsonIdxStr] = *version;
                             },
                             objInfo[0].first, fw,
                             "org.freedesktop.DBus.Properties", "GetAll",
@@ -268,16 +301,19 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
     crow::connections::systemBus->async_method_call(
         [asyncResp,
          swId](const boost::system::error_code error_code,
-               const boost::container::flat_map<std::string, VariantType>&
-                   propertiesList) {
+               const boost::container::flat_map<
+                   std::string, std::variant<bool, std::string, uint64_t,
+                                             uint32_t>>& propertiesList) {
             if (error_code)
             {
                 // not all fwtypes are updateable, this is ok
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
                 return;
             }
-            boost::container::flat_map<std::string, VariantType>::const_iterator
-                it = propertiesList.find("Activation");
+            boost::container::flat_map<
+                std::string, std::variant<bool, std::string, uint64_t,
+                                          uint32_t>>::const_iterator it =
+                propertiesList.find("Activation");
             if (it == propertiesList.end())
             {
                 BMCWEB_LOG_DEBUG << "Can't find property \"Activation\"!";

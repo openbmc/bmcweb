@@ -534,7 +534,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                     // Grab the bios version
                                     fw_util::getActiveFwVersion(
                                         aResp, fw_util::biosPurpose,
-                                        "BiosVersion");
+                                        "BiosVersion", false);
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
