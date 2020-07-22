@@ -775,7 +775,8 @@ class Connection :
                     startDeadline(loggedInAttempts);
                     BMCWEB_LOG_DEBUG << "Starting slow deadline";
 
-                    req->urlParams = QueryString(std::string(req->target()));
+                    req->urlParams =
+                        boost::urls::url_view(req->target()).params();
                 }
                 else
                 {

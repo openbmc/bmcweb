@@ -279,6 +279,8 @@ add_definitions (-DBOOST_ALL_NO_LIB)
 add_definitions (-DBOOST_NO_RTTI)
 add_definitions (-DBOOST_NO_TYPEID)
 add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
+add_definitions (-DBOOST_URL_STANDALONE)
+add_definitions (-DBOOST_URL_HEADER_ONLY)
 
 # sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})

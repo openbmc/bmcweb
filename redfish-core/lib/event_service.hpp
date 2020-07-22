@@ -445,7 +445,14 @@ class EventServiceSSE : public Node
         subValue->protocol = "Redfish";
         subValue->retryPolicy = "TerminateAfterRetries";
 
-        char* filters = req.urlParams.get("$filter");
+        const char* filters = nullptr;
+        boost::urls::url_view::params_type::iterator it =
+            req.urlParams.find("$filter");
+        if (it != req.urlParams.end())
+        {
+            filters = it->value().c_str();
+        }
+
         if (filters == nullptr)
         {
             subValue->eventFormatType = "Event";
