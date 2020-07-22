@@ -12,6 +12,7 @@
 
 #include <memory>
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+#include <event_dbus_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
 #endif
 #include <redfish.hpp>
@@ -125,6 +126,11 @@ int main(int /*argc*/, char** /*argv*/)
         BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
         return rc;
     }
+#endif
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    // Start BMC and Host state change dbus monitor
+    crow::dbus_monitor::registerStateChangeSignal();
 #endif
 
     app.run();
