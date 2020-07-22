@@ -143,15 +143,15 @@ void handleConfigFileList(crow::Response& res)
                                   pathObj.filename().string());
         }
     }
-    res.jsonValue["@odata.type"] = "#FileCollection.v1_0_0.FileCollection";
+    res.jsonValue["@odata.type"] = "#IBMConfigFile.v1_0_0.IBMConfigFile";
     res.jsonValue["@odata.id"] = "/ibm/v1/Host/ConfigFiles/";
     res.jsonValue["Id"] = "ConfigFiles";
     res.jsonValue["Name"] = "ConfigFiles";
 
     res.jsonValue["Members"] = std::move(pathObjList);
-    res.jsonValue["Actions"]["#FileCollection.DeleteAll"] = {
+    res.jsonValue["Actions"]["#IBMConfigFiles.DeleteAll"] = {
         {"target",
-         "/ibm/v1/Host/ConfigFiles/Actions/FileCollection.DeleteAll"}};
+         "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll"}};
     res.end();
 }
 
@@ -554,7 +554,7 @@ void requestRoutes(Crow<Middlewares...>& app)
             });
 
     BMCWEB_ROUTE(app,
-                 "/ibm/v1/Host/ConfigFiles/Actions/FileCollection.DeleteAll")
+                 "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
