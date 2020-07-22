@@ -989,6 +989,23 @@ class EventServiceManager
         return subscriptionsMap.size();
     }
 
+    uint16_t getCountOfResourceSubscriptions(const std::string& resourceType)
+    {
+        std::vector<std::string> idList;
+        uint16_t count = 0;
+        for (const auto& it : subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            auto iter = std::find(entry->resourceTypes.begin(),
+                                  entry->resourceTypes.end(), resourceType);
+            if (iter != entry->resourceTypes.end())
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     std::vector<std::string> getAllIDs()
     {
         std::vector<std::string> idList;
