@@ -26,6 +26,14 @@ static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+static constexpr const std::array<const char*, 2> supportedResourceTypes = {
+    "IBMConfigFile", "Task"};
+#else
+static constexpr const std::array<const char*, 1> supportedResourceTypes = {
+    "Task"};
+#endif
+
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 
 class EventService : public Node
@@ -72,6 +80,7 @@ class EventService : public Node
             retryTimeoutInterval;
         asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
+        asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
 
         nlohmann::json supportedSSEFilters = {
             {"EventFormatType", true},        {"MessageId", true},
@@ -228,6 +237,7 @@ class EventDestinationCollection : public Node
         std::optional<std::string> retryPolicy;
         std::optional<std::vector<std::string>> msgIds;
         std::optional<std::vector<std::string>> regPrefixes;
+        std::optional<std::vector<std::string>> resTypes;
         std::optional<std::vector<nlohmann::json>> headers;
         std::optional<std::vector<nlohmann::json>> metricReportDefinitions;
 
@@ -237,7 +247,7 @@ class EventDestinationCollection : public Node
                 "EventFormatType", eventFormatType, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
-                metricReportDefinitions))
+                metricReportDefinitions, "ResourceTypes", resTypes))
         {
             return;
         }
@@ -360,6 +370,22 @@ class EventDestinationCollection : public Node
                 }
             }
             subValue->registryPrefixes = *regPrefixes;
+        }
+
+        if (resTypes)
+        {
+            for (const std::string& it : *resTypes)
+            {
+                if (std::find(supportedResourceTypes.begin(),
+                              supportedResourceTypes.end(),
+                              it) == supportedResourceTypes.end())
+                {
+                    messages::propertyValueNotInList(asyncResp->res, it,
+                                                     "ResourceTypes");
+                    return;
+                }
+            }
+            subValue->resourceTypes = *resTypes;
         }
 
         if (msgIds)
@@ -560,6 +586,8 @@ class EventDestination : public Node
         asyncResp->res.jsonValue["EventFormatType"] = subValue->eventFormatType;
         asyncResp->res.jsonValue["RegistryPrefixes"] =
             subValue->registryPrefixes;
+        asyncResp->res.jsonValue["ResourceTypes"] = subValue->resourceTypes;
+
         asyncResp->res.jsonValue["MessageIds"] = subValue->registryMsgIds;
         asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue->retryPolicy;
         asyncResp->res.jsonValue["MetricReportDefinitions"] =
