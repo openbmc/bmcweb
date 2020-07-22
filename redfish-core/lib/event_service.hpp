@@ -16,6 +16,8 @@
 #pragma once
 #include "event_service_manager.hpp"
 
+#include <event_dbus_monitor.hpp>
+
 namespace redfish
 {
 
@@ -27,11 +29,11 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-static constexpr const std::array<const char*, 2> supportedResourceTypes = {
-    "ConfigFiles", "Tasks"};
+static constexpr const std::array<const char*, 3> supportedResourceTypes = {
+    "ConfigFiles", "Tasks", "Systems"};
 #else
-static constexpr const std::array<const char*, 1> supportedResourceTypes = {
-    "Tasks"};
+static constexpr const std::array<const char*, 2> supportedResourceTypes = {
+    "Tasks", "Systems"};
 #endif
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
@@ -425,6 +427,8 @@ class EventDestinationCollection : public Node
             messages::internalError(asyncResp->res);
             return;
         }
+        //Start Host state change dbus monitor
+        crow::dbus_monitor::registerHostStateChangeSignal();
 
         messages::created(asyncResp->res);
         asyncResp->res.addHeader(
@@ -669,6 +673,16 @@ class EventDestination : public Node
             return;
         }
         EventServiceManager::getInstance().deleteSubscription(params[0]);
+
+        // Check subscription count for "Systems" resource.
+        // Clear D-Bus match if there are no subscriptions.
+        uint16_t count =
+            EventServiceManager::getInstance().getCountOfResourceSubscriptions(
+                "Systems");
+        if (!count)
+        {
+            crow::dbus_monitor::unregisterHostStateChangeSignal();
+        }
     }
 };
 
