@@ -3,13 +3,14 @@
 
 #include <boost/asio/io_context.hpp>
 #include <dbus_monitor.hpp>
+#include <event_dbus_monitor.hpp>
+
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
 #include <kvm_websocket.hpp>
 #include <login_routes.hpp>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
-
 #include <memory>
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
 #include <ibm/management_console_rest.hpp>
@@ -126,7 +127,7 @@ int main(int argc, char** argv)
         return rc;
     }
 #endif
-
+    crow::dbus_monitor::registerHostStateChangeSignal();
     app.run();
     io->run();
 
