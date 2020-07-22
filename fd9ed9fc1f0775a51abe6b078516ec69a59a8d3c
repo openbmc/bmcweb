@@ -193,6 +193,30 @@
     },
     {
       "key": {
+        "uuid": "2043a912_75c5dd1e",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-22T16:58:22Z",
+      "side": 1,
+      "message": "Hi Ed,\n\nThe parser that you have pointed to, I see that the single header can be included in order to use it, but seems it has not been updated for 4 years.\nMimetic lib is being updated, at least when compared to the parser, and seems to be used in distros.\n\nSpeaking of the errors, I think we have internal methods to build/parse the mimetic header and body, with which we can handle the errors.\n\nAny thoughts, Ed?",
+      "parentUuid": "b06008a9_834ad3fe",
+      "range": {
+        "startLine": 391,
+        "startChar": 31,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "035ad007_9783f8af",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
