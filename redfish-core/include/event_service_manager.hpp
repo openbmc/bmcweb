@@ -368,6 +368,7 @@ class Subscription
     std::string subscriptionType;
     std::vector<std::string> registryMsgIds;
     std::vector<std::string> registryPrefixes;
+    std::vector<std::string> resourceTypes;
     std::vector<nlohmann::json> httpHeaders; // key-value pair
     std::vector<nlohmann::json> metricReportDefinitions;
 
@@ -742,6 +743,8 @@ class EventServiceManager
                                               subValue->registryMsgIds);
             json_util::getValueFromJsonObject(jsonObj, "RegistryPrefixes",
                                               subValue->registryPrefixes);
+            json_util::getValueFromJsonObject(jsonObj, "ResourceTypes",
+                                              subValue->resourceTypes);
             json_util::getValueFromJsonObject(jsonObj, "HttpHeaders",
                                               subValue->httpHeaders);
             json_util::getValueFromJsonObject(
@@ -791,6 +794,7 @@ class EventServiceManager
             entry["MessageIds"] = subValue->registryMsgIds;
             entry["Protocol"] = subValue->protocol;
             entry["RegistryPrefixes"] = subValue->registryPrefixes;
+            entry["ResourceTypes"] = subValue->resourceTypes;
             entry["SubscriptionType"] = subValue->subscriptionType;
             entry["MetricReportDefinitions"] =
                 subValue->metricReportDefinitions;
