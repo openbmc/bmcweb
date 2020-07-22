@@ -1,0 +1,15 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y libpam0g-dev libssl-dev zlib1g-dev pkg-config xxd cmake \
+    libgtest-dev libgmock-dev ninja-build python3 autoconf-archive autoconf \
+    build-essential git libsystemd-dev systemd python3-wheel python3-pip \
+    python3-yaml python3-mako python3-inflection python3-setuptools && \
+    pip3 install meson
+
+ADD . /source
+
+RUN mkdir -p /build && cd /build && cmake -DYOCTO_DEPENDENCIES=OFF /source && \
+    cmake --build . && rm -rf /source
+
+WORKDIR /build

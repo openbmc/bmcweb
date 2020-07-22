@@ -1,0 +1,6 @@
+.git
+Dockerfile
+Dockerfile.base
+.dockerignore
+build
+
