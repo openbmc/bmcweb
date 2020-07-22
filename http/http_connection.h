@@ -728,13 +728,9 @@ class Connection :
                     return;
                 }
 
-                // Compute the url parameters for the request
-                req->url = req->target();
-                std::size_t index = req->url.find("?");
-                if (index != std::string_view::npos)
-                {
-                    req->url = req->url.substr(0, index);
-                }
+                req->urlView = boost::urls::url_view(req->target());
+                req->url = req->urlView.encoded_path();
+
                 crow::authorization::authenticate(*req, res, session);
 
                 bool loggedIn = req && req->session;
@@ -743,7 +739,16 @@ class Connection :
                     startDeadline(loggedInAttempts);
                     BMCWEB_LOG_DEBUG << "Starting slow deadline";
 
-                    req->urlParams = QueryString(std::string(req->target()));
+                    req->urlParams = req->urlView.params();
+
+#ifdef BMCWEB_ENABLE_DEBUG
+                    std::string paramList = "";
+                    for (const auto param : req->urlParams)
+                    {
+                        paramList += param->key() + " " + param->value() + " ";
+                    }
+                    BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
+#endif
                 }
                 else
                 {

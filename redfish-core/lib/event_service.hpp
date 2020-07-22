@@ -445,13 +445,16 @@ class EventServiceSSE : public Node
         subValue->protocol = "Redfish";
         subValue->retryPolicy = "TerminateAfterRetries";
 
-        char* filters = req.urlParams.get("$filter");
-        if (filters == nullptr)
+        boost::urls::url_view::params_type::iterator it =
+            req.urlParams.find("$filter");
+        if (it == req.urlParams.end())
         {
             subValue->eventFormatType = "Event";
         }
+
         else
         {
+            std::string filters = it->value();
             // Reading from query params.
             bool status = readSSEQueryParams(
                 filters, subValue->eventFormatType, subValue->registryMsgIds,

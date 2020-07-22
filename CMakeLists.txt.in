@@ -53,3 +53,13 @@ externalproject_add (
     cp -r "${CMAKE_BINARY_DIR}/nlohmann-json-src/include/nlohmann"
     "${CMAKE_BINARY_DIR}/prefix/include"
 )
+
+externalproject_add (
+    Boost-URL GIT_REPOSITORY "https://github.com/CPPAlliance/url.git" GIT_TAG
+    a56ae0df6d3078319755fbaa67822b4fa7fd352b SOURCE_DIR
+    "${CMAKE_BINARY_DIR}/boost-url-src" BINARY_DIR
+    "${CMAKE_BINARY_DIR}/boost-url-build" CONFIGURE_COMMAND "" BUILD_COMMAND
+    "" INSTALL_COMMAND mkdir -p "${CMAKE_BINARY_DIR}/prefix/include" &&
+    cp -r "${CMAKE_BINARY_DIR}/boost-url-src/include/boost"
+    "${CMAKE_BINARY_DIR}/prefix/include"
+)
