@@ -9,7 +9,6 @@
 #include <login_routes.hpp>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
-
 #include <memory>
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
 #include <ibm/management_console_rest.hpp>
@@ -126,7 +125,6 @@ int main(int argc, char** argv)
         return rc;
     }
 #endif
-
     app.run();
     io->run();
 
