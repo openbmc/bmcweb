@@ -240,12 +240,14 @@ static bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
 static bool getSkipParam(crow::Response& res, const crow::Request& req,
                          uint64_t& skip)
 {
-    char* skipParam = req.urlParams.get("$skip");
-    if (skipParam != nullptr)
+    boost::urls::url_view::params_type::iterator it =
+        req.urlParams.find("$skip");
+    if (it != req.urlParams.end())
     {
+        std::string skipParam = it->value();
         char* ptr = nullptr;
-        skip = std::strtoul(skipParam, &ptr, 10);
-        if (*skipParam == '\0' || *ptr != '\0')
+        skip = std::strtoul(skipParam.c_str(), &ptr, 10);
+        if (skipParam.empty() || *ptr != '\0')
         {
 
             messages::queryParameterValueTypeError(res, std::string(skipParam),
@@ -260,12 +262,14 @@ static constexpr const uint64_t maxEntriesPerPage = 1000;
 static bool getTopParam(crow::Response& res, const crow::Request& req,
                         uint64_t& top)
 {
-    char* topParam = req.urlParams.get("$top");
-    if (topParam != nullptr)
+    boost::urls::url_view::params_type::iterator it =
+        req.urlParams.find("$top");
+    if (it != req.urlParams.end())
     {
+        std::string topParam = it->value();
         char* ptr = nullptr;
-        top = std::strtoul(topParam, &ptr, 10);
-        if (*topParam == '\0' || *ptr != '\0')
+        top = std::strtoul(topParam.c_str(), &ptr, 10);
+        if (topParam.empty() || *ptr != '\0')
         {
             messages::queryParameterValueTypeError(res, std::string(topParam),
                                                    "$top");

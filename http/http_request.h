@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common.h"
-#include "query_string.h"
 
 #include "sessions.hpp"
 
@@ -9,6 +8,7 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
+#include <boost/url/url_view.hpp>
 
 namespace crow
 {
@@ -24,7 +24,8 @@ struct Request
     boost::beast::http::request<boost::beast::http::string_body>& req;
     boost::beast::http::fields& fields;
     std::string_view url{};
-    QueryString urlParams{};
+    boost::urls::url_view urlView{};
+    boost::urls::url_view::params_type urlParams{};
     bool isSecure{false};
 
     const std::string& body;
