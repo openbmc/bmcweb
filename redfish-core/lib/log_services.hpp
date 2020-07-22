@@ -240,7 +240,14 @@ static bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
 static bool getSkipParam(crow::Response& res, const crow::Request& req,
                          uint64_t& skip)
 {
-    char* skipParam = req.urlParams.get("$skip");
+    const char* skipParam = nullptr;
+    boost::urls::url_view::params_type::iterator it =
+        req.urlParams.find("$skip");
+    if (it != req.urlParams.end())
+    {
+        skipParam = it->value().c_str();
+    }
+
     if (skipParam != nullptr)
     {
         char* ptr = nullptr;
@@ -260,7 +267,14 @@ static constexpr const uint64_t maxEntriesPerPage = 1000;
 static bool getTopParam(crow::Response& res, const crow::Request& req,
                         uint64_t& top)
 {
-    char* topParam = req.urlParams.get("$top");
+    const char* topParam = nullptr;
+    boost::urls::url_view::params_type::iterator it =
+        req.urlParams.find("$top");
+    if (it != req.urlParams.end())
+    {
+        topParam = it->value().c_str();
+    }
+
     if (topParam != nullptr)
     {
         char* ptr = nullptr;
