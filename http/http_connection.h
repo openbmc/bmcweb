@@ -915,7 +915,8 @@ class Connection :
         }
 
         timerCancelKey =
-            timerQueue.add([self(shared_from_this()), timerIterations] {
+            timerQueue.add([self(shared_from_this()), timerIterations,
+                            readCount{parser->get().body().size()}] {
                 // Mark timer as not active to avoid canceling it during
                 // Connection destructor which leads to double free issue
                 self->timerCancelKey.reset();
@@ -924,12 +925,21 @@ class Connection :
                     return;
                 }
 
+                bool loggedIn = self->req && self->req->session;
+                // allow slow uploads for logged in users
+                if (loggedIn && self->parser->get().body().size() > readCount)
+                {
+                    BMCWEB_LOG_DEBUG << self.get()
+                                     << " restart timer - read in progress";
+                    self->startDeadline(timerIterations);
+                    return;
+                }
+
                 // Threshold can be used to drop slow connections
                 // to protect against slow-rate DoS attack
                 if (timerIterations)
                 {
-                    BMCWEB_LOG_DEBUG << self.get()
-                                     << " restart timer - read in progress";
+                    BMCWEB_LOG_DEBUG << self.get() << " restart timer";
                     self->startDeadline(timerIterations);
                     return;
                 }
