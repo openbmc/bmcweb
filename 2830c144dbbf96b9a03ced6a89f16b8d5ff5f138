@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7d502dc6_d1374e49",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-23T20:51:32Z",
+      "side": 1,
+      "message": "It says at least 55 bits for microseconds? https://en.cppreference.com/w/cpp/chrono/duration so probably always int64t?",
+      "parentUuid": "1f22283f_f738d793",
+      "range": {
+        "startLine": 126,
+        "startChar": 42,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "676f9aed_139b4a5d",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 4
