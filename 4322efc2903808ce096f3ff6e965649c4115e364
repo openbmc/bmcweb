@@ -226,6 +226,24 @@
     },
     {
       "key": {
+        "uuid": "366f8433_3ea29adf",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000658
+      },
+      "writtenOn": "2020-07-23T08:43:14Z",
+      "side": 1,
+      "message": "I agree with you that ideally we should have service redesigned. Unfortunately we are in urge of release and we can\u0027t afford such costly operation at the moment. \n\nHaving W/A that allows bmcweb to get correct response if service timed out improves current state. As the timeout property is already available in the deamon, we would only need to use it.",
+      "parentUuid": "a9ceb1f1_af0879b6",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5edc2fa3_ba02e24b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
