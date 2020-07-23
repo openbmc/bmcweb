@@ -553,12 +553,18 @@ class Subscription
     void updateRetryConfig(const uint32_t retryAttempts,
                            const uint32_t retryTimeoutInterval)
     {
-        conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
+        if (conn != nullptr)
+        {
+            conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
+        }
     }
 
     void updateRetryPolicy()
     {
-        conn->setRetryPolicy(retryPolicy);
+        if (conn != nullptr)
+        {
+            conn->setRetryPolicy(retryPolicy);
+        }
     }
 
   private:
