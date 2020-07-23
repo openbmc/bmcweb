@@ -676,6 +676,30 @@
     },
     {
       "key": {
+        "uuid": "dfbfbd7e_cc8aae3f",
+        "filename": "redfish-core/include/MultipartReader.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-07-23T03:35:06Z",
+      "side": 1,
+      "message": "sorry, Ed Tanous suggested moving these codes to the outside include.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/34974",
+      "parentUuid": "446c74fd_0f54ac7c",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30cec7fe_3cfe08d4",
         "filename": "redfish-core/include/MultipartReader.hpp",
         "patchSetId": 27
