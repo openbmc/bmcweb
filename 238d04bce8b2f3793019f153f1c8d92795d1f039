@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f17061f_183b984f",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-23T05:20:11Z",
+      "side": 1,
+      "message": "spaces",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "238d04bce8b2f3793019f153f1c8d92795d1f039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1f802fc_6afe3d64",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-23T05:20:11Z",
+      "side": 1,
+      "message": "spaces",
+      "range": {
+        "startLine": 45,
+        "startChar": 128,
+        "endLine": 45,
+        "endChar": 129
+      },
+      "revId": "238d04bce8b2f3793019f153f1c8d92795d1f039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db051ca8_41ef329d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-23T05:20:11Z",
+      "side": 1,
+      "message": "This should be \"Systems\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 29,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "238d04bce8b2f3793019f153f1c8d92795d1f039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56a59c1f_c720f097",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-23T05:20:11Z",
+      "side": 1,
+      "message": "By default the monitor need not be registered. This registration can happen for that specific subscriber when the it subscribes  : \n\nFor the \"Systems\" resource type.\n -OR- \nWith the empty resource type indicating that it is interested in events on all the resources.",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 53
+      },
+      "revId": "238d04bce8b2f3793019f153f1c8d92795d1f039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
