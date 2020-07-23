@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1f22283f_f738d793",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-23T05:28:29Z",
+      "side": 1,
+      "message": "James, I think this is correct, and handles int/uint overflow cases correctly, whereas going std::chrono::microseconds (which on a lot of systems is int64 or int32) then casing to uint64 might have overflow issues.  This is cleaner functionally, even if it looks a little uglier.\n\nlibc++ uses uint64_t on some systems.  This duration cast is still required for other systems.",
+      "parentUuid": "c346daf6_15caae97",
+      "range": {
+        "startLine": 126,
+        "startChar": 42,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "676f9aed_139b4a5d",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "It\u0027s already there:  - name: Timeout\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/VirtualMedia/MountPoint.interface.yaml\n\nI don\u0027t know what reasonable timeout would be. VirtualMedia can be configured to access resources with configurable timeout.",
       "parentUuid": "676f9aed_139b4a5d",
+      "range": {
+        "startLine": 880,
+        "startChar": 13,
+        "endLine": 880,
+        "endChar": 56
+      },
+      "revId": "2830c144dbbf96b9a03ced6a89f16b8d5ff5f138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dcc4f3b_00aee085",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-23T05:28:29Z",
+      "side": 1,
+      "message": "I missed it my first time looking for it.  Apologies.",
+      "parentUuid": "d85bd87d_f391eb0f",
       "range": {
         "startLine": 880,
         "startChar": 13,
