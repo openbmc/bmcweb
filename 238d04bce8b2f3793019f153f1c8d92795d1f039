@@ -139,6 +139,30 @@
       "revId": "238d04bce8b2f3793019f153f1c8d92795d1f039",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf20202_b4a9b402",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-07-23T13:31:06Z",
+      "side": 1,
+      "message": "i dont think empty resource type means, subscriber interested in all events.",
+      "parentUuid": "41296d3a_8cfdeb3f",
+      "range": {
+        "startLine": 130,
+        "startChar": 24,
+        "endLine": 130,
+        "endChar": 53
+      },
+      "revId": "238d04bce8b2f3793019f153f1c8d92795d1f039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
