@@ -887,6 +887,8 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " Clearing response";
                 res.clear();
                 parser.emplace(std::piecewise_construct, std::make_tuple());
+                parser->body_limit(httpReqBodyLimit); // reset body limit for
+                                                      // newly created parser
                 buffer.consume(buffer.size());
 
                 req.emplace(parser->get());
