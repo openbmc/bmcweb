@@ -244,6 +244,24 @@
     },
     {
       "key": {
+        "uuid": "16a305e3_84e59de5",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-24T07:19:18Z",
+      "side": 1,
+      "message": "No problem.  Feel free to come back to this commit when you\u0027re ready to spent the required amount of time on it\n\n\"Having W/A that allows bmcweb to get correct response if service timed out improves current state.\"\nIt also means that nobody is going to fix it the right way in the future, and we have inconsistent dbus rules.  I would still like to see it fixed with the \"redesign\" as you call it (although I suspect it\u0027s not that severe).",
+      "parentUuid": "366f8433_3ea29adf",
+      "revId": "4322efc2903808ce096f3ff6e965649c4115e364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5edc2fa3_ba02e24b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
