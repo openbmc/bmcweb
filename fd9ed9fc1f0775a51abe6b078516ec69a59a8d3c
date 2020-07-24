@@ -217,6 +217,30 @@
     },
     {
       "key": {
+        "uuid": "8e872bec_21a3ad0e",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-24T07:15:13Z",
+      "side": 1,
+      "message": "It should be noted, the MIME multipart spec hasn\u0027t changed in a long long time.  It\u0027s unlikely that such a small library with so few features (but importantly, the features we need) would need significant updating.  With that said, that was only an example.  See my commit where I move it to bmcweb styling, and remove the parts we don\u0027t need to turn it into a 490 line diff.  This is less code than a lot of our route handlers.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/34974\n\nAs far as disk usage, 77KB of disk usage for mimentic, versus 1448 bytes for the parser in my commit.  This order of magnitude difference need to be reconciled before I\u0027d ever consider mimentic.  That\u0027s not to say it\u0027s not good or high quality, but someone needs to spend the time to optimize, and compartmentalize the build to remove the things we don\u0027t need..... Or, we can just test and use an in-bmcweb parser that very little code.  For my effort, the later is easier.\n\nWhen you say \"internal methods\" what do you mean?  Methods we\u0027d have to patch from private to public to use?",
+      "parentUuid": "2043a912_75c5dd1e",
+      "range": {
+        "startLine": 391,
+        "startChar": 31,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "035ad007_9783f8af",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
