@@ -38,7 +38,7 @@ namespace redfish
 {
 
 using ReadingsObjType =
-    std::vector<std::tuple<std::string, std::string, double, std::string>>;
+    std::vector<std::tuple<std::string, std::string, double, int32_t>>;
 using EventServiceConfig = std::tuple<bool, uint32_t, uint32_t>;
 
 static constexpr const char* eventFormatType = "Event";
@@ -534,10 +534,12 @@ class Subscription
             metricValuesArray.push_back({});
             nlohmann::json& entry = metricValuesArray.back();
 
-            entry = {{"MetricId", std::get<0>(it)},
-                     {"MetricProperty", std::get<1>(it)},
-                     {"MetricValue", std::to_string(std::get<2>(it))},
-                     {"Timestamp", std::get<3>(it)}};
+            auto& [id, property, value, timestamp] = it;
+
+            entry = {{"MetricId", id},
+                     {"MetricProperty", property},
+                     {"MetricValue", std::to_string(value)},
+                     {"Timestamp", crow::utility::getDateTime(timestamp)}};
         }
 
         nlohmann::json msg = {
@@ -1357,7 +1359,7 @@ class EventServiceManager
             [idStr{std::move(idStr)}](
                 const boost::system::error_code ec,
                 boost::container::flat_map<
-                    std::string, std::variant<std::string, ReadingsObjType>>&
+                    std::string, std::variant<int32_t, ReadingsObjType>>&
                     resp) {
                 if (ec)
                 {
@@ -1366,8 +1368,8 @@ class EventServiceManager
                     return;
                 }
 
-                const std::string* timestampPtr =
-                    std::get_if<std::string>(&resp["Timestamp"]);
+                const int32_t* timestampPtr =
+                    std::get_if<int32_t>(&resp["Timestamp"]);
                 if (!timestampPtr)
                 {
                     BMCWEB_LOG_DEBUG << "Failed to Get timestamp.";
@@ -1394,8 +1396,9 @@ class EventServiceManager
                     std::shared_ptr<Subscription> entry = it.second;
                     if (entry->eventFormatType == metricReportFormatType)
                     {
-                        entry->filterAndSendReports(idStr, *timestampPtr,
-                                                    *readingsPtr);
+                        entry->filterAndSendReports(
+                            idStr, crow::utility::getDateTime(*timestampPtr),
+                            *readingsPtr);
                     }
                 }
             },
