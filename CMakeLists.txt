@@ -212,6 +212,36 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.0)
+        set (
+            CMAKE_CXX_FLAGS
+            "${CMAKE_CXX_FLAGS} \
+            -Werror \
+            -Weverything \
+            -Wno-c++98-compat \
+            -Wno-c++98-compat-pedantic \
+            -Wno-global-constructors \
+            -Wno-exit-time-destructors \
+            -Wno-shadow \
+            -Wno-used-but-marked-unused \
+            -Wno-documentation-unknown-command \
+            -Wno-weak-vtables \
+            -Wno-documentation \
+            -Wno-padded \
+            -Wno-unused-parameter \
+            -Wcovered-switch-default \
+            -Wcomma \
+            -Wextra-semi \
+            -Wzero-as-null-pointer-constant \
+            -Wswitch-enum \
+            -Wnull-dereference \
+            -Wdouble-promotion \
+            -Wformat=2 \
+        "
+        )
+    endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general
