@@ -41,7 +41,7 @@ class Sessions : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Note that control also reaches here via doPost and doDelete.
@@ -145,8 +145,8 @@ class SessionCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::vector<const std::string*> sessionIds =
             persistent_data::SessionStore::getInstance().getUniqueIds(
@@ -168,7 +168,7 @@ class SessionCollection : public Node
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         std::string username;
         std::string password;
@@ -275,8 +275,8 @@ class SessionService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#SessionService.v1_0_2.SessionService";
         res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";

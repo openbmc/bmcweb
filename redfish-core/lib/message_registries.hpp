@@ -43,8 +43,8 @@ class MessageRegistryFileCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
@@ -81,7 +81,7 @@ class MessageRegistryFile : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
@@ -162,7 +162,7 @@ class MessageRegistry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 2)

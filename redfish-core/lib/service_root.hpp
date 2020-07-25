@@ -38,8 +38,8 @@ class ServiceRoot : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#ServiceRoot.v1_5_0.ServiceRoot";
         res.jsonValue["@odata.id"] = "/redfish/v1";
