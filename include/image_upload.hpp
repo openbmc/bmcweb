@@ -18,8 +18,7 @@ namespace image_upload
 
 static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 
-inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
-                               const std::string& filename)
+inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
 {
     // Only allow one FW update at a time
     if (fwUpdateMatcher != nullptr)
@@ -115,15 +114,13 @@ inline void requestRoutes(App& app)
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req, crow::Response& res,
-               const std::string& filename) {
-                uploadImageHandler(req, res, filename);
-            });
+               const std::string&) { uploadImageHandler(req, res); });
 
     BMCWEB_ROUTE(app, "/upload/image")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req, crow::Response& res) {
-                uploadImageHandler(req, res, "");
+                uploadImageHandler(req, res);
             });
 }
 } // namespace image_upload
