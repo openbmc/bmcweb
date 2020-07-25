@@ -108,7 +108,7 @@ class Node
         {
             if (getRule != nullptr)
             {
-                getRule->requires(it->second);
+                getRule->privileges(it->second);
             }
         }
         it = entityPrivileges.find(boost::beast::http::verb::post);
@@ -116,7 +116,7 @@ class Node
         {
             if (postRule != nullptr)
             {
-                postRule->requires(it->second);
+                postRule->privileges(it->second);
             }
         }
         it = entityPrivileges.find(boost::beast::http::verb::patch);
@@ -124,7 +124,7 @@ class Node
         {
             if (patchRule != nullptr)
             {
-                patchRule->requires(it->second);
+                patchRule->privileges(it->second);
             }
         }
         it = entityPrivileges.find(boost::beast::http::verb::put);
@@ -132,7 +132,7 @@ class Node
         {
             if (putRule != nullptr)
             {
-                putRule->requires(it->second);
+                putRule->privileges(it->second);
             }
         }
         it = entityPrivileges.find(boost::beast::http::verb::delete_);
@@ -140,7 +140,7 @@ class Node
         {
             if (deleteRule != nullptr)
             {
-                deleteRule->requires(it->second);
+                deleteRule->privileges(it->second);
             }
         }
     }

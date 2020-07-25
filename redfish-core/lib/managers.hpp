@@ -37,7 +37,7 @@ namespace redfish
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls
  */
-void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
+inline void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -237,7 +237,7 @@ static constexpr const char* stepwiseConfigurationIface =
 static constexpr const char* thermalModeIface =
     "xyz.openbmc_project.Control.ThermalMode";
 
-static void asyncPopulatePid(const std::string& connection,
+inline void asyncPopulatePid(const std::string& connection,
                              const std::string& path,
                              const std::string& currentProfile,
                              const std::vector<std::string>& supportedProfiles,
@@ -654,7 +654,7 @@ enum class CreatePIDRet
     patch
 };
 
-static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
+inline bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
                                 std::vector<nlohmann::json>& config,
                                 std::vector<std::string>& zones)
 {
@@ -692,7 +692,7 @@ static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
     return true;
 }
 
-static const dbus::utility::ManagedItem*
+inline const dbus::utility::ManagedItem*
     findChassis(const dbus::utility::ManagedObjectType& managedObj,
                 const std::string& value, std::string& chassis)
 {
@@ -724,7 +724,7 @@ static const dbus::utility::ManagedItem*
     return nullptr;
 }
 
-static CreatePIDRet createPidInterface(
+inline CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
     nlohmann::json::iterator it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
@@ -1051,10 +1051,10 @@ static CreatePIDRet createPidInterface(
             for (auto& step : *steps)
             {
                 double target;
-                double output;
+                double out;
 
                 if (!redfish::json_util::readJson(step, response->res, "Target",
-                                                  target, "Output", output))
+                                                  target, "Output", out))
                 {
                     BMCWEB_LOG_ERROR << "Line:" << __LINE__
                                      << ", Illegal Property "
@@ -1062,7 +1062,7 @@ static CreatePIDRet createPidInterface(
                     return CreatePIDRet::fail;
                 }
                 readings.emplace_back(target);
-                outputs.emplace_back(output);
+                outputs.emplace_back(out);
             }
             output["Reading"] = std::move(readings);
             output["Output"] = std::move(outputs);
@@ -1108,8 +1108,8 @@ static CreatePIDRet createPidInterface(
 struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 {
 
-    GetPIDValues(const std::shared_ptr<AsyncResp>& asyncResp) :
-        asyncResp(asyncResp)
+    GetPIDValues(const std::shared_ptr<AsyncResp>& asyncRespIn) :
+        asyncResp(asyncRespIn)
 
     {}
 
@@ -1120,14 +1120,14 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         // get all configurations
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                   const crow::openbmc_mapper::GetSubTreeType& subtreeLocal) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << ec;
                     messages::internalError(self->asyncResp->res);
                     return;
                 }
-                self->subtree = subtree;
+                self->subtree = subtreeLocal;
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -1139,12 +1139,12 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         // at the same time get the selected profile
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   const crow::openbmc_mapper::GetSubTreeType& subtree) {
-                if (ec || subtree.empty())
+                   const crow::openbmc_mapper::GetSubTreeType& subtreeLocal) {
+                if (ec || subtreeLocal.empty())
                 {
                     return;
                 }
-                if (subtree[0].second.size() != 1)
+                if (subtreeLocal[0].second.size() != 1)
                 {
                     // invalid mapper response, should never happen
                     BMCWEB_LOG_ERROR << "GetPIDValues: Mapper Error";
@@ -1152,15 +1152,15 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                     return;
                 }
 
-                const std::string& path = subtree[0].first;
-                const std::string& owner = subtree[0].second[0].first;
+                const std::string& path = subtreeLocal[0].first;
+                const std::string& owner = subtreeLocal[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
                     [path, owner, self](
-                        const boost::system::error_code ec,
+                        const boost::system::error_code ec2,
                         const boost::container::flat_map<
                             std::string, std::variant<std::vector<std::string>,
                                                       std::string>>& resp) {
-                        if (ec)
+                        if (ec2)
                         {
                             BMCWEB_LOG_ERROR << "GetPIDValues: Can't get "
                                                 "thermalModeIface "

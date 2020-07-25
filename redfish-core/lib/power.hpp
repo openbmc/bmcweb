@@ -114,11 +114,11 @@ class Power : public Node
                     }
 
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
+                        [asyncResp](const boost::system::error_code ec2) {
+                            if (ec2)
                             {
                                 BMCWEB_LOG_DEBUG
-                                    << "Power Limit Set: Dbus error: " << ec;
+                                    << "Power Limit Set: Dbus error: " << ec2;
                                 messages::internalError(asyncResp->res);
                                 return;
                             }

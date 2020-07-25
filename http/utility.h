@@ -39,7 +39,8 @@ class ConstStr
     }
     constexpr char operator[](unsigned i) const
     {
-        return requiresInRange(i, sizeUint), beginPtr[i];
+        requiresInRange(i, sizeUint);
+        return beginPtr[i];
     }
 
     constexpr operator const char*() const
@@ -760,9 +761,8 @@ inline void escapeHtml(std::string& data)
 inline void convertToLinks(std::string& s)
 {
     // Convert anything with a redfish path into a link
-    const static std::regex redfishPath{
-        "(&quot;((.*))&quot;[ \\n]*:[ "
-        "\\n]*)(&quot;((?!&quot;)/redfish/.*)&quot;)"};
+    const std::regex redfishPath{"(&quot;((.*))&quot;[ \\n]*:[ "
+                                 "\\n]*)(&quot;((?!&quot;)/redfish/.*)&quot;)"};
     s = std::regex_replace(s, redfishPath, "$1<a href=\"$5\">$4</a>");
 }
 
