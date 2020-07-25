@@ -38,8 +38,8 @@ namespace redfish
  *
  * @return None.
  */
-void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
-                          const std::variant<bool>& dimmState)
+inline void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
+                                 const std::variant<bool>& dimmState)
 {
     const bool* isDimmFunctional = std::get_if<bool>(&dimmState);
     if (isDimmFunctional == nullptr)
@@ -72,8 +72,8 @@ void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
-                            const std::variant<bool>& cpuPresenceState)
+inline void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
+                                   const std::variant<bool>& cpuPresenceState)
 {
     const bool* isCpuPresent = std::get_if<bool>(&cpuPresenceState);
 
@@ -107,8 +107,9 @@ void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
-                              const std::variant<bool>& cpuFunctionalState)
+inline void
+    modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
+                             const std::variant<bool>& cpuFunctionalState)
 {
     const bool* isCpuFunctional = std::get_if<bool>(&cpuFunctionalState);
 
@@ -143,8 +144,8 @@ void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
-                       std::shared_ptr<HealthPopulate> systemHealth)
+inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
+                              std::shared_ptr<HealthPopulate> systemHealth)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
 
@@ -590,7 +591,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-void getHostState(std::shared_ptr<AsyncResp> aResp)
+inline void getHostState(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host information.";
     crow::connections::systemBus->async_method_call(
@@ -645,7 +646,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
  * @return Returns as a string, the boot source in Redfish terms. If translation
  * cannot be done, returns an empty string.
  */
-static std::string dbusToRfBootSource(const std::string& dbusSource)
+inline std::string dbusToRfBootSource(const std::string& dbusSource)
 {
     if (dbusSource == "xyz.openbmc_project.Control.Boot.Source.Sources.Default")
     {
@@ -685,7 +686,7 @@ static std::string dbusToRfBootSource(const std::string& dbusSource)
  * @return Returns as a string, the boot mode in Redfish terms. If translation
  * cannot be done, returns an empty string.
  */
-static std::string dbusToRfBootMode(const std::string& dbusMode)
+inline std::string dbusToRfBootMode(const std::string& dbusMode)
 {
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
     {
@@ -714,7 +715,7 @@ static std::string dbusToRfBootMode(const std::string& dbusMode)
  *
  * @return Integer error code.
  */
-static int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
+inline int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
                                 const std::string& rfSource,
                                 std::string& bootSource, std::string& bootMode)
 {
@@ -774,7 +775,7 @@ static int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-static void getBootMode(std::shared_ptr<AsyncResp> aResp,
+inline void getBootMode(std::shared_ptr<AsyncResp> aResp,
                         std::string bootDbusObj)
 {
     crow::connections::systemBus->async_method_call(
@@ -838,7 +839,7 @@ static void getBootMode(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-static void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
+inline void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
 {
     std::string bootDbusObj =
         oneTimeEnabled ? "/xyz/openbmc_project/control/host0/boot/one_time"
@@ -889,7 +890,7 @@ static void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
  *
  * @return None.
  */
-static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
+inline void getBootProperties(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get boot information.";
 
@@ -930,7 +931,7 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
+inline void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Getting System Last Reset Time";
 
@@ -973,7 +974,7 @@ void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
+inline void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
@@ -1064,7 +1065,7 @@ void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
+inline void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get power restore policy";
 
@@ -1123,7 +1124,7 @@ void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
  *
  * @return Integer error code.
  */
-static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
+inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                                 bool oneTimeEnabled,
                                 std::optional<std::string> bootSource,
                                 std::optional<std::string> bootEnable)
@@ -1244,7 +1245,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  *
  * @return Integer error code.
  */
-static void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
+inline void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
                                     std::optional<std::string> bootSource,
                                     std::optional<std::string> bootEnable)
 {
@@ -1288,7 +1289,7 @@ static void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-static void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
+inline void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
                               const std::string&& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
@@ -1337,7 +1338,7 @@ static void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-static void setPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp,
+inline void setPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp,
                                   std::optional<std::string> policy)
 {
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
@@ -1384,7 +1385,7 @@ static void setPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
+inline void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     crow::connections::systemBus->async_method_call(
@@ -1453,7 +1454,7 @@ void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
  * @return Returns as a string, the timeout action in Redfish terms. If
  * translation cannot be done, returns an empty string.
  */
-static std::string dbusToRfWatchdogAction(const std::string& dbusAction)
+inline std::string dbusToRfWatchdogAction(const std::string& dbusAction)
 {
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
     {
@@ -1486,7 +1487,7 @@ static std::string dbusToRfWatchdogAction(const std::string& dbusAction)
  *If translation cannot be done, returns an empty string.
  */
 
-static std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
+inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
 {
     if (rfAction == "None")
     {
@@ -1515,7 +1516,7 @@ static std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
  *
  * @return None.
  */
-void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
+inline void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
@@ -1586,7 +1587,7 @@ void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
+inline void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
                              const std::optional<bool> wdtEnable,
                              const std::optional<std::string>& wdtTimeOutAction)
 {
@@ -2048,7 +2049,7 @@ class SystemResetActionInfo : public Node
     /*
      * Default Constructor
      */
-    SystemResetActionInfo(CrowApp& app) :
+    SystemResetActionInfo(App& app) :
         Node(app, "/redfish/v1/Systems/system/ResetActionInfo/")
     {
         entityPrivileges = {

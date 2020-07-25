@@ -29,7 +29,7 @@ struct CmpStr
     }
 };
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     const static boost::container::flat_map<const char*, const char*, CmpStr>
         contentTypes{

@@ -33,7 +33,7 @@ namespace redfish
  *
  * @return None.
  */
-void getChassisState(std::shared_ptr<AsyncResp> aResp)
+inline void getChassisState(std::shared_ptr<AsyncResp> aResp)
 {
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
@@ -85,9 +85,9 @@ using ManagedObjectsType = std::vector<std::pair<
 
 using PropertiesType = boost::container::flat_map<std::string, VariantType>;
 
-void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
-                           const std::string& service,
-                           const std::string& objPath)
+inline void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
+                                  const std::string& service,
+                                  const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
@@ -120,7 +120,7 @@ void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
 /**
  * Retrieves physical security properties over dbus
  */
-void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
+inline void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
 {
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
@@ -289,9 +289,9 @@ class Chassis : public Node
                     auto health = std::make_shared<HealthPopulate>(asyncResp);
 
                     crow::connections::systemBus->async_method_call(
-                        [health](const boost::system::error_code ec,
+                        [health](const boost::system::error_code ec2,
                                  std::variant<std::vector<std::string>>& resp) {
-                            if (ec)
+                            if (ec2)
                             {
                                 return; // no sensors = no failures
                             }
@@ -335,7 +335,7 @@ class Chassis : public Node
                     const std::string& connectionName =
                         connectionNames[0].first;
 
-                    const std::vector<std::string>& interfaces =
+                    const std::vector<std::string>& interfaces2 =
                         connectionNames[0].second;
                     const std::array<const char*, 2> hasIndicatorLed = {
                         "xyz.openbmc_project.Inventory.Item.Panel",
@@ -343,8 +343,8 @@ class Chassis : public Node
 
                     for (const char* interface : hasIndicatorLed)
                     {
-                        if (std::find(interfaces.begin(), interfaces.end(),
-                                      interface) != interfaces.end())
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      interface) != interfaces2.end())
                         {
                             getIndicatorLedState(asyncResp);
                             break;
@@ -353,7 +353,7 @@ class Chassis : public Node
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
-                            const boost::system::error_code ec,
+                            const boost::system::error_code ec2,
                             const std::vector<std::pair<
                                 std::string, VariantType>>& propertiesList) {
                             for (const std::pair<std::string, VariantType>&
@@ -480,7 +480,7 @@ class Chassis : public Node
                         continue;
                     }
 
-                    const std::vector<std::string>& interfaces =
+                    const std::vector<std::string>& interfaces3 =
                         connectionNames[0].second;
 
                     if (indicatorLed)
@@ -492,8 +492,9 @@ class Chassis : public Node
                         bool indicatorChassis = false;
                         for (const char* interface : hasIndicatorLed)
                         {
-                            if (std::find(interfaces.begin(), interfaces.end(),
-                                          interface) != interfaces.end())
+                            if (std::find(interfaces3.begin(),
+                                          interfaces3.end(),
+                                          interface) != interfaces3.end())
                             {
                                 indicatorChassis = true;
                                 break;
@@ -523,7 +524,7 @@ class Chassis : public Node
     }
 };
 
-void doChassisPowerCycle(std::shared_ptr<AsyncResp> asyncResp)
+inline void doChassisPowerCycle(std::shared_ptr<AsyncResp> asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.Chassis";
     const char* objectPath = "/xyz/openbmc_project/state/chassis0";
@@ -604,7 +605,7 @@ class ChassisResetActionInfo : public Node
     /*
      * Default Constructor
      */
-    ChassisResetActionInfo(CrowApp& app) :
+    ChassisResetActionInfo(App& app) :
         Node(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/", std::string())
     {
         entityPrivileges = {

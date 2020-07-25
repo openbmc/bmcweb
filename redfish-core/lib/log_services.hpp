@@ -1006,13 +1006,13 @@ class SystemLogServiceCollection : public Node
                 {
                     if (pathStr.find("PostCode") != std::string::npos)
                     {
-                        nlohmann::json& logServiceArray =
+                        nlohmann::json& logServiceArrayLocal =
                             asyncResp->res.jsonValue["Members"];
-                        logServiceArray.push_back(
+                        logServiceArrayLocal.push_back(
                             {{"@odata.id", "/redfish/v1/Systems/system/"
                                            "LogServices/PostCodes"}});
                         asyncResp->res.jsonValue["Members@odata.count"] =
-                            logServiceArray.size();
+                            logServiceArrayLocal.size();
                         return;
                     }
                 }
@@ -1169,7 +1169,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
             messageArgsSize = logEntryFields.size() - 1;
         }
 
-        messageArgs = boost::beast::span(&messageArgsStart, messageArgsSize);
+        messageArgs = {&messageArgsStart, messageArgsSize};
 
         // Fill the MessageArgs into the Message
         int i = 0;
@@ -3487,8 +3487,8 @@ class PostCodesEntry : public Node
         codeIndexStr.remove_prefix(dashPos + 1);
 
         bootIndex = static_cast<uint16_t>(
-            strtoul(std::string(bootIndexStr).c_str(), NULL, 0));
-        codeIndex = strtoul(std::string(codeIndexStr).c_str(), NULL, 0);
+            strtoul(std::string(bootIndexStr).c_str(), nullptr, 0));
+        codeIndex = strtoul(std::string(codeIndexStr).c_str(), nullptr, 0);
         if (bootIndex == 0 || codeIndex == 0)
         {
             BMCWEB_LOG_DEBUG << "Get Post Code invalid entry string "

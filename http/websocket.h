@@ -22,10 +22,12 @@ struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
     explicit Connection(const crow::Request& reqIn) :
-        req(reqIn.req), userdataPtr(nullptr){};
+        req(reqIn.req), userdataPtr(nullptr)
+    {}
 
     explicit Connection(const crow::Request& reqIn, std::string user) :
-        req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr){};
+        req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr)
+    {}
 
     virtual void sendBinary(const std::string_view msg) = 0;
     virtual void sendBinary(std::string&& msg) = 0;
