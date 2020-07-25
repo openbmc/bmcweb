@@ -120,8 +120,7 @@ inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, ledOn, ledBlinkng](const boost::system::error_code ec,
-                                   const std::variant<bool> asserted) mutable {
+        [aResp, ledOn, ledBlinkng](const boost::system::error_code ec) mutable {
             if (ec)
             {
                 // Some systems may not have enclosure_identify_blink object so
@@ -133,8 +132,7 @@ inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
                 }
             }
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec2,
-                        const std::variant<bool> asserted2) {
+                [aResp](const boost::system::error_code ec2) {
                     if (ec2)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;

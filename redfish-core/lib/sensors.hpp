@@ -304,7 +304,7 @@ void getConnections(
     auto objectsWithConnectionCb =
         [callback](const boost::container::flat_set<std::string>& connections,
                    const std::set<std::pair<std::string, std::string>>&
-                       objectsWithConnection) {
+                   /*objectsWithConnection*/) {
             callback(std::move(connections));
         };
     getObjectsWithConnection(SensorsAsyncResp, sensorNames,
@@ -2770,7 +2770,7 @@ inline void setSensorsOverride(
         // Get the connection to which the memberId belongs
         auto getObjectsWithConnectionCb =
             [sensorAsyncResp, overrideMap](
-                const boost::container::flat_set<std::string>& connections,
+                const boost::container::flat_set<std::string>& /*connections*/,
                 const std::set<std::pair<std::string, std::string>>&
                     objectsWithConnection) {
                 if (objectsWithConnection.size() != overrideMap.size())
@@ -3012,7 +3012,7 @@ class SensorCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
@@ -3084,7 +3084,7 @@ class Sensor : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "Sensor doGet enter";

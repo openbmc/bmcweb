@@ -53,7 +53,7 @@ class Node
 {
   public:
     template <typename... Params>
-    Node(App& app, std::string&& entityUrl, Params... paramsIn)
+    Node(App& app, std::string&& entityUrl, [[maybe_unused]] Params... paramsIn)
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;
@@ -157,36 +157,36 @@ class Node
 
   protected:
     // Node is designed to be an abstract class, so doGet is pure virtual
-    virtual void doGet(crow::Response& res, const crow::Request& req,
-                       const std::vector<std::string>& params)
+    virtual void doGet(crow::Response& res, const crow::Request&,
+                       const std::vector<std::string>&)
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
 
-    virtual void doPatch(crow::Response& res, const crow::Request& req,
-                         const std::vector<std::string>& params)
+    virtual void doPatch(crow::Response& res, const crow::Request&,
+                         const std::vector<std::string>&)
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
 
-    virtual void doPost(crow::Response& res, const crow::Request& req,
-                        const std::vector<std::string>& params)
+    virtual void doPost(crow::Response& res, const crow::Request&,
+                        const std::vector<std::string>&)
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
 
-    virtual void doPut(crow::Response& res, const crow::Request& req,
-                       const std::vector<std::string>& params)
+    virtual void doPut(crow::Response& res, const crow::Request&,
+                       const std::vector<std::string>&)
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
 
-    virtual void doDelete(crow::Response& res, const crow::Request& req,
-                          const std::vector<std::string>& params)
+    virtual void doDelete(crow::Response& res, const crow::Request&,
+                          const std::vector<std::string>&)
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
