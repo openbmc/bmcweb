@@ -240,26 +240,26 @@ class ConnectionImpl : public Connection
             return;
         }
         doingWrite = true;
-        ws.async_write(
-            boost::asio::buffer(outBuffer.front()),
-            [this, self(shared_from_this())](boost::beast::error_code ec,
-                                             std::size_t bytes_written) {
-                doingWrite = false;
-                outBuffer.erase(outBuffer.begin());
-                if (ec == boost::beast::websocket::error::closed)
-                {
-                    // Do nothing here.  doRead handler will call the
-                    // closeHandler.
-                    close("Write error");
-                    return;
-                }
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec;
-                    return;
-                }
-                doWrite();
-            });
+        ws.async_write(boost::asio::buffer(outBuffer.front()),
+                       [this, self(shared_from_this())](
+                           boost::beast::error_code ec, std::size_t) {
+                           doingWrite = false;
+                           outBuffer.erase(outBuffer.begin());
+                           if (ec == boost::beast::websocket::error::closed)
+                           {
+                               // Do nothing here.  doRead handler will call the
+                               // closeHandler.
+                               close("Write error");
+                               return;
+                           }
+                           if (ec)
+                           {
+                               BMCWEB_LOG_ERROR << "Error in ws.async_write "
+                                                << ec;
+                               return;
+                           }
+                           doWrite();
+                       });
     }
 
   private:
