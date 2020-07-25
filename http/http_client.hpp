@@ -302,8 +302,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 sendMessage(data);
                 break;
             }
-            default:
-                break;
         }
     }
 
