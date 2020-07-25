@@ -6,7 +6,7 @@ namespace crow
 {
 namespace redfish
 {
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/")
         .methods(boost::beast::http::verb::get)(

@@ -31,7 +31,7 @@ class AsyncResp
     }
 
     crow::Response& res;
-    std::function<void()> func = 0;
+    std::function<void()> func;
 };
 
 } // namespace bmcweb

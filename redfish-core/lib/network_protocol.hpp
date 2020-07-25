@@ -452,9 +452,8 @@ class NetworkProtocol : public Node
                                                       netipmidBasePath))
                     {
                         crow::connections::systemBus->async_method_call(
-                            [ipmiProtocolEnabled,
-                             asyncResp](const boost::system::error_code ec) {
-                                if (ec)
+                            [asyncResp](const boost::system::error_code ec2) {
+                                if (ec2)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
@@ -466,9 +465,8 @@ class NetworkProtocol : public Node
                             "Running", std::variant<bool>{ipmiProtocolEnabled});
 
                         crow::connections::systemBus->async_method_call(
-                            [ipmiProtocolEnabled,
-                             asyncResp](const boost::system::error_code ec) {
-                                if (ec)
+                            [asyncResp](const boost::system::error_code ec2) {
+                                if (ec2)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
