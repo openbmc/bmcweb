@@ -17,7 +17,7 @@ namespace crow
 namespace login_routes
 {
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/login")
         .methods(boost::beast::http::verb::post)([](const crow::Request& req,
