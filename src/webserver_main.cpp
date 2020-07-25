@@ -32,7 +32,7 @@
 
 constexpr int defaultPort = 18080;
 
-void setupSocket(crow::App& app)
+inline void setupSocket(crow::App& app)
 {
     int listenFd = sd_listen_fds(0);
     if (1 == listenFd)
@@ -107,7 +107,6 @@ int main(int argc, char** argv)
 
     crow::login_routes::requestRoutes(app);
 
-    BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
     setupSocket(app);
 
     crow::connections::systemBus =
