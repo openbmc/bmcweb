@@ -17,8 +17,8 @@ class BiosService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -55,8 +55,8 @@ class BiosReset : public Node
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
