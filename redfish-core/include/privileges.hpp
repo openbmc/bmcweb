@@ -45,8 +45,9 @@ constexpr const size_t basePrivilegeCount = basePrivileges.size();
 constexpr const size_t maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
-static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
-                                                     basePrivileges.end()};
+static const std::array<std::string, maxPrivilegeCount> privilegeNames{
+    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
+    "ConfigureUsers"};
 
 /**
  * @brief Redfish privileges
@@ -100,7 +101,7 @@ class Privileges
      * @return               None
      *
      */
-    bool setSinglePrivilege(const char* privilege)
+    bool setSinglePrivilege(const std::string_view privilege)
     {
         for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
              searchIndex++)
@@ -113,19 +114,6 @@ class Privileges
         }
 
         return false;
-    }
-
-    /**
-     * @brief Sets given privilege in the bitset
-     *
-     * @param[in] privilege  Privilege to be set
-     *
-     * @return               None
-     *
-     */
-    bool setSinglePrivilege(const std::string& privilege)
-    {
-        return setSinglePrivilege(privilege.c_str());
     }
 
     /**
@@ -159,10 +147,10 @@ class Privileges
      * the setSinglePrivilege is called, or the Privilege structure is destroyed
      *
      */
-    std::vector<const std::string*>
+    std::vector<std::string>
         getActivePrivilegeNames(const PrivilegeType type) const
     {
-        std::vector<const std::string*> activePrivileges;
+        std::vector<std::string> activePrivileges;
 
         size_t searchIndex = 0;
         size_t endIndex = basePrivilegeCount;
@@ -176,7 +164,7 @@ class Privileges
         {
             if (privilegeBitset.test(searchIndex))
             {
-                activePrivileges.emplace_back(&privilegeNames[searchIndex]);
+                activePrivileges.emplace_back(privilegeNames[searchIndex]);
             }
         }
 
