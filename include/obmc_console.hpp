@@ -21,7 +21,7 @@ static boost::container::flat_set<crow::websocket::Connection*> sessions;
 
 static bool doingWrite = false;
 
-void doWrite()
+inline void doWrite()
 {
     if (doingWrite)
     {
@@ -59,7 +59,7 @@ void doWrite()
         });
 }
 
-void doRead()
+inline void doRead()
 {
     BMCWEB_LOG_DEBUG << "Reading from socket";
     host_socket->async_read_some(
@@ -85,7 +85,7 @@ void doRead()
         });
 }
 
-void connectHandler(const boost::system::error_code& ec)
+inline void connectHandler(const boost::system::error_code& ec)
 {
     if (ec)
     {
@@ -101,10 +101,10 @@ void connectHandler(const boost::system::error_code& ec)
     doRead();
 }
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
                    std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
