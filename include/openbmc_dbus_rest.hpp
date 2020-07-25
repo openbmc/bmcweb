@@ -36,23 +36,29 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
-const char* notFoundMsg = "404 Not Found";
-const char* badReqMsg = "400 Bad Request";
-const char* methodNotAllowedMsg = "405 Method Not Allowed";
-const char* forbiddenMsg = "403 Forbidden";
-const char* methodFailedMsg = "500 Method Call Failed";
-const char* methodOutputFailedMsg = "500 Method Output Error";
-const char* notFoundDesc =
+const constexpr char* notFoundMsg = "404 Not Found";
+const constexpr char* badReqMsg = "400 Bad Request";
+const constexpr char* methodNotAllowedMsg = "405 Method Not Allowed";
+const constexpr char* forbiddenMsg = "403 Forbidden";
+const constexpr char* methodFailedMsg = "500 Method Call Failed";
+const constexpr char* methodOutputFailedMsg = "500 Method Output Error";
+const constexpr char* notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
-const char* propNotFoundDesc = "The specified property cannot be found";
-const char* noJsonDesc = "No JSON object could be decoded";
-const char* methodNotFoundDesc = "The specified method cannot be found";
-const char* methodNotAllowedDesc = "Method not allowed";
-const char* forbiddenPropDesc = "The specified property cannot be created";
-const char* forbiddenResDesc = "The specified resource cannot be created";
+const constexpr char* propNotFoundDesc =
+    "The specified property cannot be found";
+const constexpr char* noJsonDesc = "No JSON object could be decoded";
+const constexpr char* methodNotFoundDesc =
+    "The specified method cannot be found";
+const constexpr char* methodNotAllowedDesc = "Method not allowed";
+const constexpr char* forbiddenPropDesc =
+    "The specified property cannot be created";
+const constexpr char* forbiddenResDesc =
+    "The specified resource cannot be created";
 
-void setErrorResponse(crow::Response& res, boost::beast::http::status result,
-                      const std::string& desc, const std::string_view msg)
+inline void setErrorResponse(crow::Response& res,
+                             boost::beast::http::status result,
+                             const std::string& desc,
+                             const std::string_view msg)
 {
     res.result(result);
     res.jsonValue = {{"data", {{"description", desc}}},
@@ -60,9 +66,9 @@ void setErrorResponse(crow::Response& res, boost::beast::http::status result,
                      {"status", "error"}};
 }
 
-void introspectObjects(const std::string& processName,
-                       const std::string& objectPath,
-                       std::shared_ptr<bmcweb::AsyncResp> transaction)
+inline void introspectObjects(const std::string& processName,
+                              const std::string& objectPath,
+                              std::shared_ptr<bmcweb::AsyncResp> transaction)
 {
     if (transaction->res.jsonValue.is_null())
     {
@@ -122,10 +128,9 @@ void introspectObjects(const std::string& processName,
         "Introspect");
 }
 
-void getPropertiesForEnumerate(const std::string& objectPath,
-                               const std::string& service,
-                               const std::string& interface,
-                               std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+inline void getPropertiesForEnumerate(
+    const std::string& objectPath, const std::string& service,
+    const std::string& interface, std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
                      << service << " " << interface;
@@ -163,7 +168,7 @@ void getPropertiesForEnumerate(const std::string& objectPath,
 
 // Find any results that weren't picked up by ObjectManagers, to be
 // called after all ObjectManagers are searched for and called.
-void findRemainingObjectsForEnumerate(
+inline void findRemainingObjectsForEnumerate(
     const std::string& objectPath, std::shared_ptr<GetSubTreeType> subtree,
     std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
@@ -196,10 +201,10 @@ void findRemainingObjectsForEnumerate(
 
 struct InProgressEnumerateData
 {
-    InProgressEnumerateData(const std::string& objectPath,
-                            std::shared_ptr<bmcweb::AsyncResp> asyncResp) :
-        objectPath(objectPath),
-        asyncResp(asyncResp)
+    InProgressEnumerateData(const std::string& objectPathIn,
+                            std::shared_ptr<bmcweb::AsyncResp> asyncRespIn) :
+        objectPath(objectPathIn),
+        asyncResp(asyncRespIn)
     {}
 
     ~InProgressEnumerateData()
@@ -212,7 +217,7 @@ struct InProgressEnumerateData
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
 };
 
-void getManagedObjectsForEnumerate(
+inline void getManagedObjectsForEnumerate(
     const std::string& object_name, const std::string& object_manager_path,
     const std::string& connection_name,
     std::shared_ptr<InProgressEnumerateData> transaction)
@@ -273,7 +278,7 @@ void getManagedObjectsForEnumerate(
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-void findObjectManagerPathForEnumerate(
+inline void findObjectManagerPathForEnumerate(
     const std::string& object_name, const std::string& connection_name,
     std::shared_ptr<InProgressEnumerateData> transaction)
 {
@@ -317,7 +322,8 @@ void findObjectManagerPathForEnumerate(
 // Uses GetObject to add the object info about the target /enumerate path to
 // the results of GetSubTree, as GetSubTree will not return info for the
 // target path, and then continues on enumerating the rest of the tree.
-void getObjectAndEnumerate(std::shared_ptr<InProgressEnumerateData> transaction)
+inline void
+    getObjectAndEnumerate(std::shared_ptr<InProgressEnumerateData> transaction)
 {
     using GetObjectType =
         std::vector<std::pair<std::string, std::vector<std::string>>>;
@@ -395,7 +401,8 @@ void getObjectAndEnumerate(std::shared_ptr<InProgressEnumerateData> transaction)
 // Structure for storing data on an in progress action
 struct InProgressActionData
 {
-    InProgressActionData(crow::Response& res) : res(res){};
+    InProgressActionData(crow::Response& resIn) : res(resIn)
+    {}
     ~InProgressActionData()
     {
         // Methods could have been called across different owners
@@ -456,7 +463,7 @@ struct InProgressActionData
     nlohmann::json arguments;
 };
 
-std::vector<std::string> dbusArgSplit(const std::string& string)
+inline std::vector<std::string> dbusArgSplit(const std::string& string)
 {
     std::vector<std::string> ret;
     if (string.empty())
@@ -504,8 +511,8 @@ std::vector<std::string> dbusArgSplit(const std::string& string)
     return ret;
 }
 
-int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
-                      const nlohmann::json& input_json)
+inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
+                             const nlohmann::json& input_json)
 {
     int r = 0;
     BMCWEB_LOG_DEBUG << "Converting " << input_json.dump()
@@ -657,11 +664,6 @@ int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             {
                 return -1;
             }
-            if ((*intValue < std::numeric_limits<int64_t>::lowest()) ||
-                (*intValue > std::numeric_limits<int64_t>::max()))
-            {
-                return -ERANGE;
-            }
             r = sd_bus_message_append_basic(m, argCode[0], intValue);
             if (r < 0)
             {
@@ -675,8 +677,7 @@ int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             {
                 return -1;
             }
-            if ((*uintValue < std::numeric_limits<uint8_t>::lowest()) ||
-                (*uintValue > std::numeric_limits<uint8_t>::max()))
+            if (*uintValue > std::numeric_limits<uint8_t>::max())
             {
                 return -ERANGE;
             }
@@ -690,8 +691,7 @@ int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             {
                 return -1;
             }
-            if ((*uintValue < std::numeric_limits<uint16_t>::lowest()) ||
-                (*uintValue > std::numeric_limits<uint16_t>::max()))
+            if (*uintValue > std::numeric_limits<uint16_t>::max())
             {
                 return -ERANGE;
             }
@@ -705,8 +705,7 @@ int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             {
                 return -1;
             }
-            if ((*uintValue < std::numeric_limits<uint32_t>::lowest()) ||
-                (*uintValue > std::numeric_limits<uint32_t>::max()))
+            if (*uintValue > std::numeric_limits<uint32_t>::max())
             {
                 return -ERANGE;
             }
@@ -719,11 +718,6 @@ int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             if (uintValue == nullptr)
             {
                 return -1;
-            }
-            if ((*uintValue < std::numeric_limits<uint64_t>::lowest()) ||
-                (*uintValue > std::numeric_limits<uint64_t>::max()))
-            {
-                return -ERANGE;
             }
             r = sd_bus_message_append_basic(m, argCode[0], uintValue);
         }
@@ -885,9 +879,9 @@ int readMessageItem(const std::string& typeCode, sdbusplus::message::message& m,
 int convertDBusToJSON(const std::string& returnType,
                       sdbusplus::message::message& m, nlohmann::json& response);
 
-int readDictEntryFromMessage(const std::string& typeCode,
-                             sdbusplus::message::message& m,
-                             nlohmann::json& object)
+inline int readDictEntryFromMessage(const std::string& typeCode,
+                                    sdbusplus::message::message& m,
+                                    nlohmann::json& object)
 {
     std::vector<std::string> types = dbusArgSplit(typeCode);
     if (types.size() != 2)
@@ -944,8 +938,9 @@ int readDictEntryFromMessage(const std::string& typeCode,
     return 0;
 }
 
-int readArrayFromMessage(const std::string& typeCode,
-                         sdbusplus::message::message& m, nlohmann::json& data)
+inline int readArrayFromMessage(const std::string& typeCode,
+                                sdbusplus::message::message& m,
+                                nlohmann::json& data)
 {
     if (typeCode.size() < 2)
     {
@@ -1024,8 +1019,9 @@ int readArrayFromMessage(const std::string& typeCode,
     return 0;
 }
 
-int readStructFromMessage(const std::string& typeCode,
-                          sdbusplus::message::message& m, nlohmann::json& data)
+inline int readStructFromMessage(const std::string& typeCode,
+                                 sdbusplus::message::message& m,
+                                 nlohmann::json& data)
 {
     if (typeCode.size() < 3)
     {
@@ -1065,7 +1061,8 @@ int readStructFromMessage(const std::string& typeCode,
     return 0;
 }
 
-int readVariantFromMessage(sdbusplus::message::message& m, nlohmann::json& data)
+inline int readVariantFromMessage(sdbusplus::message::message& m,
+                                  nlohmann::json& data)
 {
     const char* containerType;
     int r = sd_bus_message_peek_type(m.get(), nullptr, &containerType);
@@ -1100,8 +1097,9 @@ int readVariantFromMessage(sdbusplus::message::message& m, nlohmann::json& data)
     return 0;
 }
 
-int convertDBusToJSON(const std::string& returnType,
-                      sdbusplus::message::message& m, nlohmann::json& response)
+inline int convertDBusToJSON(const std::string& returnType,
+                             sdbusplus::message::message& m,
+                             nlohmann::json& response)
 {
     int r = 0;
     const std::vector<std::string> returnTypes = dbusArgSplit(returnType);
@@ -1256,9 +1254,10 @@ int convertDBusToJSON(const std::string& returnType,
     return 0;
 }
 
-void handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
-                          sdbusplus::message::message& m,
-                          const std::string& returnType)
+inline void
+    handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
+                         sdbusplus::message::message& m,
+                         const std::string& returnType)
 {
     nlohmann::json data;
 
@@ -1320,8 +1319,9 @@ void handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
     }
 }
 
-void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
-                           const std::string& connectionName)
+inline void
+    findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
+                          const std::string& connectionName)
 {
     BMCWEB_LOG_DEBUG << "findActionOnInterface for connection "
                      << connectionName;
@@ -1444,12 +1444,12 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
 
                             crow::connections::systemBus->async_send(
                                 m, [transaction, returnType](
-                                       boost::system::error_code ec,
-                                       sdbusplus::message::message& m) {
-                                    if (ec)
+                                       boost::system::error_code ec2,
+                                       sdbusplus::message::message& m2) {
+                                    if (ec2)
                                     {
                                         transaction->methodFailed = true;
-                                        const sd_bus_error* e = m.get_error();
+                                        const sd_bus_error* e = m2.get_error();
 
                                         if (e)
                                         {
@@ -1475,7 +1475,7 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                         transaction->methodPassed = true;
                                     }
 
-                                    handleMethodResponse(transaction, m,
+                                    handleMethodResponse(transaction, m2,
                                                          returnType);
                                 });
                             break;
@@ -1490,8 +1490,9 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
         "org.freedesktop.DBus.Introspectable", "Introspect");
 }
 
-void handleAction(const crow::Request& req, crow::Response& res,
-                  const std::string& objectPath, const std::string& methodName)
+inline void handleAction(const crow::Request& req, crow::Response& res,
+                         const std::string& objectPath,
+                         const std::string& methodName)
 {
     BMCWEB_LOG_DEBUG << "handleAction on path: " << objectPath << " and method "
                      << methodName;
@@ -1555,8 +1556,8 @@ void handleAction(const crow::Request& req, crow::Response& res,
         std::array<std::string, 0>());
 }
 
-void handleDelete(const crow::Request& req, crow::Response& res,
-                  const std::string& objectPath)
+inline void handleDelete(const crow::Request& req, crow::Response& res,
+                         const std::string& objectPath)
 {
     BMCWEB_LOG_DEBUG << "handleDelete on path: " << objectPath;
 
@@ -1592,8 +1593,8 @@ void handleDelete(const crow::Request& req, crow::Response& res,
         std::array<const char*, 0>());
 }
 
-void handleList(crow::Response& res, const std::string& objectPath,
-                int32_t depth = 0)
+inline void handleList(crow::Response& res, const std::string& objectPath,
+                       int32_t depth = 0)
 {
     crow::connections::systemBus->async_method_call(
         [&res](const boost::system::error_code ec,
@@ -1617,7 +1618,7 @@ void handleList(crow::Response& res, const std::string& objectPath,
         depth, std::array<std::string, 0>());
 }
 
-void handleEnumerate(crow::Response& res, const std::string& objectPath)
+inline void handleEnumerate(crow::Response& res, const std::string& objectPath)
 {
     BMCWEB_LOG_DEBUG << "Doing enumerate on " << objectPath;
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
@@ -1655,8 +1656,8 @@ void handleEnumerate(crow::Response& res, const std::string& objectPath)
         std::array<const char*, 0>());
 }
 
-void handleGet(crow::Response& res, std::string& objectPath,
-               std::string& destProperty)
+inline void handleGet(crow::Response& res, std::string& objectPath,
+                      std::string& destProperty)
 {
     BMCWEB_LOG_DEBUG << "handleGet: " << objectPath << " prop:" << destProperty;
     std::shared_ptr<std::string> propertyName =
@@ -1681,7 +1682,7 @@ void handleGet(crow::Response& res, std::string& objectPath,
                 std::make_shared<nlohmann::json>(nlohmann::json::object());
             // The mapper should never give us an empty interface names
             // list, but check anyway
-            for (const std::pair<std::string, std::vector<std::string>>
+            for (const std::pair<std::string, std::vector<std::string>>&
                      connection : object_names)
             {
                 const std::vector<std::string>& interfaceNames =
@@ -1704,12 +1705,12 @@ void handleGet(crow::Response& res, std::string& objectPath,
                     m.append(interface);
                     crow::connections::systemBus->async_send(
                         m, [&res, response,
-                            propertyName](const boost::system::error_code ec,
+                            propertyName](const boost::system::error_code ec2,
                                           sdbusplus::message::message& msg) {
-                            if (ec)
+                            if (ec2)
                             {
                                 BMCWEB_LOG_ERROR << "Bad dbus request error: "
-                                                 << ec;
+                                                 << ec2;
                             }
                             else
                             {
@@ -1770,7 +1771,7 @@ void handleGet(crow::Response& res, std::string& objectPath,
 
 struct AsyncPutRequest
 {
-    AsyncPutRequest(crow::Response& res) : res(res)
+    AsyncPutRequest(crow::Response& resIn) : res(resIn)
     {}
     ~AsyncPutRequest()
     {
@@ -1795,8 +1796,9 @@ struct AsyncPutRequest
     nlohmann::json propertyValue;
 };
 
-void handlePut(const crow::Request& req, crow::Response& res,
-               const std::string& objectPath, const std::string& destProperty)
+inline void handlePut(const crow::Request& req, crow::Response& res,
+                      const std::string& objectPath,
+                      const std::string& destProperty)
 {
     if (destProperty.empty())
     {
@@ -1835,9 +1837,9 @@ void handlePut(const crow::Request& req, crow::Response& res,
         std::vector<std::pair<std::string, std::vector<std::string>>>;
 
     crow::connections::systemBus->async_method_call(
-        [transaction](const boost::system::error_code ec,
+        [transaction](const boost::system::error_code ec2,
                       const GetObjectType& object_names) {
-            if (!ec && object_names.size() <= 0)
+            if (!ec2 && object_names.size() <= 0)
             {
                 setErrorResponse(transaction->res,
                                  boost::beast::http::status::not_found,
@@ -1845,20 +1847,20 @@ void handlePut(const crow::Request& req, crow::Response& res,
                 return;
             }
 
-            for (const std::pair<std::string, std::vector<std::string>>
+            for (const std::pair<std::string, std::vector<std::string>>&
                      connection : object_names)
             {
                 const std::string& connectionName = connection.first;
 
                 crow::connections::systemBus->async_method_call(
                     [connectionName{std::string(connectionName)},
-                     transaction](const boost::system::error_code ec,
+                     transaction](const boost::system::error_code ec3,
                                   const std::string& introspectXml) {
-                        if (ec)
+                        if (ec3)
                         {
                             BMCWEB_LOG_ERROR
                                 << "Introspect call failed with error: "
-                                << ec.message()
+                                << ec3.message()
                                 << " on process: " << connectionName;
                             transaction->setErrorStatus("Unexpected Error");
                             return;
@@ -1951,12 +1953,12 @@ void handlePut(const crow::Request& req, crow::Response& res,
                                                     boost::system::error_code
                                                         ec,
                                                     sdbusplus::message::message&
-                                                        m) {
+                                                        m2) {
                                                     BMCWEB_LOG_DEBUG << "sent";
                                                     if (ec)
                                                     {
                                                         const sd_bus_error* e =
-                                                            m.get_error();
+                                                            m2.get_error();
                                                         setErrorResponse(
                                                             transaction->res,
                                                             boost::beast::http::
@@ -2072,10 +2074,10 @@ inline void handleDBusUrl(const crow::Request& req, crow::Response& res,
     res.end();
 }
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/bus/")
-        .requires({"Login"})
+        .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 res.jsonValue = {{"buses", {{{"name", "system"}}}},
@@ -2084,7 +2086,7 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/bus/system/")
-        .requires({"Login"})
+        .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 auto myCallback = [&res](const boost::system::error_code ec,
@@ -2113,14 +2115,14 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/list/")
-        .requires({"Login"})
+        .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 handleList(res, "/");
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .requires({"Login"})
+        .privileges({"Login"})
         .methods(boost::beast::http::verb::get)([](const crow::Request& req,
                                                    crow::Response& res,
                                                    const std::string& path) {
@@ -2129,7 +2131,7 @@ void requestRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req, crow::Response& res,
@@ -2139,7 +2141,7 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/org/<path>")
-        .requires({"Login"})
+        .privileges({"Login"})
         .methods(boost::beast::http::verb::get)([](const crow::Request& req,
                                                    crow::Response& res,
                                                    const std::string& path) {
@@ -2148,7 +2150,7 @@ void requestRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app, "/org/<path>")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req, crow::Response& res,
@@ -2158,7 +2160,7 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
-        .requires({"ConfigureManager"})
+        .privileges({"ConfigureManager"})
         .methods(boost::beast::http::verb::get)([](const crow::Request& req,
                                                    crow::Response& res,
                                                    const std::string& dumpId) {
@@ -2226,7 +2228,7 @@ void requestRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/")
-        .requires({"Login"})
+        .privileges({"Login"})
 
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res,
@@ -2236,7 +2238,7 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(
             boost::beast::http::verb::get,
             boost::beast::http::verb::post)([](const crow::Request& req,

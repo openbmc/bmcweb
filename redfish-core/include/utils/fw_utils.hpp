@@ -28,10 +28,10 @@ constexpr const char* bmcPurpose =
  *
  * @return void
  */
-void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
-                        const std::string& fwVersionPurpose,
-                        const std::string& activeVersionPropName,
-                        const bool populateLinkToActiveImage)
+inline void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
+                               const std::string& fwVersionPurpose,
+                               const std::string& activeVersionPropName,
+                               const bool populateLinkToActiveImage)
 {
     // Get active FW images
     crow::connections::systemBus->async_method_call(
@@ -80,13 +80,13 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                 crow::connections::systemBus->async_method_call(
                     [aResp, fw, swId, fwVersionPurpose, activeVersionPropName,
                      populateLinkToActiveImage](
-                        const boost::system::error_code ec,
+                        const boost::system::error_code ec2,
                         const std::vector<std::pair<
                             std::string, std::vector<std::string>>>& objInfo) {
-                        if (ec)
+                        if (ec2)
                         {
-                            BMCWEB_LOG_DEBUG << "error_code = " << ec;
-                            BMCWEB_LOG_DEBUG << "error msg = " << ec.message();
+                            BMCWEB_LOG_DEBUG << "error_code = " << ec2;
+                            BMCWEB_LOG_DEBUG << "error msg = " << ec2.message();
                             messages::internalError(aResp->res);
                             return;
                         }
@@ -116,16 +116,16 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                         crow::connections::systemBus->async_method_call(
                             [aResp, swId, fwVersionPurpose,
                              activeVersionPropName, populateLinkToActiveImage](
-                                const boost::system::error_code ec,
+                                const boost::system::error_code ec3,
                                 const boost::container::flat_map<
                                     std::string,
                                     std::variant<bool, std::string, uint64_t,
                                                  uint32_t>>& propertiesList) {
-                                if (ec)
+                                if (ec3)
                                 {
-                                    BMCWEB_LOG_ERROR << "error_code = " << ec;
+                                    BMCWEB_LOG_ERROR << "error_code = " << ec3;
                                     BMCWEB_LOG_ERROR << "error msg = "
-                                                     << ec.message();
+                                                     << ec3.message();
                                     messages::internalError(aResp->res);
                                     return;
                                 }
@@ -230,7 +230,7 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
  *
  * @return The corresponding Redfish state
  */
-std::string getRedfishFWState(const std::string& fwState)
+inline std::string getRedfishFWState(const std::string& fwState)
 {
     if (fwState == "xyz.openbmc_project.Software.Activation.Activations.Active")
     {
@@ -262,7 +262,7 @@ std::string getRedfishFWState(const std::string& fwState)
  *
  * @return The corresponding Redfish health state
  */
-std::string getRedfishFWHealth(const std::string& fwState)
+inline std::string getRedfishFWHealth(const std::string& fwState)
 {
     if ((fwState ==
          "xyz.openbmc_project.Software.Activation.Activations.Active") ||
@@ -292,9 +292,9 @@ std::string getRedfishFWHealth(const std::string& fwState)
  *
  * @return void
  */
-void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
-                 const std::shared_ptr<std::string> swId,
-                 const std::string& dbusSvc)
+inline void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
+                        const std::shared_ptr<std::string> swId,
+                        const std::string& dbusSvc)
 {
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
 
@@ -350,8 +350,8 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
  * @param[i,o] asyncResp  Async response object
  * @param[i]   fwId       The firmware ID
  */
-void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
-                           const std::shared_ptr<std::string> fwId)
+inline void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
+                                  const std::shared_ptr<std::string> fwId)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, fwId](const boost::system::error_code ec,

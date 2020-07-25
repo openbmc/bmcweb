@@ -31,10 +31,10 @@ static constexpr auto nbdBufferSize = 131088;
 class Handler : public std::enable_shared_from_this<Handler>
 {
   public:
-    Handler(const std::string& media, boost::asio::io_context& ios,
-            const std::string& entryID) :
+    Handler(const std::string& mediaIn, boost::asio::io_context& ios,
+            const std::string& entryIDIn) :
         pipeOut(ios),
-        pipeIn(ios), media(media), entryID(entryID), doingWrite(false),
+        pipeIn(ios), media(mediaIn), entryID(entryIDIn), doingWrite(false),
         negotiationDone(false), writeonnbd(false),
         outputBuffer(std::make_unique<
                      boost::beast::flat_static_buffer<nbdBufferSize>>()),
@@ -224,9 +224,9 @@ class Handler : public std::enable_shared_from_this<Handler>
 
                 boost::asio::async_write(
                     *stream, outputBuffer->data(),
-                    [this](const boost::system::error_code& ec,
+                    [this](const boost::system::error_code& ec2,
                            std::size_t bytes_transferred) {
-                        if (ec)
+                        if (ec2)
                         {
                             BMCWEB_LOG_DEBUG << "Error while writing on socket";
                             doClose();
