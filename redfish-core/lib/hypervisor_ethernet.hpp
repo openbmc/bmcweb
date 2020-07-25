@@ -34,13 +34,13 @@ class HypervisorSystem : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string>& hostName) {
+                        const std::variant<std::string>& /*hostName*/) {
                 if (ec)
                 {
                     messages::resourceNotFound(asyncResp->res, "System",
@@ -90,8 +90,8 @@ class HypervisorInterfaceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         const std::array<const char*, 1> interfaces = {
@@ -371,7 +371,6 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
-                                     const std::string& ethifaceId,
                                      const std::string& gateway)
 {
     BMCWEB_LOG_DEBUG
@@ -412,7 +411,7 @@ inline void createHypervisorIPv4(const std::string& ifaceId,
                                  std::shared_ptr<AsyncResp> asyncResp)
 {
     setHypervisorIPv4Address(asyncResp, ifaceId, address);
-    setHypervisorIPv4Gateway(asyncResp, ifaceId, gateway);
+    setHypervisorIPv4Gateway(asyncResp, gateway);
     setHypervisorIPv4Subnet(asyncResp, ifaceId, prefixLength);
 }
 
@@ -431,7 +430,7 @@ inline void deleteHypervisorIPv4(const std::string& ifaceId,
     std::string gateway = "0.0.0.0";
     const uint8_t prefixLength = 0;
     setHypervisorIPv4Address(asyncResp, ifaceId, address);
-    setHypervisorIPv4Gateway(asyncResp, ifaceId, gateway);
+    setHypervisorIPv4Gateway(asyncResp, gateway);
     setHypervisorIPv4Subnet(asyncResp, ifaceId, prefixLength);
 }
 
@@ -636,7 +635,7 @@ class HypervisorInterface : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);

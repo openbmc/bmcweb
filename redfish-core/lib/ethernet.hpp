@@ -730,9 +730,8 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
  *
  * @return None
  */
-inline void createIPv4(const std::string& ifaceId, unsigned int ipIdx,
-                       uint8_t prefixLength, const std::string& gateway,
-                       const std::string& address,
+inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
+                       const std::string& gateway, const std::string& address,
                        std::shared_ptr<AsyncResp> asyncResp)
 {
     crow::connections::systemBus->async_method_call(
@@ -1018,8 +1017,8 @@ class EthernetCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
             "#EthernetInterfaceCollection.EthernetInterfaceCollection";
@@ -1550,8 +1549,8 @@ class EthernetInterface : public Node
                 }
                 else
                 {
-                    createIPv4(ifaceId, entryIdx, prefixLength, *gateway,
-                               *address, asyncResp);
+                    createIPv4(ifaceId, prefixLength, *gateway, *address,
+                               asyncResp);
                 }
                 entryIdx++;
             }
@@ -1867,7 +1866,7 @@ class EthernetInterface : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2078,11 +2077,10 @@ class VlanNetworkInterface : public Node
     }
 
   private:
-    void parseInterfaceData(
-        nlohmann::json& json_response, const std::string& parent_iface_id,
-        const std::string& iface_id, const EthernetInterfaceData& ethData,
-        const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-        const boost::container::flat_set<IPv6AddressData>& ipv6Data)
+    void parseInterfaceData(nlohmann::json& json_response,
+                            const std::string& parent_iface_id,
+                            const std::string& iface_id,
+                            const EthernetInterfaceData& ethData)
     {
         // Fill out obvious data...
         json_response["Id"] = iface_id;
@@ -2112,7 +2110,7 @@ class VlanNetworkInterface : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2145,13 +2143,12 @@ class VlanNetworkInterface : public Node
             [this, asyncResp, parent_iface_id{std::string(params[0])},
              iface_id{std::string(params[1])}](
                 const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-                const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
+                const boost::container::flat_set<IPv4AddressData>&,
+                const boost::container::flat_set<IPv6AddressData>&) {
                 if (success && ethData.vlan_id.size() != 0)
                 {
                     parseInterfaceData(asyncResp->res.jsonValue,
-                                       parent_iface_id, iface_id, ethData,
-                                       ipv4Data, ipv6Data);
+                                       parent_iface_id, iface_id, ethData);
                 }
                 else
                 {
@@ -2198,10 +2195,10 @@ class VlanNetworkInterface : public Node
         getEthernetIfaceData(
             params[1],
             [asyncResp, parentIfaceId{std::string(params[0])},
-             ifaceId{std::string(params[1])}, &vlanEnable, &vlanId](
-                const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-                const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
+             ifaceId{std::string(params[1])}, &vlanEnable,
+             &vlanId](const bool& success, const EthernetInterfaceData& ethData,
+                      const boost::container::flat_set<IPv4AddressData>&,
+                      const boost::container::flat_set<IPv6AddressData>&) {
                 if (success && !ethData.vlan_id.empty())
                 {
                     auto callback =
@@ -2243,7 +2240,7 @@ class VlanNetworkInterface : public Node
             });
     }
 
-    void doDelete(crow::Response& res, const crow::Request& req,
+    void doDelete(crow::Response& res, const crow::Request&,
                   const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2270,8 +2267,8 @@ class VlanNetworkInterface : public Node
             [asyncResp, parentIfaceId{std::string(params[0])},
              ifaceId{std::string(params[1])}](
                 const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-                const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
+                const boost::container::flat_set<IPv4AddressData>&,
+                const boost::container::flat_set<IPv6AddressData>&) {
                 if (success && !ethData.vlan_id.empty())
                 {
                     auto callback =
@@ -2322,7 +2319,7 @@ class VlanNetworkInterfaceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);

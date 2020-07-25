@@ -120,14 +120,15 @@ inline void requestRoutes(App& app)
         .privileges({"Login"})
         .websocket()
         .onopen([&](crow::websocket::Connection& conn,
-                    std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
+                    std::shared_ptr<bmcweb::AsyncResp>) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
             sessions[&conn] = DbusWebsocketSession();
         })
-        .onclose([&](crow::websocket::Connection& conn,
-                     const std::string& reason) { sessions.erase(&conn); })
+        .onclose([&](crow::websocket::Connection& conn, const std::string&) {
+            sessions.erase(&conn);
+        })
         .onmessage([&](crow::websocket::Connection& conn,
-                       const std::string& data, bool is_binary) {
+                       const std::string& data, bool) {
             DbusWebsocketSession& thisSession = sessions[&conn];
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " received " << data;
             nlohmann::json j = nlohmann::json::parse(data, nullptr, false);
