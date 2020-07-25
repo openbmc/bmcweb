@@ -184,7 +184,7 @@ struct OpenSSLGenerator
         }
 
         return index;
-    };
+    }
 
     uint8_t max()
     {
@@ -359,7 +359,7 @@ class SessionStore
     int64_t getTimeoutInSeconds() const
     {
         return std::chrono::seconds(timeoutInMinutes).count();
-    };
+    }
 
     static SessionStore& getInstance()
     {
