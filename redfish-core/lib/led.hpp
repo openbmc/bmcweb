@@ -30,7 +30,7 @@ namespace redfish
  *
  * @return None.
  */
-void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
+inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
@@ -55,11 +55,11 @@ void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
                 }
             }
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec,
-                        const std::variant<bool> asserted) {
-                    if (!ec)
+                [aResp](const boost::system::error_code ec2,
+                        const std::variant<bool> asserted2) {
+                    if (!ec2)
                     {
-                        const bool* ledOn = std::get_if<bool>(&asserted);
+                        const bool* ledOn = std::get_if<bool>(&asserted2);
                         if (!ledOn)
                         {
                             BMCWEB_LOG_DEBUG
@@ -98,8 +98,8 @@ void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
-                          const std::string& ledState)
+inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
+                                 const std::string& ledState)
 {
     BMCWEB_LOG_DEBUG << "Set led groups";
     bool ledOn = false;
@@ -133,11 +133,11 @@ void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
                 }
             }
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec,
-                        const std::variant<bool> asserted) {
-                    if (ec)
+                [aResp](const boost::system::error_code ec2,
+                        const std::variant<bool> asserted2) {
+                    if (ec2)
                     {
-                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
                         messages::internalError(aResp->res);
                         return;
                     }
