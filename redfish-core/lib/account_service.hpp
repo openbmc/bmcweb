@@ -27,7 +27,7 @@
 namespace redfish
 {
 
-constexpr const char* ldapConfigObject =
+constexpr const char* ldapConfigObjectName =
     "/xyz/openbmc_project/user/ldap/openldap";
 constexpr const char* ADConfigObject =
     "/xyz/openbmc_project/user/ldap/active_directory";
@@ -118,10 +118,10 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     return "";
 }
 
-void userErrorMessageHandler(const sd_bus_error* e,
-                             std::shared_ptr<AsyncResp> asyncResp,
-                             const std::string& newUser,
-                             const std::string& username)
+inline void userErrorMessageHandler(const sd_bus_error* e,
+                                    std::shared_ptr<AsyncResp> asyncResp,
+                                    const std::string& newUser,
+                                    const std::string& username)
 {
     const char* errorMessage = e->name;
     if (e == nullptr)
@@ -166,9 +166,9 @@ void userErrorMessageHandler(const sd_bus_error* e,
     return;
 }
 
-void parseLDAPConfigData(nlohmann::json& json_response,
-                         const LDAPConfigData& confData,
-                         const std::string& ldapType)
+inline void parseLDAPConfigData(nlohmann::json& json_response,
+                                const LDAPConfigData& confData,
+                                const std::string& ldapType)
 {
     std::string service =
         (ldapType == "LDAP") ? "LDAPService" : "ActiveDirectoryService";
@@ -207,7 +207,7 @@ void parseLDAPConfigData(nlohmann::json& json_response,
  * create, to delete or to set Rolemapping object based on the given input.
  *
  */
-static void handleRoleMapPatch(
+inline void handleRoleMapPatch(
     const std::shared_ptr<AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, LDAPRoleMapData>>& roleMapObjData,
     const std::string& serverType, std::vector<nlohmann::json>& input)
@@ -344,7 +344,7 @@ static void handleRoleMapPatch(
                 }
                 else if (serverType == "LDAP")
                 {
-                    dbusObjectPath = ldapConfigObject;
+                    dbusObjectPath = ldapConfigObjectName;
                 }
 
                 BMCWEB_LOG_DEBUG << "Remote Group=" << *remoteGroup
@@ -389,13 +389,13 @@ inline void getLDAPConfigData(const std::string& ldapType,
     crow::connections::systemBus->async_method_call(
         [callback, ldapType](const boost::system::error_code ec,
                              const GetObjectType& resp) {
-            LDAPConfigData confData{};
             if (ec || resp.empty())
             {
                 BMCWEB_LOG_ERROR << "DBUS response error during getting of "
                                     "service name: "
                                  << ec;
-                callback(false, confData, ldapType);
+                LDAPConfigData empty{};
+                callback(false, empty, ldapType);
                 return;
             }
             std::string service = resp.begin()->first;
@@ -551,14 +551,13 @@ inline void getLDAPConfigData(const std::string& ldapType,
                 "GetManagedObjects");
         },
         mapperBusName, mapperObjectPath, mapperIntf, "GetObject",
-        ldapConfigObject, interfaces);
+        ldapConfigObjectName, interfaces);
 }
 
 class AccountService : public Node
 {
   public:
-    AccountService(App& app) :
-        Node(app, "/redfish/v1/AccountService/"), app(app)
+    AccountService(App& app) : Node(app, "/redfish/v1/AccountService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -977,7 +976,7 @@ class AccountService : public Node
         }
         else if (serverType == "LDAP")
         {
-            dbusObjectPath = ldapConfigObject;
+            dbusObjectPath = ldapConfigObjectName;
         }
 
         std::optional<nlohmann::json> authentication;
@@ -1045,51 +1044,51 @@ class AccountService : public Node
                                        serviceEnabled, dbusObjectPath,
                                        remoteRoleMapData](
                                           bool success, LDAPConfigData confData,
-                                          const std::string& serverType) {
+                                          const std::string& serverT) {
             if (!success)
             {
                 messages::internalError(asyncResp->res);
                 return;
             }
-            parseLDAPConfigData(asyncResp->res.jsonValue, confData, serverType);
+            parseLDAPConfigData(asyncResp->res.jsonValue, confData, serverT);
             if (confData.serviceEnabled)
             {
                 // Disable the service first and update the rest of
                 // the properties.
-                handleServiceEnablePatch(false, asyncResp, serverType,
+                handleServiceEnablePatch(false, asyncResp, serverT,
                                          dbusObjectPath);
             }
 
             if (serviceAddressList)
             {
                 handleServiceAddressPatch(*serviceAddressList, asyncResp,
-                                          serverType, dbusObjectPath);
+                                          serverT, dbusObjectPath);
             }
             if (userName)
             {
-                handleUserNamePatch(*userName, asyncResp, serverType,
+                handleUserNamePatch(*userName, asyncResp, serverT,
                                     dbusObjectPath);
             }
             if (password)
             {
-                handlePasswordPatch(*password, asyncResp, serverType,
+                handlePasswordPatch(*password, asyncResp, serverT,
                                     dbusObjectPath);
             }
 
             if (baseDNList)
             {
-                handleBaseDNPatch(*baseDNList, asyncResp, serverType,
+                handleBaseDNPatch(*baseDNList, asyncResp, serverT,
                                   dbusObjectPath);
             }
             if (userNameAttribute)
             {
-                handleUserNameAttrPatch(*userNameAttribute, asyncResp,
-                                        serverType, dbusObjectPath);
+                handleUserNameAttrPatch(*userNameAttribute, asyncResp, serverT,
+                                        dbusObjectPath);
             }
             if (groupsAttribute)
             {
-                handleGroupNameAttrPatch(*groupsAttribute, asyncResp,
-                                         serverType, dbusObjectPath);
+                handleGroupNameAttrPatch(*groupsAttribute, asyncResp, serverT,
+                                         dbusObjectPath);
             }
             if (serviceEnabled)
             {
@@ -1099,7 +1098,7 @@ class AccountService : public Node
                 if (*serviceEnabled)
                 {
                     handleServiceEnablePatch(*serviceEnabled, asyncResp,
-                                             serverType, dbusObjectPath);
+                                             serverT, dbusObjectPath);
                 }
             }
             else
@@ -1108,7 +1107,7 @@ class AccountService : public Node
                 // then revert it to the same state as it was
                 // before.
                 handleServiceEnablePatch(confData.serviceEnabled, asyncResp,
-                                         serverType, dbusObjectPath);
+                                         serverT, dbusObjectPath);
             }
 
             if (remoteRoleMapData)
@@ -1116,8 +1115,8 @@ class AccountService : public Node
                 std::vector<nlohmann::json> remoteRoleMap =
                     std::move(*remoteRoleMapData);
 
-                handleRoleMapPatch(asyncResp, confData.groupRoleList,
-                                   serverType, remoteRoleMap);
+                handleRoleMapPatch(asyncResp, confData.groupRoleList, serverT,
+                                   remoteRoleMap);
             }
         });
     }
@@ -1312,8 +1311,6 @@ class AccountService : public Node
                 std::variant<uint16_t>(*lockoutThreshold));
         }
     }
-
-    App& app;
 };
 
 class AccountsCollection : public Node
@@ -1453,9 +1450,9 @@ class AccountsCollection : public Node
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, username, password{std::move(password)}](
-                        const boost::system::error_code ec,
+                        const boost::system::error_code ec2,
                         sdbusplus::message::message& m) {
-                        if (ec)
+                        if (ec2)
                         {
                             userErrorMessageHandler(m.get_error(), asyncResp,
                                                     username, "");
@@ -1469,9 +1466,9 @@ class AccountsCollection : public Node
                             // but the password set failed.Something is wrong,
                             // so delete the user that we've already created
                             crow::connections::systemBus->async_method_call(
-                                [asyncResp,
-                                 password](const boost::system::error_code ec) {
-                                    if (ec)
+                                [asyncResp, password](
+                                    const boost::system::error_code ec3) {
+                                    if (ec3)
                                     {
                                         messages::internalError(asyncResp->res);
                                         return;

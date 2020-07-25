@@ -16,7 +16,7 @@ namespace crow
 namespace image_upload
 {
 
-std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
+static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 
 inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
                                const std::string& filename)
@@ -109,10 +109,10 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
     timeout.async_wait(timeoutHandler);
 }
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/upload/image/<str>")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req, crow::Response& res,
                const std::string& filename) {
@@ -120,7 +120,7 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/upload/image")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req, crow::Response& res) {
                 uploadImageHandler(req, res, "");

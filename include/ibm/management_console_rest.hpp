@@ -530,7 +530,7 @@ void requestRoutes(App& app)
 
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 res.jsonValue["@odata.type"] =
@@ -546,7 +546,7 @@ void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 handleConfigFileList(res);
@@ -554,28 +554,28 @@ void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app,
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 deleteConfigFiles(res);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req, crow::Response& res,
                const std::string& path) { handleFileUrl(req, res, path); });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 getLockServiceData(res);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 std::vector<nlohmann::json> body;
@@ -589,7 +589,7 @@ void requestRoutes(App& app)
                 handleAcquireLockAPI(req, res, body);
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)([](const crow::Request& req,
                                                     crow::Response& res) {
             std::string type;
@@ -619,7 +619,7 @@ void requestRoutes(App& app)
             }
         });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 ListOfSessionIds listSessionIds;
