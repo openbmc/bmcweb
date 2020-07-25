@@ -87,7 +87,7 @@ class ManagerResetAction : public Node
      * OpenBMC only supports ResetType "GracefulRestart".
      */
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Post Manager Reset.";
 
@@ -139,7 +139,7 @@ class ManagerResetToDefaultsAction : public Node
      * OpenBMC only supports ResetToDefaultsType "ResetAll".
      */
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Post ResetToDefaults.";
 
@@ -210,8 +210,8 @@ class ManagerResetActionInfo : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
@@ -1372,11 +1372,11 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 const std::string& owner = subtree[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
                     [self, path, owner](
-                        const boost::system::error_code ec,
+                        const boost::system::error_code ec2,
                         const boost::container::flat_map<
                             std::string, std::variant<std::vector<std::string>,
                                                       std::string>>& r) {
-                        if (ec)
+                        if (ec2)
                         {
                             BMCWEB_LOG_ERROR << "SetPIDValues: Can't get "
                                                 "thermalModeIface "
@@ -1673,8 +1673,8 @@ class Manager : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
         res.jsonValue["@odata.type"] = "#Manager.v1_9_0.Manager";
@@ -1806,7 +1806,7 @@ class Manager : public Node
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
-                 const std::vector<std::string>& params) override
+                 const std::vector<std::string>&) override
     {
         std::optional<nlohmann::json> oem;
         std::optional<nlohmann::json> links;
@@ -2088,8 +2088,8 @@ class ManagerCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
