@@ -97,7 +97,7 @@ class CertificateService : public Node
  * @param[in] path URL
  * @return -1 on failure and number on success
  */
-long getIDFromURL(const std::string_view url)
+inline long getIDFromURL(const std::string_view url)
 {
     std::size_t found = url.rfind("/");
     if (found == std::string::npos)
@@ -115,7 +115,7 @@ long getIDFromURL(const std::string_view url)
     return -1;
 }
 
-std::string
+inline std::string
     getCertificateFromReqBody(const std::shared_ptr<AsyncResp>& asyncResp,
                               const crow::Request& req)
 {
@@ -180,11 +180,9 @@ class CertificateFile
         if (std::filesystem::exists(certDirectory))
         {
             BMCWEB_LOG_DEBUG << "Removing certificate file" << certificateFile;
-            try
-            {
-                std::filesystem::remove_all(certDirectory);
-            }
-            catch (const std::filesystem::filesystem_error& e)
+            std::error_code ec;
+            std::filesystem::remove_all(certDirectory, ec);
+            if (ec)
             {
                 BMCWEB_LOG_ERROR << "Failed to remove temp directory"
                                  << certDirectory;

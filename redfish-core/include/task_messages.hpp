@@ -20,7 +20,7 @@ namespace redfish
 namespace messages
 {
 
-nlohmann::json taskAborted(const std::string& arg1)
+inline nlohmann::json taskAborted(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -31,7 +31,7 @@ nlohmann::json taskAborted(const std::string& arg1)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskCancelled(const std::string& arg1)
+inline nlohmann::json taskCancelled(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -42,7 +42,7 @@ nlohmann::json taskCancelled(const std::string& arg1)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskCompletedOK(const std::string& arg1)
+inline nlohmann::json taskCompletedOK(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -53,7 +53,7 @@ nlohmann::json taskCompletedOK(const std::string& arg1)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskCompletedWarning(const std::string& arg1)
+inline nlohmann::json taskCompletedWarning(const std::string& arg1)
 {
     return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
                           {"MessageId", "TaskEvent.1.0.1.TaskCompletedWarning"},
@@ -64,7 +64,7 @@ nlohmann::json taskCompletedWarning(const std::string& arg1)
                           {"Resolution", "None."}};
 }
 
-nlohmann::json taskPaused(const std::string& arg1)
+inline nlohmann::json taskPaused(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -75,7 +75,8 @@ nlohmann::json taskPaused(const std::string& arg1)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskProgressChanged(const std::string& arg1, const size_t arg2)
+inline nlohmann::json taskProgressChanged(const std::string& arg1,
+                                          const size_t arg2)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -87,7 +88,7 @@ nlohmann::json taskProgressChanged(const std::string& arg1, const size_t arg2)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskRemoved(const std::string& arg1)
+inline nlohmann::json taskRemoved(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -98,7 +99,7 @@ nlohmann::json taskRemoved(const std::string& arg1)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskResumed(const std::string& arg1)
+inline nlohmann::json taskResumed(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
@@ -109,7 +110,7 @@ nlohmann::json taskResumed(const std::string& arg1)
         {"Resolution", "None."}};
 }
 
-nlohmann::json taskStarted(const std::string& arg1)
+inline nlohmann::json taskStarted(const std::string& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
