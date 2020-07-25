@@ -236,7 +236,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             -Wnull-dereference \
             -Wdouble-promotion \
             -Wformat=2 \
-            -Wno-unused-parameter \
+            -Wunused-parameter \
         "
         )
     endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)

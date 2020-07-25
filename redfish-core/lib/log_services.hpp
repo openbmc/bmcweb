@@ -506,8 +506,8 @@ class SystemLogServiceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Collections don't include the static data added by SubRoute because
@@ -583,8 +583,8 @@ class EventLogService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -623,8 +623,8 @@ class JournalEventLogClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -771,7 +771,7 @@ class JournalEventLogEntryCollection : public Node
 
   private:
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         uint64_t skip = 0;
@@ -873,7 +873,7 @@ class JournalEventLogEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -948,8 +948,8 @@ class DBusEventLogEntryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1094,7 +1094,7 @@ class DBusEventLogEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1193,7 +1193,7 @@ class DBusEventLogEntry : public Node
             "xyz.openbmc_project.Logging.Entry");
     }
 
-    void doDelete(crow::Response& res, const crow::Request& req,
+    void doDelete(crow::Response& res, const crow::Request&,
                   const std::vector<std::string>& params) override
     {
 
@@ -1254,8 +1254,8 @@ class BMCLogServiceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Collections don't include the static data added by SubRoute because
@@ -1294,8 +1294,8 @@ class BMCJournalLogService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.jsonValue["@odata.type"] =
@@ -1375,7 +1375,7 @@ class BMCJournalLogEntryCollection : public Node
 
   private:
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         static constexpr const long maxEntriesPerPage = 1000;
@@ -1478,7 +1478,7 @@ class BMCJournalLogEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1564,8 +1564,8 @@ class SystemDumpService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1611,8 +1611,8 @@ class SystemDumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1681,7 +1681,7 @@ class SystemDumpEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1800,7 +1800,7 @@ class SystemDumpEntry : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
-    void doDelete(crow::Response& res, const crow::Request& req,
+    void doDelete(crow::Response& res, const crow::Request&,
                   const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "Do delete single dump entry";
@@ -1854,8 +1854,7 @@ class SystemDumpEntryDownload : public Node
     SystemDumpEntryDownload(App& app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
-             "Actions/"
-             "LogEntry.DownloadLog/",
+             "Actions/LogEntry.DownloadLog/",
              std::string())
     {
         entityPrivileges = {
@@ -1893,8 +1892,8 @@ class SystemDumpClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -1947,8 +1946,8 @@ class CrashdumpService : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Copy over the static data to include the entries added by SubRoute
@@ -2004,14 +2003,14 @@ class CrashdumpClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::string& resp) {
+                        const std::string&) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -2099,8 +2098,8 @@ class CrashdumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Collections don't include the static data added by SubRoute because
@@ -2183,7 +2182,7 @@ class CrashdumpEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2218,7 +2217,7 @@ class CrashdumpFile : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2321,14 +2320,14 @@ class OnDemandCrashdump : public Node
 
   private:
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         auto generateonDemandLogCallback = [asyncResp,
                                             req](const boost::system::error_code
                                                      ec,
-                                                 const std::string& resp) {
+                                                 const std::string&) {
             if (ec)
             {
                 if (ec.value() == boost::system::errc::operation_not_supported)
@@ -2393,14 +2392,14 @@ class TelemetryCrashdump : public Node
 
   private:
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         auto generateTelemetryLogCallback = [asyncResp, req](
                                                 const boost::system::error_code
                                                     ec,
-                                                const std::string& resp) {
+                                                const std::string&) {
             if (ec)
             {
                 if (ec.value() == boost::system::errc::operation_not_supported)
@@ -2465,7 +2464,7 @@ class SendRawPECI : public Node
 
   private:
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::vector<std::vector<uint8_t>> peciCommands;
@@ -2563,8 +2562,8 @@ class DBusLogServiceActionsClear : public Node
      * The Clear Log actions does not require any parameter.The action deletes
      * all entries found in the Entries collection for this Log Service.
      */
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Do delete all entries.";
 
@@ -2612,8 +2611,8 @@ class PostCodesLogService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -2651,8 +2650,8 @@ class PostCodesClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Do delete all postcodes entries.";
 
@@ -2932,7 +2931,7 @@ class PostCodesEntryCollection : public Node
 
   private:
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -2981,7 +2980,7 @@ class PostCodesEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
