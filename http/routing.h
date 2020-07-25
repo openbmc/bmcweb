@@ -219,7 +219,7 @@ struct Wrapped
     template <typename Req, typename... Args>
     struct ReqHandlerWrapper
     {
-        ReqHandlerWrapper(Func f) : f(std::move(f))
+        ReqHandlerWrapper(Func fIn) : f(std::move(fIn))
         {}
 
         void operator()(const Request& req, Response& res, Args... args)
@@ -315,7 +315,7 @@ class WebSocketRule : public BaseRule
     using self_t = WebSocketRule;
 
   public:
-    WebSocketRule(std::string rule) : BaseRule(std::move(rule))
+    WebSocketRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
     {}
 
     void validate() override
@@ -428,7 +428,7 @@ struct RuleParameterTraits
     }
 
     template <typename... MethodArgs>
-    self_t& requires(std::initializer_list<const char*> l)
+    self_t& privileges(std::initializer_list<const char*> l)
     {
         self_t* self = static_cast<self_t*>(this);
         self->privilegesSet.emplace_back(l);
@@ -436,7 +436,7 @@ struct RuleParameterTraits
     }
 
     template <typename... MethodArgs>
-    self_t& requires(const std::vector<redfish::Privileges>& p)
+    self_t& privileges(const std::vector<redfish::Privileges>& p)
     {
         self_t* self = static_cast<self_t*>(this);
         for (const redfish::Privileges& privilege : p)
@@ -450,7 +450,7 @@ struct RuleParameterTraits
 class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
 {
   public:
-    DynamicRule(std::string rule) : BaseRule(std::move(rule))
+    DynamicRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
     {}
 
     void validate() override
@@ -982,7 +982,7 @@ class Trie
                     case ParamType::PATH:
                         BMCWEB_LOG_DEBUG << "<path>";
                         break;
-                    default:
+                    case ParamType::MAX:
                         BMCWEB_LOG_DEBUG << "<ERROR>";
                         break;
                 }
@@ -1203,9 +1203,9 @@ class Router
             // Check to see if this url exists at any verb
             for (const PerMethod& p : perMethods)
             {
-                const std::pair<unsigned, RoutingParams>& found =
+                const std::pair<unsigned, RoutingParams>& found2 =
                     p.trie.find(req.url);
-                if (found.first > 0)
+                if (found2.first > 0)
                 {
                     res.result(boost::beast::http::status::method_not_allowed);
                     res.end();
@@ -1340,7 +1340,7 @@ class Router
                     }
                 }
 
-                // Get the user privileges from the role
+                // Get the userprivileges from the role
                 redfish::Privileges userPrivileges =
                     redfish::getUserPrivileges(userRole);
 
@@ -1349,10 +1349,10 @@ class Router
                 // value from any previous use of this session.
                 req.session->isConfigureSelfOnly = passwordExpired;
 
-                // Modify privileges if isConfigureSelfOnly.
+                // Modifyprivileges if isConfigureSelfOnly.
                 if (req.session->isConfigureSelfOnly)
                 {
-                    // Remove all privileges except ConfigureSelf
+                    // Remove allprivileges except ConfigureSelf
                     userPrivileges = userPrivileges.intersection(
                         redfish::Privileges{"ConfigureSelf"});
                     BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
@@ -1384,8 +1384,8 @@ class Router
     {
         for (size_t i = 0; i < perMethods.size(); i++)
         {
-            BMCWEB_LOG_DEBUG
-                << methodName(static_cast<boost::beast::http::verb>(i));
+            BMCWEB_LOG_DEBUG << boost::beast::http::to_string(
+                static_cast<boost::beast::http::verb>(i));
             perMethods[i].trie.debugPrint();
         }
     }
