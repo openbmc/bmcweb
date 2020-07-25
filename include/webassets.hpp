@@ -128,8 +128,8 @@ inline void requestRoutes(App& app)
             }
 
             app.routeDynamic(webpath)(
-                [absolutePath, contentType, contentEncoding](
-                    const crow::Request& req, crow::Response& res) {
+                [absolutePath, contentType,
+                 contentEncoding](const crow::Request&, crow::Response& res) {
                     if (contentType != nullptr)
                     {
                         res.addHeader("Content-Type", contentType);
