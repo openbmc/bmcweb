@@ -29,9 +29,9 @@ using InterfacesProperties = boost::container::flat_map<
     std::string,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
-void getResourceList(std::shared_ptr<AsyncResp> aResp,
-                     const std::string& subclass,
-                     const std::vector<const char*>& collectionName)
+inline void getResourceList(std::shared_ptr<AsyncResp> aResp,
+                            const std::string& subclass,
+                            const std::vector<const char*>& collectionName)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu/mem resources.";
     crow::connections::systemBus->async_method_call(
@@ -69,8 +69,9 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/inventory", 0, collectionName);
 }
 
-void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
-                           const InterfacesProperties& cpuInterfacesProperties)
+inline void
+    getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
+                          const InterfacesProperties& cpuInterfacesProperties)
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
 
@@ -193,9 +194,10 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
     return;
 }
 
-void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
-                         const std::string& cpuId, const std::string& service,
-                         const std::string& objPath)
+inline void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
+                                const std::string& cpuId,
+                                const std::string& service,
+                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
 
@@ -263,8 +265,9 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
-                     const std::string& service, const std::string& objPath)
+inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
+                            const std::string& service,
+                            const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
     crow::connections::systemBus->async_method_call(
@@ -306,10 +309,10 @@ void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Asset");
 }
 
-void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
-                                 const std::string& acclrtrId,
-                                 const std::string& service,
-                                 const std::string& objPath)
+inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
+                                        const std::string& acclrtrId,
+                                        const std::string& service,
+                                        const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
@@ -365,8 +368,9 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId,
-                const std::vector<const char*> inventoryItems)
+inline void getCpuData(std::shared_ptr<AsyncResp> aResp,
+                       const std::string& cpuId,
+                       const std::vector<const char*> inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources.";
 
@@ -891,8 +895,9 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
-                          const std::string& service, const std::string& path)
+inline void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
+                                 const std::string& service,
+                                 const std::string& path)
 {
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
@@ -958,7 +963,7 @@ void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
-void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string& dimmId)
+inline void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
     crow::connections::systemBus->async_method_call(
