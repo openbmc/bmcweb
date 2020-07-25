@@ -202,14 +202,14 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
                                  path(std::move(path))](
-                                    const boost::system::error_code ec,
+                                    const boost::system::error_code ec2,
                                     const std::vector<
                                         std::pair<std::string, VariantType>>&
                                         properties) {
-                                    if (ec)
+                                    if (ec2)
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error " << ec2;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -268,15 +268,15 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         auto getDimmProperties =
                                             [aResp](
                                                 const boost::system::error_code
-                                                    ec,
+                                                    ec3,
                                                 const std::variant<bool>&
                                                     dimmState) {
-                                                if (ec)
+                                                if (ec3)
                                                 {
                                                     BMCWEB_LOG_ERROR
                                                         << "DBUS response "
                                                            "error "
-                                                        << ec;
+                                                        << ec3;
                                                     return;
                                                 }
                                                 updateDimmProperties(aResp,
@@ -309,14 +309,14 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
                                  path(std::move(path))](
-                                    const boost::system::error_code ec,
+                                    const boost::system::error_code ec2,
                                     const std::vector<
                                         std::pair<std::string, VariantType>>&
                                         properties) {
-                                    if (ec)
+                                    if (ec2)
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error " << ec2;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -368,15 +368,15 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         auto getCpuPresenceState =
                                             [aResp](
                                                 const boost::system::error_code
-                                                    ec,
+                                                    ec3,
                                                 const std::variant<bool>&
                                                     cpuPresenceCheck) {
-                                                if (ec)
+                                                if (ec3)
                                                 {
                                                     BMCWEB_LOG_ERROR
                                                         << "DBUS response "
                                                            "error "
-                                                        << ec;
+                                                        << ec3;
                                                     return;
                                                 }
                                                 modifyCpuPresenceState(
@@ -386,15 +386,15 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         auto getCpuFunctionalState =
                                             [aResp](
                                                 const boost::system::error_code
-                                                    ec,
+                                                    ec3,
                                                 const std::variant<bool>&
                                                     cpuFunctionalCheck) {
-                                                if (ec)
+                                                if (ec3)
                                                 {
                                                     BMCWEB_LOG_ERROR
                                                         << "DBUS response "
                                                            "error "
-                                                        << ec;
+                                                        << ec3;
                                                     return;
                                                 }
                                                 modifyCpuFunctionalState(
@@ -445,14 +445,14 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                 << "Found UUID, now get its properties.";
                             crow::connections::systemBus->async_method_call(
                                 [aResp](
-                                    const boost::system::error_code ec,
+                                    const boost::system::error_code ec3,
                                     const std::vector<
                                         std::pair<std::string, VariantType>>&
                                         properties) {
-                                    if (ec)
+                                    if (ec3)
                                     {
                                         BMCWEB_LOG_DEBUG
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error " << ec3;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -496,11 +496,11 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                         {
                             crow::connections::systemBus->async_method_call(
                                 [aResp](
-                                    const boost::system::error_code ec,
+                                    const boost::system::error_code ec2,
                                     const std::vector<
                                         std::pair<std::string, VariantType>>&
                                         propertiesList) {
-                                    if (ec)
+                                    if (ec2)
                                     {
                                         // doesn't have to include this
                                         // interface
@@ -544,9 +544,9 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
 
                             crow::connections::systemBus->async_method_call(
                                 [aResp](
-                                    const boost::system::error_code ec,
+                                    const boost::system::error_code ec2,
                                     const std::variant<std::string>& property) {
-                                    if (ec)
+                                    if (ec2)
                                     {
                                         // doesn't have to include this
                                         // interface
@@ -1004,11 +1004,11 @@ inline void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
                 // If AutomaticRetry (AutoReboot) is enabled see how many
                 // attempts are left
                 crow::connections::systemBus->async_method_call(
-                    [aResp](const boost::system::error_code ec,
+                    [aResp](const boost::system::error_code ec2,
                             std::variant<uint32_t>& autoRebootAttemptsLeft) {
-                        if (ec)
+                        if (ec2)
                         {
-                            BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                            BMCWEB_LOG_DEBUG << "D-BUS response error " << ec2;
                             return;
                         }
 
@@ -1660,8 +1660,8 @@ class SystemsCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
@@ -1671,25 +1671,22 @@ class SystemsCollection : public Node
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string>& hostName) {
+                        const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& iface_array =
                     asyncResp->res.jsonValue["Members"];
                 iface_array = nlohmann::json::array();
                 auto& count = asyncResp->res.jsonValue["Members@odata.count"];
                 count = 0;
-                if (ec)
+                iface_array.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system"}});
+                if (!ec)
                 {
+                    BMCWEB_LOG_DEBUG << "Hypervisor is available";
                     iface_array.push_back(
-                        {{"@odata.id", "/redfish/v1/Systems/system"}});
+                        {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                     count = iface_array.size();
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "Hypervisor is available";
-                iface_array.push_back(
-                    {{"@odata.id", "/redfish/v1/Systems/system"}});
-                iface_array.push_back(
-                    {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
-                count = iface_array.size();
             },
             "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",
@@ -1718,7 +1715,7 @@ class SystemActionsReset : public Node
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1883,8 +1880,8 @@ class Systems : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#ComputerSystem.v1_12_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
@@ -1971,7 +1968,7 @@ class Systems : public Node
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
-                 const std::vector<std::string>& params) override
+                 const std::vector<std::string>&) override
     {
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
@@ -2065,8 +2062,8 @@ class SystemResetActionInfo : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},

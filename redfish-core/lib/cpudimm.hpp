@@ -1049,8 +1049,8 @@ class ProcessorCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
             "#ProcessorCollection.ProcessorCollection";
@@ -1087,7 +1087,7 @@ class Processor : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
@@ -1134,8 +1134,8 @@ class MemoryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
         res.jsonValue["Name"] = "Memory Module Collection";
@@ -1169,7 +1169,7 @@ class Memory : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
