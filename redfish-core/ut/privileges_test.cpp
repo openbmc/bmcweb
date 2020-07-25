@@ -13,9 +13,7 @@ TEST(PrivilegeTest, PrivilegeConstructor)
     Privileges privileges{"Login", "ConfigureManager"};
 
     EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::UnorderedElementsAre(
-                    ::testing::Pointee(&"Login"[0]),
-                    ::testing::Pointee(&"ConfigureManager"[0])));
+                ::testing::UnorderedElementsAre("Login", "ConfigureManager"));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
@@ -119,9 +117,7 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
 
     EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
                 ::testing::UnorderedElementsAre(
-                    ::testing::Pointee(expectedPrivileges[0]),
-                    ::testing::Pointee(expectedPrivileges[1]),
-                    ::testing::Pointee(expectedPrivileges[2]),
-                    ::testing::Pointee(expectedPrivileges[3]),
-                    ::testing::Pointee(expectedPrivileges[4])));
+                    expectedPrivileges[0], expectedPrivileges[1],
+                    expectedPrivileges[2], expectedPrivileges[3],
+                    expectedPrivileges[4]));
 }

@@ -16,13 +16,13 @@ static constexpr const uint maxSessions = 4;
 class KvmSession
 {
   public:
-    explicit KvmSession(crow::websocket::Connection& conn) :
-        conn(conn), hostSocket(conn.get_io_context()), doingWrite(false)
+    explicit KvmSession(crow::websocket::Connection& connIn) :
+        conn(connIn), hostSocket(conn.get_io_context()), doingWrite(false)
     {
         boost::asio::ip::tcp::endpoint endpoint(
             boost::asio::ip::make_address("127.0.0.1"), 5900);
         hostSocket.async_connect(
-            endpoint, [this, &conn](const boost::system::error_code& ec) {
+            endpoint, [this, &connIn](const boost::system::error_code& ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR
@@ -30,7 +30,7 @@ class KvmSession
                         << ", Couldn't connect to KVM socket port: " << ec;
                     if (ec != boost::asio::error::operation_aborted)
                     {
-                        conn.close("Error in connecting to KVM port");
+                        connIn.close("Error in connecting to KVM port");
                     }
                     return;
                 }
@@ -159,7 +159,7 @@ inline void requestRoutes(App& app)
     sessions.reserve(maxSessions);
 
     BMCWEB_ROUTE(app, "/kvm/0")
-        .requires({"ConfigureComponents", "ConfigureManager"})
+        .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
                    std::shared_ptr<bmcweb::AsyncResp> asyncResp) {

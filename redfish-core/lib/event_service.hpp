@@ -233,7 +233,7 @@ class EventDestinationCollection : public Node
         std::string protocol;
         std::optional<std::string> context;
         std::optional<std::string> subscriptionType;
-        std::optional<std::string> eventFormatType;
+        std::optional<std::string> eventFormatType2;
         std::optional<std::string> retryPolicy;
         std::optional<std::vector<std::string>> msgIds;
         std::optional<std::vector<std::string>> regPrefixes;
@@ -244,7 +244,7 @@ class EventDestinationCollection : public Node
         if (!json_util::readJson(
                 req, res, "Destination", destUrl, "Context", context,
                 "Protocol", protocol, "SubscriptionType", subscriptionType,
-                "EventFormatType", eventFormatType, "HttpHeaders", headers,
+                "EventFormatType", eventFormatType2, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
                 mrdJsonArray, "ResourceTypes", resTypes))
@@ -328,22 +328,22 @@ class EventDestinationCollection : public Node
         }
         subValue->protocol = protocol;
 
-        if (eventFormatType)
+        if (eventFormatType2)
         {
             if (std::find(supportedEvtFormatTypes.begin(),
                           supportedEvtFormatTypes.end(),
-                          *eventFormatType) == supportedEvtFormatTypes.end())
+                          *eventFormatType2) == supportedEvtFormatTypes.end())
             {
                 messages::propertyValueNotInList(
-                    asyncResp->res, *eventFormatType, "EventFormatType");
+                    asyncResp->res, *eventFormatType2, "EventFormatType");
                 return;
             }
-            subValue->eventFormatType = *eventFormatType;
+            subValue->eventFormatType = *eventFormatType2;
         }
         else
         {
             // If not specified, use default "Event"
-            subValue->eventFormatType.assign({"Event"});
+            subValue->eventFormatType = "Event";
         }
 
         if (context)
@@ -522,7 +522,7 @@ class EventServiceSSE : public Node
             else
             {
                 // If nothing specified, using default "Event"
-                subValue->eventFormatType.assign({"Event"});
+                subValue->eventFormatType = "Event";
             }
 
             if (!subValue->registryPrefixes.empty())

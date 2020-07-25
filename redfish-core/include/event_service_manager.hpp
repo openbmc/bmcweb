@@ -48,7 +48,7 @@ static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-std::shared_ptr<boost::asio::posix::stream_descriptor> inotifyConn = nullptr;
+static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
 static constexpr const char* redfishEventLogDir = "/var/log";
 static constexpr const char* redfishEventLogFile = "/var/log/redfish";
 static constexpr const size_t iEventSize = sizeof(inotify_event);
@@ -113,8 +113,8 @@ static const Message* formatMessage(const std::string_view& messageID)
 
 namespace event_log
 {
-bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
-                      const bool firstEntry = true)
+inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
+                             const bool firstEntry = true)
 {
     static time_t prevTs = 0;
     static int index = 0;
@@ -149,9 +149,9 @@ bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
-int getEventLogParams(const std::string& logEntry, std::string& timestamp,
-                      std::string& messageID,
-                      std::vector<std::string>& messageArgs)
+inline int getEventLogParams(const std::string& logEntry,
+                             std::string& timestamp, std::string& messageID,
+                             std::vector<std::string>& messageArgs)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -195,9 +195,9 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     return 0;
 }
 
-void getRegistryAndMessageKey(const std::string& messageID,
-                              std::string& registryName,
-                              std::string& messageKey)
+inline void getRegistryAndMessageKey(const std::string& messageID,
+                                     std::string& registryName,
+                                     std::string& messageKey)
 {
     // Redfish MessageIds are in the form
     // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
@@ -212,11 +212,12 @@ void getRegistryAndMessageKey(const std::string& messageID,
     }
 }
 
-int formatEventLogEntry(const std::string& logEntryID,
-                        const std::string& messageID,
-                        const std::vector<std::string>& messageArgs,
-                        std::string timestamp, const std::string customText,
-                        nlohmann::json& logEntryJson)
+inline int formatEventLogEntry(const std::string& logEntryID,
+                               const std::string& messageID,
+                               const std::vector<std::string>& messageArgs,
+                               std::string timestamp,
+                               const std::string customText,
+                               nlohmann::json& logEntryJson)
 {
     // Get the Message from the MessageRegistry
     const message_registries::Message* message =
@@ -267,7 +268,7 @@ int formatEventLogEntry(const std::string& logEntryID,
 } // namespace event_log
 #endif
 
-bool isFilterQuerySpecialChar(char c)
+inline bool isFilterQuerySpecialChar(char c)
 {
     switch (c)
     {
@@ -280,10 +281,11 @@ bool isFilterQuerySpecialChar(char c)
     }
 }
 
-bool readSSEQueryParams(std::string sseFilter, std::string& formatType,
-                        std::vector<std::string>& messageIds,
-                        std::vector<std::string>& registryPrefixes,
-                        std::vector<std::string>& metricReportDefinitions)
+inline bool
+    readSSEQueryParams(std::string sseFilter, std::string& formatType,
+                       std::vector<std::string>& messageIds,
+                       std::vector<std::string>& registryPrefixes,
+                       std::vector<std::string>& metricReportDefinitions)
 {
     sseFilter.erase(std::remove_if(sseFilter.begin(), sseFilter.end(),
                                    isFilterQuerySpecialChar),
@@ -508,12 +510,12 @@ class Subscription
     }
 #endif
 
-    void filterAndSendReports(const std::string& id,
+    void filterAndSendReports(const std::string& id2,
                               const std::string& readingsTs,
                               const ReadingsObjType& readings)
     {
         std::string metricReportDef =
-            "/redfish/v1/TelemetryService/MetricReportDefinitions/" + id;
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/" + id2;
 
         // Empty list means no filter. Send everything.
         if (metricReportDefinitions.size())
@@ -541,8 +543,8 @@ class Subscription
         nlohmann::json msg = {
             {"@odata.id", "/redfish/v1/TelemetryService/MetricReports/" + id},
             {"@odata.type", "#MetricReport.v1_3_0.MetricReport"},
-            {"Id", id},
-            {"Name", id},
+            {"Id", id2},
+            {"Name", id2},
             {"Timestamp", readingsTs},
             {"MetricReportDefinition", {{"@odata.id", metricReportDef}}},
             {"MetricValues", metricValuesArray}};
@@ -924,7 +926,7 @@ class EventServiceManager
     std::string addSubscription(const std::shared_ptr<Subscription> subValue,
                                 const bool updateFile = true)
     {
-        std::srand(static_cast<uint32_t>(std::time(0)));
+        std::srand(static_cast<uint32_t>(std::time(nullptr)));
         std::string id;
 
         int retry = 3;
@@ -937,7 +939,7 @@ class EventServiceManager
                 break;
             }
             --retry;
-        };
+        }
 
         if (retry <= 0)
         {
@@ -1198,7 +1200,7 @@ class EventServiceManager
 
     static void watchRedfishEventLogFile()
     {
-        if (inotifyConn == nullptr)
+        if (inotifyConn)
         {
             return;
         }
@@ -1291,8 +1293,7 @@ class EventServiceManager
 
     static int startEventLogMonitor(boost::asio::io_context& ioc)
     {
-        inotifyConn =
-            std::make_shared<boost::asio::posix::stream_descriptor>(ioc);
+        inotifyConn.emplace(ioc);
         inotifyFd = inotify_init1(IN_NONBLOCK);
         if (inotifyFd == -1)
         {
@@ -1482,6 +1483,6 @@ class EventServiceManager
         }
         return true;
     }
-}; // namespace redfish
+};
 
 } // namespace redfish
