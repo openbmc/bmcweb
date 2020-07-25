@@ -143,8 +143,8 @@ class NetworkProtocol : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -168,6 +168,11 @@ class NetworkProtocol : public Node
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code error_code,
                         const std::variant<std::string>& timeSyncMethod) {
+                if (error_code)
+                {
+                    return;
+                }
+
                 const std::string* s =
                     std::get_if<std::string>(&timeSyncMethod);
 
@@ -404,7 +409,12 @@ class NetworkProtocol : public Node
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code error_code) {},
+            [asyncResp](const boost::system::error_code error_code) {
+                if (error_code)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
             "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/time/sync_method",
             "org.freedesktop.DBus.Properties", "Set",
@@ -488,7 +498,7 @@ class NetworkProtocol : public Node
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
-                 const std::vector<std::string>& params) override
+                 const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::optional<std::string> newHostName;
