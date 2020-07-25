@@ -965,8 +965,6 @@ class AccountService : public Node
 
     void handleLDAPPatch(nlohmann::json& input,
                          const std::shared_ptr<AsyncResp>& asyncResp,
-                         const crow::Request& req,
-                         const std::vector<std::string>& params,
                          const std::string& serverType)
     {
         std::string dbusObjectPath;
@@ -977,6 +975,11 @@ class AccountService : public Node
         else if (serverType == "LDAP")
         {
             dbusObjectPath = ldapConfigObjectName;
+        }
+        else
+        {
+
+            return;
         }
 
         std::optional<nlohmann::json> authentication;
@@ -1121,8 +1124,8 @@ class AccountService : public Node
         });
     }
 
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         const persistent_data::AuthConfigMethods& authMethodsConfig =
             persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -1210,6 +1213,10 @@ class AccountService : public Node
 
         auto callback = [asyncResp](bool success, LDAPConfigData& confData,
                                     const std::string& ldapType) {
+            if (!success)
+            {
+                return;
+            }
             parseLDAPConfigData(asyncResp->res.jsonValue, confData, ldapType);
         };
 
@@ -1218,7 +1225,7 @@ class AccountService : public Node
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
-                 const std::vector<std::string>& params) override
+                 const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1252,7 +1259,7 @@ class AccountService : public Node
 
         if (ldapObject)
         {
-            handleLDAPPatch(*ldapObject, asyncResp, req, params, "LDAP");
+            handleLDAPPatch(*ldapObject, asyncResp, "LDAP");
         }
 
         if (std::optional<nlohmann::json> oemOpenBMCObject;
@@ -1273,7 +1280,7 @@ class AccountService : public Node
 
         if (activeDirectoryObject)
         {
-            handleLDAPPatch(*activeDirectoryObject, asyncResp, req, params,
+            handleLDAPPatch(*activeDirectoryObject, asyncResp,
                             "ActiveDirectory");
         }
 
@@ -1337,7 +1344,7 @@ class AccountsCollection : public Node
 
   private:
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = {{"@odata.id", "/redfish/v1/AccountService/Accounts"},
@@ -1393,7 +1400,7 @@ class AccountsCollection : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1886,7 +1893,7 @@ class ManagerAccount : public Node
             });
     }
 
-    void doDelete(crow::Response& res, const crow::Request& req,
+    void doDelete(crow::Response& res, const crow::Request&,
                   const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
