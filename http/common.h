@@ -12,33 +12,6 @@
 namespace crow
 {
 
-inline std::string methodName(boost::beast::http::verb method)
-{
-    switch (method)
-    {
-        case boost::beast::http::verb::delete_:
-            return "DELETE";
-        case boost::beast::http::verb::get:
-            return "GET";
-        case boost::beast::http::verb::head:
-            return "HEAD";
-        case boost::beast::http::verb::post:
-            return "POST";
-        case boost::beast::http::verb::put:
-            return "PUT";
-        case boost::beast::http::verb::connect:
-            return "CONNECT";
-        case boost::beast::http::verb::options:
-            return "OPTIONS";
-        case boost::beast::http::verb::trace:
-            return "TRACE";
-        case boost::beast::http::verb::patch:
-            return "PATCH";
-        default:
-            return "invalid";
-    }
-}
-
 enum class ParamType
 {
     INT,

@@ -114,10 +114,10 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     return 0;
 }
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/subscribe")
-        .requires({"Login"})
+        .privileges({"Login"})
         .websocket()
         .onopen([&](crow::websocket::Connection& conn,
                     std::shared_ptr<bmcweb::AsyncResp> asyncResp) {

@@ -97,13 +97,13 @@ class App
 #ifdef BMCWEB_ENABLE_SSL
         if (-1 == socketFd)
         {
-            sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, bindaddrStr, portUint, sslContext, io));
+            sslServer = std::make_unique<ssl_server_t>(
+                this, bindaddrStr, portUint, sslContext, io);
         }
         else
         {
-            sslServer = std::move(
-                std::make_unique<ssl_server_t>(this, socketFd, sslContext, io));
+            sslServer =
+                std::make_unique<ssl_server_t>(this, socketFd, sslContext, io);
         }
         sslServer->setTickFunction(tickInterval, tickFunction);
         sslServer->run();

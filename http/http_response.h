@@ -104,7 +104,7 @@ struct Response
     void preparePayload()
     {
         stringResponse->prepare_payload();
-    };
+    }
 
     void clear()
     {
