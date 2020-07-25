@@ -86,8 +86,7 @@ enum class UnpackErrorCode
 };
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType& from, nlohmann::json& jsonValue,
-                const std::string& key)
+bool checkRange(const FromType& from, const std::string& key)
 {
     if (from > std::numeric_limits<ToType>::max())
     {
@@ -137,7 +136,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         {
             return UnpackErrorCode::invalidType;
         }
-        if (!checkRange<Type>(*jsonPtr, jsonValue, key))
+        if (!checkRange<Type>(*jsonPtr, key))
         {
             return UnpackErrorCode::outOfRange;
         }
@@ -151,7 +150,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         {
             return UnpackErrorCode::invalidType;
         }
-        if (!checkRange<Type>(*jsonPtr, jsonValue, key))
+        if (!checkRange<Type>(*jsonPtr, key))
         {
             return UnpackErrorCode::outOfRange;
         }
@@ -166,7 +165,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         {
             return UnpackErrorCode::invalidType;
         }
-        if (!checkRange<Type>(*jsonPtr, jsonValue, key))
+        if (!checkRange<Type>(*jsonPtr, key))
         {
             return UnpackErrorCode::outOfRange;
         }
@@ -326,8 +325,8 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 }
 
 template <size_t Count, size_t Index>
-bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
-                    crow::Response& res, std::bitset<Count>& handled)
+bool readJsonValues(const std::string& key, nlohmann::json&,
+                    crow::Response& res, std::bitset<Count>&)
 {
     BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
     messages::propertyUnknown(res, key);
@@ -356,7 +355,7 @@ bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
 }
 
 template <size_t Index = 0, size_t Count>
-bool handleMissing(std::bitset<Count>& handled, crow::Response& res)
+bool handleMissing(std::bitset<Count>&, crow::Response&)
 {
     return true;
 }
@@ -364,7 +363,7 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res)
 template <size_t Index = 0, size_t Count, typename ValueType,
           typename... UnpackTypes>
 bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
-                   const char* key, ValueType& unused, UnpackTypes&... in)
+                   const char* key, ValueType&, UnpackTypes&... in)
 {
     bool ret = true;
     if (!handled.test(Index) && !is_optional_v<ValueType>)
