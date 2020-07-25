@@ -791,13 +791,13 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             }
 
             nlohmann::json::const_iterator it = j->begin();
-            for (const std::string& argCode : dbusArgSplit(arg_type))
+            for (const std::string& argCode2 : dbusArgSplit(arg_type))
             {
                 if (it == j->end())
                 {
                     return -1;
                 }
-                r = convertJsonToDbus(m, argCode, *it);
+                r = convertJsonToDbus(m, argCode2, *it);
                 if (r < 0)
                 {
                     return r;
@@ -1556,8 +1556,7 @@ inline void handleAction(const crow::Request& req, crow::Response& res,
         std::array<std::string, 0>());
 }
 
-inline void handleDelete(const crow::Request& req, crow::Response& res,
-                         const std::string& objectPath)
+inline void handleDelete(crow::Response& res, const std::string& objectPath)
 {
     BMCWEB_LOG_DEBUG << "handleDelete on path: " << objectPath;
 
@@ -2065,7 +2064,7 @@ inline void handleDBusUrl(const crow::Request& req, crow::Response& res,
     }
     else if (req.method() == boost::beast::http::verb::delete_)
     {
-        handleDelete(req, res, objectPath);
+        handleDelete(res, objectPath);
         return;
     }
 
@@ -2079,7 +2078,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/bus/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 res.jsonValue = {{"buses", {{{"name", "system"}}}},
                                  {"status", "ok"}};
                 res.end();
@@ -2088,7 +2087,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/bus/system/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 auto myCallback = [&res](const boost::system::error_code ec,
                                          std::vector<std::string>& names) {
                     if (ec)
@@ -2117,7 +2116,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/list/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 handleList(res, "/");
             });
 
@@ -2161,7 +2160,7 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .privileges({"ConfigureManager"})
-        .methods(boost::beast::http::verb::get)([](const crow::Request& req,
+        .methods(boost::beast::http::verb::get)([](const crow::Request&,
                                                    crow::Response& res,
                                                    const std::string& dumpId) {
             std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
@@ -2231,7 +2230,7 @@ inline void requestRoutes(App& app)
         .privileges({"Login"})
 
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res,
+            [](const crow::Request&, crow::Response& res,
                const std::string& Connection) {
                 introspectObjects(Connection, "/",
                                   std::make_shared<bmcweb::AsyncResp>(res));

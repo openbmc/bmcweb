@@ -107,7 +107,7 @@ inline void requestRoutes(App& app)
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
-                   std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
+                   std::shared_ptr<bmcweb::AsyncResp>) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             sessions.insert(&conn);
@@ -122,18 +122,19 @@ inline void requestRoutes(App& app)
                 host_socket->async_connect(ep, connectHandler);
             }
         })
-        .onclose(
-            [](crow::websocket::Connection& conn, const std::string& reason) {
-                sessions.erase(&conn);
-                if (sessions.empty())
-                {
-                    host_socket = nullptr;
-                    inputBuffer.clear();
-                    inputBuffer.shrink_to_fit();
-                }
-            })
-        .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool is_binary) {
+        .onclose([](crow::websocket::Connection& conn,
+                    [[maybe_unused]] const std::string& reason) {
+            sessions.erase(&conn);
+            if (sessions.empty())
+            {
+                host_socket = nullptr;
+                inputBuffer.clear();
+                inputBuffer.shrink_to_fit();
+            }
+        })
+        .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
+                      const std::string& data,
+                      [[maybe_unused]] bool is_binary) {
             inputBuffer += data;
             doWrite();
         });

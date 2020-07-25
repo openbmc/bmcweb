@@ -31,32 +31,32 @@ template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
   public:
-    Server(Handler* handlerIn, std::unique_ptr<tcp::acceptor>&& acceptor,
+    Server(Handler* handlerIn, std::unique_ptr<tcp::acceptor>&& acceptorIn,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptor)),
+        acceptor(std::move(acceptorIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
         timer(*ioService), handler(handlerIn), adaptorCtx(adaptor_ctx)
     {}
 
-    Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+    Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
-        Server(handler,
+        Server(handlerIn,
                std::make_unique<tcp::acceptor>(
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
                adaptor_ctx, io)
     {}
 
-    Server(Handler* handler, int existing_socket,
+    Server(Handler* handlerIn, int existing_socket,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
-        Server(handler,
+        Server(handlerIn,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
                adaptor_ctx, io)
@@ -187,13 +187,13 @@ class Server
                 {
                     BMCWEB_LOG_INFO << "Receivied reload signal";
                     loadCertificate();
-                    boost::system::error_code ec;
-                    acceptor->cancel(ec);
-                    if (ec)
+                    boost::system::error_code ec2;
+                    acceptor->cancel(ec2);
+                    if (ec2)
                     {
                         BMCWEB_LOG_ERROR
                             << "Error while canceling async operations:"
-                            << ec.message();
+                            << ec2.message();
                     }
                     this->startAsyncWaitForSignal();
                 }
@@ -219,7 +219,7 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
             auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                *ioService, handler, serverName, getCachedDateStr, timerQueue,
+                handler, serverName, getCachedDateStr, timerQueue,
                 std::move(adaptorTemp.value()));
 
             acceptor->async_accept(p->socket().next_layer(),
@@ -237,7 +237,7 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService);
             auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                *ioService, handler, serverName, getCachedDateStr, timerQueue,
+                handler, serverName, getCachedDateStr, timerQueue,
                 std::move(adaptorTemp.value()));
 
             acceptor->async_accept(

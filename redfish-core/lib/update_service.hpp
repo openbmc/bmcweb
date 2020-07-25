@@ -391,7 +391,7 @@ class UpdateServiceActionsSimpleUpdate : public Node
 
   private:
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         std::optional<std::string> transferProtocol;
         std::string imageURI;
@@ -518,8 +518,8 @@ class UpdateService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
@@ -580,7 +580,7 @@ class UpdateService : public Node
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
-                 const std::vector<std::string>& params) override
+                 const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "doPatch...";
 
@@ -660,7 +660,7 @@ class UpdateService : public Node
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "doPost...";
 
@@ -698,8 +698,8 @@ class SoftwareInventoryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
@@ -797,7 +797,7 @@ class SoftwareInventory : public Node
         }
     }
 
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);

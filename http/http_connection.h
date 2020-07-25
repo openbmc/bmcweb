@@ -86,8 +86,7 @@ class Connection :
     public std::enable_shared_from_this<Connection<Adaptor, Handler>>
 {
   public:
-    Connection(boost::asio::io_context& ioService, Handler* handlerIn,
-               const std::string& ServerNameIn,
+    Connection(Handler* handlerIn, const std::string& ServerNameIn,
                std::function<std::string()>& get_cached_date_str_f,
                detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
