@@ -669,9 +669,9 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
             firstZeroInByteHit = false;
 
             // Count bits
-            for (int bitIdx = 7; bitIdx >= 0; bitIdx--)
+            for (long bitIdx = 7; bitIdx >= 0; bitIdx--)
             {
-                if (value & (1 << bitIdx))
+                if (value & (1L << bitIdx))
                 {
                     if (firstZeroInByteHit)
                     {
@@ -777,8 +777,8 @@ inline void deleteAndCreateIPv4(const std::string& ifaceId,
                 messages::internalError(asyncResp->res);
             }
             crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
+                [asyncResp](const boost::system::error_code ec2) {
+                    if (ec2)
                     {
                         messages::internalError(asyncResp->res);
                     }
@@ -843,8 +843,8 @@ inline void deleteAndCreateIPv6(const std::string& ifaceId,
                 messages::internalError(asyncResp->res);
             }
             crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
+                [asyncResp](const boost::system::error_code ec2) {
+                    if (ec2)
                     {
                         messages::internalError(asyncResp->res);
                     }
