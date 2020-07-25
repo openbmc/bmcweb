@@ -229,6 +229,8 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
             case SseConnState::initInProgress:
             case SseConnState::sendInProgress:
             case SseConnState::suspended:
+            case SseConnState::startInit:
+            case SseConnState::closed:
                 // do nothing
                 break;
             case SseConnState::initFailed:
@@ -245,8 +247,6 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
                 sendEvent(std::to_string(reqData.first), reqData.second);
                 break;
             }
-            default:
-                break;
         }
 
         return;

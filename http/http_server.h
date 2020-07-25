@@ -31,14 +31,14 @@ template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
   public:
-    Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
+    Server(Handler* handlerIn, std::unique_ptr<tcp::acceptor>&& acceptor,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        timer(*ioService), handler(handler), adaptorCtx(adaptor_ctx)
+        timer(*ioService), handler(handlerIn), adaptorCtx(adaptor_ctx)
     {}
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
@@ -93,7 +93,7 @@ class Server
         size_t dateStrSz =
             strftime(&dateStr[0], 99, "%a, %d %b %Y %H:%M:%S GMT", &myTm);
         dateStr.resize(dateStrSz);
-    };
+    }
 
     void run()
     {
