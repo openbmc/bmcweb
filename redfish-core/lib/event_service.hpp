@@ -51,8 +51,8 @@ class EventService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = {
@@ -92,7 +92,7 @@ class EventService : public Node
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
-                 const std::vector<std::string>& params) override
+                 const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -167,8 +167,8 @@ class SubmitTestEvent : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doPost(crow::Response& res, const crow::Request&,
+                const std::vector<std::string>&) override
     {
         EventServiceManager::getInstance().sendTestEventLog();
         res.result(boost::beast::http::status::no_content);
@@ -192,8 +192,8 @@ class EventDestinationCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -219,7 +219,7 @@ class EventDestinationCollection : public Node
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -449,7 +449,7 @@ class EventServiceSSE : public Node
 
   private:
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
             maxNoOfSubscriptions)
@@ -551,7 +551,7 @@ class EventDestination : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -651,7 +651,7 @@ class EventDestination : public Node
         EventServiceManager::getInstance().updateSubscriptionData();
     }
 
-    void doDelete(crow::Response& res, const crow::Request& req,
+    void doDelete(crow::Response& res, const crow::Request&,
                   const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
