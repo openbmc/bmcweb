@@ -176,11 +176,11 @@ class Storage : public Node
                     storageController["Status"]["State"] = "Enabled";
 
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp, index](const boost::system::error_code ec,
+                        [asyncResp, index](const boost::system::error_code ec2,
                                            const std::variant<bool> present) {
                             // this interface isn't necessary, only check it if
                             // we get a good return
-                            if (ec)
+                            if (ec2)
                             {
                                 return;
                             }
@@ -203,12 +203,12 @@ class Storage : public Node
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp,
-                         index](const boost::system::error_code ec,
+                         index](const boost::system::error_code ec2,
                                 const std::vector<std::pair<
                                     std::string,
                                     std::variant<bool, std::string, uint64_t>>>&
                                     propertiesList) {
-                            if (ec)
+                            if (ec2)
                             {
                                 // this interface isn't necessary
                                 return;
@@ -311,23 +311,23 @@ class Drive : public Node
                     return;
                 }
 
-                auto object = std::find_if(
+                auto object2 = std::find_if(
                     subtree.begin(), subtree.end(), [&driveId](auto& object) {
                         const std::string& path = object.first;
                         return boost::ends_with(path, "/" + driveId);
                     });
 
-                if (object == subtree.end())
+                if (object2 == subtree.end())
                 {
                     messages::resourceNotFound(asyncResp->res, "Drive",
                                                driveId);
                     return;
                 }
 
-                const std::string& path = object->first;
+                const std::string& path = object2->first;
                 const std::vector<
                     std::pair<std::string, std::vector<std::string>>>&
-                    connectionNames = object->second;
+                    connectionNames = object2->second;
 
                 asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
                 asyncResp->res.jsonValue["@odata.id"] =
