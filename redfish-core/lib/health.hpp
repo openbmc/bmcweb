@@ -28,13 +28,13 @@ namespace redfish
 
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
-    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncResp) :
-        asyncResp(asyncResp), jsonStatus(asyncResp->res.jsonValue["Status"])
+    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncRespIn) :
+        asyncResp(asyncRespIn), jsonStatus(asyncResp->res.jsonValue["Status"])
     {}
 
-    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncResp,
+    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncRespIn,
                    nlohmann::json& status) :
-        asyncResp(asyncResp),
+        asyncResp(asyncRespIn),
         jsonStatus(status)
     {}
 
@@ -46,10 +46,10 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         health = "OK";
         rollup = "OK";
 
-        for (const std::shared_ptr<HealthPopulate>& health : children)
+        for (const std::shared_ptr<HealthPopulate>& healthChild : children)
         {
-            health->globalInventoryPath = globalInventoryPath;
-            health->statuses = statuses;
+            healthChild->globalInventoryPath = globalInventoryPath;
+            healthChild->statuses = statuses;
         }
 
         for (const auto& [path, interfaces] : statuses)
