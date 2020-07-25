@@ -532,7 +532,7 @@ void handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
     }
 }
 
-void handleGetLockListAPI(const crow::Request& req, crow::Response& res,
+void handleGetLockListAPI(crow::Response& res,
                           const ListOfSessionIds& listSessionIds)
 {
     BMCWEB_LOG_DEBUG << listSessionIds.size();
@@ -581,7 +581,7 @@ void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 res.jsonValue["@odata.type"] =
                     "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
                 res.jsonValue["@odata.id"] = "/ibm/v1/";
@@ -599,7 +599,7 @@ void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 handleConfigFileList(res);
             });
 
@@ -607,7 +607,7 @@ void requestRoutes(App& app)
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 deleteConfigFiles(res);
             });
 
@@ -621,7 +621,7 @@ void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request&, crow::Response& res) {
                 getLockServiceData(res);
             });
 
@@ -682,7 +682,7 @@ void requestRoutes(App& app)
                     res.end();
                     return;
                 }
-                handleGetLockListAPI(req, res, listSessionIds);
+                handleGetLockListAPI(res, listSessionIds);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
