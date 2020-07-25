@@ -60,7 +60,7 @@ inline void setupSocket(crow::App& app)
     }
 }
 
-int main(int argc, char** argv)
+int main(int /*argc*/, char** /*argv*/)
 {
     crow::logger::setLogLevel(crow::LogLevel::Debug);
 

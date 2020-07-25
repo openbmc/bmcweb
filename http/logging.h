@@ -40,8 +40,9 @@ class logger
     }
 
   public:
-    logger(const std::string& prefix, const std::string& filename,
-           const size_t line, LogLevel levelIn) :
+    logger([[maybe_unused]] const std::string& prefix,
+           [[maybe_unused]] const std::string& filename,
+           [[maybe_unused]] const size_t line, LogLevel levelIn) :
         level(levelIn)
     {
 #ifdef BMCWEB_ENABLE_LOGGING
@@ -63,7 +64,7 @@ class logger
 
     //
     template <typename T>
-    logger& operator<<(T const& value)
+    logger& operator<<([[maybe_unused]] T const& value)
     {
         if (level >= get_current_log_level())
         {
