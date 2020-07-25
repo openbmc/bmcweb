@@ -205,7 +205,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
             -Wnull-dereference \
             -Wdouble-promotion \
             -Wformat=2 \
-            -Wno-unused-parameter \
+            -Wunused-parameter \
         "
         )
     endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
@@ -228,7 +228,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             -Wno-weak-vtables \
             -Wno-documentation \
             -Wno-padded \
-            -Wno-unused-parameter \
+            -Wunused-parameter \
             -Wcovered-switch-default \
             -Wcomma \
             -Wextra-semi \

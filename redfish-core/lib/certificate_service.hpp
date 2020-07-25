@@ -68,8 +68,8 @@ class CertificateService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.type", "#CertificateService.v1_0_0.CertificateService"},
@@ -261,7 +261,7 @@ class CertificateActionGenerateCSR : public Node
 
   private:
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         static const int RSA_KEY_BIT_LENGTH = 2048;
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -479,7 +479,7 @@ class CertificateActionGenerateCSR : public Node
             });
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code& ec,
-                        const std::string& path) {
+                        const std::string&) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec.message();
@@ -699,7 +699,7 @@ class CertificateActionsReplaceCertificate : public Node
 
   private:
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         std::string certificate;
         nlohmann::json certificateUri;
@@ -866,8 +866,8 @@ class HTTPSCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.id",
@@ -907,7 +907,7 @@ class HTTPSCertificateCollection : public Node
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -978,8 +978,8 @@ class CertificateLocations : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.id",
@@ -1066,8 +1066,8 @@ class LDAPCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
@@ -1105,7 +1105,7 @@ class LDAPCertificateCollection : public Node
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
@@ -1172,7 +1172,7 @@ class LDAPCertificate : public Node
     }
 
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         long id = getIDFromURL(req.url);
@@ -1209,8 +1209,8 @@ class TrustStoreCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
@@ -1249,7 +1249,7 @@ class TrustStoreCertificateCollection : public Node
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
@@ -1316,7 +1316,7 @@ class TrustStoreCertificate : public Node
     }
 
     void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+               const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
         long id = getIDFromURL(req.url);
