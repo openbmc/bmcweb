@@ -160,7 +160,7 @@ inline void requestRoutes(App& app)
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
-                   std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
+                   std::shared_ptr<bmcweb::AsyncResp>) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             if (session != nullptr)
@@ -183,16 +183,21 @@ inline void requestRoutes(App& app)
             handler = std::make_shared<Handler>(media, conn.get_io_context());
             handler->connect();
         })
-        .onclose(
-            [](crow::websocket::Connection& conn, const std::string& reason) {
-                session = nullptr;
-                handler->doClose();
-                handler->inputBuffer->clear();
-                handler->outputBuffer->clear();
-                handler.reset();
-            })
+        .onclose([](crow::websocket::Connection& conn,
+                    const std::string& /*reason*/) {
+            if (&conn != session)
+            {
+                return;
+            }
+
+            session = nullptr;
+            handler->doClose();
+            handler->inputBuffer->clear();
+            handler->outputBuffer->clear();
+            handler.reset();
+        })
         .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool is_binary) {
+                      const std::string& data, bool) {
             if (data.length() > handler->inputBuffer->capacity())
             {
                 BMCWEB_LOG_ERROR << "Buffer overrun when writing "
