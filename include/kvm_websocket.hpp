@@ -162,7 +162,7 @@ inline void requestRoutes(App& app)
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
-                   std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
+                   std::shared_ptr<bmcweb::AsyncResp>) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             if (sessions.size() == maxSessions)
@@ -173,10 +173,11 @@ inline void requestRoutes(App& app)
 
             sessions[&conn] = std::make_unique<KvmSession>(conn);
         })
-        .onclose([](crow::websocket::Connection& conn,
-                    const std::string& reason) { sessions.erase(&conn); })
+        .onclose([](crow::websocket::Connection& conn, const std::string&) {
+            sessions.erase(&conn);
+        })
         .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool is_binary) {
+                      const std::string& data, bool) {
             if (sessions[&conn])
             {
                 sessions[&conn]->onMessage(data);

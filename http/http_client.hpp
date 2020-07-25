@@ -257,11 +257,11 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
                              << " seconds. RetryCount = " << retryCount;
             timer.expires_after(std::chrono::seconds(retryIntervalSecs));
-            timer.async_wait([self = shared_from_this()](
-                                 const boost::system::error_code& ec) {
-                self->runningTimer = false;
-                self->connStateCheck();
-            });
+            timer.async_wait(
+                [self = shared_from_this()](const boost::system::error_code&) {
+                    self->runningTimer = false;
+                    self->connStateCheck();
+                });
             return;
         }
         else

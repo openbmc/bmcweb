@@ -38,8 +38,8 @@ class StorageCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#StorageCollection.StorageCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage";
@@ -66,8 +66,8 @@ class Storage : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
@@ -289,7 +289,7 @@ class Drive : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -353,12 +353,12 @@ class Drive : public Node
 
                 const std::string& connectionName = connectionNames[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
+                    [asyncResp](const boost::system::error_code ec2,
                                 const std::vector<std::pair<
                                     std::string,
                                     std::variant<bool, std::string, uint64_t>>>&
                                     propertiesList) {
-                        if (ec)
+                        if (ec2)
                         {
                             // this interface isn't necessary
                             return;
@@ -400,11 +400,11 @@ class Drive : public Node
                 health->populate();
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, path](const boost::system::error_code ec,
+                    [asyncResp, path](const boost::system::error_code ec2,
                                       const std::variant<bool> present) {
                         // this interface isn't necessary, only check it if we
                         // get a good return
-                        if (ec)
+                        if (ec2)
                         {
                             return;
                         }
@@ -425,11 +425,11 @@ class Drive : public Node
                     "Get", "xyz.openbmc_project.Inventory.Item", "Present");
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
+                    [asyncResp](const boost::system::error_code ec2,
                                 const std::variant<bool> rebuilding) {
                         // this interface isn't necessary, only check it if we
                         // get a good return
-                        if (ec)
+                        if (ec2)
                         {
                             return;
                         }
