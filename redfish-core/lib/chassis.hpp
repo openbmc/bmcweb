@@ -175,8 +175,8 @@ class ChassisCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
@@ -242,7 +242,7 @@ class Chassis : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         const std::array<const char*, 2> interfaces = {
@@ -356,6 +356,11 @@ class Chassis : public Node
                             const boost::system::error_code ec2,
                             const std::vector<std::pair<
                                 std::string, VariantType>>& propertiesList) {
+                            if (ec2)
+                            {
+                                return;
+                            }
+
                             for (const std::pair<std::string, VariantType>&
                                      property : propertiesList)
                             {
@@ -570,7 +575,7 @@ class ChassisResetAction : public Node
      * Analyzes POST body before sending Reset request data to D-Bus.
      */
     void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+                const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
 
@@ -621,7 +626,7 @@ class ChassisResetActionInfo : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
