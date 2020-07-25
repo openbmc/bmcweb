@@ -176,7 +176,7 @@ class Connection :
             bool isKeyUsageKeyAgreement = false;
 
             ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
-                X509_get_ext_d2i(peerCert, NID_key_usage, NULL, NULL));
+                X509_get_ext_d2i(peerCert, NID_key_usage, nullptr, nullptr));
 
             if (usage == nullptr)
             {
@@ -208,8 +208,9 @@ class Connection :
 
             // Determine that ExtendedKeyUsage includes Client Auth
 
-            stack_st_ASN1_OBJECT* extUsage = static_cast<stack_st_ASN1_OBJECT*>(
-                X509_get_ext_d2i(peerCert, NID_ext_key_usage, NULL, NULL));
+            stack_st_ASN1_OBJECT* extUsage =
+                static_cast<stack_st_ASN1_OBJECT*>(X509_get_ext_d2i(
+                    peerCert, NID_ext_key_usage, nullptr, nullptr));
 
             if (extUsage == nullptr)
             {
@@ -348,7 +349,7 @@ class Connection :
 
         if (!isInvalidRequest)
         {
-            req->socket = [this, self = shared_from_this()]() -> Adaptor& {
+            req->socket = [self = shared_from_this()]() -> Adaptor& {
                 return self->socket();
             };
 
