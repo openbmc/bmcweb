@@ -116,7 +116,13 @@ void handleFilePut(const crow::Request& req, crow::Response& res,
             "File size exceeds maximum allowed size[500KB]";
         return;
     }
-    BMCWEB_LOG_DEBUG << "Creating file " << loc;
+    BMCWEB_LOG_DEBUG << "Writing to the file: " << loc;
+
+    bool fileExists = false;
+    if (std::filesystem::exists(loc))
+    {
+        fileExists = true;
+    }
     file.open(loc, std::ofstream::out);
     if (file.fail())
     {
@@ -128,12 +134,24 @@ void handleFilePut(const crow::Request& req, crow::Response& res,
     else
     {
         file << data;
-        BMCWEB_LOG_DEBUG << "save-area file is created";
-        res.jsonValue["Description"] = "File Created";
-        // Push an event
         std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
-        redfish::EventServiceManager::getInstance().sendEvent(
-            redfish::messages::ResourceCreated(), origin, "FileCollection");
+        // Push an event
+        if (fileExists)
+        {
+            BMCWEB_LOG_DEBUG << "config file is updated";
+            res.jsonValue["Description"] = "File Updated";
+
+            redfish::EventServiceManager::getInstance().sendEvent(
+                redfish::messages::ResourceChanged(), origin, "FileCollection");
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "config file is created";
+            res.jsonValue["Description"] = "File Created";
+
+            redfish::EventServiceManager::getInstance().sendEvent(
+                redfish::messages::ResourceCreated(), origin, "FileCollection");
+        }
     }
 }
 
