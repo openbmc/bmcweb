@@ -163,6 +163,44 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     return session;
 }
 
+static const std::shared_ptr<crow::persistent_data::UserSession>
+    performTLSAuth(const crow::Request& req, Response& res,
+                   std::weak_ptr<crow::persistent_data::UserSession> session)
+{
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+    if (auto sp = session.lock())
+    {
+        // set cookie only if this is req from the browser.
+        if (req.getHeaderValue("User-Agent").empty())
+        {
+            BMCWEB_LOG_DEBUG << " TLS session: " << sp->uniqueId
+                             << " will be used for this request.";
+            return sp;
+        }
+        else
+        {
+            std::string_view cookieValue = req.getHeaderValue("Cookie");
+            if (cookieValue.empty() ||
+                cookieValue.find("SESSION=") == std::string::npos)
+            {
+                // TODO: change this to not switch to cookie auth
+                res.addHeader(
+                    "Set-Cookie",
+                    "XSRF-TOKEN=" + sp->csrfToken +
+                        "; Secure\r\nSet-Cookie: SESSION=" + sp->sessionToken +
+                        "; Secure; HttpOnly\r\nSet-Cookie: "
+                        "IsAuthenticated=true; Secure");
+                BMCWEB_LOG_DEBUG
+                    << " TLS session: " << sp->uniqueId
+                    << " with cookie will be used for this request.";
+                return sp;
+            }
+        }
+    }
+#endif
+    return nullptr;
+}
+
 // checks if request can be forwarded without authentication
 static bool isOnWhitelist(const crow::Request& req)
 {
@@ -197,7 +235,9 @@ static bool isOnWhitelist(const crow::Request& req)
     return false;
 }
 
-static void authenticate(crow::Request& req, Response& res)
+static void
+    authenticate(crow::Request& req, Response& res,
+                 std::weak_ptr<crow::persistent_data::UserSession> session)
 {
     if (isOnWhitelist(req))
     {
@@ -233,6 +273,11 @@ static void authenticate(crow::Request& req, Response& res)
                 req.session = performBasicAuth(authHeader);
             }
         }
+    }
+
+    if (req.session == nullptr)
+    {
+        req.session = performTLSAuth(req, res, session);
     }
 
     if (req.session == nullptr)
