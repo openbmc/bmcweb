@@ -12,6 +12,7 @@
 #include <http_utility.hpp>
 #include <pam_authenticate.hpp>
 #include <persistent_data_middleware.hpp>
+#include <tls_handler.hpp>
 
 #include <random>
 
@@ -88,6 +89,41 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     std::string_view token = auth_header.substr(strlen("Token "));
     auto session =
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
+    return session;
+}
+
+static const std::shared_ptr<crow::persistent_data::UserSession>
+    performTlsAuth(crow::Request& req, Response& res,
+                   std::shared_ptr<tls::TlsHandler> tls)
+{
+    BMCWEB_LOG_DEBUG << "[AuthMiddleware] TLS authentication";
+
+    if (!tls)
+    {
+        return nullptr;
+    }
+
+    const auto session = tls->getUserSession();
+    if (session)
+    {
+        BMCWEB_LOG_DEBUG << "TLS session: " << session->uniqueId
+                         << " will be used for this request.";
+        // set cookie only if this is req from the browser.
+        if (!req.getHeaderValue("User-Agent").empty())
+        {
+            std::string_view cookieValue = req.getHeaderValue("Cookie");
+            if (cookieValue.empty() ||
+                cookieValue.find("SESSION=") == std::string::npos)
+            {
+                res.addHeader("Set-Cookie",
+                              "XSRF-TOKEN=" + session->csrfToken +
+                                  "; Secure\r\nSet-Cookie: SESSION=" +
+                                  session->sessionToken +
+                                  "; Secure; HttpOnly\r\nSet-Cookie: "
+                                  "IsAuthenticated=true; Secure");
+            }
+        }
+    }
     return session;
 }
 
@@ -197,7 +233,8 @@ static bool isOnWhitelist(const crow::Request& req)
     return false;
 }
 
-static void authenticate(crow::Request& req, Response& res)
+static void authenticate(crow::Request& req, Response& res,
+                         std::shared_ptr<tls::TlsHandler> tlsHander)
 {
     if (isOnWhitelist(req))
     {
@@ -208,6 +245,10 @@ static void authenticate(crow::Request& req, Response& res)
         crow::persistent_data::SessionStore::getInstance()
             .getAuthMethodsConfig();
 
+    if (req.session == nullptr && authMethodsConfig.tls)
+    {
+        req.session = performTlsAuth(req, res, std::move(tlsHander));
+    }
     if (req.session == nullptr && authMethodsConfig.xtoken)
     {
         req.session = performXtokenAuth(req);
