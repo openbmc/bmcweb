@@ -543,38 +543,6 @@ class Connection :
             req->ioService = static_cast<decltype(req->ioService)>(
                 &adaptor.get_executor().context());
 
-#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-            if (auto sp = session.lock())
-            {
-                // set cookie only if this is req from the browser.
-                if (req->getHeaderValue("User-Agent").empty())
-                {
-                    BMCWEB_LOG_DEBUG << this << " TLS session: " << sp->uniqueId
-                                     << " will be used for this request.";
-                    req->session = sp;
-                }
-                else
-                {
-                    std::string_view cookieValue =
-                        req->getHeaderValue("Cookie");
-                    if (cookieValue.empty() ||
-                        cookieValue.find("SESSION=") == std::string::npos)
-                    {
-                        res.addHeader("Set-Cookie",
-                                      "XSRF-TOKEN=" + sp->csrfToken +
-                                          "; Secure\r\nSet-Cookie: SESSION=" +
-                                          sp->sessionToken +
-                                          "; Secure; HttpOnly\r\nSet-Cookie: "
-                                          "IsAuthenticated=true; Secure");
-                        BMCWEB_LOG_DEBUG
-                            << this << " TLS session: " << sp->uniqueId
-                            << " with cookie will be used for this request.";
-                        req->session = sp;
-                    }
-                }
-            }
-#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-
             detail::middlewareCallHelper<
                 0U, decltype(ctx), decltype(*middlewares), Middlewares...>(
                 *middlewares, *req, res, ctx);
@@ -767,7 +735,7 @@ class Connection :
                 {
                     req->url = req->url.substr(0, index);
                 }
-                crow::authorization::authenticate(*req, res);
+                crow::authorization::authenticate(*req, res, session);
 
                 bool loggedIn = req && req->session;
                 if (loggedIn)
@@ -976,9 +944,7 @@ class Connection :
 
     std::optional<crow::Request> req;
     crow::Response res;
-#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     std::weak_ptr<crow::persistent_data::UserSession> session;
-#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 
     const std::string& serverName;
 
