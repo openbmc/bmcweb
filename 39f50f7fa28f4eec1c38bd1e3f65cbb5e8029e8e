@@ -1454,6 +1454,24 @@
     },
     {
       "key": {
+        "uuid": "456bd3fc_036c75f8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-07-28T15:38:36Z",
+      "side": 1,
+      "message": "Here is a new version that zero pads properly.  I suspect this can be used as-is.\n\n\n#include \u003cstring\u003e\n#include \u003cchrono\u003e\n#include \u003ciostream\u003e\n\nvoid zeroPad(std::string\u0026 value, size_t digits){\n    // Note, does not work on negative numbers\n    if (value.size() \u003c digits){\n        value.insert(0, digits - value.size(), \u00270\u0027);\n    }\n}\n\nstd::string toDurationFormat(std::chrono::milliseconds ms)\n{\n    std::string fmt;\n    fmt.reserve(sizeof(\"PxxxDTxxHxxMxx.xxxxxxS\"));\n    fmt +\u003d \"P\";\n    using Days \u003d std::chrono::duration\u003cstd::chrono::hours::rep, std::ratio\u003c24 * 60 * 60\u003e\u003e;\n    Days d \u003d std::chrono::floor\u003cDays\u003e(ms);\n    std::string value \u003d std::to_string(d.count());\n    zeroPad(value, 3);\n    fmt +\u003d value;\n    ms -\u003d d;\n    fmt +\u003d \"DT\";\n    std::chrono::hours h \u003d std::chrono::floor\u003cstd::chrono::hours\u003e(ms);\n    value \u003d std::to_string(h.count());\n    zeroPad(value, 2);\n    fmt +\u003d value;\n    ms -\u003d h;\n    fmt +\u003d \"H\";\n\n    std::chrono::minutes m \u003d std::chrono::floor\u003cstd::chrono::minutes\u003e(ms);\n    value \u003d std::to_string(m.count());\n    zeroPad(value, 2);\n    fmt +\u003d value;\n    fmt +\u003d \"M\";\n    ms -\u003d m;\n\n    std::chrono::seconds s \u003d std::chrono::floor\u003cstd::chrono::seconds\u003e(ms);\n    value \u003d std::to_string(s.count());\n    zeroPad(value, 2);\n    fmt +\u003d value;\n    ms -\u003d s;\n    fmt +\u003d \".\";\n    value \u003d std::to_string(ms.count());\n    zeroPad(value, 3);\n    fmt +\u003d value;\n    fmt +\u003d \"S\";\n    return fmt;\n}\n\nint main(int argc, char** argv){\n   std::cout \u003c\u003c toDurationFormat(std::chrono::milliseconds(std::chrono::milliseconds(4222259626)));\n}",
+      "parentUuid": "643ad2a0_efcf01f3",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfb29732_996dec09",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
