@@ -97,7 +97,15 @@ static void vmParseInterfaceObject(const DbusInterfaceType& interface,
                     std::get_if<std::string>(&imageUrlProperty->second);
                 if (imageUrlValue && !imageUrlValue->empty())
                 {
-                    aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    std::size_t lastIndex = imageUrlValue->rfind("/");
+                    if (lastIndex == std::string::npos)
+                    {
+                        aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    }
+
+                    aResp->res.jsonValue["ImageName"] =
+                        imageUrlValue->substr(lastIndex + 1);
+                    aResp->res.jsonValue["Image"] = *imageUrlValue;
                     aResp->res.jsonValue["Inserted"] = *activeValue;
                     if (*activeValue == true)
                     {
