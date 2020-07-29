@@ -97,7 +97,18 @@ static void vmParseInterfaceObject(const DbusInterfaceType& interface,
                     std::get_if<std::string>(&imageUrlProperty->second);
                 if (imageUrlValue && !imageUrlValue->empty())
                 {
-                    aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    std::size_t lastIndex = imageUrlValue->rfind("/");
+                    if ((lastIndex == std::string::npos) ||
+                        (lastIndex + 1 >= imageUrlValue->size()))
+                    {
+                        aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["ImageName"] =
+                            imageUrlValue->substr(lastIndex + 1);
+                    }
+                    aResp->res.jsonValue["Image"] = *imageUrlValue;
                     aResp->res.jsonValue["Inserted"] = *activeValue;
                     if (*activeValue == true)
                     {
@@ -122,8 +133,8 @@ static nlohmann::json vmItemTemplate(const std::string& name,
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["Image"] = nullptr;
-    item["Inserted"] = nullptr;
     item["ImageName"] = nullptr;
+    item["Inserted"] = false;
     item["WriteProtected"] = true;
     item["ConnectedVia"] = "NotConnected";
     item["MediaTypes"] = {"CD", "USBStick"};
