@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c684490c_8316b10a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-30T07:25:42Z",
+      "side": 1,
+      "message": "template (Title \u0026 description) \u0026 explain the scope of change.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b579909f_920d382f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-30T07:25:42Z",
+      "side": 1,
+      "message": "nit: Do we need to return the error here(messages::internalError(sensorsAsyncResp-\u003eres))? As we are already doing interface existence check at 1158. Control coming here means, Already that interface exist and failing to get data means, There some internal error.",
+      "range": {
+        "startLine": 1082,
+        "startChar": 28,
+        "endLine": 1082,
+        "endChar": 34
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e49b435_3a6e3f43",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-30T07:25:42Z",
+      "side": 1,
+      "message": "I like this idea but will this numbers match with PSU numbers?",
+      "range": {
+        "startLine": 1139,
+        "startChar": 49,
+        "endLine": 1139,
+        "endChar": 61
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9ae155f_26c3651d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-07-30T07:25:42Z",
+      "side": 1,
+      "message": "Isn\u0027t this need to be filled? Just a clarification.\n\nI see its out of scope(Commit message has to clarify though) as here you are adding support only for get. So we are good as is also.",
+      "range": {
+        "startLine": 1145,
+        "startChar": 47,
+        "endLine": 1145,
+        "endChar": 70
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
