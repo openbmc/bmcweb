@@ -34,6 +34,10 @@ constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
 
+constexpr size_t maxSaveareaDirSize =
+    10000000; // Allow save area dir size to be max 10MB
+constexpr size_t minSaveareaFileSize =
+    100; // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
     500000; // Allow save area file size upto 500KB
 constexpr size_t maxBroadcastMsgSize =
@@ -101,13 +105,31 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
     }
-    // Create the file
+
     std::ofstream file;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
-    loc /= fileID;
 
+    // Get the current size of the savearea direcotry
+    std::uintmax_t saveAreaDirSize = 0;
+    for (std::filesystem::recursive_directory_iterator it(loc);
+         it != std::filesystem::recursive_directory_iterator(); ++it)
+    {
+        if (!std::filesystem::is_directory(*it))
+            saveAreaDirSize += std::filesystem::file_size(*it);
+    }
+    BMCWEB_LOG_DEBUG << "saveAreaDirSize: " << saveAreaDirSize;
+
+    // Get the file size getting uploaded
     const std::string& data = req.body;
     BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
+
+    if (data.capacity() < minSaveareaFileSize)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] =
+            "File size is less than minimum allowed size[100B]";
+        return;
+    }
     if (data.capacity() > maxSaveareaFileSize)
     {
         res.result(boost::beast::http::status::bad_request);
@@ -115,13 +137,43 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
             "File size exceeds maximum allowed size[500KB]";
         return;
     }
+
+    // Form the file path
+    loc /= fileID;
     BMCWEB_LOG_DEBUG << "Writing to the file: " << loc;
 
     bool fileExists = false;
+    std::uintmax_t newSizeToWrite = 0;
     if (std::filesystem::exists(loc))
     {
         fileExists = true;
+        // Calculate the difference in the file size
+        if (data.capacity() < std::filesystem::file_size(loc))
+        {
+            newSizeToWrite = std::filesystem::file_size(loc) - data.capacity();
+        }
+        else
+        {
+            newSizeToWrite = data.capacity() - std::filesystem::file_size(loc);
+        }
     }
+    else
+    {
+        // This is a new file upload
+        newSizeToWrite = data.capacity();
+    }
+
+    // Calculate the total dir size before writing the new file
+    BMCWEB_LOG_DEBUG << "total new size: " << saveAreaDirSize + newSizeToWrite;
+
+    if ((saveAreaDirSize + newSizeToWrite) > maxSaveareaDirSize)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] = "File size does not fit in the savearea "
+                                       "directory maximum allowed size[10MB]";
+        return;
+    }
+
     file.open(loc, std::ofstream::out);
     if (file.fail())
     {
@@ -604,7 +656,40 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req, crow::Response& res,
-               const std::string& path) { handleFileUrl(req, res, path); });
+               const std::string& path) {
+                BMCWEB_LOG_DEBUG << "ConfigFile path : " << path;
+                // Validate the path so that it will disallow
+                // modifying or creating any file in the BMC.
+                // eg: /ibm/v1/Host/ConfigFiles/../../../../../etc/resolv.conf
+                std::filesystem::path uploadPath =
+                    "/var/lib/obmc/bmc-console-mgmt/save-area/" + path;
+                if (std::filesystem::weakly_canonical(uploadPath) != uploadPath)
+                {
+                    BMCWEB_LOG_ERROR << "Bad file path : " << uploadPath;
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+                if (path.length() > 20)
+                {
+                    BMCWEB_LOG_ERROR << "Name must be maximum 20 characters. "
+                                        "Input filename length is: "
+                                     << path.length();
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+                const std::regex pattern("^[A-Za-z0-9-]+$");
+                if (!std::regex_match(path, pattern))
+                {
+                    BMCWEB_LOG_ERROR << "Unsupported character in filename: "
+                                     << path;
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+                handleFileUrl(req, res, path);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .privileges({"ConfigureComponents", "ConfigureManager"})
