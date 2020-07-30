@@ -34,6 +34,10 @@ constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
 
+constexpr size_t maxSaveareaDirSize =
+    10000000; // Allow save area dir size to be max 10MB
+constexpr size_t minSaveareaFileSize =
+    100; // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
     500000; // Allow save area file size upto 500KB
 constexpr size_t maxBroadcastMsgSize =
@@ -101,27 +105,75 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
     }
-    // Create the file
+
     std::ofstream file;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
-    loc /= fileID;
 
+    // Get the current size of the savearea direcotry
+    std::uintmax_t saveAreaDirSize = 0;
+    for (std::filesystem::recursive_directory_iterator it(loc);
+         it != std::filesystem::recursive_directory_iterator(); ++it)
+    {
+        if (!std::filesystem::is_directory(*it))
+        {
+            saveAreaDirSize += std::filesystem::file_size(*it);
+        }
+    }
+    BMCWEB_LOG_DEBUG << "saveAreaDirSize: " << saveAreaDirSize;
+
+    // Get the file size getting uploaded
     const std::string& data = req.body;
-    BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
-    if (data.capacity() > maxSaveareaFileSize)
+    BMCWEB_LOG_DEBUG << "data length: " << data.length();
+
+    if (data.length() < minSaveareaFileSize)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] =
+            "File size is less than minimum allowed size[100B]";
+        return;
+    }
+    if (data.length() > maxSaveareaFileSize)
     {
         res.result(boost::beast::http::status::bad_request);
         res.jsonValue["Description"] =
             "File size exceeds maximum allowed size[500KB]";
         return;
     }
+
+    // Form the file path
+    loc /= fileID;
     BMCWEB_LOG_DEBUG << "Writing to the file: " << loc;
 
     bool fileExists = false;
+    std::uintmax_t newSizeToWrite = 0;
     if (std::filesystem::exists(loc))
     {
         fileExists = true;
+        // Calculate the difference in the file size. Add the diff if the
+        // incoming data
+        // is larger than the existing filesize
+        newSizeToWrite = data.length() > std::filesystem::file_size(loc)
+                             ? (data.length() - std::filesystem::file_size(loc))
+                             : 0;
+        BMCWEB_LOG_DEBUG << "newSizeToWrite: " << newSizeToWrite;
     }
+    else
+    {
+        // This is a new file upload
+        newSizeToWrite = data.length();
+    }
+
+    // Calculate the total dir size before writing the new file
+    BMCWEB_LOG_DEBUG << "total new size: " << saveAreaDirSize + newSizeToWrite;
+
+    if ((saveAreaDirSize + newSizeToWrite) > maxSaveareaDirSize)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] = "File size does not fit in the savearea "
+                                       "directory maximum allowed size[10MB]";
+        return;
+    }
+
     file.open(loc, std::ofstream::out);
     if (file.fail())
     {
@@ -562,6 +614,20 @@ inline void handleGetLockListAPI(crow::Response& res,
     res.end();
 }
 
+inline bool isValidConfigFileName(const std::string_view fileName)
+{
+    // ConfigFile name is allowed to take upper and lowercase letters,
+    // numbers and hyphen
+    for (char c : fileName)
+    {
+        if (!isalnum(c) && c != '-')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 inline void requestRoutes(App& app)
 {
 
@@ -601,10 +667,48 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
         .privileges({"ConfigureComponents", "ConfigureManager"})
-        .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
-                 boost::beast::http::verb::delete_)(
-            [](const crow::Request& req, crow::Response& res,
-               const std::string& path) { handleFileUrl(req, res, path); });
+        .methods(
+            boost::beast::http::verb::put, boost::beast::http::verb::get,
+            boost::beast::http::verb::delete_)([](const crow::Request& req,
+                                                  crow::Response& res,
+                                                  const std::string& path) {
+            std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                std::make_shared<bmcweb::AsyncResp>(res);
+            BMCWEB_LOG_DEBUG << "ConfigFile path : " << path;
+            // Validate the path so that it will disallow
+            // modifying or creating any file in the BMC.
+            // eg: /ibm/v1/Host/ConfigFiles/../../../../../etc/resolv.conf
+            std::filesystem::path uploadPath =
+                "/var/lib/obmc/bmc-console-mgmt/save-area/" + path;
+            if (std::filesystem::weakly_canonical(uploadPath) != uploadPath)
+            {
+                BMCWEB_LOG_ERROR << "Bad file path : " << uploadPath;
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] =
+                    "Bad file path in the url";
+                return;
+            }
+            if (path.length() > 20)
+            {
+                BMCWEB_LOG_ERROR << "Name must be maximum 20 characters. "
+                                    "Input filename length is: "
+                                 << path.length();
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] =
+                    "Filename must be maximum 20 characters";
+                return;
+            }
+            if (!isValidConfigFileName(path))
+            {
+                BMCWEB_LOG_ERROR << "Unsupported character in filename: "
+                                 << path;
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] =
+                    "Unsupported character in filename";
+                return;
+            }
+            handleFileUrl(req, res, path);
+        });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .privileges({"ConfigureComponents", "ConfigureManager"})
