@@ -328,6 +328,7 @@ srcfiles_bmcweb = ['src/webserver_main.cpp','redfish-core/src/error_messages.cpp
 srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
                      'redfish-core/ut/privileges_test.cpp',
                      'redfish-core/ut/lock_test.cpp',
+                     'redfish-core/ut/configfile_test.cpp',
                      'http/ut/utility_test.cpp']
 
 # Gather the Configuration data
@@ -386,7 +387,7 @@ if(get_option('tests').enabled())
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus
+                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus,pam
                               ]))
   endforeach
 endif
