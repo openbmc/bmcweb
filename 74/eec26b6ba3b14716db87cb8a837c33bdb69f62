@@ -1,0 +1,10 @@
+Code-Review+1: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Code-Review+1: Ravi Teja <raviteja28031990@gmail.com>
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Submitted-by: Sunitha Harish <sunithaharish04@gmail.com>
+Submitted-at: Thu, 30 Jul 2020 09:30:17 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/34102
+Project: openbmc/bmcweb
+Branch: refs/heads/master
