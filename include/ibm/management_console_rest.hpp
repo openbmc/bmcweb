@@ -617,7 +617,22 @@ void requestRoutes(Crow<Middlewares...>& app)
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req, crow::Response& res,
-               const std::string& path) { handleFileUrl(req, res, path); });
+               const std::string& path) {
+                BMCWEB_LOG_DEBUG << "ConfigFile path : " << path;
+                // Validate the path so that it will disallow
+                // modifying or creating any file in the BMC.
+                // eg: /ibm/v1/Host/ConfigFiles/../../../../../etc/resolv.conf
+                std::filesystem::path uploadPath =
+                    "/var/lib/obmc/bmc-console-mgmt/save-area/" + path;
+                if (std::filesystem::weakly_canonical(uploadPath) != uploadPath)
+                {
+                    BMCWEB_LOG_ERROR << "Bad file path : " << uploadPath;
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+                handleFileUrl(req, res, path);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .requires({"ConfigureComponents", "ConfigureManager"})
