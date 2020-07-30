@@ -91,6 +91,30 @@
       "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ec1e83f_62bf9d99",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-07-30T15:42:09Z",
+      "side": 1,
+      "message": "It should be filled, Fan redundancy populates this",
+      "parentUuid": "e9ae155f_26c3651d",
+      "range": {
+        "startLine": 1145,
+        "startChar": 47,
+        "endLine": 1145,
+        "endChar": 70
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
