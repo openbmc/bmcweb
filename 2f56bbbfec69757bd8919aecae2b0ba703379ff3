@@ -16,6 +16,24 @@
       "revId": "2f56bbbfec69757bd8919aecae2b0ba703379ff3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08dbc77d_f00d1e71",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-07-30T14:45:41Z",
+      "side": 1,
+      "message": "All these urls are REST based design. We use the requestRoutes-\u003eBMCWEB_ROUTE to register all these urls. So the Node from the Redfish framework will not be helpful here.",
+      "parentUuid": "1779f8f3_73b92e90",
+      "revId": "2f56bbbfec69757bd8919aecae2b0ba703379ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
