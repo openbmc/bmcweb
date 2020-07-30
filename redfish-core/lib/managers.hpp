@@ -25,6 +25,7 @@
 #include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
+#include <cstdint>
 #include <memory>
 #include <sstream>
 #include <variant>
@@ -1808,11 +1809,12 @@ class Manager : public Node
                  const std::vector<std::string>& params) override
     {
         std::optional<nlohmann::json> oem;
+        std::optional<nlohmann::json> links;
         std::optional<std::string> datetime;
         std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, response->res, "Oem", oem, "DateTime",
-                                 datetime))
+                                 datetime, "Links", links))
         {
             return;
         }
@@ -1840,6 +1842,29 @@ class Manager : public Node
                 {
                     auto pid = std::make_shared<SetPIDValues>(response, *fan);
                     pid->run();
+                }
+            }
+        }
+        if (links)
+        {
+            std::optional<nlohmann::json> activeSoftwareImage;
+            if (!redfish::json_util::readJson(
+                    *links, res, "ActiveSoftwareImage", activeSoftwareImage))
+            {
+                return;
+            }
+            if (activeSoftwareImage)
+            {
+                std::optional<std::string> odataId;
+                if (!json_util::readJson(*activeSoftwareImage, res, "@odata.id",
+                                         odataId))
+                {
+                    return;
+                }
+                if (odataId)
+
+                {
+                    setActiveFirmwareImage(response, std::move(*odataId));
                 }
             }
         }
@@ -1882,6 +1907,80 @@ class Manager : public Node
             "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
             "org.freedesktop.DBus.Properties", "Get",
             "xyz.openbmc_project.State.BMC", "LastRebootTime");
+    }
+
+    /**
+     * @brief Set the running firmware image
+     *
+     * @param[i,o] aResp             Async response object
+     * @param[i]   runningFirmwareTarget  Image to make the running image
+     *
+     * @return void
+     */
+    void setActiveFirmwareImage(std::shared_ptr<AsyncResp> aResp,
+                                const std::string&& runningFirmwareTarget)
+    {
+        // Get the Id from /redfish/v1/UpdateService/FirmwareInventory/<Id>
+        std::string::size_type idPos = runningFirmwareTarget.rfind("/");
+        if (idPos == std::string::npos)
+        {
+            messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+                                             "@odata.id");
+            BMCWEB_LOG_DEBUG << "Can't parse firmware ID!";
+            return;
+        }
+        idPos++;
+        if (idPos >= runningFirmwareTarget.size())
+        {
+            messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+                                             "@odata.id");
+            BMCWEB_LOG_DEBUG << "Invalid firmware ID.";
+            return;
+        }
+        std::string firmwareId = runningFirmwareTarget.substr(idPos);
+
+        // Since bindly setting below let's do further checking to make sure the
+        // id is in the correct format at least, 8 hex characters
+        if (!std::all_of(firmwareId.begin(), firmwareId.end(), ::isxdigit))
+        {
+            messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+                                             "@odata.id");
+            BMCWEB_LOG_DEBUG << "Invalid firmware ID; not hex.";
+            return;
+        }
+
+        if (firmwareId.length() != 8)
+        {
+            messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+                                             "@odata.id");
+            BMCWEB_LOG_DEBUG << "Invalid firmware ID; not correct length.";
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Setting firmware version " + firmwareId +
+                                " to priority 0.";
+
+        // Only support Immediate
+        // An addition could be a Redfish Setting like
+        // ActiveSoftwareImageApplyTime and support OnReset
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    // Could still be user with bad Id.
+                    // An improvement here might be check if BMC Updater has an
+                    // image with that Id first and see if it even needs set.
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                doBMCGracefulRestart(aResp);
+            },
+
+            "xyz.openbmc_project.Software.BMC.Updater",
+            "/xyz/openbmc_project/software/" + firmwareId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
+            std::variant<uint8_t>(static_cast<uint8_t>(0)));
     }
 
     void setDateTime(std::shared_ptr<AsyncResp> aResp,
@@ -1967,4 +2066,5 @@ class ManagerCollection : public Node
         res.end();
     }
 };
+
 } // namespace redfish
