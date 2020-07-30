@@ -15,7 +15,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <regex>
 
 using SType = std::string;
 using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
@@ -34,6 +33,10 @@ constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
 
+constexpr size_t maxSaveareaDirSize =
+    10000000; // Allow save area dir size to be max 10MB
+constexpr size_t minSaveareaFileSize =
+    100; // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
     500000; // Allow save area file size upto 500KB
 constexpr size_t maxBroadcastMsgSize =
@@ -80,6 +83,7 @@ inline bool createSaveAreaPath(crow::Response& res)
 inline void handleFilePut(const crow::Request& req, crow::Response& res,
                           const std::string& fileID)
 {
+    std::error_code ec;
     // Check the content-type of the request
     std::string_view contentType = req.getHeaderValue("content-type");
     if (boost::starts_with(contentType, "multipart/form-data"))
@@ -101,27 +105,107 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
     }
-    // Create the file
+
     std::ofstream file;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
-    loc /= fileID;
 
+    // Get the current size of the savearea direcotry
+    std::filesystem::recursive_directory_iterator iter(loc, ec);
+    if (ec)
+    {
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to prepare save-area "
+                            "directory iterator. ec : "
+                         << ec;
+        return;
+    }
+    std::uintmax_t saveAreaDirSize = 0;
+    for (auto& it : iter)
+    {
+        if (!std::filesystem::is_directory(it))
+        {
+            saveAreaDirSize += std::filesystem::file_size(it);
+        }
+    }
+    BMCWEB_LOG_DEBUG << "saveAreaDirSize: " << saveAreaDirSize;
+
+    // Get the file size getting uploaded
     const std::string& data = req.body;
-    BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
-    if (data.capacity() > maxSaveareaFileSize)
+    BMCWEB_LOG_DEBUG << "data length: " << data.length();
+
+    if (data.length() < minSaveareaFileSize)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] =
+            "File size is less than minimum allowed size[100B]";
+        return;
+    }
+    if (data.length() > maxSaveareaFileSize)
     {
         res.result(boost::beast::http::status::bad_request);
         res.jsonValue["Description"] =
             "File size exceeds maximum allowed size[500KB]";
         return;
     }
+
+    // Form the file path
+    loc /= fileID;
     BMCWEB_LOG_DEBUG << "Writing to the file: " << loc;
 
-    bool fileExists = false;
-    if (std::filesystem::exists(loc))
+    // Check if the same file exists in the directory
+    bool fileExists = std::filesystem::exists(loc, ec);
+    if (ec)
     {
-        fileExists = true;
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find if file exists. ec : "
+                         << ec;
+        return;
     }
+
+    std::uintmax_t newSizeToWrite = 0;
+    if (fileExists)
+    {
+        // File exists. Get the current file size
+        std::uintmax_t currentFileSize = std::filesystem::file_size(loc, ec);
+        if (ec)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            res.jsonValue["Description"] = internalServerError;
+            BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find file size. ec : "
+                             << ec;
+            return;
+        }
+        // Calculate the difference in the file size.
+        // If the data.length is greater than the existing file size, then
+        // calculate the difference. Else consider the delta size as zero -
+        // because there is no increase in the total directory size.
+        // We need to add the diff only if the incoming data is larger than the
+        // existing filesize
+        if (data.length() > currentFileSize)
+        {
+            newSizeToWrite = data.length() - currentFileSize;
+        }
+        BMCWEB_LOG_DEBUG << "newSizeToWrite: " << newSizeToWrite;
+    }
+    else
+    {
+        // This is a new file upload
+        newSizeToWrite = data.length();
+    }
+
+    // Calculate the total dir size before writing the new file
+    BMCWEB_LOG_DEBUG << "total new size: " << saveAreaDirSize + newSizeToWrite;
+
+    if ((saveAreaDirSize + newSizeToWrite) > maxSaveareaDirSize)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] = "File size does not fit in the savearea "
+                                       "directory maximum allowed size[10MB]";
+        return;
+    }
+
     file.open(loc, std::ofstream::out);
     if (file.fail())
     {
@@ -562,6 +646,40 @@ inline void handleGetLockListAPI(crow::Response& res,
     res.end();
 }
 
+inline bool isValidConfigFileName(const std::string& fileName,
+                                  crow::Response& res)
+{
+    if (fileName.empty())
+    {
+        BMCWEB_LOG_ERROR << "Empty filename";
+        res.jsonValue["Description"] = "Empty file path in the url";
+        return false;
+    }
+
+    // ConfigFile name is allowed to take upper and lowercase letters,
+    // numbers and hyphen
+    std::size_t found = fileName.find_first_not_of(
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-");
+    if (found != std::string::npos)
+    {
+        BMCWEB_LOG_ERROR << "Unsupported character in filename: " << fileName;
+        res.jsonValue["Description"] = "Unsupported character in filename";
+        return false;
+    }
+
+    // Check the filename length
+    if (fileName.length() > 20)
+    {
+        BMCWEB_LOG_ERROR << "Name must be maximum 20 characters. "
+                            "Input filename length is: "
+                         << fileName.length();
+        res.jsonValue["Description"] = "Filename must be maximum 20 characters";
+        return false;
+    }
+
+    return true;
+}
+
 inline void requestRoutes(App& app)
 {
 
@@ -599,12 +717,24 @@ inline void requestRoutes(App& app)
                 deleteConfigFiles(res);
             });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>")
         .privileges({"ConfigureComponents", "ConfigureManager"})
-        .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
-                 boost::beast::http::verb::delete_)(
-            [](const crow::Request& req, crow::Response& res,
-               const std::string& path) { handleFileUrl(req, res, path); });
+        .methods(
+            boost::beast::http::verb::put, boost::beast::http::verb::get,
+            boost::beast::http::verb::delete_)([](const crow::Request& req,
+                                                  crow::Response& res,
+                                                  const std::string& fileName) {
+            std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                std::make_shared<bmcweb::AsyncResp>(res);
+            BMCWEB_LOG_DEBUG << "ConfigFile : " << fileName;
+            // Validate the incoming fileName
+            if (!isValidConfigFileName(fileName, res))
+            {
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+            handleFileUrl(req, res, fileName);
+        });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .privileges({"ConfigureComponents", "ConfigureManager"})
