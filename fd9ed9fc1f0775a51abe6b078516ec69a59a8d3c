@@ -289,6 +289,30 @@
     },
     {
       "key": {
+        "uuid": "d60b72c9_fdf3cada",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-07-31T12:11:23Z",
+      "side": 1,
+      "message": "I checked for that as well. So if there was a fault in the boundary, during parsing, it would be considered as a body content and not return errors. That is something which is not done during the parsing with this lib.\n\nThanks for pointing out this parser. Will look into your commit and try including it in mine.",
+      "parentUuid": "369c3d6d_9b4bc249",
+      "range": {
+        "startLine": 391,
+        "startChar": 31,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "fd9ed9fc1f0775a51abe6b078516ec69a59a8d3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "035ad007_9783f8af",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 21
