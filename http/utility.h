@@ -632,7 +632,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 {
     static const char nop = static_cast<char>(-1);
     // See note on encoding_data[] in above function
-    static const std::array<char, 256> decodingData = {
+    static const char decodingData[] = {
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
@@ -662,6 +662,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     // for each 4-bytes sequence from the input, extract 4 6-bits sequences by
     // dropping first two bits
     // and regenerate into 3 8-bits sequences
+
     for (size_t i = 0; i < inputLength; i++)
     {
         char base64code0;
@@ -669,14 +670,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
         char base64code2 = 0; // initialized to 0 to suppress warnings
         char base64code3;
 
-        size_t index = static_cast<size_t>(input[i]);
-        if (index > decodingData.size())
-        {
-            // index out of bound
-            return false;
-        }
-
-        base64code0 = decodingData[index]; // NOLINT
+        base64code0 = decodingData[static_cast<int>(input[i])]; // NOLINT
         if (base64code0 == nop)
         { // non base64 character
             return false;
@@ -686,7 +680,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
           // byte output
             return false;
         }
-        base64code1 = decodingData[index]; // NOLINT
+        base64code1 = decodingData[static_cast<int>(input[i])]; // NOLINT
         if (base64code1 == nop)
         { // non base64 character
             return false;
@@ -701,15 +695,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
             { // padding , end of input
                 return (base64code1 & 0x0f) == 0;
             }
-
-            index = static_cast<size_t>(input[i]);
-            if (index > decodingData.size())
-            {
-                // index out of bound
-                return false;
-            }
-
-            base64code2 = decodingData[index]; // NOLINT
+            base64code2 = decodingData[static_cast<int>(input[i])]; // NOLINT
             if (base64code2 == nop)
             { // non base64 character
                 return false;
@@ -725,15 +711,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
             { // padding , end of input
                 return (base64code2 & 0x03) == 0;
             }
-
-            index = static_cast<size_t>(input[i]);
-            if (index > decodingData.size())
-            {
-                // index out of bound
-                return false;
-            }
-
-            base64code3 = decodingData[index]; // NOLINT
+            base64code3 = decodingData[static_cast<int>(input[i])]; // NOLINT
             if (base64code3 == nop)
             { // non base64 character
                 return false;
