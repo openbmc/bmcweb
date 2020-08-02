@@ -25,16 +25,23 @@
 namespace crow
 {
 
+struct Acceptor
+{
+    boost::asio::ip::tcp::acceptor acceptor;
+    HttpType httpType;
+};
+
 template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
     using self_t = Server<Handler, Adaptor>;
 
   public:
-    Server(Handler* handlerIn, boost::asio::ip::tcp::acceptor&& acceptorIn,
+    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io) :
-        ioService(std::move(io)), acceptor(std::move(acceptorIn)),
+        ioService(std::move(io)), acceptors(std::move(acceptorsIn)),
+
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {}
@@ -69,8 +76,12 @@ class Server
             return dateStr;
         };
 
-        BMCWEB_LOG_INFO("bmcweb server is running, local endpoint {}",
-                        acceptor.local_endpoint().address().to_string());
+        for (const Acceptor& accept : acceptors)
+        {
+            BMCWEB_LOG_INFO(
+                "bmcweb server is running, local endpoint {}",
+                accept.acceptor.local_endpoint().address().to_string());
+        }
         startAsyncWaitForSignal();
         doAccept();
     }
@@ -116,10 +127,10 @@ class Server
     {
         ioService->stop();
     }
-    using Socket = boost::beast::lowest_layer_type<Adaptor>;
-    using SocketPtr = std::unique_ptr<Socket>;
+    using SocketPtr = std::unique_ptr<Adaptor>;
 
-    void afterAccept(SocketPtr socket, const boost::system::error_code& ec)
+    void afterAccept(SocketPtr socket, HttpType httpType,
+                     const boost::system::error_code& ec)
     {
         if (ec)
         {
@@ -128,28 +139,12 @@ class Server
         }
 
         boost::asio::steady_timer timer(*ioService);
-        std::shared_ptr<Connection<Adaptor, Handler>> connection;
+        using ConnectionType = Connection<Adaptor, Handler>;
+        std::shared_ptr<ConnectionType> connection;
 
-        if constexpr (std::is_same<Adaptor,
-                                   boost::asio::ssl::stream<
-                                       boost::asio::ip::tcp::socket>>::value)
-        {
-            if (adaptorCtx == nullptr)
-            {
-                BMCWEB_LOG_CRITICAL(
-                    "Asked to launch TLS socket but no context available");
-                return;
-            }
-            connection = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, std::move(timer), getCachedDateStr,
-                Adaptor(std::move(*socket), *adaptorCtx));
-        }
-        else
-        {
-            connection = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, std::move(timer), getCachedDateStr,
-                Adaptor(std::move(*socket)));
-        }
+        connection = std::make_shared<ConnectionType>(
+            handler, httpType, std::move(timer), getCachedDateStr,
+            boost::asio::ssl::stream<Adaptor>(std::move(*socket), *adaptorCtx));
 
         boost::asio::post(*ioService, [connection] { connection->start(); });
 
@@ -164,20 +159,23 @@ class Server
             return;
         }
 
-        SocketPtr socket = std::make_unique<Socket>(*ioService);
+        SocketPtr socket = std::make_unique<Adaptor>(*ioService);
         // Keep a raw pointer so when the socket is moved, the pointer is still
         // valid
-        Socket* socketPtr = socket.get();
-
-        acceptor.async_accept(
-            *socketPtr,
-            std::bind_front(&self_t::afterAccept, this, std::move(socket)));
+        Adaptor* socketPtr = socket.get();
+        for (Acceptor& accept : acceptors)
+        {
+            accept.acceptor.async_accept(
+                *socketPtr,
+                std::bind_front(&self_t::afterAccept, this, std::move(socket),
+                                accept.httpType));
+        }
     }
 
   private:
     std::shared_ptr<boost::asio::io_context> ioService;
     std::function<std::string()> getCachedDateStr;
-    boost::asio::ip::tcp::acceptor acceptor;
+    std::vector<Acceptor> acceptors;
     boost::asio::signal_set signals;
 
     std::string dateStr;
