@@ -1,10 +1,10 @@
 #include "http/server_sent_event.hpp"
 #include "http_request.hpp"
+#include "test_stream.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/read.hpp>
-#include <boost/beast/_experimental/test/stream.hpp>
 
 #include <chrono>
 #include <memory>
@@ -24,8 +24,8 @@ namespace
 TEST(ServerSentEvent, SseWorks)
 {
     boost::asio::io_context io;
-    boost::beast::test::stream stream(io);
-    boost::beast::test::stream out(io);
+    TestStream stream(io);
+    TestStream out(io);
     stream.connect(out);
 
     Request req;
@@ -38,9 +38,9 @@ TEST(ServerSentEvent, SseWorks)
     bool closeCalled = false;
     auto closeHandler = [&closeCalled](Connection&) { closeCalled = true; };
 
-    std::shared_ptr<ConnectionImpl<boost::beast::test::stream>> conn =
-        std::make_shared<ConnectionImpl<boost::beast::test::stream>>(
-            std::move(stream), openHandler, closeHandler);
+    std::shared_ptr<ConnectionImpl<TestStream>> conn =
+        std::make_shared<ConnectionImpl<TestStream>>(std::move(stream),
+                                                     openHandler, closeHandler);
     conn->start(req);
     // Connect
     {
