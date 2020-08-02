@@ -1,0 +1,11 @@
+[Unit]
+Description=BMC Webserver https redirect socket
+
+[Socket]
+ListenStream=80
+ReusePort=true
+Service=bmcweb.service
+FileDescriptorName=bmcweb_both
+
+[Install]
+WantedBy=sockets.target

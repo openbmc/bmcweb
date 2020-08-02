@@ -22,10 +22,11 @@ namespace crow
 
 struct FakeHandler
 {
+    template <typename Adaptor>
     static void
         handleUpgrade(const std::shared_ptr<Request>& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
-                      boost::beast::test::stream&& /*adaptor*/)
+                      Adaptor&& /*adaptor*/)
     {
         // Handle Upgrade should never be called
         EXPECT_FALSE(true);
@@ -71,10 +72,14 @@ TEST(http_connection, RequestPropogates)
     boost::asio::steady_timer timer(io);
     std::function<std::string()> date(
         std::bind_front(&ClockFake::getDateStr, &clock));
+
+    boost::asio::ssl::context context{boost::asio::ssl::context::tls};
     std::shared_ptr<crow::Connection<boost::beast::test::stream, FakeHandler>>
         conn = std::make_shared<
             crow::Connection<boost::beast::test::stream, FakeHandler>>(
-            &handler, std::move(timer), date, std::move(stream));
+            &handler, std::move(timer), date,
+            boost::asio::ssl::stream<boost::beast::test::stream>(
+                std::move(stream), context));
     conn->start();
     io.run_for(std::chrono::seconds(1000));
     EXPECT_TRUE(handler.called);
