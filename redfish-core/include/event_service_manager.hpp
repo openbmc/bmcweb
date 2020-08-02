@@ -388,7 +388,7 @@ class Subscription
             path);
     }
 
-    Subscription(const std::shared_ptr<crow::Request::Adaptor>& adaptor) :
+    Subscription(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
         eventSeqNum(1)
     {
         sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);

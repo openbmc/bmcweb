@@ -263,7 +263,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         outputBuffer;
     std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
         inputBuffer;
-    std::shared_ptr<crow::Request::Adaptor> stream;
+    std::shared_ptr<boost::beast::tcp_stream> stream;
 };
 
 static std::shared_ptr<Handler> handler;
@@ -272,28 +272,29 @@ inline void resetHandler()
 
     handler.reset();
 }
-inline void handleDumpOffloadUrl(const crow::Request& req, crow::Response& res,
-                                 const std::string& entryId)
+inline void handleDumpOffloadUrl(const crow::Request&, crow::Response&,
+                                 const std::string&)
 {
+    /*
+        // Run only one instance of Handler, one dump offload can happen at a
+       time if (handler != nullptr)
+        {
+            BMCWEB_LOG_ERROR << "Handler already running";
+            res.result(boost::beast::http::status::service_unavailable);
+            res.jsonValue["Description"] = "Service is already being used";
+            res.end();
+            return;
+        }
 
-    // Run only one instance of Handler, one dump offload can happen at a time
-    if (handler != nullptr)
-    {
-        BMCWEB_LOG_ERROR << "Handler already running";
-        res.result(boost::beast::http::status::service_unavailable);
-        res.jsonValue["Description"] = "Service is already being used";
-        res.end();
-        return;
-    }
+        const char* media = "1";
+        boost::asio::io_context* io_con = req.ioService;
 
-    const char* media = "1";
-    boost::asio::io_context* io_con = req.ioService;
-
-    handler = std::make_shared<Handler>(media, *io_con, entryId);
-    handler->stream =
-        std::make_shared<crow::Request::Adaptor>(std::move(req.socket()));
-    handler->connect();
-    handler->waitForMessageOnSocket();
+        handler = std::make_shared<Handler>(media, *io_con, entryId);
+        handler->stream =
+            std::make_shared<crow::Request::Adaptor>(std::move(req.socket()));
+        handler->connect();
+        handler->waitForMessageOnSocket();
+    */
 }
 } // namespace obmc_dump
 } // namespace crow
