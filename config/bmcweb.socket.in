@@ -2,8 +2,11 @@
 Description=BMC Webserver socket
 
 [Socket]
-ListenStream=@BMCWEB_HTTPS_PORT@
+ListenStream=@BMCWEB_PORT@
 ReusePort=true
+Service=bmcweb.service
+FileDescriptorName=bmcweb_@BMCWEB_PORT@_@HTTP_LEVEL_ALLOWED@_@HTTP_AUTH_LEVEL@
+BindToDevice=@HTTP_BIND@
 
 [Install]
 WantedBy=sockets.target
