@@ -36,7 +36,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
 
     auto timeoutHandler = [&res](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
-        if (ec == asio::error::operation_aborted)
+        if (ec == boost::asio::error::operation_aborted)
         {
             // expected, we were canceled before the timer completed.
             return;
