@@ -24,14 +24,13 @@
 
 namespace crow
 {
-using namespace boost;
-using tcp = asio::ip::tcp;
 
 template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
   public:
-    Server(Handler* handlerIn, std::unique_ptr<tcp::acceptor>&& acceptorIn,
+    Server(Handler* handlerIn,
+           std::unique_ptr<boost::asio::ip::tcp::acceptor>&& acceptorIn,
            std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
@@ -46,9 +45,9 @@ class Server
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
-               std::make_unique<tcp::acceptor>(
-                   *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
-                                      port)),
+               std::make_unique<boost::asio::ip::tcp::acceptor>(
+                   *io, boost::asio::ip::tcp::endpoint(
+                            boost::asio::ip::make_address(bindaddr), port)),
                adaptor_ctx, io)
     {}
 
@@ -57,8 +56,8 @@ class Server
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
-               std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
-                                               existing_socket),
+               std::make_unique<boost::asio::ip::tcp::acceptor>(
+                   *io, boost::asio::ip::tcp::v6(), existing_socket),
                adaptor_ctx, io)
     {}
 
@@ -212,51 +211,25 @@ class Server
 
     void doAccept()
     {
-        std::optional<Adaptor> adaptorTemp;
-        if constexpr (std::is_same<Adaptor,
-                                   boost::beast::ssl_stream<
-                                       boost::asio::ip::tcp::socket>>::value)
-        {
-            adaptorTemp = Adaptor(*ioService, *adaptorCtx);
-            auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, serverName, getCachedDateStr, timerQueue,
-                std::move(adaptorTemp.value()));
+        auto p = std::make_shared<Connection<Adaptor, Handler>>(
+            handler, serverName, getCachedDateStr, timerQueue, adaptorCtx,
+            *ioService);
 
-            acceptor->async_accept(p->socket().next_layer(),
-                                   [this, p](boost::system::error_code ec) {
-                                       if (!ec)
-                                       {
-                                           boost::asio::post(
-                                               *this->ioService,
-                                               [p] { p->start(); });
-                                       }
-                                       doAccept();
-                                   });
-        }
-        else
-        {
-            adaptorTemp = Adaptor(*ioService);
-            auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, serverName, getCachedDateStr, timerQueue,
-                std::move(adaptorTemp.value()));
-
-            acceptor->async_accept(
-                p->socket(), [this, p](boost::system::error_code ec) {
-                    if (!ec)
-                    {
-                        boost::asio::post(*this->ioService,
-                                          [p] { p->start(); });
-                    }
-                    doAccept();
-                });
-        }
+        acceptor->async_accept(
+            p->socket(), [this, p](boost::system::error_code ec) {
+                if (!ec)
+                {
+                    boost::asio::post(*this->ioService, [p] { p->start(); });
+                }
+                doAccept();
+            });
     }
 
   private:
-    std::shared_ptr<asio::io_context> ioService;
+    std::shared_ptr<boost::asio::io_context> ioService;
     detail::TimerQueue timerQueue;
     std::function<std::string()> getCachedDateStr;
-    std::unique_ptr<tcp::acceptor> acceptor;
+    std::unique_ptr<boost::asio::ip::tcp::acceptor> acceptor;
     boost::asio::signal_set signals;
     boost::asio::steady_timer tickTimer;
     boost::asio::steady_timer timer;
@@ -274,5 +247,5 @@ class Server
     bool useSsl{false};
 #endif
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
-}; // namespace crow
+};
 } // namespace crow
