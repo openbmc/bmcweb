@@ -2,6 +2,7 @@
 #include "http/http_connection.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
+#include "test_stream.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>
@@ -22,10 +23,11 @@ namespace crow
 
 struct FakeHandler
 {
+    template <typename Adaptor>
     static void
         handleUpgrade(const std::shared_ptr<Request>& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
-                      boost::beast::test::stream&& /*adaptor*/)
+                      Adaptor&& /*adaptor*/)
     {
         // Handle Upgrade should never be called
         EXPECT_FALSE(true);
@@ -61,8 +63,8 @@ TEST(http_connection, RequestPropogates)
 {
     boost::asio::io_context io;
     ClockFake clock;
-    boost::beast::test::stream stream(io);
-    boost::beast::test::stream out(io);
+    TestStream stream(io);
+    TestStream out(io);
     stream.connect(out);
 
     out.write_some(boost::asio::buffer(
@@ -71,10 +73,13 @@ TEST(http_connection, RequestPropogates)
     boost::asio::steady_timer timer(io);
     std::function<std::string()> date(
         std::bind_front(&ClockFake::getDateStr, &clock));
-    std::shared_ptr<crow::Connection<boost::beast::test::stream, FakeHandler>>
-        conn = std::make_shared<
-            crow::Connection<boost::beast::test::stream, FakeHandler>>(
-            &handler, std::move(timer), date, std::move(stream));
+
+    boost::asio::ssl::context context{boost::asio::ssl::context::tls};
+    std::shared_ptr<crow::Connection<TestStream, FakeHandler>> conn =
+        std::make_shared<crow::Connection<TestStream, FakeHandler>>(
+            &handler, HttpType::HTTP, std::move(timer), date,
+            boost::asio::ssl::stream<TestStream>(std::move(stream), context));
+    conn->disableAuth();
     conn->start();
     io.run_for(std::chrono::seconds(1000));
     EXPECT_TRUE(handler.called);
