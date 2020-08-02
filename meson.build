@@ -66,6 +66,7 @@ feature_map = {
 'session-auth'                    : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
 'xtoken-auth'                     : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
 'cookie-auth'                     : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
+'https-redirect'                  : '-DBMCWEB_ENABLE_HTTPS_REDIRECT' ,
 'mutual-tls-auth'                 : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
 'pam'                             : '-DWEBSERVER_ENABLE_PAM',
 'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
@@ -191,19 +192,6 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
       if cxx.has_link_argument('-Wl,--exclude-libs,ALL')
         add_project_link_arguments('-Wl,--exclude-libs,ALL', language: 'cpp')
       endif
-  endif
-
-    if( get_option('bmcweb-logging').enabled() or \
-        get_option('buildtype').startswith('debug'))
-     add_project_arguments([
-       '-DBMCWEB_ENABLE_LOGGING',
-       '-DBMCWEB_ENABLE_DEBUG'
-       ],
-      language : 'cpp')
-
-      summary({'debug' :'-DBMCWEB_ENABLE_DEBUG',
-               'logging' : '-DBMCWEB_ENABLE_LOGGING',
-              },section : 'Enabled Features')
     endif
 
     if( get_option('redfish-allow-deprecated-hostname-patch').enabled())
@@ -215,19 +203,32 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
       summary({'hostname-patch' :'-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
               },section : 'Enabled Features')
     endif
-
   endif
 endif
+
+add_project_arguments([
+  '-DBMCWEB_ENABLE_LOGGING',
+  '-DBMCWEB_ENABLE_DEBUG'
+  ],
+language : 'cpp')
+
+summary(
+  {
+    'debug' :'-DBMCWEB_ENABLE_DEBUG',
+    'logging' : '-DBMCWEB_ENABLE_LOGGING',
+  },
+  section : 'Enabled Features'
+)
 
 # Set Compiler Security flags
 
 security_flags = [
-'-fstack-protector-strong',
-'-fPIE',
-'-fPIC',
-'-D_FORTIFY_SOURCE=2',
-'-Wformat',
-'-Wformat-security'
+  '-fstack-protector-strong',
+  '-fPIE',
+  '-fPIC',
+  '-D_FORTIFY_SOURCE=2',
+  '-Wformat',
+  '-Wformat-security'
 ]
 
 ## Add security flags for builds of type 'release','debugoptimized' and 'minsize'
@@ -370,11 +371,20 @@ summary({
           'systemd unit directory' : systemd_system_unit_dir
         }, section : 'Directories')
 
-configure_file(input : 'bmcweb.socket',
-               output : 'bmcweb.socket',
+configure_file(input : 'bmcweb_https.socket',
+               output : 'bmcweb_https.socket',
                copy : true,
                install_dir: systemd_system_unit_dir,
                install : true)
+
+if(get_option('https-redirect').enabled())
+  configure_file(input : 'bmcweb_redirect.socket',
+                 output : 'bmcweb_redirect.socket',
+                 copy : true,
+                 install_dir: systemd_system_unit_dir,
+                 install : true)
+endif
+
 
 configure_file(input : 'bmcweb.service.in',
                output : 'bmcweb.service',

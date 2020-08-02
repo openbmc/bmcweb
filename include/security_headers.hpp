@@ -2,8 +2,7 @@
 
 #include <http_response.hpp>
 
-inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
-                               crow::Response& res)
+inline void addSecurityHeaders(const crow::Request& req, crow::Response& res)
 {
     /*
      TODO(ed) these should really check content types.  for example,
@@ -11,9 +10,17 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
      javascript file.  It doesn't hurt anything, it's just ugly.
      */
     using bf = boost::beast::http::field;
-    res.addHeader(bf::strict_transport_security, "max-age=31536000; "
-                                                 "includeSubdomains; "
-                                                 "preload");
+
+    /* rfc6797 section 7.2 states "An HSTS Host MUST NOT include the STS header
+     * field in HTTP responses conveyed over non-secure transport."   Therefore
+     * we should only add HSTS headers on the https connection*/
+    if (req.isSecure)
+    {
+        res.addHeader(bf::strict_transport_security, "max-age=31536000; "
+                                                     "includeSubdomains; "
+                                                     "preload");
+    }
+
     res.addHeader(bf::x_frame_options, "DENY");
 
     res.addHeader(bf::pragma, "no-cache");

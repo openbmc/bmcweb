@@ -29,33 +29,56 @@
 #include <nbd_proxy.hpp>
 #endif
 
-constexpr int defaultPort = 18080;
-
 inline void setupSocket(crow::App& app)
 {
-    int listenFd = sd_listen_fds(0);
-    if (1 == listenFd)
+    char** names = nullptr;
+    int listenFdCount = sd_listen_fds_with_names(0, &names);
+    BMCWEB_LOG_DEBUG << "Got " << listenFdCount << " sockets to open";
+    for (int socketIndex = 0; socketIndex < listenFdCount; socketIndex++)
     {
-        BMCWEB_LOG_INFO << "attempting systemd socket activation";
-        if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1,
-                              0))
+        // Assume HTTPS as default
+        HttpType httpType = HttpType::HTTPS;
+        if (names != nullptr)
+        {
+            if (names[socketIndex] != nullptr)
+            {
+                std::string socketName(names[socketIndex]);
+                size_t nameStart = socketName.rfind('_');
+                if (nameStart != std::string::npos)
+                {
+                    std::string_view name = socketName.substr(nameStart);
+                    if (name == "_http")
+                    {
+                        BMCWEB_LOG_DEBUG << "Got http socket";
+                        httpType = HttpType::HTTP;
+                    }
+                    else if (name == "_https")
+                    {
+                        BMCWEB_LOG_DEBUG << "Got https socket";
+                        httpType = HttpType::HTTPS;
+                    }
+                    else if (name == "_both")
+                    {
+                        BMCWEB_LOG_DEBUG << "Got both socket";
+                        httpType = HttpType::BOTH;
+                    }
+                    else
+                    {
+                        // all other types https
+                        BMCWEB_LOG_ERROR << "Unknown socket type " << socketName
+                                         << " assuming HTTPS only";
+                    }
+                }
+            }
+        }
+
+        int listenFd = socketIndex + SD_LISTEN_FDS_START;
+        if (sd_is_socket_inet(listenFd, AF_UNSPEC, SOCK_STREAM, 1, 0))
         {
             BMCWEB_LOG_INFO << "Starting webserver on socket handle "
-                            << SD_LISTEN_FDS_START;
-            app.socket(SD_LISTEN_FDS_START);
+                            << listenFd;
+            app.addSocket(listenFd, httpType);
         }
-        else
-        {
-            BMCWEB_LOG_INFO
-                << "bad incoming socket, starting webserver on port "
-                << defaultPort;
-            app.port(defaultPort);
-        }
-    }
-    else
-    {
-        BMCWEB_LOG_INFO << "Starting webserver on port " << defaultPort;
-        app.port(defaultPort);
     }
 }
 
