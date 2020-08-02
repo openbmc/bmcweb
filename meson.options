@@ -314,15 +314,64 @@ option(
                 ''',
 )
 
-# BMCWEB_HTTPS_PORT
 option(
     'https_port',
     type: 'integer',
-    min: 1,
+    min: -1,
     max: 65535,
     value: 443,
-    description: 'HTTPS Port number.',
+    description: '''HTTPS default port number.  Set to -1 to disable and rely
+                    only on additional_ports''',
 )
+
+
+# Additional ports
+# This series of options below allows setting up non-trivial deployments of
+# bmcweb, binding specific ports, authentication profiles, and device binds to
+# multiple ports.
+# Setting these options incorrectly can have severe security consequences and
+# should be reserved for platform experts familiar with their particular
+# platforms security requirements.
+
+option(
+    'additional-ports',
+    type: 'array',
+    value: [],
+    description: '''Additional ports to listen to.  Allows bmcweb to listen to
+                    multiple ports at a given protocol''',
+)
+
+option(
+    'additional-protocol',
+    type: 'array',
+    value: [],
+    description: '''Allows specifying a specific protocol type for a given
+                    additional-ports index.  Allows setting http, https, or both
+                    to each socket index.  If not provided for a given
+                    additional-ports index, assumes https.''',
+)
+
+option(
+    'additional-bind-to-device',
+    type: 'array',
+    value: [],
+    description: '''Allows specifying an SO_BINDTODEVICE or BindToDevice systemd
+                    directive for each additional socket file.  If not provided
+                    for a given additional-ports index, assumes bind to all
+                    devices''',
+)
+
+option(
+    'additional-auth',
+    type: 'array',
+    value: [],
+    description: '''Allows specifying an authentication profile for each socket
+                    created with additional-ports.  Allows auth or noauth, and
+                    defaults to auth if not provided.  If noauth is provided,
+                    authentication will not be performed for a given socket/port
+                    index.''',
+)
+# end additional ports
 
 # BMCWEB_DNS_RESOLVER
 option(
