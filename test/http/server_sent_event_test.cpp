@@ -1,10 +1,10 @@
 #include "http/server_sent_event.hpp"
 #include "http_request.hpp"
+#include "test_stream.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/read.hpp>
-#include <boost/beast/_experimental/test/stream.hpp>
 
 #include <chrono>
 #include <memory>
@@ -24,8 +24,8 @@ namespace
 TEST(ServerSentEvent, SseWorks)
 {
     boost::asio::io_context io;
-    boost::beast::test::stream stream(io);
-    boost::beast::test::stream out(io);
+    TestStream stream(io);
+    TestStream out(io);
     stream.connect(out);
 
     Request req;
