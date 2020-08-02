@@ -11,6 +11,11 @@ option (BUILD_STATIC_LIBS "Built static libraries" ON)
 option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" OFF)
 
 option (
+    BMCWEB_ENABLE_HTTPS_REDIRECT
+    "Enable redirecting HTTP clients to HTTPS"
+    ON
+)
+option (
     BMCWEB_ENABLE_KVM
     "Enable the KVM host video WebSocket.  Path is '/kvm/0'.  Video is from the
     BMC's '/dev/video' device."
@@ -470,10 +475,18 @@ target_compile_definitions (
 )
 
 # configure and install systemd unit files
-configure_file (bmcweb.socket bmcweb.socket COPYONLY)
-configure_file (bmcweb.service.in bmcweb.service)
 pkg_get_variable (SYSTEMD_SYSTEMUNITDIR systemd systemdsystemunitdir)
+
+configure_file (bmcweb.socket bmcweb.socket COPYONLY)
 install (FILES ${PROJECT_BINARY_DIR}/bmcweb.socket DESTINATION
-               ${SYSTEMD_SYSTEMUNITDIR})
+              ${SYSTEMD_SYSTEMUNITDIR})
+
+if(BMCWEB_ENABLE_HTTPS_REDIRECT)
+	configure_file (bmcweb_redirect.socket bmcweb_redirect.socket COPYONLY)
+	install (FILES ${PROJECT_BINARY_DIR}/bmcweb_redirect.socket DESTINATION
+                 ${SYSTEMD_SYSTEMUNITDIR})
+endif(BMCWEB_ENABLE_HTTPS_REDIRECT)
+
+configure_file (bmcweb.service.in bmcweb.service)
 install (FILES ${PROJECT_BINARY_DIR}/bmcweb.service DESTINATION
                ${SYSTEMD_SYSTEMUNITDIR})
