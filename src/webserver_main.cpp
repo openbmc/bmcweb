@@ -34,26 +34,21 @@ constexpr int defaultPort = 18080;
 
 inline void setupSocket(crow::App& app)
 {
-    int listenFd = sd_listen_fds(0);
-    if (1 == listenFd)
+    int listenFdCount = sd_listen_fds(0);
+
+    bool socketAdded = false;
+    for (int listenFd = SD_LISTEN_FDS_START;
+         listenFd < SD_LISTEN_FDS_START + listenFdCount; listenFd++)
     {
-        BMCWEB_LOG_INFO << "attempting systemd socket activation";
-        if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1,
-                              0))
+        if (sd_is_socket_inet(listenFd, AF_UNSPEC, SOCK_STREAM, 1, 0))
         {
             BMCWEB_LOG_INFO << "Starting webserver on socket handle "
                             << SD_LISTEN_FDS_START;
-            app.socket(SD_LISTEN_FDS_START);
-        }
-        else
-        {
-            BMCWEB_LOG_INFO
-                << "bad incoming socket, starting webserver on port "
-                << defaultPort;
-            app.port(defaultPort);
+            app.add_socket(SD_LISTEN_FDS_START);
+            socketAdded = true;
         }
     }
-    else
+    if (!socketAdded)
     {
         BMCWEB_LOG_INFO << "Starting webserver on port " << defaultPort;
         app.port(defaultPort);
