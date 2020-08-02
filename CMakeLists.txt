@@ -467,6 +467,8 @@ target_compile_definitions (
 
 # configure and install systemd unit files
 configure_file (bmcweb.socket bmcweb.socket COPYONLY)
+configure_file (bmcweb_redirect.socket bmcweb_redirect.socket COPYONLY)
+
 configure_file (bmcweb.service.in bmcweb.service)
 pkg_get_variable (SYSTEMD_SYSTEMUNITDIR systemd systemdsystemunitdir)
 install (FILES ${PROJECT_BINARY_DIR}/bmcweb.socket DESTINATION
