@@ -98,15 +98,55 @@ conf_h_dep = declare_dependency(
 )
 
 # Configure and install systemd unit files
-configure_file(
-    input: 'bmcweb.socket.in',
-    output: 'bmcweb.socket',
-    install_dir: systemd_system_unit_dir,
-    install: true,
-    configuration: configuration_data(
-        {'BMCWEB_HTTPS_PORT': get_option('https_port')},
-    ),
-)
+https_port = get_option('https_port')
+if https_port > 0
+    configure_file(
+        input: 'bmcweb.socket.in',
+        output: 'bmcweb.socket',
+        install_dir: systemd_system_unit_dir,
+        install: true,
+        configuration: configuration_data(
+            {
+                'BMCWEB_HTTPS_PORT': https_port,
+                'HTTP_LEVEL_ALLOWED': 'https',
+                'HTTP_AUTH_LEVEL': 'auth',
+                'HTTP_BIND': '',
+            },
+        ),
+    )
+endif
+
+ports = get_option('additional-ports')
+binds = get_option('additional-bind-to-device')
+auth = get_option('additional-auth')
+foreach index : range(ports.length())
+    port_number = ports[index]
+    bind_to_device = '0.0.0.0'
+    auth = 'auth'
+    if index < binds.length()
+        bind = auth[index]
+    endif
+
+    if index < auth.length()
+        auth = auth[index]
+    endif
+
+    filename = 'bmcweb_' + port_number.to_string()
+    configure_file(
+        input: 'bmcweb.socket.in',
+        output: filename,
+        install_dir: systemd_system_unit_dir,
+        install: true,
+        configuration: configuration_data(
+            {
+                'BMCWEB_HTTPS_PORT': port_number,
+                'HTTP_LEVEL_ALLOWED': 'https',
+                'HTTP_BIND': bind,
+                'HTTP_AUTH_LEVEL': auth,
+            },
+        ),
+    )
+endforeach
 
 configure_file(
     input: 'bmcweb.service.in',
