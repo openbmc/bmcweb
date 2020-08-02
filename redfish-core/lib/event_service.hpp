@@ -474,10 +474,11 @@ class EventServiceSSE : public Node
             return;
         }
 
-        std::shared_ptr<crow::Request::Adaptor> sseConn =
-            std::make_shared<crow::Request::Adaptor>(std::move(req.socket()));
-        std::shared_ptr<Subscription> subValue =
-            std::make_shared<Subscription>(sseConn);
+        // std::shared_ptr<crow::Request::Adaptor> sseConn =
+        //    std::make_shared<crow::Request::Adaptor>(std::move(req.socket()));
+        std::shared_ptr<Subscription>
+            subValue; //=
+                      // std::make_shared<Subscription>(sseConn);
 
         // GET on this URI means, Its SSE subscriptionType.
         subValue->subscriptionType = "SSE";
