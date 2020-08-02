@@ -61,6 +61,7 @@ feature_map = {
 'host-serial-socket'              : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
 'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
 'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
+'https-redirect'                  : '-DBMCWEB_ENABLE_HTTPS_REDIRECT' ,
 'mutual-tls-auth'                 : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
 'pam'                             : '-DWEBSERVER_ENABLE_PAM',
 'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
@@ -341,6 +342,15 @@ configure_file(input : 'bmcweb.socket',
                copy : true,
                install_dir: systemd_system_unit_dir,
                install : true)
+
+if(option_key == 'https-redirect')
+  configure_file(input : 'bmcweb_redirect.socket',
+                 output : 'bmcweb_redirect.socket',
+                 copy : true,
+	         install_dir: systemd_system_unit_dir,
+	         install : true)
+endif
+
 
 configure_file(input : 'bmcweb.service.in',
                output : 'bmcweb.service',
