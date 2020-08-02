@@ -9,15 +9,11 @@
 #include "sessions.hpp"
 
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/verify_mode.hpp>
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
-
-#include <bit>
-#include <cstddef>
-#include <limits>
-#include <system_error>
-#include <utility>
+#include <boost/system/error_code.hpp>
 
 extern "C"
 {
@@ -37,14 +33,16 @@ extern "C"
 #include <openssl/x509v3.h>
 }
 
-#include <boost/asio/ssl/context.hpp>
-#include <boost/system/error_code.hpp>
-
+#include <bit>
+#include <cstddef>
 #include <filesystem>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <random>
 #include <string>
+#include <system_error>
+#include <utility>
 
 namespace ensuressl
 {
