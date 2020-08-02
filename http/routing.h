@@ -47,21 +47,13 @@ class BaseRule
     }
 
     virtual void handle(const Request&, Response&, const RoutingParams&) = 0;
-    virtual void handleUpgrade(const Request&, Response& res,
-                               boost::asio::ip::tcp::socket&&)
+
+    template <typename Adaptor>
+    void handleUpgrade(const Request&, Response& res, Adaptor&&)
     {
         res.result(boost::beast::http::status::not_found);
         res.end();
     }
-#ifdef BMCWEB_ENABLE_SSL
-    virtual void
-        handleUpgrade(const Request&, Response& res,
-                      boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&)
-    {
-        res.result(boost::beast::http::status::not_found);
-        res.end();
-    }
-#endif
 
     size_t getMethods()
     {
@@ -326,31 +318,15 @@ class WebSocketRule : public BaseRule
         res.end();
     }
 
-    void handleUpgrade(const Request& req, Response&,
-                       boost::asio::ip::tcp::socket&& adaptor) override
+    template <typename Adaptor>
+    void handleUpgrade(const Request& req, Response&, Adaptor&& adaptor)
     {
-        std::shared_ptr<
-            crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
-            myConnection = std::make_shared<
-                crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+        std::shared_ptr<crow::websocket::ConnectionImpl<Adaptor>> myConnection =
+            std::make_shared<crow::websocket::ConnectionImpl<Adaptor>>(
                 req, std::move(adaptor), openHandler, messageHandler,
                 closeHandler, errorHandler);
         myConnection->start();
     }
-#ifdef BMCWEB_ENABLE_SSL
-    void handleUpgrade(const Request& req, Response&,
-                       boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
-                           adaptor) override
-    {
-        std::shared_ptr<crow::websocket::ConnectionImpl<
-            boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
-            myConnection = std::make_shared<crow::websocket::ConnectionImpl<
-                boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
-                req, std::move(adaptor), openHandler, messageHandler,
-                closeHandler, errorHandler);
-        myConnection->start();
-    }
-#endif
 
     template <typename Func>
     self_t& onopen(Func f)
