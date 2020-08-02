@@ -6,6 +6,7 @@
 #include "complete_response_fields.hpp"
 #include "http2_connection.hpp"
 #include "http_body.hpp"
+#include "http_connect_types.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -20,6 +21,7 @@
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/_experimental/test/stream.hpp>
 #include <boost/beast/core/buffers_generator.hpp>
+#include <boost/beast/core/detect_ssl.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/error.hpp>
 #include <boost/beast/http/message_generator.hpp>
@@ -46,14 +48,6 @@ constexpr uint64_t loggedOutPostBodyLimit = 4096U;
 
 constexpr uint32_t httpHeaderLimit = 8192U;
 
-template <typename>
-struct IsTls : std::false_type
-{};
-
-template <typename T>
-struct IsTls<boost::asio::ssl::stream<T>> : std::true_type
-{};
-
 template <typename Adaptor, typename Handler>
 class Connection :
     public std::enable_shared_from_this<Connection<Adaptor, Handler>>
@@ -61,10 +55,12 @@ class Connection :
     using self_type = Connection<Adaptor, Handler>;
 
   public:
-    Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
+    Connection(Handler* handlerIn, HttpType httpTypeIn,
+               boost::asio::steady_timer&& timerIn,
+
                std::function<std::string()>& getCachedDateStrF,
-               Adaptor&& adaptorIn) :
-        adaptor(std::move(adaptorIn)), handler(handlerIn),
+               boost::asio::ssl::stream<Adaptor>&& adaptorIn) :
+        httpType(httpTypeIn), adaptor(std::move(adaptorIn)), handler(handlerIn),
         timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
     {
         initParser();
@@ -118,36 +114,73 @@ class Connection :
 
     bool prepareMutualTls()
     {
-        if constexpr (IsTls<Adaptor>::value)
+        BMCWEB_LOG_DEBUG("prepareMutualTls");
+
+        constexpr std::string_view id = "bmcweb";
+
+        const char* idPtr = id.data();
+        const auto* idCPtr = std::bit_cast<const unsigned char*>(idPtr);
+        auto idLen = static_cast<unsigned int>(id.length());
+        int ret =
+            SSL_set_session_id_context(adaptor.native_handle(), idCPtr, idLen);
+        if (ret == 0)
         {
-            BMCWEB_LOG_DEBUG("prepareMutualTls");
+            BMCWEB_LOG_ERROR("{} failed to set SSL id", logPtr(this));
+            return false;
+        }
 
-            constexpr std::string_view id = "bmcweb";
+        BMCWEB_LOG_DEBUG("set_verify_callback");
 
-            const char* idPtr = id.data();
-            const auto* idCPtr = std::bit_cast<const unsigned char*>(idPtr);
-            auto idLen = static_cast<unsigned int>(id.length());
-            int ret = SSL_set_session_id_context(adaptor.native_handle(),
-                                                 idCPtr, idLen);
-            if (ret == 0)
-            {
-                BMCWEB_LOG_ERROR("{} failed to set SSL id", logPtr(this));
-                return false;
-            }
-
-            BMCWEB_LOG_DEBUG("set_verify_callback");
-
-            boost::system::error_code ec;
-            adaptor.set_verify_callback(
-                std::bind_front(&self_type::tlsVerifyCallback, this), ec);
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Failed to set verify callback {}", ec);
-                return false;
-            }
+        boost::system::error_code ec;
+        adaptor.set_verify_callback(
+            std::bind_front(&self_type::tlsVerifyCallback, this), ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to set verify callback {}", ec);
+            return false;
         }
 
         return true;
+    }
+
+    void afterDetectSsl(const std::shared_ptr<self_type> /*self*/,
+                        boost::beast::error_code ec, bool isTls)
+    {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Couldn't detect ssl ", ec);
+            return;
+        }
+
+        if (isTls)
+        {
+            if (httpType != HttpType::HTTPS && httpType != HttpType::BOTH)
+            {
+                BMCWEB_LOG_WARNING(
+                    "{} Connection closed due to incompatible type",
+                    logPtr(this));
+                return;
+            }
+            httpType = HttpType::HTTPS;
+            adaptor.async_handshake(
+                boost::asio::ssl::stream_base::server,
+                std::bind_front(&self_type::afterSslHandshake, this,
+                                shared_from_this()));
+        }
+        else
+        {
+            if (httpType != HttpType::HTTP && httpType != HttpType::BOTH)
+            {
+                BMCWEB_LOG_WARNING(
+                    "{} Connection closed due to incompatible type",
+                    logPtr(this));
+                return;
+            }
+
+            httpType = HttpType::HTTP;
+            BMCWEB_LOG_INFO("Starting non-SSL session");
+            doReadHeaders();
+        }
     }
 
     void start()
@@ -173,29 +206,20 @@ class Connection :
         startDeadline();
 
         readClientIp();
-
-        // TODO(ed) Abstract this to a more clever class with the idea of an
-        // asynchronous "start"
-        if constexpr (IsTls<Adaptor>::value)
-        {
-            adaptor.async_handshake(boost::asio::ssl::stream_base::server,
-                                    [this, self(shared_from_this())](
-                                        const boost::system::error_code& ec) {
-                                        if (ec)
-                                        {
-                                            return;
-                                        }
-                                        afterSslHandshake();
-                                    });
-        }
-        else
-        {
-            doReadHeaders();
-        }
+        boost::beast::async_detect_ssl(
+            adaptor.next_layer(), buffer,
+            std::bind_front(&self_type::afterDetectSsl, this,
+                            shared_from_this()));
     }
 
-    void afterSslHandshake()
+    void afterSslHandshake(const std::shared_ptr<self_type>& /*self*/,
+                           const boost::system::error_code& ec)
     {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("{} SSL handshake failed", logPtr(this));
+            return;
+        }
         // If http2 is enabled, negotiate the protocol
         if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
         {
@@ -280,24 +304,23 @@ class Connection :
             return;
         }
         keepAlive = req->keepAlive();
-        if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
+
+        if (authenticationEnabled)
         {
-            if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+            if (!crow::authentication::isOnAllowlist(req->url().path(),
+                                                     req->method()) &&
+                req->session == nullptr)
             {
-                if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                         req->method()) &&
-                    req->session == nullptr)
-                {
-                    BMCWEB_LOG_WARNING("Authentication failed");
-                    forward_unauthorized::sendUnauthorized(
-                        req->url().encoded_path(),
-                        req->getHeaderValue("X-Requested-With"),
-                        req->getHeaderValue("Accept"), res);
-                    completeRequest(res);
-                    return;
-                }
+                BMCWEB_LOG_WARNING("Authentication failed");
+                forward_unauthorized::sendUnauthorized(
+                    req->url().encoded_path(),
+                    req->getHeaderValue("X-Requested-With"),
+                    req->getHeaderValue("Accept"), res);
+                completeRequest(res);
+                return;
             }
         }
+
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG("Setting completion handler");
         asyncResp->res.setCompleteRequestHandler(
@@ -327,7 +350,16 @@ class Connection :
                         return;
                     }
                 });
-            handler->handleUpgrade(req, asyncResp, std::move(adaptor));
+
+            if (httpType == HttpType::HTTP)
+            {
+                handler->handleUpgrade(req, asyncResp,
+                                       std::move(adaptor.next_layer()));
+            }
+            else
+            {
+                handler->handleUpgrade(req, asyncResp, std::move(adaptor));
+            }
             return;
         }
         std::string_view expected =
@@ -341,15 +373,8 @@ class Connection :
 
     void hardClose()
     {
-        if (mtlsSession != nullptr)
-        {
-            BMCWEB_LOG_DEBUG("{} Removing TLS session: {}", logPtr(this),
-                             mtlsSession->uniqueId);
-            persistent_data::SessionStore::getInstance().removeSession(
-                mtlsSession);
-        }
         BMCWEB_LOG_DEBUG("{} Closing socket", logPtr(this));
-        boost::beast::get_lowest_layer(adaptor).close();
+        adaptor.next_layer().close();
     }
 
     void tlsShutdownComplete(const std::shared_ptr<self_type>& self,
@@ -367,8 +392,16 @@ class Connection :
     {
         BMCWEB_LOG_DEBUG("{} Socket close requested", logPtr(this));
 
-        if constexpr (IsTls<Adaptor>::value)
+        if (httpType == HttpType::HTTPS)
         {
+            if (mtlsSession != nullptr)
+            {
+                BMCWEB_LOG_DEBUG("{} Removing TLS session: {}", logPtr(this),
+                                 mtlsSession->uniqueId);
+                persistent_data::SessionStore::getInstance().removeSession(
+                    mtlsSession);
+            }
+
             adaptor.async_shutdown(std::bind_front(
                 &self_type::tlsShutdownComplete, this, shared_from_this()));
         }
@@ -397,21 +430,23 @@ class Connection :
     {
         boost::system::error_code ec;
 
-        if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
-        {
-            boost::asio::ip::tcp::endpoint endpoint =
-                boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
+        boost::asio::ip::tcp::endpoint endpoint =
+            boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
 
-            if (ec)
-            {
-                // If remote endpoint fails keep going. "ClientOriginIPAddress"
-                // will be empty.
-                BMCWEB_LOG_ERROR(
-                    "Failed to get the client's IP Address. ec : {}", ec);
-                return;
-            }
-            ip = endpoint.address();
+        if (ec)
+        {
+            // If remote endpoint fails keep going. "ClientOriginIPAddress"
+            // will be empty.
+            BMCWEB_LOG_ERROR("Failed to get the client's IP Address. ec : {}",
+                             ec);
+            return;
         }
+        ip = endpoint.address();
+    }
+
+    void disableAuth()
+    {
+        authenticationEnabled = false;
     }
 
   private:
@@ -523,13 +558,10 @@ class Connection :
             return;
         }
 
-        constexpr bool isTest =
-            std::is_same_v<Adaptor, boost::beast::test::stream>;
-
-        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH && !isTest)
+        if (authenticationEnabled)
         {
             boost::beast::http::verb method = parser->get().method();
-            userSession = crow::authentication::authenticate(
+            userSession = authentication::authenticate(
                 ip, res, method, parser->get().base(), mtlsSession);
         }
 
@@ -566,11 +598,21 @@ class Connection :
             BMCWEB_LOG_CRITICAL("Parser was not initialized.");
             return;
         }
-        // Clean up any previous Connection.
-        boost::beast::http::async_read_header(
-            adaptor, buffer, *parser,
-            std::bind_front(&self_type::afterReadHeaders, this,
-                            shared_from_this()));
+
+        if (httpType == HttpType::HTTP)
+        {
+            boost::beast::http::async_read_header(
+                adaptor.next_layer(), buffer, *parser,
+                std::bind_front(&self_type::afterReadHeaders, this,
+                                shared_from_this()));
+        }
+        else
+        {
+            boost::beast::http::async_read_header(
+                adaptor, buffer, *parser,
+                std::bind_front(&self_type::afterReadHeaders, this,
+                                shared_from_this()));
+        }
     }
 
     void afterRead(const std::shared_ptr<self_type>& /*self*/,
@@ -635,9 +677,20 @@ class Connection :
             return;
         }
         startDeadline();
-        boost::beast::http::async_read_some(
-            adaptor, buffer, *parser,
-            std::bind_front(&self_type::afterRead, this, shared_from_this()));
+        if (httpType == HttpType::HTTP)
+        {
+            boost::beast::http::async_read_some(
+                adaptor.next_layer(), buffer, *parser,
+                std::bind_front(&self_type::afterRead, this,
+                                shared_from_this()));
+        }
+        else
+        {
+            boost::beast::http::async_read_some(
+                adaptor, buffer, *parser,
+                std::bind_front(&self_type::afterRead, this,
+                                shared_from_this()));
+        }
     }
 
     void afterDoWrite(const std::shared_ptr<self_type>& /*self*/,
@@ -694,11 +747,22 @@ class Connection :
         res.preparePayload();
 
         startDeadline();
-        boost::beast::async_write(
-            adaptor,
-            boost::beast::http::message_generator(std::move(res.response)),
-            std::bind_front(&self_type::afterDoWrite, this,
-                            shared_from_this()));
+        if (httpType == HttpType::HTTP)
+        {
+            boost::beast::async_write(
+                adaptor.next_layer(),
+                boost::beast::http::message_generator(std::move(res.response)),
+                std::bind_front(&self_type::afterDoWrite, this,
+                                shared_from_this()));
+        }
+        else
+        {
+            boost::beast::async_write(
+                adaptor,
+                boost::beast::http::message_generator(std::move(res.response)),
+                std::bind_front(&self_type::afterDoWrite, this,
+                                shared_from_this()));
+        }
     }
 
     void cancelDeadlineTimer()
@@ -765,7 +829,10 @@ class Connection :
         BMCWEB_LOG_DEBUG("{} timer started", logPtr(this));
     }
 
-    Adaptor adaptor;
+    bool authenticationEnabled = !BMCWEB_INSECURE_DISABLE_AUTH;
+    HttpType httpType = HttpType::BOTH;
+
+    boost::asio::ssl::stream<Adaptor> adaptor;
     Handler* handler;
 
     boost::asio::ip::address ip;
