@@ -3,6 +3,7 @@
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
 #include "nghttp2_adapters.hpp"
+#include "test_stream.hpp"
 
 #include <nghttp2/nghttp2.h>
 #include <unistd.h>
@@ -94,7 +95,7 @@ TEST(http_connection, RequestPropogates)
 {
     using namespace std::literals;
     boost::asio::io_context io;
-    boost::beast::test::stream stream(io);
+    TestStream stream(io);
     boost::beast::test::stream out(io);
     stream.connect(out);
     // This is a binary pre-encrypted stream captured from curl for a request to
@@ -122,8 +123,7 @@ TEST(http_connection, RequestPropogates)
     FakeHandler handler;
     boost::asio::steady_timer timer(io);
     std::function<std::string()> date(getDateStr);
-    auto conn = std::make_shared<
-        HTTP2Connection<boost::beast::test::stream, FakeHandler>>(
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
         std::move(stream), &handler, date);
     conn->start();
 
