@@ -25,6 +25,7 @@ option('basic-auth', type : 'feature', value : 'enabled', description : '''Enabl
 option('session-auth', type : 'feature', value : 'enabled', description : '''Enable session authentication''')
 option('xtoken-auth', type : 'feature', value : 'enabled', description : '''Enable xtoken authentication''')
 option('cookie-auth', type : 'feature', value : 'enabled', description : '''Enable cookie authentication''')
+option('https-redirect', type : 'feature', value : 'disabled', description : 'Enable http to https redirect')
 option('mutual-tls-auth', type : 'feature', value : 'enabled', description : '''Enables authenticating users through TLS client certificates. The insecure-disable-ssl must be disabled for this option to take effect.''')
 option('ibm-management-console', type : 'feature', value : 'disabled', description : 'Enable the IBM management console specific functionality. Paths are under \'/ibm/v1/\'')
 option('http-body-limit', type: 'integer', min : 0, max : 512, value : 30, description : 'Specifies the http request body length limit')
