@@ -46,6 +46,14 @@
 namespace crow
 {
 
+template <typename>
+struct IsTls : std::false_type
+{};
+
+template <typename T>
+struct IsTls<boost::asio::ssl::stream<T>> : std::true_type
+{};
+
 struct Http2StreamData
 {
     std::shared_ptr<Request> req = std::make_shared<Request>();
@@ -575,9 +583,7 @@ class HTTP2Connection :
 
     void close()
     {
-        if constexpr (std::is_same_v<Adaptor,
-                                     boost::asio::ssl::stream<
-                                         boost::asio::ip::tcp::socket>>)
+        if constexpr (IsTls<Adaptor>::value)
         {
             adaptor.next_layer().close();
         }
