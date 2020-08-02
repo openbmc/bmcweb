@@ -1444,8 +1444,7 @@ class DBusEventLogEntryCollection : public Node
                                 id = std::get_if<uint32_t>(&propertyMap.second);
                                 if (id == nullptr)
                                 {
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Id");
+                                    messages::internalError(asyncResp->res);
                                 }
                             }
                             else if (propertyMap.first == "Timestamp")
@@ -1454,8 +1453,7 @@ class DBusEventLogEntryCollection : public Node
                                     std::get_if<uint64_t>(&propertyMap.second);
                                 if (millisTimeStamp == nullptr)
                                 {
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Timestamp");
+                                    messages::internalError(asyncResp->res);
                                     continue;
                                 }
                                 // Retrieve Created property with format:
@@ -1473,8 +1471,7 @@ class DBusEventLogEntryCollection : public Node
                                     &propertyMap.second);
                                 if (severity == nullptr)
                                 {
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Severity");
+                                    messages::internalError(asyncResp->res);
                                 }
                             }
                             else if (propertyMap.first == "Message")
@@ -1483,8 +1480,7 @@ class DBusEventLogEntryCollection : public Node
                                     &propertyMap.second);
                                 if (message == nullptr)
                                 {
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Message");
+                                    messages::internalError(asyncResp->res);
                                 }
                             }
                         }
@@ -1568,7 +1564,7 @@ class DBusEventLogEntry : public Node
                         id = std::get_if<uint32_t>(&propertyMap.second);
                         if (id == nullptr)
                         {
-                            messages::propertyMissing(asyncResp->res, "Id");
+                            messages::internalError(asyncResp->res);
                         }
                     }
                     else if (propertyMap.first == "Timestamp")
@@ -1577,8 +1573,7 @@ class DBusEventLogEntry : public Node
                             std::get_if<uint64_t>(&propertyMap.second);
                         if (millisTimeStamp == nullptr)
                         {
-                            messages::propertyMissing(asyncResp->res,
-                                                      "Timestamp");
+                            messages::internalError(asyncResp->res);
                             continue;
                         }
                         // Retrieve Created property with format:
@@ -1596,8 +1591,7 @@ class DBusEventLogEntry : public Node
                             std::get_if<std::string>(&propertyMap.second);
                         if (severity == nullptr)
                         {
-                            messages::propertyMissing(asyncResp->res,
-                                                      "Severity");
+                            messages::internalError(asyncResp->res);
                         }
                     }
                     else if (propertyMap.first == "Message")
@@ -1605,8 +1599,7 @@ class DBusEventLogEntry : public Node
                         message = std::get_if<std::string>(&propertyMap.second);
                         if (message == nullptr)
                         {
-                            messages::propertyMissing(asyncResp->res,
-                                                      "Message");
+                            messages::internalError(asyncResp->res);
                         }
                     }
                 }
