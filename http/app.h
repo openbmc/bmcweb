@@ -27,13 +27,8 @@ using ssl_context_t = boost::asio::ssl::context;
 class App
 {
   public:
-#ifdef BMCWEB_ENABLE_SSL
-    using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
-    using ssl_server_t = Server<App, ssl_socket_t>;
-#else
     using socket_t = boost::asio::ip::tcp::socket;
     using server_t = Server<App, socket_t>;
-#endif
 
     explicit App(std::shared_ptr<boost::asio::io_context> ioIn =
                      std::make_shared<boost::asio::io_context>()) :
@@ -66,6 +61,7 @@ class App
         return router.newRuleTagged<Tag>(std::move(rule));
     }
 
+<<<<<<< HEAD
     App& socket(int existing_socket)
     {
         socketFd = existing_socket;
@@ -73,8 +69,12 @@ class App
     }
 
     App& port(std::uint16_t port)
+=======
+    self_t& add_socket(int existing_socket)
+>>>>>>> 4be3fd4... Enable HTTP redirects
     {
-        portUint = port;
+        acceptors.emplace_back(std::make_unique<boost::asio::ip::tcp::acceptor>(
+            *io, boost::asio::ip::tcp::v6(), existing_socket));
         return *this;
     }
 
@@ -92,8 +92,8 @@ class App
     void run()
     {
         validate();
-#ifdef BMCWEB_ENABLE_SSL
-        if (-1 == socketFd)
+<<<<<<< HEAD
+#ifdef BMCWEB_ENABLE_SSL if (-1 == socketFd)
         {
             sslServer = std::make_unique<ssl_server_t>(
                 this, bindaddrStr, portUint, sslContext, io);
@@ -106,20 +106,26 @@ class App
         sslServer->run();
 
 #else
+=======
+>>>>>>> 4be3fd4... Enable HTTP redirects
 
-        if (-1 == socketFd)
+        if (acceptors.empty())
         {
-            server = std::move(std::make_unique<server_t>(
-                this, bindaddrStr, portUint, nullptr, io));
+            uint16_t defaultPort = 18080;
+
+            boost::asio::ip::tcp::endpoint ep(
+                boost::asio::ip::make_address("0.0.0.0"), defaultPort);
+            std::unique_ptr<boost::asio::ip::tcp::acceptor> acceptor =
+                std::make_unique<boost::asio::ip::tcp::acceptor>(*io, ep);
+            acceptors.emplace_back(std::move(acceptor));
         }
-        else
-        {
-            server = std::move(
-                std::make_unique<server_t>(this, socketFd, nullptr, io));
-        }
+<<<<<<< HEAD
+=======
+        server = std::make_unique<server_t>(this, std::move(acceptors),
+                                            sslContext, io);
+        server->setTickFunction(tickInterval, tickFunction);
+>>>>>>> 4be3fd4... Enable HTTP redirects
         server->run();
-
-#endif
     }
 
     void stop()
@@ -143,9 +149,13 @@ class App
         return router.getRoutes(parent);
     }
 
-#ifdef BMCWEB_ENABLE_SSL
-    App& sslFile(const std::string& crt_filename,
-                 const std::string& key_filename)
+<<<<<<< HEAD
+#ifdef BMCWEB_ENABLE_SSL App& sslFile(const std::string& crt_filename,
+                                          const std::string& key_filename)
+=======
+    self_t& sslFile(const std::string& crt_filename,
+                    const std::string& key_filename)
+>>>>>>> 4be3fd4... Enable HTTP redirects
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
@@ -184,48 +194,14 @@ class App
 
     std::shared_ptr<ssl_context_t> sslContext = nullptr;
 
-#else
-    template <typename T, typename... Remain>
-    App& ssl_file(T&&, Remain&&...)
-    {
-        // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
-        // defined.
-        static_assert(
-            // make static_assert dependent to T; always false
-            std::is_base_of<T, void>::value,
-            "Define BMCWEB_ENABLE_SSL to enable ssl support.");
-        return *this;
-    }
-
-    template <typename T>
-    App& ssl(T&&)
-    {
-        // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
-        // defined.
-        static_assert(
-            // make static_assert dependent to T; always false
-            std::is_base_of<T, void>::value,
-            "Define BMCWEB_ENABLE_SSL to enable ssl support.");
-        return *this;
-    }
-#endif
-
   private:
-    std::shared_ptr<asio::io_context> io;
-#ifdef BMCWEB_ENABLE_SSL
-    uint16_t portUint = 443;
-#else
-    uint16_t portUint = 80;
-#endif
+    std::shared_ptr<boost::asio::io_context> io;
+
     std::string bindaddrStr = "::";
-    int socketFd = -1;
+    std::vector<std::unique_ptr<boost::asio::ip::tcp::acceptor>> acceptors;
     Router router;
 
-#ifdef BMCWEB_ENABLE_SSL
-    std::unique_ptr<ssl_server_t> sslServer;
-#else
     std::unique_ptr<server_t> server;
-#endif
 };
 } // namespace crow
 using App = crow::App;
