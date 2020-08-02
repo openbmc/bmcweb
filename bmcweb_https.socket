@@ -4,6 +4,8 @@ Description=BMC Webserver socket
 [Socket]
 ListenStream=443
 ReusePort=true
+Service=bmcweb.service
+FileDescriptorName=bmcweb_443_both
 
 [Install]
 WantedBy=sockets.target
