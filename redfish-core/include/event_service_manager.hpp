@@ -1021,6 +1021,7 @@ class EventServiceManager
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     void cacheLastEventTimestamp()
     {
+        lastEventTStr.clear();
         std::ifstream logStream(redfishEventLogFile);
         if (!logStream.good())
         {
@@ -1064,7 +1065,7 @@ class EventServiceManager
         std::string logEntry;
         while (std::getline(logStream, logEntry))
         {
-            if (!startLogCollection)
+            if (!startLogCollection && !lastEventTStr.empty())
             {
                 if (boost::starts_with(logEntry, lastEventTStr))
                 {
@@ -1162,9 +1163,12 @@ class EventServiceManager
                             if (fileWatchDesc != -1)
                             {
                                 BMCWEB_LOG_DEBUG
-                                    << "Redfish log file is already on "
-                                       "inotify_add_watch.";
-                                return;
+                                    << "Remove and Add inotify watcher on "
+                                       "redfish event log file";
+                                // Remove existing inotify watcher and add
+                                // with new redfish event log file.
+                                inotify_rm_watch(inotifyFd, fileWatchDesc);
+                                fileWatchDesc = -1;
                             }
 
                             fileWatchDesc = inotify_add_watch(
