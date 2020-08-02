@@ -50,7 +50,7 @@ enum class SseConnState
 class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
 {
   private:
-    std::shared_ptr<crow::Request::Adaptor> sseConn;
+    std::shared_ptr<boost::beast::tcp_stream> sseConn;
     std::queue<std::pair<uint64_t, std::string>> requestDataQueue;
     std::string outBuffer;
     SseConnState state;
@@ -259,7 +259,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     ServerSentEvents(ServerSentEvents&&) = delete;
     ServerSentEvents& operator=(ServerSentEvents&&) = delete;
 
-    ServerSentEvents(const std::shared_ptr<crow::Request::Adaptor>& adaptor) :
+    ServerSentEvents(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
         sseConn(std::move(adaptor)), state(SseConnState::startInit),
         retryCount(0), maxRetryAttempts(5)
     {
