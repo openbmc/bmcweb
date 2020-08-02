@@ -64,7 +64,7 @@ class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& reqIn, Adaptor adaptorIn,
+        const crow::Request& reqIn, Adaptor&& adaptorIn,
         std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
             openHandler,
         std::function<void(Connection&, const std::string&, bool)>
