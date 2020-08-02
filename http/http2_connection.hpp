@@ -19,7 +19,6 @@
 #include <unistd.h>
 
 #include <boost/asio/buffer.hpp>
-#include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/http/field.hpp>
@@ -40,11 +39,20 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 namespace crow
 {
+
+template <typename>
+struct IsTls : std::false_type
+{};
+
+template <typename T>
+struct IsTls<boost::asio::ssl::stream<T>> : std::true_type
+{};
 
 struct Http2StreamData
 {
@@ -575,9 +583,7 @@ class HTTP2Connection :
 
     void close()
     {
-        if constexpr (std::is_same_v<Adaptor,
-                                     boost::asio::ssl::stream<
-                                         boost::asio::ip::tcp::socket>>)
+        if constexpr (IsTls<Adaptor>::value)
         {
             adaptor.next_layer().close();
         }
