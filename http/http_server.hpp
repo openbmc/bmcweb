@@ -1,5 +1,6 @@
 #pragma once
 
+#include "http_connect_types.hpp"
 #include "http_connection.hpp"
 #include "logging.hpp"
 #include "timer_queue.hpp"
@@ -25,40 +26,24 @@
 namespace crow
 {
 
+struct Acceptor
+{
+    boost::asio::ip::tcp::acceptor acceptor;
+    HttpType httpType;
+};
+
 template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
   public:
-    Server(Handler* handlerIn,
-           std::unique_ptr<boost::asio::ip::tcp::acceptor>&& acceptorIn,
+    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptorIn)),
+        acceptors(std::move(acceptorsIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), timer(*ioService),
         handler(handlerIn), adaptorCtx(std::move(adaptorCtx))
-    {}
-
-    Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtx,
-           const std::shared_ptr<boost::asio::io_context>& io =
-               std::make_shared<boost::asio::io_context>()) :
-        Server(handlerIn,
-               std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::endpoint(
-                            boost::asio::ip::make_address(bindaddr), port)),
-               adaptorCtx, io)
-    {}
-
-    Server(Handler* handlerIn, int existingSocket,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtx,
-           const std::shared_ptr<boost::asio::io_context>& io =
-               std::make_shared<boost::asio::io_context>()) :
-        Server(handlerIn,
-               std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::v6(), existingSocket),
-               adaptorCtx, io)
     {}
 
     void updateDateStr()
@@ -104,10 +89,17 @@ class Server
         };
         timer.async_wait(timerHandler);
 
-        BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
-                        << acceptor->local_endpoint();
+        for (Acceptor& accept : acceptors)
+        {
+            BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
+                            << accept.acceptor.local_endpoint();
+        }
         startAsyncWaitForSignal();
-        doAccept();
+
+        for (Acceptor& acceptor : acceptors)
+        {
+            doAccept(acceptor);
+        }
     }
 
     void loadCertificate()
@@ -154,12 +146,16 @@ class Server
                     BMCWEB_LOG_INFO << "Receivied reload signal";
                     loadCertificate();
                     boost::system::error_code ec2;
-                    acceptor->cancel(ec2);
-                    if (ec2)
+
+                    for (Acceptor& acc : acceptors)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Error while canceling async operations:"
-                            << ec2.message();
+                        acc.acceptor.cancel(ec2);
+                        if (ec2)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Error while canceling async operations:"
+                                << ec2.message();
+                        }
                     }
                     this->startAsyncWaitForSignal();
                 }
@@ -176,53 +172,28 @@ class Server
         ioService->stop();
     }
 
-    void doAccept()
+    void doAccept(Acceptor& acc)
     {
-        std::optional<Adaptor> adaptorTemp;
-        if constexpr (std::is_same<Adaptor,
-                                   boost::beast::ssl_stream<
-                                       boost::asio::ip::tcp::socket>>::value)
-        {
-            adaptorTemp = Adaptor(*ioService, *adaptorCtx);
-            auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, getCachedDateStr, timerQueue,
-                std::move(adaptorTemp.value()));
+        auto p = std::make_shared<Connection<Adaptor, Handler>>(
+            handler, getCachedDateStr, timerQueue, adaptorCtx, *ioService,
+            acc.httpType);
 
-            acceptor->async_accept(p->socket().next_layer(),
-                                   [this, p](boost::system::error_code ec) {
-                                       if (!ec)
-                                       {
-                                           boost::asio::post(
-                                               *this->ioService,
-                                               [p] { p->start(); });
-                                       }
-                                       doAccept();
-                                   });
-        }
-        else
-        {
-            adaptorTemp = Adaptor(*ioService);
-            auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, getCachedDateStr, timerQueue,
-                std::move(adaptorTemp.value()));
-
-            acceptor->async_accept(
-                p->socket(), [this, p](boost::system::error_code ec) {
-                    if (!ec)
-                    {
-                        boost::asio::post(*this->ioService,
-                                          [p] { p->start(); });
-                    }
-                    doAccept();
-                });
-        }
+        acc.acceptor.async_accept(
+            p->socket(), [this, p, &acc](boost::system::error_code ec) {
+                if (!ec)
+                {
+                    boost::asio::post(*this->ioService, [p] { p->start(); });
+                }
+                doAccept(acc);
+            });
     }
 
   private:
     std::shared_ptr<boost::asio::io_context> ioService;
     detail::TimerQueue timerQueue;
     std::function<std::string()> getCachedDateStr;
-    std::unique_ptr<boost::asio::ip::tcp::acceptor> acceptor;
+
+    std::vector<Acceptor> acceptors;
     boost::asio::signal_set signals;
     boost::asio::steady_timer timer;
 
@@ -232,9 +203,6 @@ class Server
 
     std::function<void(const boost::system::error_code& ec)> timerHandler;
 
-#ifdef BMCWEB_ENABLE_SSL
-    bool useSsl{false};
-#endif
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
-}; // namespace crow
+};
 } // namespace crow
