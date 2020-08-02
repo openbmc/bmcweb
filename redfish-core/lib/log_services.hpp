@@ -179,28 +179,6 @@ static int getJournalMetadata(sd_journal* journal,
     return ret;
 }
 
-static bool getTimestampStr(const uint64_t usecSinceEpoch,
-                            std::string& entryTimestamp)
-{
-    time_t t = static_cast<time_t>(usecSinceEpoch / 1000 / 1000);
-    struct tm* loctime = localtime(&t);
-    char entryTime[64] = {};
-    if (nullptr != loctime)
-    {
-        strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
-    }
-    // Insert the ':' into the timezone
-    std::string_view t1(entryTime);
-    std::string_view t2(entryTime);
-    if (t1.size() > 2 && t2.size() > 2)
-    {
-        t1.remove_suffix(2);
-        t2.remove_prefix(t2.size() - 2);
-    }
-    entryTimestamp = std::string(t1) + ":" + std::string(t2);
-    return true;
-}
-
 static bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
 {
     int ret = 0;
@@ -212,7 +190,9 @@ static bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
                          << strerror(-ret);
         return false;
     }
-    return getTimestampStr(timestamp, entryTimestamp);
+    entryTimestamp = crow::utility::getDateTime(
+        static_cast<std::time_t>(timestamp / 1000 / 1000));
+    return true;
 }
 
 static bool getSkipParam(crow::Response& res, const crow::Request& req,
@@ -3201,10 +3181,8 @@ static void fillPostCodeEntry(
 
         // Get the Created time from the timestamp
         std::string entryTimeStr;
-        if (!getTimestampStr(usecSinceEpoch, entryTimeStr))
-        {
-            continue;
-        }
+        entryTimestamp = crow::utility::getDateTime(
+            static_cast<std::time_t>(timestamp / 1000 / 1000));
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream hexCode;
@@ -3262,7 +3240,7 @@ static void fillPostCodeEntry(
             {"MessageArgs", std::move(messageArgs)},
             {"EntryType", "Event"},
             {"Severity", std::move(severity)},
-            {"Created", std::move(entryTimeStr)}};
+            {"Created", entryTimeStr}};
     }
 }
 
