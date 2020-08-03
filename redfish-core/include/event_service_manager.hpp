@@ -283,7 +283,7 @@ bool isFilterQuerySpecialChar(char c)
 bool readSSEQueryParams(std::string sseFilter, std::string& formatType,
                         std::vector<std::string>& messageIds,
                         std::vector<std::string>& registryPrefixes,
-                        std::vector<nlohmann::json>& metricReportDefinitions)
+                        std::vector<std::string>& metricReportDefinitions)
 {
     sseFilter.erase(std::remove_if(sseFilter.begin(), sseFilter.end(),
                                    isFilterQuerySpecialChar),
@@ -370,7 +370,7 @@ class Subscription
     std::vector<std::string> registryPrefixes;
     std::vector<std::string> resourceTypes;
     std::vector<nlohmann::json> httpHeaders; // key-value pair
-    std::vector<nlohmann::json> metricReportDefinitions;
+    std::vector<std::string> metricReportDefinitions;
 
     Subscription(const Subscription&) = delete;
     Subscription& operator=(const Subscription&) = delete;

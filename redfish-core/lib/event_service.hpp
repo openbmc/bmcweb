@@ -239,7 +239,7 @@ class EventDestinationCollection : public Node
         std::optional<std::vector<std::string>> regPrefixes;
         std::optional<std::vector<std::string>> resTypes;
         std::optional<std::vector<nlohmann::json>> headers;
-        std::optional<std::vector<nlohmann::json>> metricReportDefinitions;
+        std::optional<std::vector<nlohmann::json>> mrdJsonArray;
 
         if (!json_util::readJson(
                 req, res, "Destination", destUrl, "Context", context,
@@ -247,7 +247,7 @@ class EventDestinationCollection : public Node
                 "EventFormatType", eventFormatType, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
-                metricReportDefinitions, "ResourceTypes", resTypes))
+                mrdJsonArray, "ResourceTypes", resTypes))
         {
             return;
         }
@@ -413,9 +413,24 @@ class EventDestinationCollection : public Node
             subValue->retryPolicy = "TerminateAfterRetries";
         }
 
-        if (metricReportDefinitions)
+        if (mrdJsonArray)
         {
-            subValue->metricReportDefinitions = *metricReportDefinitions;
+            for (nlohmann::json& mrdObj : *mrdJsonArray)
+            {
+                std::string mrdUri;
+                if (json_util::getValueFromJsonObject(mrdObj, "@odata.id",
+                                                      mrdUri))
+                {
+                    subValue->metricReportDefinitions.emplace_back(mrdUri);
+                }
+                else
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, mrdObj.dump(),
+                        "MetricReportDefinitions");
+                    return;
+                }
+            }
         }
 
         std::string id =
@@ -593,8 +608,13 @@ class EventDestination : public Node
 
         asyncResp->res.jsonValue["MessageIds"] = subValue->registryMsgIds;
         asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue->retryPolicy;
-        asyncResp->res.jsonValue["MetricReportDefinitions"] =
-            subValue->metricReportDefinitions;
+
+        std::vector<nlohmann::json> mrdJsonArray;
+        for (const auto& mdrUri : subValue->metricReportDefinitions)
+        {
+            mrdJsonArray.push_back({{"@odata.id", mdrUri}});
+        }
+        asyncResp->res.jsonValue["MetricReportDefinitions"] = mrdJsonArray;
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
