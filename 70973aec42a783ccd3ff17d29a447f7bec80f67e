@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c412339e_0147cbfe",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "I am not quite clear how to construct the sslConn using conn( or ioc) and ssl context(ctx). Can you please point me to some examples(boost asio) which does this.\n\nThis header file and intern class is used for both http and https connection. Get them on to common API\u0027s like async_connect, expiry timers, i used getConn().\n\nI had referred below boost examples for establishing the http/https client connections.\nhttps://www.boost.org/doc/libs/develop/libs/beast/example/http/client/async/http_client_async.cpp\nhttps://www.boost.org/doc/libs/develop/libs/beast/example/http/client/async-ssl/http_client_async_ssl.cpp\n\nIt would be great if you can point the examples which can act on tcp_stream \u0026 ssl_stream.\n\nMost of below comments seems to be depend on this. So will wait for some inputs.",
+      "parentUuid": "809dd0d7_6ec472cb",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eef7011a_582f6b75",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -134,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "88ebfa00_67d5073d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "ack, Will address.",
+      "parentUuid": "6426e951_8d173f9e",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c0dba57_99a81b57",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -180,6 +222,30 @@
     },
     {
       "key": {
+        "uuid": "8a971fa1_459d833b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "Its uses the tcp_stream timer through out the code right? May be i might have mis understood your question. Can you please provide some more details.",
+      "parentUuid": "6a725205_6423ec6b",
+      "range": {
+        "startLine": 251,
+        "startChar": 18,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed90cef_98612c85",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -203,6 +269,30 @@
     },
     {
       "key": {
+        "uuid": "673bef25_c5c879d2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "I tried async_shutdown by going through boost example but saw some failures(crashes - Even boot examples also crashes).",
+      "parentUuid": "2ed90cef_98612c85",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 15
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d542056_13cfd484",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -214,6 +304,24 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "Not implementing keepalive will not meet your performance targets for openssl.  While opening a TCP connection is relatively cheap, SSL is expensive.  Do you have a plan to implement socket reuse?",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa93b42_e3ccc48f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "I agree, I am planning to implement the keep alive timeout to keep connection alive for ever instead of opening on requests.\nTo some extent, same opened connection is reused for by preserving the state but that is not full fledged solution though.\n\nI will address this as separate commit.",
+      "parentUuid": "0d542056_13cfd484",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -294,6 +402,24 @@
     },
     {
       "key": {
+        "uuid": "691d2dc6_9270f215",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "This is user configured setting, So i feel it may not matter what the failure is, We should keep retrying the it as per Configured RetryPolicy setting.",
+      "parentUuid": "44d48d3f_20ef1e04",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bce7816_59f1f0dc",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -305,6 +431,24 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "Check your error code.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ddff93f_7041a149",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "may e not needed. Either way(error or success), we need to proceed with below logic. But for logging purpose, i can add error.",
+      "parentUuid": "0bce7816_59f1f0dc",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -334,6 +478,30 @@
     },
     {
       "key": {
+        "uuid": "b1abdebf_aa2940d0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "Ack, Will do.",
+      "parentUuid": "b27642e3_a89cb425",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 12
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94ad66ed_b413384d",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -351,6 +519,24 @@
     },
     {
       "key": {
+        "uuid": "b7949b91_9cb685ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "Actually boost example code as it crashing when async_resolver is used. In-fact i started with that only but didn\u0027t further digged why it crashed.",
+      "parentUuid": "94ad66ed_b413384d",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a8cd50d_44607f38",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -362,6 +548,24 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "Initialize this in the constructor to avoid double initialization.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a96179a_d7c86038",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-03T19:31:29Z",
+      "side": 1,
+      "message": "Ack, Will do.",
+      "parentUuid": "0a8cd50d_44607f38",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
