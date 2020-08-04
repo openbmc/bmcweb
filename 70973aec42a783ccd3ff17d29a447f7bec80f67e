@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a3e772bc_273900a3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Thanks for data pointers Ed.\nDone.",
+      "parentUuid": "d9862b10_b308f829",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eef7011a_582f6b75",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -84,6 +108,30 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "See above, this goes away.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 16
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30dcd5c5_64c99811",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "With latest change, It is used in one single place(doConenct()). All other instances, its removed.",
+      "parentUuid": "eef7011a_582f6b75",
       "range": {
         "startLine": 69,
         "startChar": 0,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "aa0bdd23_79d715cb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "removed function.",
+      "parentUuid": "86ce16e7_7a484e0a",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 11
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fe2bf9c_ea33d8bc",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "bf88575a_7b620a5f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fe2bf9c_ea33d8bc",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 61
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2466f71_742697f4",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -153,6 +249,30 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "extra parens.",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 26
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c08f6fc_43ffecc3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2466f71_742697f4",
       "range": {
         "startLine": 84,
         "startChar": 19,
@@ -200,6 +320,24 @@
     },
     {
       "key": {
+        "uuid": "eddf096b_84737c8e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88ebfa00_67d5073d",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c0dba57_99a81b57",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -211,6 +349,30 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "missing pointer check.",
+      "range": {
+        "startLine": 204,
+        "startChar": 45,
+        "endLine": 204,
+        "endChar": 52
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4bf5c6a_192d3ca2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c0dba57_99a81b57",
       "range": {
         "startLine": 204,
         "startChar": 45,
@@ -294,6 +456,30 @@
     },
     {
       "key": {
+        "uuid": "0adcf62a_82772344",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Actually this timer is in tcp_stream used for tcp request timeouts Which is fine. \n\nOther timer(\"timer\" in this class) is for external async_wait. I don\u0027t see a async_wait member function on tcp_stream.",
+      "parentUuid": "27cb8eac_4f136636",
+      "range": {
+        "startLine": 251,
+        "startChar": 18,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed90cef_98612c85",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -365,6 +551,30 @@
     },
     {
       "key": {
+        "uuid": "3a949fcb_f14fbc62",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "async_shutdown works fine. may be i might have made other mistakes in past.\nDone",
+      "parentUuid": "1c3ba209_94bd466e",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 15
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d542056_13cfd484",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -418,6 +628,24 @@
     },
     {
       "key": {
+        "uuid": "86c2cc43_db9a7110",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "I will implement keepalive as separate commit.",
+      "parentUuid": "202b992c_0ea04ea1",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "37c7a7fa_4e7b5e4e",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -429,6 +657,30 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "This error will go away once you shutdown the stream properly.",
+      "range": {
+        "startLine": 272,
+        "startChar": 24,
+        "endLine": 272,
+        "endChar": 46
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7154dfa0_b681fd6b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37c7a7fa_4e7b5e4e",
       "range": {
         "startLine": 272,
         "startChar": 24,
@@ -458,6 +710,24 @@
     },
     {
       "key": {
+        "uuid": "29b74ee4_99c407fd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "343dc0be_4baaf867",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "627d9a49_1343c988",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -469,6 +739,24 @@
       "writtenOn": "2020-07-06T23:38:34Z",
       "side": 1,
       "message": "See above, same comment.  SSL connections cannot be shut down this way.",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62969b9d_a77ad080",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "627d9a49_1343c988",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -522,6 +810,24 @@
       "side": 1,
       "message": "You didn\u0027t understand what I was saying. DNS resolution failures are a type of failure that should be retried.  Today you don\u0027t retry on resolution failure.  There is no setting that says \"Don\u0027t retry on resolution failure, but retry on server failure\"",
       "parentUuid": "691d2dc6_9270f215",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b42e4507_292e1805",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Good catch. I see what you are saying. There is async_resolve comment in existing code and its linked. I will take it as separate commit for same.",
+      "parentUuid": "473d6fcf_aa0e3916",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -610,6 +916,30 @@
     },
     {
       "key": {
+        "uuid": "366930a3_e87aed89",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1abdebf_aa2940d0",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 12
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94ad66ed_b413384d",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -663,6 +993,24 @@
     },
     {
       "key": {
+        "uuid": "7f833411_c2b7b5ef",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "I will debug the issue with async_resolve and load fix as separate commit.",
+      "parentUuid": "a33a5d34_59323164",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a8cd50d_44607f38",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -692,6 +1040,24 @@
       "side": 1,
       "message": "Ack, Will do.",
       "parentUuid": "0a8cd50d_44607f38",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85b632cf_9db66f8b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-08-04T20:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a96179a_d7c86038",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
