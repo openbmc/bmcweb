@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 183> registry = {
+constexpr std::array<MessageEntry, 184> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -138,7 +138,18 @@ constexpr std::array<MessageEntry, 183> registry = {
                      {},
                      "None.",
                  }},
-
+    MessageEntry{"BeepCode",
+                 {
+                     "Indicates that Beepcode has occurred.",
+                     "Beepcode with priority: %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "BIOSBoot",
         {
