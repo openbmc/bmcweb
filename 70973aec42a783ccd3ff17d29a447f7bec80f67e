@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d9862b10_b308f829",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-04T03:23:56Z",
+      "side": 1,
+      "message": "Example from one of my patches:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35265/2/http/http_connection.h#330\n\nAll getConn() does is go to the lowest level based on a branch.  If you simply keep the lowest level as a reference, you don\u0027t have to branch.  Your examples are fine, but they\u0027re not trying to handle both HTTP and SSL in the same class, therefore you\u0027re going to have to innovate a little.\n\n\"It would be great if you can point the examples which can act on tcp_stream \u0026 ssl_stream.\"\nI\u0027m not sure what you mean.  If it were me, I wouldn\u0027t be using tcp_stream at all, as your timer requirements are more stringent than tcp_stream allows.  I didn\u0027t really comment that, as it doesn\u0027t hurt anything, but there\u0027s lots of code showing how to use tcp socket correctly, as it\u0027s a core asio feature.  tcp_stream is new, and a little overkill for this use case.",
+      "parentUuid": "c412339e_0147cbfe",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eef7011a_582f6b75",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -246,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "27cb8eac_4f136636",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-04T03:23:56Z",
+      "side": 1,
+      "message": "you have a property called \"timer\" in this object that\u0027s an instance of steady_timer.  you use it for retries.  That means the timer is duplicated, and I suspect the reason why you\u0027re seeing some errors in places.",
+      "parentUuid": "8a971fa1_459d833b",
+      "range": {
+        "startLine": 251,
+        "startChar": 18,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed90cef_98612c85",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -293,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "1c3ba209_94bd466e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-04T03:23:56Z",
+      "side": 1,
+      "message": "Probably time to debug your code then.",
+      "parentUuid": "673bef25_c5c879d2",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 15
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d542056_13cfd484",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -322,6 +394,24 @@
       "side": 1,
       "message": "I agree, I am planning to implement the keep alive timeout to keep connection alive for ever instead of opening on requests.\nTo some extent, same opened connection is reused for by preserving the state but that is not full fledged solution though.\n\nI will address this as separate commit.",
       "parentUuid": "0d542056_13cfd484",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202b992c_0ea04ea1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-04T03:23:56Z",
+      "side": 1,
+      "message": "\"for ever\"  not how keepalive works.  Read the RFC on how keepalive works, and implement it per the specification.\n\"To some extent, same opened connection is reused for by preserving the state but that is not full fledged solution though.\"\n\nI\u0027m not following, you don\u0027t implement keepalive at all, so the server won\u0027t let you preserve it.",
+      "parentUuid": "1aa93b42_e3ccc48f",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -414,6 +504,24 @@
       "side": 1,
       "message": "This is user configured setting, So i feel it may not matter what the failure is, We should keep retrying the it as per Configured RetryPolicy setting.",
       "parentUuid": "44d48d3f_20ef1e04",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "473d6fcf_aa0e3916",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-04T03:23:56Z",
+      "side": 1,
+      "message": "You didn\u0027t understand what I was saying. DNS resolution failures are a type of failure that should be retried.  Today you don\u0027t retry on resolution failure.  There is no setting that says \"Don\u0027t retry on resolution failure, but retry on server failure\"",
+      "parentUuid": "691d2dc6_9270f215",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -531,6 +639,24 @@
       "side": 1,
       "message": "Actually boost example code as it crashing when async_resolver is used. In-fact i started with that only but didn\u0027t further digged why it crashed.",
       "parentUuid": "94ad66ed_b413384d",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a33a5d34_59323164",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-04T03:23:56Z",
+      "side": 1,
+      "message": "That probably means that you have lifetime issues in your code.  Go ahead and debug them.  If you want to change the documented policy around using blocking calls in bmcweb, that\u0027s a much bigger discussion.",
+      "parentUuid": "b7949b91_9cb685ce",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
