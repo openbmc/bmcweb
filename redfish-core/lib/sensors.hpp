@@ -843,6 +843,12 @@ void objectInterfacesToJson(
     sensor_json["Status"]["Health"] =
         getHealth(sensor_json, interfacesDict, inventoryItem);
 
+    if (inventoryItem)
+    {
+        sensor_json["Status"]["HealthRollup"] =
+            getHealthRollUp(inventoryItem->objectPath);
+    }
+
     // Parameter to set to override the type we get from dbus, and force it to
     // int, regardless of what is available.  This is used for schemas like fan,
     // that require integers, not floats.
@@ -2585,8 +2591,8 @@ void getSensorData(
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
         };
 
-        // Find DBus object path that implements ObjectManager for the current
-        // connection.  If no mapping found, default to "/".
+        // Find DBus object path that implements ObjectManager for the
+        // current connection.  If no mapping found, default to "/".
         auto iter = objectMgrPaths->find(connection);
         const std::string& objectMgrPath =
             (iter != objectMgrPaths->end()) ? iter->second : "/";
@@ -2670,13 +2676,13 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
 }
 
 /**
- * @brief Find the requested sensorName in the list of all sensors supplied by
- * the chassis node
+ * @brief Find the requested sensorName in the list of all sensors supplied
+ * by the chassis node
  *
  * @param sensorName   The sensor name supplied in the PATCH request
  * @param sensorsList  The list of sensors managed by the chassis node
- * @param sensorsModified  The list of sensors that were found as a result of
- *                         repeated calls to this function
+ * @param sensorsModified  The list of sensors that were found as a result
+ * of repeated calls to this function
  */
 bool findSensorNameUsingSensorPath(
     std::string_view sensorName,
@@ -2704,7 +2710,8 @@ bool findSensorNameUsingSensorPath(
  * @brief Entry point for overriding sensor values of given sensor
  *
  * @param res   response object
- * @param allCollections   Collections extract from sensors' request patch info
+ * @param allCollections   Collections extract from sensors' request patch
+ * info
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 void setSensorsOverride(
@@ -2745,97 +2752,100 @@ void setSensorsOverride(
         }
     }
 
-    auto getChassisSensorListCb = [sensorAsyncResp,
-                                   overrideMap](const std::shared_ptr<
-                                                boost::container::flat_set<
-                                                    std::string>>
-                                                    sensorsList) {
-        // Match sensor names in the PATCH request to those managed by the
-        // chassis node
-        const std::shared_ptr<boost::container::flat_set<std::string>>
-            sensorNames =
-                std::make_shared<boost::container::flat_set<std::string>>();
-        for (const auto& item : overrideMap)
-        {
-            const auto& sensor = item.first;
-            if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
-                                               *sensorNames))
+    auto getChassisSensorListCb =
+        [sensorAsyncResp, overrideMap](
+            const std::shared_ptr<boost::container::flat_set<std::string>>
+                sensorsList) {
+            // Match sensor names in the PATCH request to those managed by the
+            // chassis node
+            const std::shared_ptr<boost::container::flat_set<std::string>>
+                sensorNames =
+                    std::make_shared<boost::container::flat_set<std::string>>();
+            for (const auto& item : overrideMap)
             {
-                BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
-                messages::resourceNotFound(sensorAsyncResp->res,
-                                           item.second.second, item.first);
-                return;
-            }
-        }
-        // Get the connection to which the memberId belongs
-        auto getObjectsWithConnectionCb =
-            [sensorAsyncResp, overrideMap](
-                const boost::container::flat_set<std::string>& connections,
-                const std::set<std::pair<std::string, std::string>>&
-                    objectsWithConnection) {
-                if (objectsWithConnection.size() != overrideMap.size())
+                const auto& sensor = item.first;
+                if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
+                                                   *sensorNames))
                 {
-                    BMCWEB_LOG_INFO
-                        << "Unable to find all objects with proper connection "
-                        << objectsWithConnection.size() << " requested "
-                        << overrideMap.size() << "\n";
-                    messages::resourceNotFound(
-                        sensorAsyncResp->res,
-                        sensorAsyncResp->chassisSubNode ==
-                                sensors::node::thermal
-                            ? "Temperatures"
-                            : "Voltages",
-                        "Count");
+                    BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
+                    messages::resourceNotFound(sensorAsyncResp->res,
+                                               item.second.second, item.first);
                     return;
                 }
-                for (const auto& item : objectsWithConnection)
-                {
-
-                    auto lastPos = item.first.rfind('/');
-                    if (lastPos == std::string::npos)
+            }
+            // Get the connection to which the memberId belongs
+            auto getObjectsWithConnectionCb =
+                [sensorAsyncResp, overrideMap](
+                    const boost::container::flat_set<std::string>& connections,
+                    const std::set<std::pair<std::string, std::string>>&
+                        objectsWithConnection) {
+                    if (objectsWithConnection.size() != overrideMap.size())
                     {
-                        messages::internalError(sensorAsyncResp->res);
+                        BMCWEB_LOG_INFO << "Unable to find all objects with "
+                                           "proper connection "
+                                        << objectsWithConnection.size()
+                                        << " requested " << overrideMap.size()
+                                        << "\n";
+                        messages::resourceNotFound(
+                            sensorAsyncResp->res,
+                            sensorAsyncResp->chassisSubNode ==
+                                    sensors::node::thermal
+                                ? "Temperatures"
+                                : "Voltages",
+                            "Count");
                         return;
                     }
-                    std::string sensorName = item.first.substr(lastPos + 1);
-
-                    const auto& iterator = overrideMap.find(sensorName);
-                    if (iterator == overrideMap.end())
+                    for (const auto& item : objectsWithConnection)
                     {
-                        BMCWEB_LOG_INFO << "Unable to find sensor object"
-                                        << item.first << "\n";
-                        messages::internalError(sensorAsyncResp->res);
-                        return;
+
+                        auto lastPos = item.first.rfind('/');
+                        if (lastPos == std::string::npos)
+                        {
+                            messages::internalError(sensorAsyncResp->res);
+                            return;
+                        }
+                        std::string sensorName = item.first.substr(lastPos + 1);
+
+                        const auto& iterator = overrideMap.find(sensorName);
+                        if (iterator == overrideMap.end())
+                        {
+                            BMCWEB_LOG_INFO << "Unable to find sensor object"
+                                            << item.first << "\n";
+                            messages::internalError(sensorAsyncResp->res);
+                            return;
+                        }
+                        crow::connections::systemBus->async_method_call(
+                            [sensorAsyncResp](
+                                const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "setOverrideValueStatus DBUS error: "
+                                        << ec;
+                                    messages::internalError(
+                                        sensorAsyncResp->res);
+                                    return;
+                                }
+                            },
+                            item.second, item.first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Sensor.Value", "Value",
+                            std::variant<double>(iterator->second.first));
                     }
-                    crow::connections::systemBus->async_method_call(
-                        [sensorAsyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "setOverrideValueStatus DBUS error: "
-                                    << ec;
-                                messages::internalError(sensorAsyncResp->res);
-                                return;
-                            }
-                        },
-                        item.second, item.first,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Sensor.Value", "Value",
-                        std::variant<double>(iterator->second.first));
-                }
-            };
-        // Get object with connection for the given sensor name
-        getObjectsWithConnection(sensorAsyncResp, sensorNames,
-                                 std::move(getObjectsWithConnectionCb));
-    };
-    // get full sensor list for the given chassisId and cross verify the sensor.
+                };
+            // Get object with connection for the given sensor name
+            getObjectsWithConnection(sensorAsyncResp, sensorNames,
+                                     std::move(getObjectsWithConnectionCb));
+        };
+    // get full sensor list for the given chassisId and cross verify the
+    // sensor.
     getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
 }
 
 bool isOverridingAllowed(const std::string& manufacturingModeStatus)
 {
-    if (manufacturingModeStatus ==
-        "xyz.openbmc_project.Control.Security.SpecialMode.Modes.Manufacturing")
+    if (manufacturingModeStatus == "xyz.openbmc_project.Control.Security."
+                                   "SpecialMode.Modes.Manufacturing")
     {
         return true;
     }
@@ -2853,11 +2863,12 @@ bool isOverridingAllowed(const std::string& manufacturingModeStatus)
 }
 
 /**
- * @brief Entry point for Checking the manufacturing mode before doing sensor
- * override values of given sensor
+ * @brief Entry point for Checking the manufacturing mode before doing
+ * sensor override values of given sensor
  *
  * @param res   response object
- * @param allCollections   Collections extract from sensors' request patch info
+ * @param allCollections   Collections extract from sensors' request patch
+ * info
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 void checkAndDoSensorsOverride(
@@ -2961,15 +2972,16 @@ void checkAndDoSensorsOverride(
 }
 
 /**
- * @brief Retrieves mapping of Redfish URIs to sensor value property to D-Bus
- * path of the sensor.
+ * @brief Retrieves mapping of Redfish URIs to sensor value property to
+ * D-Bus path of the sensor.
  *
- * Function builds valid Redfish response for sensor query of given chassis and
- * node. It then builds metadata about Redfish<->D-Bus correlations and provides
- * it to caller in a callback.
+ * Function builds valid Redfish response for sensor query of given chassis
+ * and node. It then builds metadata about Redfish<->D-Bus correlations and
+ * provides it to caller in a callback.
  *
  * @param chassis   Chassis for which retrieval should be performed
- * @param node  Node (group) of sensors. See sensors::node for supported values
+ * @param node  Node (group) of sensors. See sensors::node for supported
+ * values
  * @param mapComplete   Callback to be called with retrieval result
  */
 void retrieveUriToDbusMap(const std::string& chassis, const std::string& node,
