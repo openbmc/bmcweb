@@ -843,6 +843,12 @@ inline void objectInterfacesToJson(
     sensor_json["Status"]["Health"] =
         getHealth(sensor_json, interfacesDict, inventoryItem);
 
+    if (inventoryItem)
+    {
+        sensor_json["Status"]["HealthRollup"] =
+            getHealthRollUp(inventoryItem->objectPath);
+    }
+
     // Parameter to set to override the type we get from dbus, and force it to
     // int, regardless of what is available.  This is used for schemas like fan,
     // that require integers, not floats.
