@@ -2,6 +2,167 @@
   "comments": [
     {
       "key": {
+        "uuid": "9fc3d02f_ee379218",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "you need more than that to properly init an ssl context.  servers may have more than just TSL 1.2, and you need to take a strong opinion on what cipher suites you will allow.  Go back to to the drawing board.  I suspect the best thing would be to start by reading this document fully:\nhttps://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html",
+      "range": {
+        "startLine": 54,
+        "startChar": 61,
+        "endLine": 54,
+        "endChar": 74
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a523b189_1909c131",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "Because sslConn holds a reference to conn, it needs to be declared after, otherwise you might get weird destruction issues.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 79
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "926f9cc3_655d55f9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "Why is this check required?  It seems like it\u0027s adding another level of complexity that might have bugs.  In theory you should never be connecting from multiple threads, no?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 9
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae8276a5_8365abb8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "nit, this can be passed by value.",
+      "range": {
+        "startLine": 93,
+        "startChar": 69,
+        "endLine": 93,
+        "endChar": 70
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81d4831_ba12d7e9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "it seems odd that this isn\u0027t configurable in redfish, but oh well.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 53
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa3395e_41a0c18a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "Same with this check.  It seems like it\u0027s adding a secondary state machine that you don\u0027t need.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e70a81c0_719423bb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "nit: ec can be passed by value.",
+      "range": {
+        "startLine": 130,
+        "startChar": 69,
+        "endLine": 130,
+        "endChar": 71
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44b651d8_428d50b2",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -18,6 +179,237 @@
         "startChar": 62,
         "endLine": 140,
         "endChar": 65
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ec6cc1_788d08cd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "44b651d8_428d50b2",
+      "range": {
+        "startLine": 140,
+        "startChar": 62,
+        "endLine": 140,
+        "endChar": 65
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f591c7db_baeb3759",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "The way this is organized, this could drop messages with no warning.  I suspect this state doesn\u0027t need to be here.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 47
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783c83ac_22b4f4f6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_DEBUG already adds this for you.",
+      "range": {
+        "startLine": 154,
+        "startChar": 28,
+        "endLine": 154,
+        "endChar": 41
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5886354b_2cca8cac",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "If you used a boost::beast::http::fields class for this variable, you could do a direct copy instead of writing the loop by hand.  Also, that data structure is much better optimized.",
+      "range": {
+        "startLine": 164,
+        "startChar": 40,
+        "endLine": 164,
+        "endChar": 47
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51403382_ec3d22e1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "no... it doesn\u0027t mean that?  If you never get a response from the server, you should retry the existing data package, not simply remove it.",
+      "range": {
+        "startLine": 229,
+        "startChar": 54,
+        "endLine": 230,
+        "endChar": 55
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dfb0724_55adc111",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "This needs to be done after the async shutdown, not before.  This will reduce the occurrence of your stream_truncated error.",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 26
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16234b80_d47a23e3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "Delete code instead of commenting out?",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 55
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf2bfcbb_a2cfe9f4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "I\u0027m not sure how you ever thought youd get an ssl error on a non ssl connection.  Are you sure you meant this?",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 68
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229ca844_2d201909",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "handle your error codes, even if it\u0027s just logging.  Keep in mind, you will need to handle the operation canceled case explicitly here.",
+      "range": {
+        "startLine": 382,
+        "startChar": 59,
+        "endLine": 382,
+        "endChar": 69
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c53c16_d3b5268c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "Still a blocking resolve call, and resolve call is still not retried.",
+      "range": {
+        "startLine": 445,
+        "startChar": 28,
+        "endLine": 445,
+        "endChar": 35
       },
       "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
