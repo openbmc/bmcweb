@@ -480,6 +480,30 @@
     },
     {
       "key": {
+        "uuid": "003e31e7_6afbad96",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "No, my suggestion was to drop tcp_stream, and JUST use the timer class for managing timeouts.  This isn\u0027t a huge deal though.  If you want to use 2 timers, go right ahead.",
+      "parentUuid": "0adcf62a_82772344",
+      "range": {
+        "startLine": 251,
+        "startChar": 18,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed90cef_98612c85",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -640,6 +664,24 @@
       "side": 1,
       "message": "I will implement keepalive as separate commit.",
       "parentUuid": "202b992c_0ea04ea1",
+      "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b352ca9d_297914b8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:36:26Z",
+      "side": 1,
+      "message": "Great.  Please consider it a dependency before this commit goes on master, because as written this patch is very likely to consume all the bmc CPU resources.",
+      "parentUuid": "86c2cc43_db9a7110",
       "revId": "70973aec42a783ccd3ff17d29a447f7bec80f67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
