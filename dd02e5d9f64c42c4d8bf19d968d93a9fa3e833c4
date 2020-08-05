@@ -117,6 +117,23 @@
     },
     {
       "key": {
+        "uuid": "b3dba950_d6338632",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:44:29Z",
+      "side": 1,
+      "message": "This is the only place this parameter is used.  Could you instead remove the parameter and simply do it in the constructor?",
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "926f9cc3_655d55f9",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -319,6 +336,23 @@
         "endLine": 154,
         "endChar": 41
       },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbaf8042_cb284f00",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-05T16:44:29Z",
+      "side": 1,
+      "message": "You need to set some default headers on your request.  Content type comes to mind as the first one, but I\u0027m sure there are others.",
       "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
