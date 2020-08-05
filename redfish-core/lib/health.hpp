@@ -41,10 +41,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     ~HealthPopulate()
     {
         nlohmann::json& health = jsonStatus["Health"];
-        nlohmann::json& rollup = jsonStatus["HealthRollup"];
 
         health = "OK";
-        rollup = "OK";
 
         for (const std::shared_ptr<HealthPopulate>& healthChild : children)
         {
@@ -119,21 +117,15 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 boost::ends_with(path.str, "critical"))
             {
                 health = "Critical";
-                rollup = "Critical";
                 return;
             }
             else if (boost::starts_with(path.str, globalInventoryPath) &&
                      boost::ends_with(path.str, "warning"))
             {
                 health = "Warning";
-                if (rollup != "Critical")
-                {
-                    rollup = "Warning";
-                }
             }
             else if (boost::ends_with(path.str, "critical"))
             {
-                rollup = "Critical";
                 if (isSelf)
                 {
                     health = "Critical";
@@ -142,11 +134,6 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             }
             else if (boost::ends_with(path.str, "warning"))
             {
-                if (rollup != "Critical")
-                {
-                    rollup = "Warning";
-                }
-
                 if (isSelf)
                 {
                     health = "Warning";

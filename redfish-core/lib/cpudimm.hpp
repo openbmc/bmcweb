@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "led.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <boost/format.hpp>
@@ -217,8 +218,14 @@ inline void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
 
             std::string corePath = objPath + "/core";
             size_t totalCores = 0;
+            bool isHealthRollUp = true;
             for (const auto& object : dbusData)
             {
+                if (getHealthRollUp(object.first.str) == "Critical")
+                {
+                    isHealthRollUp = false;
+                }
+
                 if (object.first.str == objPath)
                 {
                     getCpuDataByInterface(aResp, object.second);
@@ -259,6 +266,9 @@ inline void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                 aResp->res.jsonValue["Status"]["Health"] = "OK";
             }
             aResp->res.jsonValue["TotalCores"] = totalCores;
+            aResp->res.jsonValue["Status"]["HealthRollup"] =
+                isHealthRollUp ? "OK" : "Critical";
+
             return;
         },
         service, "/xyz/openbmc_project/inventory",
@@ -700,14 +710,11 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                           const std::string& dimmId, const std::string& service,
                           const std::string& objPath)
 {
-    auto health = std::make_shared<HealthPopulate>(aResp);
-    health->selfPath = objPath;
-    health->populate();
-
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [dimmId, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                          const DimmProperties& properties) {
+        [dimmId, aResp{std::move(aResp)},
+         objPath](const boost::system::error_code ec,
+                  const DimmProperties& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -742,6 +749,8 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
             }
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["HealthRollup"] =
+                getHealthRollUp(objPath);
 
             for (const auto& property : properties)
             {

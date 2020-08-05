@@ -152,4 +152,58 @@ inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Led.Group", "Asserted",
         std::variant<bool>(ledBlinkng));
 }
+
+/**
+ * @brief Get health rollup value
+ *
+ * @param[in] objPath  The path of the D-Bus object
+ *
+ * @return it is Critical if asserted is true, else it is OK.
+ */
+std::string getHealthRollUp(const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get health-rollup";
+
+    std::string healthRollUp = "OK";
+    std::string faultGroupPath = objPath + "/fault_led_group";
+
+    static auto bus = sdbusplus::bus::new_default();
+    try
+    {
+        auto method = bus.new_method_call(
+            "xyz.openbmc_project.ObjectMapper", faultGroupPath.c_str(),
+            "org.freedesktop.DBus.Properties", "Get");
+        method.append("xyz.openbmc_project.Association", "endpoints");
+
+        std::variant<std::vector<std::string>> value;
+        auto respMsg = bus.call(method);
+        respMsg.read(value);
+
+        std::vector<std::string> ledGroups =
+            std::get<std::vector<std::string>>(value);
+
+        for (auto& ledGroup : ledGroups)
+        {
+            auto method = bus.new_method_call(
+                "xyz.openbmc_project.LED.GroupManager", ledGroup.c_str(),
+                "org.freedesktop.DBus.Properties", "Get");
+            method.append("xyz.openbmc_project.Led.Group", "Asserted");
+
+            std::variant<bool> value;
+            auto respMsg = bus.call(method);
+            respMsg.read(value);
+            bool asserted = std::get<bool>(value);
+
+            healthRollUp = asserted ? "Critical" : "OK";
+
+            break;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    return healthRollUp;
+}
 } // namespace redfish
