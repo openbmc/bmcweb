@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44b651d8_428d50b2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-05T14:44:25Z",
+      "side": 1,
+      "message": "Please, remove redundant new line signs from here and on line 324. Thanks in advance",
+      "range": {
+        "startLine": 140,
+        "startChar": 62,
+        "endLine": 140,
+        "endChar": 65
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
