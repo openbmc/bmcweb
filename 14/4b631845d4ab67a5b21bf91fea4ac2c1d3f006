@@ -1,0 +1,10 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Suryakanth Sekar <suryakanth.sekar@linux.intel.com>
+Code-Review+1: Johnathan Mantey <johnathanx.mantey@intel.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: AppaRao Puli <apparao.puli@linux.intel.com>
+Submitted-at: Thu, 06 Aug 2020 03:14:35 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35286
+Project: openbmc/bmcweb
+Branch: refs/heads/master
