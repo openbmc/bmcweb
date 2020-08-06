@@ -30,6 +30,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
     if (resp == nullptr)
     {
+        free(pass);
         return PAM_AUTH_ERR;
     }
 
