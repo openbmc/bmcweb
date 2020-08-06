@@ -34,6 +34,24 @@
       "revId": "c87435f635ba181809511608901ea41166d4056f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438a024b_e474d613",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-08-06T14:25:03Z",
+      "side": 1,
+      "message": "It looks like you agree enable is a better verb choice than allow.  \n\nMy first line was pointing out this is about using HTTP not HTTPS\n\nThe discussion on what I think this is about was the second paragraph.\n\nand then suggested the verb should be enable vs allow, but didn\u0027t clearly state what the alternative was against.\n\nAlso I\u0027ll point out this is the Headline / Commit subject\nso should be 1 line fitting within 50 characters.",
+      "parentUuid": "3ecf24b0_8fe54c22",
+      "revId": "c87435f635ba181809511608901ea41166d4056f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
