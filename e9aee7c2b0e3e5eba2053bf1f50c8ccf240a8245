@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c74cfebd_8f466f94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-08-06T12:10:18Z",
+      "side": 1,
+      "message": "How does the client subscribe for this event?\nHow the payload look like?\nsome eg data woyuld be good.",
+      "revId": "e9aee7c2b0e3e5eba2053bf1f50c8ccf240a8245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c245c8_00e2488c",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-08-06T12:10:18Z",
+      "side": 1,
+      "message": "unnecessary.",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "e9aee7c2b0e3e5eba2053bf1f50c8ccf240a8245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f168e5_60907c27",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-08-06T12:10:18Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 49
+      },
+      "revId": "e9aee7c2b0e3e5eba2053bf1f50c8ccf240a8245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef241688_0b7a02da",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-08-06T12:10:18Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "e9aee7c2b0e3e5eba2053bf1f50c8ccf240a8245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27960b9a_5e5574c8",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-08-06T12:10:18Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 5
+      },
+      "revId": "e9aee7c2b0e3e5eba2053bf1f50c8ccf240a8245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
