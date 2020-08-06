@@ -52,6 +52,24 @@
       "revId": "c87435f635ba181809511608901ea41166d4056f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f4cb386_1ec74b40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-06T16:05:55Z",
+      "side": 1,
+      "message": "Ah, I think I understand now.  I\u0027ll attempt to reword with your suggestions.",
+      "parentUuid": "438a024b_e474d613",
+      "revId": "c87435f635ba181809511608901ea41166d4056f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
