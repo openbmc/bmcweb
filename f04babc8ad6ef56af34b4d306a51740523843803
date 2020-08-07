@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4014fb86_3efe63c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-08-07T02:05:53Z",
+      "side": 1,
+      "message": "This sounds great, but RFC6769 7.2 says otherwise:\n\nAn HSTS Host MUST NOT include the STS header field in HTTP responses\n   conveyed over non-secure transport.",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af16fa33_13374b90",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-08-07T02:05:53Z",
+      "side": 1,
+      "message": "One thought I had to emphasize the point:\n\nIf we detect the session auth over HTTP revoke the session.\n\nSomething to talk about, probably a separate patch.",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e2c423_d1ae01e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-08-07T02:05:53Z",
+      "side": 1,
+      "message": "I understand this is WIP and allowing all content via HTTP is an effective tatical choice.\n\nI don\u0027t see any actual redirect.  I\u0027m guessing this is coming later.\nNote that Redfish requires a redirect to validate the validity of the redirect target, probably to combat open relays.\n\nDo you plan to allow the redfish metadata over HTTP as Redfish allows (but doesn\u0027t require)?",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
