@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "bf0d968e_ee5a2dce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-08-07T17:52:23Z",
+      "side": 1,
+      "message": "The client is required to ignore the header when insecure as any MITM can trivally DOS (just pin the wrong credential for unreasonably long expire).",
+      "parentUuid": "d5516725_74b8186d",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af16fa33_13374b90",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
