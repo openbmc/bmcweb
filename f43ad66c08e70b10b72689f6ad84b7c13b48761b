@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60ad06e4_4db20ca4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:56:51Z",
+      "side": 1,
+      "message": "?  Pretty sure this is wrong?  Also, you might want to put it on line 159 so the user can override it if they want.",
+      "range": {
+        "startLine": 165,
+        "startChar": 58,
+        "endLine": 165,
+        "endChar": 68
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f6b2a28_0c880887",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:56:51Z",
+      "side": 1,
+      "message": "TODO needs implemented before merge.",
+      "range": {
+        "startLine": 220,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82853aae_448186aa",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:56:51Z",
+      "side": 1,
+      "message": "Is this needed?  Shouldnt\u0027 you just reset the parser?\n\nself-\u003eparser.reset()",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "507d73b0_2af93a30",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:56:51Z",
+      "side": 1,
+      "message": "Still needed.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685dcd0c_622407da",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:56:51Z",
+      "side": 1,
+      "message": "For SSL and eventservice, this is unacceptable.  Not only can it DOS the BMC, and can DOS the server on the other end.",
+      "range": {
+        "startLine": 238,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "305c4dfc_31ffb19c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:56:51Z",
+      "side": 1,
+      "message": "Adding todos doesn\u0027t get it done.",
+      "range": {
+        "startLine": 440,
+        "startChar": 11,
+        "endLine": 440,
+        "endChar": 15
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
