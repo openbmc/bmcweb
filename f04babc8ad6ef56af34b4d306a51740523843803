@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "7bac8ebf_966e0c5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-07T23:41:17Z",
+      "side": 1,
+      "message": "Excellent point.  Like I said, the current patch should be fixed now.",
+      "parentUuid": "bf0d968e_ee5a2dce",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af16fa33_13374b90",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
