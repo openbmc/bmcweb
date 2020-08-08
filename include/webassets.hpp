@@ -1,7 +1,5 @@
 #pragma once
 
-#include "webroutes.hpp"
-
 #include <app.h>
 #include <http_request.h>
 #include <http_response.h>
@@ -63,6 +61,8 @@ inline void requestRoutes(App& app)
         std::filesystem::begin(dirIter), std::filesystem::end(dirIter));
     std::sort(paths.rbegin(), paths.rend());
 
+    boost::container::flat_set<std::string> routes;
+
     for (const std::filesystem::directory_entry& dir : paths)
     {
         std::filesystem::path absolutePath = dir.path();
@@ -98,13 +98,13 @@ inline void requestRoutes(App& app)
                     webpath.string().back() != '/')
                 {
                     // insert the non-directory version of this path
-                    webroutes::routes.insert(webpath);
+                    routes.insert(webpath);
                     webpath += "/";
                 }
             }
 
             std::pair<boost::container::flat_set<std::string>::iterator, bool>
-                inserted = webroutes::routes.insert(webpath);
+                inserted = routes.insert(webpath);
 
             if (!inserted.second)
             {
