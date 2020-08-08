@@ -146,16 +146,39 @@ inline void requestRoutes(App& app)
 
                     if (looksLikePhosphorRest)
                     {
-                        // Phosphor-Rest requires a very specific login
-                        // structure, and doesn't actually look at the status
-                        // code.
-                        // TODO(ed).... Fix that upstream
-                        res.jsonValue = {
-                            {"data",
-                             "User '" + std::string(username) + "' logged in"},
-                            {"message", "200 OK"},
-                            {"status", "ok"}};
+                        auto nextUrl = req.urlParams.find("next");
+                        if (nextUrl != req.urlParams.end() &&
+                            http_helpers::requestPrefersHtml(req))
+                        {
+                            BMCWEB_LOG_INFO << "Found next url of "
+                                            << nextUrl->value();
+                            res.result(
+                                boost::beast::http::status::moved_permanently);
 
+                            if (nextUrl->value().find(":") != std::string::npos)
+                            {
+                                res.addHeader(
+                                    boost::beast::http::field::location,
+                                    nextUrl->value());
+                            }
+                            else
+                            {
+                                res.addHeader(
+                                    boost::beast::http::field::location, "/");
+                            }
+                        }
+                        else
+                        {
+                            // Phosphor-Rest requires a very specific login
+                            // structure, and doesn't actually look at the
+                            // status code.
+                            // TODO(ed).... Fix that upstream
+                            res.jsonValue = {
+                                {"data", "User '" + std::string(username) +
+                                             "' logged in"},
+                                {"message", "200 OK"},
+                                {"status", "ok"}};
+                        }
                         // Hack alert.  Boost beast by default doesn't let you
                         // declare multiple headers of the same name, and in
                         // most cases this is fine.  Unfortunately here we need
@@ -170,7 +193,8 @@ inline void requestRoutes(App& app)
                                       "XSRF-TOKEN=" + session->csrfToken +
                                           "; Secure\r\nSet-Cookie: SESSION=" +
                                           session->sessionToken +
-                                          "; Secure; HttpOnly");
+                                          "; Secure; HttpOnly\r\nSet-Cookie: "
+                                          "IsAuthenticated=true; Secure");
                     }
                     else
                     {
