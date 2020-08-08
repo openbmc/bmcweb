@@ -452,20 +452,16 @@ class Connection :
             return;
         }
 
-        BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
-
-        res.completeRequestHandler = [] {};
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
         req->ioService = static_cast<boost::asio::io_context*>(
             &socket().get_executor().context());
 
-        res.completeRequestHandler = [self(shared_from_this())] {
-            self->completeRequest();
-        };
+        BMCWEB_LOG_INFO << "Request: "
+                        << " " << this << " HTTP/" << req->version() / 10 << "."
+                        << req->version() % 10 << ' ' << req->methodString()
+                        << " " << req->target();
+
         if (req->isUpgrade() &&
             boost::iequals(
                 req->getHeaderValue(boost::beast::http::field::upgrade),
@@ -633,30 +629,32 @@ class Connection :
             {
                 req->urlView = boost::urls::url_view(req->target());
                 req->url = req->urlView.encoded_path();
+                req->urlParams = req->urlView.params();
             }
             catch (std::exception& p)
             {
                 BMCWEB_LOG_ERROR << p.what();
             }
 
-            crow::authorization::authenticate(*req, res, session);
-
+#ifdef BMCWEB_ENABLE_LOGGING
+            std::string paramList = "";
+            for (const auto param : req->urlParams)
+            {
+                paramList += param->key() + " " + param->value() + " ";
+            }
+            BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
+#endif
+            // Don't even attempt to log in users that aren't on SSL.
+            if (std::holds_alternative<boost::beast::ssl_stream<Adaptor>>(
+                    adaptor))
+            {
+                crow::authorization::authenticate(*req, res, session);
+            }
             bool loggedIn = req->session != nullptr;
             if (loggedIn)
             {
                 startDeadline(loggedInAttempts);
                 BMCWEB_LOG_DEBUG << "Starting slow deadline";
-
-                req->urlParams = req->urlView.params();
-
-#ifdef BMCWEB_ENABLE_DEBUG
-                std::string paramList = "";
-                for (const auto param : req->urlParams)
-                {
-                    paramList += param->key() + " " + param->value() + " ";
-                }
-                BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
-#endif
             }
             else
             {
