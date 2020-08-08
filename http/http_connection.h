@@ -367,6 +367,13 @@ class Connection :
     {
         cancelDeadlineTimer();
 
+        // if someone else (probably authentication) already completed the
+        // response while still in the headers phase, send it now
+        if (res.completed)
+        {
+            completeRequest();
+        }
+
         // Check for HTTP version 1.1.
         if (req->version() == 11)
         {
@@ -405,20 +412,16 @@ class Connection :
             return;
         }
 
-        BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
-
-        res.completeRequestHandler = [] {};
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
         req->ioService = static_cast<decltype(req->ioService)>(
             &adaptor.get_executor().context());
 
-        res.completeRequestHandler = [self(shared_from_this())] {
-            self->completeRequest();
-        };
+        BMCWEB_LOG_INFO << "Request: "
+                        << " " << this << " HTTP/" << req->version() / 10 << "."
+                        << req->version() % 10 << ' ' << req->methodString()
+                        << " " << req->target();
+
         if (req->isUpgrade() &&
             boost::iequals(
                 req->getHeaderValue(boost::beast::http::field::upgrade),
@@ -426,11 +429,13 @@ class Connection :
         {
             handler->template handleUpgrade<Adaptor>(
                 *req, res, std::move(adaptor), std::move(sslStream));
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            res.completeRequestHandler = nullptr;
             return;
         }
+
+        res.completeRequestHandler = [self(shared_from_this())] {
+            self->completeRequest();
+        };
+
         handler->handle(*req, res);
     }
 
@@ -572,30 +577,31 @@ class Connection :
             {
                 req->urlView = boost::urls::url_view(req->target());
                 req->url = req->urlView.encoded_path();
+                req->urlParams = req->urlView.params();
             }
             catch (std::exception& p)
             {
                 BMCWEB_LOG_ERROR << p.what();
             }
 
-            crow::authorization::authenticate(*req, res, session);
-
+#ifdef BMCWEB_ENABLE_LOGGING
+            std::string paramList = "";
+            for (const auto param : req->urlParams)
+            {
+                paramList += param->key() + " " + param->value() + " ";
+            }
+            BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
+#endif
+            // Don't even attempt to log in users that aren't on SSL.
+            if (sslStream)
+            {
+                crow::authorization::authenticate(*req, res, session);
+            }
             bool loggedIn = req && req->session;
             if (loggedIn)
             {
                 startDeadline(loggedInAttempts);
                 BMCWEB_LOG_DEBUG << "Starting slow deadline";
-
-                req->urlParams = req->urlView.params();
-
-#ifdef BMCWEB_ENABLE_DEBUG
-                std::string paramList = "";
-                for (const auto param : req->urlParams)
-                {
-                    paramList += param->key() + " " + param->value() + " ";
-                }
-                BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
-#endif
             }
             else
             {

@@ -101,7 +101,11 @@ option (
     '/ibm/v1/'."
     OFF
 )
-
+option (
+    BMCWEB_ENABLE_LOGIN_PAGE
+    "Enable bmcwebs html login page"
+    ON
+)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -137,6 +141,13 @@ option (
     BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
     "Enable HTTP push style eventing feature" OFF
 )
+
+option (
+    BMCWEB_INSECURE_UNAUTHENTICATED_JAVASCRIPT
+    "Enables all static files to be allowed without authentication.  This
+    increases the ability for the bmc to be fingerprinted, but allows
+    javascript, and large payloads to be downloaded without authentication"
+    OFF)
 
 option (
     BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE
@@ -415,6 +426,18 @@ if (NOT ${YOCTO_DEPENDENCIES})
     add_test (webtest webtest "--gtest_output=xml:webtest.xml")
 
 endif (NOT ${YOCTO_DEPENDENCIES})
+
+if (BMCWEB_ENABLE_LOGIN_PAGE)
+    install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/login/ DESTINATION share/www/login)
+endif()
+
+if (BMCWEB_ENABLE_REDFISH)
+    install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/redfish/ DESTINATION share/www/redfish)
+    install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/styles/ DESTINATION share/www/styles)
+    install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/static/redfish.js DESTINATION share/www/redfish.js)
+    install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/static/DMTF_Redfish_logo_2017.svg DESTINATION share/www/DMTF_Redfish_logo_2017.svg)
+    install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/static/highlight.pack.js DESTINATION share/www/highlight.pack.js)
+endif()
 
 install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
 
