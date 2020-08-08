@@ -206,17 +206,34 @@ static bool isOnWhitelist(const crow::Request& req)
     // it's allowed to GET root node without authentication
     if (boost::beast::http::verb::get == req.method())
     {
+#ifdef BMCWEB_ENABLE_REDFISH
         if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
-            req.url == "/redfish" || req.url == "/redfish/" ||
-            req.url == "/redfish/v1/odata" || req.url == "/redfish/v1/odata/")
+            req.url == "/redfish" || req.url == "/redfish/")
         {
             return true;
         }
-        else if (crow::webroutes::routes.find(std::string(req.url)) !=
-                 crow::webroutes::routes.end())
+
+        if (boost::starts_with(req.url, "/redfish/v1/odata"))
         {
             return true;
         }
+#endif
+
+#ifdef BMCWEB_ENABLE_LOGIN_PAGE
+        if (req.url == "/login" || req.url == "/login/login.css" ||
+            req.url == "/login/logo.svg" || req.url == "/favicon.ico")
+        {
+            return true;
+        }
+#endif
+
+#ifdef BMCWEB_INSECURE_ALLOW_UNAUTHENTICATED_JAVASCRIPT
+        if (crow::webroutes::routes.find(std::string(req.url)) !=
+            crow::webroutes::routes.end())
+        {
+            return true;
+        }
+#endif
     }
 
     // it's allowed to POST on session collection & login without
@@ -239,6 +256,7 @@ static void authenticate(crow::Request& req, Response& res,
 {
     if (isOnWhitelist(req))
     {
+        BMCWEB_LOG_DEBUG << req.target() << "Is on whitelist.  Ignoring auth";
         return;
     }
 
@@ -284,9 +302,10 @@ static void authenticate(crow::Request& req, Response& res,
         // header, to avoid possible CSRF attacks with basic auth
         if (http_helpers::requestPrefersHtml(req))
         {
+            std::string url = "/login?next=" + http_helpers::urlEncode(req.url);
+            BMCWEB_LOG_INFO << "Redirecting to " << url;
             res.result(boost::beast::http::status::temporary_redirect);
-            res.addHeader("Location",
-                          "/#/login?next=" + http_helpers::urlEncode(req.url));
+            res.addHeader("Location", url);
         }
         else
         {
@@ -299,7 +318,6 @@ static void authenticate(crow::Request& req, Response& res,
             }
         }
 
-        res.end();
         return;
     }
 }
