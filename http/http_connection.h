@@ -321,14 +321,20 @@ class Connection :
         req->ipAddress =
             boost::beast::get_lowest_layer(adaptor).remote_endpoint().address();
 
+        res.isAliveHelper = [this]() -> bool { return isAlive(); };
+
+        req->ioService = static_cast<boost::asio::io_context*>(
+            &socket().get_executor().context());
+
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()
                         << " " << req->target();
 
-        needToCallAfterHandlers = false;
-
-        if (!isInvalidRequest)
+        if (req->isUpgrade() &&
+            boost::iequals(
+                req->getHeaderValue(boost::beast::http::field::upgrade),
+                "websocket"))
         {
             res.completeRequestHandler = [] {};
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
@@ -476,257 +482,253 @@ class Connection :
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytes_transferred) {
-                BMCWEB_LOG_ERROR << this << " async_read_header "
-                                 << bytes_transferred << " Bytes";
-                bool errorWhileReading = false;
-                if (ec)
+            BMCWEB_LOG_ERROR << this << " async_read_header "
+                             << bytes_transferred << " Bytes";
+            bool errorWhileReading = false;
+            if (ec)
+            {
+                errorWhileReading = true;
+                BMCWEB_LOG_ERROR << this
+                                 << " Error while reading: " << ec.message();
+            }
+            else
+            {
+                // if the adaptor isn't open anymore, and wasn't handed to a
+                // websocket, treat as an error
+                if (!isAlive() && !req->isUpgrade())
                 {
                     errorWhileReading = true;
-                    BMCWEB_LOG_ERROR
-                        << this << " Error while reading: " << ec.message();
                 }
-                else
-                {
-                    // if the adaptor isn't open anymore, and wasn't handed to a
-                    // websocket, treat as an error
-                    if (!isAlive() && !req->isUpgrade())
-                    {
-                        errorWhileReading = true;
-                    }
-                }
+            }
 
-                cancelDeadlineTimer();
+            cancelDeadlineTimer();
 
-                if (errorWhileReading)
-                {
-                    close();
-                    BMCWEB_LOG_DEBUG << this << " from read(1)";
-                    return;
-                }
+            if (errorWhileReading)
+            {
+                close();
+                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                return;
+            }
 
-                if (!req)
-                {
-                    close();
-                    return;
-                }
+            try
+            {
+                req->urlView = boost::urls::url_view(req->target());
+                req->url = req->urlView.encoded_path();
+                req->urlParams = req->urlView.params();
+            }
+            catch (std::exception& p)
+            {
+                BMCWEB_LOG_ERROR << p.what();
+            }
 
-                // Note, despite the bmcweb coding policy on use of exceptions
-                // for error handling, this one particular use of exceptions is
-                // deemed acceptible, as it solved a significant error handling
-                // problem that resulted in seg faults, the exact thing that the
-                // exceptions rule is trying to avoid. If at some point,
-                // boost::urls makes the parser object public (or we port it
-                // into bmcweb locally) this will be replaced with
-                // parser::parse, which returns a status code
-
-                try
-                {
-                    req->urlView = boost::urls::url_view(req->target());
-                    req->url = req->urlView.encoded_path();
-                }
-                catch (std::exception& p)
-                {
-                    BMCWEB_LOG_ERROR << p.what();
-                }
-
-                crow::authorization::authenticate(*req, res, session);
-
-                bool loggedIn = req && req->session;
-                if (loggedIn)
-                {
-                    startDeadline(loggedInAttempts);
-                    BMCWEB_LOG_DEBUG << "Starting slow deadline";
-
-                    req->urlParams = req->urlView.params();
-
-#ifdef BMCWEB_ENABLE_DEBUG
-                    std::string paramList = "";
-                    for (const auto param : req->urlParams)
-                    {
-                        paramList += param->key() + " " + param->value() + " ";
-                    }
-                    BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
+#ifdef BMCWEB_ENABLE_LOGGING
+            std::string paramList = "";
+            for (const auto param : req->urlParams)
+            {
+                paramList += param->key() + " " + param->value() + " ";
+            }
+            BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
 #endif
-                }
-                else
+            // Don't even attempt to log in users that aren't on SSL.
+            if (std::holds_alternative<boost::beast::ssl_stream<Adaptor>>(
+                    adaptor))
+            {
+                crow::authorization::authenticate(*req, res, session);
+            }
+            bool loggedIn = req->session != nullptr;
+            if (loggedIn)
+            {
+                startDeadline(loggedInAttempts);
+                BMCWEB_LOG_DEBUG << "Starting slow deadline";
+            }
+            else
+            {
+                const boost::optional<uint64_t> contentLength =
+                    parser->content_length();
+                if (contentLength && *contentLength > loggedOutPostBodyLimit)
                 {
-                    const boost::optional<uint64_t> contentLength =
-                        parser->content_length();
-                    if (contentLength &&
-                        *contentLength > loggedOutPostBodyLimit)
-                    {
-                        BMCWEB_LOG_DEBUG << "Content length greater than limit "
-                                         << *contentLength;
-                        close();
-                        return;
-                    }
-
-                    startDeadline(loggedOutAttempts);
-                    BMCWEB_LOG_DEBUG << "Starting quick deadline";
+                    BMCWEB_LOG_DEBUG << "Content length greater than limit "
+                                     << *contentLength;
+                    close();
+                    return;
                 }
+                const boost::optional<uint64_t> contentLength =
+                    parser->content_length();
+                if (contentLength && *contentLength > loggedOutPostBodyLimit)
+                {
+                    BMCWEB_LOG_DEBUG << "Content length greater than limit "
+                                     << *contentLength;
+                    close();
+                    return;
+                }
+
+                startDeadline(loggedOutAttempts);
+                BMCWEB_LOG_DEBUG << "Starting quick deadline";
                 doRead();
             });
     }
 
     void doRead()
     {
-        BMCWEB_LOG_DEBUG << this << " doRead";
+            BMCWEB_LOG_DEBUG << this << " doRead";
 
-        boost::beast::http::async_read(
-            adaptor, buffer, *parser,
-            [this,
-             self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytes_transferred) {
-                BMCWEB_LOG_DEBUG << this << " async_read " << bytes_transferred
-                                 << " Bytes";
+            boost::beast::http::async_read(
+                adaptor, buffer, *parser,
+                [this,
+                 self(shared_from_this())](const boost::system::error_code& ec,
+                                           std::size_t bytes_transferred) {
+                    BMCWEB_LOG_DEBUG << this << " async_read "
+                                     << bytes_transferred << " Bytes";
 
-                bool errorWhileReading = false;
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR
-                        << this << " Error while reading: " << ec.message();
-                    errorWhileReading = true;
-                }
-                else
-                {
-                    if (isAlive())
+                    bool errorWhileReading = false;
+                    if (ec)
                     {
-                        cancelDeadlineTimer();
-                        bool loggedIn = req && req->session;
-                        if (loggedIn)
-                        {
-                            startDeadline(loggedInAttempts);
-                        }
-                        else
-                        {
-                            startDeadline(loggedOutAttempts);
-                        }
+                        BMCWEB_LOG_ERROR
+                            << this << " Error while reading: " << ec.message();
+                        errorWhileReading = true;
                     }
                     else
                     {
-                        errorWhileReading = true;
+                        if (isAlive())
+                        {
+                            cancelDeadlineTimer();
+                            bool loggedIn = req && req->session;
+                            if (loggedIn)
+                            {
+                                startDeadline(loggedInAttempts);
+                            }
+                            else
+                            {
+                                startDeadline(loggedOutAttempts);
+                            }
+                        }
+                        else
+                        {
+                            errorWhileReading = true;
+                        }
                     }
-                }
-                if (errorWhileReading)
-                {
-                    cancelDeadlineTimer();
-                    close();
-                    BMCWEB_LOG_DEBUG << this << " from read(1)";
-                    return;
-                }
-                handle();
-            });
+                    if (errorWhileReading)
+                    {
+                        cancelDeadlineTimer();
+                        close();
+                        BMCWEB_LOG_DEBUG << this << " from read(1)";
+                        return;
+                    }
+                    handle();
+                });
     }
 
     void doWrite()
     {
-        bool loggedIn = req && req->session;
-        if (loggedIn)
-        {
-            startDeadline(loggedInAttempts);
-        }
-        else
-        {
-            startDeadline(loggedOutAttempts);
-        }
-        BMCWEB_LOG_DEBUG << this << " doWrite";
-        res.preparePayload();
-        serializer.emplace(*res.stringResponse);
-        boost::beast::http::async_write(
-            adaptor, *serializer,
-            [this,
-             self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytes_transferred) {
-                BMCWEB_LOG_DEBUG << this << " async_write " << bytes_transferred
-                                 << " bytes";
+            bool loggedIn = req && req->session;
+            if (loggedIn)
+            {
+                startDeadline(loggedInAttempts);
+            }
+            else
+            {
+                startDeadline(loggedOutAttempts);
+            }
+            BMCWEB_LOG_DEBUG << this << " doWrite";
+            res.preparePayload();
+            serializer.emplace(*res.stringResponse);
+            boost::beast::http::async_write(
+                adaptor, *serializer,
+                [this,
+                 self(shared_from_this())](const boost::system::error_code& ec,
+                                           std::size_t bytes_transferred) {
+                    BMCWEB_LOG_DEBUG << this << " async_write "
+                                     << bytes_transferred << " bytes";
 
-                cancelDeadlineTimer();
+                    cancelDeadlineTimer();
 
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << this << " from write(2)";
-                    return;
-                }
-                if (!res.keepAlive())
-                {
-                    close();
-                    BMCWEB_LOG_DEBUG << this << " from write(1)";
-                    return;
-                }
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << this << " from write(2)";
+                        return;
+                    }
+                    if (!res.keepAlive())
+                    {
+                        close();
+                        BMCWEB_LOG_DEBUG << this << " from write(1)";
+                        return;
+                    }
 
-                serializer.reset();
-                BMCWEB_LOG_DEBUG << this << " Clearing response";
-                res.clear();
-                parser.emplace(std::piecewise_construct, std::make_tuple());
-                parser->body_limit(httpReqBodyLimit); // reset body limit for
-                                                      // newly created parser
-                buffer.consume(buffer.size());
+                    serializer.reset();
+                    BMCWEB_LOG_DEBUG << this << " Clearing response";
+                    res.clear();
+                    parser.emplace(std::piecewise_construct, std::make_tuple());
+                    parser->body_limit(
+                        httpReqBodyLimit); // reset body limit for
+                                           // newly created parser
+                    buffer.consume(buffer.size());
 
-                req.emplace(parser->get());
-                doReadHeaders();
-            });
+                    req.emplace(parser->get());
+                    doReadHeaders();
+                });
     }
 
     void cancelDeadlineTimer()
     {
-        if (timerCancelKey)
-        {
-            BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue
-                             << ' ' << *timerCancelKey;
-            timerQueue.cancel(*timerCancelKey);
-            timerCancelKey.reset();
-        }
+            if (timerCancelKey)
+            {
+                BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue
+                                 << ' ' << *timerCancelKey;
+                timerQueue.cancel(*timerCancelKey);
+                timerCancelKey.reset();
+            }
     }
 
     void startDeadline(size_t timerIterations)
     {
-        cancelDeadlineTimer();
+            cancelDeadlineTimer();
 
-        if (timerIterations)
-        {
-            timerIterations--;
-        }
+            if (timerIterations)
+            {
+                timerIterations--;
+            }
 
-        timerCancelKey =
-            timerQueue.add([self(shared_from_this()), timerIterations,
-                            readCount{parser->get().body().size()}] {
-                // Mark timer as not active to avoid canceling it during
-                // Connection destructor which leads to double free issue
-                self->timerCancelKey.reset();
-                if (!self->isAlive())
-                {
-                    return;
-                }
+            timerCancelKey =
+                timerQueue.add([self(shared_from_this()), timerIterations,
+                                readCount{parser->get().body().size()}] {
+                    // Mark timer as not active to avoid canceling it during
+                    // Connection destructor which leads to double free issue
+                    self->timerCancelKey.reset();
+                    if (!self->isAlive())
+                    {
+                        return;
+                    }
 
-                bool loggedIn = self->req && self->req->session;
-                // allow slow uploads for logged in users
-                if (loggedIn && self->parser->get().body().size() > readCount)
-                {
-                    BMCWEB_LOG_DEBUG << self.get()
-                                     << " restart timer - read in progress";
-                    self->startDeadline(timerIterations);
-                    return;
-                }
+                    bool loggedIn = self->req && self->req->session;
+                    // allow slow uploads for logged in users
+                    if (loggedIn &&
+                        self->parser->get().body().size() > readCount)
+                    {
+                        BMCWEB_LOG_DEBUG << self.get()
+                                         << " restart timer - read in progress";
+                        self->startDeadline(timerIterations);
+                        return;
+                    }
 
-                // Threshold can be used to drop slow connections
-                // to protect against slow-rate DoS attack
-                if (timerIterations)
-                {
-                    BMCWEB_LOG_DEBUG << self.get() << " restart timer";
-                    self->startDeadline(timerIterations);
-                    return;
-                }
+                    // Threshold can be used to drop slow connections
+                    // to protect against slow-rate DoS attack
+                    if (timerIterations)
+                    {
+                        BMCWEB_LOG_DEBUG << self.get() << " restart timer";
+                        self->startDeadline(timerIterations);
+                        return;
+                    }
 
-                self->close();
-            });
+                    self->close();
+                });
 
-        if (!timerCancelKey)
-        {
-            close();
-            return;
-        }
-        BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
-                         << *timerCancelKey;
+            if (!timerCancelKey)
+            {
+                close();
+                return;
+            }
+            BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
+                             << *timerCancelKey;
     }
 
   private:
@@ -760,5 +762,5 @@ class Connection :
 
     using std::enable_shared_from_this<
         Connection<Adaptor, Handler>>::shared_from_this;
-};
+    };
 } // namespace crow
