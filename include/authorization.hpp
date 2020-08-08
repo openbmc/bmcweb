@@ -1,7 +1,5 @@
 #pragma once
 
-#include "webroutes.hpp"
-
 #include <app.h>
 #include <common.h>
 #include <http_request.h>
@@ -208,12 +206,13 @@ static bool isOnWhitelist(const crow::Request& req)
     {
         if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
             req.url == "/redfish" || req.url == "/redfish/" ||
-            req.url == "/redfish/v1/odata" || req.url == "/redfish/v1/odata/")
+            req.url == "/login" || req.url == "/login/login.css" ||
+            req.url == "/login/logo.svg" || req.url == "/favicon.ico")
+        // TODO(ed) redfish static assets need allowed through, right?
         {
             return true;
         }
-        else if (crow::webroutes::routes.find(std::string(req.url)) !=
-                 crow::webroutes::routes.end())
+        if (boost::starts_with(req.url, "/redfish/v1/odata"))
         {
             return true;
         }
@@ -239,6 +238,7 @@ static void authenticate(crow::Request& req, Response& res,
 {
     if (isOnWhitelist(req))
     {
+        BMCWEB_LOG_DEBUG << req.target() << "Is on whitelist.  Ignoring auth";
         return;
     }
 
@@ -284,9 +284,10 @@ static void authenticate(crow::Request& req, Response& res,
         // header, to avoid possible CSRF attacks with basic auth
         if (http_helpers::requestPrefersHtml(req))
         {
+            std::string url = "/login?next=" + http_helpers::urlEncode(req.url);
+            BMCWEB_LOG_INFO << "Redirecting to " << url;
             res.result(boost::beast::http::status::temporary_redirect);
-            res.addHeader("Location",
-                          "/#/login?next=" + http_helpers::urlEncode(req.url));
+            res.addHeader("Location", url);
         }
         else
         {
@@ -299,7 +300,6 @@ static void authenticate(crow::Request& req, Response& res,
             }
         }
 
-        res.end();
         return;
     }
 }

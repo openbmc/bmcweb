@@ -127,9 +127,9 @@ struct Response
             return;
         }
         completed = true;
-        BMCWEB_LOG_DEBUG << "calling completion handler";
         if (completeRequestHandler)
         {
+            BMCWEB_LOG_DEBUG << "calling completion handler";
             BMCWEB_LOG_DEBUG << "completion handler was valid";
             completeRequestHandler();
         }
