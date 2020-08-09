@@ -33,6 +33,24 @@
       "revId": "118ff6a416af374a82671f036919c9baaea2941f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa012dbc_f34b1130",
+        "filename": "http/http_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-09T17:57:08Z",
+      "side": 1,
+      "message": "Are you sure you were authenticated?  This limits users to a small file size.  Can you include the bmcweb logs when you run your test?  Im betting it\u0027ll include something that\u0027ll help debug.\nNo, I have not tried large files.",
+      "parentUuid": "09599fcc_b17a47a5",
+      "revId": "118ff6a416af374a82671f036919c9baaea2941f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
