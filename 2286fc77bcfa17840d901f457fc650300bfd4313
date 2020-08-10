@@ -2,6 +2,125 @@
   "comments": [
     {
       "key": {
+        "uuid": "27d7bf02_aea60fbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "Settings? we tend to have the Id match the last node of the odata.id (redfishtool is just easier to use that way)",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d349aa55_14f16a0a",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "Can we use a similiar copyright to the OpenBMC registry ?",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3287c5a_52261d20",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "This really isn\u0027t defiend by DMTF right?",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afdb2458_90a190e4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "Why not match what is above BiosAttributeRegistry.1.0.0 ?",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6931693_929b2e76",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "Blast, we don\u0027t use anymore",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d573a52_42f5f3f2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "Why the version in the name?",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a81bad1_e9183c63",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "OpenBmc ?",
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d23a169_ea923ec2",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 19
@@ -66,6 +185,29 @@
         "startChar": 12,
         "endLine": 292,
         "endChar": 53
+      },
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afabbd13_ad587d70",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-10T18:59:09Z",
+      "side": 1,
+      "message": "Why not /redfish/v1/Registries/BiosAtrributes/BiosAtrributes like the other registries?\nE.g.\n      \"Uri\": \"/redfish/v1/Registries/OpenBMC/OpenBMC\"\n\nShould be Registries not RegistryStore forsure. Why do we need the version in the path? \nnitpick: maybe use the same name like the other registries? so BiosAtrribute/BiosAtrribute",
+      "range": {
+        "startLine": 134,
+        "startChar": 28,
+        "endLine": 135,
+        "endChar": 61
       },
       "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
