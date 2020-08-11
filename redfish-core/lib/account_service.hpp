@@ -1790,7 +1790,13 @@ class ManagerAccount : public Node
                               std::optional<bool> locked)
     {
         std::string dbusObjectPath = "/xyz/openbmc_project/user/" + username;
-        dbus::utility::escapePathForDbus(dbusObjectPath);
+        if (!dbus::utility::dbuspathValid(dbusObjectPath))
+        {
+            messages::resourceNotFound(asyncResp->res,
+                                       "#ManagerAccount.v1_4_0.ManagerAccount",
+                                       username);
+            return;
+        }
 
         dbus::utility::checkDbusPathExists(
             dbusObjectPath,
