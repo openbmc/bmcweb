@@ -1508,7 +1508,12 @@ class DBusEventLogEntry : public Node
             return;
         }
         std::string entryID = params[0];
-        dbus::utility::escapePathForDbus(entryID);
+        if (!dbus::utility::dbuspathValid(entryID))
+        {
+            messages::resourceNotFound(asyncResp->res,
+                                       "#LogEntry.v1_4_0.LogEntry", entryID);
+            return;
+        }
 
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
@@ -1608,9 +1613,14 @@ class DBusEventLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        std::string entryID = params[0];
+        std::string entryID = "/xyz/openbmc_project/logging/entry/" + params[0];
 
-        dbus::utility::escapePathForDbus(entryID);
+        if (!dbus::utility::dbuspathValid(entryID))
+        {
+            messages::resourceNotFound(asyncResp->res,
+                                       "#LogEntry.v1_4_0.LogEntry", entryID);
+            return;
+        }
 
         // Process response from Logging service.
         auto respHandler = [asyncResp](const boost::system::error_code ec) {
@@ -1631,8 +1641,7 @@ class DBusEventLogEntry : public Node
 
         // Make call to Logging service to request Delete Log
         crow::connections::systemBus->async_method_call(
-            respHandler, "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryID,
+            respHandler, "xyz.openbmc_project.Logging", entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
     }
 };
