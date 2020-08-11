@@ -15,7 +15,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <regex>
 
 using SType = std::string;
 using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;

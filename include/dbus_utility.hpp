@@ -18,7 +18,6 @@
 #include <sdbusplus/message.hpp>
 
 #include <filesystem>
-#include <regex>
 
 namespace dbus
 {
@@ -46,8 +45,13 @@ using ManagedItem = std::pair<
 
 inline void escapePathForDbus(std::string& path)
 {
-    const std::regex reg("[^A-Za-z0-9_/]");
-    std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
+    for (char& c : path)
+    {
+        if (!isalnum(c) && c != '_' && c != '/')
+        {
+            c = '_';
+        }
+    }
 }
 
 // gets the string N strings deep into a path
@@ -97,6 +101,35 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+inline bool isHostnameValid(const std::string& hostName)
+{
+    if (hostName.empty() || hostName.length() > 64)
+    {
+        return false;
+    }
+
+    std::string::const_iterator c = hostName.begin();
+    if (!isalnum(*c))
+    {
+        return false;
+    }
+    for (; c != hostName.end(); c++)
+    {
+        if (!isalnum(*c) && *c != '-')
+        {
+            return false;
+        }
+        c++;
+    }
+    // Can't start or end with a dash.
+    if (*c == '-')
+    {
+        return false;
+    }
+
+    return true;
 }
 
 } // namespace utility
