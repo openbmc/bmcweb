@@ -23,6 +23,7 @@
 
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/url/url_view.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
 #include <random.hpp>
@@ -1460,20 +1461,20 @@ class EventServiceManager
                              std::string& host, std::string& port,
                              std::string& path)
     {
-        // Validate URL using regex expression
-        // Format: <protocol>://<host>:<port>/<path>
-        // protocol: http/https
-        const std::regex urlRegex(
-            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
-        std::cmatch match;
-        if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+        try
         {
-            BMCWEB_LOG_INFO << "Dest. url did not match ";
+            boost::urls::url_view url(destUrl);
+            urlProto = url.scheme();
+            host = url.host();
+            port = url.port();
+            path = url.encoded_path();
+        }
+        catch (const boost::urls::parse_error& p)
+        {
+            BMCWEB_LOG_INFO << "Destination url was invalid ";
             return false;
         }
 
-        urlProto = std::string(match[1].first, match[1].second);
         if (urlProto == "http")
         {
 #ifndef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
@@ -1481,9 +1482,6 @@ class EventServiceManager
 #endif
         }
 
-        host = std::string(match[2].first, match[2].second);
-        port = std::string(match[3].first, match[3].second);
-        path = std::string(match[4].first, match[4].second);
         if (port.empty())
         {
             if (urlProto == "http")
