@@ -181,10 +181,16 @@ class SystemPCIeDevice : public Node
                     {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
                                       device + "/PCIeFunctions"}};
             };
-        std::string escapedPath = std::string(pciePath) + "/" + device;
-        dbus::utility::escapePathForDbus(escapedPath);
+        std::string path = std::string(pciePath) + "/" + device;
+
+        if (!dbus::utility::dbuspathValid(path))
+        {
+            messages::resourceNotFound(
+                asyncResp->res, "#PCIeDevice.v1_4_0.PCIeDevice", params[0]);
+            return;
+        }
         crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+            std::move(getPCIeDeviceCallback), pcieService, path,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
     }
 };
@@ -275,10 +281,17 @@ class SystemPCIeFunctionCollection : public Node
                 asyncResp->res.jsonValue["PCIeFunctions@odata.count"] =
                     pcieFunctionList.size();
             };
-        std::string escapedPath = std::string(pciePath) + "/" + device;
-        dbus::utility::escapePathForDbus(escapedPath);
+        std::string path = std::string(pciePath) + "/" + device;
+        if (!dbus::utility::dbuspathValid(path))
+        {
+            messages::resourceNotFound(
+                asyncResp->res,
+                "#PCIeFunctionCollection.PCIeFunctionCollection", params[0]);
+            return;
+        }
+
         crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+            std::move(getPCIeDeviceCallback), pcieService, path,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
     }
 };
@@ -419,7 +432,14 @@ class SystemPCIeFunction : public Node
             }
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
-        dbus::utility::escapePathForDbus(escapedPath);
+
+        if (!dbus::utility::dbuspathValid(escapedPath))
+        {
+            messages::resourceNotFound(
+                asyncResp->res, "#PCIeFunction.v1_2_0.PCIeFunction", params[0]);
+            return;
+        }
+
         crow::connections::systemBus->async_method_call(
             std::move(getPCIeDeviceCallback), pcieService, escapedPath,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);

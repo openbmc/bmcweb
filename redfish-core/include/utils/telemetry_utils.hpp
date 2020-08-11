@@ -63,7 +63,6 @@ inline std::string getDbusReportPath(const std::string& id)
 {
     std::string path =
         "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/" + id;
-    dbus::utility::escapePathForDbus(path);
     return path;
 }
 
