@@ -173,9 +173,71 @@ inline void requestRoutes(App& app)
             std::string object_manager_interfaces_match_string;
             // These regexes derived on the rules here:
             // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
-            std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
-            std::regex validInterface(
-                "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
+
+            auto isValidPath = [](const std::string_view path) {
+                // Attempts to match the regex ^/([A-Za-z0-9_]+/?)*$
+
+                std::string_view::iterator c = path.begin();
+                // Empty paths are not allowed
+                if (c == path.end())
+                {
+                    return false;
+                }
+                // Path segments must start with a slash
+                if (*c != '/')
+                {
+                    return false;
+                }
+
+                while (c != path.end())
+                {
+                    if (!isalnum(*c) && *c != '_' && *c != '/')
+                    {
+                        return false;
+                    }
+                    c++;
+                }
+                // paths can't end with /
+                if (*c == '/')
+                {
+                    return false;
+                }
+                return true;
+            };
+
+            auto isValidInterface = [](const std::string_view path) {
+                // Attempts to match the regex
+                // ^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$
+                std::string_view::iterator c = path.begin();
+
+                if (c == path.end())
+                {
+                    return false;
+                }
+
+                // first character must be a-z A-Z or _
+                while (c != path.end())
+                {
+                    if (!isalpha(*c) && *c != '_')
+                    {
+                        return false;
+                    }
+                    while (c != path.end())
+                    {
+                        if (!isalnum(*c) && *c != '_')
+                        {
+                            return false;
+                        }
+                        if (*c == '.')
+                        {
+                            break;
+                        }
+                        c++;
+                    }
+                    c++;
+                }
+                return true;
+            };
 
             for (const auto& thisPath : *paths)
             {
@@ -187,7 +249,7 @@ inline void requestRoutes(App& app)
                     conn.close();
                     return;
                 }
-                if (!std::regex_match(*thisPathString, validPath))
+                if (!isValidPath(*thisPathString))
                 {
                     BMCWEB_LOG_ERROR << "Invalid path name " << *thisPathString;
                     conn.close();
@@ -218,7 +280,7 @@ inline void requestRoutes(App& app)
                     // interface
                     for (const std::string& interface : thisSession.interfaces)
                     {
-                        if (!std::regex_match(interface, validInterface))
+                        if (!isValidInterface(interface))
                         {
                             BMCWEB_LOG_ERROR << "Invalid interface name "
                                              << interface;
