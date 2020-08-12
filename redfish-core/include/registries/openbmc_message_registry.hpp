@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 183> registry = {
+constexpr std::array<MessageEntry, 184> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -268,6 +268,19 @@ constexpr std::array<MessageEntry, 183> registry = {
                      "Critical",
                      1,
                      {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCBootReason",
+                 {
+                     "Indicates the reason why BMC firmware booted.",
+                     "BMC firmware (%1) booted due to %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {
+                         "string",
                          "string",
                      },
                      "None.",
