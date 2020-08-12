@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "d91320a7_59015b3f",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-12T20:00:24Z",
+      "side": 1,
+      "message": "Why do these need to be in bmcweb though? \nWhy can\u0027t they still be in the GUI ?\n\nif bmcweb has \n\n    // it\u0027s allowed to GET root node without authentication\n    if (boost::beast::http::verb::get \u003d\u003d req.method())\n    {\n        if (req.url \u003d\u003d \"/redfish/v1\" || req.url \u003d\u003d \"/redfish/v1/\" ||\n            req.url \u003d\u003d \"/redfish\" || req.url \u003d\u003d \"/redfish/\" ||\n            req.url \u003d\u003d \"/login\" || req.url \u003d\u003d \"/login/login.css\" ||\n\t\n            req.url \u003d\u003d \"/login/logo.svg\" || req.url \u003d\u003d \"/favicon.ico\")\n\t\n        // TODO(ed) redfish static assets need allowed through, right?\n        {\n\nIf the GUI has the same file names?",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dea90ec7_ded4636f",
         "filename": "static/login/index.html",
         "patchSetId": 5
