@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 183> registry = {
+constexpr std::array<MessageEntry, 184> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -226,14 +226,17 @@ constexpr std::array<MessageEntry, 183> registry = {
                      {},
                      "None.",
                  }},
-    MessageEntry{"BMCKernelPanic",
+    MessageEntry{"BMCBootReason",
                  {
-                     "Indicates that BMC kernel panic occurred.",
-                     "BMC rebooted due to kernel panic.",
+                     "Indicates the reason why BMC firmware booted.",
+                     "BMC firmware version %1 booted due to %2.",
                      "OK",
                      "OK",
-                     0,
-                     {},
+                     2,
+                     {
+                         "string",
+                         "string",
+                     },
                      "None.",
                  }},
     MessageEntry{"BMCFirmwarePanicReason",
@@ -270,6 +273,16 @@ constexpr std::array<MessageEntry, 183> registry = {
                      {
                          "string",
                      },
+                     "None.",
+                 }},
+    MessageEntry{"BMCKernelPanic",
+                 {
+                     "Indicates that BMC kernel panic occurred.",
+                     "BMC rebooted due to kernel panic.",
+                     "OK",
+                     "OK",
+                     0,
+                     {},
                      "None.",
                  }},
     MessageEntry{"ChassisIntrusionDetected",
