@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "693457fa_b02b72d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "s/possibily/possibility/",
+      "range": {
+        "startLine": 28,
+        "startChar": 44,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b2e85d7_3bc2ae2c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -13,6 +36,103 @@
       "writtenOn": "2020-08-12T19:44:45Z",
       "side": 1,
       "message": "It moves the login screen to bmcweb.. \nIt makes it tougher to support different GUIs, e.g. phosphor-webui\u0027s login screen is different than webui-vue \n\nUpdates to theming need to happen in 2 repos now. \n\nThought on how we support things like password change needed?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29136\nhttps://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/33955",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91cd3eaa_b150e03e",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "Correct.  But I am not sure which routes should be white listed here. Excerpt from Redfish spec DSP0266 1.9.1 section 7.2.3 (\"OData service and metadata document requests\"):\n\u003e Service shall not require authentication to retrieve the OData metadata document or the OData service document.\n\nAnd see also section 8.4 (\"OData metadata responses\").\n\nI don\u0027t fully understand this.  Should BMCWeb allow unauthenticated GET for the following two documents?:\n- /redfish/v1/$metadata\n- /redfish/v1/odata",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42176760_324f2f36",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "See my comment above.  This allows unauthenticated GETs for resources *under* the odata service root.  Is that needed?  Is that what the spec says?",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a144a0_42540084",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "Bypassing authentication because route is on whitelist.",
+      "range": {
+        "startLine": 241,
+        "startChar": 45,
+        "endLine": 241,
+        "endChar": 76
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6bf4c22_8ab2528d",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "Does this introduce a nit incompatibility?  For browsers that have saved the BMC URL (\"/#/login\") in their history, and subsequently connect to the BMC after it is updated with this new code, what is the browser\u0027s behavior?\nNote: I am not requesting a code change, just want to understand the situation.",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143ee250_c504f29e",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "s/two/multiple/",
+      "range": {
+        "startLine": 210,
+        "startChar": 37,
+        "endLine": 210,
+        "endChar": 40
+      },
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -87,6 +207,23 @@
       "writtenOn": "2020-08-12T19:44:45Z",
       "side": 1,
       "message": "So the webui-vue has a field for language selection..",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d04e32_bc792470",
+        "filename": "static/login/login.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-12T20:26:21Z",
+      "side": 1,
+      "message": "remove trailing tab",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
