@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "bfc826c5_a5081d01",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c389880e_991ff513",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f52d000_83b03327",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -120,6 +144,24 @@
       "side": 1,
       "message": "lots of things make it better:\n1. strtol allows negative numbers, which in the strtol case you\u0027ve failed to handle.\n2. the above parser handles errors (bad/unexpected characters, ect), which your current implementation does not.\n3. strtol does handle overflow, but your code doesn\u0027t check for it properly.\n4. (optional)The above parser could be written to operate directly on a std::chrono::milliseconds object, and parse the entire string in one shot (although I haven\u0027t written it here), and avoid all intermediates.\n\nThe parser above is IMO, the simplest way to implement all of the above, as it would lead to very little code.  I never said you couldn\u0027t do it with strtol, and if that\u0027s what you want to do, by all means, but make sure that you\u0027ve handled all degenerate and error cases.  Assume that a fuzzer will be run on it (because people do), or run a fuzzer of your own (if you want to learn, this would be a great side project for you).\n\nIf you want to do it with std library approaches, that\u0027s a totally valid solution, it\u0027s just harder to get right.\n https://en.cppreference.com/w/cpp/utility/from_chars\nis probably what you want.",
       "parentUuid": "360dc1e3_8e061580",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44edb3b3_457c28d5",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Could not used std::from_chars for floating point. I am still using stof but with c_str() to make sure that passed string is null terminated.\nAbout the overflow or negative value, we can add a support but it will only display an error message for developer. For user it is meaningless from my point of view.",
+      "parentUuid": "b9f7d4a8_475042dd",
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -197,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "ba6da258_6f364624",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6899c44b_61e956f6",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15a106b0_03d64692",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -247,6 +313,24 @@
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a2fe82_874b05e7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "320aeb67_92d6b5fa",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -321,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "b4cceb90_8a4147dd",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "677b6a75_aee4bb7a",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75e889bf_9c1797d6",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -341,6 +449,30 @@
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c632ba3f_1d642025",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75e889bf_9c1797d6",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 64
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -415,6 +547,30 @@
     },
     {
       "key": {
+        "uuid": "a2f64b73_4e98360b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5de2bc6_c4f8a1eb",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5086253_2164c8e1",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -447,6 +603,24 @@
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ebba1e_4bbb8c81",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ffcccb4_9be093fa",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -532,6 +706,24 @@
     },
     {
       "key": {
+        "uuid": "046fa450_1d388b44",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb98cef_6669fa9a",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fc58d9f_b1302b5f",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -579,6 +771,30 @@
     },
     {
       "key": {
+        "uuid": "261ebfe1_272fc283",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f28a034_22620ebe",
+      "range": {
+        "startLine": 128,
+        "startChar": 39,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "582fcd59_b584a5b8",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
@@ -623,6 +839,30 @@
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3944062_b633734f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7243c31f_baa5e726",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 73
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -752,6 +992,30 @@
       "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f50bba60_672b7827",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-12T14:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2d52edf_57b9b1af",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
