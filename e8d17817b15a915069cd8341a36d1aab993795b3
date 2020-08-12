@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3adbd1eb_84284788",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "693457fa_b02b72d4",
+      "range": {
+        "startLine": 28,
+        "startChar": 44,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b2e85d7_3bc2ae2c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -36,6 +60,24 @@
       "writtenOn": "2020-08-12T19:44:45Z",
       "side": 1,
       "message": "It moves the login screen to bmcweb.. \nIt makes it tougher to support different GUIs, e.g. phosphor-webui\u0027s login screen is different than webui-vue \n\nUpdates to theming need to happen in 2 repos now. \n\nThought on how we support things like password change needed?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29136\nhttps://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/33955",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904073c6_efb60dab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "\"Updates to themeing need to happen in 2 repos now. \"\n\nTechnically this was already a problem, it\u0027s just that nobody cared to theme the redfish UI, given it\u0027s really engineering facing.  This just makes the problem more noticeable.\n\n\"It makes it tougher to support different GUIs, e.g. phosphor-webui\u0027s login screen is different than webui-vue \"\n\nMaintaining 2 webuis can\u0027t be the long term project direction, and realistically we can\u0027t be holding people to validating 2 separate webuis for every change made to the backend.  What\u0027s your plan for merging webui-vue with phosphor-webui?   Don\u0027t get me wrong, I fired up webui-vue a few weeks back, and I really like the direction you\u0027ve taken it in.  It\u0027s way cleaner (even if it is a litter bigger binary-size wise:) ) we just need to figure out a way to make it maintainable in that phosphor-webui and bmcweb had a lot of specific handshaking to make a lot of flows \"just work\".  I see a lot of that got copied into webui-vue, which is good, but patches moving forward can\u0027t have to consider 2 different UIs in all cases.\n\nMy kneejerk reaction was to put this behind a BMCWEB_INSECURE flag, so the webui-vue users can continue to use it in the less secure mode, until webui-vue makes the equivalent changes (note, webui-vue looks like is already doesn\u0027t handle mtls auth, so most these changes need made before a full cutover anyway).  With that said, I\u0027m open your your thoughts on it.  Should this wait until you and your team have come to full feature parity with phosphor-webui to not break anyone, or are we better off forcing a config option on users?  Given the hard fork, and the webuis required reliance on non-spec driven apis, I\u0027m sort of not sure what to do here.\n\n\"Thought on how we support things like password change needed?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29136\nhttps://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/33955\"\n\nIn the same way we transfer the \"you\u0027re already logged in\" info to phosphor-webui, you can transfer the \"you need to change your password\" info for the ui to react to.  I\u0027d probably do it as a 301 to an appropriate \"Change your password\" route.  I can take a look at specific patches when I handle the first TODO below.",
+      "parentUuid": "6b2e85d7_3bc2ae2c",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "afacbaf9_d75785b1",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "Yes it should.  I missed $metadata.  Good catch (although it was in my todos in the commit message) :)",
+      "parentUuid": "91cd3eaa_b150e03e",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42176760_324f2f36",
         "filename": "include/authorization.hpp",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2020-08-12T20:26:21Z",
       "side": 1,
       "message": "See my comment above.  This allows unauthenticated GETs for resources *under* the odata service root.  Is that needed?  Is that what the spec says?",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba838570_e4452250",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "I believe the answer to that is yes.  At the very least it matches the old behavior in this regard.  If we want to change the behavior here, I\u0027m open to it, but that feels like a different patch.  The intent is to keep the old behavior for redfish resources.",
+      "parentUuid": "42176760_324f2f36",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "0170f867_f49f91e9",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "You don\u0027t want to print the req.target() in the log?  That seems useful.  I can rephrase, but I really dislike the word \"bypassing\", as it implies that it\u0027s a backdoor.",
+      "parentUuid": "b4a144a0_42540084",
+      "range": {
+        "startLine": 241,
+        "startChar": 45,
+        "endLine": 241,
+        "endChar": 76
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6bf4c22_8ab2528d",
         "filename": "include/authorization.hpp",
         "patchSetId": 5
@@ -110,6 +212,24 @@
       "writtenOn": "2020-08-12T20:26:21Z",
       "side": 1,
       "message": "Does this introduce a nit incompatibility?  For browsers that have saved the BMC URL (\"/#/login\") in their history, and subsequently connect to the BMC after it is updated with this new code, what is the browser\u0027s behavior?\nNote: I am not requesting a code change, just want to understand the situation.",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe2ce06_155bd491",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "\"Does this introduce a nit incompatibility?\"\n\nNot to my knowledge.  If you save the url \"/#/login\" in your browser, the backend would see:\nGET /#/login -\u003e 301 redirect to /login\nPOST /login with credentials -\u003e 301 redirect to /#/login\nGET / -\u003e 200 returns angular SPA\nAngular launches the #/login route, sees \"IsAuthenticated\" in cookie, route redirect to /#/overview, as \"next\" is invalid.\n\nSo far as I\u0027m aware, the user is none the wiser.",
+      "parentUuid": "a6bf4c22_8ab2528d",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "9d3e0212_c90aaad6",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "143ee250_c504f29e",
+      "range": {
+        "startLine": 210,
+        "startChar": 37,
+        "endLine": 210,
+        "endChar": 40
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d91320a7_59015b3f",
         "filename": "static/login/index.html",
         "patchSetId": 5
@@ -156,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "48c912a0_c79e989a",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "\"Why do these need to be in bmcweb though?\"\n\nSee the first comment in the commit message.  A lot of people run bmcweb without the UI.  In the very old pre phosphor-webui world, the (terrible) angular webui was checked into bmcweb directly, to avoid problems like this, and was selected with a config option.\n\nAlso, at some point, this will likely turn into a template, to pass hidden form information forward like most conventional forms setups do, and that will require bmcweb to have the template information in the repo.",
+      "parentUuid": "d91320a7_59015b3f",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dea90ec7_ded4636f",
         "filename": "static/login/index.html",
         "patchSetId": 5
@@ -167,6 +329,24 @@
       "writtenOn": "2020-08-12T19:44:45Z",
       "side": 1,
       "message": "This makes changing the logo harder, across multiple repos, not a deal-breaker and maybe we don\u0027t care much about what companies do downstream",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd230b28_0ad5f1ca",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "See above.  I wonder if we just need to combine the phosphor-webui, bmcweb, and webui-vue repos again?  That would give a single place for all this stuff, and we could select which UI we wanted with a config parameter.  I need to give that more thought, and I don\u0027t love how monolithic that makes things, but it would solve the \"one logo to rule them all\" issue.",
+      "parentUuid": "dea90ec7_ded4636f",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -196,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "27563873_191dbe8b",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "GRRRRR... Will fix.",
+      "parentUuid": "d3ef028d_53476b84",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00617797_771aa6f0",
         "filename": "static/login/index.html",
         "patchSetId": 5
@@ -213,6 +417,24 @@
     },
     {
       "key": {
+        "uuid": "4ea3f536_711200ac",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "Cool?  phosphor-webui (the current standard) doesn\u0027t.  How do you think we could fix this the discrepancy between the two?",
+      "parentUuid": "00617797_771aa6f0",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
@@ -224,6 +446,24 @@
       "writtenOn": "2020-08-12T20:26:21Z",
       "side": 1,
       "message": "remove trailing tab",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9741ca5_392c0d2b",
+        "filename": "static/login/login.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-12T20:55:30Z",
+      "side": 1,
+      "message": "will fix.",
+      "parentUuid": "b4d04e32_bc792470",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
