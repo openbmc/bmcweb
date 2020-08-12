@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b2e85d7_3bc2ae2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-12T19:44:45Z",
+      "side": 1,
+      "message": "It moves the login screen to bmcweb.. \nIt makes it tougher to support different GUIs, e.g. phosphor-webui\u0027s login screen is different than webui-vue \n\nUpdates to theming need to happen in 2 repos now. \n\nThought on how we support things like password change needed?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29136\nhttps://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/33955",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea90ec7_ded4636f",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-12T19:44:45Z",
+      "side": 1,
+      "message": "This makes changing the logo harder, across multiple repos, not a deal-breaker and maybe we don\u0027t care much about what companies do downstream",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ef028d_53476b84",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-12T19:44:45Z",
+      "side": 1,
+      "message": "tabs?",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00617797_771aa6f0",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-12T19:44:45Z",
+      "side": 1,
+      "message": "So the webui-vue has a field for language selection..",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
