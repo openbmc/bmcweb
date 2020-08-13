@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "f54f3014_775b0f70",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-13T02:24:57Z",
+      "side": 1,
+      "message": "I see it now... from the old webroutes.hpp.  I\u0027ll accept that.",
+      "parentUuid": "ba838570_e4452250",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4a144a0_42540084",
         "filename": "include/authorization.hpp",
         "patchSetId": 5
@@ -201,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "88c869fc_4046b39f",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-13T02:24:57Z",
+      "side": 1,
+      "message": "Sorry, this was a nit.  How about: Ignoring authentication because route is on whitelist.",
+      "parentUuid": "0170f867_f49f91e9",
+      "range": {
+        "startLine": 241,
+        "startChar": 45,
+        "endLine": 241,
+        "endChar": 76
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6bf4c22_8ab2528d",
         "filename": "include/authorization.hpp",
         "patchSetId": 5
@@ -233,6 +275,24 @@
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cd7773_8cef6192",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-13T02:24:57Z",
+      "side": 1,
+      "message": "Got it.  Thanks for explaining.",
+      "parentUuid": "7fe2ce06_155bd491",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -312,6 +372,24 @@
       "side": 1,
       "message": "\"Why do these need to be in bmcweb though?\"\n\nSee the first comment in the commit message.  A lot of people run bmcweb without the UI.  In the very old pre phosphor-webui world, the (terrible) angular webui was checked into bmcweb directly, to avoid problems like this, and was selected with a config option.\n\nAlso, at some point, this will likely turn into a template, to pass hidden form information forward like most conventional forms setups do, and that will require bmcweb to have the template information in the repo.",
       "parentUuid": "d91320a7_59015b3f",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c98639_5875333f",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-13T02:24:57Z",
+      "side": 1,
+      "message": "Thanks for the explanation; I am starting to understand.  \nWhat is the use case to have a login page without any function behind it?\nAssuming the login page is needed, if it is built into BMCWeb as proposed here, should there be a way to configure it out?\nAlternately, can it be offered as an alternative/peer to the phosphor-webui and webui-vue repos?",
+      "parentUuid": "48c912a0_c79e989a",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
