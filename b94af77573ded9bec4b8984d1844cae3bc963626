@@ -1,0 +1,699 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90da05d7_96b18d92",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "If you\u0027re going to add a generic utils function, can you audit the code and make sure that at least half of our uses actually use this?  This feels like something that deserves to be in its own patch, given that it\u0027s changing an existing way of doing things.",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 27
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40387b2a_87923507",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This causes a copy.",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 16
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6dc52d3_e03c12d5",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Same as above, Please make sure this utils function is used consistently in the codebase, and add to its own review.",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4b9d18_9b97949e",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This pattern can\u0027t be made a utils function given its inherent inefficiencies.  There have been many people that have tried to check this in, and every time it generates more code, larger binary sizes, and is slower, and gets removed again.\n\nIf you really want a pattern like this that\u0027s easier to use, I would look at and model it after the prototype of readJson that Jason Bills wrote (also in this codebase).  readJson is doing a very similar operation (just on json objects instead of dbus dicts), and doesn\u0027t have this problem.  Also, it\u0027s able to handle extra keys, and provide appropriate errors when that happens.\n\nOnce that\u0027s done, please put it in its own patch, and make sure the codebase is at least somewhat consistent in its use, so we know that this can be used as a generic utilities function.\n\nAlternatively, you can follow the pattern that all the existing code uses, as you\u0027re not doing anything unique here when reading in a dbus dict.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01117c1a_e2d983bb",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Please inline this utils function.  It assumes that the project has a generic way to translate dbus collection into redfish collection, which today we don\u0027t, therefore this code can just be inlined.\n\nAlternatively, you could put it in the details:: namespace in the telemetry namespace, to make it clear that this just just how telemetry does things.",
+      "range": {
+        "startLine": 445,
+        "startChar": 12,
+        "endLine": 445,
+        "endChar": 35
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f95c9a_0c7bcd56",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Missing range checks.",
+      "range": {
+        "startLine": 461,
+        "startChar": 34,
+        "endLine": 461,
+        "endChar": 35
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94a99721_0513da4f",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "missing range checks.",
+      "range": {
+        "startLine": 467,
+        "startChar": 65,
+        "endLine": 467,
+        "endChar": 66
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d7c2b64_6b7ed73c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Please don\u0027t include usings for these.  They imply that these types can be changed simply and on a single line.  Most of these can simply be inlined, to make the code more clear (as the rest of bmcweb does)",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baf6afcc_89dd5097",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This is a 2 line method, one line of which is a string specific to that handler.  Please just inline these two calls.",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 29
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e579a86f_2202a614",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "The somewhat standard convention in bmcweb is to call by templated callback.  std::function might be better in some cases, but that\u0027s probably something for another patchset.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f1076f7_657cd929",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "In general, callback patterns like this include an error code, and guarantee that the callback is called in all cases.  Please resolve.",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "085f3e68_7523a68b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "In general, the pattern for these functions is to simply return the item requested to the callback, and not include extra items (like asyncResp and id).  If the caller wants these things, they can add a lambda capture as their callback.",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 37
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b096636_5dd795ce",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Can you post a reference to the redfish documentation on the type that we\u0027re trying to implement here?",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e3d736_15d820b7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Please make this a std::chrono::milliseconds, and put the time_t to milliseconds conversion into the calling code.",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 47
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b175280_389f1f96",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "nit: Technically floor is still more correct here, as it would work for negative durations as well as positive ones, but considering this is only likely to see positives, this works, it\u0027s just a little harder to read.",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2952ae8e_77bd0dae",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "I still really don\u0027t like that this chops off some of the dates.  It makes writing a consistent parser for it much harder, and might lead to cases where a user writes something against a short duration, then has it fail on longer durations.\n\nDo you know if there\u0027s anything in redfish or ISO 8601 that speaks to this problem?",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ca7557_136d7916",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Ignoring the rest of the function, Isn\u0027t zero padding absolutely required for this case?\n\nP1DT1H1H10.9S is very different than\nP1DT1H1H10.0000009S\n\nAs is, your code will render the former, which is incorrect.\n\n\nI still think we should be zero padding everything, and not making any part optional.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 53
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e172bd_35bc6d1f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This whole function is much much cleaner.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff0c7fe5_9a8f2a6c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Rather than organizing it this way, can you follow the existing patterns, and put these utils function in the same file as the nodes themselves?  If you need to split files up, split them up on node boundaries.\n\nIn this way, most of the code for a single handler exists in one file.",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c1d71f_333eb209",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This is a user facing string, it needs escaped.",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02087e79_1214672d",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This is inline, not static.  A lot of your methods are missing this.  Please fix all of them.",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914045dc_f53d2dce",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "See comment in other file.  This is causing a loop over ret for every property, and doesn\u0027t give the ability to handle errors on unknown properties.  Please write this as the other handlers currently do.",
+      "range": {
+        "startLine": 116,
+        "startChar": 27,
+        "endLine": 116,
+        "endChar": 32
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb615b2a_f7f8e971",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Please inline this as most other node classes do today.  Most node classes do duplicate this string (although it gets deduplicated later).  If you want to push this as a new pattern, that\u0027s a good discussion for a different patch moving all of the nodes to this pattern.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbf00bb3_074a4e35",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This is a user facing string.  It needs escaped.",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 30
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5f4c6b_8200110d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "If it\u0027s not either of these, you need to handle that with an error of some kind.  Given the way you\u0027ve organized this, that\u0027s going to be complicated.\n\nI\u0027d recommend implementing this as a non-loop method, that accepts and returns a single string, and uses empty string to return an error.",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d345ed65_4402e78f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "I think what I see here is explicitly creating an array of size 1?  Don\u0027t use an intermediate, use the existing nlohmann brace construction types to do this, or use push_back on that type.  Inlining this function call is hard to read, and considering it has an assignment operator in an rvalue, hard to verify it\u0027s correct (even if it is).",
+      "range": {
+        "startLine": 118,
+        "startChar": 36,
+        "endLine": 118,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbfb5084_dc216d46",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto here.",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e649ce_a0153ded",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "See note about getIf",
+      "range": {
+        "startLine": 140,
+        "startChar": 27,
+        "endLine": 140,
+        "endChar": 32
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2c7106_3c426448",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This is going to change the schema dependent on the value of a dbus property.  That generally breaks the rules that we\u0027ve tended to follow.  Are you sure that ScanPeriod doesn\u0027t have a null/zero state that redfish intends you to use here?",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1536e9f9_1d3e56af",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "This is a perfect case where your code is hard to read because of a using declaration.  It\u0027s really hard to verify this is correct, as ScanPeriod is opaque in this file.  Also, you declare the left side to auto, which doesn\u0027t convey the fact that it\u0027s a pointer, and needs to be checked.",
+      "range": {
+        "startLine": 162,
+        "startChar": 66,
+        "endLine": 162,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd6843d_424dc3e7",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:43:52Z",
+      "side": 1,
+      "message": "See note in other file, you\u0027re casting to several different types anyway.  Just use std::chrono::milliseconds here.",
+      "range": {
+        "startLine": 168,
+        "startChar": 40,
+        "endLine": 168,
+        "endChar": 51
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
