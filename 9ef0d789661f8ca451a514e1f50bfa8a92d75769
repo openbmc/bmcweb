@@ -70,6 +70,30 @@
       "revId": "9ef0d789661f8ca451a514e1f50bfa8a92d75769",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fa4c499_3ac29ac0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-13T13:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9fc615e_931b087d",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 17
+      },
+      "revId": "9ef0d789661f8ca451a514e1f50bfa8a92d75769",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
