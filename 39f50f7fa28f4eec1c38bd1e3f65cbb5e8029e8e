@@ -2018,6 +2018,24 @@
     },
     {
       "key": {
+        "uuid": "959f4ecb_5a167760",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T17:46:28Z",
+      "side": 1,
+      "message": "At the very least in the milliseconds case, I believe it is absolutely required for this code to be functionally correct.  See comments in new patchset.  Also, I still believe we should zero pad here, as it makes life easier on the user, and is still correct per the spec.",
+      "parentUuid": "9647b554_d58d30a1",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfb29732_996dec09",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
