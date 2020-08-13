@@ -250,6 +250,30 @@
     },
     {
       "key": {
+        "uuid": "b5e1dbdd_938e5353",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "My exact comment was \"This is only called in one place, it does not need to accept the callback by template parameter.  Simply call the callback directly.\"\n\nAt no point did I say to use a std::function.  What I meant was to inline your callback at the end of getReport.  But in this case, you\u0027re right, it shouldn\u0027t be a template at all, and should be a single call to the completion function.\n\n\"but I do not want to change parameters of callback.  It is intended to be used like this to make code easier to read in metric_report/metric_report_definition\"\nAs someone who needs to inspect for correctness, I find that code much harder to read, as it muddies the water about ownership.  A lambda does not (as much), and explicitly states at the call site which objects are being owned by what portions, and that the callback itself owns all the parameters it needs to continue (with the exception of the actual thing being returned)\n\nWith all of that said, just inline it like my previous advice was.  Apologies for missing this on the newest patchset.  It\u0027s been a few weeks, and I didn\u0027t have all this stuff hot in cache.",
+      "parentUuid": "ddc8cfe5_8c010554",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f1076f7_657cd929",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -343,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "b101b8ae_9c2088ec",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "A design doc is different than pointing to the spec in which this is implemented.  ISO8601 is great, but a link to the portion of the redfish spec outlining the specifics of how this property is handled would be great.  With that said, I\u0027m assuming it exists.  If it doesn\u0027t, no worries.",
+      "parentUuid": "6dfeeb67_f16cd679",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69e3d736_15d820b7",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -413,6 +461,30 @@
     },
     {
       "key": {
+        "uuid": "c5d653f7_5b81163f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "Here\u0027s the page on std::chrono::floor:\nhttps://en.cppreference.com/w/cpp/chrono/duration/floor\n\nCould you point out where it claims this only works on floating point types?\n\n\nWith that said, I\u0027m not worried about it.  What you have works, and is reasonably easy to read.",
+      "parentUuid": "299a4983_dfbc8d6e",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2952ae8e_77bd0dae",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -442,6 +514,24 @@
       "side": 1,
       "message": "They allow to make a short version of it and does not require any padding. There is one problem with converting this date to and from binary because of daylight saving time. For example PT48H is different than P2D when there is a time change but I noticed that OpenBMC does not care about time zones",
       "parentUuid": "2952ae8e_77bd0dae",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4adab40_50639d78",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "\"I noticed that OpenBMC does not care about time zones\"\nI\u0027m not sure where you got that impression.  We\u0027ve had bugs on timezones before.\nWith that said,  in this context we\u0027re only talking about duration, and I believe iso8601 defines a \"day\" as exactly 24 hours, so I think you\u0027re good here.\n\nok, I guess if it\u0027s allowed in the standard then I\u0027m fine with it.\n\nTechnically isn\u0027t PT48H invalid?",
+      "parentUuid": "2da2ba0b_fed78f6f",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -483,6 +573,30 @@
       "side": 1,
       "message": "Yes, but we have a double here. It generates \"PT1.000000S\" for single second for example. So some padding is applied. I do not like the idea of padding unless there is some other cases that you can point. Thanks in advance",
       "parentUuid": "01ca7557_136d7916",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 53
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40c37aa9_e5c8df01",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "Good point, I missed that double up there.  I still really don\u0027t like converting to and from floats here, it brings up all kinds of weirdness.  Any chance you\u0027d be willing to do my original one, which operated entirely on ints?\n\nIf not, I\u0027m not that worried about it.",
+      "parentUuid": "96769d7f_fae72aa7",
       "range": {
         "startLine": 67,
         "startChar": 0,
@@ -542,6 +656,30 @@
     },
     {
       "key": {
+        "uuid": "d38c2875_4bb3dab9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "This was a compliment.  You\u0027ve legitimately made this method much better but just about any measure.",
+      "parentUuid": "88e3faa2_ec2383c7",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff0c7fe5_9a8f2a6c",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -577,6 +715,30 @@
       "side": 1,
       "message": "There is no single pattern in bmcweb, sorry. It is not described well. This function getReportCollection is used in two nodes. It is designed this way to not divide two similar nodes - MetricReport and MetricReportDefinition.",
       "parentUuid": "ff0c7fe5_9a8f2a6c",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f397c0cd_27f92a25",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "I agree its not described well, but a majority of the code follows the pattern of including most of the logic for a given collection in one file, with the exception of generic, non-collection specific utils classes.  With that said, I\u0027m not that worried about this one.\n\nI only saw one use in this patchset.  It\u0027s fine if it\u0027s used in multiple places in the final solution.",
+      "parentUuid": "7be79a85_ed00b746",
       "range": {
         "startLine": 51,
         "startChar": 19,
@@ -647,6 +809,30 @@
       "writtenOn": "2020-08-13T17:43:52Z",
       "side": 1,
       "message": "This is inline, not static.  A lot of your methods are missing this.  Please fix all of them.",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8af305_27a94d3d",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "Sorry, this was a bad comment.  This, and the function below it don\u0027t need to be attached to this class at all.",
+      "parentUuid": "02087e79_1214672d",
       "range": {
         "startLine": 87,
         "startChar": 4,
@@ -752,6 +938,30 @@
     },
     {
       "key": {
+        "uuid": "c55ed4d6_597ca37b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "Ok as is (although I would\u0027ve preferred it escaped here).",
+      "parentUuid": "41abc830_ba80d6bd",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 30
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed5f4c6b_8200110d",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 31
@@ -781,6 +991,24 @@
       "side": 1,
       "message": "It is not required because on error we receive empty vector.",
       "parentUuid": "ed5f4c6b_8200110d",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65b20dea_98c2a3f6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "so if i call\nauto ret \u003d toReportActions({\"Event\", \"FOobar\"})\n\nRet is an empty collection?  I don\u0027t think so, or I\u0027m missing something.",
+      "parentUuid": "4a6d3e67_c8eb8306",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -822,6 +1050,30 @@
       "side": 1,
       "message": "I have to use push_back here because bracket did not work. Ok, I will change it.",
       "parentUuid": "d345ed65_4402e78f",
+      "range": {
+        "startLine": 118,
+        "startChar": 36,
+        "endLine": 118,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45b062e3_129657ea",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "I agree, the brackets are super finiky to get right with nlohmann.  push_back is fine, but if you want, attach the bracket invocation you tried, and I can probably (maybe) tell you what\u0027s wrong with it.",
+      "parentUuid": "018bc795_22f45e0a",
       "range": {
         "startLine": 118,
         "startChar": 36,
@@ -927,6 +1179,30 @@
     },
     {
       "key": {
+        "uuid": "283cc112_31f083f6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "Redfish spec allows it, but bmcweb generally takes the policy of a schema being the same for a given resource, independent of values, to improve our test coverage.  There are several places we explicitly put in null, or unused values for other cases similar to this.  It helps a lot with the service validator being able to validate all endpoints.",
+      "parentUuid": "4dfb38b7_fdc8b835",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1536e9f9_1d3e56af",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 31
@@ -962,6 +1238,30 @@
       "side": 1,
       "message": "Based on what std::get_if returns I would guess that it getIf returns a pointer. I noticed that I made a mistake, because I should pass telemetry::ScanPeriod* as an argument for template. I will fix it.\nscanPeriod ptr is verify in next line.",
       "parentUuid": "1536e9f9_1d3e56af",
+      "range": {
+        "startLine": 162,
+        "startChar": 66,
+        "endLine": 162,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a06f52f_e0f3dd2e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-13T22:44:23Z",
+      "side": 1,
+      "message": "That\u0027s a perfect example then.  If you made a mistake as the guy that wrote it, what chance do the rest of us have :)\n\nThe normal \"loop over the parameters, and pick them out one at a time\" approach looks ugly, but it\u0027s the best that we\u0027ve been able to come up with for readability.\n\nIn all seriousness, this get_if and looping type safety stuff has been a problem for a long time, if you want to go solve it for bmcweb as a whole, similar to how readJson does it, I\u0027m all for it and happy to help review, test, or give advice.",
+      "parentUuid": "b0d6303d_1154f139",
       "range": {
         "startLine": 162,
         "startChar": 66,
