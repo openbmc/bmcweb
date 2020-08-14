@@ -381,6 +381,7 @@ if (NOT ${YOCTO_DEPENDENCIES})
     set (UT_FILES src/gtest_main.cpp src/msan_test.cpp
          redfish-core/ut/privileges_test.cpp
          redfish-core/ut/lock_test.cpp
+         http/ut/utility_test.cpp
          ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
                                                       # strings
     add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
