@@ -632,7 +632,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 {
     static const char nop = static_cast<char>(-1);
     // See note on encoding_data[] in above function
-    static const char decodingData[] = {
+    static const std::array<char, 256> decodingData = {
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
@@ -659,6 +659,14 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     output.clear();
     output.reserve(((inputLength + 2) / 3) * 4);
 
+    auto getCodeValue = [&](size_t i)
+    {
+       auto code = static_cast<unsigned char>(input[i]);
+       // Ensure we cannot index outside the bounds of the decoding array
+       static_assert(std::numeric_limits<decltype(code)>::max() < decodingData.size());
+       return decodingData[code];
+    };
+
     // for each 4-bytes sequence from the input, extract 4 6-bits sequences by
     // dropping first two bits
     // and regenerate into 3 8-bits sequences
@@ -670,7 +678,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
         char base64code2 = 0; // initialized to 0 to suppress warnings
         char base64code3;
 
-        base64code0 = decodingData[static_cast<int>(input[i])]; // NOLINT
+        base64code0 = getCodeValue(i);
         if (base64code0 == nop)
         { // non base64 character
             return false;
@@ -680,7 +688,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
           // byte output
             return false;
         }
-        base64code1 = decodingData[static_cast<int>(input[i])]; // NOLINT
+        base64code1 = getCodeValue(i);
         if (base64code1 == nop)
         { // non base64 character
             return false;
@@ -695,7 +703,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
             { // padding , end of input
                 return (base64code1 & 0x0f) == 0;
             }
-            base64code2 = decodingData[static_cast<int>(input[i])]; // NOLINT
+            base64code2 = getCodeValue(i);
             if (base64code2 == nop)
             { // non base64 character
                 return false;
@@ -711,7 +719,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
             { // padding , end of input
                 return (base64code2 & 0x03) == 0;
             }
-            base64code3 = decodingData[static_cast<int>(input[i])]; // NOLINT
+            base64code3 = getCodeValue(i);
             if (base64code3 == nop)
             { // non base64 character
                 return false;
