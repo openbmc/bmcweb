@@ -243,6 +243,30 @@
     },
     {
       "key": {
+        "uuid": "eddff58e_d40c7d72",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-14T21:15:22Z",
+      "side": 1,
+      "message": "works for me.  I might slightly amend to:\n\n\"Ignoring authentication because \u003curl\u003e is on the whitelist.\"",
+      "parentUuid": "88c869fc_4046b39f",
+      "range": {
+        "startLine": 241,
+        "startChar": 45,
+        "endLine": 241,
+        "endChar": 76
+      },
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6bf4c22_8ab2528d",
         "filename": "include/authorization.hpp",
         "patchSetId": 5
@@ -390,6 +414,24 @@
       "side": 1,
       "message": "Thanks for the explanation; I am starting to understand.  \nWhat is the use case to have a login page without any function behind it?\nAssuming the login page is needed, if it is built into BMCWeb as proposed here, should there be a way to configure it out?\nAlternately, can it be offered as an alternative/peer to the phosphor-webui and webui-vue repos?",
       "parentUuid": "48c912a0_c79e989a",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039dc834_584ce1f4",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-14T21:15:22Z",
+      "side": 1,
+      "message": "\u003e What is the use case to have a login page without any function behind it?\n\nbmcweb has plenty of functions without the webui present.  Redfish being the big one people tend to expect to \"just work\"\n\n\u003e Assuming the login page is needed, if it is built into BMCWeb as proposed here, should there be a way to configure it out?\n\nWe could....  but from an architectural standpoint, we should probably tie it to the use of cookie auth, as those are inter-related.  With that said, today Cookie auth is a runtime feature, not compile time.\n\nWhat would the goal be for compiling it out?  Reduced attack surface?",
+      "parentUuid": "b5c98639_5875333f",
       "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
