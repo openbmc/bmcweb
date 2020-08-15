@@ -555,6 +555,24 @@
     },
     {
       "key": {
+        "uuid": "2c040ff2_9028068c",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000281
+      },
+      "writtenOn": "2020-08-15T02:00:20Z",
+      "side": 1,
+      "message": "It would be a great deal of work to get translation into phosphor-webui. I am not sure if you were suggesting some sort of parity between the two.",
+      "parentUuid": "4ea3f536_711200ac",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
