@@ -573,6 +573,24 @@
     },
     {
       "key": {
+        "uuid": "d40d8de2_fb92b7c7",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-15T03:11:16Z",
+      "side": 1,
+      "message": "I\u0027m not saying we add translation to phosphor-webui (although I do remember spending a lot of time reviewing a patch on it that never went in).\nLet me ask another way, given the constraints that:\na. People use multiple UI today (phosphor-webui and webui-vue)\nb. They host functionally different login pages\nc. Moving login to bmcweb helps avoid fingerprinting, dos attacks, and is good for security in general.\n\nHow do you suggest we move something like this forward?  I can add a language field, but that\u0027s going to break phosphor-webui.  If that\u0027s what you\u0027re asking for, I\u0027m happy to do it, but I suspect there\u0027s a better solution you have in mind?",
+      "parentUuid": "2c040ff2_9028068c",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
