@@ -591,6 +591,24 @@
     },
     {
       "key": {
+        "uuid": "c1ca158e_bbfa7843",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-15T17:27:09Z",
+      "side": 1,
+      "message": "webui-vue - uses Redfish, is translated, is themeable, and doesn\u0027t suffer some of the anti-patterns that exist in phosphor-webui today, and most importantly is built on an active framework.\n\nIBM switched 2 of their systems to webui-vue\nhttps://gerrit.openbmc-project.xyz/c/openbmc/meta-ibm/+/35445\n\nwebui-vue doesn\u0027t have:\nvirtual media (but there is a commit to add that here: https://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/35396)\ndoesn\u0027t have SNMP support (IBM plans to add after Redfish SNMP is implemented in bmcweb)\nthe redfish browser \n2 file code update\nit doesn\u0027t have the maturity phosphor-webui does, is probably missing of some of those edge cases/bug fixes we added over the years\n\nbut despite it missing a few features, I would save it is a much better base to continue forward on. Can we make webui-vue the standard?\n\nEd, what would it take for you to switch to using webui-vue?",
+      "parentUuid": "d40d8de2_fb92b7c7",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
