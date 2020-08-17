@@ -532,10 +532,15 @@ class Connection :
                     close();
                     return;
                 }
-
-                req->urlView = boost::urls::url_view(req->target());
-                req->url = req->urlView.encoded_path();
-
+                try
+                {
+                    req->urlView = boost::urls::url_view(req->target());
+                    req->url = req->urlView.encoded_path();
+                }
+                catch (boost::urls::parse_error* p)
+                {
+                    BMCWEB_LOG_ERROR << p;
+                }
                 crow::authorization::authenticate(*req, res, session);
 
                 bool loggedIn = req && req->session;
