@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "060ab7a8_46f46f02",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-17T09:12:27Z",
+      "side": 1,
+      "message": "Can you provide reviews where someone tried it and failed? I will check if I am able to provide better solution. Thanks in advance\nThis function is inline by compiler so the binary is not larger than code that is written inline.",
+      "parentUuid": "1d4b9d18_9b97949e",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01117c1a_e2d983bb",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
