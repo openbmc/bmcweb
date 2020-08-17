@@ -627,6 +627,24 @@
     },
     {
       "key": {
+        "uuid": "82d17358_88ad6ce0",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-17T18:32:15Z",
+      "side": 1,
+      "message": "wants to use webui-vue, they can, and I\u0027m happy to add a BMCWEB_INSECURE_* build option that they can use, but I\u0027m trying to see if you have any other ideas.",
+      "parentUuid": "4f85e81c_bfe8571a",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
