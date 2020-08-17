@@ -533,9 +533,24 @@ class Connection :
                     return;
                 }
 
-                req->urlView = boost::urls::url_view(req->target());
-                req->url = req->urlView.encoded_path();
+                // Note, despite the bmcweb coding policy on use of exceptions
+                // for error handling, this one particular use of exceptions is
+                // deemed acceptible, as it solved a significant error handling
+                // problem that resulted in seg faults, the exact thing that the
+                // exceptions rule is trying to avoid. If at some point,
+                // boost::urls makes the parser object public (or we port it
+                // into bmcweb locally) this will be replaced with
+                // parser::parse, which returns a status code
 
+                try
+                {
+                    req->urlView = boost::urls::url_view(req->target());
+                    req->url = req->urlView.encoded_path();
+                }
+                catch (boost::urls::parse_error* p)
+                {
+                    BMCWEB_LOG_ERROR << p;
+                }
                 crow::authorization::authenticate(*req, res, session);
 
                 bool loggedIn = req && req->session;
