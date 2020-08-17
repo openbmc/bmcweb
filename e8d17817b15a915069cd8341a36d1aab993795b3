@@ -609,6 +609,24 @@
     },
     {
       "key": {
+        "uuid": "4f85e81c_bfe8571a",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-17T14:27:15Z",
+      "side": 1,
+      "message": "To be clear, I\u0027m already stated I think webui-vue looks much nicer, and I\u0027m happy to answer that in more detail (I\u0027ll send an email to the list).  For the context of this patchset, I\u0027d really like if we could avoid turning this into a \"webui-vue vs phosphor-webui\" thing, as that\u0027s very much not the intent of this patchset.\n\nI\u0027d like feedback on how you think this patchset needs to change to make bmcweb more secure, and remove a longstanding and well reported bug.  If IBM",
+      "parentUuid": "c1ca158e_bbfa7843",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
