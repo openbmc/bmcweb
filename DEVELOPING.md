@@ -126,7 +126,13 @@
    meetings. For more information on Redfish and supported schemas visit
    [Redfish.md](https://github.com/openbmc/bmcweb/blob/master/Redfish.md).
 
-13. ### Developing and Testing
+13. ### Common errors
+   A number of examples of common errors are captured in the common errors doc.
+   It is recommended that developers read and understand all of them before
+   starting any openbmc development.
+   [Common Errors](https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md).
+
+14. ### Developing and Testing
   There are a variety of ways to develop and test bmcweb software changes.
   Here are the steps for using the SDK and QEMU.
 
