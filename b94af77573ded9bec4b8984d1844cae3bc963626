@@ -485,6 +485,30 @@
     },
     {
       "key": {
+        "uuid": "dde7e2df_70da1c44",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-17T08:20:44Z",
+      "side": 1,
+      "message": "Ok, I made some experiment with it to prove myself that it works. I will change it in next patchset",
+      "parentUuid": "c5d653f7_5b81163f",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2952ae8e_77bd0dae",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -532,6 +556,24 @@
       "side": 1,
       "message": "\"I noticed that OpenBMC does not care about time zones\"\nI\u0027m not sure where you got that impression.  We\u0027ve had bugs on timezones before.\nWith that said,  in this context we\u0027re only talking about duration, and I believe iso8601 defines a \"day\" as exactly 24 hours, so I think you\u0027re good here.\n\nok, I guess if it\u0027s allowed in the standard then I\u0027m fine with it.\n\nTechnically isn\u0027t PT48H invalid?",
       "parentUuid": "2da2ba0b_fed78f6f",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d681c641_73c46688",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-17T08:20:44Z",
+      "side": 1,
+      "message": "From bmcweb code and from OpenBMC system that I works on because it is missing time zones database. Of course it require double check with community. Getting time zone is expensive operation.\nPT48H is valid.",
+      "parentUuid": "b4adab40_50639d78",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -1262,6 +1304,30 @@
       "side": 1,
       "message": "That\u0027s a perfect example then.  If you made a mistake as the guy that wrote it, what chance do the rest of us have :)\n\nThe normal \"loop over the parameters, and pick them out one at a time\" approach looks ugly, but it\u0027s the best that we\u0027ve been able to come up with for readability.\n\nIn all seriousness, this get_if and looping type safety stuff has been a problem for a long time, if you want to go solve it for bmcweb as a whole, similar to how readJson does it, I\u0027m all for it and happy to help review, test, or give advice.",
       "parentUuid": "b0d6303d_1154f139",
+      "range": {
+        "startLine": 162,
+        "startChar": 66,
+        "endLine": 162,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd1a7b1_f4e9d211",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-08-17T08:20:44Z",
+      "side": 1,
+      "message": "No, I didn\u0027t make mistake. It matches to std::get_if function. Okay, I will see what are the possibility to solve it for whole bmcweb. Thanks",
+      "parentUuid": "7a06f52f_e0f3dd2e",
       "range": {
         "startLine": 162,
         "startChar": 66,
