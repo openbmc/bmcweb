@@ -22,6 +22,30 @@
       "revId": "4092630e7c17b8a944a7e488fb6e04ba8b08c2d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8882d4fe_b0e59144",
+        "filename": "http/http_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-17T23:24:51Z",
+      "side": 1,
+      "message": "it is today, but it was found as part of this patch, and is required (otherwise the fuzzer I tried doesn\u0027t work).\n\nI will rebase once that patch is on master.",
+      "parentUuid": "56163dd4_961d8e07",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 13
+      },
+      "revId": "4092630e7c17b8a944a7e488fb6e04ba8b08c2d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
