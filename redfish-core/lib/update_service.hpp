@@ -468,13 +468,13 @@ class UpdateServiceActionsSimpleUpdate : public Node
         BMCWEB_LOG_DEBUG << "Server: " << tftpServer + " File: " << fwFile;
 
         // Setup callback for when new software detected
-        // Give TFTP 2 minutes to complete
+        // Give TFTP 10 minutes to complete
         monitorForSoftwareAvailable(
             nullptr, req,
             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate",
-            120);
+            600);
 
-        // TFTP can take up to 2 minutes depending on image size and
+        // TFTP can take up to 10 minutes depending on image size and
         // connection speed. Return to caller as soon as the TFTP operation
         // has been started. The callback above will ensure the activate
         // is started once the download has completed
