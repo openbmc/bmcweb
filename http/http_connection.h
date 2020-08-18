@@ -547,10 +547,11 @@ class Connection :
                     req->urlView = boost::urls::url_view(req->target());
                     req->url = req->urlView.encoded_path();
                 }
-                catch (boost::urls::parse_error* p)
+                catch (std::exception& p)
                 {
                     BMCWEB_LOG_ERROR << p;
                 }
+
                 crow::authorization::authenticate(*req, res, session);
 
                 bool loggedIn = req && req->session;
