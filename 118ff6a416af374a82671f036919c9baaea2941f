@@ -105,6 +105,24 @@
       "revId": "118ff6a416af374a82671f036919c9baaea2941f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef0cc04_0cc62e6d",
+        "filename": "http/http_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-08-18T08:28:15Z",
+      "side": 1,
+      "message": "Okay, maybe i am wrong, i will rebase it after you merged it.\nthanks :)",
+      "parentUuid": "1c8fa01c_fe48862c",
+      "revId": "118ff6a416af374a82671f036919c9baaea2941f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
