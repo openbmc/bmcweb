@@ -1560,8 +1560,26 @@ class DBusEventLogEntry : public Node
                 }
                 uint32_t* id = nullptr;
                 std::time_t timestamp{};
+                std::time_t updateTimestamp{};
                 std::string* severity = nullptr;
                 std::string* message = nullptr;
+
+                auto getTimestamp =
+                    [asyncResp](
+                        const uint64_t* millisTimeStamp) -> std::time_t {
+                    if (millisTimeStamp == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return 0;
+                    }
+                    // Retrieve Created property with format:
+                    // yyyy-mm-ddThh:mm:ss
+                    std::chrono::milliseconds chronoTimeStamp(*millisTimeStamp);
+                    return std::chrono::duration_cast<
+                               std::chrono::duration<int>>(chronoTimeStamp)
+                        .count();
+                };
+
                 for (auto& propertyMap : resp)
                 {
                     if (propertyMap.first == "Id")
@@ -1574,22 +1592,15 @@ class DBusEventLogEntry : public Node
                     }
                     else if (propertyMap.first == "Timestamp")
                     {
-                        const uint64_t* millisTimeStamp =
-                            std::get_if<uint64_t>(&propertyMap.second);
-                        if (millisTimeStamp == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                            continue;
-                        }
-                        // Retrieve Created property with format:
-                        // yyyy-mm-ddThh:mm:ss
-                        std::chrono::milliseconds chronoTimeStamp(
-                            *millisTimeStamp);
-                        timestamp =
-                            std::chrono::duration_cast<
-                                std::chrono::duration<int>>(chronoTimeStamp)
-                                .count();
+                        timestamp = getTimestamp(
+                            std::get_if<uint64_t>(&propertyMap.second));
                     }
+                    else if (propertyMap.first == "UpdateTimestamp")
+                    {
+                        updateTimestamp = getTimestamp(
+                            std::get_if<uint64_t>(&propertyMap.second));
+                    }
+
                     else if (propertyMap.first == "Severity")
                     {
                         severity =
@@ -1623,7 +1634,8 @@ class DBusEventLogEntry : public Node
                     {"Message", *message},
                     {"EntryType", "Event"},
                     {"Severity", translateSeverityDbusToRedfish(*severity)},
-                    {"Created", crow::utility::getDateTime(timestamp)}};
+                    {"Created", crow::utility::getDateTime(timestamp)},
+                    {"Modified", crow::utility::getDateTime(updateTimestamp)}};
             },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
