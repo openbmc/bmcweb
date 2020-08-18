@@ -87,6 +87,24 @@
       "revId": "118ff6a416af374a82671f036919c9baaea2941f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8fa01c_fe48862c",
+        "filename": "http/http_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-18T07:35:22Z",
+      "side": 1,
+      "message": "What are you asking to be 4096?  the file I created above was a 1MB file (1024 block size * 1024 count) as evidenced by the logs of it parsing 1049008 characters.\n\nAs such, I\u0027m not really sure what you\u0027re asking.",
+      "parentUuid": "cf47cbd8_f69a866a",
+      "revId": "118ff6a416af374a82671f036919c9baaea2941f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
