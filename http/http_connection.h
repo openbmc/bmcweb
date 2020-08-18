@@ -547,6 +547,10 @@ class Connection :
                     req->urlView = boost::urls::url_view(req->target());
                     req->url = req->urlView.encoded_path();
                 }
+                catch (boost::urls::invalid_part* p)
+                {
+                    BMCWEB_LOG_ERROR << p;
+                }
                 catch (boost::urls::parse_error* p)
                 {
                     BMCWEB_LOG_ERROR << p;
