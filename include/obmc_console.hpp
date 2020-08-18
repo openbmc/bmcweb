@@ -4,6 +4,7 @@
 #include <websocket.h>
 
 #include <async_resp.hpp>
+#include <boost/asio/local/stream_protocol.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 
