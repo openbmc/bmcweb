@@ -815,5 +815,20 @@ struct ConstantTimeCompare
     }
 };
 
+inline std::time_t getTimestamp(const uint64_t* millisTimeStamp)
+{
+    if (millisTimeStamp == nullptr)
+    {
+        throw std::runtime_error("invalid parameter type");
+    }
+
+    // Retrieve Created property with format:
+    // yyyy-mm-ddThh:mm:ss
+    std::chrono::milliseconds chronoTimeStamp(*millisTimeStamp);
+    return std::chrono::duration_cast<std::chrono::duration<int>>(
+               chronoTimeStamp)
+        .count();
+}
+
 } // namespace utility
 } // namespace crow
