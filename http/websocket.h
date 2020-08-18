@@ -95,9 +95,7 @@ class ConnectionImpl : public Connection
 
         std::string_view protocol = req[bf::sec_websocket_protocol];
 
-        // Perform the websocket upgrade
-        ws.async_accept_ex(
-            req,
+        ws.set_option(boost::beast::websocket::stream_base::decorator(
             [session{session}, protocol{std::string(protocol)}](
                 boost::beast::websocket::response_type& m) {
 
@@ -126,15 +124,18 @@ class ConnectionImpl : public Connection
                 m.insert("X-XSS-Protection", "1; "
                                              "mode=block");
                 m.insert("X-Content-Type-Options", "nosniff");
-            },
-            [this, self(shared_from_this())](boost::system::error_code ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "Error in ws.async_accept " << ec;
-                    return;
-                }
-                acceptDone();
-            });
+            }));
+
+        // Perform the websocket upgrade
+        ws.async_accept(req, [this, self(shared_from_this())](
+                                 boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Error in ws.async_accept " << ec;
+                return;
+            }
+            acceptDone();
+        });
     }
 
     void sendBinary(const std::string_view msg) override

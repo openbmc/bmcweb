@@ -169,9 +169,11 @@ set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall")
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-    -fno-rtti \
-")
+# reenable when https://github.com/chriskohlhoff/asio/issues/533
+# is resolved.  ASIO default executor doesn't build with no-rtti
+#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+#    -fno-rtti \
+#")
 
 set (
     CMAKE_CXX_FLAGS
@@ -300,6 +302,7 @@ message (BOOST_VERSION = ${Boost_VERSION})
 include_directories (SYSTEM ${BOOST_SRC_DIR})
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
+add_definitions (-DBOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT)
 add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
