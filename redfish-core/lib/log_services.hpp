@@ -1440,8 +1440,10 @@ class DBusEventLogEntryCollection : public Node
                         nlohmann::json& thisEntry = entriesArray.back();
                         uint32_t* id = nullptr;
                         std::time_t timestamp{};
+                        std::time_t updateTimestamp{};
                         std::string* severity = nullptr;
                         std::string* message = nullptr;
+
                         for (auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Id")
@@ -1459,16 +1461,20 @@ class DBusEventLogEntryCollection : public Node
                                 if (millisTimeStamp == nullptr)
                                 {
                                     messages::internalError(asyncResp->res);
-                                    continue;
                                 }
-                                // Retrieve Created property with format:
-                                // yyyy-mm-ddThh:mm:ss
-                                std::chrono::milliseconds chronoTimeStamp(
+                                timestamp = crow::utility::getTimestamp(
                                     *millisTimeStamp);
-                                timestamp = std::chrono::duration_cast<
-                                                std::chrono::duration<int>>(
-                                                chronoTimeStamp)
-                                                .count();
+                            }
+                            else if (propertyMap.first == "UpdateTimestamp")
+                            {
+                                const uint64_t* millisTimeStamp =
+                                    std::get_if<uint64_t>(&propertyMap.second);
+                                if (millisTimeStamp == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                }
+                                updateTimestamp = crow::utility::getTimestamp(
+                                    *millisTimeStamp);
                             }
                             else if (propertyMap.first == "Severity")
                             {
@@ -1490,7 +1496,7 @@ class DBusEventLogEntryCollection : public Node
                             }
                         }
                         thisEntry = {
-                            {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                            {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
                             {"@odata.id",
                              "/redfish/v1/Systems/system/LogServices/EventLog/"
                              "Entries/" +
@@ -1501,7 +1507,9 @@ class DBusEventLogEntryCollection : public Node
                             {"EntryType", "Event"},
                             {"Severity",
                              translateSeverityDbusToRedfish(*severity)},
-                            {"Created", crow::utility::getDateTime(timestamp)}};
+                            {"Created", crow::utility::getDateTime(timestamp)},
+                            {"Modified",
+                             crow::utility::getDateTime(updateTimestamp)}};
                     }
                 }
                 std::sort(entriesArray.begin(), entriesArray.end(),
@@ -1560,8 +1568,10 @@ class DBusEventLogEntry : public Node
                 }
                 uint32_t* id = nullptr;
                 std::time_t timestamp{};
+                std::time_t updateTimestamp{};
                 std::string* severity = nullptr;
                 std::string* message = nullptr;
+
                 for (auto& propertyMap : resp)
                 {
                     if (propertyMap.first == "Id")
@@ -1579,16 +1589,20 @@ class DBusEventLogEntry : public Node
                         if (millisTimeStamp == nullptr)
                         {
                             messages::internalError(asyncResp->res);
-                            continue;
                         }
-                        // Retrieve Created property with format:
-                        // yyyy-mm-ddThh:mm:ss
-                        std::chrono::milliseconds chronoTimeStamp(
-                            *millisTimeStamp);
                         timestamp =
-                            std::chrono::duration_cast<
-                                std::chrono::duration<int>>(chronoTimeStamp)
-                                .count();
+                            crow::utility::getTimestamp(*millisTimeStamp);
+                    }
+                    else if (propertyMap.first == "UpdateTimestamp")
+                    {
+                        const uint64_t* millisTimeStamp =
+                            std::get_if<uint64_t>(&propertyMap.second);
+                        if (millisTimeStamp == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        updateTimestamp =
+                            crow::utility::getTimestamp(*millisTimeStamp);
                     }
                     else if (propertyMap.first == "Severity")
                     {
@@ -1613,7 +1627,7 @@ class DBusEventLogEntry : public Node
                     return;
                 }
                 asyncResp->res.jsonValue = {
-                    {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                    {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
                     {"@odata.id",
                      "/redfish/v1/Systems/system/LogServices/EventLog/"
                      "Entries/" +
@@ -1623,7 +1637,8 @@ class DBusEventLogEntry : public Node
                     {"Message", *message},
                     {"EntryType", "Event"},
                     {"Severity", translateSeverityDbusToRedfish(*severity)},
-                    {"Created", crow::utility::getDateTime(timestamp)}};
+                    {"Created", crow::utility::getDateTime(timestamp)},
+                    {"Modified", crow::utility::getDateTime(updateTimestamp)}};
             },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
