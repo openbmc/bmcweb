@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "738e7007_a5b3d82e",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-19T00:27:07Z",
+      "side": 1,
+      "message": "How do you expect this to work?   If the BMC is shutting down, can we trust that this is going to get sent at all before bmcweb is shut down?  What is the use case for a bmc power state change event when the connection to the BMC is getting torn down?",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "e7dee89a4f38f94a97424099f37a3372c4fbbc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "988d8747_7c6f9f42",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-19T00:27:07Z",
+      "side": 1,
+      "message": "The callback handler should not need to recreate the match signal.  This also adds a discontinuity in the match expression, where matches could be missed as one watch is created and another is destroyed.",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "e7dee89a4f38f94a97424099f37a3372c4fbbc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "369b49e4_cfdfefb5",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-19T00:27:07Z",
+      "side": 1,
+      "message": "This feature has nothing to do with IBM management console, and uses the existing Redfish task service, unless I\u0027m missing something, this is the wrong feature flag to use.",
+      "range": {
+        "startLine": 131,
+        "startChar": 7,
+        "endLine": 131,
+        "endChar": 43
+      },
+      "revId": "e7dee89a4f38f94a97424099f37a3372c4fbbc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
