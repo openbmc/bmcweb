@@ -353,14 +353,9 @@ class Chassis : public Node
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
-                            const boost::system::error_code ec2,
+                            const boost::system::error_code /*ec2*/,
                             const std::vector<std::pair<
                                 std::string, VariantType>>& propertiesList) {
-                            if (ec2)
-                            {
-                                return;
-                            }
-
                             for (const std::pair<std::string, VariantType>&
                                      property : propertiesList)
                             {
