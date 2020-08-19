@@ -434,8 +434,8 @@ using DimmProperty =
 
 using DimmProperties = boost::container::flat_map<std::string, DimmProperty>;
 
-void dimmPropToHex(std::shared_ptr<AsyncResp> aResp, const char* key,
-                   const std::pair<std::string, DimmProperty>& property)
+inline void dimmPropToHex(std::shared_ptr<AsyncResp> aResp, const char* key,
+                          const std::pair<std::string, DimmProperty>& property)
 {
     const uint16_t* value = std::get_if<uint16_t>(&property.second);
     if (value == nullptr)
@@ -448,8 +448,8 @@ void dimmPropToHex(std::shared_ptr<AsyncResp> aResp, const char* key,
     aResp->res.jsonValue[key] = (boost::format("0x%04x") % *value).str();
 }
 
-void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
-                                   const DimmProperties& properties)
+inline void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
+                                          const DimmProperties& properties)
 {
     for (const auto& property : properties)
     {
@@ -696,9 +696,10 @@ void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
     }
 }
 
-void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
-                          const std::string& dimmId, const std::string& service,
-                          const std::string& objPath)
+inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
+                                 const std::string& dimmId,
+                                 const std::string& service,
+                                 const std::string& objPath)
 {
     auto health = std::make_shared<HealthPopulate>(aResp);
     health->selfPath = objPath;
