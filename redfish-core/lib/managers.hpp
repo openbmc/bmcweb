@@ -1754,8 +1754,8 @@ class Manager : public Node
         health->isManagersHealth = true;
         health->populate();
 
-        fw_util::getActiveFwVersion(asyncResp, fw_util::bmcPurpose,
-                                    "FirmwareVersion", true);
+        fw_util::populateFirmwareInformation(asyncResp, fw_util::bmcPurpose,
+                                             "FirmwareVersion", true);
 
         getLastResetTime(asyncResp);
 

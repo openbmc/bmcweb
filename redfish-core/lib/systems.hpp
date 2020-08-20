@@ -533,7 +533,7 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                     }
 
                                     // Grab the bios version
-                                    fw_util::getActiveFwVersion(
+                                    fw_util::populateFirmwareInformation(
                                         aResp, fw_util::biosPurpose,
                                         "BiosVersion", false);
                                 },
