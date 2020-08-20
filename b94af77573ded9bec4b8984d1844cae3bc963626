@@ -112,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "6253f5db_5399bbeb",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T07:22:44Z",
+      "side": 1,
+      "message": "@Ed are you suggesting something like this?\n\nauto [value1, value2] \u003d getIf\u003cint, std::string\u003e(variant, \"Key1\", \"Key2\");",
+      "parentUuid": "060ab7a8_46f46f02",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01117c1a_e2d983bb",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -1352,6 +1376,30 @@
       "side": 1,
       "message": "No, I didn\u0027t make mistake. It matches to std::get_if function. Okay, I will see what are the possibility to solve it for whole bmcweb. Thanks",
       "parentUuid": "7a06f52f_e0f3dd2e",
+      "range": {
+        "startLine": 162,
+        "startChar": 66,
+        "endLine": 162,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8637da_909168d6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T07:22:44Z",
+      "side": 1,
+      "message": "Honestly I don\u0027t see how we can do something similar to readJson.\n\nNow we have something like this:\nstd::vector\u003cstd::pair, std::variant\u003cstd::string, int, double...\u003e\u003e ret;\nint* value1 \u003d getIf\u003cint\u003e(ret, \"Key1\");\nint* value2 \u003d getIf\u003cint\u003e(ret, \"Key2\");\n\nIf we want something readJson like we will have;\nstd::vector\u003cstd::pair, std::variant\u003cstd::string, int, double...\u003e\u003e ret;\nint* value1 \u003d nullptr;\nint* value2 \u003d nullptr;\ngetIf(ret, \u0026value1, \"Key1\", \u0026value2, \"Key2\");\n\nor if we want to have it via return value like it should be:\nauto [value1, value2] \u003d getIf\u003cint, int\u003e(ret, \"Key1\", \"Key2\");\n\nAbout type safety compiler checks it for us. We can be safer if we use std::optional it won\u0027t static_cast to std::time_t for example.\n\nAbout telemetry::ScanPeriod being an using, that\u0027s something now nowadays we don\u0027t have to worry. We all have or should have IDE which tells which type is under that using. My understanding of getIf is that it either return reference and throw exception on fail. Or returns something that need\u0027s to be checked before using. In this case the second one and there is no other way around it. If you use it incorrectly compiler should return compilation error. We can do a little better and prevent static cast if we have std::optional\u003cstd::reference_wrapper\u003cT\u003e\u003e or just optional\u003cT\u003e then it wont be possible to static cast like it would be possible with pointer compiler will do all the work for us.",
+      "parentUuid": "dcd1a7b1_f4e9d211",
       "range": {
         "startLine": 162,
         "startChar": 66,
