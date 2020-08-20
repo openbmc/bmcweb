@@ -32,8 +32,9 @@ class BiosService : public Node
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
 
-        // Get the ActiveSoftwareImage
-        fw_util::getActiveFwVersion(asyncResp, fw_util::biosPurpose, "", true);
+        // Get the ActiveSoftwareImage and SoftwareImages
+        fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose,
+                                             "", true);
     }
 };
 /**
