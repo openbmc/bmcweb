@@ -228,6 +228,30 @@
     },
     {
       "key": {
+        "uuid": "595b69dd_da0cfb5b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T08:24:08Z",
+      "side": 1,
+      "message": "This is called self documenting code. if you have:\n\nstd::variant\u003c\n  std::vector\u003cstd::tuple\u003cstd::vector\u003csdbusplus::message::object_path\u003e, std::string, std::string, std::string\u003e\u003e,\n  std::vector\u003cstd::tuple\u003cstd::string, std::string, double, Timestamp\u003e\u003e,\n  std::vector\u003cstd::string\u003e,\n  std::string, uint32_t, int32_t\u003e reportProperties;\n\nThen it is really hard to tell what is what. Once you get used to it this really help you can always have some IDE which tells you what type is under ReportingType so you don\u0027t have to jump yourself. Here you don\u0027t event need that all you need is few lines above, and it helps you know that uint32_t is ScanPeriod if you look at the code I pasted in this comment you have no way to tell what does uint32_t mean.",
+      "parentUuid": "6d7c2b64_6b7ed73c",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "baf6afcc_89dd5097",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -239,6 +263,30 @@
       "writtenOn": "2020-08-13T17:43:52Z",
       "side": 1,
       "message": "This is a 2 line method, one line of which is a string specific to that handler.  Please just inline these two calls.",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 29
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec5d248_5f2e42c6",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T08:24:08Z",
+      "side": 1,
+      "message": "There is no gain in inlining it, we will only increase code duplication.\n\nThis helper function is intended to be small, if you need details about what path is really under dbusReportPath you look inside, it will be in one place. It\u0027s a feature, not a big I agree but still it\u0027s a feature for us.",
+      "parentUuid": "baf6afcc_89dd5097",
       "range": {
         "startLine": 74,
         "startChar": 12,
@@ -322,6 +370,30 @@
     },
     {
       "key": {
+        "uuid": "e0a5fa3c_af31e1c6",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T08:24:08Z",
+      "side": 1,
+      "message": "If we inline this std::function code here it will be no longer something that is ready to be reused in other places. I agree that some of it can be improved. See comments below.",
+      "parentUuid": "b5e1dbdd_938e5353",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f1076f7_657cd929",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -345,6 +417,30 @@
     },
     {
       "key": {
+        "uuid": "ece34b20_49a94662",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T08:24:08Z",
+      "side": 1,
+      "message": "In general it\u0027s also common that callback is called only on success or you can pass multiple callbacks, on success, on error and have different callback for different cases. In this case this callback is only called on success. It doesn\u0027t include error code, because it won\u0027t be called on failure.\n\nWe can change it to take two callbacks, on success and on failure. It\u0027s a middle ground and we can reduce code future duplication, because error handling in most cases will be the same only on success callback will be different.\n\nIf sdbusplus used same pattern (on success callback and on failure callback) lots of code in bmcweb could be removed, you could just pass one of the generic error handling lambdas instead of having it always included in callback.",
+      "parentUuid": "0f1076f7_657cd929",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "085f3e68_7523a68b",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -356,6 +452,30 @@
       "writtenOn": "2020-08-13T17:43:52Z",
       "side": 1,
       "message": "In general, the pattern for these functions is to simply return the item requested to the callback, and not include extra items (like asyncResp and id).  If the caller wants these things, they can add a lambda capture as their callback.",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 37
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7edb5c51_12239910",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T08:24:08Z",
+      "side": 1,
+      "message": "Good point, you are right",
+      "parentUuid": "085f3e68_7523a68b",
       "range": {
         "startLine": 108,
         "startChar": 12,
