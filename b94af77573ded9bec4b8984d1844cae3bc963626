@@ -1033,6 +1033,30 @@
     },
     {
       "key": {
+        "uuid": "07e58c7a_a796ca7f",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:18:11Z",
+      "side": 1,
+      "message": "I guess you are fine with keeping it like this. Marking this thread as resolved.",
+      "parentUuid": "f397c0cd_27f92a25",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1c1d71f_333eb209",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
