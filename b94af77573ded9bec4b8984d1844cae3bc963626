@@ -938,6 +938,30 @@
     },
     {
       "key": {
+        "uuid": "720aca64_0bdb2f33",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:15:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d38c2875_4bb3dab9",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff0c7fe5_9a8f2a6c",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -1056,6 +1080,30 @@
     },
     {
       "key": {
+        "uuid": "2c717ad8_e164757c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:15:35Z",
+      "side": 1,
+      "message": "Marking it as resolved.",
+      "parentUuid": "58158793_bee1f05e",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02087e79_1214672d",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -1103,6 +1151,30 @@
     },
     {
       "key": {
+        "uuid": "bcdce4fc_a47626ca",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:15:35Z",
+      "side": 1,
+      "message": "MetricValues are part of MetricReport so it was natural to connect it to MetricReport. We can change this, but I still think this is the right place for this method.",
+      "parentUuid": "3d8af305_27a94d3d",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "914045dc_f53d2dce",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -1126,6 +1198,30 @@
     },
     {
       "key": {
+        "uuid": "b511d192_a50e6c65",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:15:35Z",
+      "side": 1,
+      "message": "Answered in another comment which refers to same issue.",
+      "parentUuid": "914045dc_f53d2dce",
+      "range": {
+        "startLine": 116,
+        "startChar": 27,
+        "endLine": 116,
+        "endChar": 32
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb615b2a_f7f8e971",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -1137,6 +1233,30 @@
       "writtenOn": "2020-08-13T17:43:52Z",
       "side": 1,
       "message": "Please inline this as most other node classes do today.  Most node classes do duplicate this string (although it gets deduplicated later).  If you want to push this as a new pattern, that\u0027s a good discussion for a different patch moving all of the nodes to this pattern.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03a0220d_6923a844",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:15:35Z",
+      "side": 1,
+      "message": "I understand that this is something new, but it\u0027s not some new pattern which needs to be followed and changed everywhere, of course it would be nice if all strings that repeat in few places had consts like this.\n\nEven making const for something that is used once can be still good practice. Someone looking at this who is new to bmcweb will see that this string is schemaType.\n\nIn my opinion we should keep it. Defining a constant or variable is one of the basing things, we are not introducing new pattern here.",
+      "parentUuid": "bb615b2a_f7f8e971",
       "range": {
         "startLine": 132,
         "startChar": 0,
