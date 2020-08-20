@@ -1199,6 +1199,30 @@
     },
     {
       "key": {
+        "uuid": "ff85b320_41ba77f2",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T07:28:25Z",
+      "side": 1,
+      "message": "Auto is not an issue here, compiler won\u0027t allow us to use this incorrectly:\nerror: invalid conversion from \u0027int*\u0027 to \u0027int\u0027\n\nType is not really that important here, you have type on the right side getIf\u003ctelemetry::ReportAction\u003e, you can have here telemetry::ReportAction* or std::optional\u003ctelemetry::ReportAction\u003e because that\u0027s the only way to implement it when exception are turned off.\n\nI see no reason to avoid auto here.",
+      "parentUuid": "fbfb5084_dc216d46",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6e649ce_a0153ded",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 31
@@ -1219,6 +1243,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb67a57f_5f647f0b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T07:28:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a6e649ce_a0153ded",
+      "range": {
+        "startLine": 140,
+        "startChar": 27,
+        "endLine": 140,
+        "endChar": 32
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
