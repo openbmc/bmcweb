@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "9f83b9f9_d097c571",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T14:11:19Z",
+      "side": 1,
+      "message": "I see some strange logic here. You said that if we wrap some code in function we create 2 right ways to write something, but right now that code is all over bmcweb in multiple places everyone just online it. It looks like right now we have a lot of ways to do one thing and this utility functions are first step to make one \"right\" way.\n\nOnce you have something small and ready to reuse it makes thinks easier for others. If there was such function before we didn\u0027t have to write it, we could just reuse it. Right now we can\u0027t so we wan\u0027t to create it so it can be used by others in the future.",
+      "parentUuid": "9d052f76_4ce35d0e",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc9ab565_9febe162",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
