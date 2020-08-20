@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b954455_d179b89d",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T14:11:19Z",
+      "side": 1,
+      "message": "This is going to change lot\u0027s of random places in code. Once it is accepted here we cant find and replace other usages with this function. No need to make all the changes in single patchset.",
+      "parentUuid": "90da05d7_96b18d92",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 27
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40387b2a_87923507",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8d0972c8_93f8abe3",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T14:11:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40387b2a_87923507",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 16
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6dc52d3_e03c12d5",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
@@ -59,6 +107,24 @@
       "writtenOn": "2020-08-13T17:43:52Z",
       "side": 1,
       "message": "Same as above, Please make sure this utils function is used consistently in the codebase, and add to its own review.",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242b69b4_38399a61",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T14:11:19Z",
+      "side": 1,
+      "message": "Once it is accepted here we can find/replace other places which can use this. Creating a function where other\u0027s do not is not inconsistency it\u0027s just good practice that should be supported. There are no rules telling you when you can or cannot create helper function. Of course some are more useful than the other. This is first helper function for this.\n\nThere should be no issues with larger code or being to slow. Compiler should inline this for us.\n\nLet\u0027s just do this step by step. Once it is in repository others can start to use it even if it\u0027s not changed everywhere yet.",
+      "parentUuid": "d6dc52d3_e03c12d5",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
