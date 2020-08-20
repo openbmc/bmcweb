@@ -1364,6 +1364,30 @@
     },
     {
       "key": {
+        "uuid": "6da75629_307791ea",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:34:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c55ed4d6_597ca37b",
+      "range": {
+        "startLine": 85,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 30
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed5f4c6b_8200110d",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 31
@@ -1411,6 +1435,24 @@
       "side": 1,
       "message": "so if i call\nauto ret \u003d toReportActions({\"Event\", \"FOobar\"})\n\nRet is an empty collection?  I don\u0027t think so, or I\u0027m missing something.",
       "parentUuid": "4a6d3e67_c8eb8306",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d16ee85_e0a51784",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-20T13:34:43Z",
+      "side": 1,
+      "message": "You will get: {\"RedfishEvent\"} only incorrect values are ommited. So if you want to check for error you could compare result size() with input size()",
+      "parentUuid": "65b20dea_98c2a3f6",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
