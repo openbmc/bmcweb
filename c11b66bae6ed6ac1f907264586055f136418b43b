@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1ef7a9c_1c5be322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-21T15:35:54Z",
+      "side": 1,
+      "message": "The WIP design recommends this feature be compiled out by default.  Perhaps behind an option flag (BMCWEB_ENABLE_HTTP_REDIRECT \"Enables redirection from HTTP to HTTPS\" OFF).  See https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#73",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b90faeeb_fa73a2da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-21T15:35:54Z",
+      "side": 1,
+      "message": "Would it be possible for a BMC admin to disable this feature as needed to enhance their security posture?  If so, how?  (A) Delete the bmcweb_redirect socket and start bmcweb without it?  (B) Create a dummy bmcweb_redirect socket that has no network connection and restart bmcweb using that socket?\n\nTo clarify, I foresee three configuration states for the redirect feature:\n1. compiled out of the image,\n2. compiled into the image but disabled by the bmc admin, and\n3. compiled into the image and enabled.\n\nThis comment is asking about a technical mechanism to move between states 2 and 3 above.  But I am not asking to provide that feature.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd229e0d_9050af35",
+        "filename": "http/http_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-21T15:35:54Z",
+      "side": 1,
+      "message": "This code only redirects URI\u003d/.  That seems to satisfy the basic requirement, but note it is different from the awk-based implementation here: https://github.com/openbmc/phosphor-misc/tree/master/http-redirect that redirects any of its explicitly enumerated routes.\nThis code looks okay, but I am not a web server expert.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b768af90_f5afaf03",
+        "filename": "http/http_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-21T15:35:54Z",
+      "side": 1,
+      "message": "This line is redundant.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0807883e_2628f112",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-21T15:35:54Z",
+      "side": 1,
+      "message": "This has moved to ???",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b50a10_ca4f7ea2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-08-21T15:35:54Z",
+      "side": 1,
+      "message": "I don\u0027t understand how this is related to http redirection.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
