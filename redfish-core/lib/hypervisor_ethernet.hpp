@@ -382,10 +382,9 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
             BMCWEB_LOG_DEBUG << "SubnetMask is Set";
         },
         "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId +
-            "/ipv4/addr0"
-            "org.freedesktop.DBus.Properties",
-        "Set", "xyz.openbmc_project.Network.IP", "PrefixLength",
+        "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "PrefixLength",
         std::variant<uint8_t>(subnet));
 }
 
