@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "177cc97e_c2961b37",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T15:48:02Z",
+      "side": 1,
+      "message": "Please do that first, before using this pattern in a new patchset then.\n\nThe point is to ensure that this utility function can be used for all our existing uses of this without issue, and if it needs modified, or causes a significant thrash, we don\u0027t end up with 2 competing patterns in bmcweb.\n\nThese are the exact same rules we\u0027ve used for other generic \"utils\" type functions like readJson.",
+      "parentUuid": "1b954455_d179b89d",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 27
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40387b2a_87923507",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
@@ -125,6 +149,24 @@
       "side": 1,
       "message": "Once it is accepted here we can find/replace other places which can use this. Creating a function where other\u0027s do not is not inconsistency it\u0027s just good practice that should be supported. There are no rules telling you when you can or cannot create helper function. Of course some are more useful than the other. This is first helper function for this.\n\nThere should be no issues with larger code or being to slow. Compiler should inline this for us.\n\nLet\u0027s just do this step by step. Once it is in repository others can start to use it even if it\u0027s not changed everywhere yet.",
       "parentUuid": "d6dc52d3_e03c12d5",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae5d6d18_f00496c3",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T15:48:02Z",
+      "side": 1,
+      "message": "Consider it \"accepted\" (technically James does that, but I don\u0027t see him having an issue with this), but a patch setting this utils function everywhere needs to merge in ahead of the rest of the patches.\n\nAlso, this function belongs in sdbusplus, not bmcweb, as it\u0027s a generic dbus construct, and has nothing specific to bmcweb.\n\n\"Creating a function where other\u0027s do not is not inconsistency it\u0027s just good practice that should be supported.\"\nBest practices are determined by what the existing code does today.  If you want to change that, feel free, I think this would be a good change, but it needs to happen ahead of adding new features, not together with it.\n\n\"There are no rules telling you when you can or cannot create helper function\"\nThere are plenty of rules that disallow the creation of a single line helper function that adds code overall.\n\"Code should be clear and concise.\" is the first rule of the coding standard.\n\n\"There should be no issues with larger code or being to slow. Compiler should inline this for us.\"\nAt no point was a worried about code size.  I agree, I think this will likely be inlined and optimized identically.  I\u0027m worried about consistency in the codebase, and being able to point to any example of GetAll properties, and have it be a similar callsite (be it a utils function, or a direct call to async_method_call).  If you\u0027re willing to do that, great, but please do it ahead of this patch.\n\nWe enforced similar rules for the other generic helper functions that are in the codebase.  Each one is used multiple times, and was used (or patchsets were in review) to use it on a majority of the codebase before they were merged.",
+      "parentUuid": "242b69b4_38399a61",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
