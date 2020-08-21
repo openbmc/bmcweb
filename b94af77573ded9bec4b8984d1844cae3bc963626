@@ -460,6 +460,30 @@
     },
     {
       "key": {
+        "uuid": "eab3cdca_bda5ddf8",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-21T12:43:57Z",
+      "side": 1,
+      "message": "Also this helper doesn\u0027t increase binary size. Compiler is very good at inlining lambdas that it produces same result if we inline it manually. Actually there is much smaller binary size if we use same lambda in many places. Compiler have no way to optimize it if we just copy paste it everywhere. What I didn\u0027t expect was that when we used std::function binary size was larger than with lambdas.\n\nSo if we look at this from performance side solution with this helper function and callback as template parameter is best solution. Execution time more or less the same. Only with large number of repeats solution with lambdas was noticeably better.\n\nApplication A had X calls to async_method_call with GetAll on some service. Application B had X calls to helper method with Callback type as template parameter. Two callbacks were introduced  - onError and onSuccess. To paste this X duplicated calls in both cases macro was used. Same code but in different style was in both applications.\n\nApplication A always uses plain code duplication.\nApplication B uses helper class and same lambda in each call:\n\nWhen X\u003d1: size of both applications is the same\n\nWhen X\u003d1000:\n- Application A: 2984792 (2,9M)\n- Application B: 183128 (179K)\n\nApplication B used helper and same lambda in each call, helper takes std::function\u003c...\u003e instead of templete parameter:\n\nWhen X\u003d1:\n- Application A: 133976 (131K)\n- Application B: 138072 (135K)\n\nWhen X\u003d1000:\n- Application A: 2984792 (2,9M)\n- Application B: 453464 (443K)\n\nApplication B uses helper class and different lambda with exactly the same code:\n\nWhen X\u003d1: size of both applications is the same\nWhen X\u003d1000:\n- Application A: 2984792 (2,9M)\n- Application B: 3046232 (3,0M)",
+      "parentUuid": "e0a5fa3c_af31e1c6",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f1076f7_657cd929",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
