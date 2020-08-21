@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c7de29e3_16e7260a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T16:00:00Z",
+      "side": 1,
+      "message": "That was my thought too, but I figured I should ask the question.",
+      "parentUuid": "e1ef7a9c_1c5be322",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b90faeeb_fa73a2da",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
@@ -30,6 +48,24 @@
       "writtenOn": "2020-08-21T15:35:54Z",
       "side": 1,
       "message": "Would it be possible for a BMC admin to disable this feature as needed to enhance their security posture?  If so, how?  (A) Delete the bmcweb_redirect socket and start bmcweb without it?  (B) Create a dummy bmcweb_redirect socket that has no network connection and restart bmcweb using that socket?\n\nTo clarify, I foresee three configuration states for the redirect feature:\n1. compiled out of the image,\n2. compiled into the image but disabled by the bmc admin, and\n3. compiled into the image and enabled.\n\nThis comment is asking about a technical mechanism to move between states 2 and 3 above.  But I am not asking to provide that feature.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb9b819_a2bc4274",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T16:00:00Z",
+      "side": 1,
+      "message": "\"Would it be possible for a BMC admin to disable this feature as needed to enhance their security posture?\"\n\nYes.  This is the intent of service mgr (which I haven\u0027t really followed to see if it made it to mainline).  It is designed to be able to modify socket files to modify ports that services use.\n\nI think all 3 use cases are covered if we add a compile option.  The only part where this gets hairy is with the ENABLE_HTTPS flag.  That flag has been broken for a bit, so I\u0027m wondering if nobody uses it anymore.",
+      "parentUuid": "b90faeeb_fa73a2da",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "56a569a5_c598d3c0",
+        "filename": "http/http_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T16:00:00Z",
+      "side": 1,
+      "message": "I really worry about that allowing injection attacks, given that you can set any parameter.  Does it also forward POST requests as well as GET?  In the past we had determined that was a really bad idea.\n\nI\u0027m happy to make a mode that provides that functionality, but I question if it\u0027s a good idea security wise.\n\nMaybe we could ignore the incoming url and method, and simply ALWAYS forward the user to https://\u003chost\u003e/  \n\nWhat do you think?",
+      "parentUuid": "dd229e0d_9050af35",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b768af90_f5afaf03",
         "filename": "http/http_connection.h",
         "patchSetId": 22
@@ -64,6 +118,24 @@
       "writtenOn": "2020-08-21T15:35:54Z",
       "side": 1,
       "message": "This line is redundant.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45921f25_b7d5c627",
+        "filename": "http/http_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T16:00:00Z",
+      "side": 1,
+      "message": "Yes it is.  Will fix.",
+      "parentUuid": "b768af90_f5afaf03",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6d720557_d3d4e7a2",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T16:00:00Z",
+      "side": 1,
+      "message": "See my email on the mailing list about the significant architecture break that Ravi and Appu caused by injecting socket files into the Request object.  I suspect it needs reverted and reworked, but neither has replied to me yet.",
+      "parentUuid": "0807883e_2628f112",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b50a10_ca4f7ea2",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 22
@@ -98,6 +188,24 @@
       "writtenOn": "2020-08-21T15:35:54Z",
       "side": 1,
       "message": "I don\u0027t understand how this is related to http redirection.",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3c60c5_9f2fd4dc",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T16:00:00Z",
+      "side": 1,
+      "message": "See my email on the list.  Adding Request::Adaptor breaks a bunch of abstractions (and does it incorrectly to bat) and has some problems.  I detailed them in the email, but it hasn\u0027t gotten a response yet.",
+      "parentUuid": "41b50a10_ca4f7ea2",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
