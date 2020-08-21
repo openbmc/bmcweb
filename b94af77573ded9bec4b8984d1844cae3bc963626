@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "dafb3acf_cec03e9f",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T15:24:06Z",
+      "side": 1,
+      "message": "I don\u0027t have an example in my head offhand.  The last attempt was a long time ago.  It should be in the gerrit/git history.\n\nThe API I\u0027m proposing is similar, but looks more like readJson, and doesn\u0027t rely on moved params to do its job (it unpacks directly into the correct types) I\u0027m suggesting an API like this.\n\nstd::vector\u003cstd::pair\u003cstd::string, dbus_variant\u003e\u003e\u0026 ret;\n\nstd::string foo;\nstd::optional\u003cuint32_t\u003e bar;\n\nif (getPropertiesFromResponse(res, ret, \"StringKeyToGet\", foo, \"OptionalBarKey\" bar){\n    return;\n}\n\n// If we get to this point, we know that the keys parsed correctly, and have type safe values in them.\n\n\nGo take a look at readJson.  It\u0027s very very similar to the above, and resolved more error handling bugs than I could count when it was introduced.",
+      "parentUuid": "060ab7a8_46f46f02",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01117c1a_e2d983bb",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -815,6 +839,30 @@
     },
     {
       "key": {
+        "uuid": "e368436f_0de1d6e8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T15:24:06Z",
+      "side": 1,
+      "message": "I gave you an example that worked, but sure, the more examples the better.",
+      "parentUuid": "dde7e2df_70da1c44",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2952ae8e_77bd0dae",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -880,6 +928,24 @@
       "side": 1,
       "message": "From bmcweb code and from OpenBMC system that I works on because it is missing time zones database. Of course it require double check with community. Getting time zone is expensive operation.\nPT48H is valid.",
       "parentUuid": "b4adab40_50639d78",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86256960_58a8f6c3",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-21T15:24:06Z",
+      "side": 1,
+      "message": "Generally we enforce timezones in the UI, that\u0027s where I\u0027ve seen bugs in the past.",
+      "parentUuid": "d681c641_73c46688",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
