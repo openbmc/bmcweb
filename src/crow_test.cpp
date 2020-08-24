@@ -98,19 +98,19 @@ TEST(Crow, ParameterTagging)
     static_assert(black_magic::isValid("<int><int><int>"), "valid url");
     static_assert(!black_magic::isValid("<int><int<<int>"), "invalid url");
     static_assert(!black_magic::isValid("nt>"), "invalid url");
-    ASSERT_EQUAL(1, black_magic::get_parameter_tag("<int>"));
-    ASSERT_EQUAL(2, black_magic::get_parameter_tag("<uint>"));
-    ASSERT_EQUAL(3, black_magic::get_parameter_tag("<float>"));
-    ASSERT_EQUAL(3, black_magic::get_parameter_tag("<double>"));
-    ASSERT_EQUAL(4, black_magic::get_parameter_tag("<str>"));
-    ASSERT_EQUAL(4, black_magic::get_parameter_tag("<string>"));
-    ASSERT_EQUAL(5, black_magic::get_parameter_tag("<path>"));
+    ASSERT_EQUAL(1, black_magic::getParameterTag("<int>"));
+    ASSERT_EQUAL(2, black_magic::getParameterTag("<uint>"));
+    ASSERT_EQUAL(3, black_magic::getParameterTag("<float>"));
+    ASSERT_EQUAL(3, black_magic::getParameterTag("<double>"));
+    ASSERT_EQUAL(4, black_magic::getParameterTag("<str>"));
+    ASSERT_EQUAL(4, black_magic::getParameterTag("<string>"));
+    ASSERT_EQUAL(5, black_magic::getParameterTag("<path>"));
     ASSERT_EQUAL(6 * 6 + 6 + 1,
-                 black_magic::get_parameter_tag("<int><int><int>"));
+                 black_magic::getParameterTag("<int><int><int>"));
     ASSERT_EQUAL(6 * 6 + 6 + 2,
-                 black_magic::get_parameter_tag("<uint><int><int>"));
+                 black_magic::getParameterTag("<uint><int><int>"));
     ASSERT_EQUAL(6 * 6 + 6 * 3 + 2,
-                 black_magic::get_parameter_tag("<uint><double><int>"));
+                 black_magic::getParameterTag("<uint><double><int>"));
 
     // url definition parsed in compile time, build into *one number*, and given
     // to template argument
