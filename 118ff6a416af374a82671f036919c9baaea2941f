@@ -159,6 +159,24 @@
       "revId": "118ff6a416af374a82671f036919c9baaea2941f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2247927a_135045f9",
+        "filename": "http/http_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-24T16:55:41Z",
+      "side": 1,
+      "message": "Please rerun your tests with bmcweb logging enabled.  This could be a timeout, or an actual limitation somewhere.",
+      "parentUuid": "bcd73923_b6788b45",
+      "revId": "118ff6a416af374a82671f036919c9baaea2941f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
