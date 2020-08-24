@@ -28,9 +28,6 @@
 namespace crow
 {
 
-constexpr int maxHttpVerbCount =
-    static_cast<int>(boost::beast::http::verb::unlink);
-
 class BaseRule
 {
   public:
@@ -1059,9 +1056,10 @@ class Router
         {
             return;
         }
-        for (uint32_t method = 0, method_bit = 1; method < maxHttpVerbCount;
-             method++, method_bit <<= 1)
+
+        for (size_t method = 0; method < perMethods.size(); method++)
         {
+            size_t method_bit = 1 << method;
             if (ruleObject->methodsBitfield & method_bit)
             {
                 perMethods[method].rules.emplace_back(ruleObject);
@@ -1104,7 +1102,11 @@ class Router
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {
         if (static_cast<size_t>(req.method()) >= perMethods.size())
+        {
+            res.result(boost::beast::http::status::not_found);
+            res.end();
             return;
+        }
 
         PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
         Trie& trie = perMethod.trie;
@@ -1189,7 +1191,11 @@ class Router
     void handle(Request& req, Response& res)
     {
         if (static_cast<size_t>(req.method()) >= perMethods.size())
+        {
+            res.result(boost::beast::http::status::not_found);
+            res.end();
             return;
+        }
         PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
@@ -1416,6 +1422,10 @@ class Router
         PerMethod() : rules(2)
         {}
     };
+
+    const static size_t maxHttpVerbCount =
+        static_cast<size_t>(boost::beast::http::verb::trace);
+
     std::array<PerMethod, maxHttpVerbCount> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
