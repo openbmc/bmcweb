@@ -17,7 +17,7 @@
 #include <utility>
 
 #define BMCWEB_ROUTE(app, url)                                                 \
-    app.template route<crow::black_magic::get_parameter_tag(url)>(url)
+    app.template route<crow::black_magic::getParameterTag(url)>(url)
 
 namespace crow
 {

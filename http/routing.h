@@ -469,9 +469,9 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     void operator()(Func f)
     {
         using function_t = utility::function_traits<Func>;
-
         erasedHandler =
-            wrap(std::move(f), black_magic::gen_seq<function_t::arity>());
+            wrap(std::move(f),
+                 std::make_integer_sequence<unsigned, function_t::arity>{});
     }
 
     // enable_if Arg1 == request && Arg2 == Response
@@ -479,15 +479,14 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     // enable_if Arg1 != request
 
     template <typename Func, unsigned... Indices>
-
     std::function<void(const Request&, Response&, const RoutingParams&)>
-        wrap(Func f, black_magic::Seq<Indices...>)
+        wrap(Func f, std::integer_sequence<unsigned, Indices...>)
     {
-        using function_t = utility::function_traits<Func>;
+        using function_t = crow::utility::function_traits<Func>;
 
         if (!black_magic::isParameterTagCompatible(
-                black_magic::getParameterTagRuntime(rule.c_str()),
-                black_magic::compute_parameter_tag_from_args_list<
+                black_magic::getParameterTag(rule.c_str()),
+                black_magic::computeParameterTagFromArgsList<
                     typename function_t::template arg<Indices>...>::value))
         {
             throw std::runtime_error("routeDynamic: Handler type is mismatched "
