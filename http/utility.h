@@ -16,102 +16,35 @@ namespace crow
 {
 namespace black_magic
 {
-struct OutOfRange
-{
-    OutOfRange(unsigned /*pos*/, unsigned /*length*/)
-    {}
-};
-constexpr unsigned requiresInRange(unsigned i, unsigned len)
-{
-    return i >= len ? throw OutOfRange(i, len) : i;
-}
 
-class ConstStr
-{
-    const char* const beginPtr;
-    unsigned sizeUint;
-
-  public:
-    template <unsigned N>
-    constexpr ConstStr(const char (&arr)[N]) : beginPtr(arr), sizeUint(N - 1)
-    {
-        static_assert(N >= 1, "not a string literal");
-    }
-    constexpr char operator[](unsigned i) const
-    {
-        requiresInRange(i, sizeUint);
-        return beginPtr[i];
-    }
-
-    constexpr operator const char*() const
-    {
-        return beginPtr;
-    }
-
-    constexpr const char* begin() const
-    {
-        return beginPtr;
-    }
-    constexpr const char* end() const
-    {
-        return beginPtr + sizeUint;
-    }
-
-    constexpr unsigned size() const
-    {
-        return sizeUint;
-    }
-};
-
-constexpr unsigned findClosingTag(ConstStr s, unsigned p)
+constexpr unsigned findClosingTag(std::string_view s, unsigned p)
 {
     return s[p] == '>' ? p : findClosingTag(s, p + 1);
 }
 
-constexpr bool isValid(ConstStr s, unsigned i = 0, int f = 0)
+constexpr bool isInt(std::string_view s, unsigned i)
 {
-    return i == s.size()
-               ? f == 0
-               : f < 0 || f >= 2
-                     ? false
-                     : s[i] == '<' ? isValid(s, i + 1, f + 1)
-                                   : s[i] == '>' ? isValid(s, i + 1, f - 1)
-                                                 : isValid(s, i + 1, f);
+    return s.substr(i, 5) == "<int>";
 }
 
-constexpr bool isEquN(ConstStr a, unsigned ai, ConstStr b, unsigned bi,
-                      unsigned n)
+constexpr bool isUint(std::string_view s, unsigned i)
 {
-    return ai + n > a.size() || bi + n > b.size()
-               ? false
-               : n == 0 ? true
-                        : a[ai] != b[bi] ? false
-                                         : isEquN(a, ai + 1, b, bi + 1, n - 1);
+    return s.substr(i, 6) == "<uint>";
 }
 
-constexpr bool isInt(ConstStr s, unsigned i)
+constexpr bool isFloat(std::string_view s, unsigned i)
 {
-    return isEquN(s, i, "<int>", 0, 5);
+    return s.substr(i, 7) == "<float>" || s.substr(i, 8) == "<double>";
 }
 
-constexpr bool isUint(ConstStr s, unsigned i)
+constexpr bool isStr(std::string_view s, unsigned i)
 {
-    return isEquN(s, i, "<uint>", 0, 6);
+    return s.substr(i, 5) == "<str>" || s.substr(i, 8) == "<string>";
 }
 
-constexpr bool isFloat(ConstStr s, unsigned i)
+constexpr bool isPath(std::string_view s, unsigned i)
 {
-    return isEquN(s, i, "<float>", 0, 7) || isEquN(s, i, "<double>", 0, 8);
-}
-
-constexpr bool isStr(ConstStr s, unsigned i)
-{
-    return isEquN(s, i, "<str>", 0, 5) || isEquN(s, i, "<string>", 0, 8);
-}
-
-constexpr bool isPath(ConstStr s, unsigned i)
-{
-    return isEquN(s, i, "<path>", 0, 6);
+    return s.substr(i, 6) == "<path>";
 }
 
 template <typename T>
@@ -169,26 +102,26 @@ constexpr int getParameterTag()
 }
 
 template <typename... Args>
-struct compute_parameter_tag_from_args_list;
+struct computeParameterTagFromArgsList;
 
 template <>
-struct compute_parameter_tag_from_args_list<>
+struct computeParameterTagFromArgsList<>
 {
     static constexpr int value = 0;
 };
 
 template <typename Arg, typename... Args>
-struct compute_parameter_tag_from_args_list<Arg, Args...>
+struct computeParameterTagFromArgsList<Arg, Args...>
 {
     static constexpr int subValue =
-        compute_parameter_tag_from_args_list<Args...>::value;
+        computeParameterTagFromArgsList<Args...>::value;
     static constexpr int value =
         getParameterTag<typename std::decay<Arg>::type>()
             ? subValue * 6 + getParameterTag<typename std::decay<Arg>::type>()
             : subValue;
 };
 
-static inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
+inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
 {
     if (a == 0)
     {
@@ -215,87 +148,44 @@ static inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
     return isParameterTagCompatible(a / 6, b / 6);
 }
 
-static inline unsigned findClosingTagRuntime(const char* s, unsigned p)
+constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
 {
-    return s[p] == 0 ? throw std::runtime_error("unmatched tag <")
-                     : s[p] == '>' ? p : findClosingTagRuntime(s, p + 1);
-}
+    if (p == s.size())
+    {
+        return 0;
+    }
 
-static inline uint64_t getParameterTagRuntime(const char* s, unsigned p = 0)
-{
-    return s[p] == 0
-               ? 0
-               : s[p] == '<'
-                     ? (std::strncmp(s + p, "<int>", 5) == 0
-                            ? getParameterTagRuntime(
-                                  s, findClosingTagRuntime(s, p)) *
-                                      6 +
-                                  1
-                            : std::strncmp(s + p, "<uint>", 6) == 0
-                                  ? getParameterTagRuntime(
-                                        s, findClosingTagRuntime(s, p)) *
-                                            6 +
-                                        2
-                                  : (std::strncmp(s + p, "<float>", 7) == 0 ||
-                                     std::strncmp(s + p, "<double>", 8) == 0)
-                                        ? getParameterTagRuntime(
-                                              s, findClosingTagRuntime(s, p)) *
-                                                  6 +
-                                              3
-                                        : (std::strncmp(s + p, "<str>", 5) ==
-                                               0 ||
-                                           std::strncmp(s + p, "<string>", 8) ==
-                                               0)
-                                              ? getParameterTagRuntime(
-                                                    s, findClosingTagRuntime(
-                                                           s, p)) *
-                                                        6 +
-                                                    4
-                                              : std::strncmp(s + p, "<path>",
-                                                             6) == 0
-                                                    ? getParameterTagRuntime(
-                                                          s,
-                                                          findClosingTagRuntime(
-                                                              s, p)) *
-                                                              6 +
-                                                          5
-                                                    : throw std::runtime_error(
-                                                          "invalid parameter "
-                                                          "type"))
-                     : getParameterTagRuntime(s, p + 1);
-}
+    if (s[p] != '<')
+    {
+        return getParameterTag(s, p + 1);
+    }
 
-constexpr uint64_t get_parameter_tag(ConstStr s, unsigned p = 0)
-{
-    return p == s.size()
-               ? 0
-               : s[p] == '<'
-                     ? (isInt(s, p)
-                            ? get_parameter_tag(s, findClosingTag(s, p)) * 6 + 1
-                            : isUint(s, p)
-                                  ? get_parameter_tag(s, findClosingTag(s, p)) *
-                                            6 +
-                                        2
-                                  : isFloat(s, p)
-                                        ? get_parameter_tag(
-                                              s, findClosingTag(s, p)) *
-                                                  6 +
-                                              3
-                                        : isStr(s, p)
-                                              ? get_parameter_tag(
-                                                    s, findClosingTag(s, p)) *
-                                                        6 +
-                                                    4
-                                              : isPath(s, p)
-                                                    ? get_parameter_tag(
-                                                          s, findClosingTag(
-                                                                 s, p)) *
-                                                              6 +
-                                                          5
-                                                    : throw std::runtime_error(
-                                                          "invalid parameter "
-                                                          "type"))
-                     : get_parameter_tag(s, p + 1);
+    if (isInt(s, p))
+    {
+        return getParameterTag(s, findClosingTag(s, p)) * 6 + 1;
+    }
+
+    if (isUint(s, p))
+    {
+        return getParameterTag(s, findClosingTag(s, p)) * 6 + 2;
+    }
+
+    if (isFloat(s, p))
+    {
+        return getParameterTag(s, findClosingTag(s, p)) * 6 + 3;
+    }
+
+    if (isStr(s, p))
+    {
+        return getParameterTag(s, findClosingTag(s, p)) * 6 + 4;
+    }
+
+    if (isPath(s, p))
+    {
+        return getParameterTag(s, findClosingTag(s, p)) * 6 + 5;
+    }
+
+    throw std::runtime_error("invalid parameter type");
 }
 
 template <typename... T>
@@ -308,8 +198,10 @@ struct S
     template <template <typename... Args> class U>
     using rebind = U<T...>;
 };
+
 template <typename F, typename Set>
 struct CallHelper;
+
 template <typename F, typename... Args>
 struct CallHelper<F, S<Args...>>
 {
@@ -371,129 +263,65 @@ struct Arguments<0>
     using type = S<>;
 };
 
-template <typename... T>
-struct LastElementType
-{
-    using type =
-        typename std::tuple_element<sizeof...(T) - 1, std::tuple<T...>>::type;
-};
-
-template <>
-struct LastElementType<>
-{};
-
-// from
-// http://stackoverflow.com/questions/13072359/c11-compile-time-array-with-logarithmic-evaluation-depth
-template <class T>
-using Invoke = typename T::type;
-
-template <unsigned...>
-struct Seq
-{
-    using type = Seq;
-};
-
-template <class S1, class S2>
-struct concat;
-
-template <unsigned... I1, unsigned... I2>
-struct concat<Seq<I1...>, Seq<I2...>> : Seq<I1..., (sizeof...(I1) + I2)...>
-{};
-
-template <class S1, class S2>
-using Concat = Invoke<concat<S1, S2>>;
-
-template <size_t N>
-struct gen_seq;
-template <size_t N>
-using GenSeq = Invoke<gen_seq<N>>;
-
-template <size_t N>
-struct gen_seq : Concat<GenSeq<N / 2>, GenSeq<N - N / 2>>
-{};
-
-template <>
-struct gen_seq<0> : Seq<>
-{};
-template <>
-struct gen_seq<1> : Seq<0>
-{};
-
-template <typename Seq, typename Tuple>
-struct PopBackHelper;
-
-template <unsigned... N, typename Tuple>
-struct PopBackHelper<Seq<N...>, Tuple>
-{
-    template <template <typename... Args> class U>
-    using rebind = U<typename std::tuple_element<N, Tuple>::type...>;
-};
-
-template <typename... T>
-struct PopBack //: public PopBackHelper<typename
-               // gen_seq<sizeof...(T)-1>::type, std::tuple<T...>>
-{
-    template <template <typename... Args> class U>
-    using rebind =
-        typename PopBackHelper<typename gen_seq<sizeof...(T) - 1UL>::type,
-                               std::tuple<T...>>::template rebind<U>;
-};
-
-template <>
-struct PopBack<>
-{
-    template <template <typename... Args> class U>
-    using rebind = U<>;
-};
-
-// from
-// http://stackoverflow.com/questions/2118541/check-if-c0x-parameter-pack-contains-a-type
-template <typename Tp, typename... List>
-struct Contains : std::true_type
-{};
-
-template <typename Tp, typename Head, typename... Rest>
-struct Contains<Tp, Head, Rest...> :
-    std::conditional<std::is_same<Tp, Head>::value, std::true_type,
-                     Contains<Tp, Rest...>>::type
-{};
-
-template <typename Tp>
-struct Contains<Tp> : std::false_type
-{};
-
-template <typename T>
-struct EmptyContext
-{};
-
 template <typename T>
 struct promote
 {
     using type = T;
 };
 
-#define BMCWEB_INTERNAL_PROMOTE_TYPE(t1, t2)                                   \
-    template <>                                                                \
-    struct promote<t1>                                                         \
-    {                                                                          \
-        using type = t2;                                                       \
-    }
-
-BMCWEB_INTERNAL_PROMOTE_TYPE(char, int64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(short, int64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(int, int64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(long, int64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(long long, int64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(unsigned char, uint64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(unsigned short, uint64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(unsigned int, uint64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(unsigned long, uint64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(unsigned long long, uint64_t);
-BMCWEB_INTERNAL_PROMOTE_TYPE(float, double);
-#undef BMCWEB_INTERNAL_PROMOTE_TYPE
-
 template <typename T>
 using promote_t = typename promote<T>::type;
+
+template <>
+struct promote<char>
+{
+    using type = int64_t;
+};
+template <>
+struct promote<short>
+{
+    using type = int64_t;
+};
+template <>
+struct promote<int>
+{
+    using type = int64_t;
+};
+template <>
+struct promote<long>
+{
+    using type = int64_t;
+};
+template <>
+struct promote<long long>
+{
+    using type = int64_t;
+};
+template <>
+struct promote<unsigned char>
+{
+    using type = uint64_t;
+};
+template <>
+struct promote<unsigned short>
+{
+    using type = uint64_t;
+};
+template <>
+struct promote<unsigned int>
+{
+    using type = uint64_t;
+};
+template <>
+struct promote<unsigned long>
+{
+    using type = uint64_t;
+};
+template <>
+struct promote<unsigned long long>
+{
+    using type = uint64_t;
+};
 
 } // namespace black_magic
 
@@ -575,57 +403,6 @@ struct function_traits<std::function<r(Args...)>>
     template <size_t i>
     using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
 };
-
-inline static std::string base64encode(
-    const char* data, size_t size,
-    const char* key =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
-{
-    std::string ret;
-    ret.resize((size + 2) / 3 * 4);
-    auto it = ret.begin();
-    while (size >= 3)
-    {
-        *it++ = key[(static_cast<unsigned char>(*data) & 0xFC) >> 2];
-        unsigned char h = static_cast<unsigned char>(
-            (static_cast<unsigned char>(*data++) & 0x03u) << 4u);
-        *it++ = key[h | ((static_cast<unsigned char>(*data) & 0xF0) >> 4)];
-        h = static_cast<unsigned char>(
-            (static_cast<unsigned char>(*data++) & 0x0F) << 2u);
-        *it++ = key[h | ((static_cast<unsigned char>(*data) & 0xC0) >> 6)];
-        *it++ = key[static_cast<unsigned char>(*data++) & 0x3F];
-
-        size -= 3;
-    }
-    if (size == 1)
-    {
-        *it++ = key[(static_cast<unsigned char>(*data) & 0xFC) >> 2];
-        unsigned char h = static_cast<unsigned char>(
-            (static_cast<unsigned char>(*data++) & 0x03) << 4u);
-        *it++ = key[h];
-        *it++ = '=';
-        *it++ = '=';
-    }
-    else if (size == 2)
-    {
-        *it++ = key[(static_cast<unsigned char>(*data) & 0xFC) >> 2];
-        unsigned char h = static_cast<unsigned char>(
-            (static_cast<unsigned char>(*data++) & 0x03) << 4u);
-        *it++ = key[h | ((static_cast<unsigned char>(*data) & 0xF0) >> 4)];
-        h = static_cast<unsigned char>(
-            (static_cast<unsigned char>(*data++) & 0x0F) << 2u);
-        *it++ = key[h];
-        *it++ = '=';
-    }
-    return ret;
-}
-
-inline static std::string base64encodeUrlsafe(const char* data, size_t size)
-{
-    return base64encode(
-        data, size,
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_");
-}
 
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
