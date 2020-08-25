@@ -549,7 +549,7 @@ class Connection :
                 }
                 catch (std::exception& p)
                 {
-                    BMCWEB_LOG_ERROR << p;
+                    BMCWEB_LOG_ERROR << p.what();
                 }
 
                 crow::authorization::authenticate(*req, res, session);
