@@ -1,0 +1,394 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ea4bafb_687dc431",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t work as an error code.  0 is valid as an input.",
+      "range": {
+        "startLine": 41,
+        "startChar": 28,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663101d3_e06dd439",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Written generically this function doesn\u0027t require floating points at all.  std::chrono runs on ints by default.  This would be much easier if you just parsed milliseconds, then nanoseconds, and added the decimal in between.\n\nIf you\u0027d like me to make you another example as I did in the last patch, I\u0027m happy to.",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 40
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1d4661_abd4d150",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "This is very inefficient.  You\u0027d be much better off simply tracking an index or an iterator.  Alternatively, string_view has efficient methods for stripping the beginning and end of a string_view.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e56d20df_dd27c482",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "This file contains complexity that we aim to disallow.  Most of what this is doing is handling a simple length check.  This can be done simply and easily inline, as has been done before.  When done that way, it\u0027s much easier to read.\n\nPlease delete this file, and handle your errors without templates.",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e51761e_d788a121",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "You\u0027re casting a size_t to a size_t?",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9104aef_0de12dd3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "This is technically the wrong key.",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e42c9ed_fb59003b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Please move out of this class.\n\nAlso, can this just return bool, and take res as an input?  That pattern tends to work better, and keeps the indexing information available.",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 11
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f64d09db_d4b93f29",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "considering this is static, please move this outside the class itself.",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0c980b_f3dc9c66",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Please don\u0027t do this this way.  Again, it obfuscates what should be a simple length check, and adds a ton of complicated code, including a construction of a tuple, which seems like it\u0027s just designed so you can use variadic templates.\n\nPlease do this in the more conventional way.\nif (name.size() \u003e maxReportIdLen){\n    // set error\n    return\n}",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a57369c_985ed496",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "This kind of check comes up all the time.  If you really want to write generic utils code, a check for this kind of thing (and moving some other code to it) would be good.\n\nWith that said, this is the current best practice, so this is fine as-is.",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3af75d_a05b7031",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Are you sure this is the right error?  In this case the type was correct, but the values were wrong?  I suspect there\u0027s a more specific error there.",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8858a9f9_e4c78bd8",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Technically this is the wrong json pointer to the key, but because you\u0027ve created a helper, you\u0027ve lost the actual key index.  I suspect your check should just be inlined, or the res object can be put into replaceReportActions.",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1febea9a_b70b27dc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Please just do this the conventional way.\n\nif (interval \u003e maxShortParamLength){\n    // return error\n}\n\nAlso, isn\u0027t this check unnecessary, given that fromDurationFormat should parse it and return an error code anyway?",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef711a5b_0e88b1f3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Please use params.scanPeriod here and below.  It makes the code easier to read.",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 23
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57f007c1_287af6e9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "This needs to handle out of range values here.   time_t is only uint32_t on 32 bit systems.\n\nIdeally, the API would change to be a uint32_t.",
+      "range": {
+        "startLine": 217,
+        "startChar": 38,
+        "endLine": 217,
+        "endChar": 78
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfff2516_01b55cfe",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Again, please do this the conventional way.",
+      "range": {
+        "startLine": 251,
+        "startChar": 17,
+        "endLine": 251,
+        "endChar": 37
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477689cd_40943aef",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Please avoid auto here.\n\nalso, suspect you want const (or do it by move).",
+      "range": {
+        "startLine": 258,
+        "startChar": 17,
+        "endLine": 258,
+        "endChar": 21
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "417c2892_feeec0a5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "Please avoid using auto here, as it obfuscates the type.",
+      "range": {
+        "startLine": 276,
+        "startChar": 18,
+        "endLine": 276,
+        "endChar": 22
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
