@@ -168,6 +168,24 @@
     },
     {
       "key": {
+        "uuid": "b01dc2be_a77087e2",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-25T18:48:40Z",
+      "side": 1,
+      "message": "I\u0027d prefer you avoided floating point entirely here, as it significantly reduces the attack surface, and makes the implementation more correct.\n\nOnce you support the error, you will pass the error code back to the user.  Today, the implementation blindly accepts invalid things, and gives no indication there was an error.",
+      "parentUuid": "44edb3b3_457c28d5",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78754b0c_c79de612",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 20
