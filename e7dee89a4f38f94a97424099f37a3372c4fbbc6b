@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "076260f3_fd2188e8",
+        "filename": "include/event_dbus_monitor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-08-25T08:08:46Z",
+      "side": 1,
+      "message": "say client is registered for bmc state change event, if i do reboot i could see that event received by client while bmc state changed to ready.",
+      "parentUuid": "738e7007_a5b3d82e",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "e7dee89a4f38f94a97424099f37a3372c4fbbc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "988d8747_7c6f9f42",
         "filename": "include/event_dbus_monitor.hpp",
         "patchSetId": 28
