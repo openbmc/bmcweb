@@ -241,8 +241,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             -Wformat=2 \
         "
         )
-    endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
-endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.0)
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general
