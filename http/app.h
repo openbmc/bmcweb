@@ -27,8 +27,6 @@ using ssl_context_t = boost::asio::ssl::context;
 class App
 {
   public:
-    using self_t = App;
-
 #ifdef BMCWEB_ENABLE_SSL
     using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
     using ssl_server_t = Server<App, ssl_socket_t>;
@@ -80,7 +78,7 @@ class App
         return *this;
     }
 
-    self_t& bindaddr(std::string bindaddr)
+    App& bindaddr(std::string bindaddr)
     {
         bindaddrStr = bindaddr;
         return *this;
@@ -120,7 +118,8 @@ class App
             server = std::move(
                 std::make_unique<server_t>(this, socketFd, nullptr, io));
         }
-        server->setTickFunction(tickInterval, tickFunction);
+        server = std::make_unique<server_t>(this, std::move(acceptors),
+                                            sslContext, io);
         server->run();
 
 #endif
@@ -164,7 +163,7 @@ class App
         return *this;
     }
 
-    self_t& sslFile(const std::string& pem_filename)
+    App& sslFile(const std::string& pem_filename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
@@ -178,7 +177,7 @@ class App
         return *this;
     }
 
-    self_t& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
+    App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
     {
         sslContext = std::move(ctx);
         BMCWEB_LOG_INFO << "app::ssl context use_count="
@@ -232,9 +231,6 @@ class App
     std::string bindaddrStr = "::";
     int socketFd = -1;
     Router router;
-
-    std::chrono::milliseconds tickInterval{};
-    std::function<void()> tickFunction;
 
 #ifdef BMCWEB_ENABLE_SSL
     std::unique_ptr<ssl_server_t> sslServer;
