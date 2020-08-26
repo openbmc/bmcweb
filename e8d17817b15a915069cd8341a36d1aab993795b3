@@ -699,6 +699,24 @@
     },
     {
       "key": {
+        "uuid": "81a9b8c4_cdfda9e5",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-26T20:01:44Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/35875/1/vue.config.js#6\nCreates a separate chunk for login page and then the authenticated code.\nIt does add a bit to the image, 20kb but we believe a solution like this is better because themeing is easier (in one repo), translation can be supported, and for now we can support both GUIs.",
+      "parentUuid": "3bcd7985_ffe56665",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
