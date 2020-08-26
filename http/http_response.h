@@ -22,6 +22,8 @@ struct Response
         boost::beast::http::response<boost::beast::http::string_body>;
 
     std::optional<response_type> stringResponse;
+    std::optional<boost::beast::http::response<boost::beast::http::file_body>>
+        fileResponse;
 
     nlohmann::json jsonValue;
 
@@ -103,6 +105,13 @@ struct Response
 
     void preparePayload()
     {
+        if (fileResponse)
+        {
+            fileResponse->prepare_payload();
+            fileResponse->base() = std::move(stringResponse->base());
+            return;
+        }
+
         stringResponse->prepare_payload();
     }
 
@@ -144,6 +153,21 @@ struct Response
     bool isAlive()
     {
         return isAliveHelper && isAliveHelper();
+    }
+
+    bool openFile(const std::filesystem::path& path)
+    {
+        boost::beast::http::file_body::value_type file;
+        boost::beast::error_code ec;
+        file.open(path.c_str(), boost::beast::file_mode::read, ec);
+        if (ec)
+        {
+            return false;
+        }
+
+        fileResponse.emplace();
+        fileResponse->body() = std::move(file);
+        return true;
     }
 
   private:
