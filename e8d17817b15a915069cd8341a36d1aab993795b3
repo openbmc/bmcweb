@@ -717,6 +717,24 @@
     },
     {
       "key": {
+        "uuid": "03d53754_0fe62a39",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-26T20:03:58Z",
+      "side": 1,
+      "message": "Everyone in the GUI design workgroup, held the opinion we should move to webui-vue and sunset phosphor-webui in the future (now I know this isn\u0027t the entire community but was 3 or 4 companies). The problem with the flag is until this support is added to webui-vue, this \"insecure\" flag would be required to use webui-vue (the GUI the design workgroup wants to move forward with).\n\nI also feel this is a bit of a stretch to call this an insecure flag.",
+      "parentUuid": "81a9b8c4_cdfda9e5",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
