@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "820d43e6_217c8cc9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-08-26T09:22:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b579909f_920d382f",
+      "range": {
+        "startLine": 1082,
+        "startChar": 28,
+        "endLine": 1082,
+        "endChar": 34
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e49b435_3a6e3f43",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2020-07-30T07:25:42Z",
       "side": 1,
       "message": "I like this idea but will this numbers match with PSU numbers?",
+      "range": {
+        "startLine": 1139,
+        "startChar": 49,
+        "endLine": 1139,
+        "endChar": 61
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "847d7641_a2394a80",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-08-26T09:22:28Z",
+      "side": 1,
+      "message": "no, It is Redundancy item count.",
+      "parentUuid": "1e49b435_3a6e3f43",
       "range": {
         "startLine": 1139,
         "startChar": 49,
@@ -106,6 +154,30 @@
       "side": 1,
       "message": "It should be filled, Fan redundancy populates this",
       "parentUuid": "e9ae155f_26c3651d",
+      "range": {
+        "startLine": 1145,
+        "startChar": 47,
+        "endLine": 1145,
+        "endChar": 70
+      },
+      "revId": "473be5e15edc5a0fed68655fd3e343fec6069d43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e834e8a_fe3423fc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-08-26T09:22:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ec1e83f_62bf9d99",
       "range": {
         "startLine": 1145,
         "startChar": 47,
