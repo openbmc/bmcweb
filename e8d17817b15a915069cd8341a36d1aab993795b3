@@ -735,6 +735,24 @@
     },
     {
       "key": {
+        "uuid": "98e2aacd_82402d81",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-26T20:55:17Z",
+      "side": 1,
+      "message": "Your separate chunk idea defeats the point of #1, #3, #4, and #6 from the original commit message.  The payload is still relatively large, which makes it a prime source for DOS attacks, and executes javascript in unauthenticated browsers, which makes it susceptible to attacks of that nature if the javascript has bugs (I\u0027m not saying that it does).\n\n\"It does add a bit to the image, 20kb but we believe a solution like this is better because themeing is easier (in one repo), translation can be supported, and for now we can support both GUIs.\"\nHow does this solve the \"supports both GUIs\" problem?  Do you have a patchset for phosphor-webui as well?\nAlso, translation can be supported either way, the issue is that it was done in javascript, which is fixable if you want to move the translation to a post-login context.\n\n\n\"Everyone in the GUI design workgroup, held the opinion we should move to webui-vue and sunset phosphor-webui in the future (now I know this isn\u0027t the entire community but was 3 or 4 companies\"\nCool, having that many people publicly say that on the mailing list, and start putting patches toward webui-vue to fix its missing features should help a lot with its forward progress.  I\u0027m not really sure what that has to do with this patch though, unless you\u0027re suggesting that I should wait for webui-vue to be 100% accepted by the community before proceeding.  If that\u0027s what you\u0027re proposing, can you and the other 3-4 companies give a timeline for the complete 100% community changeover including testing and stabilizing?  If not, or the date is significantly in the future, we still have the same problem.\nAlso note that this patch largely targets those that do not use the webui for security or size reasons.  I\u0027m going to guess none of those people were in your working group.\nAlso, can you get these 3-4 companies to put their assurances on the mailing list that they will dedicate testing and development effort toward webui-vue, and put patchsets out toward the webui-vue port?  If not, then it\u0027s all just talk in a meeting.\n\n\"I also feel this is a bit of a stretch to call this an insecure flag.\"\nWhat would you like to call it?  \"less secure\"? \"Increases dos attack surface\"?  The original intent of BMCWEB_INSECURE flags were to call out when there existed a more secure way to do things, but we needed to keep the old behavior available for the external users that needed it.  This seems like a perfect candidate under that definition, although I\u0027m happy to call it something else if you have a suggestion for what it could be renamed to.",
+      "parentUuid": "03d53754_0fe62a39",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
