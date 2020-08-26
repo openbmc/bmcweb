@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d9b09a7_5f66b9cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-26T20:55:17Z",
+      "side": 1,
+      "message": "How so?  /redfish/v1 hasn\u0027t changed that much, and is required for redfish compliance.  As a general rule, it doesn\u0027t change when security fixes are put in place, whereas the webui changes every week.  Also, my long term intent is to allow a mode where if the redfish auth mechanisms are disabled, the bmc can put those behind authentication as well, as you\u0027re likely using something like mtls.  This would significantly decrease the bmcs ability to be fingerprinted,, as the only thing outward facing socket would be openssl, which is common across a number of platforms, including lots of non-bmcs.",
+      "parentUuid": "8ceb96b3_6d2c9efb",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 57
+      },
+      "revId": "449c95bedfb87b77f69465b08508045afc84e256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65b7b949_60ddf4ca",
         "filename": "static/login/index.html",
         "patchSetId": 8
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1c7644de_b13d22c4",
+        "filename": "static/login/index.html",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-26T20:55:17Z",
+      "side": 1,
+      "message": "I didn\u0027t think I rebased this patch.  Must\u0027ve been in one of my series, oh well.  I can fix the tabs, although it sounds like you want this file to go away completely, so lets hash that out first and see if this problem just goes away.",
+      "parentUuid": "65b7b949_60ddf4ca",
+      "revId": "449c95bedfb87b77f69465b08508045afc84e256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0108d63b_d3051c03",
         "filename": "static/login/index.html",
         "patchSetId": 8
@@ -53,6 +95,24 @@
       "writtenOn": "2020-08-26T20:11:07Z",
       "side": 1,
       "message": "Would you be willing to update to support webui-vue\u0027s translation feature ?",
+      "revId": "449c95bedfb87b77f69465b08508045afc84e256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5398f4a2_eb6d1b1f",
+        "filename": "static/login/index.html",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-26T20:55:17Z",
+      "side": 1,
+      "message": "I\u0027d have no problem adding a translation button if you can come up with a solution that:\n1. Doesn\u0027t defeat the original intention of the patch.\n2. Doesn\u0027t require this patchset to wait for webui-vue to get to 100% feature and acceptance parity.\n\nThose are my two goals.  I have no specific love for phosphor-webui.\n\nOff the top of my head, the only idea I have would be making bmcweb aware of which webui is being run through a compiler option, so we could turn the translation button on or off, as well as some of the security things in this patch.\nAlternatively, webui-vue could move the language button into a post-authentication control, per-user, so we could keep the login page common for the time being.  Then, once webui-vue has 100% feature parity and has been accepted by the larger community, we can discuss moving it back to the login page, and deprecating phosphor-webui entirely.\n\nDo either of those work for you and your team?",
+      "parentUuid": "0108d63b_d3051c03",
       "revId": "449c95bedfb87b77f69465b08508045afc84e256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
