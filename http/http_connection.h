@@ -475,6 +475,7 @@ class Connection :
             res.completeRequestHandler = nullptr;
             return;
         }
+
         if (res.body().empty() && !res.jsonValue.empty())
         {
             if (http_helpers::requestPrefersHtml(*req))
@@ -703,7 +704,6 @@ class Connection :
         }
         BMCWEB_LOG_DEBUG << this << " doWrite";
         res.preparePayload();
-        serializer.emplace(*res.stringResponse);
         auto callback =
             [this, self(shared_from_this())](const boost::system::error_code ec,
                                              std::size_t bytes_transferred) {
@@ -726,6 +726,7 @@ class Connection :
                 }
 
                 serializer.reset();
+                fileSerializer.reset();
                 BMCWEB_LOG_DEBUG << this << " Clearing response";
                 res.clear();
                 parser.emplace(std::piecewise_construct, std::make_tuple());
@@ -737,16 +738,33 @@ class Connection :
                 req->isSecure = sslStream.has_value();
                 doReadHeaders();
             };
-
-        if (sslStream)
+        if (res.fileResponse)
         {
-            boost::beast::http::async_write(*sslStream, *serializer,
-                                            std::move(callback));
+            fileSerializer.emplace(*res.fileResponse);
+            if (sslStream)
+            {
+                boost::beast::http::async_write(*sslStream, *fileSerializer,
+                                                std::move(callback));
+            }
+            else
+            {
+                boost::beast::http::async_write(adaptor, *fileSerializer,
+                                                std::move(callback));
+            }
         }
         else
         {
-            boost::beast::http::async_write(adaptor, *serializer,
-                                            std::move(callback));
+            serializer.emplace(*res.stringResponse);
+            if (sslStream)
+            {
+                boost::beast::http::async_write(*sslStream, *serializer,
+                                                std::move(callback));
+            }
+            else
+            {
+                boost::beast::http::async_write(adaptor, *serializer,
+                                                std::move(callback));
+            }
         }
     }
 
@@ -830,6 +848,10 @@ class Connection :
     std::optional<boost::beast::http::response_serializer<
         boost::beast::http::string_body>>
         serializer;
+
+    std::optional<
+        boost::beast::http::response_serializer<boost::beast::http::file_body>>
+        fileSerializer;
 
     std::optional<crow::Request> req;
     crow::Response res;
