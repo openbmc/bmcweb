@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "e264c622_0622e9d6",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-26T21:03:35Z",
+      "side": 1,
+      "message": "looks not done?",
+      "parentUuid": "8d0972c8_93f8abe3",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 16
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6dc52d3_e03c12d5",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
@@ -256,6 +280,30 @@
       "side": 1,
       "message": "I don\u0027t have an example in my head offhand.  The last attempt was a long time ago.  It should be in the gerrit/git history.\n\nThe API I\u0027m proposing is similar, but looks more like readJson, and doesn\u0027t rely on moved params to do its job (it unpacks directly into the correct types) I\u0027m suggesting an API like this.\n\nstd::vector\u003cstd::pair\u003cstd::string, dbus_variant\u003e\u003e\u0026 ret;\n\nstd::string foo;\nstd::optional\u003cuint32_t\u003e bar;\n\nif (getPropertiesFromResponse(res, ret, \"StringKeyToGet\", foo, \"OptionalBarKey\" bar){\n    return;\n}\n\n// If we get to this point, we know that the keys parsed correctly, and have type safe values in them.\n\n\nGo take a look at readJson.  It\u0027s very very similar to the above, and resolved more error handling bugs than I could count when it was introduced.",
       "parentUuid": "060ab7a8_46f46f02",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391801d1_32fd76f9",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-26T21:03:35Z",
+      "side": 1,
+      "message": "Agree that something like readJson for variants would be useful. The only real problem I have with this approach is it assumes the caller is using a vector\u003cpair\u003e, which for many reasons they may prefer a map, where this approach would be less efficient. This would cause multiple loops over the same data structure that were not needed. Further, as Ed suggested, it only allows you to pull out one item at a time, where readJson can be smarter and pull out many at once. I\u0027m not in love with this mostly for the multiple extra loops it will cause if used widely.",
+      "parentUuid": "dafb3acf_cec03e9f",
       "range": {
         "startLine": 134,
         "startChar": 0,
