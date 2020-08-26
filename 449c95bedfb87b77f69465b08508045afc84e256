@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "c0dbcc5a_ee196f1e",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-26T21:04:18Z",
+      "side": 1,
+      "message": "One thing I realized is that this moves the \"next\" handling into bmcweb, which should solve it for webui-vue for \"free\" if we can get this patch landed.\nRE: https://github.com/openbmc/webui-vue/issues/28",
+      "range": {
+        "startLine": 149,
+        "startChar": 29,
+        "endLine": 149,
+        "endChar": 37
+      },
+      "revId": "449c95bedfb87b77f69465b08508045afc84e256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65b7b949_60ddf4ca",
         "filename": "static/login/index.html",
         "patchSetId": 8
