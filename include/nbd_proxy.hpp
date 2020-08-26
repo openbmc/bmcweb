@@ -89,7 +89,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
         auto mountHandler = [this, self(shared_from_this())](
                                 const boost::system::error_code ec,
-                                const bool status) {
+                                const bool) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBus error: cannot call mount method = "
@@ -433,7 +433,7 @@ void requestRoutes(App& app)
                 session->second->close();
             })
         .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool isBinary) {
+                      const std::string& data, bool) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onmessage(len = " << data.length()
                              << ")";
             // Acquire proxy from sessions

@@ -795,8 +795,7 @@ class VirtualMediaActionInsertMedia : public Node
 
             // Pass secret over pipe
             secretPipe->async_write(
-                [asyncResp](const boost::system::error_code& ec,
-                            std::size_t size) {
+                [asyncResp](const boost::system::error_code& ec, std::size_t) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "Failed to pass secret: " << ec;
@@ -1012,7 +1011,7 @@ class VirtualMediaCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -1087,7 +1086,7 @@ class VirtualMedia : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
