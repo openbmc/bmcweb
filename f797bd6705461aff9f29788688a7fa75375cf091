@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ce0e03d_d2aac85b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-26T20:54:06Z",
+      "side": 1,
+      "message": "why is it hard coded to 1 is required for redundancy? Couldn\u0027t I need 2 PSUs in some systems for it to be redundant? Shouldn\u0027t this compare against minnumberneeded?",
+      "range": {
+        "startLine": 1116,
+        "startChar": 27,
+        "endLine": 1116,
+        "endChar": 47
+      },
+      "revId": "f797bd6705461aff9f29788688a7fa75375cf091",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f508a70b_391b3588",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-26T20:54:06Z",
+      "side": 1,
+      "message": "where is health-rollup determined? Does this get populated to the rest of the system?",
+      "range": {
+        "startLine": 1128,
+        "startChar": 28,
+        "endLine": 1128,
+        "endChar": 35
+      },
+      "revId": "f797bd6705461aff9f29788688a7fa75375cf091",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d14aa161_95490bbf",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-26T20:54:06Z",
+      "side": 1,
+      "message": "why is this separate from the rest of the health logic? This looks like it should be apart of the health logic above.",
+      "range": {
+        "startLine": 1161,
+        "startChar": 22,
+        "endLine": 1164,
+        "endChar": 25
+      },
+      "revId": "f797bd6705461aff9f29788688a7fa75375cf091",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
