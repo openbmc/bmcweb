@@ -37,29 +37,9 @@ class Server
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptors(std::move(acceptorsIn)),
-        signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        timer(*ioService), handler(handlerIn), adaptorCtx(adaptor_ctx)
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), timer(*ioService),
+        handler(handlerIn), adaptorCtx(adaptor_ctx)
     {}
-
-    void setTickFunction(std::chrono::milliseconds d, std::function<void()> f)
-    {
-        tickInterval = d;
-        tickFunction = f;
-    }
-
-    void onTick()
-    {
-        tickFunction();
-        tickTimer.expires_after(
-            std::chrono::milliseconds(tickInterval.count()));
-        tickTimer.async_wait([this](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                return;
-            }
-            onTick();
-        });
-    }
 
     void updateDateStr()
     {
@@ -104,18 +84,6 @@ class Server
         };
         timer.async_wait(timerHandler);
 
-        if (tickFunction && tickInterval.count() > 0)
-        {
-            tickTimer.expires_after(
-                std::chrono::milliseconds(tickInterval.count()));
-            tickTimer.async_wait([this](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    return;
-                }
-                onTick();
-            });
-        }
         for (auto& acceptor : acceptors)
         {
             BMCWEB_LOG_INFO << serverName
@@ -223,7 +191,6 @@ class Server
     std::function<std::string()> getCachedDateStr;
     std::vector<std::unique_ptr<boost::asio::ip::tcp::acceptor>> acceptors;
     boost::asio::signal_set signals;
-    boost::asio::steady_timer tickTimer;
     boost::asio::steady_timer timer;
 
     std::string dateStr;
@@ -232,7 +199,6 @@ class Server
     std::string serverName = "bmcweb";
 
     std::chrono::milliseconds tickInterval{};
-    std::function<void()> tickFunction;
     std::function<void(const boost::system::error_code& ec)> timerHandler;
 
 #ifdef BMCWEB_ENABLE_SSL

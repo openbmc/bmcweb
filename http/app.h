@@ -27,8 +27,6 @@ using ssl_context_t = boost::asio::ssl::context;
 class App
 {
   public:
-    using self_t = App;
-
     using socket_t = boost::asio::ip::tcp::socket;
     using server_t = Server<App, socket_t>;
 
@@ -66,14 +64,14 @@ class App
         return router.newRuleTagged<Tag>(std::move(rule));
     }
 
-    self_t& add_socket(int existing_socket)
+    App& add_socket(int existing_socket)
     {
         acceptors.emplace_back(std::make_unique<boost::asio::ip::tcp::acceptor>(
             *io, boost::asio::ip::tcp::v6(), existing_socket));
         return *this;
     }
 
-    self_t& bindaddr(std::string bindaddr)
+    App& bindaddr(std::string bindaddr)
     {
         bindaddrStr = bindaddr;
         return *this;
@@ -100,7 +98,6 @@ class App
         }
         server = std::make_unique<server_t>(this, std::move(acceptors),
                                             sslContext, io);
-        server->setTickFunction(tickInterval, tickFunction);
         server->run();
     }
 
@@ -125,8 +122,8 @@ class App
         return router.getRoutes(parent);
     }
 
-    self_t& sslFile(const std::string& crt_filename,
-                    const std::string& key_filename)
+    App& sslFile(const std::string& crt_filename,
+                 const std::string& key_filename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
@@ -141,7 +138,7 @@ class App
         return *this;
     }
 
-    self_t& sslFile(const std::string& pem_filename)
+    App& sslFile(const std::string& pem_filename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
@@ -155,7 +152,7 @@ class App
         return *this;
     }
 
-    self_t& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
+    App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
     {
         sslContext = std::move(ctx);
         BMCWEB_LOG_INFO << "app::ssl context use_count="
@@ -165,23 +162,12 @@ class App
 
     std::shared_ptr<ssl_context_t> sslContext = nullptr;
 
-    template <typename Duration, typename Func>
-    self_t& tick(Duration d, Func f)
-    {
-        tickInterval = std::chrono::duration_cast<std::chrono::milliseconds>(d);
-        tickFunction = f;
-        return *this;
-    }
-
   private:
     std::shared_ptr<boost::asio::io_context> io;
 
     std::string bindaddrStr = "::";
     std::vector<std::unique_ptr<boost::asio::ip::tcp::acceptor>> acceptors;
     Router router;
-
-    std::chrono::milliseconds tickInterval{};
-    std::function<void()> tickFunction;
 
     std::unique_ptr<server_t> server;
 };
