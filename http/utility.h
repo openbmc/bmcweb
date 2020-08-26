@@ -823,7 +823,7 @@ struct ConstantTimeCompare
     }
 };
 
-inline std::time_t getTimestamp(uint64_t millisTimeStamp)
+inline std::time_t getTimestamp(int64_t millisTimeStamp)
 {
     // Retrieve Created property with format:
     // yyyy-mm-ddThh:mm:ss
