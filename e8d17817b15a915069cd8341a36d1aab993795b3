@@ -681,6 +681,24 @@
     },
     {
       "key": {
+        "uuid": "3bcd7985_ffe56665",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-08-26T02:34:50Z",
+      "side": 1,
+      "message": "Hey Ed, Let me talk with Derick and Yoshie and will get back to you tomorrow.",
+      "parentUuid": "4240b476_8f9e38c8",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
