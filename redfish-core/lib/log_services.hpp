@@ -1462,8 +1462,11 @@ class DBusEventLogEntryCollection : public Node
                                 {
                                     messages::internalError(asyncResp->res);
                                 }
-                                timestamp = crow::utility::getTimestamp(
-                                    *millisTimeStamp);
+                                else
+                                {
+                                    timestamp = crow::utility::getTimestamp(
+                                        *millisTimeStamp);
+                                }
                             }
                             else if (propertyMap.first == "UpdateTimestamp")
                             {
@@ -1473,8 +1476,12 @@ class DBusEventLogEntryCollection : public Node
                                 {
                                     messages::internalError(asyncResp->res);
                                 }
-                                updateTimestamp = crow::utility::getTimestamp(
-                                    *millisTimeStamp);
+                                else
+                                {
+                                    updateTimestamp =
+                                        crow::utility::getTimestamp(
+                                            *millisTimeStamp);
+                                }
                             }
                             else if (propertyMap.first == "Severity")
                             {
@@ -1590,8 +1597,11 @@ class DBusEventLogEntry : public Node
                         {
                             messages::internalError(asyncResp->res);
                         }
-                        timestamp =
-                            crow::utility::getTimestamp(*millisTimeStamp);
+                        else
+                        {
+                            timestamp =
+                                crow::utility::getTimestamp(*millisTimeStamp);
+                        }
                     }
                     else if (propertyMap.first == "UpdateTimestamp")
                     {
@@ -1601,8 +1611,11 @@ class DBusEventLogEntry : public Node
                         {
                             messages::internalError(asyncResp->res);
                         }
-                        updateTimestamp =
-                            crow::utility::getTimestamp(*millisTimeStamp);
+                        else
+                        {
+                            updateTimestamp =
+                                crow::utility::getTimestamp(*millisTimeStamp);
+                        }
                     }
                     else if (propertyMap.first == "Severity")
                     {
