@@ -1247,11 +1247,9 @@ inline void
                                             // interface
                                 }
                                 auto findFailures = ret.find("AllowedFailures");
-                                auto findCollection = ret.find("Collection");
                                 auto findStatus = ret.find("Status");
 
                                 if (findFailures == ret.end() ||
-                                    findCollection == ret.end() ||
                                     findStatus == ret.end())
                                 {
                                     BMCWEB_LOG_ERROR
@@ -1263,14 +1261,10 @@ inline void
 
                                 auto allowedFailures = std::get_if<uint8_t>(
                                     &(findFailures->second));
-                                auto collection =
-                                    std::get_if<std::vector<std::string>>(
-                                        &(findCollection->second));
                                 auto status = std::get_if<std::string>(
                                     &(findStatus->second));
 
-                                if (allowedFailures == nullptr ||
-                                    collection == nullptr || status == nullptr)
+                                if (allowedFailures == nullptr || status == nullptr)
                                 {
 
                                     BMCWEB_LOG_ERROR
@@ -1280,17 +1274,6 @@ inline void
                                         sensorsAsyncResp->res);
                                     return;
                                 }
-                                size_t lastSlash = path.rfind("/");
-                                if (lastSlash == std::string::npos)
-                                {
-                                    // this should be impossible
-                                    messages::internalError(
-                                        sensorsAsyncResp->res);
-                                    return;
-                                }
-                                std::string name = path.substr(lastSlash + 1);
-                                std::replace(name.begin(), name.end(), '_',
-                                             ' ');
 
                                 std::string health;
 
@@ -1306,47 +1289,9 @@ inline void
                                 {
                                     health = "Critical";
                                 }
-                                std::vector<nlohmann::json> redfishCollection;
-                                const auto& fanRedfish =
-                                    sensorsAsyncResp->res.jsonValue["Fans"];
-                                for (const std::string& item : *collection)
-                                {
-                                    lastSlash = item.rfind("/");
-                                    // make a copy as collection is const
-                                    std::string itemName =
-                                        item.substr(lastSlash + 1);
-                                    /*
-                                    todo(ed): merge patch that fixes the names
-                                    std::replace(itemName.begin(),
-                                                 itemName.end(), '_', ' ');*/
-                                    auto schemaItem = std::find_if(
-                                        fanRedfish.begin(), fanRedfish.end(),
-                                        [itemName](const nlohmann::json& fan) {
-                                            return fan["MemberId"] == itemName;
-                                        });
-                                    if (schemaItem != fanRedfish.end())
-                                    {
-                                        redfishCollection.push_back(
-                                            {{"@odata.id",
-                                              (*schemaItem)["@odata.id"]}});
-                                    }
-                                    else
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "failed to find fan in schema";
-                                        messages::internalError(
-                                            sensorsAsyncResp->res);
-                                        return;
-                                    }
-                                }
 
-                                size_t minNumNeeded =
-                                    collection->size() > 0
-                                        ? collection->size() - *allowedFailures
-                                        : 0;
                                 nlohmann::json& jResp =
-                                    sensorsAsyncResp->res
-                                        .jsonValue["Redundancy"];
+                                    sensorsAsyncResp->res.jsonValue["Redundancy"];
                                 jResp.push_back(
                                     {{"@odata.id",
                                       "/redfish/v1/Chassis/" +
@@ -1356,14 +1301,30 @@ inline void
                                           std::to_string(jResp.size())},
                                      {"@odata.type",
                                       "#Redundancy.v1_3_2.Redundancy"},
-                                     {"MinNumNeeded", minNumNeeded},
-                                     {"MemberId", name},
+                                     {"MinNumNeeded", *allowedFailures + 1},
+                                     {"MemberId", "FanRedundancy"},
                                      {"Mode", "N+m"},
-                                     {"Name", name},
-                                     {"RedundancySet", redfishCollection},
+                                     {"Name", "FanRedundancy"},
+                                     {"RedundancySet", nlohmann::json::array()},
                                      {"Status",
                                       {{"Health", health},
                                        {"State", "Enabled"}}}});
+                                auto& redundancySet = jResp[0]["RedundancySet"];
+                                const auto& fanRedfish =
+                                    sensorsAsyncResp->res.jsonValue["Fans"];
+                                for (auto schemaItem : fanRedfish)
+                                {
+                                    std::string itemName = schemaItem["Name"];
+                                    if (itemName.find("Fan") != std::string::npos)
+                                    {
+                                        redundancySet.push_back(
+                                            {{"@odata.id", schemaItem["@odata.id"]}});
+                                    }
+                                }
+                                if (redundancySet.size() < jResp[0]["MinNumNeeded"])
+                                {
+                                    jResp[0]["Status"]["Health"] = "Warning";
+                                }
                             },
                             owner, path, "org.freedesktop.DBus.Properties",
                             "GetAll",
