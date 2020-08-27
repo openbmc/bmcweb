@@ -59,8 +59,6 @@ class EventService : public Node
             {"@odata.type", "#EventService.v1_5_0.EventService"},
             {"Id", "EventService"},
             {"Name", "Event Service"},
-            {"ServerSentEventUri",
-             "/redfish/v1/EventService/Subscriptions/SSE"},
             {"Subscriptions",
              {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
             {"Actions",
@@ -444,111 +442,6 @@ class EventDestinationCollection : public Node
         messages::created(asyncResp->res);
         asyncResp->res.addHeader(
             "Location", "/redfish/v1/EventService/Subscriptions/" + id);
-    }
-};
-
-class EventServiceSSE : public Node
-{
-  public:
-    EventServiceSSE(App& app) :
-        Node(app, "/redfish/v1/EventService/Subscriptions/SSE/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
-
-  private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>&) override
-    {
-        if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
-            maxNoOfSubscriptions)
-        {
-            messages::eventSubscriptionLimitExceeded(res);
-            res.end();
-            return;
-        }
-
-        std::shared_ptr<crow::Request::Adaptor> sseConn =
-            std::make_shared<crow::Request::Adaptor>(std::move(req.socket()));
-        std::shared_ptr<Subscription> subValue =
-            std::make_shared<Subscription>(sseConn);
-
-        // GET on this URI means, Its SSE subscriptionType.
-        subValue->subscriptionType = "SSE";
-
-        // Default values
-        subValue->protocol = "Redfish";
-        subValue->retryPolicy = "TerminateAfterRetries";
-
-        boost::urls::url_view::params_type::iterator it =
-            req.urlParams.find("$filter");
-        if (it == req.urlParams.end())
-        {
-            subValue->eventFormatType = "Event";
-        }
-
-        else
-        {
-            std::string filters = it->value();
-            // Reading from query params.
-            bool status = readSSEQueryParams(
-                filters, subValue->eventFormatType, subValue->registryMsgIds,
-                subValue->registryPrefixes, subValue->metricReportDefinitions);
-
-            if (!status)
-            {
-                messages::invalidObject(res, filters);
-                return;
-            }
-
-            if (!subValue->eventFormatType.empty())
-            {
-                if (std::find(supportedEvtFormatTypes.begin(),
-                              supportedEvtFormatTypes.end(),
-                              subValue->eventFormatType) ==
-                    supportedEvtFormatTypes.end())
-                {
-                    messages::propertyValueNotInList(
-                        res, subValue->eventFormatType, "EventFormatType");
-                    return;
-                }
-            }
-            else
-            {
-                // If nothing specified, using default "Event"
-                subValue->eventFormatType = "Event";
-            }
-
-            if (!subValue->registryPrefixes.empty())
-            {
-                for (const std::string& it : subValue->registryPrefixes)
-                {
-                    if (std::find(supportedRegPrefixes.begin(),
-                                  supportedRegPrefixes.end(),
-                                  it) == supportedRegPrefixes.end())
-                    {
-                        messages::propertyValueNotInList(res, it,
-                                                         "RegistryPrefixes");
-                        return;
-                    }
-                }
-            }
-        }
-
-        std::string id =
-            EventServiceManager::getInstance().addSubscription(subValue, false);
-        if (id.empty())
-        {
-            messages::internalError(res);
-            res.end();
-            return;
-        }
     }
 };
 
