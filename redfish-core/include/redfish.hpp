@@ -108,14 +108,12 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemDumpEntryCollection>(app));
         nodes.emplace_back(std::make_unique<SystemDumpEntry>(app));
         nodes.emplace_back(std::make_unique<SystemDumpCreate>(app));
-        nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
         nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
 
         nodes.emplace_back(std::make_unique<BMCDumpService>(app));
         nodes.emplace_back(std::make_unique<BMCDumpEntryCollection>(app));
         nodes.emplace_back(std::make_unique<BMCDumpEntry>(app));
         nodes.emplace_back(std::make_unique<BMCDumpCreate>(app));
-        nodes.emplace_back(std::make_unique<BMCDumpEntryDownload>(app));
         nodes.emplace_back(std::make_unique<BMCDumpClear>(app));
 #endif
 
@@ -199,7 +197,6 @@ class RedfishService
         nodes.emplace_back(std::make_unique<TaskCollection>(app));
         nodes.emplace_back(std::make_unique<Task>(app));
         nodes.emplace_back(std::make_unique<EventService>(app));
-        nodes.emplace_back(std::make_unique<EventServiceSSE>(app));
         nodes.emplace_back(std::make_unique<EventDestinationCollection>(app));
         nodes.emplace_back(std::make_unique<EventDestination>(app));
         nodes.emplace_back(std::make_unique<SubmitTestEvent>(app));
