@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "b873cc4f_edc792be",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-27T13:29:27Z",
+      "side": 1,
+      "message": "You are right. I apologize, I forgot to git add this change.",
+      "parentUuid": "e264c622_0622e9d6",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 16
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6dc52d3_e03c12d5",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
