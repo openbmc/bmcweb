@@ -112,6 +112,22 @@ class ConfigFile
                                 newSession->sessionToken, newSession);
                         }
                     }
+                    else if (item.key() == "timeout")
+                    {
+                        const int64_t* jTimeout =
+                            item.value().get_ptr<int64_t*>();
+                        if (jTimeout == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Problem reading session timeout value";
+                            continue;
+                        }
+                        std::chrono::seconds sessionTimeoutInseconds(*jTimeout);
+                        BMCWEB_LOG_DEBUG << "Restored Session Timeout: "
+                                         << sessionTimeoutInseconds.count();
+                        SessionStore::getInstance().updateSessionTimeout(
+                            sessionTimeoutInseconds);
+                    }
                     else
                     {
                         // Do nothing in the case of extra fields.  We may have
@@ -157,7 +173,8 @@ class ConfigFile
             {"sessions", SessionStore::getInstance().authTokens},
             {"auth_config", SessionStore::getInstance().getAuthMethodsConfig()},
             {"system_uuid", systemUuid},
-            {"revision", jsonRevision}};
+            {"revision", jsonRevision},
+            {"timeout", SessionStore::getInstance().getTimeoutInSeconds()}};
         persistentFile << data;
     }
 
