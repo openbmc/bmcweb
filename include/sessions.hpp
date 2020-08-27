@@ -358,7 +358,12 @@ class SessionStore
     }
     int64_t getTimeoutInSeconds() const
     {
-        return std::chrono::seconds(timeoutInMinutes).count();
+        return std::chrono::seconds(timeoutInSeconds).count();
+    }
+
+    void updateSessionTimeout(const int64_t& newTimeoutDuration)
+    {
+        timeoutInSeconds = std::chrono::duration<int64_t>(newTimeoutDuration);
     }
 
     static SessionStore& getInstance()
@@ -377,11 +382,11 @@ class SessionStore
 
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
     bool needWrite{false};
-    std::chrono::minutes timeoutInMinutes;
+    std::chrono::seconds timeoutInSeconds;
     AuthConfigMethods authMethodsConfig;
 
   private:
-    SessionStore() : timeoutInMinutes(60)
+    SessionStore() : timeoutInSeconds(3600)
     {}
 
     void applySessionTimeouts()
@@ -394,7 +399,7 @@ class SessionStore
             while (authTokensIt != authTokens.end())
             {
                 if (timeNow - authTokensIt->second->lastUpdated >=
-                    timeoutInMinutes)
+                    timeoutInSeconds)
                 {
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                     crow::ibm_mc_lock::Lock::getInstance().releaseLock(

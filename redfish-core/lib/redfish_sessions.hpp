@@ -292,6 +292,31 @@ class SessionService : public Node
 
         res.end();
     }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>&) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        int64_t sessiontimeout;
+        if (!json_util::readJson(req, res, "SessionTimeout", sessiontimeout))
+        {
+            return;
+        }
+
+        if (sessiontimeout)
+        {
+            if (sessiontimeout <= 86400 && sessiontimeout >= 30)
+            {
+                persistent_data::SessionStore::getInstance()
+                    .updateSessionTimeout(sessiontimeout);
+            }
+            else
+            {
+                messages::propertyValueNotInList(
+                    res, std::to_string(sessiontimeout), "SessionTimeOut");
+            }
+        }
+    }
 };
 
 } // namespace redfish
