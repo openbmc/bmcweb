@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71b38516_e5a5311d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2020-08-27T18:39:04Z",
+      "side": 0,
+      "message": "I think we used this because it was shown in some comparisons as the \"fast\" way to read data from a large file.  It was assigned to res.body() to try to avoid a copy.  If res.openFile() allows a user to download the file contents, that is all we need.",
+      "revId": "802d7c94c17f02daf4fd475bdf20084a5666ea14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
