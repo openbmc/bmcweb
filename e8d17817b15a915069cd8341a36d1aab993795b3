@@ -771,6 +771,24 @@
     },
     {
       "key": {
+        "uuid": "abe7f96f_6475ca2d",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-08-27T21:44:17Z",
+      "side": 1,
+      "message": "\"What does 100% acceptance entail?\"\n\nIn the context of this patchset, it means that we can break phosphor-webui (in lieu of fixing webui-vue) and there will be no impact to the project, which is what you\u0027re asking me to do in this change.  As-is, I don\u0027t think we can do that (maybe I\u0027m wrong?).\n\n\"Is it possible that you could come talk to this point and the proposal overall to the GUI Design Work Group... \"\n\nThis change has been discussed at several working groups, including the webserver working group, and the UI working group (probably before you joined regularly).  Given that neither of those discussions got captured properly, I\u0027d rather take a different track, and keep the discussion in a forum that we can reference later.  If more description is needed, I\u0027m happy to add it to the commit message if you can point out where you\u0027re confused, but I\u0027d like to keep it in text format.  Technically this could be put forward in the security workgroup, the webui workgroup, or the Redfish (no longer held) workgroup.  Doing it in reviews is the only way to ensure that we hit the required audience.\n\n\"The purpose of having it pre-login was a user experience decision. The users valued being able change their language pre-login rather than having to login first. Removing language from the login page results in the feature being less discoverable. If we were to try to mitigate that concern, we would need to make design changes, test with users, and also validate with the changes with the community.\"\n\nUnderstood.  To be clear, it\u0027s a good change, but because the webui got forked/replaced, and uses internal APIs (like websockets and cookie auth that we\u0027re talking about here), this causes the problem we\u0027re in now.  Do you have any solutions?\n\nI\u0027m not saying you need to rework webui-vue.  I\u0027ve given options that require no changes to webui-vue, and leave it in the less secure state it was already in.",
+      "parentUuid": "b71ec148_e7f3b85d",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
