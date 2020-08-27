@@ -285,6 +285,40 @@ class SessionService : public Node
 
         res.end();
     }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>&) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        std::optional<int64_t> sessionTimeout;
+        if (!json_util::readJson(req, res, "SessionTimeout", sessionTimeout))
+        {
+            return;
+        }
+
+        if (sessionTimeout)
+        {
+            // The mininum & maximum allowed values for session timeout are 30
+            // seconds and 86400 seconds respectively as per the session service
+            // schema mentioned at
+            // https://redfish.dmtf.org/schemas/v1/SessionService.v1_1_7.json
+
+            if (*sessionTimeout <= 86400 && *sessionTimeout >= 30)
+            {
+                std::chrono::seconds sessionTimeoutInseconds(*sessionTimeout);
+                persistent_data::SessionStore::getInstance()
+                    .updateSessionTimeout(sessionTimeoutInseconds);
+                messages::propertyValueModified(
+                    asyncResp->res, "SessionTimeOut",
+                    std::to_string(*sessionTimeout));
+            }
+            else
+            {
+                messages::propertyValueNotInList(
+                    res, std::to_string(*sessionTimeout), "SessionTimeOut");
+            }
+        }
+    }
 };
 
 } // namespace redfish
