@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07d1d922_93da6853",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-27T16:45:41Z",
+      "side": 1,
+      "message": "again.. why is this hardcoded?",
+      "range": {
+        "startLine": 1114,
+        "startChar": 31,
+        "endLine": 1114,
+        "endChar": 44
+      },
+      "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
