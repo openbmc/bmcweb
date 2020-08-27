@@ -753,6 +753,24 @@
     },
     {
       "key": {
+        "uuid": "b71ec148_e7f3b85d",
+        "filename": "static/login/index.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000281
+      },
+      "writtenOn": "2020-08-27T19:50:33Z",
+      "side": 1,
+      "message": "\u003e The payload is still relatively large, which makes it a prime source for DOS attacks, and executes javascript in unauthenticated browsers, which makes it susceptible to attacks of that nature if the javascript has bugs (I\u0027m not saying that it does).\n\nIs it possible that you could come talk to this point and the proposal overall to the GUI Design Work Group on Wednesday, 9/2 at 10:00 AM CT? We want to make security top priority. We also want to understand the criticality of this issue since it will mean significant rework to translation, won\u0027t support customization, and will require another repo requiring client-side development. \n\n\u003e Also, translation can be supported either way, the issue is that it was done in javascript, which is fixable if you want to move the translation to a post-login context.\n\nThe purpose of having it pre-login was a user experience decision. The users valued being able change their language pre-login rather than having to login first. Removing language from the login page results in the feature being less discoverable. If we were to try to mitigate that concern, we would need to make design changes, test with users, and also validate with the changes with the community.\n\n\u003e Also, can you get these 3-4 companies to put their assurances on the mailing list that they will dedicate testing and development effort toward webui-vue, and put patchsets out toward the webui-vue port?  If not, then it\u0027s all just talk in a meeting.\n\nSome of this is documented in the GUI Design Work Group notes. Intel and Phoenix technologies have both stated that they are moving to the webui-vue and Intel is actively contributing with KVM and Virtual Media. \n\n\u003e unless you\u0027re suggesting that I should wait for webui-vue to be 100% accepted by the community before proceeding\n\nWhat does 100% acceptance entail? We have sent information to the mail list, as well as sharing the path in the GUI Design Work Group. My brief experience on this project has been that the GUI receives minimal feedback other than from IBM and Intel.",
+      "parentUuid": "98e2aacd_82402d81",
+      "revId": "e8d17817b15a915069cd8341a36d1aab993795b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4d04e32_bc792470",
         "filename": "static/login/login.css",
         "patchSetId": 5
