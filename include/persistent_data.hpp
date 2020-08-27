@@ -112,6 +112,13 @@ class ConfigFile
                                 newSession->sessionToken, newSession);
                         }
                     }
+                    else if (item.key() == "timeout")
+                    {
+                        BMCWEB_LOG_DEBUG << "Restored Session Timeout: "
+                                         << item.value();
+                        SessionStore::getInstance().updateSessionTimeout(
+                            item.value());
+                    }
                     else
                     {
                         // Do nothing in the case of extra fields.  We may have
@@ -157,7 +164,8 @@ class ConfigFile
             {"sessions", SessionStore::getInstance().authTokens},
             {"auth_config", SessionStore::getInstance().getAuthMethodsConfig()},
             {"system_uuid", systemUuid},
-            {"revision", jsonRevision}};
+            {"revision", jsonRevision},
+            {"timeout", SessionStore::getInstance().getTimeoutInSeconds()}};
         persistentFile << data;
     }
 
