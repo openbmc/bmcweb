@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "53e1ae1f_40a74e2f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-08-27T04:08:05Z",
+      "side": 1,
+      "message": "Here health status indicates the health of psu redundancy but not the system.\n\nHere is analyzing the health status based on known information, no special design for it in the system.",
+      "parentUuid": "f508a70b_391b3588",
+      "range": {
+        "startLine": 1128,
+        "startChar": 28,
+        "endLine": 1128,
+        "endChar": 35
+      },
+      "revId": "f797bd6705461aff9f29788688a7fa75375cf091",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d14aa161_95490bbf",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
