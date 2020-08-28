@@ -46,6 +46,30 @@
       "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de43f9e6_d18a1fe9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-28T20:52:42Z",
+      "side": 1,
+      "message": "That seems like it should be variable based on platform/company. What if I have a system that can\u0027t run unless there are 2 PSU installed? Then 2 is not considered redundant.",
+      "parentUuid": "aebd9925_38d1dfc1",
+      "range": {
+        "startLine": 1114,
+        "startChar": 31,
+        "endLine": 1114,
+        "endChar": 44
+      },
+      "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
