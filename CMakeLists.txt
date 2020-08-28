@@ -90,6 +90,11 @@ option (
     OFF
 )
 option (
+    BMCWEB_ENABLE_LOGGING
+    "Enable output the extended debug logs"
+    OFF
+)
+option (
     BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     "Enables authenticating users through TLS client certificates.
     The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect."
@@ -332,12 +337,17 @@ find_package (OpenSSL REQUIRED)
 include_directories (SYSTEM ${OPENSSL_INCLUDE_DIR})
 message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
-# bmcweb
-message ("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
-if (CMAKE_BUILD_TYPE MATCHES Debug)
+# Build with the extended debug logs output
+if (${BMCWEB_ENABLE_LOGGING})
     message ("Logging enabled")
     add_definitions (-DBMCWEB_ENABLE_LOGGING)
     add_definitions (-DBMCWEB_ENABLE_DEBUG)
+endif(${BMCWEB_ENABLE_LOGGING})
+
+# bmcweb
+message ("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    set(BMCWEB_ENABLE_LOGGING ON)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
 if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
