@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3b06d02f_a4eb9da9",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:10:27Z",
+      "side": 1,
+      "message": "Function was removed.",
+      "parentUuid": "177cc97e_c2961b37",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 27
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40387b2a_87923507",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
@@ -168,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "a29ae13b_27c7b286",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b873cc4f_edc792be",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 16
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6dc52d3_e03c12d5",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 31
@@ -215,6 +263,24 @@
       "side": 1,
       "message": "Consider it \"accepted\" (technically James does that, but I don\u0027t see him having an issue with this), but a patch setting this utils function everywhere needs to merge in ahead of the rest of the patches.\n\nAlso, this function belongs in sdbusplus, not bmcweb, as it\u0027s a generic dbus construct, and has nothing specific to bmcweb.\n\n\"Creating a function where other\u0027s do not is not inconsistency it\u0027s just good practice that should be supported.\"\nBest practices are determined by what the existing code does today.  If you want to change that, feel free, I think this would be a good change, but it needs to happen ahead of adding new features, not together with it.\n\n\"There are no rules telling you when you can or cannot create helper function\"\nThere are plenty of rules that disallow the creation of a single line helper function that adds code overall.\n\"Code should be clear and concise.\" is the first rule of the coding standard.\n\n\"There should be no issues with larger code or being to slow. Compiler should inline this for us.\"\nAt no point was a worried about code size.  I agree, I think this will likely be inlined and optimized identically.  I\u0027m worried about consistency in the codebase, and being able to point to any example of GetAll properties, and have it be a similar callsite (be it a utils function, or a direct call to async_method_call).  If you\u0027re willing to do that, great, but please do it ahead of this patch.\n\nWe enforced similar rules for the other generic helper functions that are in the codebase.  Each one is used multiple times, and was used (or patchsets were in review) to use it on a majority of the codebase before they were merged.",
       "parentUuid": "242b69b4_38399a61",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cf841e5_7217e033",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:10:27Z",
+      "side": 1,
+      "message": "Proposition in newest patchset. I will submit it to sdbusplus.",
+      "parentUuid": "ae5d6d18_f00496c3",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -352,6 +418,30 @@
       "side": 1,
       "message": "I can do that, it will work like readJson. There is one thing you should be aware of. Iterating twice over map/vector is quite cheap if we assume we have line 1-10 keys in map, even for 100 keys it should be quite cheap.\n\nIf we do it like in readJson if key is present it will make a copy to assign it. Making a copy of vector might be expensive depending of how many elements has this vector. Even std::string might be heavy if it is long.\n\nEach getIf currently iterates over all keys (in worst case scenario) but it doesn\u0027t make a copy. If we do something like readJson we avoid duplicated iterations but we make a copy.\n\nWe can have both if we introduce new type similar to boost::python::pointer_wrapper for heavy types.\n\nuint32_t a; // makes a copy\nstd::optional\u003cuint32_t\u003e b; // makes a copy, but readProperties wont return false in case if not present\npointer_wrapper\u003cstd::string\u003e c; // won\u0027t make a copy\nstd::optional\u003cpointer_wrapper\u003cstd::string\u003e\u003e c; // won\u0027t make a copy and won\u0027t return false in case if not present\npointer_wrapper\u003cstd::vector\u003cstd::string\u003e\u003e d; // won\u0027t make a copy\n\nbool allNonOptionalPropertiesRead \u003d readProperties(ret, \"key1\", a, \"key2\", b, \"key3\", c, \"key4\", d);\n\nIn basic solution when user want a copy it will work exactly like readJson, if user wan\u0027t to avoid copy or want to read optional fields pointer_wrapper and or std::optional can be used.",
       "parentUuid": "391801d1_32fd76f9",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a83581a_3f4bebb5",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:10:27Z",
+      "side": 1,
+      "message": "Proposition in newest patchset. I will submit it to sdbusplus.",
+      "parentUuid": "74042e34_c1769931",
       "range": {
         "startLine": 134,
         "startChar": 0,
