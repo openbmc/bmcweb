@@ -22,6 +22,30 @@
       "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aebd9925_38d1dfc1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-08-28T00:07:21Z",
+      "side": 1,
+      "message": "psu redundancy need at least 2 PSUs to do redundancy.\nOnce has 2 PSUs, it is ok to do redundancy.",
+      "parentUuid": "07d1d922_93da6853",
+      "range": {
+        "startLine": 1114,
+        "startChar": 31,
+        "endLine": 1114,
+        "endChar": 44
+      },
+      "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
