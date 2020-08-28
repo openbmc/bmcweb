@@ -500,6 +500,30 @@
     },
     {
       "key": {
+        "uuid": "ccdf5d6d_cbeba0ef",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "It looks like it is range check.\n\nIf there is no characters after pos then log error and continue.",
+      "parentUuid": "35f95c9a_0c7bcd56",
+      "range": {
+        "startLine": 461,
+        "startChar": 34,
+        "endLine": 461,
+        "endChar": 35
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94a99721_0513da4f",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -520,6 +544,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad22aaf2_f6e2065e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "It looks like range check is in line 461",
+      "parentUuid": "94a99721_0513da4f",
+      "range": {
+        "startLine": 467,
+        "startChar": 65,
+        "endLine": 467,
+        "endChar": 66
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -830,6 +878,30 @@
     },
     {
       "key": {
+        "uuid": "d45f253a_b8fdf097",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7edb5c51_12239910",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 37
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b096636_5dd795ce",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -1088,6 +1160,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ac5880e_8a657a2e",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "I think I reverted it back by accident during rebase. Changed duration_cast to floor again. Done.",
+      "parentUuid": "e368436f_0de1d6e8",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1630,6 +1726,30 @@
     },
     {
       "key": {
+        "uuid": "38f21bab_94817fda",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "Closing it because it duplicates.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/31692/31/include/dbus_utility.hpp#147",
+      "parentUuid": "b511d192_a50e6c65",
+      "range": {
+        "startLine": 116,
+        "startChar": 27,
+        "endLine": 116,
+        "endChar": 32
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb615b2a_f7f8e971",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -1961,6 +2081,30 @@
     },
     {
       "key": {
+        "uuid": "bd337561_96a60293",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "getIf changed so this auto is no longer here.",
+      "parentUuid": "ff85b320_41ba77f2",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6e649ce_a0153ded",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 31
@@ -2195,6 +2339,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a31b55_dd5c0f09",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-08-28T14:27:34Z",
+      "side": 1,
+      "message": "I\u0027m closing this thread same discussion is in different comment thread:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/31692/31/include/dbus_utility.hpp#147",
+      "parentUuid": "6c8637da_909168d6",
+      "range": {
+        "startLine": 162,
+        "startChar": 66,
+        "endLine": 162,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
