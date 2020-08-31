@@ -142,6 +142,30 @@
       "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2dad55_20658c82",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-08-31T17:13:43Z",
+      "side": 1,
+      "message": "I\u0027d expect there to be a property like this: https://github.com/openbmc/phosphor-dbus-interfaces/blob/1751787a076983b8d75bb208597272482e4c657b/xyz/openbmc_project/Control/FanRedundancy.interface.yaml#L4",
+      "parentUuid": "71bf1578_26d4a69c",
+      "range": {
+        "startLine": 1114,
+        "startChar": 31,
+        "endLine": 1114,
+        "endChar": 44
+      },
+      "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
