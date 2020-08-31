@@ -188,9 +188,6 @@ set (
     -Wpedantic \
     -Wconversion \
     -Wsign-conversion \
-    -Wnull-dereference \
-    -Wdouble-promotion \
-    -Wformat=2 \
 "
 )
 
