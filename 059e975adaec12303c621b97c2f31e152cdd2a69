@@ -1373,6 +1373,24 @@
     },
     {
       "key": {
+        "uuid": "07a90d44_ff6b7c50",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "Thinking about it more, why is this check even here?  This should be done in TelemetryService at the dbus api boundary not here.",
+      "parentUuid": "03d1f3c1_0ec978c7",
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b47148d8_af0f485a",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
