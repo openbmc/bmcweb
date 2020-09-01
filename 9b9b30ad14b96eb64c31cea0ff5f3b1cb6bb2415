@@ -166,6 +166,30 @@
       "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80be899_a98252fe",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-01T06:00:24Z",
+      "side": 1,
+      "message": "Is it ok by below 3 steps?\n\n1. Add RedundantCount in xx-Baseboard.json\n        {\n            \"RedundantCount\": 1,\n            \"Name\": \"Power Unit Redundancy\",\n            \"Type\": \"PURedundancy\"\n        },\n\n2. Add RedundantCount property in PSURedundancy.yaml\nhttps://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/36134/1/xyz/openbmc_project/Control/PowerSupplyRedundancy.interface.yaml\n\n3. PSU-Manager service to read it to RedundantCount property from EM",
+      "parentUuid": "8d2dad55_20658c82",
+      "range": {
+        "startLine": 1114,
+        "startChar": 31,
+        "endLine": 1114,
+        "endChar": 44
+      },
+      "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
