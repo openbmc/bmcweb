@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c90ea9fa_bab78d5a",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "vector as well?",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "241825e5_b9085a8d",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "These should both set internal errors.",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9
+      },
+      "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
