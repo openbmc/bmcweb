@@ -524,6 +524,30 @@
     },
     {
       "key": {
+        "uuid": "0ed7a6d9_01f2199a",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "yep.  Missed that.  Fine as-is",
+      "parentUuid": "ccdf5d6d_cbeba0ef",
+      "range": {
+        "startLine": 461,
+        "startChar": 34,
+        "endLine": 461,
+        "endChar": 35
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94a99721_0513da4f",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -559,6 +583,30 @@
       "side": 1,
       "message": "It looks like range check is in line 461",
       "parentUuid": "94a99721_0513da4f",
+      "range": {
+        "startLine": 467,
+        "startChar": 65,
+        "endLine": 467,
+        "endChar": 66
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72daa7c7_878b3eb5",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "Yep, messed that up.  I was reviewing quickly.  Appologies.",
+      "parentUuid": "ad22aaf2_f6e2065e",
       "range": {
         "startLine": 467,
         "startChar": 65,
@@ -2319,6 +2367,30 @@
       "side": 1,
       "message": "Setting it to null is equal to not creating an attribute. Test coverage is same for both cases. Not required attributes in redfish schemas can be null or specific type. RedfishServiceValidator does not return fail if not required attribute is set to null. I would keep response as small as possible, especially that some attributes depend on other attributes.",
       "parentUuid": "283cc112_31f083f6",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4c3997_7edd3d9d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "\"Setting it to null is equal to not creating an attribute. \"\n\nNo, it\u0027s not.  At an api level.\n{}\nis different than\n{\"foo\": null}\n\nSemantically they\u0027re the same, functionally they are not.\n\n\"Test coverage is same for both cases.\"\nNo, it\u0027s not.  In the case where you add the parameter with a null/not valid state you are testing the key correctness even if the key isn\u0027t present.  We\u0027ve had a number \"validator fails when X is set\" types of bugs pop up when we\u0027ve done these kinds of things in the past.\n\nAlso, it\u0027s helpful to the user, as they know that the implementation supports this property, even if it isn\u0027t used at the moment.  Otherwise, users have no way to know what properties are supported and when.\n\n\" I would keep response as small as possible\"\nI would much rather we keep responses consistent and self documenting than small.  We\u0027re talking about a couple extra bytes here, which probably doesn\u0027t even push us into 2 memory pages.\nIf your goal is small responses, there are much better things to accomplish that, like gzipping and not prettifying, but we do those because it makes the service easier to use, and the impact is minimal.  This is in the same category.",
+      "parentUuid": "770f786c_6f91792d",
       "range": {
         "startLine": 160,
         "startChar": 0,
