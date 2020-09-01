@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e476369_1cc26f6a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t work, as it\u0027s possible for it to hunt past the value.",
+      "range": {
+        "startLine": 38,
+        "startChar": 24,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbd210ad_4e3aee99",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "See comment about avoiding floating point.  Just pull this out using integer values to be consistent and remove this branch.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 56
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea3d8be_81d4b42a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "Don\u0027t ignore your error codes.  It\u0027s against the coding standard.\n\nAlso, you need to set the fmt argument.  By default it supports scientific notation as well.\n\nAlso, if you check the return code, I think you can do this in a single pass by reading using from_chars, then check the index it finished on, and verify that index is equal to the postfix.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac2c964a_9b59afe3",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "fromDurationString would be a better name.  Format makes it sound like this is a format string.",
+      "range": {
+        "startLine": 65,
+        "startChar": 24,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "285bc6ef_5ca72258",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "Change return type to the more modern std::chrono::system_clock::time_point",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 11
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab067df_aeb05e6c",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "See previous comment, destructing the string as you parse it is inefficient.  use indexes or use a string_view (which has more efficient substr implementations).",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3cda007_10c12193",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:46:57Z",
+      "side": 1,
+      "message": "If you invert this check, then put lines 80-83 in this conditional, it deduplicates the return line.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
