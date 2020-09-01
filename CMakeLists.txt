@@ -209,6 +209,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
             -Wnull-dereference \
             -Wdouble-promotion \
             -Wformat=2 \
+            -Wno-stringop-overflow \
             -Wunused-parameter \
         "
         )
