@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "411647cb_fa41dbdc",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "Please inline these usings.  They make the code harder to maintain.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 70
+      },
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7c2480a_36debb94",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "Please inline this function in the places it\u0027s needed.  That makes it more clear that the error handling is correct in all cases, and covers everything it needs to.",
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
