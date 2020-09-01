@@ -23,7 +23,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         return PAM_AUTH_ERR;
     }
 
-    std::strncpy(pass, appPass, appPassSize + 1);
+    std::strcpy(pass, appPass);
 
     *resp = reinterpret_cast<pam_response*>(
         calloc(static_cast<size_t>(numMsg), sizeof(struct pam_response)));
