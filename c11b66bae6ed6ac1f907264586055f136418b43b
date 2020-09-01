@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a7b0a826_1fbe80cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T14:53:50Z",
+      "side": 1,
+      "message": "I should also mention, I think we should compile it in by default, and those with a security posture that finds the minimal implementation a problem can shut it off.  There\u0027s nothing implicitly insecure with the BMC side of this, technically the issue is in the client side.",
+      "parentUuid": "c7de29e3_16e7260a",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b90faeeb_fa73a2da",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
