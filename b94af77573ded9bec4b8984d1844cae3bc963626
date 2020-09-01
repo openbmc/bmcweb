@@ -973,6 +973,30 @@
     },
     {
       "key": {
+        "uuid": "f0f36b5d_87dbfb65",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-01T13:59:12Z",
+      "side": 1,
+      "message": "http://redfish.dmtf.org/schemas/DSP0266_1.11.0.html#duration-values\nI will add it to comment in next patchset",
+      "parentUuid": "b101b8ae_9c2088ec",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69e3d736_15d820b7",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -1270,6 +1294,24 @@
       "side": 1,
       "message": "Generally we enforce timezones in the UI, that\u0027s where I\u0027ve seen bugs in the past.",
       "parentUuid": "d681c641_73c46688",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71482b72_dba925d7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-01T13:59:12Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/http/utility.h#L789\nThan seems that %z in this line is unnecessary. Thanks for confirming it.",
+      "parentUuid": "86256960_58a8f6c3",
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -1963,6 +2005,24 @@
     },
     {
       "key": {
+        "uuid": "ee82fd86_0a7a5162",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-01T13:59:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d16ee85_e0a51784",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d345ed65_4402e78f",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 31
@@ -2031,6 +2091,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa203b4_8aebb666",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-01T13:59:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45b062e3_129657ea",
+      "range": {
+        "startLine": 118,
+        "startChar": 36,
+        "endLine": 118,
+        "endChar": 76
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
