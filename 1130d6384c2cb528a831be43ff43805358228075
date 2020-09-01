@@ -1,0 +1,360 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1d1dc73_bb947922",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "This isn\u0027t quite how I imagined it.  I\u0027m not liking that we\u0027re combining the dbus call with the parsing, as it leads to some odd semantics around how to handle errors.  I\u0027ll try to keep an open mind though.",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 28
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "278aca24_5982ad1c",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "The conventional way to model this would be as a single callback with an error code as the first argument.  That\u0027s how most of the rest of the webserver and boost do it.\n\nThis way is modeling async callbacks in the javascript way (with onsuccess and onerror handlers) which is discouraged, as it makes the control flow harder to track.  This was more important in bmcweb before AsyncReq existed, but it\u0027s still important.",
+      "range": {
+        "startLine": 115,
+        "startChar": 59,
+        "endLine": 116,
+        "endChar": 50
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6fb8f0_f4f001ea",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "This can be passed by value.",
+      "range": {
+        "startLine": 124,
+        "startChar": 42,
+        "endLine": 124,
+        "endChar": 47
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d71890ff_9b5576d7",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "These look copied and pasted from readJson.  Can we deduplicate them?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 2
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e87e7351_cd5de7fd",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "This mixes case styles.  This would be IsOptionalV",
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "669b8d96_468898af",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "Can this just be a simple bool?  If we need more states than \"worked\" and \"failed\" then we should make an enum class, but in this case, I suspect we can just use true or false.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 8
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1776228_05a1a492",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "I would really prefer if this handler didn\u0027t support pointer types as inputs.  In the readJson case, we couldn\u0027t find a use for them over const references or const references of std::optional.",
+      "range": {
+        "startLine": 157,
+        "startChar": 23,
+        "endLine": 157,
+        "endChar": 35
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e976877_e948d97f",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "Can you avoid auto here?  T* makes it clearer that this is a pointer.  Also, moving it to its own line would help with the readability.\n\nsomething like:\nConst T* value \u003d std::get_if\u003cT\u003e(\u0026variant);\nif (value !\u003d nullptr){\n    outValue \u003d *value;\n    return true;\n}",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 17
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "946ae8b8_9889a9bc",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "This should be a std::move to handle the string case.",
+      "range": {
+        "startLine": 170,
+        "startChar": 23,
+        "endLine": 170,
+        "endChar": 29
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d9f8f3_3bc82620",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "if you invert the check on 200 and move it here, this static assert becomes redundant.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 29
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c51d6320_ac30932d",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "This branch can be simplified with std::conditional\n\nusing baseType \u003d std::conditional\u003cIsOptionalV\u003cValueType\u003e, typename ValueType::value_type, ValueType\u003e::type;\n\nassigned[Index] +\u003d getIf\u003cBaseType\u003e(variant, outValue);",
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e0202b_c08acf2e",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "in readJson this was a std::bitset.  that seems better here.",
+      "range": {
+        "startLine": 209,
+        "startChar": 34,
+        "endLine": 209,
+        "endChar": 51
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769fa769_0c687418",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "minor style thing, Invert this check, and use it to return.\n\nif constexpr (sizeof...(Args) \u003d\u003d 0)\n{\n    return\n}",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 5
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b5b0cd_faae3ba8",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "I wonder if this would be a good opportunity for boost::container::small_vector.  It\u0027s significantly more efficient for small numbers of values.\n\nTotally optional, but might be a good win to have if we\u0027re going to propagate this pattern around.",
+      "range": {
+        "startLine": 233,
+        "startChar": 15,
+        "endLine": 233,
+        "endChar": 21
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d57e962e_b4789742",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "Declare this the conventional way;\n\nstd::array\u003cuint8_t, sizeof...(Args) / 2\u003e assigned;",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 63
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f08de560_1ee58b69",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-01T15:22:50Z",
+      "side": 1,
+      "message": "This probably needs to differentiate between a duplicated key and an unfound key in the return code, as a hint to the user.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 58
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
