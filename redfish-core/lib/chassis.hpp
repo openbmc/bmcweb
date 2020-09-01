@@ -154,6 +154,204 @@ inline void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
         std::array<const char*, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
 }
 
+static std::vector<std::string> fruTypes = {"Board", "Chassis", "Product"};
+void getFruContents(std::shared_ptr<AsyncResp> asyncResp,
+                    const std::string& path)
+{
+    const std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.Configuration.FruContents"};
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Iterate over all retrieved ObjectPaths.
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                const std::string& objPath = object.first;
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+                if (connectionNames.size() < 1)
+                {
+                    BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                    continue;
+                }
+                const std::string& connectionName = connectionNames[0].first;
+
+                const std::vector<std::string>& interfaces =
+                    connectionNames[0].second;
+
+                for (const auto& interface : interfaces)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec,
+                                    const std::vector<
+                                        std::pair<std::string, VariantType>>&
+                                        propertiesList) {
+                            auto it = std::find_if(
+                                propertiesList.begin(), propertiesList.end(),
+                                [](const std::pair<std::string, VariantType>&
+                                       element) {
+                                    return element.first == "Type";
+                                });
+                            if (it == propertiesList.end())
+                            {
+                                return;
+                            }
+                            std::string fruType =
+                                std::get<std::string>(it->second);
+                            if (std::find(fruTypes.begin(), fruTypes.end(),
+                                          fruType) == fruTypes.end())
+                            {
+                                return;
+                            }
+
+                            nlohmann::json fruFields;
+                            for (const std::pair<std::string, VariantType>&
+                                     property : propertiesList)
+                            {
+                                const std::string& propertyName =
+                                    property.first;
+                                const std::string* value =
+                                    std::get_if<std::string>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    continue;
+                                }
+                                if (propertyName == "Type")
+                                {
+                                    continue;
+                                }
+                                fruFields[propertyName] = *value;
+                            }
+
+                            asyncResp->res
+                                .jsonValue["Oem"]["Intel"]["Fru"][fruType] =
+                                fruFields;
+                        },
+                        connectionName, objPath,
+                        "org.freedesktop.DBus.Properties", "GetAll", interface);
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+}
+
+void setFruData(std::shared_ptr<AsyncResp> asyncResp, const std::string& path,
+                nlohmann::json data)
+{
+    const std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.Configuration.FruContents"};
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, data](const boost::system::error_code ec,
+                          const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Iterate over all retrieved ObjectPaths.
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                const std::string& objPath = object.first;
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+                if (connectionNames.size() < 1)
+                {
+                    BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                    continue;
+                }
+                const std::string& connectionName = connectionNames[0].first;
+
+                const std::vector<std::string>& interfaces =
+                    connectionNames[0].second;
+                for (const auto& interface : interfaces)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, connectionName, objPath, interface,
+                         data](const boost::system::error_code ec,
+                               const std::vector<std::pair<
+                                   std::string, VariantType>>& propertiesList) {
+                            auto it = std::find_if(
+                                propertiesList.begin(), propertiesList.end(),
+                                [](const std::pair<std::string, VariantType>&
+                                       element) {
+                                    return element.first == "Type";
+                                });
+                            if (it == propertiesList.end())
+                            {
+                                return;
+                            }
+                            std::string fruType =
+                                std::get<std::string>(it->second);
+                            if (std::find(fruTypes.begin(), fruTypes.end(),
+                                          fruType) == fruTypes.end())
+                            {
+                                return;
+                            }
+
+                            auto fruSection = data.find(fruType);
+                            if (fruSection == data.end())
+                            {
+                                return;
+                            }
+
+                            if (!fruSection->is_object())
+                            {
+                                BMCWEB_LOG_ERROR << fruType
+                                                 << " should be object";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            for (const auto& fruField : fruSection->items())
+                            {
+                                crow::connections::systemBus->async_method_call(
+                                    [fruField, asyncResp](
+                                        const boost::system::error_code ec) {
+                                        if (ec)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "Error patching field "
+                                                << fruField.key() << " ec "
+                                                << ec;
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+                                        messages::success(asyncResp->res);
+                                    },
+                                    connectionName, objPath,
+                                    "org.freedesktop.DBus.Properties", "Set",
+                                    interface, fruField.key(),
+                                    std::variant<std::string>(
+                                        fruField.value()));
+                            }
+                        },
+                        connectionName, objPath,
+                        "org.freedesktop.DBus.Properties", "GetAll", interface);
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+}
+
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  */
@@ -351,6 +549,7 @@ class Chassis : public Node
                         }
                     }
 
+                    getFruContents(asyncResp, path);
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code /*ec2*/,
@@ -431,12 +630,32 @@ class Chassis : public Node
             return;
         }
 
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed))
+        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Oem", oem))
         {
             return;
         }
 
-        if (!indicatorLed)
+        if (oem)
+        {
+            std::optional<nlohmann::json> intel;
+            if (!redfish::json_util::readJson(*oem, res, "Intel", intel))
+            {
+                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
+                                 << oem->dump();
+                return;
+            }
+            if (intel)
+            {
+                if (!redfish::json_util::readJson(*intel, res, "Fru", fru))
+                {
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__
+                                     << ", Illegal Property " << intel->dump();
+                    return;
+                }
+            }
+        }
+
+        if (!indicatorLed && !fru)
         {
             return; // delete this when we support more patch properties
         }
@@ -510,6 +729,10 @@ class Chassis : public Node
                             messages::propertyUnknown(asyncResp->res,
                                                       "IndicatorLED");
                         }
+                    }
+                    if (fru)
+                    {
+                        setFruData(asyncResp, path, std::move(*fru));
                     }
                     return;
                 }
