@@ -190,6 +190,30 @@
       "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c88cfc0_bb8e8971",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-01T09:24:28Z",
+      "side": 1,
+      "message": "There are 5 patches in total including internal psu-manager.\nPlease review them at the same time.\n\ndbus-interface definition: https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/36134/",
+      "parentUuid": "d80be899_a98252fe",
+      "range": {
+        "startLine": 1114,
+        "startChar": 31,
+        "endLine": 1114,
+        "endChar": 44
+      },
+      "revId": "9b9b30ad14b96eb64c31cea0ff5f3b1cb6bb2415",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
