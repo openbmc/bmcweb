@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a72b801_1f88f62e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-02T18:18:48Z",
+      "side": 1,
+      "message": "saw this in the other review.. why is it +1? wouldn\u0027t minNumberNeeded \u003d\u003d the count to make it redundant?",
+      "range": {
+        "startLine": 1118,
+        "startChar": 46,
+        "endLine": 1118,
+        "endChar": 66
+      },
+      "revId": "3758de967d4b0e485e78196e6fb51ce74fc49c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
