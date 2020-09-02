@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "6e9ae5ac_3d9545c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2020-09-02T21:07:03Z",
+      "side": 1,
+      "message": "FYI - We have moved srvcfg-manager to here: https://github.com/openbmc/service-config-manager.",
+      "parentUuid": "1ddb1e55_d9832516",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 57
+      },
+      "revId": "449c95bedfb87b77f69465b08508045afc84e256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0dbcc5a_ee196f1e",
         "filename": "include/login_routes.hpp",
         "patchSetId": 8
