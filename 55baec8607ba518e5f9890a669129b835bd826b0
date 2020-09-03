@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "92d530e8_3e496dcc",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-03T16:17:41Z",
+      "side": 1,
+      "message": "As a maintainer who has maintained this project for a long time, it is not easier to maintain, because a patchset can change the type easily, and not have all the call sites that now need to be re-reviewed for correctness show up in code review.  If you inline these, code reviews become much much easier.",
+      "parentUuid": "f50c053c_a44e1f13",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 70
+      },
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7c2480a_36debb94",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 46
