@@ -319,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "2e624bd1_8d779abf",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-03T16:17:41Z",
+      "side": 1,
+      "message": "I\u0027m not following that comment.  Can you explain why readJson copying all values would require this to support pointer types?",
+      "parentUuid": "cbef99d7_4f9846f9",
+      "range": {
+        "startLine": 157,
+        "startChar": 23,
+        "endLine": 157,
+        "endChar": 35
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e976877_e948d97f",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 45
@@ -410,6 +434,30 @@
       "revId": "1130d6384c2cb528a831be43ff43805358228075",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b21a7c3f_10ecffd2",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-03T16:17:41Z",
+      "side": 1,
+      "message": "Also, my fault, in this context the variant is const, so move wont do anything, you also need to make the variant non-const, then you\u0027ll get appropriate move semantics.",
+      "parentUuid": "270655ea_3a296f0f",
+      "range": {
+        "startLine": 170,
+        "startChar": 23,
+        "endLine": 170,
+        "endChar": 29
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
