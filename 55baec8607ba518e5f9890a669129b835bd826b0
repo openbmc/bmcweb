@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1015d349_b34757b0",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-03T16:17:57Z",
+      "side": 1,
+      "message": "Sorry, former maintainer.",
+      "parentUuid": "92d530e8_3e496dcc",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 70
+      },
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7c2480a_36debb94",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 46
