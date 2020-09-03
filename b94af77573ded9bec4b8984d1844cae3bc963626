@@ -477,6 +477,30 @@
     },
     {
       "key": {
+        "uuid": "0ee9e852_0b6121bf",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01117c1a_e2d983bb",
+      "range": {
+        "startLine": 445,
+        "startChar": 12,
+        "endLine": 445,
+        "endChar": 35
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35f95c9a_0c7bcd56",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -879,6 +903,30 @@
     },
     {
       "key": {
+        "uuid": "8dec58cb_6d0326d9",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ece34b20_49a94662",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "085f3e68_7523a68b",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -1042,6 +1090,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf6b40f1_a1796f68",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0f36b5d_87dbfb65",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1366,6 +1438,24 @@
     },
     {
       "key": {
+        "uuid": "a036f50c_8e1f3301",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71482b72_dba925d7",
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01ca7557_136d7916",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 31
@@ -1434,6 +1524,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "588a3f28_637e1a67",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40c37aa9_e5c8df01",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 53
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -2391,6 +2505,30 @@
       "side": 1,
       "message": "\"Setting it to null is equal to not creating an attribute. \"\n\nNo, it\u0027s not.  At an api level.\n{}\nis different than\n{\"foo\": null}\n\nSemantically they\u0027re the same, functionally they are not.\n\n\"Test coverage is same for both cases.\"\nNo, it\u0027s not.  In the case where you add the parameter with a null/not valid state you are testing the key correctness even if the key isn\u0027t present.  We\u0027ve had a number \"validator fails when X is set\" types of bugs pop up when we\u0027ve done these kinds of things in the past.\n\nAlso, it\u0027s helpful to the user, as they know that the implementation supports this property, even if it isn\u0027t used at the moment.  Otherwise, users have no way to know what properties are supported and when.\n\n\" I would keep response as small as possible\"\nI would much rather we keep responses consistent and self documenting than small.  We\u0027re talking about a couple extra bytes here, which probably doesn\u0027t even push us into 2 memory pages.\nIf your goal is small responses, there are much better things to accomplish that, like gzipping and not prettifying, but we do those because it makes the service easier to use, and the impact is minimal.  This is in the same category.",
       "parentUuid": "770f786c_6f91792d",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49fd5f0_3bcc80dd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:26:47Z",
+      "side": 1,
+      "message": "Functionally it is the same, attribute exists with no meaningful value or does not exist. Same story. Especially that RedfishServiceValidator does not care for null values, so it is ignored.\nMaybe to help me understand your point, can you provide me some validator that take advantages of null? Thanks in advance\nYou are right, small response is not a case here.",
+      "parentUuid": "4e4c3997_7edd3d9d",
       "range": {
         "startLine": 160,
         "startChar": 0,
