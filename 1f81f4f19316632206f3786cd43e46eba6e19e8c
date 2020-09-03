@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "848324d5_ae151504",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:21:34Z",
+      "side": 1,
+      "message": "Can you explain your point? Thanks in advance",
+      "parentUuid": "3e476369_1cc26f6a",
+      "range": {
+        "startLine": 38,
+        "startChar": 24,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbd210ad_4e3aee99",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 32
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2a0d259f_c9465202",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbd210ad_4e3aee99",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 56
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ea3d8be_81d4b42a",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 32
@@ -68,6 +116,30 @@
       "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c546abe_446977fa",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ea3d8be_81d4b42a",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "40342863_43042f01",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac2c964a_9b59afe3",
+      "range": {
+        "startLine": 65,
+        "startChar": 24,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41611ca4_0878afe7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:21:34Z",
+      "side": 1,
+      "message": "Changed it to std::chrono::milliseconds, because value is not taken from clock.",
+      "parentUuid": "285bc6ef_5ca72258",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 11
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dab067df_aeb05e6c",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 32
@@ -137,6 +257,30 @@
       "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dfa0676_69a47df1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-03T15:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dab067df_aeb05e6c",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
