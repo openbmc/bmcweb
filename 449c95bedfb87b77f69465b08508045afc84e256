@@ -235,6 +235,24 @@
       "revId": "449c95bedfb87b77f69465b08508045afc84e256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656bb846_740eb27e",
+        "filename": "static/login/index.html",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000402
+      },
+      "writtenOn": "2020-09-03T17:10:47Z",
+      "side": 1,
+      "message": "\"Alternatively, webui-vue could move the language button into a post-authentication control, per-user, so we could keep the login page common for the time being.  Then, once webui-vue has 100% feature parity and has been accepted by the larger community, we can discuss moving it back to the login page, and deprecating phosphor-webui entirely.\"\n\nI think this might be a good way forward. \n\nOne thing we lose with this implementation is the stored username. In our webui-vue implementation, we store the entered username in local storage. I think in Angular it is saved to session storage..is this accounted for? We would need something to persist in the browser to show the logged in username, unless it can be returned from the backened post authentication.",
+      "parentUuid": "5398f4a2_eb6d1b1f",
+      "revId": "449c95bedfb87b77f69465b08508045afc84e256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
