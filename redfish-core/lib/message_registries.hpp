@@ -56,11 +56,12 @@ class MessageRegistryFileCollection : public Node
             {"@odata.id", "/redfish/v1/Registries"},
             {"Name", "MessageRegistryFile Collection"},
             {"Description", "Collection of MessageRegistryFiles"},
-            {"Members@odata.count", 4},
+            {"Members@odata.count", 5},
             {"Members",
              {{{"@odata.id", "/redfish/v1/Registries/Base"}},
               {{"@odata.id", "/redfish/v1/Registries/TaskEvent"}},
               {{"@odata.id", "/redfish/v1/Registries/ResourceEvent"}},
+              {{"@odata.id", "/redfish/v1/Registries/Bios"}},
               {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
 
         res.end();
@@ -117,6 +118,11 @@ class MessageRegistryFile : public Node
         {
             header = &message_registries::resource_event::header;
             url = message_registries::resource_event::url;
+        }
+        else if (registry == "Bios")
+        {
+            header = &message_registries::bios::header;
+            dmtf.clear();
         }
         else
         {
