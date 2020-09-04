@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5c70211a_711a5bd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "Ah, so you tested this without monitoring service installed?  That is a separate patch not on master at the moment.",
+      "parentUuid": "7271d9dd_6d723d50",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffab9393_f237e6d4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I see some strange logic here. You said that if we wrap some code in function we create 2 right ways to write something, but right now that code is all over bmcweb in multiple places everyone just online it. It looks like right now we have a lot of ways to do one thing and this utility functions are first step to make one \"right\" way.\n\nOnce you have something small and ready to reuse it makes thinks easier for others. If there was such function before we didn\u0027t have to write it, we could just reuse it. Right now we can\u0027t so we wan\u0027t to create it so it can be used by others in the future.",
       "parentUuid": "9d052f76_4ce35d0e",
+      "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b11784c_360f14a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "\"It looks like right now we have a lot of ways to do one thing and this utility functions are first step to make one \"right\" way.\"\n\nThey\u0027re only the first step if you port a number of the other uses of them to your utility function.  Otherwise, you\u0027ve just created a third \"right way\".  Right now we have the \"2 right ways\" because previous authors also wanted to come up with new patterns and utility functions, similar to this, and didn\u0027t follow through on rolling the rest of the codebase forward.  This then falls to maintainers to do, which doesn\u0027t scale, and wastes time for the project as a whole.\n\n\"Once you have something small and ready to reuse it makes thinks easier for others.\"\nSmall, ready to reuse, and tested/reused on an array of cases.  The last point is what I\u0027m asking for.  Using your utility functions on heavily used schemas will prove the utility, and show how much better of a pattern it is.  Using it on new code, tends to reduce the initial visibility, and cause problems down the road.\n\n\"Right now we can\u0027t so we wan\u0027t to create it so it can be used by others in the future.\"\nThis is exactly how you get N competing patterns/utility functions in bmcweb.",
+      "parentUuid": "9f83b9f9_d097c571",
       "revId": "39f50f7fa28f4eec1c38bd1e3f65cbb5e8029e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
