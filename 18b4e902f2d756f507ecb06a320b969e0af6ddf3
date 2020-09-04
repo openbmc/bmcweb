@@ -117,6 +117,30 @@
       "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad5e8e4_2a429767",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T12:56:39Z",
+      "side": 1,
+      "message": "Maybe I am not aware of proper bmcweb coding style. Can you point it in bmcweb documents?\nAnyway, chassis handles this case similar\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/chassis.hpp (line 206)\nError is not propagated to user.",
+      "parentUuid": "4c3f7b78_f39ca247",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9
+      },
+      "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
