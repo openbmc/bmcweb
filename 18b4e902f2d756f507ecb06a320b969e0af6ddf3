@@ -141,6 +141,30 @@
       "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b187dbe3_79add872",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "Check out heading #4 in DEVELOPING.md.  I\u0027m assuming you\u0027ve read that doc?\n\nYep that line is that\u0027s incorrect.  Would you mind putting up a patch to fix it?  It should be as easy as adding a messages::internalError(res); on line 207.  If you figured out a good way to find these, you might consider fixing it for more of them.\n\nThere are a couple exceptions, like when we have an interface that\u0027s optional, and it returns not_found, obviously we won\u0027t propagate that to the user, but this isn\u0027t one of the exceptions.",
+      "parentUuid": "2ad5e8e4_2a429767",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9
+      },
+      "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
