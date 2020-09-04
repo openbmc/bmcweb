@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ad8fe0e3_f07dfe07",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T07:19:14Z",
+      "side": 1,
+      "message": "populateFanRedundancy is very similar to populatePSURedundancy, is it possible to merge them?",
+      "range": {
+        "startLine": 1047,
+        "startChar": 4,
+        "endLine": 1047,
+        "endChar": 25
+      },
+      "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8446d14_bc868ade",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
@@ -36,6 +59,30 @@
       "writtenOn": "2020-09-03T01:26:55Z",
       "side": 1,
       "message": "Please don\u0027t use auto for these.",
+      "range": {
+        "startLine": 1099,
+        "startChar": 24,
+        "endLine": 1099,
+        "endChar": 29
+      },
+      "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aef58b3_555db0a1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T07:19:14Z",
+      "side": 1,
+      "message": "auto is used in other places in sensors.hpp. Can maintainer confirm that using auto is ok?",
+      "parentUuid": "c50a1cf1_b3635aa9",
       "range": {
         "startLine": 1099,
         "startChar": 24,
