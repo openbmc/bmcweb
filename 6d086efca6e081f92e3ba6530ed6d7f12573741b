@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e5b2182_979c4bde",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T12:56:39Z",
+      "side": 1,
+      "message": "If your dictionary have two same keys than your implementation is wrong. I guess that dbus does not allow for properties with same name on same interface. You suggested to use bool to have simple API. Propagating specific error code from this place to user is meaningless. Its only meaningful for developer, so simply false/true is enough and some log in debug version (as I can see it is common in bmcweb).",
+      "parentUuid": "1f69c945_06fd7015",
+      "revId": "6d086efca6e081f92e3ba6530ed6d7f12573741b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98df96bb_76b3c083",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 47
@@ -39,6 +57,30 @@
       "revId": "6d086efca6e081f92e3ba6530ed6d7f12573741b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5924893_f64eab49",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T12:56:39Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "98df96bb_76b3c083",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 55
+      },
+      "revId": "6d086efca6e081f92e3ba6530ed6d7f12573741b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
