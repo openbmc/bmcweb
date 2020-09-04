@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9f6b1a81_d7efa089",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:16:46Z",
+      "side": 1,
+      "message": "Something like \"1234foobarD\", with a postfix of \u0027D\u0027 will cause this to hunt past the value, then fail silently at the stof when it hits the f.  you\u0027ve swapped for from_chars now, so I think you\u0027re in good shape now.",
+      "parentUuid": "848324d5_ae151504",
+      "range": {
+        "startLine": 38,
+        "startChar": 24,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbd210ad_4e3aee99",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 32
