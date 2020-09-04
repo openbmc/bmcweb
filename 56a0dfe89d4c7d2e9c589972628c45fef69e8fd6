@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89cff772_ee51e6c2",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:16:46Z",
+      "side": 1,
+      "message": "size_t is signed.  \u003d\u003d is sufficient here.",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee0f209_0c654e69",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:16:46Z",
+      "side": 1,
+      "message": "You\u0027ve mixed error codes with values here.  Some error paths return zero() some return min().  If you really want to return this by value and not have an output parameter, return it by std::optional\u003cstd::chrono::milliseconds\u003e, and add \"return std::nullopt\" when there\u0027s an error.",
+      "range": {
+        "startLine": 100,
+        "startChar": 63,
+        "endLine": 100,
+        "endChar": 67
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
