@@ -304,6 +304,30 @@
       "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07ba76e2_ae09b316",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Skip, now code is more complex and adding more embedded statement will make it less readable in my opinion",
+      "parentUuid": "c3cda007_10c12193",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
