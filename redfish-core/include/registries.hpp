@@ -41,3 +41,4 @@ struct Message
 };
 using MessageEntry = std::pair<const char*, const Message>;
 } // namespace redfish::message_registries
+
