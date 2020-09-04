@@ -361,6 +361,30 @@
     },
     {
       "key": {
+        "uuid": "b13a06ee_49c114c4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:34:29Z",
+      "side": 1,
+      "message": "\"Where is the proof that your pattern is better? \"\n\nBecause we use that pattern in other places?  Because code that\u0027s been originally written the way you did it, had to be translated to the way I\u0027m suggesting because it was found to be wrong after merging?  Because it\u0027s a much easier pattern to get right?  I have no formal \"proof\".\n\nAs is, you\u0027re returning the wrong json pointer in your error code on line 191.  If you can get the pointer type correct with this pattern, I\u0027m ok with it, but I think it\u0027s much easier to get correct by passing res in.",
+      "parentUuid": "cd582ba7_54522470",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 11
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f64d09db_d4b93f29",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -495,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "c3066f1e_68b285a3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:34:29Z",
+      "side": 1,
+      "message": "So you\u0027re intending to go to the redfish committee and add the type;  I commend your bravery, and dedication, and please do if that\u0027s something you\u0027re interested in, but I don\u0027t think that level of change will be needed to get this patchset in.\n\nI think what you want here is a PropertyValueNotInList error.\n\n\"Indicates that a property was given the correct value type but the value of that property was not supported.  This values not in an enumeration\"\n\nWhile this isn\u0027t technically an enumeration, I believe it\u0027s the closest match redfish has to what you need today.  Also, we\u0027ve used it in other similar situations.",
+      "parentUuid": "5c51cc25_42de9303",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8858a9f9_e4c78bd8",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -530,6 +578,30 @@
       "side": 1,
       "message": "reportActions is already a vector of strings. message::propertyValueNotInList takes strings as parameters. Can you be more clear? Thanks",
       "parentUuid": "8858a9f9_e4c78bd8",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a19e25f_b2485cb9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:34:29Z",
+      "side": 1,
+      "message": "This argument should be \nReportActions/\u003cindex of element that was wrong\u003e\nand ideally contain entries for every parameter that was wrong (although that\u0027s not required).",
+      "parentUuid": "6059ea67_83d775c6",
       "range": {
         "startLine": 191,
         "startChar": 63,
@@ -589,6 +661,30 @@
     },
     {
       "key": {
+        "uuid": "4adca543_e44a9db3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:34:29Z",
+      "side": 1,
+      "message": "excellent!",
+      "parentUuid": "9c4a84e1_f93b2d1c",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef711a5b_0e88b1f3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -633,6 +729,30 @@
       "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5063944c_5a165aa1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T16:34:29Z",
+      "side": 1,
+      "message": "I suspect with your range checks getting simplified or going away, this will resolve itself, as scanPeriod will be a value, and no longer part of a tuple that requires taking a reference to.",
+      "parentUuid": "797e1a92_df343b68",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 23
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
