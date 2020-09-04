@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "04174bf5_cea2998e",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ea4bafb_687dc431",
+      "range": {
+        "startLine": 41,
+        "startChar": 28,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "663101d3_e06dd439",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
@@ -45,6 +69,30 @@
       "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2036c869_19371ae9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Modified it to only use integers",
+      "parentUuid": "663101d3_e06dd439",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 40
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "45f4026a_f000853b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Changed it back to string_view. Done",
+      "parentUuid": "1b1d4661_abd4d150",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e56d20df_dd27c482",
         "filename": "redfish-core/include/utils/validate_params_length.hpp",
         "patchSetId": 26
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "c0f76d3b_88b2068e",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Okay, we will review it again. Is there any range check in readJson (not overflow check)? What if user provide a very long string in request? Is there any limitation for payload from user in bmcweb? Thanks in advance\n\nAnyway this discussion already exists:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32536/20/redfish-core/include/utils/validate_params_length.hpp#3\n\nPlease, answer to it. Thanks in advance",
+      "parentUuid": "e56d20df_dd27c482",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e51761e_d788a121",
         "filename": "redfish-core/include/utils/validate_params_length.hpp",
         "patchSetId": 26
@@ -99,6 +189,30 @@
       "writtenOn": "2020-08-25T18:48:40Z",
       "side": 1,
       "message": "You\u0027re casting a size_t to a size_t?",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73b11922_f14c3861",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Yes, it is mistake. Thanks",
+      "parentUuid": "0e51761e_d788a121",
       "range": {
         "startLine": 31,
         "startChar": 19,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "3dd060c7_2d7047df",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "I will change message to \"PropertyValueIncorrect\"",
+      "parentUuid": "d9104aef_0de12dd3",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e42c9ed_fb59003b",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "cd582ba7_54522470",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Where is the proof that your pattern is better? It requires a different function parameters and different return type. Okay, it helps to fetch only an index, but we can get similar information using optional. Unless you mean that we want to omit std::string move? Anyway I will change try to change it, but I want your opinion.",
+      "parentUuid": "6e42c9ed_fb59003b",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 11
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f64d09db_d4b93f29",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -168,6 +330,24 @@
       "writtenOn": "2020-08-25T18:48:40Z",
       "side": 1,
       "message": "considering this is static, please move this outside the class itself.",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23a42d7f_9d6f89d0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "This is only used inside this class. Is there any better argument to move it outside?",
+      "parentUuid": "f64d09db_d4b93f29",
       "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -249,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "5c51cc25_42de9303",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "I took it because it was the closest matching one that was already defined. I will add \"PropertyValueIncorrect\" to the list of error messages to correct it.",
+      "parentUuid": "0d3af75d_a05b7031",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8858a9f9_e4c78bd8",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -260,6 +464,30 @@
       "writtenOn": "2020-08-25T18:48:40Z",
       "side": 1,
       "message": "Technically this is the wrong json pointer to the key, but because you\u0027ve created a helper, you\u0027ve lost the actual key index.  I suspect your check should just be inlined, or the res object can be put into replaceReportActions.",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6059ea67_83d775c6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "reportActions is already a vector of strings. message::propertyValueNotInList takes strings as parameters. Can you be more clear? Thanks",
+      "parentUuid": "8858a9f9_e4c78bd8",
       "range": {
         "startLine": 191,
         "startChar": 63,
@@ -295,6 +523,30 @@
     },
     {
       "key": {
+        "uuid": "9c4a84e1_f93b2d1c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Yes, this check is no more required if std::from_chars stops after detecting value overflow.",
+      "parentUuid": "1febea9a_b70b27dc",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef711a5b_0e88b1f3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -318,6 +570,30 @@
     },
     {
       "key": {
+        "uuid": "797e1a92_df343b68",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "I am not sure of it. Thanks in advance",
+      "parentUuid": "ef711a5b_0e88b1f3",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 23
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57f007c1_287af6e9",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -329,6 +605,30 @@
       "writtenOn": "2020-08-25T18:48:40Z",
       "side": 1,
       "message": "This needs to handle out of range values here.   time_t is only uint32_t on 32 bit systems.\n\nIdeally, the API would change to be a uint32_t.",
+      "range": {
+        "startLine": 217,
+        "startChar": 38,
+        "endLine": 217,
+        "endChar": 78
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90b39c4c_632dd234",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "57f007c1_287af6e9",
       "range": {
         "startLine": 217,
         "startChar": 38,
@@ -387,6 +687,30 @@
     },
     {
       "key": {
+        "uuid": "a185e652_8a005002",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "477689cd_40943aef",
+      "range": {
+        "startLine": 258,
+        "startChar": 17,
+        "endLine": 258,
+        "endChar": 21
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "417c2892_feeec0a5",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -398,6 +722,30 @@
       "writtenOn": "2020-08-25T18:48:40Z",
       "side": 1,
       "message": "Please avoid using auto here, as it obfuscates the type.",
+      "range": {
+        "startLine": 276,
+        "startChar": 18,
+        "endLine": 276,
+        "endChar": 22
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e86e3a94_49d850ec",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T14:23:01Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "417c2892_feeec0a5",
       "range": {
         "startLine": 276,
         "startChar": 18,
