@@ -5,6 +5,22 @@
 #include <utils/fw_utils.hpp>
 namespace redfish
 {
+
+/*baseBIOSTable
+map{attributeName,struct{attributeType,readonlyStatus,displayname,
+              description,menuPath,current,default,
+              array{struct{optionstring,optionvalue}}}}
+*/
+using biosBaseTableVariant =
+    std::map<std::string,
+             std::tuple<std::string, bool, std::string, std::string,
+                        std::string, std::variant<int64_t, std::string>,
+                        std::variant<int64_t, std::string>,
+                        std::vector<std::tuple<
+                            std::string, std::variant<int64_t, std::string>>>>>;
+using pendingAttributesVariant =
+    std::map<std::string,
+             std::tuple<std::string, std::variant<int64_t, std::string>>>;
 /**
  * BiosService class supports handle get method for bios.
  */
@@ -35,6 +51,225 @@ class BiosService : public Node
         // Get the ActiveSoftwareImage and SoftwareImages
         fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose,
                                              "", true);
+        asyncResp->res.jsonValue["@Redfish.Settings"] = {
+            {"@odata.type", "#Settings.v1_3_0.Settings"},
+            {"SettingsObject",
+             {{"@odata.id", "/redfish/v1/Systems/system/Bios/Settings"}}}};
+        asyncResp->res.jsonValue["AttributeRegistry"] =
+            "BiosAttributeRegistry.1.0.0";
+        asyncResp->res.jsonValue["Attributes"] = {};
+        getBiosAttributes(asyncResp);
+    }
+    void getBiosAttributes(std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](
+                const boost::system::error_code ec,
+                const std::variant<biosBaseTableVariant>& retBiosTable) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "getBiosAttributes DBUS error: " << ec;
+                    messages::resourceNotFound(asyncResp->res, "Systems/system",
+                                               "Bios");
+                    return;
+                }
+                const biosBaseTableVariant* baseBiosTable =
+                    std::get_if<biosBaseTableVariant>(&retBiosTable);
+                nlohmann::json attributesJson = {};
+                if (baseBiosTable == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "baseBiosTable == nullptr ";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                for (auto const& item : *baseBiosTable)
+                {
+                    auto& value = std::get<5>(item.second);
+                    auto& key = item.first;
+                    attributesJson.emplace(key, value);
+                }
+                asyncResp->res.jsonValue["Attributes"] = attributesJson;
+            },
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable");
+    }
+};
+
+/**
+ * BiosSettings class supports handle GET/PATCH method for
+ * BIOS configuration pending settings.
+ */
+class BiosSettings : public Node
+{
+  public:
+    BiosSettings(App& app) :
+        Node(app, "/redfish/v1/Systems/system/Bios/Settings")
+    {
+        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Bios/Settings";
+        asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+        asyncResp->res.jsonValue["Name"] = "Bios Settings Version 1";
+        asyncResp->res.jsonValue["Id"] = "BiosSettingsV1";
+        asyncResp->res.jsonValue["AttributeRegistry"] =
+            "BiosAttributeRegistry.1.0.0";
+        asyncResp->res.jsonValue["Attributes"] = {};
+
+        getBiosSettings(asyncResp);
+    }
+    /**
+     * Get BIOS Settings from d-bus.
+     */
+    void getBiosSettings(std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<pendingAttributesVariant>&
+                            retPendingAttributes) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "getBiosSettings DBUS error: " << ec;
+                    messages::resourceNotFound(
+                        asyncResp->res, "Systems/system/Bios", "Settings");
+                    return;
+                }
+                const pendingAttributesVariant* pendingAttributes =
+                    std::get_if<pendingAttributesVariant>(
+                        &retPendingAttributes);
+                nlohmann::json attributesJson = {};
+                if (pendingAttributes == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "pendingAttributes == nullptr ";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                for (auto const& item : *pendingAttributes)
+                {
+                    auto& value = std::get<1>(item.second);
+                    auto& key = item.first;
+                    attributesJson.emplace(key, value);
+                }
+                asyncResp->res.jsonValue["Attributes"] = attributesJson;
+            },
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes");
+    }
+};
+/**
+ * BiosAttributeRegistry class supports handle get method for BIOS attribute
+ * registry.
+ */
+class BiosAttributeRegistry : public Node
+{
+  public:
+    BiosAttributeRegistry(App& app) :
+        Node(app, "/redfish/v1/Registries/Bios/Bios")
+    {
+        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Registries/Bios/Bios";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#AttributeRegistry.v1_3_2.AttributeRegistry";
+        asyncResp->res.jsonValue["Name"] = "Bios Attribute Registry";
+        asyncResp->res.jsonValue["Id"] = "BiosAttributeRegistry";
+        asyncResp->res.jsonValue["RegistryVersion"] = "1.0.0";
+        asyncResp->res.jsonValue["Language"] = "en";
+        asyncResp->res.jsonValue["OwningEntity"] = "OpenBMC";
+        asyncResp->res.jsonValue["SupportedSystems"] = {};
+
+        getBiosAttributeRegistry(asyncResp);
+    }
+    /**
+     * Get BIOS attribute registry from d-bus.
+     */
+    void getBiosAttributeRegistry(std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](
+                const boost::system::error_code ec,
+                const std::variant<biosBaseTableVariant>& retBiosTable) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "getBiosAttributeRegistry DBUS error: "
+                                     << ec;
+                    messages::resourceNotFound(asyncResp->res,
+                                               "Registries/Bios", "Bios");
+                    return;
+                }
+                const biosBaseTableVariant* baseBiosTable =
+                    std::get_if<biosBaseTableVariant>(&retBiosTable);
+                nlohmann::json& attributeArray =
+                    asyncResp->res.jsonValue["RegistryEntries"]["Attributes"];
+                attributeArray = nlohmann::json::array();
+                if (baseBiosTable == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "baseBiosTable == nullptr ";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                for (auto const& item : *baseBiosTable)
+                {
+                    std::string attrType = "UNKNOWN";
+                    auto& itemType = std::get<0>(item.second);
+                    if (itemType == "xyz.openbmc_project.BIOSConfig.Manager."
+                                    "AttributeType.Enumeration")
+                    {
+                        attrType = "Enumeration";
+                    }
+                    else if (itemType == "xyz.openbmc_project.BIOSConfig."
+                                         "Manager.AttributeType.String")
+                    {
+                        attrType = "String";
+                    }
+                    else if (itemType == "xyz.openbmc_project.BIOSConfig."
+                                         "Manager.AttributeType.Password")
+                    {
+                        attrType = "Password";
+                    }
+                    else if (itemType == "xyz.openbmc_project.BIOSConfig."
+                                         "Manager.AttributeType.Integer")
+                    {
+                        attrType = "Integer";
+                    }
+                    else if (itemType == "xyz.openbmc_project.BIOSConfig."
+                                         "Manager.AttributeType.Boolean")
+                    {
+                        attrType = "Boolean";
+                    }
+                    attributeArray.push_back(
+                        {{"AttributeName", item.first},
+                         {"Type", attrType},
+                         {"ReadonlyStatus", std::get<1>(item.second)},
+                         {"DisplayName", std::get<2>(item.second)},
+                         {"Discription", std::get<3>(item.second)},
+                         {"MenuPath", std::get<4>(item.second)},
+                         {"CurrentValue", std::get<5>(item.second)},
+                         {"DefaultValue", std::get<6>(item.second)},
+                         {"Options", std::get<7>(item.second)}});
+                }
+            },
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable");
     }
 };
 /**
