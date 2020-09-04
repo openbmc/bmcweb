@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3899ae7c_96e6fe00",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "\"If your dictionary have two same keys than your implementation is wrong.\"\n\nTo be clear, I mean this code will work:\nstd::optional\u003cdouble\u003e a;\nstd::optional\u003cstd::string\u003e b;\nreadProperties(ret, \"MyKey\", a, \"MyKey\" b);\n\nSure, the call site is wrong, but wouldn\u0027t we want to make that obvious?\n\nThis probably wont be an internal error in all cases (as you\u0027ll find when you propagate this out to more code before it gets merged.)\n\nThere are cases where properties might be multiple types, because of backward compatibility or dbus schema transitions, and this will likely need to try to pull a property out in multiple ways.\n\nA good example of this would be in sensors, where the sensor value can be an int64_t or a double.  \nIn that case, I suspect the user would need to do check for a \"wrong type\" error, and try to read out the values in the other format.\n\nI agree, bool is simpler than int if you only return success, but I think there\u0027s a need for returning more than just success here.",
+      "parentUuid": "9e5b2182_979c4bde",
+      "revId": "6d086efca6e081f92e3ba6530ed6d7f12573741b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98df96bb_76b3c083",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 47
