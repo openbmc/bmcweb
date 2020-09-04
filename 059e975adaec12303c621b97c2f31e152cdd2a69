@@ -973,6 +973,30 @@
     },
     {
       "key": {
+        "uuid": "59207659_dacfb551",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:53:25Z",
+      "side": 1,
+      "message": "What you wrote in the comment above is 40 lines of code that ANY coder/reviewer can understand and check for correctness in a relatively short amount of time (it took me about 30 seconds to read through it and understand it).\n\nThis file is 80 lines of code that very few on the project can review given its use of templates, and complexity overall.  I would much rather have an \"it\u0027s hard to grep for changes\" problem than an \"it\u0027s hard to read\" problem, as it pushes the problem to the person wanting to change the code, not the maintainer that has to remember what that function does, and verify it for correctness with all types.\n\n\nIt should be noted, all of the above is moot in the context of this patch.  These range checks shouldn\u0027t even be here, they should be done in the dbus daemon being called.",
+      "parentUuid": "125d7220_82eaaa78",
+      "range": {
+        "startLine": 3,
+        "startChar": 11,
+        "endLine": 3,
+        "endChar": 12
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30050ded_e8090c29",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
