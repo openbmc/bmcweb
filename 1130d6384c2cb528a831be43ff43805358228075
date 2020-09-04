@@ -367,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "58c827bd_2c139d6c",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "In the case you cited, all elements are in scope, and it\u0027s fairly obvious that ptr points to the object within var.\n\nOnce you move this to a utility function, it becomes something like\n\nT* myptr;\nreadProperties(ret, \"MyKey\", myptr);\n\nand is far more obfuscated that myptr points to an element within ret.  We\u0027ve had this pattern before, and people tended to mess it up.  Also, the move cost on basically every type you\u0027re likely to pull out of dbus is negligible.",
+      "parentUuid": "9e681683_a6695549",
+      "range": {
+        "startLine": 157,
+        "startChar": 23,
+        "endLine": 157,
+        "endChar": 35
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e976877_e948d97f",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 45
@@ -779,6 +803,30 @@
     },
     {
       "key": {
+        "uuid": "b1f65049_513e0966",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "yep",
+      "parentUuid": "f1add640_451b7107",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 63
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f08de560_1ee58b69",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 45
@@ -823,6 +871,30 @@
       "revId": "1130d6384c2cb528a831be43ff43805358228075",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee5d840c_35d8e3f9",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "But probably wont be an internal error in all cases (as you\u0027ll find when you propagate this out to more code.\n\nThere are cases where properties might be multiple types, because of backward compatibility or dbus schema transitions, and this will likely need to try to pull a property out in multiple ways.\n\nA good example of this would be in sensors, where the sensor value can be an int64_t or a double.  \nIn that case, I suspect the user would need to do check for a \"wrong type\" error, and try to read out the values in the other format.",
+      "parentUuid": "c1e3dee4_afb404a7",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 58
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
