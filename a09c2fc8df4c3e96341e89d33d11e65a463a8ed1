@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "57adf7c5_1464bac7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:53:25Z",
+      "side": 1,
+      "message": "excellent, thank you.",
+      "parentUuid": "2036c869_19371ae9",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 40
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b1d4661_abd4d150",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 26
@@ -172,6 +196,24 @@
       "side": 1,
       "message": "Okay, we will review it again. Is there any range check in readJson (not overflow check)? What if user provide a very long string in request? Is there any limitation for payload from user in bmcweb? Thanks in advance\n\nAnyway this discussion already exists:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32536/20/redfish-core/include/utils/validate_params_length.hpp#3\n\nPlease, answer to it. Thanks in advance",
       "parentUuid": "e56d20df_dd27c482",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be09664d_d02439f1",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:53:25Z",
+      "side": 1,
+      "message": "\"Is there any range check in readJson (not overflow check)?\"\n\nNo, we expect the dbus interface on the daemon side to impose whatever size and range checks it needs, and return appropriate error codes.\n\nIn theory, readJson should support using something like boost::safe_numerics::safe as input, but that\u0027s a much bigger discussion and could be had a project level.\n\n\"What if user provide a very long string in request?\"\nDepending on what limit you run over, you might get an HTTP 400, if you go over the request size limit, or you might get a DBus error if you go over the message size limit.  If you go over an arbitrary property/method input limit, it\u0027s expected that the receiving dbus daemon return an appropriate error code.\n\n\"Is there any limitation for payload from user in bmcweb?\"\nYes, there are several, but once a user is logged the limit is fairly large, given there are use cases with large payloads send to dbus.",
+      "parentUuid": "c0f76d3b_88b2068e",
       "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
