@@ -160,6 +160,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
         nodes.emplace_back(std::make_unique<SystemResetActionInfo>(app));
         nodes.emplace_back(std::make_unique<BiosService>(app));
+        nodes.emplace_back(std::make_unique<BiosSettings>(app));
+        nodes.emplace_back(std::make_unique<BiosAttributeRegistry>(app));
         nodes.emplace_back(std::make_unique<BiosReset>(app));
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
         nodes.emplace_back(std::make_unique<VirtualMedia>(app));
