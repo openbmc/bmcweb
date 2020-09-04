@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "e455875d_7b1740a7",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:08:59Z",
+      "side": 1,
+      "message": "Lets say in the future, we have a review that adds this line to another file.\n\nScanPeriod scan \u003d (int64_t)-1;\n\nis that valid?  Is it secure from over/underflows for both 32 bit and 64 bit?\n\nNow, on the contrary, if I have this:\nuint32_t scan \u003d (int64_t)-1;\n\nThat immediately stands out as a problem, given that I\u0027m moving a larger parameter into a smaller parameter without a range check, and I\u0027m moving a signed int into an unsigned int without a \u003c 0 check.\n\n\nIn a review, you have no idea, unless you look up every using throughout the file, and in practice, that doesn\u0027t tend to happen, and we just end up with a security issue.  Unfortunately we see this pattern all the time in bmcweb, and given that most of the time we\u0027re dealing with attacker driven values, we need to be aware of that, and code in such a way that we can avoid it in review, even if it does require larger patchsets.\n\nHow about this as a compromise:  You can leave the types that are more complex than std::vector\u003cstd::string\u003e, but all others need to be inlined.  Does that sound reasonable?",
+      "parentUuid": "221170b2_5dc0324a",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 70
+      },
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7c2480a_36debb94",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 46
