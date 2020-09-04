@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "a75f8291_f9d0a05c",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:53:25Z",
+      "side": 1,
+      "message": "that works.",
+      "parentUuid": "41611ca4_0878afe7",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 11
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dab067df_aeb05e6c",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 32
@@ -328,6 +352,30 @@
       "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cea17a95_8b23b49a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-04T15:53:25Z",
+      "side": 1,
+      "message": "To be clear, I\u0027m asking you to write this as:\n\nif (!fmt.empty() \u0026\u0026 *fmt.begin() !\u003d \u0027T\u0027)\n{\n\tfmt.erase(fmt.begin());\n\tout +\u003d details::fromDurationFormatItem\u003cstd::chrono::hours\u003e(fmt, \u0027H\u0027);\n\tout +\u003d details::fromDurationFormatItem\u003cstd::chrono::minutes\u003e(fmt, \u0027M\u0027);\n\tout +\u003d details::fromDurationFormatItem\u003cstd::chrono::milliseconds\u003e(fmt, \u0027S\u0027);\n}\n\nreturn static_cast\u003cstd::time_t\u003e(out.count());\n\nSame number of embedded statements, and less complex.  With that said, if you want to leave it the old way, I\u0027m not too worried about it.",
+      "parentUuid": "07ba76e2_ae09b316",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "1f81f4f19316632206f3786cd43e46eba6e19e8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
