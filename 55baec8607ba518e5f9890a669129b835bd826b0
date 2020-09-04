@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "221170b2_5dc0324a",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-04T12:56:39Z",
+      "side": 1,
+      "message": "I do not follow your inline style. You have to do review all places, it does not matter if it is inline or not. If you have one custom type that is common across project than it is easier to review it. You can find all important places to in blink of an eye. For example:\n#define time_t   long int\ngrep time_t | ./script_to_verify_if_type_is_ok\nDo you disagree with it? Other way you have to look for all those places manually.",
+      "parentUuid": "1015d349_b34757b0",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 70
+      },
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7c2480a_36debb94",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 46
