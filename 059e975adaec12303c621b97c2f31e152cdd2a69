@@ -997,6 +997,30 @@
     },
     {
       "key": {
+        "uuid": "a6c957e9_97bd1afa",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T07:47:06Z",
+      "side": 1,
+      "message": "Thanks for answer. Ok, I see your point. We add it as a quick fix for issues that comes up during fuzzing. We already removed regex from code because it was a first issue -\u003e https://gcc.gnu.org/bugzilla/show_bug.cgi?id\u003d86164\nOther issue was the length of ID that is used to create a new path on dbus. It is limited to 255 letters. We will review this file and perhaps remove it.",
+      "parentUuid": "59207659_dacfb551",
+      "range": {
+        "startLine": 3,
+        "startChar": 11,
+        "endLine": 3,
+        "endChar": 12
+      },
+      "revId": "059e975adaec12303c621b97c2f31e152cdd2a69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30050ded_e8090c29",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 20
