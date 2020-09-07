@@ -36,7 +36,7 @@ const Header header = {
 constexpr const char* url =
     "https://redfish.dmtf.org/registries/Base.1.8.1.json";
 
-constexpr std::array<MessageEntry, 73> registry = {
+constexpr std::array<MessageEntry, 74> registry = {
     MessageEntry{
         "AccessDenied",
         {
@@ -427,6 +427,22 @@ constexpr std::array<MessageEntry, 73> registry = {
             0,
             {},
             "Resolve other reported errors and retry the current operation.",
+        }},
+    MessageEntry{
+        "MutualExclusiveProperties",
+        {
+            "Indicates that the requested operation could not be completed, "
+            "because of a conflict properties.",
+            "The properties '%1' and '%2' are mutually exclusive.",
+            "Warning",
+            "Warning",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "Ensure that the request body doesn't have mutually exclusive "
+            "properties and resubmit the request.",
         }},
     MessageEntry{
         "NoOperation",
