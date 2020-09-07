@@ -250,6 +250,16 @@ class EventDestinationCollection : public Node
             return;
         }
 
+        if (regPrefixes && msgIds)
+        {
+            if (regPrefixes->size() && msgIds->size())
+            {
+                messages::mutualExclusiveProperties(
+                    asyncResp->res, "RegistryPrefixes", "MessageIds");
+                return;
+            }
+        }
+
         // Validate the URL using regex expression
         // Format: <protocol>://<host>:<port>/<uri>
         // protocol: http/https
