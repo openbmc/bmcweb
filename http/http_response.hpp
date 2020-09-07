@@ -3,7 +3,10 @@
 #include "logging.hpp"
 #include "nlohmann/json.hpp"
 
+#include <boost/beast/http/buffer_body.hpp>
+#include <boost/beast/http/file_body.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/string_body.hpp>
 
 #include <string>
 
@@ -17,67 +20,58 @@ struct Response
 {
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
-    using response_type =
-        boost::beast::http::response<boost::beast::http::string_body>;
 
-    std::optional<response_type> stringResponse;
+    std::variant<boost::beast::http::response<boost::beast::http::string_body>,
+                 boost::beast::http::response<boost::beast::http::file_body>,
+                 boost::beast::http::response<boost::beast::http::buffer_body>>
+        response;
+
+    boost::beast::http::header<false>& headers;
 
     nlohmann::json jsonValue;
 
     void addHeader(const std::string_view key, const std::string_view value)
     {
-        stringResponse->set(key, value);
+
+        headers.set(key, value);
     }
 
     void addHeader(boost::beast::http::field key, std::string_view value)
     {
-        stringResponse->set(key, value);
+        headers.set(key, value);
     }
 
-    Response() : stringResponse(response_type{})
+    Response() :
+        headers(
+            std::get_if<
+                boost::beast::http::response<boost::beast::http::string_body>>(
+                &response)
+                ->base())
     {}
-
-    Response(Response&& r)
-    {
-        BMCWEB_LOG_DEBUG << "Moving response containers";
-        *this = std::move(r);
-    }
 
     ~Response()
     {
         BMCWEB_LOG_DEBUG << this << " Destroying response";
     }
 
-    Response& operator=(const Response& r) = delete;
-
-    Response& operator=(Response&& r) noexcept
-    {
-        BMCWEB_LOG_DEBUG << "Moving response containers";
-        stringResponse = std::move(r.stringResponse);
-        r.stringResponse.emplace(response_type{});
-        jsonValue = std::move(r.jsonValue);
-        completed = r.completed;
-        return *this;
-    }
-
     void result(boost::beast::http::status v)
     {
-        stringResponse->result(v);
+        headers.result(v);
     }
 
     boost::beast::http::status result()
     {
-        return stringResponse->result();
+        return headers.result();
     }
 
     unsigned resultInt()
     {
-        return stringResponse->result_int();
+        return headers.result_int();
     }
 
     std::string_view reason()
     {
-        return stringResponse->reason();
+        return headers.reason();
     }
 
     bool isCompleted() const noexcept
@@ -87,35 +81,53 @@ struct Response
 
     std::string& body()
     {
-        return stringResponse->body();
+        boost::beast::http::response<boost::beast::http::string_body>* strRes =
+            std::get_if<
+                boost::beast::http::response<boost::beast::http::string_body>>(
+                &response);
+        if (strRes == nullptr)
+        {
+
+            boost::beast::http::response<boost::beast::http::string_body>& res =
+                response.emplace<boost::beast::http::response<
+                    boost::beast::http::string_body>>();
+            headers = res.base();
+            return res.body();
+        }
+        return strRes->body();
     }
 
     void keepAlive(bool k)
     {
-        stringResponse->keep_alive(k);
+        return std::visit([k](auto& val) { return val.keep_alive(k); },
+                          response);
     }
 
     bool keepAlive()
     {
-        return stringResponse->keep_alive();
+        return std::visit([](auto& val) { return val.keep_alive(); }, response);
     }
 
     void preparePayload()
     {
-        stringResponse->prepare_payload();
+        std::visit(
+            [this](auto& val) {
+                val.base() = std::move(headers);
+                val.prepare_payload();
+            },
+            response);
     }
 
     void clear()
     {
         BMCWEB_LOG_DEBUG << this << " Clearing response containers";
-        stringResponse.emplace(response_type{});
-        jsonValue.clear();
         completed = false;
-    }
-
-    void write(std::string_view body_part)
-    {
-        stringResponse->body() += std::string(body_part);
+        keepAliveValue = false;
+        boost::beast::http::response<boost::beast::http::string_body>& res =
+            response.emplace<boost::beast::http::response<
+                boost::beast::http::string_body>>();
+        headers = res.base();
+        jsonValue.clear();
     }
 
     void end()
@@ -134,26 +146,38 @@ struct Response
         }
     }
 
-    void end(std::string_view body_part)
-    {
-        write(body_part);
-        end();
-    }
-
     bool isAlive()
     {
         return isAliveHelper && isAliveHelper();
     }
 
+    bool openFile(const std::filesystem::path& path)
+    {
+        boost::beast::http::file_body::value_type file;
+        boost::beast::error_code ec;
+        file.open(path.c_str(), boost::beast::file_mode::read, ec);
+        if (ec)
+        {
+            return false;
+        }
+        // store the headers on stack temporarily so we can reconstruct the new
+        // base with the old headers copied in.
+        boost::beast::http::header headTemp = std::visit(
+            [this](auto& val) { return std::move(val.base()); }, response);
+        boost::beast::http::response<boost::beast::http::file_body>&
+            fileResponse = response.emplace<
+                boost::beast::http::response<boost::beast::http::file_body>>(
+                std::move(headTemp));
+        headers = fileResponse.base();
+        fileResponse.body() = std::move(file);
+        return true;
+    }
+
   private:
     bool completed{};
+    bool keepAliveValue{};
     std::function<void()> completeRequestHandler;
+    std::function<bool(const std::string_view)> writeHandler;
     std::function<bool()> isAliveHelper;
-
-    // In case of a JSON object, set the Content-Type header
-    void jsonMode()
-    {
-        addHeader("Content-Type", "application/json");
-    }
-};
+}; // namespace crow
 } // namespace crow
