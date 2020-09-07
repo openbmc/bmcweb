@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "a39b0ac8_adb9b720",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "After long discussion I see your point. It make more sense now. Both of ways have some benefits and drawbacks. It is open project it is very hard to maintain so keeping simple code as possible is big deal. Yes, I already divided it in the latest patch and left only complex types. Thanks",
+      "parentUuid": "e455875d_7b1740a7",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 70
+      },
+      "revId": "55baec8607ba518e5f9890a669129b835bd826b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7c2480a_36debb94",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 46
