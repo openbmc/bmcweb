@@ -119,7 +119,7 @@ struct UserSession
                 continue;
             }
         }
-        // If any of these three fields are missing, we can't restore the
+        // If any of these fields are missing, we can't restore the
         // session, as we don't have enough information.  These 4 fields have
         // been present in ever version of this file in bmcwebs history, so any
         // file, even on upgrade, should have these present
