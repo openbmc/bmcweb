@@ -193,7 +193,6 @@ set (
     -Wnon-virtual-dtor \
     -Wold-style-cast \
     -Wcast-align \
-    -Wunused \
     -Woverloaded-virtual \
     -Wpedantic \
     -Wconversion \
@@ -313,6 +312,7 @@ include_directories (SYSTEM ${BOOST_SRC_DIR})
 add_definitions (-DBOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT)
 add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
+add_definitions (-DBOOST_ASIO_SEPARATE_COMPILATION)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions (-DBOOST_ASIO_NO_DEPRECATED)
@@ -389,7 +389,7 @@ file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include/bmcweb)
 include_directories (${CMAKE_BINARY_DIR}/include)
 
 set (SRC_FILES redfish-core/src/error_messages.cpp
-     redfish-core/src/utils/json_utils.cpp ${GENERATED_SRC_FILES})
+     redfish-core/src/utils/json_utils.cpp src/asio.cpp ${GENERATED_SRC_FILES})
 
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
