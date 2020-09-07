@@ -26,7 +26,6 @@
 #include <filesystem>
 #include <fstream>
 #include <regex>
-#include <utility>
 
 namespace crow
 {
@@ -67,10 +66,9 @@ inline void setErrorResponse(crow::Response& res,
                      {"status", "error"}};
 }
 
-inline void
-    introspectObjects(const std::string& processName,
-                      const std::string& objectPath,
-                      const std::shared_ptr<bmcweb::AsyncResp>& transaction)
+inline void introspectObjects(const std::string& processName,
+                              const std::string& objectPath,
+                              std::shared_ptr<bmcweb::AsyncResp> transaction)
 {
     if (transaction->res.jsonValue.is_null())
     {
@@ -132,8 +130,7 @@ inline void
 
 inline void getPropertiesForEnumerate(
     const std::string& objectPath, const std::string& service,
-    const std::string& interface,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::string& interface, std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
                      << service << " " << interface;
@@ -172,9 +169,8 @@ inline void getPropertiesForEnumerate(
 // Find any results that weren't picked up by ObjectManagers, to be
 // called after all ObjectManagers are searched for and called.
 inline void findRemainingObjectsForEnumerate(
-    const std::string& objectPath,
-    const std::shared_ptr<GetSubTreeType>& subtree,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::string& objectPath, std::shared_ptr<GetSubTreeType> subtree,
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     BMCWEB_LOG_DEBUG << "findRemainingObjectsForEnumerate";
     const nlohmann::json& dataJson = asyncResp->res.jsonValue["data"];
@@ -208,7 +204,7 @@ struct InProgressEnumerateData
     InProgressEnumerateData(const std::string& objectPathIn,
                             std::shared_ptr<bmcweb::AsyncResp> asyncRespIn) :
         objectPath(objectPathIn),
-        asyncResp(std::move(asyncRespIn))
+        asyncResp(asyncRespIn)
     {}
 
     ~InProgressEnumerateData()
@@ -224,7 +220,7 @@ struct InProgressEnumerateData
 inline void getManagedObjectsForEnumerate(
     const std::string& object_name, const std::string& object_manager_path,
     const std::string& connection_name,
-    const std::shared_ptr<InProgressEnumerateData>& transaction)
+    std::shared_ptr<InProgressEnumerateData> transaction)
 {
     BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << object_name
                      << " object_manager_path " << object_manager_path
@@ -284,7 +280,7 @@ inline void getManagedObjectsForEnumerate(
 
 inline void findObjectManagerPathForEnumerate(
     const std::string& object_name, const std::string& connection_name,
-    const std::shared_ptr<InProgressEnumerateData>& transaction)
+    std::shared_ptr<InProgressEnumerateData> transaction)
 {
     BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << object_name
                      << " on connection:" << connection_name;
@@ -326,8 +322,8 @@ inline void findObjectManagerPathForEnumerate(
 // Uses GetObject to add the object info about the target /enumerate path to
 // the results of GetSubTree, as GetSubTree will not return info for the
 // target path, and then continues on enumerating the rest of the tree.
-inline void getObjectAndEnumerate(
-    const std::shared_ptr<InProgressEnumerateData>& transaction)
+inline void
+    getObjectAndEnumerate(std::shared_ptr<InProgressEnumerateData> transaction)
 {
     using GetObjectType =
         std::vector<std::pair<std::string, std::vector<std::string>>>;
@@ -825,17 +821,17 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             {
                 return -1;
             }
-            const std::string& keyType = codes[0];
-            const std::string& valueType = codes[1];
-            for (const auto& it : j->items())
+            const std::string& key_type = codes[0];
+            const std::string& value_type = codes[1];
+            for (auto it : j->items())
             {
-                r = convertJsonToDbus(m, keyType, it.key());
+                r = convertJsonToDbus(m, key_type, it.key());
                 if (r < 0)
                 {
                     return r;
                 }
 
-                r = convertJsonToDbus(m, valueType, it.value());
+                r = convertJsonToDbus(m, value_type, it.value());
                 if (r < 0)
                 {
                     return r;
@@ -1116,7 +1112,23 @@ inline int convertDBusToJSON(const std::string& returnType,
             thisElement = &response.back();
         }
 
-        if (typeCode == "s" || typeCode == "g" || typeCode == "o")
+        if (typeCode == "s")
+        {
+            r = readMessageItem<char*>(typeCode, m, *thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "g")
+        {
+            r = readMessageItem<char*>(typeCode, m, *thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "o")
         {
             r = readMessageItem<char*>(typeCode, m, *thisElement);
             if (r < 0)
@@ -1241,9 +1253,10 @@ inline int convertDBusToJSON(const std::string& returnType,
     return 0;
 }
 
-inline void handleMethodResponse(
-    const std::shared_ptr<InProgressActionData>& transaction,
-    sdbusplus::message::message& m, const std::string& returnType)
+inline void
+    handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
+                         sdbusplus::message::message& m,
+                         const std::string& returnType)
 {
     nlohmann::json data;
 
@@ -1305,9 +1318,9 @@ inline void handleMethodResponse(
     }
 }
 
-inline void findActionOnInterface(
-    const std::shared_ptr<InProgressActionData>& transaction,
-    const std::string& connectionName)
+inline void
+    findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
+                          const std::string& connectionName)
 {
     BMCWEB_LOG_DEBUG << "findActionOnInterface for connection "
                      << connectionName;
@@ -1456,7 +1469,10 @@ inline void findActionOnInterface(
                                         }
                                         return;
                                     }
-                                    transaction->methodPassed = true;
+                                    else
+                                    {
+                                        transaction->methodPassed = true;
+                                    }
 
                                     handleMethodResponse(transaction, m2,
                                                          returnType);
@@ -2146,7 +2162,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)([](const crow::Request&,
                                                    crow::Response& res,
                                                    const std::string& dumpId) {
-            std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
+            std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
             if (!std::regex_match(dumpId, validFilename))
             {
                 res.result(boost::beast::http::status::bad_request);
@@ -2170,8 +2186,7 @@ inline void requestRoutes(App& app)
 
             for (auto& file : files)
             {
-                std::ifstream readFile(file.path());
-                if (!readFile.good())
+                if (!res.openFile(file))
                 {
                     continue;
                 }
@@ -2199,8 +2214,6 @@ inline void requestRoutes(App& app)
 
                 res.addHeader("Content-Disposition", contentDispositionParam);
 
-                res.body() = {std::istreambuf_iterator<char>(readFile),
-                              std::istreambuf_iterator<char>()};
                 res.end();
                 return;
             }
@@ -2250,7 +2263,7 @@ inline void requestRoutes(App& app)
                     // causes the normal trailing backslash redirector to
                     // fail.
                 }
-                if (!it->empty())
+                else if (!it->empty())
                 {
                     objectPath += "/" + *it;
                 }

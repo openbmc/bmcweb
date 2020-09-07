@@ -64,7 +64,7 @@ inline void requestRoutes(App& app)
 
     for (const std::filesystem::directory_entry& dir : paths)
     {
-        const std::filesystem::path& absolutePath = dir.path();
+        std::filesystem::path absolutePath = dir.path();
         std::filesystem::path relativePath{
             absolutePath.string().substr(rootpath.string().size() - 1)};
         if (std::filesystem::is_directory(dir))
@@ -147,18 +147,13 @@ inline void requestRoutes(App& app)
                     }
 
                     // res.set_header("Cache-Control", "public, max-age=86400");
-                    std::ifstream inf(absolutePath);
-                    if (!inf)
+                    if (!res.openFile(absolutePath))
                     {
                         BMCWEB_LOG_DEBUG << "failed to read file";
                         res.result(
                             boost::beast::http::status::internal_server_error);
-                        res.end();
-                        return;
                     }
 
-                    res.body() = {std::istreambuf_iterator<char>(inf),
-                                  std::istreambuf_iterator<char>()};
                     res.end();
                 });
         }
