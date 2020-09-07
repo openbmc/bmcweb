@@ -2170,8 +2170,7 @@ inline void requestRoutes(App& app)
 
             for (auto& file : files)
             {
-                std::ifstream readFile(file.path());
-                if (!readFile.good())
+                if (!res.openFile(file))
                 {
                     continue;
                 }
@@ -2199,8 +2198,6 @@ inline void requestRoutes(App& app)
 
                 res.addHeader("Content-Disposition", contentDispositionParam);
 
-                res.body() = {std::istreambuf_iterator<char>(readFile),
-                              std::istreambuf_iterator<char>()};
                 res.end();
                 return;
             }
