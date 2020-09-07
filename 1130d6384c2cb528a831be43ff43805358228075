@@ -391,6 +391,30 @@
     },
     {
       "key": {
+        "uuid": "17d8f26c_c11e985e",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "Ok, I will remove unpackProperties. One more question, how people mess it up with this pattern? Thanks in advance",
+      "parentUuid": "58c827bd_2c139d6c",
+      "range": {
+        "startLine": 157,
+        "startChar": 23,
+        "endLine": 157,
+        "endChar": 35
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e976877_e948d97f",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 45
@@ -827,6 +851,30 @@
     },
     {
       "key": {
+        "uuid": "6a1efd3b_a497da05",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1f65049_513e0966",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 63
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f08de560_1ee58b69",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 45
@@ -895,6 +943,30 @@
       "revId": "1130d6384c2cb528a831be43ff43805358228075",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5413f363_7f8a753d",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "Yes, I understand. Same with overflow errors. unpackProperties will be moved to other patch anyway. I am closing this discussion. Hope we exhausted this subject.",
+      "parentUuid": "ee5d840c_35d8e3f9",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 58
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
