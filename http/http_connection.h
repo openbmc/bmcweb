@@ -285,7 +285,6 @@ class Connection :
 
     ~Connection()
     {
-        res.completeRequestHandler = nullptr;
         cancelDeadlineTimer();
 #ifdef BMCWEB_ENABLE_DEBUG
         connectionCount--;
@@ -392,6 +391,14 @@ class Connection :
     {
         cancelDeadlineTimer();
 
+        // if someone else (probably authentication) already completed the
+        // response while still in the headers phase, send it now
+        if (res.completed)
+        {
+            completeRequest();
+            return;
+        }
+
         // Check for HTTP version 1.1.
         if (req->version() == 11)
         {
@@ -470,6 +477,11 @@ class Connection :
             res.completeRequestHandler = nullptr;
             return;
         }
+
+        res.completeRequestHandler = [self(shared_from_this())] {
+            self->completeRequest();
+        };
+
         handler->handle(*req, res);
     }
 
@@ -480,61 +492,26 @@ class Connection :
 
     void close()
     {
-        if (std::holds_alternative<boost::beast::ssl_stream<Adaptor>>(adaptor))
-        {
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-            if (auto sp = session.lock())
-            {
-                BMCWEB_LOG_DEBUG << this
-                                 << " Removing TLS session: " << sp->uniqueId;
-                persistent_data::SessionStore::getInstance().removeSession(sp);
-            }
-#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        if (auto sp = session.lock())
+        {
+            BMCWEB_LOG_DEBUG << this
+                             << " Removing TLS session: " << sp->uniqueId;
+            persistent_data::SessionStore::getInstance().removeSession(sp);
         }
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         socket().close();
     }
-    void completeRequest()
+
+    void sendHeaders()
     {
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
-        addSecurityHeaders(res, req->isSecure);
-
         crow::authorization::cleanupTempSession(*req);
-
         if (!isAlive())
         {
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            res.completeRequestHandler = nullptr;
             return;
-        }
-        if (res.body().empty() && !res.jsonValue.empty())
-        {
-            if (http_helpers::requestPrefersHtml(*req))
-            {
-                prettyPrintJson(res);
-            }
-            else
-            {
-                res.jsonMode();
-                res.body() = res.jsonValue.dump(2, ' ', true);
-            }
-        }
-
-        if (res.resultInt() >= 400 && res.body().empty())
-        {
-            res.body() = std::string(res.reason());
-        }
-
-        if (res.result() == boost::beast::http::status::no_content)
-        {
-            // Boost beast throws if content is provided on a no-content
-            // response.  Ideally, this would never happen, but in the case that
-            // it does, we don't want to throw.
-            BMCWEB_LOG_CRITICAL
-                << this << " Response content provided but code was no-content";
-            res.body().clear();
         }
 
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
@@ -549,10 +526,55 @@ class Connection :
             res.keepAlive(req->keepAlive());
         }
         doWrite();
+    }
 
-        // delete lambda with self shared_ptr
-        // to enable connection destruction
+    void completeRequest()
+    {
+        // invalidate the write handlers to ensure proper destruction;  We're
+        // done.
+        res.writeHandler = nullptr;
         res.completeRequestHandler = nullptr;
+        if (req)
+        {
+            crow::authorization::cleanupTempSession(*req);
+        }
+
+        if (!isAlive())
+        {
+            return;
+        }
+
+        if (!res.jsonValue.empty())
+        {
+            if (http_helpers::requestPrefersHtml(*req))
+            {
+                prettyPrintJson(res);
+            }
+            else
+            {
+                res.addHeader("Content-Type", "application/json");
+                res.body() = res.jsonValue.dump(2, ' ', true);
+            }
+        }
+
+        if (res.resultInt() >= 400 && res.body().empty())
+        {
+            // TODO(ed) This should really obey the accepts header, and return
+            // the right type (json or html/plain)
+            res.body() = std::string(res.reason());
+        }
+
+        if (res.result() == boost::beast::http::status::no_content)
+        {
+            // Boost beast throws if content is provided on a no-content
+            // response.  Ideally, this would never happen, but in the case that
+            // it does, we don't want to throw.
+            BMCWEB_LOG_CRITICAL
+                << this << " Response content provided but code was no-content";
+            res.body().clear();
+        }
+
+        doWrite();
     }
 
   private:
@@ -565,34 +587,26 @@ class Connection :
                             std::size_t bytes_transferred) {
             BMCWEB_LOG_ERROR << this << " async_read_header "
                              << bytes_transferred << " Bytes";
-            bool errorWhileReading = false;
             if (ec)
             {
-                errorWhileReading = true;
                 BMCWEB_LOG_ERROR << this
                                  << " Error while reading: " << ec.message();
-            }
-            else
-            {
-                // if the adaptor isn't open anymore, and wasn't handed to a
-                // websocket, treat as an error
-                if (!isAlive() && !req->isUpgrade())
-                {
-                    errorWhileReading = true;
-                }
-            }
-
-            cancelDeadlineTimer();
-
-            if (errorWhileReading)
-            {
+                cancelDeadlineTimer();
                 close();
-                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                return;
+            }
+            // if the adaptor isn't open anymore, and wasn't handed to a
+            // websocket, treat as an error
+            if (!isAlive() && !req->isUpgrade())
+            {
+                cancelDeadlineTimer();
+                close();
                 return;
             }
 
             if (!req)
             {
+                cancelDeadlineTimer();
                 close();
                 return;
             }
@@ -618,7 +632,7 @@ class Connection :
 
             crow::authorization::authenticate(*req, res, session);
 
-            bool loggedIn = req && req->session;
+            bool loggedIn = req->session != nullptr;
             if (loggedIn)
             {
                 startDeadline(loggedInAttempts);
@@ -671,39 +685,29 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " async_read " << bytes_transferred
                                  << " Bytes";
 
-                bool errorWhileReading = false;
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR
                         << this << " Error while reading: " << ec.message();
-                    errorWhileReading = true;
+                    cancelDeadlineTimer();
+                    close();
+                    return;
                 }
-                else
-                {
-                    if (isAlive())
-                    {
-                        cancelDeadlineTimer();
-                        bool loggedIn = req && req->session;
-                        if (loggedIn)
-                        {
-                            startDeadline(loggedInAttempts);
-                        }
-                        else
-                        {
-                            startDeadline(loggedOutAttempts);
-                        }
-                    }
-                    else
-                    {
-                        errorWhileReading = true;
-                    }
-                }
-                if (errorWhileReading)
+                if (!isAlive())
                 {
                     cancelDeadlineTimer();
                     close();
-                    BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
+                }
+                cancelDeadlineTimer();
+                bool loggedIn = req && (req->session != nullptr);
+                if (loggedIn)
+                {
+                    startDeadline(loggedInAttempts);
+                }
+                else
+                {
+                    startDeadline(loggedOutAttempts);
                 }
                 handle();
             };
@@ -717,7 +721,7 @@ class Connection :
 
     void doWrite()
     {
-        bool loggedIn = req && req->session;
+        bool loggedIn = req && (req->session != nullptr);
         if (loggedIn)
         {
             startDeadline(loggedInAttempts);
@@ -726,9 +730,9 @@ class Connection :
         {
             startDeadline(loggedOutAttempts);
         }
+
         BMCWEB_LOG_DEBUG << this << " doWrite";
         res.preparePayload();
-        serializer.emplace(*res.stringResponse);
         auto callback =
             [this, self(shared_from_this())](const boost::system::error_code ec,
                                              std::size_t bytes_transferred) {
@@ -750,9 +754,11 @@ class Connection :
                     return;
                 }
 
-                serializer.reset();
                 BMCWEB_LOG_DEBUG << this << " Clearing response";
                 res.clear();
+
+                addSecurityHeaders(res, req->isSecure);
+
                 parser.emplace(std::piecewise_construct, std::make_tuple());
                 parser->body_limit(httpReqBodyLimit); // reset body limit for
                                                       // newly created parser
@@ -765,11 +771,22 @@ class Connection :
                 doReadHeaders();
             };
         std::visit(
-            [this, callback(std::move(callback))](auto& thisAdaptor) {
-                boost::beast::http::async_write(thisAdaptor, *serializer,
-                                                std::move(callback));
+            [this, callback(std::move(callback))](auto& message) {
+                std::visit(
+                    [this, callback(std::move(callback)),
+                     &message](auto& thisAdaptor) {
+                        using BodyType =
+                            typename std::decay_t<decltype(message)>::body_type;
+
+                        auto& ser = serializer.emplace<
+                            boost::beast::http::response_serializer<BodyType>>(
+                            message);
+                        boost::beast::http::async_write(thisAdaptor, ser,
+                                                        std::move(callback));
+                    },
+                    adaptor);
             },
-            adaptor);
+            res.response);
     }
 
     void cancelDeadlineTimer()
@@ -803,7 +820,7 @@ class Connection :
                     return;
                 }
 
-                bool loggedIn = self->req && self->req->session;
+                bool loggedIn = self->req && (self->req->session != nullptr);
                 // allow slow uploads for logged in users
                 if (loggedIn && self->parser->get().body().size() > readCount)
                 {
@@ -847,9 +864,13 @@ class Connection :
         parser;
 
     boost::beast::flat_static_buffer<8192> buffer;
-
-    std::optional<boost::beast::http::response_serializer<
-        boost::beast::http::string_body>>
+    std::variant<
+        std::monostate,
+        boost::beast::http::response_serializer<
+            boost::beast::http::buffer_body>,
+        boost::beast::http::response_serializer<boost::beast::http::file_body>,
+        boost::beast::http::response_serializer<
+            boost::beast::http::string_body>>
         serializer;
 
     std::optional<crow::Request> req;
