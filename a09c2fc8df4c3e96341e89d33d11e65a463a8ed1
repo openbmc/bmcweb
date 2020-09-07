@@ -220,6 +220,24 @@
     },
     {
       "key": {
+        "uuid": "773bbb86_6bdde321",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T07:47:06Z",
+      "side": 1,
+      "message": "Ok, thanks for answer",
+      "parentUuid": "be09664d_d02439f1",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e51761e_d788a121",
         "filename": "redfish-core/include/utils/validate_params_length.hpp",
         "patchSetId": 26
@@ -543,6 +561,30 @@
     },
     {
       "key": {
+        "uuid": "3d95f2fe_52f2904c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T07:47:06Z",
+      "side": 1,
+      "message": "Type exists in the redfish registries. You can check it by youreslf: https://redfish.dmtf.org/registries/Base.1.8.1.json",
+      "parentUuid": "c3066f1e_68b285a3",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8858a9f9_e4c78bd8",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -602,6 +644,30 @@
       "side": 1,
       "message": "This argument should be \nReportActions/\u003cindex of element that was wrong\u003e\nand ideally contain entries for every parameter that was wrong (although that\u0027s not required).",
       "parentUuid": "6059ea67_83d775c6",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70af1b3_fc80981a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T07:47:06Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "1a19e25f_b2485cb9",
       "range": {
         "startLine": 191,
         "startChar": 63,
@@ -744,6 +810,30 @@
       "side": 1,
       "message": "I suspect with your range checks getting simplified or going away, this will resolve itself, as scanPeriod will be a value, and no longer part of a tuple that requires taking a reference to.",
       "parentUuid": "797e1a92_df343b68",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 23
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67286429_a5910d2e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T07:47:06Z",
+      "side": 1,
+      "message": "scanPeriod is a reference to an element that is stored in AddReportArgs structure. Do you suggest to use a addReportArgs.scanPeriod and drop the idea of unpacking a structure?",
+      "parentUuid": "5063944c_5a165aa1",
       "range": {
         "startLine": 216,
         "startChar": 12,
