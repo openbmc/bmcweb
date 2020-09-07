@@ -472,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "0dba03dc_df840ffa",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "readProperties() has been added to bmcweb to the patchset 45 as a draft of new utility function. It will be moved from this patch to the sdbusplus repository.",
+      "parentUuid": "1a83581a_3f4bebb5",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01117c1a_e2d983bb",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -705,6 +729,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f26ed987_b280a53d",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "This types has been already removed from telemetry_utils and moved to MetricReportDefinition and MetricReport nodes. Short types has been removed and only complex are used.",
+      "parentUuid": "595b69dd_da0cfb5b",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1889,6 +1937,30 @@
       "side": 1,
       "message": "MetricValues are part of MetricReport so it was natural to connect it to MetricReport. We can change this, but I still think this is the right place for this method.",
       "parentUuid": "3d8af305_27a94d3d",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4b57fab_a7efb8aa",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-07T09:42:49Z",
+      "side": 1,
+      "message": "moving it out of the class scope change a namespace of it. I would rather keep all specific functions inside redfish::MetricReport:: namespace than redfish::",
+      "parentUuid": "bcdce4fc_a47626ca",
       "range": {
         "startLine": 87,
         "startChar": 4,
