@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0d7b467f_b4ddf7d1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "from_chars() verify if there are digits or invalid signs",
+      "parentUuid": "1c3f7e35_fe366bd9",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "861d339c_14413ec9",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a4536c21_639a3f5e",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Not exactly, if fmt.size() \u003e pos + 1, then it is error. I will change it in next patchset.\nIf postfix has not been found then return success, because there is nothing to convert",
+      "parentUuid": "861d339c_14413ec9",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d96b6ffc_cf142ebf",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -106,6 +154,30 @@
       "writtenOn": "2020-09-08T07:32:08Z",
       "side": 1,
       "message": "use std::chrono::duration::rep here to avoid any possible sign/bitsize errors.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 8
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f0177e_b427c77e",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "d96b6ffc_cf142ebf",
       "range": {
         "startLine": 62,
         "startChar": 4,
@@ -164,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "96ea0561_17300626",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "94d52ec8_77e0f175",
+      "range": {
+        "startLine": 64,
+        "startChar": 14,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b491227a_42d153ec",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Not possible. You have to compare to std::errc() because it is enum class. \nCompiler returns: no known conversion for argument 2 from ‘std::errc’ to ‘bool’\n\nUnless std::make_error_code(ec) is used",
+      "parentUuid": "69e74ce2_44a2ae76",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9bc87ee0_03ae03c1",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -187,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a485e51_d61ccc95",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "I did it in draft version and then changed it to counting pow10.\nFor string it will look like this:\nstd::string str(fmt.data(), pos \u003e 3 ? 3 : pos);\nwhile (str.size() \u003c 3)\n  str +\u003d \u00270\u0027;\nExample input -\u003e output:\n1) 100123S -\u003e 100\n2) 02302313100S -\u003e 023\n3) 01 -\u003e 010\n4) 120 -\u003e 120\n\nI remember that it forces me to add a lot of code. I will try to simplify it in next patchset",
+      "parentUuid": "9bc87ee0_03ae03c1",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 63
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d57b24e_b299d2a4",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -198,6 +342,30 @@
       "writtenOn": "2020-09-08T07:32:08Z",
       "side": 1,
       "message": "Do we want to limit the precision here a little?  I worry if it\u0027s possible to overflow this with a lot of zeros at the end of a string.",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012d2686_75be8631",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "If I change it to string modification then counting power of 10 this problem disappears",
+      "parentUuid": "8d57b24e_b299d2a4",
       "range": {
         "startLine": 77,
         "startChar": 8,
@@ -280,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "60aa8335_3efd2290",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Good point. There is one problem with actual implementation:\nIf input is equalt to \"PT12.\", then fromDurationString returns 12000. It is wrong because format of duration is invalid. I will fix it here in next patchset.\nSame validation of fmt size is required to verify if there is any leftovers in string.",
+      "parentUuid": "f6b5b4ce_49f84830",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7e71fa0_39c514d5",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -297,6 +489,24 @@
     },
     {
       "key": {
+        "uuid": "fd759c02_2113d592",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Duration format allows to put higher value then the specific time range. It allows us to translate PT48H to P2D.",
+      "parentUuid": "f7e71fa0_39c514d5",
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b534ec12_f0376bf1",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -308,6 +518,30 @@
       "writtenOn": "2020-09-08T07:32:08Z",
       "side": 1,
       "message": "This also needs to include the index of the failed property.",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "754ff78b_78fbc374",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "b534ec12_f0376bf1",
       "range": {
         "startLine": 100,
         "startChar": 56,
@@ -343,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "283f1a48_374a830f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "It is",
+      "parentUuid": "3dd71d8f_880b2169",
+      "range": {
+        "startLine": 112,
+        "startChar": 20,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "372e43f6_63a6ccc6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -354,6 +612,30 @@
       "writtenOn": "2020-09-08T07:32:08Z",
       "side": 1,
       "message": "I thought I had mentioned this previously, but now I can\u0027t find the comment.  This needs to give an appropriate return code.  I suspect this needs to return std::nullopt;",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc0d2cb5_0492de22",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "It returns an invalid action here, one that does not match to \"RedfishEvent\" and \"LogToMetricReportsCollection\". Returning nullopt here means that there is no error.",
+      "parentUuid": "372e43f6_63a6ccc6",
       "range": {
         "startLine": 133,
         "startChar": 0,
@@ -406,6 +688,30 @@
     },
     {
       "key": {
+        "uuid": "a55d5b7f_8a8e11fe",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "f52798f4_c8466811",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1392f0e_fa7f0159",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -417,6 +723,30 @@
       "writtenOn": "2020-09-08T07:32:08Z",
       "side": 1,
       "message": "Same as above, this needs enforced on the other end.",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d13a5591_46a56f2d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "e1392f0e_fa7f0159",
       "range": {
         "startLine": 210,
         "startChar": 17,
@@ -452,6 +782,30 @@
     },
     {
       "key": {
+        "uuid": "9908fcf3_ecdc2cc5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "3da6b8ee_415d6a0d",
+      "range": {
+        "startLine": 216,
+        "startChar": 37,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c72fb6fe_e50625fe",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -463,6 +817,30 @@
       "writtenOn": "2020-09-08T07:32:08Z",
       "side": 1,
       "message": "This isn\u0027t a value format error.  The format was correct, the value was out of range.",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef369cff_7f080d96",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "There is no message in redfish that points out of range error for property.\nUnless I am able to use \"QueryParameterOutOfRange\" message (but query parameters are only present in GET request):\nIndicates that a query parameter was supplied that is out of range for the given resource. This can happen with values that are too low or beyond that possible for the supplied resource, such as when a page is requested that is beyond the last page.",
+      "parentUuid": "c72fb6fe_e50625fe",
       "range": {
         "startLine": 220,
         "startChar": 26,
