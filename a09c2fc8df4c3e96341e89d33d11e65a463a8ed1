@@ -332,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "15a886f8_ab61f0f5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T08:02:43Z",
+      "side": 1,
+      "message": "Not what I was pointing out, but fine.\n\nThis needs to be \"MetricProperties/1\" where 1 isvthe index that failed.",
+      "parentUuid": "3dd060c7_2d7047df",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e42c9ed_fb59003b",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
@@ -597,6 +621,30 @@
       "side": 1,
       "message": "For type mismatch there is another message PropertyValueTypeError. Anyway I will add a PropertyValueIncorrect to bmcweb for future use\n\nPropertyValueFormatError: Indicates that a property was given the correct value type but the value of that property was not supported\nPropertyValueIncorrect: Indicates that the requested write of a property value could not be completed, because of an incorrect value of the property. Examples include values that do not match a regular expression requirement or passwords that do not match the implementation constraints.\n\nPropertyValueFormatError and PropertyValueIncorrect can be used interchangeably in some cases.",
       "parentUuid": "3d95f2fe_52f2904c",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec0ff108_6b780a96",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T08:02:43Z",
+      "side": 1,
+      "message": "Sweeet!  Didn\u0027t know they added that one.  Yes, that\u0027s the thing to use.\nPropertyValueIncorrect",
+      "parentUuid": "90e10e51_e5369f59",
       "range": {
         "startLine": 176,
         "startChar": 22,
