@@ -189,6 +189,30 @@
       "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519e4b6a_342a5091",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "The first line of what I mentioned is \"Error handling should be constructed in such a way that all possible errors return valid HTTP responses.\".\n\n\"So it allows to omit internal error and continue building response with success (especially that there are examples of it in code).\"\nIt doesn\u0027t allow for blanket ignoring of error returns.  There are some examples of ignoring errors where we expect there to be errors, for things like optional interfaces, or objects that doesn\u0027t exist, and their non-existence is expected.  I don\u0027t think this is one of those cases.  The example you found is incorrect, and should be fixed.  If you find anymore, let me know, and we can get them fixed as well.\n\n\"I understand what you mean, I will follow suggested way.\nYes, I can add a patch for chassis.\"\n\nMuch appreciated.",
+      "parentUuid": "92d2ba7c_2f1bdcd3",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9
+      },
+      "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
