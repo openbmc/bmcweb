@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "13d44f69_1530dab9",
+        "filename": "http/http_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T22:33:05Z",
+      "side": 1,
+      "message": "I didn\u0027t realize we were also forwarding HEAD requests.  Do you remember the thinking behind that?",
+      "parentUuid": "3eb5c166_f1d9d83a",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b768af90_f5afaf03",
         "filename": "http/http_connection.h",
         "patchSetId": 22
@@ -231,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "cb44184b_3ccede52",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T22:33:05Z",
+      "side": 1,
+      "message": "Once rebased, this should drop off the diff, as this was reverted.",
+      "parentUuid": "27b28dc5_641f57dc",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b50a10_ca4f7ea2",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 22
@@ -278,6 +314,24 @@
       "side": 1,
       "message": "Got it.  Thanks!\nI\u0027m not sure anyone other than you fully understands this.",
       "parentUuid": "bb3c60c5_9f2fd4dc",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "908c70ab_7b94bf9a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T22:33:05Z",
+      "side": 1,
+      "message": "I wonder how we can improve that?  All of boost is documented, I only understand it from reading the documentation.  How do you think we can incentivize others to do the same?  Technically the code didn\u0027t compile with all options as it was written, so there were indications that it was incorrect in the type system.  We could document every design decision, but that seems like it would get out of date fast.\n\nSome of this is that the fuzzing hasn\u0027t been set up yet, so it\u0027s really hard to see a breakage to something that doesn\u0027t exist.  I\u0027m working on it though (slowly).  Once I get it turned on, I\u0027m hoping bmcweb development will go much faster and smoother, given that we\u0027ll have automation to catch a lot of things.",
+      "parentUuid": "5fbacb36_b30b0eb2",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
