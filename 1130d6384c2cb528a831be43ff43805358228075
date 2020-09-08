@@ -415,6 +415,30 @@
     },
     {
       "key": {
+        "uuid": "d83d5a61_52a7662a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "Generally when the use the variable after the object that it\u0027s pointing to has been destroyed.  Sometimes it\u0027s by passing a pointer into a lambda callback, sometimes it\u0027s just a simple scope issue.  These can be really hard to find, as they can rely on the order of the dbus replies coming in to actually see a crash or failure.",
+      "parentUuid": "17d8f26c_c11e985e",
+      "range": {
+        "startLine": 157,
+        "startChar": 23,
+        "endLine": 157,
+        "endChar": 35
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e976877_e948d97f",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 45
@@ -967,6 +991,30 @@
       "revId": "1130d6384c2cb528a831be43ff43805358228075",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590b539c_64de13c7",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "So long as you fix it in the sdbusplus version, I\u0027m happy and this is resolved.\n\nOverflow errors tend to be different, as they\u0027re generally just a failure, and we wouldn\u0027t try a different unpack type if we got an overflow, we would immediately return an error.",
+      "parentUuid": "5413f363_7f8a753d",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 58
+      },
+      "revId": "1130d6384c2cb528a831be43ff43805358228075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
