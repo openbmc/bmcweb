@@ -601,6 +601,30 @@
     },
     {
       "key": {
+        "uuid": "c0c1d780_4aeffb20",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:24:33Z",
+      "side": 1,
+      "message": "It needs to be fixed, I will cover it in next patchset",
+      "parentUuid": "283f1a48_374a830f",
+      "range": {
+        "startLine": 112,
+        "startChar": 20,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "372e43f6_63a6ccc6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
