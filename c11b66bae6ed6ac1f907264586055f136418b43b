@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "3eb5c166_f1d9d83a",
+        "filename": "http/http_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-09-08T21:51:59Z",
+      "side": 1,
+      "message": "I had understood that only GET and HEAD requests would be redirected per unapproved WIP design\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md",
+      "parentUuid": "56a569a5_c598d3c0",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b768af90_f5afaf03",
         "filename": "http/http_connection.h",
         "patchSetId": 22
@@ -195,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "27b28dc5_641f57dc",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-09-08T21:51:59Z",
+      "side": 1,
+      "message": "Got it. Thanks!",
+      "parentUuid": "6d720557_d3d4e7a2",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b50a10_ca4f7ea2",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 22
@@ -224,6 +260,24 @@
       "side": 1,
       "message": "See my email on the list.  Adding Request::Adaptor breaks a bunch of abstractions (and does it incorrectly to bat) and has some problems.  I detailed them in the email, but it hasn\u0027t gotten a response yet.",
       "parentUuid": "41b50a10_ca4f7ea2",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fbacb36_b30b0eb2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-09-08T21:51:59Z",
+      "side": 1,
+      "message": "Got it.  Thanks!\nI\u0027m not sure anyone other than you fully understands this.",
+      "parentUuid": "bb3c60c5_9f2fd4dc",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
