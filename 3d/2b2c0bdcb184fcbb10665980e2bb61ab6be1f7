@@ -1,0 +1,10 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Alexander Filippov <a.filippov@yadro.com>
+Code-Review+1: Ed Tanous <ed@tanous.net>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: Igor Kononenko <i.kononenko@yadro.com>
+Submitted-at: Tue, 08 Sep 2020 18:31:45 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/36058
+Project: openbmc/bmcweb
+Branch: refs/heads/master
