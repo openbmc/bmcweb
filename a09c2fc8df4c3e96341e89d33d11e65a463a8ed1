@@ -356,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "ef58a922_1374c46e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-08T12:20:16Z",
+      "side": 1,
+      "message": "Ok, it makes more sense. Thanks",
+      "parentUuid": "15a886f8_ab61f0f5",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e42c9ed_fb59003b",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
