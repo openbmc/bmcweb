@@ -49,6 +49,167 @@
     },
     {
       "key": {
+        "uuid": "1c3f7e35_fe366bd9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "I think what you want here is:\nsize_t pos \u003d str.find_first_not_of(\"0123456789\");\nif (pos \u003d\u003d std::string::npos)\n{\n    return true;\n}\nif {srt[pos] !\u003d postfix){\n    return false;\n}\nThat\u0027ll handle the case where there are other non-digits in between valid digits and the postfix.\n\nI think the find on line 124 could use the same thing.",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "861d339c_14413ec9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Isn\u0027t this an error?",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96b6ffc_cf142ebf",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "use std::chrono::duration::rep here to avoid any possible sign/bitsize errors.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 8
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d52ec8_77e0f175",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Would this be worth putting in an intermediate so you don\u0027t calc the value twice?  Something like\n\nconst char* end \u003d fmt.data() + pos;",
+      "range": {
+        "startLine": 64,
+        "startChar": 14,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e74ce2_44a2ae76",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "I think ec is directly comparable against bool here.",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc87ee0_03ae03c1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Would this be easier to just zero pad/substr ahead of time to a known number of digits.  That seems much simpler.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 63
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d57b24e_b299d2a4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Do we want to limit the precision here a little?  I worry if it\u0027s possible to overflow this with a lot of zeros at the end of a string.",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ee0f209_0c654e69",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -89,6 +250,270 @@
         "startChar": 63,
         "endLine": 100,
         "endChar": 67
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b5b4ce_49f84830",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "See above.  This call would become:\n\n// Limit to 3 digits of precision.\nstd::string millisecondsPadded \u003d fmt.substr(0, 3);\nwhile(millisecondsPadded.size() \u003c 3){\n    millisecondsPadded +\u003d \"0\";\n}\n!details::fromDurationItem\u003cstd::chrono::milliseconds\u003e(millisecondsPadded, \u0027S\u0027, out)\n\nI\u0027m not sure how to make it work with the postfix stuff that fromDurationItem has.\n\nWhat you have is fine, and works, the above just seemed easier.  Feel free to use if you want or ignore.  up to you.",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7e71fa0_39c514d5",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Now that this is simplified, I just noticed, none of the things have range checks, so as is, this would accept something like\n\nP1DT1234H5678M0.0S\n\nWhere I would expect 1234 to be range checked, as there are only 24 hours in a day, and 5678 to be range checked, as there are only 60 minutes in an hour.",
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b534ec12_f0376bf1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "This also needs to include the index of the failed property.",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd71d8f_880b2169",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Is this an ignored status code?",
+      "range": {
+        "startLine": 112,
+        "startChar": 20,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372e43f6_63a6ccc6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "I thought I had mentioned this previously, but now I can\u0027t find the comment.  This needs to give an appropriate return code.  I suspect this needs to return std::nullopt;",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba82611_1ee07725",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Needs removed.  This check needs done in the monitoring daemon.",
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f52798f4_c8466811",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "See before, this should be \"ReportActions/1\" (if the first item in the array is the one that failed.)",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1392f0e_fa7f0159",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Same as above, this needs enforced on the other end.",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da6b8ee_415d6a0d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Needs range checked before static casted to a smaller type, not after.",
+      "range": {
+        "startLine": 216,
+        "startChar": 37,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c72fb6fe_e50625fe",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "This isn\u0027t a value format error.  The format was correct, the value was out of range.",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71e942ca_e1af2a53",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Same as others.",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 62
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f070f86b_1cdfa4d1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T07:32:08Z",
+      "side": 1,
+      "message": "Please don\u0027t overload operators here.  Just call this \"insert uris\" or something.",
+      "range": {
+        "startLine": 379,
+        "startChar": 19,
+        "endLine": 379,
+        "endChar": 29
       },
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
