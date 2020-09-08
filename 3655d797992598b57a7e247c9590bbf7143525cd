@@ -340,6 +340,30 @@
       "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f5d5f2a_9f4abfe5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-08T08:51:10Z",
+      "side": 1,
+      "message": "is to cover the AC lost case.",
+      "parentUuid": "ed11bead_26ec2a35",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1159,
+        "endChar": 47
+      },
+      "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
