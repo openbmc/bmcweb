@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "a9a09842_13a1f772",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "That could be one approach, but in that case, we\u0027re back to having to code in variant get_if() implementations, which is what I thought you were hoping to avoid.  With that said, yes, if you supported a variant type, that would solve the problem, but it\u0027s going to make the code a bit worse to read.",
+      "parentUuid": "52190a46_c29b4b1f",
+      "revId": "6d086efca6e081f92e3ba6530ed6d7f12573741b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98df96bb_76b3c083",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 47
