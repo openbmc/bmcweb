@@ -496,6 +496,30 @@
     },
     {
       "key": {
+        "uuid": "c98517c4_0d5bd46d",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "Great.  Once that is done, please patch bmcweb to move a majority of the unpack code to your new pattern.",
+      "parentUuid": "0dba03dc_df840ffa",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01117c1a_e2d983bb",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 31
@@ -756,6 +780,30 @@
     },
     {
       "key": {
+        "uuid": "d9f6f155_5d7bcffe",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "great!",
+      "parentUuid": "f26ed987_b280a53d",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baf6afcc_89dd5097",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -791,6 +839,30 @@
       "side": 1,
       "message": "There is no gain in inlining it, we will only increase code duplication.\n\nThis helper function is intended to be small, if you need details about what path is really under dbusReportPath you look inside, it will be in one place. It\u0027s a feature, not a big I agree but still it\u0027s a feature for us.",
       "parentUuid": "baf6afcc_89dd5097",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 29
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b16bee_a49a885c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-08T06:28:42Z",
+      "side": 1,
+      "message": "sure, fine as is.",
+      "parentUuid": "eec5d248_5f2e42c6",
       "range": {
         "startLine": 74,
         "startChar": 12,
