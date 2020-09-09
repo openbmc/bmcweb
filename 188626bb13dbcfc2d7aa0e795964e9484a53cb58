@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6d246d2_b4d34cf7",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "this belongs in its own file, like all the rest of the registries",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 25
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70993bfa_23258a39",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "std::map is inefficient, please just use a case statement or if / else statement",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be31af88_d8301bb7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "please use naming conventions from project",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5c716e_4aabff98",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "avoid std::map",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 12
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67117e0c_fb259c7a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "same as above 2",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 25
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "117cc8c4_11cc8f63",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "just remove the parameter name, don\u0027t do this",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 37
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4121c03a_1c0a1d4f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-09T17:02:49Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 257,
+        "startChar": 16,
+        "endLine": 257,
+        "endChar": 25
+      },
+      "revId": "188626bb13dbcfc2d7aa0e795964e9484a53cb58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
