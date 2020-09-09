@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "877b2407_5ef7151a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Removed pow10 in the latest patchset",
+      "parentUuid": "b30f94b2_3a5f90b3",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c3f7e35_fe366bd9",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -191,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "a13b4788_af5bafbf",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4536c21_639a3f5e",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d96b6ffc_cf142ebf",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -235,6 +283,30 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d9d65e6_f8545b6a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35f0177e_b427c77e",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 8
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -356,6 +428,54 @@
     },
     {
       "key": {
+        "uuid": "27a29f18_5aa7edcd",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6a391b_c2e0ec5d",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ff421f9_b1f85a58",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96ea0561_17300626",
+      "range": {
+        "startLine": 64,
+        "startChar": 14,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bc87ee0_03ae03c1",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -400,6 +520,30 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4580c2ce_21fdd9f5",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a485e51_d61ccc95",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 63
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -542,6 +686,30 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bb2b42_051cf5fa",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec52e483_f8bab500",
+      "range": {
+        "startLine": 100,
+        "startChar": 63,
+        "endLine": 100,
+        "endChar": 67
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -758,6 +926,30 @@
     },
     {
       "key": {
+        "uuid": "00194bcf_fd57dcdd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "754ff78b_78fbc374",
+      "range": {
+        "startLine": 100,
+        "startChar": 56,
+        "endLine": 100,
+        "endChar": 72
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dd71d8f_880b2169",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -829,6 +1021,30 @@
     },
     {
       "key": {
+        "uuid": "a689f21d_34cc889e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0c1d780_4aeffb20",
+      "range": {
+        "startLine": 112,
+        "startChar": 20,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "372e43f6_63a6ccc6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -876,6 +1092,30 @@
     },
     {
       "key": {
+        "uuid": "4d658233_eddbc527",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Changed it to returning false/true",
+      "parentUuid": "bc0d2cb5_0492de22",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ba82611_1ee07725",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -890,6 +1130,24 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975523f9_51ceb1ac",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ba82611_1ee07725",
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -940,6 +1198,30 @@
     },
     {
       "key": {
+        "uuid": "4f3f249d_75c9238f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a55d5b7f_8a8e11fe",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 76
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1392f0e_fa7f0159",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -987,6 +1269,30 @@
     },
     {
       "key": {
+        "uuid": "f2868a15_b8ac8443",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d13a5591_46a56f2d",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3da6b8ee_415d6a0d",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -1031,6 +1337,30 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ea9388_9cb99ba4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9908fcf3_ecdc2cc5",
+      "range": {
+        "startLine": 216,
+        "startChar": 37,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1104,6 +1434,30 @@
     },
     {
       "key": {
+        "uuid": "1c38a091_4893f524",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71e942ca_e1af2a53",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 62
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f070f86b_1cdfa4d1",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 34
@@ -1124,6 +1478,30 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a24c8297_c2463626",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T13:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f070f86b_1cdfa4d1",
+      "range": {
+        "startLine": 379,
+        "startChar": 19,
+        "endLine": 379,
+        "endChar": 29
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
