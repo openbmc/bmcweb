@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f56641ad_416a832e",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-09T15:05:58Z",
+      "side": 1,
+      "message": "This file and the code in it is generated from the redfish base registry.  Considering this is only one property, it looks like you just patched it in by hand?\n\nIf you want to use this error (which I think is the right thing to do) we need to get this updated to the latest base message registry.  I think Jason Bills was the last person to do it if you need any tips for how to do it.\nhttps://redfish.dmtf.org/registries/Base.1.8.1.json",
+      "revId": "c8f0e7cfd1d0b79136fef41e6f5aaa340cf00047",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "957b6d45_9895b4d9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-09T15:05:58Z",
+      "side": 1,
+      "message": "use std::min(pos, 3) here to make it more clear",
+      "range": {
+        "startLine": 78,
+        "startChar": 40,
+        "endLine": 78,
+        "endChar": 57
+      },
+      "revId": "c8f0e7cfd1d0b79136fef41e6f5aaa340cf00047",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4014248d_9c00f300",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-09T15:05:58Z",
+      "side": 1,
+      "message": "I suspect the check you want here is\n\nif (out \u003c T(v))",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 52
+      },
+      "revId": "c8f0e7cfd1d0b79136fef41e6f5aaa340cf00047",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
