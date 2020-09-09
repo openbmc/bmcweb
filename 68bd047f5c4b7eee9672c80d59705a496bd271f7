@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3eb6848d_26f30404",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de51d4ec_16cf3a8c",
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6af01799_1b393f47",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 48
@@ -30,6 +48,30 @@
       "writtenOn": "2020-09-08T06:59:09Z",
       "side": 1,
       "message": "It\u0027s odd that this is namespaced under the service that owns it.  We tend to avoid that so that services are loosely bound and can be replaced as needed.  Not really a discussion for this patch, but for the interfaces patchset.",
+      "range": {
+        "startLine": 81,
+        "startChar": 30,
+        "endLine": 81,
+        "endChar": 47
+      },
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c22069_9c70621c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "It is specified in design -\u003e\nhttps://github.com/openbmc/docs/blob/master/designs/telemetry.md\nYou can add your comments on it in the latest review:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/31690/7/designs/telemetry.md#290",
+      "parentUuid": "6af01799_1b393f47",
       "range": {
         "startLine": 81,
         "startChar": 30,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a243c7db_657ba44f",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8612eb9a_3f03ae9f",
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4381b362_4fda2d7b",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 48
@@ -79,6 +139,30 @@
       "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0de15da5_c57cbdf9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4381b362_4fda2d7b",
+      "range": {
+        "startLine": 86,
+        "startChar": 45,
+        "endLine": 86,
+        "endChar": 54
+      },
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "9d31de38_74624f11",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Thanks. Removed unpackProperties and changed it to inline version",
+      "parentUuid": "42ecb622_d6c1a884",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 67
+      },
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "497d7548_8f1b3282",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 48
@@ -119,6 +227,24 @@
       "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6cbad6_d3e779cc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497d7548_8f1b3282",
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -169,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "a937a1e3_e4b604fc",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a3997f5_f2cc2bba",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 75
+      },
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dca45a5_87ac5e10",
         "filename": "redfish-core/lib/telemetry_service.hpp",
         "patchSetId": 48
@@ -189,6 +339,30 @@
       "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acb57788_f46641bc",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T12:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dca45a5_87ac5e10",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "68bd047f5c4b7eee9672c80d59705a496bd271f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
