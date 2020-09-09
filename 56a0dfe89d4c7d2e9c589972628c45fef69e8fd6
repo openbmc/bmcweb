@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "51c408cc_07248b46",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T06:38:03Z",
+      "side": 1,
+      "message": "Yes, but if we get negative number, we return false on line 87",
+      "parentUuid": "54dc25a3_aa8e1052",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "861d339c_14413ec9",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -450,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "d5c4fb68_783dcbc0",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T06:38:03Z",
+      "side": 1,
+      "message": "No, it does not limit. It allows to reduce a precision.\nDo you mean return an error to user, that we do not support specific precision?",
+      "parentUuid": "c1a5a9fb_2e0ded3d",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ee0f209_0c654e69",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -568,6 +616,30 @@
     },
     {
       "key": {
+        "uuid": "89d041c2_3a0b6b4f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T06:38:03Z",
+      "side": 1,
+      "message": "Proper format is PT12S, but if somebody provides PT12., function should return error.",
+      "parentUuid": "a18b6e97_5a1987fe",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7e71fa0_39c514d5",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -615,6 +687,24 @@
       "side": 1,
       "message": "I just read the spec a little bit.  It looks like you\u0027re actually allowed to use decimal points in any field.  The example wikipedia uses is P0.5Y https://en.wikipedia.org/wiki/ISO_8601\n\nwhich should be equal to 182.5 days.  It looks like this implementation doesn\u0027t handle that yet.  Also, should we add years to the implementation just for completeness? (even though it\u0027s unlikely we\u0027d use it).  I could see a user using something like P0.1Y if they wanted 10 reports per year.",
       "parentUuid": "fd759c02_2113d592",
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2643fad6_b68e1e6d",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-09T06:38:03Z",
+      "side": 1,
+      "message": "We do not handle it because we follow duration specified by Redfish that is based on ISO 8601. Redfish drops the years and months from their format to avoid a complex implementation that matches a standard. Redfish specify they format according to following pattern:\nP[dD][T[hH][mM][s[.f]S]]\nIt uses only decimal points in seconds. It does not allow decimal points for other fields.\nhttp://redfish.dmtf.org/schemas/DSP0266_1.11.0.html#duration-values",
+      "parentUuid": "a4ac7d17_f48ba387",
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
