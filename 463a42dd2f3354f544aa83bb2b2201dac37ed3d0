@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79aa0302_19b9944d",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-10T09:39:03Z",
+      "side": 1,
+      "message": "My mistake, if ms is zero than string is \"P\", \"PT\" or \"P0DT0H0M0.000S\". ISO 8061 allows for negative duration, for example \"-PT1S\" (\"PT-1S\" is invalid), but it is not specified in Redfish duration but pattern from schema covers this case",
+      "parentUuid": "9a09f685_0f889657",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "463a42dd2f3354f544aa83bb2b2201dac37ed3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd28c349_4ea43a37",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 50
@@ -45,6 +69,30 @@
       "revId": "463a42dd2f3354f544aa83bb2b2201dac37ed3d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58c0a29_a7913957",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-10T09:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd28c349_4ea43a37",
+      "range": {
+        "startLine": 88,
+        "startChar": 48,
+        "endLine": 88,
+        "endChar": 49
+      },
+      "revId": "463a42dd2f3354f544aa83bb2b2201dac37ed3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
