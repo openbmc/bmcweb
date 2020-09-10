@@ -326,7 +326,7 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
 
                                     if (properties.size() > 0)
                                     {
-                                        const uint32_t* processorId = nullptr;
+                                        const uint64_t* processorId = nullptr;
                                         const std::string* procFamily = nullptr;
                                         nlohmann::json& procSummary =
                                             aResp->res.jsonValue["ProcessorSumm"
@@ -345,18 +345,17 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         for (const auto& property : properties)
                                         {
 
-                                            if (property.first == "ProcessorId")
+                                            if (property.first == "Id")
                                             {
                                                 processorId =
-                                                    std::get_if<uint32_t>(
+                                                    std::get_if<uint64_t>(
                                                         &property.second);
                                                 if (nullptr != procFamily)
                                                     break;
                                                 continue;
                                             }
 
-                                            if (property.first ==
-                                                "ProcessorFamily")
+                                            if (property.first == "Family")
                                             {
                                                 procFamily =
                                                     std::get_if<std::string>(
