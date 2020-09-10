@@ -27,8 +27,6 @@ using ssl_context_t = boost::asio::ssl::context;
 class App
 {
   public:
-    using self_t = App;
-
 #ifdef BMCWEB_ENABLE_SSL
     using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
     using ssl_server_t = Server<App, ssl_socket_t>;
@@ -68,19 +66,19 @@ class App
         return router.newRuleTagged<Tag>(std::move(rule));
     }
 
-    self_t& socket(int existing_socket)
+    App& socket(int existing_socket)
     {
         socketFd = existing_socket;
         return *this;
     }
 
-    self_t& port(std::uint16_t port)
+    App& port(std::uint16_t port)
     {
         portUint = port;
         return *this;
     }
 
-    self_t& bindaddr(std::string bindaddr)
+    App& bindaddr(std::string bindaddr)
     {
         bindaddrStr = bindaddr;
         return *this;
@@ -105,7 +103,6 @@ class App
             sslServer =
                 std::make_unique<ssl_server_t>(this, socketFd, sslContext, io);
         }
-        sslServer->setTickFunction(tickInterval, tickFunction);
         sslServer->run();
 
 #else
@@ -120,7 +117,6 @@ class App
             server = std::move(
                 std::make_unique<server_t>(this, socketFd, nullptr, io));
         }
-        server->setTickFunction(tickInterval, tickFunction);
         server->run();
 
 #endif
@@ -148,8 +144,8 @@ class App
     }
 
 #ifdef BMCWEB_ENABLE_SSL
-    self_t& sslFile(const std::string& crt_filename,
-                    const std::string& key_filename)
+    App& sslFile(const std::string& crt_filename,
+                 const std::string& key_filename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
@@ -164,7 +160,7 @@ class App
         return *this;
     }
 
-    self_t& sslFile(const std::string& pem_filename)
+    App& sslFile(const std::string& pem_filename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
@@ -178,7 +174,7 @@ class App
         return *this;
     }
 
-    self_t& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
+    App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
     {
         sslContext = std::move(ctx);
         BMCWEB_LOG_INFO << "app::ssl context use_count="
@@ -190,7 +186,7 @@ class App
 
 #else
     template <typename T, typename... Remain>
-    self_t& ssl_file(T&&, Remain&&...)
+    App& ssl_file(T&&, Remain&&...)
     {
         // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
         // defined.
@@ -202,7 +198,7 @@ class App
     }
 
     template <typename T>
-    self_t& ssl(T&&)
+    App& ssl(T&&)
     {
         // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
         // defined.
@@ -214,14 +210,6 @@ class App
     }
 #endif
 
-    template <typename Duration, typename Func>
-    self_t& tick(Duration d, Func f)
-    {
-        tickInterval = std::chrono::duration_cast<std::chrono::milliseconds>(d);
-        tickFunction = f;
-        return *this;
-    }
-
   private:
     std::shared_ptr<asio::io_context> io;
 #ifdef BMCWEB_ENABLE_SSL
@@ -232,9 +220,6 @@ class App
     std::string bindaddrStr = "::";
     int socketFd = -1;
     Router router;
-
-    std::chrono::milliseconds tickInterval{};
-    std::function<void()> tickFunction;
 
 #ifdef BMCWEB_ENABLE_SSL
     std::unique_ptr<ssl_server_t> sslServer;
