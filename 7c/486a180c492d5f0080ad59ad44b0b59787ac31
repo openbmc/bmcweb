@@ -1,0 +1,12 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Xiaochao Ma <maxiaochao@inspur.com>
+Code-Review+1: James Feist <james.feist@linux.intel.com>
+Code-Review+1: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Code-Review+1: George Liu <liuxiwei1013@gmail.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Submitted-by: Xiaochao Ma <maxiaochao@inspur.com>
+Submitted-at: Thu, 10 Sep 2020 08:09:33 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/34186
+Project: openbmc/bmcweb
+Branch: refs/heads/master
