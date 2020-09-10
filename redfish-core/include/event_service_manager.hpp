@@ -21,10 +21,13 @@
 
 #include <sys/inotify.h>
 
+#include <boost/asio.hpp>
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/ssl.hpp>
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
+#include <https_client.hpp>
 #include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
 
@@ -384,9 +387,23 @@ class Subscription
         eventSeqNum(1),
         host(inHost), port(inPort), path(inPath), uriProto(inUriProto)
     {
-        conn = std::make_shared<crow::HttpClient>(
-            crow::connections::systemBus->get_io_context(), id, host, port,
-            path);
+        BMCWEB_LOG_INFO << "Subscription client created. uriProto : "
+                        << uriProto;
+        if (uriProto == "http")
+        {
+            conn = std::make_shared<crow::HttpClient>(
+                crow::connections::systemBus->get_io_context(), id, host, port,
+                path);
+        }
+        else if (uriProto == "https")
+        {
+            std::shared_ptr<boost::asio::ssl::context> ctx =
+                std::make_shared<boost::asio::ssl::context>(
+                    boost::asio::ssl::context::tls_client);
+            sslConn = std::make_shared<crow::HttpsClient>(
+                crow::connections::systemBus->get_io_context(), id, host, port,
+                path, std::move(ctx));
+        }
     }
 
     Subscription(const std::shared_ptr<crow::Request::Adaptor>& adaptor) :
@@ -400,7 +417,7 @@ class Subscription
 
     void sendEvent(const std::string& msg)
     {
-        if (conn != nullptr)
+        if ((conn != nullptr) || (sslConn != nullptr))
         {
             std::vector<std::pair<std::string, std::string>> reqHeaders;
             for (const auto& header : httpHeaders)
@@ -412,8 +429,16 @@ class Subscription
                     reqHeaders.emplace_back(std::pair(key, val));
                 }
             }
-            conn->setHeaders(reqHeaders);
-            conn->sendData(msg);
+            if (conn != nullptr)
+            {
+                conn->setHeaders(reqHeaders);
+                conn->sendData(msg);
+            }
+            if (sslConn != nullptr)
+            {
+                sslConn->setHeaders(reqHeaders);
+                sslConn->sendData(msg);
+            }
             this->eventSeqNum++;
         }
 
@@ -561,6 +586,10 @@ class Subscription
         {
             conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
         }
+        if (sslConn != nullptr)
+        {
+            sslConn->setRetryConfig(retryAttempts, retryTimeoutInterval);
+        }
     }
 
     void updateRetryPolicy()
@@ -568,6 +597,10 @@ class Subscription
         if (conn != nullptr)
         {
             conn->setRetryPolicy(retryPolicy);
+        }
+        if (sslConn != nullptr)
+        {
+            sslConn->setRetryPolicy(retryPolicy);
         }
     }
 
@@ -583,6 +616,7 @@ class Subscription
     std::string path;
     std::string uriProto;
     std::shared_ptr<crow::HttpClient> conn = nullptr;
+    std::shared_ptr<crow::HttpsClient> sslConn = nullptr;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 };
 
