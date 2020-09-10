@@ -37,8 +37,8 @@ class Server
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptorIn)),
-        signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        timer(*ioService), handler(handlerIn), adaptorCtx(adaptor_ctx)
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), timer(*ioService),
+        handler(handlerIn), adaptorCtx(adaptor_ctx)
     {}
 
     Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
@@ -61,26 +61,6 @@ class Server
                                                existing_socket),
                adaptor_ctx, io)
     {}
-
-    void setTickFunction(std::chrono::milliseconds d, std::function<void()> f)
-    {
-        tickInterval = d;
-        tickFunction = f;
-    }
-
-    void onTick()
-    {
-        tickFunction();
-        tickTimer.expires_after(
-            std::chrono::milliseconds(tickInterval.count()));
-        tickTimer.async_wait([this](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                return;
-            }
-            onTick();
-        });
-    }
 
     void updateDateStr()
     {
@@ -124,19 +104,6 @@ class Server
             timer.async_wait(timerHandler);
         };
         timer.async_wait(timerHandler);
-
-        if (tickFunction && tickInterval.count() > 0)
-        {
-            tickTimer.expires_after(
-                std::chrono::milliseconds(tickInterval.count()));
-            tickTimer.async_wait([this](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    return;
-                }
-                onTick();
-            });
-        }
 
         BMCWEB_LOG_INFO << serverName << " server is running, local endpoint "
                         << acceptor->local_endpoint();
@@ -258,7 +225,6 @@ class Server
     std::function<std::string()> getCachedDateStr;
     std::unique_ptr<tcp::acceptor> acceptor;
     boost::asio::signal_set signals;
-    boost::asio::steady_timer tickTimer;
     boost::asio::steady_timer timer;
 
     std::string dateStr;
@@ -266,8 +232,6 @@ class Server
     Handler* handler;
     std::string serverName = "bmcweb";
 
-    std::chrono::milliseconds tickInterval{};
-    std::function<void()> tickFunction;
     std::function<void(const boost::system::error_code& ec)> timerHandler;
 
 #ifdef BMCWEB_ENABLE_SSL
