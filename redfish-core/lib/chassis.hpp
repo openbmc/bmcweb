@@ -204,7 +204,14 @@ class ChassisCollection : public Node
                     if (lastPos == std::string::npos)
                     {
                         BMCWEB_LOG_ERROR << "Failed to find '/' in " << objpath;
-                        continue;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if ((lastPos + 1) >= objpath.size())
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to parse path " << objpath;
+                        messages::internalError(asyncResp->res);
+                        return;
                     }
                     chassisArray.push_back(
                         {{"@odata.id", "/redfish/v1/Chassis/" +
