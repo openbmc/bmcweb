@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "07f586ce_81950975",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-11T11:41:18Z",
+      "side": 1,
+      "message": "To simplify it. It is ok, I can see it is hard because of chassis association that is not required for PSU. Unless you want to make a function  like this:\n\ntemplate \u003ctypename Callback\u003e\ninline void\n  iterateOverSubTreeControlPath(std::shared_ptr\u003cSensorsAsyncResp\u003e sensorsAsyncResp, const char* interface, Callback callback)\n  crow::connections::systemBus-\u003easync_method_call(){\n      iterate through dictionary\n      callback(owner, path);\n  },\n  \"xyz.openbmc_project.ObjectMapper\",\n  \"/xyz/openbmc_project/object_mapper\",\n  \"xyz.openbmc_project.ObjectMapper\", \"GetSubTree\",\n  \"/xyz/openbmc_project/control\", 2,\n  std::array\u003cconst char*, 1\u003e{ interface });\n\nSkip if you do not like it or does not follow bmcweb style.",
+      "parentUuid": "3288958a_28857190",
+      "range": {
+        "startLine": 1047,
+        "startChar": 4,
+        "endLine": 1047,
+        "endChar": 25
+      },
+      "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8446d14_bc868ade",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
