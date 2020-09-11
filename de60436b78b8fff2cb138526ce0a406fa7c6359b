@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "3fc24c6e_92e8e283",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "Please add an internal error (similar to what you do on line 1082.",
+      "range": {
+        "startLine": 1067,
+        "startChar": 20,
+        "endLine": 1067,
+        "endChar": 58
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80e17c5e_121ab33d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -36,6 +59,30 @@
       "writtenOn": "2020-09-11T11:41:18Z",
       "side": 1,
       "message": "nit Not consistent. On line 1050 you pass ec by value and here you pass by reference. Maybe change it to pass by value",
+      "range": {
+        "startLine": 1073,
+        "startChar": 55,
+        "endLine": 1073,
+        "endChar": 56
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "528d47bd_c8958ddd",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "80e17c5e_121ab33d",
       "range": {
         "startLine": 1073,
         "startChar": 55,
@@ -64,6 +111,76 @@
         "startChar": 29,
         "endLine": 1087,
         "endChar": 47
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b19fd6d8_7ecd56f0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "+1 to the above.\n\nIn general the cleanest way to parse these out is to use std::vector\u003cstd::pair\u003c...\u003e\u003e and simply loop.\n\nThere\u0027s a current effort to try to wrap this pattern in a utilities function to make it better, but it\u0027s not on master yet.",
+      "parentUuid": "3f0ebcfa_69bb45ea",
+      "range": {
+        "startLine": 1087,
+        "startChar": 29,
+        "endLine": 1087,
+        "endChar": 47
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7e1f91b_b60e6b46",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto here.  it obfuscates the integer type, and the fact that it\u0027s a pointer.",
+      "range": {
+        "startLine": 1099,
+        "startChar": 24,
+        "endLine": 1099,
+        "endChar": 28
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f3602f6_c5fe63d2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "This needs to follow the current health design.  bmcweb should not be making decisions about whether or not the redundancy is healthy, that should be done in the PSU daemon, and have it publish the correct interface.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 0,
+        "endLine": 1135,
+        "endChar": 0
       },
       "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -111,6 +228,53 @@
         "startChar": 29,
         "endLine": 1157,
         "endChar": 44
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9fc2f84_6d67154c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "Considering this is a copy.... It makes me wonder how this code worked in the first place.\n\nKwin, did you test this behavior?",
+      "parentUuid": "b7ebfd40_f0b56fb9",
+      "range": {
+        "startLine": 1157,
+        "startChar": 29,
+        "endLine": 1157,
+        "endChar": 44
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e785a67_13a3c6c2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-11T18:48:50Z",
+      "side": 1,
+      "message": "DIdn\u0027t see a response to my old comment.",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1159,
+        "endChar": 76
       },
       "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
