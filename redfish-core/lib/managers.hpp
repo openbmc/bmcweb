@@ -66,7 +66,7 @@ inline void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
         interfaceName, destProperty, dbusPropertyValue);
 }
 
-void doBMCForceRestart(std::shared_ptr<AsyncResp> asyncResp)
+inline void doBMCForceRestart(std::shared_ptr<AsyncResp> asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
