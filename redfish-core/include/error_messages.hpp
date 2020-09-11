@@ -13,14 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-/****************************************************************
- * This is an auto-generated header which contains definitions
- * to use Redfish DMTF defined messages.
- *
- * This header contains preprocessor defines which wrap
- * preparation functions for message with given id. The message
- * ids can be retrieved from Base.__ver__.json file.
- ***************************************************************/
 #pragma once
 #include "http_response.h"
 
@@ -32,7 +24,7 @@ namespace redfish
 namespace messages
 {
 
-constexpr const char* messageVersionPrefix = "Base.1.2.0.";
+constexpr const char* messageVersionPrefix = "Base.1.8.1.";
 constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
@@ -318,6 +310,16 @@ nlohmann::json sessionTerminated(void);
 void sessionTerminated(crow::Response& res);
 
 /**
+ * @brief Formats SubscriptionTerminated message into JSON
+ * Message body: "The event subscription has been terminated."
+ *
+ *
+ * @returns Message SubscriptionTerminated formatted to JSON */
+nlohmann::json subscriptionTerminated(void);
+
+void subscriptionTerminated(crow::Response& res);
+
+/**
  * @brief Formats ResourceTypeIncompatible message into JSON
  * Message body: "The @odata.type of the request body <arg1> is incompatible
  * with the @odata.type of the resource which is <arg2>."
@@ -331,6 +333,141 @@ nlohmann::json resourceTypeIncompatible(const std::string& arg1,
 
 void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
                               const std::string& arg2);
+
+/**
+ * @brief Formats ResetRequired message into JSON
+ * Message body: "In order to complete the operation, a component reset is
+ * required with the Reset action URI '<arg1>' and ResetType '<arg2>'."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message ResetRequired formatted to JSON */
+nlohmann::json resetRequired(const std::string& arg1, const std::string& arg2);
+
+void resetRequired(crow::Response& res, const std::string& arg1,
+                   const std::string& arg2);
+
+/**
+ * @brief Formats ChassisPowerStateOnRequired message into JSON
+ * Message body: "The Chassis with Id '<arg1>' requires to be powered on to
+ * perform this request."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message ChassisPowerStateOnRequired formatted to JSON */
+nlohmann::json chassisPowerStateOnRequired(const std::string& arg1);
+
+void chassisPowerStateOnRequired(crow::Response& res, const std::string& arg1);
+
+/**
+ * @brief Formats ChassisPowerStateOffRequired message into JSON
+ * Message body: "The Chassis with Id '<arg1>' requires to be powered off to
+ * perform this request."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message ChassisPowerStateOffRequired formatted to JSON */
+nlohmann::json chassisPowerStateOffRequired(const std::string& arg1);
+
+void chassisPowerStateOffRequired(crow::Response& res, const std::string& arg1);
+
+/**
+ * @brief Formats PropertyValueConflict message into JSON
+ * Message body: "The property '<arg1>' could not be written because its value
+ * would conflict with the value of the '<arg2>' property."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message PropertyValueConflict formatted to JSON */
+nlohmann::json propertyValueConflict(const std::string& arg1,
+                                     const std::string& arg2);
+
+void propertyValueConflict(crow::Response& res, const std::string& arg1,
+                           const std::string& arg2);
+
+/**
+ * @brief Formats PropertyValueIncorrect message into JSON
+ * Message body: "The property '<arg1>' with the requested value of '<arg2>'
+ * could not be written because the value does not meet the constraints of the
+ * implementation."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message PropertyValueIncorrect formatted to JSON */
+nlohmann::json propertyValueIncorrect(const std::string& arg1,
+                                      const std::string& arg2);
+
+void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2);
+
+/**
+ * @brief Formats ResourceCreationConflict message into JSON
+ * Message body: "The resource could not be created.  The service has a resource
+ * at URI '<arg1>' that conflicts with the creation request."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message ResourceCreationConflict formatted to JSON */
+nlohmann::json resourceCreationConflict(const std::string& arg1);
+
+void resourceCreationConflict(crow::Response& res, const std::string& arg1);
+
+/**
+ * @brief Formats MaximumErrorsExceeded message into JSON
+ * Message body: "Too many errors have occurred to report them all."
+ *
+ *
+ * @returns Message MaximumErrorsExceeded formatted to JSON */
+nlohmann::json maximumErrorsExceeded(void);
+
+void maximumErrorsExceeded(crow::Response& res);
+
+/**
+ * @brief Formats PreconditionFailed message into JSON
+ * Message body: "The ETag supplied did not match the ETag required to change
+ * this resource."
+ *
+ *
+ * @returns Message PreconditionFailed formatted to JSON */
+nlohmann::json preconditionFailed(void);
+
+void preconditionFailed(crow::Response& res);
+
+/**
+ * @brief Formats PreconditionRequired message into JSON
+ * Message body: "A precondition header or annotation is required to change this
+ * resource."
+ *
+ *
+ * @returns Message PreconditionRequired formatted to JSON */
+nlohmann::json preconditionRequired(void);
+
+void preconditionRequired(crow::Response& res);
+
+/**
+ * @brief Formats OperationFailed message into JSON
+ * Message body: "An error occurred internal to the service as part of the
+ * overall request.  Partial results may have been returned."
+ *
+ *
+ * @returns Message OperationFailed formatted to JSON */
+nlohmann::json operationFailed(void);
+
+void operationFailed(crow::Response& res);
+
+/**
+ * @brief Formats OperationTimeout message into JSON
+ * Message body: "A timeout internal to the service occured as part of the
+ * request.  Partial results may have been returned."
+ *
+ *
+ * @returns Message OperationTimeout formatted to JSON */
+nlohmann::json operationTimeout(void);
+
+void operationTimeout(crow::Response& res);
 
 /**
  * @brief Formats PropertyValueTypeError message into JSON
@@ -658,6 +795,27 @@ void emptyJSON(crow::Response& res);
 nlohmann::json queryNotSupportedOnResource(void);
 
 void queryNotSupportedOnResource(crow::Response& res);
+
+/**
+ * @brief Formats QueryNotSupportedOnOperation message into JSON
+ * Message body: "Querying is not supported with the requested operation."
+ *
+ *
+ * @returns Message QueryNotSupportedOnOperation formatted to JSON */
+nlohmann::json queryNotSupportedOnOperation(void);
+
+void queryNotSupportedOnOperation(crow::Response& res);
+
+/**
+ * @brief Formats QueryCombinationInvalid message into JSON
+ * Message body: "Two or more query parameters in the request cannot be used
+ * together."
+ *
+ *
+ * @returns Message QueryCombinationInvalid formatted to JSON */
+nlohmann::json queryCombinationInvalid(void);
+
+void queryCombinationInvalid(crow::Response& res);
 
 /**
  * @brief Formats InsufficientPrivilege message into JSON
