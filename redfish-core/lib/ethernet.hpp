@@ -1379,14 +1379,12 @@ class EthernetInterface : public Node
             const boost::container::flat_set<IPv4AddressData>::const_iterator&
                 end)
     {
-        for (; head != end; head++)
-        {
-            if (head->origin == "Static")
-            {
-                return head;
-            }
-        }
-        return end;
+        boost::container::flat_set<IPv4AddressData>::const_iterator it =
+            std::find_if(head, end, [](const IPv4AddressData& value) {
+                return value.origin == "Static";
+            });
+
+        return it;
     }
 
     boost::container::flat_set<IPv6AddressData>::const_iterator
@@ -1395,14 +1393,12 @@ class EthernetInterface : public Node
             const boost::container::flat_set<IPv6AddressData>::const_iterator&
                 end)
     {
-        for (; head != end; head++)
-        {
-            if (head->origin == "Static")
-            {
-                return head;
-            }
-        }
-        return end;
+        boost::container::flat_set<IPv6AddressData>::const_iterator it =
+            std::find_if(head, end, [](const IPv6AddressData& value) {
+                return value.origin == "Static";
+            });
+
+        return it;
     }
 
     void handleIPv4StaticPatch(
