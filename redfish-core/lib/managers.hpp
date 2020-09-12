@@ -763,8 +763,9 @@ inline const dbus::utility::ManagedItem*
 
 inline CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
-    nlohmann::json::iterator it, const std::string& path,
-    const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
+    const nlohmann::detail::iteration_proxy_value<nlohmann::json::iterator>& it,
+    const std::string& path, const dbus::utility::ManagedObjectType& managedObj,
+    bool createNewObject,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
         output,
     std::string& chassis, const std::string& profile)
@@ -1519,8 +1520,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
             std::string& type = containerPair.first;
 
-            for (nlohmann::json::iterator it = container->begin();
-                 it != container->end(); it++)
+            for (const auto& it : (*container).items())
             {
                 const auto& name = it.key();
                 BMCWEB_LOG_DEBUG << "looking for " << name;
