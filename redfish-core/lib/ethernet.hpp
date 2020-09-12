@@ -1387,7 +1387,7 @@ class EthernetInterface : public Node
             boost::container::flat_set<IPv4AddressData>::const_iterator head,
             boost::container::flat_set<IPv4AddressData>::const_iterator end)
     {
-        for (; head != end; head++)
+        for (; head != end; ++head)
         {
             if (head->origin == "Static")
             {
@@ -1402,7 +1402,7 @@ class EthernetInterface : public Node
             boost::container::flat_set<IPv6AddressData>::const_iterator head,
             boost::container::flat_set<IPv6AddressData>::const_iterator end)
     {
-        for (; head != end; head++)
+        for (; head != end; ++head)
         {
             if (head->origin == "Static")
             {

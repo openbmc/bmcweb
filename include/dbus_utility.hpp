@@ -57,7 +57,7 @@ inline bool getNthStringFromPath(const std::string& path, int index,
     int count = 0;
     std::string::const_iterator first = path.begin();
     std::string::const_iterator last = path.end();
-    for (std::string::const_iterator it = path.begin(); it < path.end(); it++)
+    for (std::string::const_iterator it = path.begin(); it < path.end(); ++it)
     {
         // skip first character as it's either a leading slash or the first
         // character in the word
@@ -85,7 +85,7 @@ inline bool getNthStringFromPath(const std::string& path, int index,
     }
     if (first != path.begin())
     {
-        first++;
+        ++first;
     }
     result = path.substr(static_cast<size_t>(first - path.begin()),
                          static_cast<size_t>(last - first));
