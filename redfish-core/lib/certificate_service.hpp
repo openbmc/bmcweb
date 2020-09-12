@@ -516,7 +516,7 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
         std::string_view::iterator tokenBegin = i;
         while (i != value.end() && *i != '=')
         {
-            i++;
+            ++i;
         }
         if (i == value.end())
         {
@@ -524,11 +524,11 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
         }
         const std::string_view key(tokenBegin,
                                    static_cast<size_t>(i - tokenBegin));
-        i++;
+        ++i;
         tokenBegin = i;
         while (i != value.end() && *i != ',')
         {
-            i++;
+            ++i;
         }
         const std::string_view val(tokenBegin,
                                    static_cast<size_t>(i - tokenBegin));
@@ -559,7 +559,7 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
         // skip comma character
         if (i != value.end())
         {
-            i++;
+            ++i;
         }
     }
 }
