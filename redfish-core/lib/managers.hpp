@@ -1520,7 +1520,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             std::string& type = containerPair.first;
 
             for (nlohmann::json::iterator it = container->begin();
-                 it != container->end(); it++)
+                 it != container->end(); ++it)
             {
                 const auto& name = it.key();
                 BMCWEB_LOG_DEBUG << "looking for " << name;
