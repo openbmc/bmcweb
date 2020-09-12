@@ -17,6 +17,7 @@
 
 #include <sdbusplus/message.hpp>
 
+#include <filesystem>
 #include <regex>
 
 namespace dbus
@@ -54,27 +55,21 @@ inline void escapePathForDbus(std::string& path)
 inline bool getNthStringFromPath(const std::string& path, int index,
                                  std::string& result)
 {
-    int count = 0;
-    std::string::const_iterator first = path.begin();
-    std::string::const_iterator last = path.end();
-    for (std::string::const_iterator it = path.begin(); it < path.end(); it++)
+    if (index < 0)
     {
-        // skip first character as it's either a leading slash or the first
-        // character in the word
-        if (it == path.begin())
+        return false;
+    }
+
+    std::filesystem::path p1(path);
+    int count = -1;
+    for (auto const& element : p1)
+    {
+        if (element.has_filename())
         {
-            continue;
-        }
-        if (*it == '/')
-        {
-            count++;
+            ++count;
             if (count == index)
             {
-                first = it;
-            }
-            if (count == index + 1)
-            {
-                last = it;
+                result = element.stem().string();
                 break;
             }
         }
@@ -83,12 +78,7 @@ inline bool getNthStringFromPath(const std::string& path, int index,
     {
         return false;
     }
-    if (first != path.begin())
-    {
-        first++;
-    }
-    result = path.substr(static_cast<size_t>(first - path.begin()),
-                         static_cast<size_t>(last - first));
+
     return true;
 }
 
