@@ -17,6 +17,7 @@
 
 #include "node.hpp"
 
+#include <boost/algorithm/string.hpp>
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
 
@@ -508,56 +509,46 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
                                       const std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
-    std::string_view::iterator i = value.begin();
-    while (i != value.end())
+
+    std::vector<std::string> elements;
+
+    // split the string with delimiter ','
+    boost::split(elements, value, boost::is_any_of(","));
+
+    for (const auto& element : elements)
     {
-        std::string_view::iterator tokenBegin = i;
-        while (i != value.end() && *i != '=')
+        std::vector<std::string> pairVector;
+
+        // split the elements into keyvalue pairs with delimiter '='
+        boost::split(pairVector, element, boost::is_any_of("="),
+                     boost::algorithm::token_compress_on);
+
+        if (pairVector.size() == 2)
         {
-            i++;
-        }
-        if (i == value.end())
-        {
-            break;
-        }
-        const std::string_view key(tokenBegin,
-                                   static_cast<size_t>(i - tokenBegin));
-        i++;
-        tokenBegin = i;
-        while (i != value.end() && *i != ',')
-        {
-            i++;
-        }
-        const std::string_view val(tokenBegin,
-                                   static_cast<size_t>(i - tokenBegin));
-        if (key == "L")
-        {
-            out["City"] = val;
-        }
-        else if (key == "CN")
-        {
-            out["CommonName"] = val;
-        }
-        else if (key == "C")
-        {
-            out["Country"] = val;
-        }
-        else if (key == "O")
-        {
-            out["Organization"] = val;
-        }
-        else if (key == "OU")
-        {
-            out["OrganizationalUnit"] = val;
-        }
-        else if (key == "ST")
-        {
-            out["State"] = val;
-        }
-        // skip comma character
-        if (i != value.end())
-        {
-            i++;
+            if (pairVector[0] == "L")
+            {
+                out["City"] = pairVector[1];
+            }
+            else if (pairVector[0] == "CN")
+            {
+                out["CommonName"] = pairVector[1];
+            }
+            else if (pairVector[0] == "C")
+            {
+                out["Country"] = pairVector[1];
+            }
+            else if (pairVector[0] == "O")
+            {
+                out["Organization"] = pairVector[1];
+            }
+            else if (pairVector[0] == "OU")
+            {
+                out["OrganizationalUnit"] = pairVector[1];
+            }
+            else if (pairVector[0] == "ST")
+            {
+                out["State"] = pairVector[1];
+            }
         }
     }
 }
