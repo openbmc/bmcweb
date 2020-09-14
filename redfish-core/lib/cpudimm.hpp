@@ -29,6 +29,12 @@ using InterfacesProperties = boost::container::flat_map<
     std::string,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
+using MapperGetSubTreeResponse = boost::container::flat_map<
+    std::string,
+    boost::container::flat_map<std::string, std::vector<std::string>>>;
+using MapperGetObjectResponse =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
+
 inline void getResourceList(std::shared_ptr<AsyncResp> aResp,
                             const std::string& subclass,
                             const std::vector<const char*>& collectionName)
@@ -249,6 +255,7 @@ inline void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
 }
 
 inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
+                            const std::string& /* cpuId */,
                             const std::string& service,
                             const std::string& objPath)
 {
@@ -317,6 +324,7 @@ inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
 }
 
 inline void getCpuRevisionData(std::shared_ptr<AsyncResp> aResp,
+                               const std::string& /* cpuId */,
                                const std::string& service,
                                const std::string& objPath)
 {
@@ -416,19 +424,163 @@ inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-inline void getCpuData(std::shared_ptr<AsyncResp> aResp,
-                       const std::string& cpuId,
-                       const std::vector<const char*> inventoryItems)
+// OperatingConfig D-Bus Types
+using TurboProfileProperty = std::vector<std::tuple<int32_t, size_t>>;
+using BaseSpeedPrioritySettingsProperty =
+    std::vector<std::tuple<int32_t, std::vector<int32_t>>>;
+using OperatingConfigProperties =
+    std::map<std::string, std::variant<int32_t, size_t, TurboProfileProperty,
+                                       BaseSpeedPrioritySettingsProperty>>;
+
+/**
+ * Fill out the HighSpeedCoreIDs in a Processor resource from the given
+ * OperatingConfig D-Bus property.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       property    Full list of base speed priority groups, to use
+ *                              to determine the list of high speed cores.
+ */
+inline void highSpeedCoreIdsHandler(
+    std::shared_ptr<AsyncResp> aResp,
+    const std::variant<BaseSpeedPrioritySettingsProperty>& property)
+{
+    // The D-Bus property does not indicate which bucket is the "high
+    // priority" group, so let's discern that by looking for the one with
+    // highest base frequency.
+    const auto& baseSpeedSettings = std::get<0>(property);
+    auto highPriorityGroup = baseSpeedSettings.cend();
+    int highestBaseSpeed = -1;
+    for (auto it = baseSpeedSettings.cbegin(); it != baseSpeedSettings.cend();
+         ++it)
+    {
+        const auto baseFreq = std::get<0>(*it);
+        if (baseFreq > highestBaseSpeed)
+        {
+            highestBaseSpeed = baseFreq;
+            highPriorityGroup = it;
+        }
+    }
+
+    nlohmann::json& jsonCoreIds = aResp->res.jsonValue["HighSpeedCoreIDs"];
+    jsonCoreIds = nlohmann::json::array();
+
+    // There may not be any entries in the D-Bus property, so only populate
+    // if there was actually something there.
+    if (highPriorityGroup != baseSpeedSettings.cend())
+    {
+        jsonCoreIds = std::get<1>(*highPriorityGroup);
+    }
+}
+
+/**
+ * Fill out OperatingConfig related items in a Processor resource by requesting
+ * data from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       cpuId       CPU D-Bus name.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getCpuConfigData(std::shared_ptr<AsyncResp> aResp,
+                             const std::string& cpuId,
+                             const std::string& service,
+                             const std::string& objPath)
+{
+    BMCWEB_LOG_INFO << "Getting CPU operating configs for " << cpuId;
+
+    auto curConfigHandler =
+        [aResp, cpuId, service](
+            const boost::system::error_code ec,
+            const std::map<std::string,
+                           std::variant<sdbusplus::message::object_path, bool>>&
+                properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_INFO << "curConfigHandler dbus error " << ec
+                                << ec.message();
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            auto& json = aResp->res.jsonValue;
+
+            const std::string& appliedConfigObjectPath =
+                std::get<sdbusplus::message::object_path>(
+                    properties.at("AppliedConfig"));
+            auto configsPath =
+                std::string("/redfish/v1/Systems/system/Processors/") + cpuId +
+                "/OperatingConfigs";
+            json["OperatingConfigs"] = {{"@odata.id", configsPath}};
+
+            // Reuse the D-Bus config object name for the resource URI
+            auto objectBaseName = appliedConfigObjectPath.substr(
+                appliedConfigObjectPath.rfind('/') + 1);
+            json["AppliedOperatingConfig"] = {
+                {"@odata.id", configsPath + '/' + objectBaseName}};
+
+            json["TurboState"] =
+                std::get<bool>(properties.at("TurboProfileEnabled"))
+                    ? "Enabled"
+                    : "Disabled";
+
+            json["BaseSpeedPriorityState"] =
+                std::get<bool>(properties.at("BaseSpeedPriorityEnabled"))
+                    ? "Enabled"
+                    : "Disabled";
+
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        const std::variant<BaseSpeedPrioritySettingsProperty>&
+                            property) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_INFO << "highspeedcoreidshandler dbus error "
+                                        << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    highSpeedCoreIdsHandler(aResp, property);
+                },
+                service, appliedConfigObjectPath,
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
+                "BaseSpeedPrioritySettings");
+        };
+
+    crow::connections::systemBus->async_method_call(
+        curConfigHandler, service, objPath, "org.freedesktop.DBus.Properties",
+        "GetAll",
+        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig");
+}
+
+void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string& cpuId)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources.";
 
+    // Define mapping of discovered interface names to a handler function which
+    // knows how to process the data in that interface.
+    using CpuDataHandler = decltype(&getCpuAssetData);
+    static const std::map<std::string, CpuDataHandler> cpuDataHandlers = {
+        {"xyz.openbmc_project.Inventory.Decorator.Asset", &getCpuAssetData},
+        {"xyz.openbmc_project.Inventory.Decorator.Revision",
+         &getCpuRevisionData},
+        {"xyz.openbmc_project.Inventory.Item.Cpu", &getCpuDataByService},
+        {"xyz.openbmc_project.Inventory.Item.Accelerator",
+         &getAcceleratorDataByService},
+        {"xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+         &getCpuConfigData},
+    };
+    // Extract just the interface keys for passing to ObjectMapper
+    std::vector<decltype(cpuDataHandlers)::key_type> cpuDataInterfaces;
+    for (const auto& handler : cpuDataHandlers)
+    {
+        cpuDataInterfaces.push_back(handler.first);
+    }
+
     crow::connections::systemBus->async_method_call(
-        [cpuId, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>&
-                subtree) {
+        [cpuId,
+         aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -437,41 +589,31 @@ inline void getCpuData(std::shared_ptr<AsyncResp> aResp,
             }
             for (const auto& object : subtree)
             {
-                if (boost::ends_with(object.first, cpuId))
+                // Ignore any objects which don't end with our desired cpu name
+                if (!boost::ends_with(object.first, cpuId))
                 {
-                    for (const auto& service : object.second)
+                    continue;
+                }
+
+                // Process the first object which does match our cpu name
+                // suffix, and potentially ignore any other matching objects.
+                // Assume all interfaces we want to process must be on the same
+                // object.
+
+                for (const auto& service : object.second)
+                {
+                    for (const auto& interface : service.second)
                     {
-                        for (const auto& inventory : service.second)
+                        auto handlerIter = cpuDataHandlers.find(interface);
+                        if (handlerIter != cpuDataHandlers.end())
                         {
-                            if (inventory == "xyz.openbmc_project."
-                                             "Inventory.Decorator.Asset")
-                            {
-                                getCpuAssetData(aResp, service.first,
-                                                object.first);
-                            }
-                            else if (inventory ==
-                                     "xyz.openbmc_project."
-                                     "Inventory.Decorator.Revision")
-                            {
-                                getCpuRevisionData(aResp, service.first,
-                                                   object.first);
-                            }
-                            else if (inventory == "xyz.openbmc_project."
-                                                  "Inventory.Item.Cpu")
-                            {
-                                getCpuDataByService(aResp, cpuId, service.first,
-                                                    object.first);
-                            }
-                            else if (inventory == "xyz.openbmc_project."
-                                                  "Inventory.Item.Accelerator")
-                            {
-                                getAcceleratorDataByService(
-                                    aResp, cpuId, service.first, object.first);
-                            }
+                            auto handler = handlerIter->second;
+                            (*handler)(aResp, cpuId, service.first,
+                                       object.first);
                         }
                     }
-                    return;
                 }
+                return;
             }
             // Object not found
             messages::resourceNotFound(aResp->res, "Processor", cpuId);
@@ -480,9 +622,8 @@ inline void getCpuData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0, inventoryItems);
+        "/xyz/openbmc_project/inventory", 0, cpuDataInterfaces);
 }
-
 using DimmProperty =
     std::variant<std::string, std::vector<uint32_t>, std::vector<uint16_t>,
                  uint64_t, uint32_t, uint16_t, uint8_t, bool>;
@@ -1084,6 +1225,199 @@ inline void getDimmData(std::shared_ptr<AsyncResp> aResp,
             "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
 }
 
+class OperatingConfigCollection : public Node
+{
+  public:
+    OperatingConfigCollection(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params)
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+
+        const std::string& cpuName = params[0];
+        res.jsonValue["@odata.type"] =
+            "#OperatingConfigCollection.OperatingConfigCollection";
+        res.jsonValue["@odata.id"] = req.url;
+        res.jsonValue["Name"] = "Operating Config Collection";
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        getResourceList(
+            asyncResp, "Processors/" + cpuName + "/OperatingConfigs",
+            {"xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"});
+    }
+};
+
+/**
+ * Fill the response contents of an OperatingConfig resource using the given
+ * properties retrieved from D-Bus.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       properties  D-Bus OperatingConfig properties.
+ */
+inline void
+    getOperatingConfigData(std::shared_ptr<AsyncResp> aResp,
+                           // const OperatingConfigProperties& properties)
+                           const std::string& service,
+                           const std::string& objPath)
+{
+    // Mapping of D-Bus name to Redfish name for the basic scalar properties, to
+    // avoid handling them individually.
+    static const std::map<std::string, std::string> dbusRedfishMap = {
+        {"AvailableCoreCount", "TotalAvailableCoreCount"},
+        {"BaseSpeed", "BaseSpeedMHz"},
+        {"MaxJunctionTemperature", "MaxJunctionTemperatureCelsius"},
+        {"MaxSpeed", "MaxSpeedMHz"},
+        {"PowerLimit", "TDPWatts"},
+    };
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](boost::system::error_code ec,
+                const OperatingConfigProperties& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ": "
+                                   << ec.message();
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            auto& json = aResp->res.jsonValue;
+            nlohmann::json& baseSpeedArray = json["BaseSpeedPrioritySettings"];
+            nlohmann::json& turboArray = json["TurboProfile"];
+            // Want empty arrays on Redfish in case there is actually no data in
+            // the D-Bus properties
+            baseSpeedArray = nlohmann::json::array();
+            turboArray = nlohmann::json::array();
+            for (const auto& [key, val] : properties)
+            {
+                if (dbusRedfishMap.count(key) == 1)
+                {
+                    json[dbusRedfishMap.at(key)] = val;
+                }
+                else if (key == "TurboProfile")
+                {
+                    for (const auto& turboBucket :
+                         std::get<TurboProfileProperty>(val))
+                    {
+                        turboArray.push_back(
+                            {{"ActiveCoreCount", std::get<1>(turboBucket)},
+                             {"MaxSpeedMHz", std::get<0>(turboBucket)}});
+                    }
+                }
+                else if (key == "BaseSpeedPrioritySettings")
+                {
+                    for (const auto& baseSpeedSetting :
+                         std::get<BaseSpeedPrioritySettingsProperty>(val))
+                    {
+                        baseSpeedArray.push_back(
+                            {{"CoreCount",
+                              std::get<1>(baseSpeedSetting).size()},
+                             {"CoreIDs", std::get<1>(baseSpeedSetting)},
+                             {"BaseSpeedMHz", std::get<0>(baseSpeedSetting)}});
+                    }
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig");
+}
+
+class OperatingConfig : public Node
+{
+  public:
+    OperatingConfig(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/"
+             "<str>",
+             std::string(), std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params)
+    {
+        if (params.size() != 2)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+
+        const std::string& cpuName = params[0];
+        const std::string& configName = params[1];
+        res.jsonValue["@odata.type"] =
+            "#OperatingConfig.v1_0_0.OperatingConfig";
+        res.jsonValue["@odata.id"] = req.url;
+        res.jsonValue["Name"] = "Processor Profile";
+        res.jsonValue["Id"] = configName;
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        const std::string objectPath =
+            "/xyz/openbmc_project/inventory/system/chassis/motherboard/" +
+            cpuName + "/" + configName;
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, objectPath,
+             configName](boost::system::error_code ec,
+                         const MapperGetObjectResponse& serviceMap) {
+                // Service responds with org.freedesktop.DBus.Error.FileNotFound
+                // if object does not exist.
+                if (ec == boost::system::errc::no_such_file_or_directory ||
+                    serviceMap.size() == 0)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "OperatingConfig", configName);
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_WARNING
+                        << "D-Bus error getting Operating Config: " << ec
+                        << ": " << ec.message();
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                getOperatingConfigData(asyncResp, serviceMap.begin()->first,
+                                       objectPath);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetObject", objectPath,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"});
+    }
+};
+
 class ProcessorCollection : public Node
 {
   public:
@@ -1163,10 +1497,7 @@ class Processor : public Node
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        getCpuData(asyncResp, processorId,
-                   {"xyz.openbmc_project.Inventory.Item.Cpu",
-                    "xyz.openbmc_project.Inventory.Decorator.Asset",
-                    "xyz.openbmc_project.Inventory.Item.Accelerator"});
+        getCpuData(asyncResp, processorId);
     }
 };
 
