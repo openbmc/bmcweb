@@ -212,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "4e016eba_d33ff54e",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-14T17:35:21Z",
+      "side": 1,
+      "message": "Url query params.\n\nIn that way we:\n1. aren\u0027t creating a URL resource per type (which would convey that they\u0027re separate entities)\n2. Can retain the old behavior via defaults for non-UI implementations that used this (I\u0027ve heard mention of a couple).",
+      "parentUuid": "3e20d3a1_dd80e288",
+      "range": {
+        "startLine": 188,
+        "startChar": 23,
+        "endLine": 188,
+        "endChar": 36
+      },
+      "revId": "84916611ff7733c56f9bb32106f1128adf4b925d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cda13701_3118ef62",
         "filename": "include/vm_websocket.hpp",
         "patchSetId": 1
