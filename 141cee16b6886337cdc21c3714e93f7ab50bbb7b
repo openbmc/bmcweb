@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca59ee30_43f16c35",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "It is wrong, made only as a temporary solution. I will remove it from here",
+      "parentUuid": "ed8f5f1e_995713cd",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef823da8_2aa545d0",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 31
@@ -30,6 +48,30 @@
       "writtenOn": "2020-09-11T23:39:44Z",
       "side": 1,
       "message": "There are more inventory interfaces that just this.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4764be_d79afaca",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "It is copied from redfish/lib/chassis.hpp. Now /redfish/v1/chassis resource only uses those two interfaces. Is there other that should be supported by bmcweb?",
+      "parentUuid": "ef823da8_2aa545d0",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "170f4c37_bae6a966",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "310bf1d4_dd43c90b",
+      "range": {
+        "startLine": 160,
+        "startChar": 16,
+        "endLine": 160,
+        "endChar": 22
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9312a69e_6117e47c",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 31
@@ -76,6 +142,30 @@
       "writtenOn": "2020-09-11T23:39:44Z",
       "side": 1,
       "message": "Not all sensors are physical sensors.......",
+      "range": {
+        "startLine": 282,
+        "startChar": 58,
+        "endLine": 282,
+        "endChar": 72
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd85141a_72e1518b",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "Implementation and TimestampAccuracy should be fetched from Sensor dbus interface or other place. It requires further work. I will remove it in next patchset.",
+      "parentUuid": "9312a69e_6117e47c",
       "range": {
         "startLine": 282,
         "startChar": 58,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "1e3d8334_79e105b1",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "Ok, I will change it to inline func",
+      "parentUuid": "2fa1cdb3_c3140233",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c7c67ad_7476d8d1",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -116,6 +224,30 @@
       "writtenOn": "2020-09-11T23:39:44Z",
       "side": 1,
       "message": "ReadingParameters::const_iterator.",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cde893fd_4bc02d48",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "I will change std::find_if to for loop because we only need sensors array from this structure. It will simplify code.",
+      "parentUuid": "2c7c67ad_7476d8d1",
       "range": {
         "startLine": 156,
         "startChar": 12,
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "8ce48396_dfffe5f7",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "No. MetricDefinition is not required field. User can configure MetricReportDefinition in such a way that MetricDefinition for MetricReport does not exists. To match bmcweb style I will set null when MetricDefinition does not apply to specific MetricReport",
+      "parentUuid": "d950eb01_b99d8f2a",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 24
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0d5f5ca_0b6cdc5a",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 31
@@ -162,6 +318,24 @@
       "writtenOn": "2020-09-11T23:39:44Z",
       "side": 1,
       "message": "I don\u0027t really like flattening these out like this.  I would much rather see the units generated from the existing types structure, similar to how the existing code does it.\n\nhttps://github.com/openbmc/bmcweb/blob/b74e4405a20d1212b5e5ac73854b86007c716d51/redfish-core/lib/sensors.hpp#L852\n\nWe also need to deduplicate the Units from that code such that we\u0027re not hardcoding units lookup in 2 places, as people are very likely to miss one when adding a new sensor type.",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1612c97d_b8badb83",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-14T13:51:02Z",
+      "side": 1,
+      "message": "Ok, I will modify this code.\nRedfish requires in MetricDefinition schema to use Unified Code for Units of Measure. They are different from one that are used in sensors.hpp. To not deduplicate it I have to fix already implemented sensors.hpp with the latest Redfish Sensor schema. Sensor have new attribute called ReadingType and it demands suitable ReadingUnit that matches with Unified Code for Units of Measure. I will cover it in separate patch.",
+      "parentUuid": "f0d5f5ca_0b6cdc5a",
       "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
