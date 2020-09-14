@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8df8b2de_7325f965",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-14T06:18:01Z",
+      "side": 1,
+      "message": "here is shared_ptr.",
+      "parentUuid": "42c1782f_e4ac175b",
+      "range": {
+        "startLine": 1047,
+        "startChar": 26,
+        "endLine": 1047,
+        "endChar": 76
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fc24c6e_92e8e283",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -165,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "6295d408_32c79ae7",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-14T06:18:01Z",
+      "side": 1,
+      "message": "What\u0027s error to use auto?\nLine 1265 used the same-thing",
+      "parentUuid": "d7e1f91b_b60e6b46",
+      "range": {
+        "startLine": 1099,
+        "startChar": 24,
+        "endLine": 1099,
+        "endChar": 28
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f3602f6_c5fe63d2",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -247,6 +295,30 @@
       "side": 1,
       "message": "Considering this is a copy.... It makes me wonder how this code worked in the first place.\n\nKwin, did you test this behavior?",
       "parentUuid": "b7ebfd40_f0b56fb9",
+      "range": {
+        "startLine": 1157,
+        "startChar": 29,
+        "endLine": 1157,
+        "endChar": 44
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e421cb0d_e8ed764a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-14T06:18:01Z",
+      "side": 1,
+      "message": "Yes, it is better to use reference. but why say it is working currently using copy.",
+      "parentUuid": "f9fc2f84_6d67154c",
       "range": {
         "startLine": 1157,
         "startChar": 29,
