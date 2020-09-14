@@ -236,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "89596ff3_152699b3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-14T08:40:48Z",
+      "side": 1,
+      "message": "You mean to create a health property like below and handled by daemon right?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/36467\n\nWe already have RedundancyCount property, it ok to judge the health status here like fan line 1298",
+      "parentUuid": "0f3602f6_c5fe63d2",
+      "range": {
+        "startLine": 1119,
+        "startChar": 0,
+        "endLine": 1135,
+        "endChar": 0
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1fe376c8_b3463279",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
