@@ -13,6 +13,11 @@ namespace crow
 namespace obmc_vm
 {
 
+using VMInterfaceType = std::string;
+using VMInterfaceAllowedTypes = std::vector<VMInterfaceType>;
+
+const VMInterfaceAllowedTypes vmIfaceAllowedTypes = {"usb", "hdd", "cdrom"};
+
 static crow::websocket::Connection* session = nullptr;
 
 // The max network block device buffer size is 128kb plus 16bytes
@@ -23,8 +28,10 @@ static constexpr auto nbdBufferSize = 131088;
 class Handler : public std::enable_shared_from_this<Handler>
 {
   public:
-    Handler(const std::string& mediaIn, boost::asio::io_context& ios) :
-        pipeOut(ios), pipeIn(ios), media(mediaIn), doingWrite(false),
+    Handler(const std::string& mediaIn, const std::string& mediaTypeIn,
+            boost::asio::io_context& ios) :
+        pipeOut(ios),
+        pipeIn(ios), media(mediaIn), mediaType(mediaTypeIn), doingWrite(false),
         outputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>),
         inputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>)
     {}
@@ -46,7 +53,9 @@ class Handler : public std::enable_shared_from_this<Handler>
     void connect()
     {
         std::error_code ec;
-        proxy = boost::process::child("/usr/sbin/nbd-proxy", media,
+        const std::vector<std::string> nbdProxyOpts = {"--config", media,
+                                                       "--type", mediaType};
+        proxy = boost::process::child("/usr/sbin/nbd-proxy", nbdProxyOpts,
                                       boost::process::std_out > pipeOut,
                                       boost::process::std_in < pipeIn, ec);
         if (ec)
@@ -144,6 +153,7 @@ class Handler : public std::enable_shared_from_this<Handler>
     boost::process::async_pipe pipeIn;
     boost::process::child proxy;
     std::string media;
+    VMInterfaceType mediaType;
     bool doingWrite;
 
     std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
@@ -154,9 +164,28 @@ class Handler : public std::enable_shared_from_this<Handler>
 
 static std::shared_ptr<Handler> handler;
 
+static const VMInterfaceType& getTypeFromUrl(const std::string& url)
+{
+    // this is hack for search last includes of URI
+    // to separate the VirtualMedia interface type.
+    // At next time developing the feature enhancement of retrieve url
+    // params of WS this is should be removed and retrieve
+    // the VirtualMedia type by RoutingParams abstraction
+    auto typeUrlPath = url.substr(url.find_last_of("/") + 1);
+    auto typesIterator = std::find(vmIfaceAllowedTypes.begin(),
+                                   vmIfaceAllowedTypes.end(), typeUrlPath);
+    if (vmIfaceAllowedTypes.end() == typesIterator)
+    {
+        // set default interace type
+        typesIterator = vmIfaceAllowedTypes.begin();
+    }
+
+    return *typesIterator;
+}
+
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/vm/0/0")
+    BMCWEB_ROUTE(app, "/vm/0/0/<str>")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
@@ -177,10 +206,12 @@ inline void requestRoutes(App& app)
 
             session = &conn;
 
+            auto url = std::string(conn.req.target());
+            decltype(auto) type = getTypeFromUrl(url);
             // media is the last digit of the endpoint /vm/0/0. A future
             // enhancement can include supporting different endpoint values.
             const char* media = "0";
-            handler = std::make_shared<Handler>(media, conn.get_io_context());
+            handler = std::make_shared<Handler>(media, type, conn.get_io_context());
             handler->connect();
         })
         .onclose([](crow::websocket::Connection& conn,
