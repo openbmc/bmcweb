@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "e8c5d28c_7e2e2ec9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-15T18:48:11Z",
+      "side": 1,
+      "message": "When when not linking against pthread (which bmcweb doesn\u0027t) I believe the compiler will optimize out the refcount increment and decrement on this item, leading to the same code being emitted in these cases with optimization turned on.  Also, even if it didn\u0027t, we\u0027re talking 3 instructions, with no dependencies on other registers vs 1 instruction.  In the past, I\u0027ve found those optimizations weren\u0027t worth arguing about, but I do think Jozef is right.\n\nIt\u0027d be really nice if we had consistent style for these things,but today we don\u0027t, so IMO Kwin can change it if he likes, but it\u0027s fine as-is.",
+      "parentUuid": "9fbbd6ae_61f805dc",
+      "range": {
+        "startLine": 1047,
+        "startChar": 26,
+        "endLine": 1047,
+        "endChar": 76
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fc24c6e_92e8e283",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -332,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "3ff232a8_54fefc10",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-15T18:48:11Z",
+      "side": 1,
+      "message": "Yes, create a health property.\n\n\"it ok to judge the health status here like fan line 1298\"\nThis was done before the health design was complete or implemented, so it is grandfathered in.  Ideally someone would move that to the fan daemon as well, but new code needs to follow the new design.",
+      "parentUuid": "89596ff3_152699b3",
+      "range": {
+        "startLine": 1119,
+        "startChar": 0,
+        "endLine": 1135,
+        "endChar": 0
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1fe376c8_b3463279",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -415,6 +463,30 @@
       "side": 1,
       "message": "Yes, it is better to use reference. but why say it is working currently using copy.",
       "parentUuid": "f9fc2f84_6d67154c",
+      "range": {
+        "startLine": 1157,
+        "startChar": 29,
+        "endLine": 1157,
+        "endChar": 44
+      },
+      "revId": "de60436b78b8fff2cb138526ce0a406fa7c6359b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e501a23_4055be97",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-15T18:48:11Z",
+      "side": 1,
+      "message": "because inputPower will be a COPY of the element at PowerInputWatts key.\n\nWriting to it means that the COPY will be changed, not the response, which means this code could\u0027ve never worked, or I\u0027m misreading something (or auto is actually pulling a reference here).\n\nHow did you test this condition?",
+      "parentUuid": "e421cb0d_e8ed764a",
       "range": {
         "startLine": 1157,
         "startChar": 29,
