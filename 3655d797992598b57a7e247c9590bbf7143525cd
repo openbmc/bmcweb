@@ -478,6 +478,30 @@
       "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d389168d_694f5a54",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-15T18:48:11Z",
+      "side": 1,
+      "message": "Great, lets get that implemented in the PSU daemon, not in bmcweb.",
+      "parentUuid": "1873d082_1fefab73",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1159,
+        "endChar": 47
+      },
+      "revId": "3655d797992598b57a7e247c9590bbf7143525cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
