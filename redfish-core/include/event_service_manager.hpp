@@ -1088,7 +1088,6 @@ class EventServiceManager
             }
         }
     }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     void sendBroadcastMsg(const std::string& broadcastMsg)
     {
         for (const auto& it : this->subscriptionsMap)
@@ -1102,7 +1101,6 @@ class EventServiceManager
             entry->sendEvent(msgJson.dump());
         }
     }
-#endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     void cacheLastEventTimestamp()

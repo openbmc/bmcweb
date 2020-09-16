@@ -39,7 +39,7 @@ constexpr size_t maxSaveareaFileSize =
 constexpr size_t maxBroadcastMsgSize =
     1000; // Allow Broadcast message size upto 1KB
 
-bool createSaveAreaPath(crow::Response& res)
+inline bool createSaveAreaPath(crow::Response& res)
 {
     // The path /var/lib/obmc will be created by initrdscripts
     // Create the directories for the save-area files, when we get
@@ -76,8 +76,9 @@ bool createSaveAreaPath(crow::Response& res)
     }
     return true;
 }
-void handleFilePut(const crow::Request& req, crow::Response& res,
-                   const std::string& fileID)
+
+inline void handleFilePut(const crow::Request& req, crow::Response& res,
+                          const std::string& fileID)
 {
     // Check the content-type of the request
     std::string_view contentType = req.getHeaderValue("content-type");
@@ -156,7 +157,7 @@ void handleFilePut(const crow::Request& req, crow::Response& res,
     }
 }
 
-void handleConfigFileList(crow::Response& res)
+inline void handleConfigFileList(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
@@ -181,7 +182,7 @@ void handleConfigFileList(crow::Response& res)
     res.end();
 }
 
-void deleteConfigFiles(crow::Response& res)
+inline void deleteConfigFiles(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
     std::error_code ec;
@@ -201,7 +202,7 @@ void deleteConfigFiles(crow::Response& res)
     res.end();
 }
 
-void getLockServiceData(crow::Response& res)
+inline void getLockServiceData(crow::Response& res)
 {
     res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
     res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
@@ -217,7 +218,7 @@ void getLockServiceData(crow::Response& res)
     res.end();
 }
 
-void handleFileGet(crow::Response& res, const std::string& fileID)
+inline void handleFileGet(crow::Response& res, const std::string& fileID)
 {
     BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: " << fileID;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/" +
@@ -249,7 +250,7 @@ void handleFileGet(crow::Response& res, const std::string& fileID)
     return;
 }
 
-void handleFileDelete(crow::Response& res, const std::string& fileID)
+inline void handleFileDelete(crow::Response& res, const std::string& fileID)
 {
     std::string filePath("/var/lib/obmc/bmc-console-mgmt/save-area/" + fileID);
     BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
@@ -321,8 +322,8 @@ inline void handleFileUrl(const crow::Request& req, crow::Response& res,
     }
 }
 
-void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
-                          std::vector<nlohmann::json> body)
+inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
+                                 std::vector<nlohmann::json> body)
 {
     LockRequests lockRequestStructure;
     for (auto& element : body)
@@ -457,7 +458,7 @@ void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
         }
     }
 }
-void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
+inline void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
 {
     crow::ibm_mc_lock::Lock::getInstance().releaseLock(req.session->uniqueId);
     res.result(boost::beast::http::status::ok);
@@ -465,8 +466,9 @@ void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
     return;
 }
 
-void handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
-                          const std::vector<uint32_t>& listTransactionIds)
+inline void
+    handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
+                         const std::vector<uint32_t>& listTransactionIds)
 {
     BMCWEB_LOG_DEBUG << listTransactionIds.size();
     BMCWEB_LOG_DEBUG << "Data is present";
@@ -531,8 +533,8 @@ void handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
     }
 }
 
-void handleGetLockListAPI(crow::Response& res,
-                          const ListOfSessionIds& listSessionIds)
+inline void handleGetLockListAPI(crow::Response& res,
+                                 const ListOfSessionIds& listSessionIds)
 {
     BMCWEB_LOG_DEBUG << listSessionIds.size();
 
@@ -573,7 +575,7 @@ void handleGetLockListAPI(crow::Response& res,
     res.end();
 }
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
 
     // allowed only for admin

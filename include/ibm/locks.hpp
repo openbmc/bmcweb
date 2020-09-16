@@ -303,7 +303,7 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
     // we may have found at least one entry with the given session id
     // return the json list of lock records pertaining to the given
     // session id, or send an empty list if lock table is empty
-    return lockList;
+    return {lockList};
 }
 
 inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
