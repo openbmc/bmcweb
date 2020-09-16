@@ -29,7 +29,6 @@ namespace crow
 {
 namespace ibm_mc
 {
-using namespace redfish;
 constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
