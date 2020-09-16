@@ -211,7 +211,7 @@ class App
 #endif
 
   private:
-    std::shared_ptr<asio::io_context> io;
+    std::shared_ptr<boost::asio::io_context> io;
 #ifdef BMCWEB_ENABLE_SSL
     uint16_t portUint = 443;
 #else

@@ -58,8 +58,6 @@ inline void prettyPrintJson(crow::Response& res)
     res.addHeader("Content-Type", "text/html;charset=UTF-8");
 }
 
-using namespace boost;
-using tcp = asio::ip::tcp;
 
 #ifdef BMCWEB_ENABLE_DEBUG
 static std::atomic<int> connectionCount;
