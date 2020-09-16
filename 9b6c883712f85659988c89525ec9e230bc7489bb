@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "166908fe_848c9e7f",
+        "filename": "http/http_connection.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T17:50:43Z",
+      "side": 1,
+      "message": "No, I don\u0027t think it can.  thisAdaptor points to adaptor in this case, just a specific instance of the variant, so when you rvalue move thisAdapter, you\u0027re destroying adaptor at the same time you\u0027re constructing it.  Whether or that that works would depend on specific member variable placement in boost that I don\u0027t think we can guarantee.",
+      "parentUuid": "a06bd2ec_df5c339d",
+      "range": {
+        "startLine": 356,
+        "startChar": 7,
+        "endLine": 356,
+        "endChar": 54
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "363d9b06_ee2c169d",
         "filename": "http/http_connection.h",
         "patchSetId": 35
@@ -296,6 +320,30 @@
       "side": 1,
       "message": "then how can you move tempAdaptor twice?",
       "parentUuid": "363d9b06_ee2c169d",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 76
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c196ada7_492a4c80",
+        "filename": "http/http_connection.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T17:50:43Z",
+      "side": 1,
+      "message": "I don\u0027t?  This code is commented out?  Not following what you\u0027re asking, but this commented out code is removed in the latest patchset.",
+      "parentUuid": "7e3734df_979db378",
       "range": {
         "startLine": 359,
         "startChar": 0,
