@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01d16a96_a1758db4",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 35
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T01:11:03Z",
+      "side": 1,
+      "message": "will fix.",
+      "parentUuid": "cc980abd_258e3bb5",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 6
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7b86f65_d4d1ed9d",
         "filename": "http/app.h",
         "patchSetId": 35
@@ -36,6 +60,30 @@
       "writtenOn": "2020-09-15T18:52:39Z",
       "side": 1,
       "message": "constexpr?",
+      "range": {
+        "startLine": 88,
+        "startChar": 11,
+        "endLine": 88,
+        "endChar": 41
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2da52e3_fa1a8524",
+        "filename": "http/app.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T01:11:03Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "d7b86f65_d4d1ed9d",
       "range": {
         "startLine": 88,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0483a5d4_d614d3e8",
+        "filename": "http/app.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T01:11:03Z",
+      "side": 1,
+      "message": "I guess I could\u0027ve used a boost::container::stable_vector, but functionally that\u0027s essentially the same thing.  Was there something specifically you had in mind?\n\n\nNevermind, it looks like in later versions of asio, the acceptor object is now movable itself, so I just modified the latest patchset to remove the unique_ptr entirely (untested).",
+      "parentUuid": "63b904c3_67d5977e",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 30
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5fd090c_1aa5f5e6",
         "filename": "http/http_connection.h",
         "patchSetId": 35
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e24380b5_8b284f31",
+        "filename": "http/http_connection.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T01:11:03Z",
+      "side": 1,
+      "message": "will fix.  boost uses this casing, and I got confused for a sec.",
+      "parentUuid": "f5fd090c_1aa5f5e6",
+      "range": {
+        "startLine": 326,
+        "startChar": 9,
+        "endLine": 326,
+        "endChar": 25
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd4ae1d6_04617c0b",
         "filename": "http/http_connection.h",
         "patchSetId": 35
@@ -105,6 +201,30 @@
       "writtenOn": "2020-09-15T18:52:39Z",
       "side": 1,
       "message": "why is this needed if you just move it again 2 lines lower?",
+      "range": {
+        "startLine": 356,
+        "startChar": 7,
+        "endLine": 356,
+        "endChar": 54
+      },
+      "revId": "9b6c883712f85659988c89525ec9e230bc7489bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb788d00_cc5dff7d",
+        "filename": "http/http_connection.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T01:11:03Z",
+      "side": 1,
+      "message": "Because the old adaptor needs to survive for a bit while it\u0027s loaded back into the SslType, and frankly, I don\u0027t remember the rvalue ownership semantics here when moving out of a a value while placing it back into the same object it just moved out of.\n\nKeep in mind, thisAdaptor points to a specific instance of adaptor here, and doing it all in one operation seemed like it shouldn\u0027t work, as both types of the variant would have to exist at once while the move was done.  Unless the compiler is way smarter here than I give it credit for.  Now I\u0027m curious what the behavior is for something like:\n\nmyNonTrivalType \u003d std::move(myNonTrivialType);\n\nBecause that\u0027s essentially what\u0027s going on if I did it the way you wanted. \n I\u0027ll fully admit, I didn\u0027t try it that way, but it seems like it would be compiler-specific and brittle.",
+      "parentUuid": "fd4ae1d6_04617c0b",
       "range": {
         "startLine": 356,
         "startChar": 7,
