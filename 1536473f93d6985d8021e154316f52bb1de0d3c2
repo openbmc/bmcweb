@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53ab9190_9c840aa1",
+        "filename": "http/http_connection.h",
+        "patchSetId": 37
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-16T02:25:46Z",
+      "side": 0,
+      "message": "This is cleanup that probably deserves its own commit.  Split up into another commit.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "1536473f93d6985d8021e154316f52bb1de0d3c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
