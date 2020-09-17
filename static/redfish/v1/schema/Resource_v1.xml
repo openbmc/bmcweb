@@ -221,6 +221,9 @@
         <Member Name="ForceRestart">
           <Annotation Term="OData.Description" String="Shut down immediately and non-gracefully and restart the system."/>
         </Member>
+        <Member Name="SystemReset">
+          <Annotation Term="OData.Description" String="Reset complete system including host and chassis immediately and non-gracefully."/>
+        </Member>
         <Member Name="Nmi">
           <Annotation Term="OData.Description" String="Generate a diagnostic interrupt, which is usually an NMI on x86 systems, to stop normal operations, complete diagnostic actions, and, typically, halt the system."/>
         </Member>

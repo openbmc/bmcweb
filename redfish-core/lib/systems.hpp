@@ -1745,6 +1745,7 @@ class SystemActionsReset : public Node
 
         // Get the command and host vs. chassis
         std::string command;
+        std::string objPath;
         bool hostCommand;
         if (resetType == "On")
         {
@@ -1754,6 +1755,7 @@ class SystemActionsReset : public Node
         else if (resetType == "ForceOff")
         {
             command = "xyz.openbmc_project.State.Chassis.Transition.Off";
+            objPath = "/xyz/openbmc_project/state/chassis0";
             hostCommand = false;
         }
         else if (resetType == "ForceOn")
@@ -1787,6 +1789,12 @@ class SystemActionsReset : public Node
         {
             doNMI(asyncResp);
             return;
+        }
+        else if (resetType == "SystemReset")
+        {
+            command = "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
+            objPath = "/xyz/openbmc_project/state/chassis_system0";
+            hostCommand = false;
         }
         else
         {
@@ -1840,8 +1848,7 @@ class SystemActionsReset : public Node
                     }
                     messages::success(asyncResp->res);
                 },
-                "xyz.openbmc_project.State.Chassis",
-                "/xyz/openbmc_project/state/chassis0",
+                "xyz.openbmc_project.State.Chassis", objPath.c_str(),
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
                 std::variant<std::string>{command});
@@ -2094,7 +2101,7 @@ class SystemResetActionInfo : public Node
                {"DataType", "String"},
                {"AllowableValues",
                 {"On", "ForceOff", "ForceOn", "ForceRestart", "GracefulRestart",
-                 "GracefulShutdown", "PowerCycle", "Nmi"}}}}}};
+                 "GracefulShutdown", "PowerCycle", "SystemReset", "Nmi"}}}}}};
         res.end();
     }
 };
