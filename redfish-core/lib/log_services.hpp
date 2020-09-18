@@ -714,13 +714,14 @@ inline void createDumpTaskCallback(const crow::Request& req,
                                    const std::string& dumpType)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        [dumpId, dumpPath, dumpType, asyncResp](
+        [dumpId, dumpPath, dumpType](
             boost::system::error_code err, sdbusplus::message::message& m,
             const std::shared_ptr<task::TaskData>& taskData) {
             if (err)
             {
-                messages::internalError(asyncResp->res);
-                return false;
+                BMCWEB_LOG_ERROR << "Error in creating a dump";
+                taskData->state = "Cancelled";
+                return task::completed;
             }
             std::vector<std::pair<
                 std::string,
@@ -745,10 +746,10 @@ inline void createDumpTaskCallback(const crow::Request& req,
                         std::move(headerLoc));
 
                     taskData->state = "Completed";
-                    return task::completed;
+                    break;
                 }
             }
-            return !task::completed;
+            return task::completed;
         },
         "type='signal',interface='org.freedesktop.DBus."
         "ObjectManager',"
