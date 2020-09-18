@@ -721,41 +721,38 @@ inline void createDumpTaskCallback(const crow::Request& req,
                                    const std::string& dumpType)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        [dumpId, dumpPath, dumpType, asyncResp](
+        [dumpId, dumpPath, dumpType](
             boost::system::error_code err, sdbusplus::message::message& m,
             const std::shared_ptr<task::TaskData>& taskData) {
-            if (err)
+            if (!err)
             {
-                messages::internalError(asyncResp->res);
-                return false;
-            }
-            std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::variant<std::string>>>>>
-                interfacesList;
+                std::vector<std::pair<
+                    std::string, std::vector<std::pair<
+                                     std::string, std::variant<std::string>>>>>
+                    interfacesList;
 
-            sdbusplus::message::object_path objPath;
+                sdbusplus::message::object_path objPath;
 
-            m.read(objPath, interfacesList);
+                m.read(objPath, interfacesList);
 
-            for (auto& interface : interfacesList)
-            {
-                if (interface.first ==
-                    ("xyz.openbmc_project.Dump.Entry." + dumpType))
+                for (auto& interface : interfacesList)
                 {
-                    nlohmann::json retMessage = messages::success();
-                    taskData->messages.emplace_back(retMessage);
+                    if (interface.first ==
+                        ("xyz.openbmc_project.Dump.Entry." + dumpType))
+                    {
+                        nlohmann::json retMessage = messages::success();
+                        taskData->messages.emplace_back(retMessage);
 
-                    std::string headerLoc =
-                        "Location: " + dumpPath + std::to_string(dumpId);
-                    taskData->payload->httpHeaders.emplace_back(
-                        std::move(headerLoc));
+                        std::string headerLoc =
+                            "Location: " + dumpPath + std::to_string(dumpId);
+                        taskData->payload->httpHeaders.emplace_back(
+                            std::move(headerLoc));
 
-                    taskData->state = "Completed";
-                    return task::completed;
+                        taskData->state = "Completed";
+                    }
                 }
             }
-            return !task::completed;
+            return task::completed;
         },
         "type='signal',interface='org.freedesktop.DBus."
         "ObjectManager',"
