@@ -106,6 +106,12 @@ option (
     '/ibm/v1/'."
     OFF
 )
+option (
+    BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+    "Enables modular system redfish log.
+    primary BMC will show all logs from node"
+    OFF
+)
 
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
@@ -475,6 +481,8 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
     $<$<BOOL:${BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING}>:
     -DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_MODULAR_LOG}>:
+    -DBMCWEB_ENABLE_REDFISH_MODULAR_LOG>
 )
 
 # configure and install systemd unit files
