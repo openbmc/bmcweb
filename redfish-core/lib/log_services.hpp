@@ -517,27 +517,31 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                     }
                 }
 
-                thisEntry["@odata.type"] = "#LogEntry.v1_5_1.LogEntry";
+                thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
                 thisEntry["@odata.id"] = dumpPath + entryID;
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Created"] = crow::utility::getDateTime(timestamp);
                 thisEntry["Name"] = dumpType + " Dump Entry";
 
-                thisEntry["Oem"]["OpenBmc"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.OpenBmc";
-                thisEntry["Oem"]["OpenBmc"]["AdditionalDataSizeBytes"] = size;
+                thisEntry["AdditionalDataSizeBytes"] = size;
 
                 if (dumpType == "BMC")
                 {
-                    thisEntry["Oem"]["OpenBmc"]["DiagnosticDataType"] =
-                        "Manager";
+                    thisEntry["DiagnosticDataType"] = "Manager";
+                    thisEntry["AdditionalDataURI"] =
+                        "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                        "attachment/" +
+                        entryID;
                 }
                 else if (dumpType == "System")
                 {
-                    thisEntry["Oem"]["OpenBmc"]["DiagnosticDataType"] = "OEM";
-                    thisEntry["Oem"]["OpenBmc"]["OEMDiagnosticDataType"] =
-                        "System";
+                    thisEntry["DiagnosticDataType"] = "OEM";
+                    thisEntry["OEMDiagnosticDataType"] = "System";
+                    thisEntry["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/"
+                        "attachment/" +
+                        entryID;
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -649,7 +653,7 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntry.v1_5_1.LogEntry";
+                    "#LogEntry.v1_7_0.LogEntry";
                 asyncResp->res.jsonValue["@odata.id"] = dumpPath + entryID;
                 asyncResp->res.jsonValue["Id"] = entryID;
                 asyncResp->res.jsonValue["EntryType"] = "Event";
@@ -657,33 +661,22 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
                     crow::utility::getDateTime(timestamp);
                 asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
 
-                asyncResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.OpenBmc";
-                asyncResp->res
-                    .jsonValue["Oem"]["OpenBmc"]["AdditionalDataSizeBytes"] =
-                    size;
+                asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
 
                 if (dumpType == "BMC")
                 {
-                    asyncResp->res
-                        .jsonValue["Oem"]["OpenBmc"]["DiagnosticDataType"] =
-                        "Manager";
-                    asyncResp->res
-                        .jsonValue["Oem"]["OpenBmc"]["AdditionalDataURI"] =
+                    asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
                         "/redfish/v1/Managers/bmc/LogServices/Dump/"
                         "attachment/" +
                         entryID;
                 }
                 else if (dumpType == "System")
                 {
-                    asyncResp->res
-                        .jsonValue["Oem"]["OpenBmc"]["DiagnosticDataType"] =
-                        "OEM";
-                    asyncResp->res
-                        .jsonValue["Oem"]["OpenBmc"]["OEMDiagnosticDataType"] =
+                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
+                    asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
                         "System";
-                    asyncResp->res
-                        .jsonValue["Oem"]["OpenBmc"]["AdditionalDataURI"] =
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
                         "/redfish/v1/Systems/system/LogServices/Dump/"
                         "attachment/" +
                         entryID;
@@ -2033,7 +2026,7 @@ class BMCDumpService : public Node
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Dump";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["Name"] = "Dump LogService";
         asyncResp->res.jsonValue["Description"] = "BMC Dump LogService";
         asyncResp->res.jsonValue["Id"] = "Dump";
@@ -2044,11 +2037,9 @@ class BMCDumpService : public Node
             {"#LogService.ClearLog",
              {{"target", "/redfish/v1/Managers/bmc/LogServices/Dump/"
                          "Actions/LogService.ClearLog"}}},
-            {"Oem",
-             {{"#OemLogService.CollectDiagnosticData",
-               {{"target",
-                 "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                 "Actions/Oem/OemLogService.CollectDiagnosticData"}}}}}};
+            {"#LogService.CollectDiagnosticData",
+             {{"target", "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                         "Actions/LogService.CollectDiagnosticData"}}}};
     }
 };
 
@@ -2135,8 +2126,8 @@ class BMCDumpCreate : public Node
   public:
     BMCDumpCreate(App& app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                  "Actions/Oem/"
-                  "OemLogService.CollectDiagnosticData/")
+                  "Actions/"
+                  "LogService.CollectDiagnosticData/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -2204,7 +2195,7 @@ class SystemDumpService : public Node
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Dump";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["Name"] = "Dump LogService";
         asyncResp->res.jsonValue["Description"] = "System Dump LogService";
         asyncResp->res.jsonValue["Id"] = "Dump";
@@ -2216,11 +2207,9 @@ class SystemDumpService : public Node
             {"#LogService.ClearLog",
              {{"target", "/redfish/v1/Systems/system/LogServices/Dump/Actions/"
                          "LogService.ClearLog"}}},
-            {"Oem",
-             {{"#OemLogService.CollectDiagnosticData",
-               {{"target",
-                 "/redfish/v1/Systems/system/LogServices/Dump/Actions/Oem/"
-                 "OemLogService.CollectDiagnosticData"}}}}}};
+            {"#LogService.CollectDiagnosticData",
+             {{"target", "/redfish/v1/Systems/system/LogServices/Dump/Actions/"
+                         "LogService.CollectDiagnosticData"}}}};
     }
 };
 
@@ -2307,8 +2296,8 @@ class SystemDumpCreate : public Node
   public:
     SystemDumpCreate(App& app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Dump/"
-                  "Actions/Oem/"
-                  "OemLogService.CollectDiagnosticData/")
+                  "Actions/"
+                  "LogService.CollectDiagnosticData/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
