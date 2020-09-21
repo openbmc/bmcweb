@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6b63e5d6_80e0e946",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-21T08:09:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "60ad06e4_4db20ca4",
+      "range": {
+        "startLine": 165,
+        "startChar": 58,
+        "endLine": 165,
+        "endChar": 68
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f6b2a28_0c880887",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-07T23:56:51Z",
       "side": 1,
       "message": "TODO needs implemented before merge.",
+      "range": {
+        "startLine": 220,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "094ff7e7_90e614a6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-21T08:09:47Z",
+      "side": 1,
+      "message": "The checkQueue method (invoked from doCloseAndCheckQueue) is checking for the retry count and that should take care of resending the request in case of failures. Why this is a TODO here?",
+      "parentUuid": "2f6b2a28_0c880887",
       "range": {
         "startLine": 220,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "170e54ea_14812e26",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-21T08:09:47Z",
+      "side": 1,
+      "message": "i did not find a reset method on the boost::beast::http::response_parser",
+      "parentUuid": "82853aae_448186aa",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "507d73b0_2af93a30",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2020-08-07T23:56:51Z",
       "side": 1,
       "message": "Still needed.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39874876_87efe6b1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-21T08:09:47Z",
+      "side": 1,
+      "message": "Ed, Please correct me if i am wrong. I think, after we send an event and receive a response, we can close the connection (as per HTTP1.1)\nThe connection can be re-opened/re-established when there is a next event to be sent. There is no need to keep this connection alive.",
+      "parentUuid": "507d73b0_2af93a30",
       "range": {
         "startLine": 234,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b467eb27_a05a85f0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-21T08:09:47Z",
+      "side": 1,
+      "message": "Ed, do we need to worry about the DOS at the server side here ?",
+      "parentUuid": "685dcd0c_622407da",
+      "range": {
+        "startLine": 238,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "305c4dfc_31ffb19c",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -137,6 +257,29 @@
       "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0f6bffb_d1b16740",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-21T08:09:47Z",
+      "side": 1,
+      "message": "These headers are populated from the subscription data. What kind of validation are expected here ?",
+      "range": {
+        "startLine": 472,
+        "startChar": 15,
+        "endLine": 472,
+        "endChar": 62
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
