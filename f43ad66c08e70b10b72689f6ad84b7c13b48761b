@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "636a85bc_385f6f5f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-21T16:04:48Z",
+      "side": 1,
+      "message": "For non-SSL, you\u0027re right, and you\u0027re right, per HTTP1.1, we could do connection per event, but that would cause the server on the other end to get DOS attacked if too many events come at once.",
+      "parentUuid": "39874876_87efe6b1",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685dcd0c_622407da",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "Ed, do we need to worry about the DOS at the server side here ?",
       "parentUuid": "685dcd0c_622407da",
+      "range": {
+        "startLine": 238,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e765135_0ac5bd59",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-21T16:04:48Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "b467eb27_a05a85f0",
       "range": {
         "startLine": 238,
         "startChar": 23,
