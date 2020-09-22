@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "d14df66e_1fb71e0d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-22T15:19:20Z",
+      "side": 1,
+      "message": "The return code of the server cannot be ignored.",
+      "parentUuid": "23698d36_51b946ed",
+      "range": {
+        "startLine": 220,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82853aae_448186aa",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "We will not destroy the connection",
       "parentUuid": "7d1c435e_6c7e360d",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854c37b1_44be8111",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-22T15:19:20Z",
+      "side": 1,
+      "message": "Can you clarify?  I don\u0027t see any ownership of httpClient in the parser.",
+      "parentUuid": "27a4727b_53becb50",
       "range": {
         "startLine": 232,
         "startChar": 12,
@@ -370,6 +418,30 @@
       "side": 1,
       "message": "\u003e I think that would be a good thing to do as well, but I don\u0027t think solves the problem.  An aggregation timer means that the BMC has to store the events in memory, which causes the same problem, just that the BMC will run out of memory, not out of CPU cycles.\n\nI thought,keeping events in memory is anyways requirement as per the redfish spec for SSE and now it fits here also.We can implement later.\n\nEd, I was mentioning because of in spec was not clear and we have other way to solve the problem which you listed above..\n\nI agree with you that making tcp connection and doing ssl handshake is expensive operation..",
       "parentUuid": "e89cf9c5_4f009bbd",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6af4c25_378d32e8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-22T15:19:20Z",
+      "side": 1,
+      "message": "In my mind, keepalive should just be a matter of setting the correct flag on the message, and writing a connection handler that can reset at the end.  It would be much easier than queuing, although I think we should do both.",
+      "parentUuid": "dd8d6ee4_2bd3e699",
       "range": {
         "startLine": 234,
         "startChar": 0,
