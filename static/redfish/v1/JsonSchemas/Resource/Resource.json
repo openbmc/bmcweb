@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_10_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -63,12 +63,14 @@
                 "UUID",
                 "EUI",
                 "NQN",
-                "NSID"
+                "NSID",
+                "NGUID"
             ],
             "enumDescriptions": {
                 "EUI": "The IEEE-defined 64-bit Extended Unique Identifier (EUI).",
                 "FC_WWN": "The Fibre Channel (FC) World Wide Name (WWN).",
                 "NAA": "The Name Address Authority (NAA) format.",
+                "NGUID": "The Namespace Globally Unique Identifier (NGUID).",
                 "NQN": "The NVMe Qualified Name (NQN).",
                 "NSID": "The NVM Namespace Identifier (NSID).",
                 "UUID": "The Universally Unique Identifier (UUID).",
@@ -78,12 +80,14 @@
                 "EUI": "This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.",
                 "FC_WWN": "This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.",
                 "NAA": "This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.",
+                "NGUID": "This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.",
                 "NQN": "This durable name shall be in the NVMe Qualified Name (NQN) format, as defined in the NVN Express over Fabric Specification.",
                 "NSID": "This durable name shall be in the NVM Namespace Identifier (NSID) format, as defined in the NVN Express Specification.",
                 "UUID": "This durable name shall contain the hexadecimal representation of the UUID, as defined in the International Telecom Union's OSI networking and system aspects - Naming, Addressing and Registration Specification.",
                 "iQN": "This durable name shall be in the iSCSI Qualified Name (iQN) format, as defined in RFC3720 and RFC3721."
             },
             "enumVersionAdded": {
+                "NGUID": "v1_10_0",
                 "NQN": "v1_6_0",
                 "NSID": "v1_6_0"
             },
@@ -1033,6 +1037,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Resource.v1_9_2"
+    "release": "2020.3",
+    "title": "#Resource.v1_10_0"
 }

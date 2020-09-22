@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.6.1                                            -->
+<!--# Redfish Schema:  EthernetInterface v1.6.2                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -157,19 +157,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall be absent and, instead, the VLAN collection link shall be present."/>
         </Property>
         <Property Name="IPv4Addresses" Type="Collection(IPAddresses.IPv4Address)" Nullable="false">
-          <Annotation Term="OData.Description" String="The IPv4 addresses currently assigned to this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services might reject updates to this array for this reason."/>
+          <Annotation Term="OData.Description" String="The IPv4 addresses currently in use by this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of AddressOrigin.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services might reject updates to this array for this reason."/>
         </Property>
         <Property Name="IPv6AddressPolicyTable" Type="Collection(EthernetInterface.v1_0_0.IPv6AddressPolicyEntry)">
           <Annotation Term="OData.Description" String="An array that represents the RFC6724-defined address selection policy table."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the RFC6724-defined address selection policy table."/>
         </Property>
         <Property Name="IPv6Addresses" Type="Collection(IPAddresses.IPv6Address)" Nullable="false">
-          <Annotation Term="OData.Description" String="An array of the currently assigned IPv6 addresses on this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface."/>
+          <Annotation Term="OData.Description" String="The IPv6 addresses currently in use by this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface for any value of AddressOrigin."/>
         </Property>
         <Property Name="IPv6StaticAddresses" Type="Collection(IPAddresses.IPv6StaticAddress)">
-          <Annotation Term="OData.Description" String="An array of the IPv6 static addresses to assign on this interface."/>
+          <Annotation Term="OData.Description" String="The IPv6 static addresses assigned to this interface.  See IPv6Addresses for the addresses in use by this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 static connection characteristics for this interface."/>
         </Property>
         <Property Name="IPv6DefaultGateway" Type="Edm.String">
@@ -276,6 +276,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_9.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_10.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -364,6 +370,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_7.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_8.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -420,6 +432,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_6.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_7.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
@@ -495,6 +513,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_6.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -522,7 +546,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they can be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assignments."/>
         </Property>
         <Property Name="IPv4StaticAddresses" Type="Collection(IPAddresses.IPv4Address)">
-          <Annotation Term="OData.Description" String="The IPv4 static addresses assigned to this interface."/>
+          <Annotation Term="OData.Description" String="The IPv4 static addresses assigned to this interface.  See IPv4Addresses for the addresses in use by this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The IPv4Addresses property shall also list the addresses that this interface uses ."/>
         </Property>
       </EntityType>
@@ -656,6 +680,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_4.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_5.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -704,6 +734,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_2.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_3.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -741,6 +777,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of IP address properties."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_1.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>

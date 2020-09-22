@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  HostInterface v1.2.2                                                -->
+<!--# Redfish Schema:  HostInterface v1.3.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -70,7 +70,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_0_0">
@@ -106,21 +105,57 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The Role used for kernel authentication on this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Id property of the Role Resource that is configured for kernel authentication on this interface."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of newer methods of negotiating credentials."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="KernelAuthEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether this kernel authentication is enabled for this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether kernel authentication is enabled for this interface."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of newer methods of negotiating credentials."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="FirmwareAuthRoleId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The Role used for firmware authentication on this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Id property of the Role Resource that is configured for firmware authentication on this interface."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of newer methods of negotiating credentials."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="FirmwareAuthEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether this firmware authentication is enabled for this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether firmware authentication is enabled for this interface."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of newer methods of negotiating credentials."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
 
         <NavigationProperty Name="HostEthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection" ContainsTarget="true" Nullable="false">
@@ -183,15 +218,32 @@
           <Annotation Term="OData.Description" String="The link to the Redfish Role defining privileges for this Host Interface when using kernel authentication."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Role, and should link to the Resource identified by property KernelAuthRoleId."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of newer methods of negotiating credentials."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="FirmwareAuthRole" Type="Role.Role" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the Redfish Role that has firmware authentication privileges on this Host Interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Role, and should link to the Resource identified by property FirmwareAuthRoleId."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of newer methods of negotiating credentials."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_0_1">
@@ -227,6 +279,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_0_1.HostInterface">
         <Property Name="Actions" Type="HostInterface.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this Resource."/>
@@ -284,6 +337,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
+
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_1_3.HostInterface">
         <Property Name="AuthNoneRoleId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -312,6 +366,48 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_2_1.HostInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="HostInterface" BaseType="HostInterface.v1_2_2.HostInterface">
+        <Property Name="CredentialBootstrapping" Type="HostInterface.v1_3_0.CredentialBootstrapping" Nullable="false">
+          <Annotation Term="OData.Description" String="The credential bootstrapping settings for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain settings for the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature for this interface.  This property shall be absent if credential bootstrapping is not supported by the service."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CredentialBootstrapping">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The credential bootstrapping settings for this interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain settings for the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature for this interface."/>
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether credential bootstrapping is enabled for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether credential bootstrapping is enabled for this interface."/>
+        </Property>
+        <Property Name="EnableAfterReset" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether credential bootstrapping is enabled after a reset for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether credential bootstrapping is enabled after a reset for this interface.  If `true`, services shall set the Enabled property to `true` after a reset of the host or the service."/>
+        </Property>
+        <Property Name="RoleId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The role used for the bootstrap account created for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Id property of the role resource that is used for the bootstrap account created for this interface."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="HostInterface.v1_2_0.Links">
+        <NavigationProperty Name="CredentialBootstrappingRole" Type="Role.Role" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the role that contains the privileges for the bootstrap account created for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Role, and should link to the resource identified by the RoleId property within CredentialBootstrapping.  This property shall be absent if the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature is not supported by the service."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

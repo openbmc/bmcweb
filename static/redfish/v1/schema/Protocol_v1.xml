@@ -229,6 +229,30 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="InfiniBand">
+          <Annotation Term="OData.Description" String="InfiniBand."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Infiniband Architecture Specification-defined InfiniBand protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2020.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Ethernet">
+          <Annotation Term="OData.Description" String="Ethernet."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IEEE 802.3 Ethernet specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2020.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM-specific."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to an OEM-specific architecture and the OEM section might include additional information."/>

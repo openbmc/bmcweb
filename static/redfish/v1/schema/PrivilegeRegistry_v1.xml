@@ -42,8 +42,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The permissions on the various Resource types, based on a user's privilege level, can be updated for operation-to-privilege mappings."/>
+            <PropertyValue Property="Updatable" Bool="false"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">

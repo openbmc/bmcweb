@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.12.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.13.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -97,6 +97,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FabricAdapterCollection_v1.xml">
     <edmx:Include Namespace="FabricAdapterCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VirtualMediaCollection_v1.xml">
+    <edmx:Include Namespace="VirtualMediaCollection"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -138,7 +141,7 @@
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."/>
         </Parameter>
       </Action>
 
@@ -347,6 +350,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The state of the indicator LED, which identifies the system."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator light, which identifies this system."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the LocationIndicatorActive property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="PowerState" Type="ComputerSystem.v1_0_0.PowerState">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -364,7 +376,7 @@
         </Property>
         <Property Name="ProcessorSummary" Type="ComputerSystem.v1_0_0.ProcessorSummary"  Nullable="false">
           <Annotation Term="OData.Description" String="The central processors of the system in general detail."/>
-          <Annotation Term="OData.LongDescription" String="This property shall describe the central processors for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the central processors for this resource.  Processors described by this property shall be limited to the processors that execute system code, and shall not include processors used for offload functionality."/>
         </Property>
         <Property Name="MemorySummary" Type="ComputerSystem.v1_0_0.MemorySummary"  Nullable="false">
           <Annotation Term="OData.Description" String="The central memory of the system in general detail."/>
@@ -544,7 +556,7 @@
         <Property Name="UefiTargetBootSourceOverride" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path of the override boot target.  BootSourceOverrideEnabled set to `Continuous` is not supported for BootSourceOverrideTarget set to `UefiTarget` because this setting is defined in UEFI as a one-time boot setting.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path of the override boot target.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
         </Property>
       </ComplexType>
 
@@ -563,7 +575,7 @@
       <ComplexType Name="ProcessorSummary">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The central processors of the system in general detail."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the central processors for a system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the central processors for a system.  Processors described by this type shall be limited to the processors that execute system code, and shall not include processors used for offload functionality."/>
         <Property Name="Count" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of physical processors in the system."/>
@@ -681,6 +693,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_13.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_14.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
@@ -867,6 +885,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_11.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_12.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -1050,6 +1074,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_10.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_11.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1153,6 +1183,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1230,6 +1266,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_8.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_9.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1411,6 +1453,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1489,6 +1537,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1536,6 +1590,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1568,11 +1628,17 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_0.ComputerSystem"/>
-      <ComplexType Name="Boot" BaseType="ComputerSystem.v1_6_0.Boot">
+      <ComplexType Name="Boot" BaseType="ComputerSystem.v1_7_0.Boot">
         <Property Name="HttpBootUri" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The URI to boot from when BootSourceOverrideTarget is set to `UefiHttp`."/>
@@ -1600,6 +1666,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1624,6 +1696,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  Removed sentence in the long description for BootSourceOverrideEnabled that was mistakenly added during a previous description scrub with regards to the usage of `Continuous` and UEFI."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_2.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -1675,6 +1753,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_0.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_1.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -1687,6 +1771,241 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the system last came out of a reset or was rebooted."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorySummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add LocationIndicatorActive and BootProgress and to deprecate IndicatorLED properties."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_1.ComputerSystem">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+        </Property>
+        <Property Name="BootProgress" Type="ComputerSystem.v1_13_0.BootProgress">
+          <Annotation Term="OData.Description" String="This object describes the last boot progress state."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the last boot progress state and time."/>
+        </Property>
+        <Property Name="PowerOnDelaySeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a power cycle or during a reset.  Zero seconds indicates no delay to power up."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a power cycle or during a reset.  The value `0` shall indicate no delay to power on."/>
+        </Property>
+        <Property Name="PowerOffDelaySeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power off during a reset.  Zero seconds indicates no delay to power off."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power off during a reset.  The value `0` shall indicate no delay to power off."/>
+        </Property>
+        <Property Name="PowerCycleDelaySeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a `Reset` action requesting `PowerCycle`.  Zero seconds indicates no delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a `Reset` action requesting `PowerCycle`.  The value `0` shall indicate no delay to power on."/>
+        </Property>
+        <Property Name="SerialConsole" Type="ComputerSystem.v1_13_0.HostSerialConsole" Nullable="false">
+          <Annotation Term="OData.Description" String="The serial console services that this system provides."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the serial console services of this system."/>
+        </Property>
+        <Property Name="GraphicalConsole" Type="ComputerSystem.v1_13_0.HostGraphicalConsole" Nullable="false">
+          <Annotation Term="OData.Description" String="The information about the graphical console (KVM-IP) service of this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this system."/>
+        </Property>
+        <Property Name="VirtualMediaConfig" Type="ComputerSystem.v1_13_0.VirtualMediaConfig" Nullable="false">
+          <Annotation Term="OData.Description" String="The information about the virtual media service of this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the virtual media service of this system."/>
+        </Property>
+        <NavigationProperty Name="VirtualMedia" Type="VirtualMediaCollection.VirtualMediaCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the virtual media services for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VirtualMediaCollection that this system uses."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="BootProgress">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This object describes the last boot progress state."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the last boot progress state and time."/>
+        <Property Name="LastState" Type="ComputerSystem.v1_13_0.BootProgressTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The last boot progress state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the last boot progress state."/>
+        </Property>
+        <Property Name="LastStateTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the last boot state was updated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the last boot state was updated."/>
+        </Property>
+        <Property Name="OemLastState" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM-specific last state, if the LastState type is `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the OEM-specific LastState of the BootProgress.  This property shall only be present if LastState is `OEM`."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="BootProgressTypes">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="The system is not booting."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system is not booting or running, such as the system is powered off."/>
+        </Member>
+        <Member Name="PrimaryProcessorInitializationStarted">
+          <Annotation Term="OData.Description" String="The system has started initializing the primary processor."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize the primary processor."/>
+        </Member>
+        <Member Name="BusInitializationStarted">
+          <Annotation Term="OData.Description" String="The system has started initializing the buses."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize the buses."/>
+        </Member>
+        <Member Name="MemoryInitializationStarted">
+          <Annotation Term="OData.Description" String="The system has started initializing the memory."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize memory."/>
+        </Member>
+        <Member Name="SecondaryProcessorInitializationStarted">
+          <Annotation Term="OData.Description" String="The system has started initializing the remaining processors."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize the secondary processors."/>
+        </Member>
+        <Member Name="PCIResourceConfigStarted">
+          <Annotation Term="OData.Description" String="The system has started initializing the PCI resources."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize PCI resources."/>
+        </Member>
+        <Member Name="SystemHardwareInitializationComplete">
+          <Annotation Term="OData.Description" String="The system has completed initializing all hardware."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has completed initializing all hardware."/>
+        </Member>
+        <Member Name="OSBootStarted">
+          <Annotation Term="OData.Description" String="The operating system has started booting."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operating system has started to boot."/>
+        </Member>
+        <Member Name="OSRunning">
+          <Annotation Term="OData.Description" String="The operating system is running."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operating system is running and shall indicate the final boot progress state."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="A boot progress state in an OEM-defined format."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an OEM-defined boot progress state."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="HostSerialConsole">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about the serial console services that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the serial console services for a computer system."/>
+        <Property Name="MaxConcurrentSessions" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of service sessions, regardless of protocol, that this system can support."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of concurrent service sessions that this implementation supports."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="SSH" Type="ComputerSystem.v1_13_0.SerialConsoleProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for an SSH serial console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a serial console service that uses the Secure Shell (SSH) protocol."/>
+        </Property>
+        <Property Name="Telnet" Type="ComputerSystem.v1_13_0.SerialConsoleProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for a Telnet serial console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a serial console service that uses the Telnet protocol."/>
+        </Property>
+        <Property Name="IPMI" Type="ComputerSystem.v1_13_0.SerialConsoleProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for an IPMI Serial-over-LAN service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a serial console service that uses the IPMI Serial-over-LAN (SOL) protocol."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SerialConsoleProtocol">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about a serial console service that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a serial console service for a computer system."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The protocol port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to the protocol."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="SharedWithManagerCLI" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the serial console service is shared with access to the manager's command-line interface (CLI)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the serial console service is shared with access to the manager's command-line interface (CLI)."/>
+        </Property>
+        <Property Name="ConsoleEntryCommand" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The command string passed to the service to select or enter the system's serial console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a command string that can be provided by a client to select or enter the system's serial console, when the console is shared among several systems or a manager CLI."/>
+        </Property>
+        <Property Name="HotKeySequenceDisplay" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hotkey sequence available for the user to exit the serial console session."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string that can be provided to a user to describe the hotkey sequence used to exit the serial console session, or, if shared with a manager CLI, to return to the CLI."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="HostGraphicalConsole">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about a graphical console service for this system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a graphical console service for a computer system."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The protocol port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to the service."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="ConnectTypesSupported" Type="Collection(ComputerSystem.v1_13_0.GraphicalConnectTypesSupported)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This property enumerates the graphical console connection types that the implementation allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the enumerations.  KVMIP shall be included if a vendor-define KVM-IP protocol is supported."/>
+        </Property>
+        <Property Name="MaxConcurrentSessions" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of service sessions, regardless of protocol, that this system can support."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of concurrent service sessions that this implementation supports."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="GraphicalConnectTypesSupported">
+        <Member Name="KVMIP">
+          <Annotation Term="OData.Description" String="The controller supports a graphical console connection through a KVM-IP (redirection of Keyboard, Video, Mouse over IP) protocol."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The controller supports a graphical console connection through an OEM-specific protocol."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="VirtualMediaConfig">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about virtual media service for this system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a virtual media service service for a computer system."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The protocol port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to the service."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

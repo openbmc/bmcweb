@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryMetrics v1.3.0                                                -->
+<!--# Redfish Schema:  MemoryMetrics v1.4.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -349,6 +349,40 @@
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add CorrectableECCErrorCount and UncorrectableECCErrorCount properties for CurrentPeriod and LifeTime of the memory."/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_3_0.MemoryMetrics"/>
+
+      <ComplexType Name="CurrentPeriod" BaseType="MemoryMetrics.v1_0_0.CurrentPeriod">
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of CorrectableECCErrorCount over all memory."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of UncorrectableECCErrorCount over all memory."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LifeTime" BaseType="MemoryMetrics.v1_0_0.LifeTime">
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the correctable errors for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of CorrectableECCErrorCount over all memory."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the uncorrectable errors for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of UncorrectableECCErrorCount over all memory."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

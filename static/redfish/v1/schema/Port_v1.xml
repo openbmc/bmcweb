@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.2.1                                                         -->
+<!--# Redfish Schema:  Port v1.4.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -60,7 +60,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -78,6 +78,7 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/{PortId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -126,7 +127,7 @@
         <Property Name="MaxSpeedGbps" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum speed of this port as currently configured."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum speed of which this port is capable of being configured.  If capable of auto-negotiation, the system shall attempt to negotiate at the maximum speed set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum speed of which this port is capable of being configured.  If capable of autonegotiation, the system shall attempt to negotiate at the maximum speed set."/>
           <Annotation Term="Measures.Unit" String="Gbit/s"/>
         </Property>
         <Property Name="Width" Type="Edm.Int64">
@@ -396,10 +397,10 @@
           <Annotation Term="OData.Description" String="This link on this interface is up."/>
         </Member>
         <Member Name="Starting">
-          <Annotation Term="OData.Description" String="This link on this interface is starting."/>
+          <Annotation Term="OData.Description" String="This link on this interface is starting.  A physical link has been established, but the port is not able to transfer data."/>
         </Member>
         <Member Name="Training">
-          <Annotation Term="OData.Description" String="This link on this interface is training."/>
+          <Annotation Term="OData.Description" String="This physical link on this interface is training."/>
         </Member>
         <Member Name="LinkDown">
           <Annotation Term="OData.Description" String="The link on this interface is down."/>
@@ -429,6 +430,174 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Port" BaseType="Port.v1_2_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for the values of LinkStatus."/>
+      <EntityType Name="Port" BaseType="Port.v1_2_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="Port" BaseType="Port.v1_2_2.Port">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+        </Property>
+        <Property Name="MaxFrameSize" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum frame size supported by the port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum frame size supported by the port."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="LinkConfiguration" Type="Collection(Port.v1_3_0.LinkConfiguration)" Nullable="false">
+          <Annotation Term="OData.Description" String="The link configuration of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the static capabilities and configuration settings of the port."/>
+        </Property>
+        <Property Name="FibreChannel" Type="Port.v1_3_0.FibreChannelProperties">
+          <Annotation Term="OData.Description" String="Fibre Channel properties for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain Fibre Channel-specific properties of the port."/>
+        </Property>
+        <Property Name="Ethernet" Type="Port.v1_3_0.EthernetProperties">
+          <Annotation Term="OData.Description" String="Ethernet properties for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain Ethernet-specific properties of the port."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="FibreChannelProperties">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Fibre Channel-specific properties for a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain Fibre Channel-specific properties for a port."/>
+        <Property Name="PortConnectionType" Type="Port.v1_3_0.PortConnectionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The connection type of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the connection type for this port."/>
+        </Property>
+        <Property Name="NumberDiscoveredRemotePorts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of ports not on the associated device that the associated device has discovered through this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of ports not on this associated device that this port has discovered."/>
+        </Property>
+        <Property Name="FabricName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Fibre Channel Fabric Name provided by the switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the Fibre Channel Fabric Name provided by the switch."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="EthernetProperties">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Ethernet-specific properties for a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain Ethernet-specific properties for a port."/>
+        <Property Name="SupportedEthernetCapabilities" Type="Collection(Port.v1_3_0.SupportedEthernetCapabilities)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of Ethernet capabilities that this port supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of Ethernet capabilities supported by this port."/>
+        </Property>
+        <Property Name="FlowControlStatus" Type="Port.v1_3_0.FlowControl">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The 802.3x flow control behavior negotiated with the link partner for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the 802.3x flow control behavior negotiated with the link partner for this port."/>
+        </Property>
+        <Property Name="FlowControlConfiguration" Type="Port.v1_3_0.FlowControl">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The locally configured 802.3x flow control setting for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the locally configured 802.3x flow control setting for this port."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="PortConnectionType">
+        <Member Name="NotConnected">
+          <Annotation Term="OData.Description" String="This port is not connected."/>
+        </Member>
+        <Member Name="NPort">
+          <Annotation Term="OData.Description" String="This port connects through an N-Port to a switch."/>
+        </Member>
+        <Member Name="PointToPoint">
+          <Annotation Term="OData.Description" String="This port connects in a Point-to-point configuration."/>
+        </Member>
+        <Member Name="PrivateLoop">
+          <Annotation Term="OData.Description" String="This port connects in a private loop configuration."/>
+        </Member>
+        <Member Name="PublicLoop">
+          <Annotation Term="OData.Description" String="This port connects in a public configuration."/>
+        </Member>
+        <Member Name="Generic">
+          <Annotation Term="OData.Description" String="This port connection type is a generic fabric port."/>
+        </Member>
+        <Member Name="ExtenderFabric">
+          <Annotation Term="OData.Description" String="This port connection type is an extender fabric port."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SupportedEthernetCapabilities">
+        <Member Name="WakeOnLAN">
+          <Annotation Term="OData.Description" String="Wake on LAN (WoL) is supported on this port." />
+        </Member>
+        <Member Name="EEE">
+          <Annotation Term="OData.Description" String="IEEE 802.3az Energy-Efficient Ethernet (EEE) is supported on this port." />
+        </Member>
+      </EnumType>
+
+      <EnumType Name="FlowControl">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No IEEE 802.3x flow control is enabled on this port." />
+        </Member>
+        <Member Name="TX">
+          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by this station." />
+        </Member>
+        <Member Name="RX">
+          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by the link partner." />
+        </Member>
+        <Member Name="TX_RX">
+          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by this station or the link partner." />
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="LinkConfiguration">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Properties of the link for which this port is configured."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties of the link for which port has been configured."/>
+        <Property Name="CapableLinkSpeedGbps" Type="Collection(Edm.Decimal)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of link speed capabilities of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain all of the possible network link speed capabilities of this port."/>
+        </Property>
+        <Property Name="ConfiguredNetworkLinks" Type="Collection(Port.v1_3_0.ConfiguredNetworkLink)">
+          <Annotation Term="OData.Description" String="The set of link speed and width pairs this port is configured to use for autonegotiation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of link speed and width pairs to which this port is restricted for autonegotiation purposes."/>
+        </Property>
+        <Property Name="AutoSpeedNegotiationCapable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the port is capable of autonegotiating speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port is capable of autonegotiating speed."/>
+        </Property>
+        <Property Name="AutoSpeedNegotiationEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Controls whether this port is configured to enable autonegotiating speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port is configured to autonegotiate speed."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="ConfiguredNetworkLink">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A set of link settings that a port is configured to use for autonegotiation."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a set of link settings that a port is configured to use for autonegotiation."/>
+        <Property Name="ConfiguredLinkSpeedGbps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link speed per lane this port is configured to use for autonegotiation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the network link speed per lane this port is configured to allow for autonegotiation purposes."/>
+        </Property>
+        <Property Name="ConfiguredWidth" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link width this port is configured to use for autonegotiation in conjunction with the link speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the network link width this port is configured to use for autonegotiation purposes."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

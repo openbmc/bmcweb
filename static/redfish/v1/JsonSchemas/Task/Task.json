@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_4_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_5_0.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -214,6 +214,13 @@
                     "readonly": true,
                     "type": "string"
                 },
+                "SubTasks": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/TaskCollection.json#/definitions/TaskCollection",
+                    "description": "The link to a collection of sub-tasks for this task.",
+                    "longDescription": "This property shall contain a link to a resource collection of type TaskCollection.  This property shall not be present if this resource represents a sub-task for a task.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
                 "TaskMonitor": {
                     "description": "The URI of the Task Monitor for this task.",
                     "format": "uri-reference",
@@ -303,6 +310,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#Task.v1_4_3.Task"
+    "release": "2020.3",
+    "title": "#Task.v1_5_0.Task"
 }

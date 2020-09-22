@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.7.1                                               -->
+<!--# Redfish Schema:  AccountService v1.7.2                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -75,7 +75,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_0">
@@ -94,20 +93,20 @@
         </Property>
         <Property Name="AuthFailureLoggingThreshold" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of authorization failures that are allowed before the failed attempt is logged to the manager log."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold for when an authorization failure is logged.  Logging shall occur after every `n` occurrences of an authorization failure, where `n` represents the value of this property.  If the value is `0`, logging of authorization failures shall be disabled."/>
+          <Annotation Term="OData.Description" String="The number of authorization failures per account that are allowed before the failed attempt is logged to the manager log."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold for when an authorization failure is logged.  Logging shall occur after every `n` occurrences of an authorization failure on the same account, where `n` represents the value of this property.  If the value is `0`, logging of authorization failures shall be disabled."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="MinPasswordLength" Type="Edm.Int64" Nullable="false">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The minimum password length for this account service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum password length that the implementation allows for this account service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum password length that the implementation allows for this account service.  This property does not apply to accounts from external account providers."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="MaxPasswordLength" Type="Edm.Int64" Nullable="false">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The maximum password length for this account service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum password length that the implementation allows for this account service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum password length that the implementation allows for this account service.  This property does not apply to accounts from external account providers."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="AccountLockoutThreshold" Type="Edm.Int64" Nullable="true">
@@ -193,6 +192,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_0_8.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_0_9.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -241,6 +246,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for AuthFailureLoggingThreshold."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_1_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_1_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_0">
@@ -305,6 +316,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for AuthFailureLoggingThreshold."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_2_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_2_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_0">
@@ -554,6 +571,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_3.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_3_4.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -588,6 +611,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_2.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_4_3.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -614,6 +643,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_1.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_5_2.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -626,6 +661,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for AuthFailureLoggingThreshold."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_6_1.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_0">
@@ -647,6 +688,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for AuthFailureLoggingThreshold."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_7_1.AccountService"/>
     </Schema>
 
   </edmx:DataServices>

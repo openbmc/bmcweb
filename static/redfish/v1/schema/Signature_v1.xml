@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Signature v1.0.0                                                    -->
+<!--# Redfish Schema:  Signature v1.0.1                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -59,7 +59,7 @@
 
       <EnumType Name="SignatureTypeRegistry">
         <Member Name="UEFI">
-          <Annotation Term="OData.Description" String="A signature defined in the UEFI Sepcification."/>
+          <Annotation Term="OData.Description" String="A signature defined in the UEFI Specification."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate that the SignatureType string contains the #define name of the SignatureType member of the EFI_SIGNATURE_LIST, as defined by the UEFI Specification.  This value shall also indicate that the format of the SignatureString is a big-endian hex-encoded string of the binary value specified in the UEFI SignatureData array in EFI_SIGNATURE_DATA, as defined by the UEFI Specification."/>
         </Member>
       </EnumType>
@@ -114,6 +114,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Signature" BaseType="Signature.v1_0_0.Signature"/>
     </Schema>
 
   </edmx:DataServices>
