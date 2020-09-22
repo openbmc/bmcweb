@@ -12,7 +12,7 @@ import glob
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2020.2"
+VERSION = "DSP8010_2020.3"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -103,7 +103,7 @@ with open(metadata_index_path, 'w') as metadata_index:
     </edmx:DataServices>
 """)
     # TODO:Issue#32 There's a bug in the script that currently deletes this
-    # schema (because it's an OEM schema). Because it's the only five, and we
+    # schema (because it's an OEM schema). Because it's the only eight, and we
     # don't update schemas very often, we just manually fix it. Need a
     # permanent fix to the script.
     metadata_index.write(

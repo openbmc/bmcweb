@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_2.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -366,15 +366,15 @@
                     ]
                 },
                 "IPv4Addresses": {
-                    "description": "The IPv4 addresses currently assigned to this interface.",
+                    "description": "The IPv4 addresses currently in use by this interface.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address"
                     },
-                    "longDescription": "This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services might reject updates to this array for this reason.",
+                    "longDescription": "This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of AddressOrigin.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services might reject updates to this array for this reason.",
                     "type": "array"
                 },
                 "IPv4StaticAddresses": {
-                    "description": "The IPv4 static addresses assigned to this interface.",
+                    "description": "The IPv4 static addresses assigned to this interface.  See IPv4Addresses for the addresses in use by this interface.",
                     "items": {
                         "anyOf": [
                             {
@@ -405,11 +405,11 @@
                     "type": "array"
                 },
                 "IPv6Addresses": {
-                    "description": "An array of the currently assigned IPv6 addresses on this interface.",
+                    "description": "The IPv6 addresses currently in use by this interface.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv6Address"
                     },
-                    "longDescription": "This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface.",
+                    "longDescription": "This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface for any value of AddressOrigin.",
                     "type": "array"
                 },
                 "IPv6DefaultGateway": {
@@ -422,7 +422,7 @@
                     ]
                 },
                 "IPv6StaticAddresses": {
-                    "description": "An array of the IPv6 static addresses to assign on this interface.",
+                    "description": "The IPv6 static addresses assigned to this interface.  See IPv6Addresses for the addresses in use by this interface.",
                     "items": {
                         "anyOf": [
                             {
@@ -814,5 +814,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.1",
-    "title": "#EthernetInterface.v1_6_1.EthernetInterface"
+    "title": "#EthernetInterface.v1_6_2.EthernetInterface"
 }

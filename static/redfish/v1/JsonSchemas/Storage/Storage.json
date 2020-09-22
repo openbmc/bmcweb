@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_8_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_9_0.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -124,6 +124,26 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "SimpleStorage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.json#/definitions/SimpleStorage",
+                    "description": "The link to the simple storage instance that corresponds to this storage.",
+                    "longDescription": "This property shall contain a link to a resource of type SimpleStorage that represents the same storage subsystem as this resource.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "StorageServices": {
+                    "description": "An array of links to the storage services that connect to this storage subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageService.json#/definitions/StorageService"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type StorageService with which this storage subsystem is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "StorageServices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -289,6 +309,13 @@
                     "readonly": true,
                     "versionAdded": "v1_8_0"
                 },
+                "Controllers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageControllerCollection.json#/definitions/StorageControllerCollection",
+                    "description": "The set of controllers instantiated by this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type StorageControllerCollection that contains the set of storage controllers allocated to this storage subsystem.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -313,7 +340,7 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "EndpointGroups": {
-                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/EndpointGroupCollection.json#/definitions/EndpointGroupCollection",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroupCollection.json#/definitions/EndpointGroupCollection",
                     "description": "All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem.",
                     "longDescription": "This property shall contain a link to a resource collection of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking and zoning operations.",
                     "readonly": true,
@@ -329,6 +356,15 @@
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The durable names for the storage subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the storage subsystem.",
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
@@ -702,13 +738,15 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "StorageServices": {
+                    "deprecated": "This property has been deprecated in favor of StorageServices within the Links property at the root level.",
                     "description": "An array of links to the storage services that connect to this controller.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageService.json#/definitions/StorageService"
                     },
                     "longDescription": "This property shall contain an array of links to resources of type StorageService with which this controller is associated.",
                     "type": "array",
-                    "versionAdded": "v1_4_0"
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_9_0"
                 },
                 "StorageServices@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
@@ -739,6 +777,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#Storage.v1_8_1.Storage"
+    "release": "2020.3",
+    "title": "#Storage.v1_9_0.Storage"
 }

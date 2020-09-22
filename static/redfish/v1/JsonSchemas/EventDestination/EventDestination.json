@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_8_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_9_0.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -85,6 +85,13 @@
                     "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_2_0"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of server certificates for the server referenced by the Destination property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
                 "Context": {
                     "description": "A client-supplied string that is stored with the event destination subscription.",
                     "longDescription": "This property shall contain a client-supplied context that remains with the connection through the connection's lifetime.",
@@ -122,7 +129,7 @@
                 "Destination": {
                     "description": "The URI of the destination event receiver.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI to the destination where the events are sent.  If Protocol is `SMTP`, the URI shall follow the RFC6068-described format.  SNMP URIs shall be consistent with RFC4088.  Specifically, for SNMPv3, if a username is specified in the SNMP URI, the SNMPv3 authentication and encryption configuration associated with that user shall be utilized in the SNMPv3 traps.  For other URIs, such as HTTP or HTTPS, they shall be consistent with RFC3986.",
+                    "longDescription": "This property shall contain a URI to the destination where the events are sent.  If Protocol is `SMTP`, the URI shall follow the RFC6068-described format.  SNMP URIs shall be consistent with RFC4088.  Specifically, for SNMPv3, if a username is specified in the SNMP URI, the SNMPv3 authentication and encryption configuration associated with that user shall be utilized in the SNMPv3 traps.  Syslog URIs shall be consistent with RFC3986 and contain the scheme `syslog://`.  For other URIs, such as HTTP or HTTPS, they shall be consistent with RFC3986.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -202,6 +209,20 @@
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
+                },
+                "OEMProtocol": {
+                    "description": "The OEM-defined protocol type of the event connection.",
+                    "longDescription": "This property shall contain the protocol type that the event uses to send the event to the destination.  This property shall be present if Protocol is `OEM`.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
+                },
+                "OEMSubscriptionType": {
+                    "description": "The OEM-defined subscription type for events.",
+                    "longDescription": "This property shall indicate the OEM-defined type of subscription for events.  This property shall be present if SubscriptionType is `OEM`.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -288,6 +309,32 @@
                     "longDescription": "This property shall indicate the type of subscription for events.  If this property is not present, the SubscriptionType shall be assumed to be RedfishEvent.",
                     "readonly": true,
                     "versionAdded": "v1_3_0"
+                },
+                "SyslogFilters": {
+                    "description": "A list of syslog message filters to send to a remote syslog server.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SyslogFilter"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall describe all desired syslog messages to send to a remote syslog server.  If this property contains an empty array or is absent, all messages shall be sent.",
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "VerifyCertificate": {
+                    "description": "An indication of whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.",
+                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
                 }
             },
             "required": [
@@ -310,26 +357,46 @@
                 "SNMPv1",
                 "SNMPv2c",
                 "SNMPv3",
-                "SMTP"
+                "SMTP",
+                "SyslogTLS",
+                "SyslogTCP",
+                "SyslogUDP",
+                "SyslogRELP",
+                "OEM"
             ],
             "enumDescriptions": {
+                "OEM": "The destination follows an OEM protocol for event notifications.",
                 "Redfish": "The destination follows the Redfish Specification for event notifications.",
                 "SMTP": "The destination follows the SMTP specification for event notifications.",
                 "SNMPv1": "The destination follows the SNMPv1 protocol for event notifications.",
                 "SNMPv2c": "The destination follows the SNMPv2c protocol for event notifications.",
-                "SNMPv3": "The destination follows the SNMPv3 protocol for event notifications."
+                "SNMPv3": "The destination follows the SNMPv3 protocol for event notifications.",
+                "SyslogRELP": "The destination follows syslog RELP for event notifications.",
+                "SyslogTCP": "The destination follows syslog TCP-based for event notifications.",
+                "SyslogTLS": "The destination follows syslog TLS-based for event notifications.",
+                "SyslogUDP": "The destination follows syslog UDP-based for event notifications."
             },
             "enumLongDescriptions": {
+                "OEM": "This value shall indicate an OEM specific protocol.  The OEMProtocol property shall contain the specific OEM event destination protocol.",
                 "SMTP": "This value shall indicate the destination follows the RFC5321-defined SMTP specification.",
                 "SNMPv1": "This value shall indicate the destination follows the RFC1157-defined SNMPv1 protocol.",
                 "SNMPv2c": "This value shall indicate the destination follows the SNMPv2c protocol as defined by RFC1441 and RFC1452.",
-                "SNMPv3": "This value shall indicate the destination follows the SNMPv3 protocol as defined by RFC3411 and RFC3418."
+                "SNMPv3": "This value shall indicate the destination follows the SNMPv3 protocol as defined by RFC3411 and RFC3418.",
+                "SyslogRELP": "This value shall indicate the destination follows the Reliable Event Logging Protocol (RELP) transport for syslog as defined by www.rsyslog.com.",
+                "SyslogTCP": "This value shall indicate the destination follows the TCP-based transport for syslog as defined in RFC6587.",
+                "SyslogTLS": "This value shall indicate the destination follows the TLS-based transport for syslog as defined in RFC5424.",
+                "SyslogUDP": "This value shall indicate the destination follows the UDP-based transport for syslog as defined in RFC5424."
             },
             "enumVersionAdded": {
+                "OEM": "v1_9_0",
                 "SMTP": "v1_7_0",
                 "SNMPv1": "v1_7_0",
                 "SNMPv2c": "v1_7_0",
-                "SNMPv3": "v1_7_0"
+                "SNMPv3": "v1_7_0",
+                "SyslogRELP": "v1_9_0",
+                "SyslogTCP": "v1_9_0",
+                "SyslogTLS": "v1_9_0",
+                "SyslogUDP": "v1_9_0"
             },
             "type": "string"
         },
@@ -536,26 +603,171 @@
                 "RedfishEvent",
                 "SSE",
                 "SNMPTrap",
-                "SNMPInform"
+                "SNMPInform",
+                "Syslog",
+                "OEM"
             ],
             "enumDescriptions": {
+                "OEM": "The subscription is an OEM subscription.",
                 "RedfishEvent": "The subscription follows the Redfish Specification for event notifications.  To send an event notification, a service sends an HTTP POST to the subscriber's destination URI.",
                 "SNMPInform": "The subscription follows versions 2 and 3 of SNMP Inform for event notifications.",
                 "SNMPTrap": "The subscription follows the various versions of SNMP Traps for event notifications.",
-                "SSE": "The subscription follows the HTML5 Server-Sent Event definition for event notifications."
+                "SSE": "The subscription follows the HTML5 Server-Sent Event definition for event notifications.",
+                "Syslog": "The subscription sends Syslog messages for event notifications."
             },
             "enumLongDescriptions": {
-                "SNMPInform": "This value shall indicate the subscription follows versions 2 and 3 of SNMP Inform for event notifications.  EventDestinationProtocol shall specify the appropriate version of SNMP.",
-                "SNMPTrap": "This value shall indicate the subscription follows the various versions of SNMP Traps for event notifications.  EventDestinationProtocol shall specify the appropriate version of SNMP."
+                "OEM": "This value shall indicate an OEM subscription type.  The OEMSubscriptionType property shall contain the specific OEM subscription type.",
+                "SNMPInform": "This value shall indicate the subscription follows versions 2 and 3 of SNMP Inform for event notifications.  Protocol shall specify the appropriate version of SNMP.",
+                "SNMPTrap": "This value shall indicate the subscription follows the various versions of SNMP Traps for event notifications.  Protocol shall specify the appropriate version of SNMP.",
+                "Syslog": "This value shall indicate the subscription forwards syslog messages to the event destination.  Protocol shall specify the appropriate syslog protocol."
             },
             "enumVersionAdded": {
+                "OEM": "v1_9_0",
                 "SNMPInform": "v1_7_0",
-                "SNMPTrap": "v1_7_0"
+                "SNMPTrap": "v1_7_0",
+                "Syslog": "v1_9_0"
             },
+            "type": "string"
+        },
+        "SyslogFacility": {
+            "description": "The syslog facility code is an enumeration of program types.",
+            "enum": [
+                "Kern",
+                "User",
+                "Mail",
+                "Daemon",
+                "Auth",
+                "Syslog",
+                "LPR",
+                "News",
+                "UUCP",
+                "Cron",
+                "Authpriv",
+                "FTP",
+                "NTP",
+                "Security",
+                "Console",
+                "SolarisCron",
+                "Local0",
+                "Local1",
+                "Local2",
+                "Local3",
+                "Local4",
+                "Local5",
+                "Local6",
+                "Local7"
+            ],
+            "enumDescriptions": {
+                "Auth": "Security/authentication messages.",
+                "Authpriv": "Security/authentication messages.",
+                "Console": "Log alert.",
+                "Cron": "Clock daemon.",
+                "Daemon": "System daemons.",
+                "FTP": "FTP daemon.",
+                "Kern": "Kernel messages.",
+                "LPR": "Line printer subsystem.",
+                "Local0": "Locally used facility 0.",
+                "Local1": "Locally used facility 1.",
+                "Local2": "Locally used facility 2.",
+                "Local3": "Locally used facility 3.",
+                "Local4": "Locally used facility 4.",
+                "Local5": "Locally used facility 5.",
+                "Local6": "Locally used facility 6.",
+                "Local7": "Locally used facility 7.",
+                "Mail": "Mail system.",
+                "NTP": "NTP subsystem.",
+                "News": "Network news subsystem.",
+                "Security": "Log audit.",
+                "SolarisCron": "Scheduling daemon.",
+                "Syslog": "Messages generated internally by syslogd.",
+                "UUCP": "UUCP subsystem.",
+                "User": "User-level messages."
+            },
+            "longDescription": "This type shall specify the syslog facility codes as program types.  Facility values are described in the RFC5424.",
+            "type": "string"
+        },
+        "SyslogFilter": {
+            "additionalProperties": false,
+            "description": "A syslog filter.",
+            "longDescription": "This type shall contain the filter for a syslog message.  The filter shall describe the desired syslog message to forward to a remote syslog server.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LogFacilities": {
+                    "description": "The types of programs that can log messages.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SyslogFacility"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the types of programs that can log messages.  If this property contains an empty array or is absent, all facilities shall be indicated.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "LowestSeverity": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SyslogSeverity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lowest severity level message that will be forwarded.",
+                    "longDescription": "This property shall contain the lowest syslog severity level that will be forwarded.  The service shall forward all messages equal to or greater than the value in this property.  The value `All` shall indicate all severities.",
+                    "readonly": false,
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "type": "object"
+        },
+        "SyslogSeverity": {
+            "description": "The syslog severity is an application-specific rating used to describe the urgency of the message.",
+            "enum": [
+                "Emergency",
+                "Alert",
+                "Critical",
+                "Error",
+                "Warning",
+                "Notice",
+                "Informational",
+                "Debug",
+                "All"
+            ],
+            "enumDescriptions": {
+                "Alert": "A condition that should be corrected immediately, such as a corrupted system database.",
+                "All": "A message of any severity.",
+                "Critical": "Hard device errors.",
+                "Debug": "Messages that contain information normally of use only when debugging a program.",
+                "Emergency": "A panic condition.",
+                "Error": "An Error.",
+                "Informational": "Informational only.",
+                "Notice": "Conditions that are not error conditions, but that may require special handling.",
+                "Warning": "A Warning."
+            },
+            "longDescription": "This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424.",
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#EventDestination.v1_8_1.EventDestination"
+    "release": "2020.3",
+    "title": "#EventDestination.v1_9_0.EventDestination"
 }

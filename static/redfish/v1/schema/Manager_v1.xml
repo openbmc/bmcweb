@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.9.0                                                      -->
+<!--# Redfish Schema:  Manager v1.10.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -99,7 +99,7 @@
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."/>
         </Parameter>
       </Action>
 
@@ -189,6 +189,15 @@
           <Annotation Term="OData.Description" String="The link to the Virtual Media services for this particular manager."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VirtualMediaCollection, which this manager uses."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the VirtualMedia property in the ComputerSystem resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <Property Name="ServiceEntryPointUUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -224,14 +233,23 @@
         <Property Name="SerialConsole" Type="Manager.v1_0_0.SerialConsole" Nullable="false">
           <Annotation Term="OData.Description" String="The serial console service that this manager provides."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain information about the serial console service of this manager."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the SerialConsole property in the ComputerSystem resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="CommandShell" Type="Manager.v1_0_0.CommandShell" Nullable="false">
           <Annotation Term="OData.Description" String="The command shell service that this manager provides."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain information about the command shell service of this manager."/>
         </Property>
         <Property Name="GraphicalConsole" Type="Manager.v1_0_0.GraphicalConsole" Nullable="false">
-          <Annotation Term="OData.Description" String="The information about the graphical console (KVM-IP) service of this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this manager."/>
+          <Annotation Term="OData.Description" String="The information about the graphical console service of this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the GraphicalConsole property in ComputerSystem."/>
         </Property>
         <Property Name="Actions" Type="Manager.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -471,6 +489,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_0_11.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_0_12.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -547,6 +571,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_1_9.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_1_10.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -620,6 +650,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_2_9.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_2_10.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -688,6 +724,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_3_8.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_3_9.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -746,6 +788,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_4_5.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_6.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -796,6 +844,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_5_4.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_5_5.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -828,6 +882,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_6_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_0">
@@ -864,7 +924,13 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_7_1.Manager"/>
     </Schema>
-    
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_7_2.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -889,6 +955,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_8_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_0">
@@ -918,6 +990,26 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_9_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the timezone configuration.  It was also created to deprecate the VirtualMedia and SerialConsole properties in favor of the VirtualMedia and SerialConsole properties in the ComputerSystem schema."/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_9_1.Manager">
+        <Property Name="TimeZoneName" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The time zone of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time zone of the manager.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  A Redfish service might not be able to ensure accuracy and consistency between the DateTimeOffset property and this property.  Therefore, to specify the correct time zone offset, see the DateTimeOffset property."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

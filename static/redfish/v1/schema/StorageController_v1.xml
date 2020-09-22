@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  StorageController v1.0.0                                            -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Assembly_v1.xml">
+    <edmx:Include Namespace="Assembly"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Protocol_v1.xml">
+    <edmx:Include Namespace="Protocol"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunction_v1.xml">
+    <edmx:Include Namespace="PCIeFunction"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PortCollection_v1.xml">
+    <edmx:Include Namespace="PortCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/Volume_v1.xml">
+    <edmx:Include Namespace="Volume"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="StorageController" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The StorageController schema describes a storage controller and its properties.  A storage controller represents a physical or virtual storage device that produces volumes."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a storage controller in the Redfish Specification."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Storage/{StorageId}/Controllers/{ControllerId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{ControllerId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{ControllerId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="StorageController" BaseType="StorageController.StorageController">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="SpeedGbps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum speed of the storage controller's device interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the maximum supported speed of the storage bus interface, in Gbit/s.  The specified interface connects the controller to the storage devices, not the controller to a host.  For example, SAS bus not PCIe host bus."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="Gbit/s"/>
+        </Property>
+        <Property Name="FirmwareVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The firmware version of this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the firwmare version as defined by the manufacturer for the associated storage controller."/>
+        </Property>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer of this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the storage controller.  This organization might be the entity from which the storage controller is purchased, but this is not necessarily true."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model number for the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name by which the manufacturer generally refers to the storage controller."/>
+        </Property>
+        <Property Name="SKU" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The SKU for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this storage storage controller."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the storage controller."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the storage controller."/>
+        </Property>
+        <Property Name="AssetTag" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The user-assigned asset tag for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall track the storage controller for inventory purposes."/>
+        </Property>
+        <Property Name="SupportedControllerProtocols" Type="Collection(Protocol.Protocol)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The supported set of protocols for communicating to this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supported set of protocols for communicating to this storage controller."/>
+        </Property>
+        <Property Name="SupportedDeviceProtocols" Type="Collection(Protocol.Protocol)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The protocols that the storage controller can use to communicate with attached devices."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of protocols this storage controller can use to communicate with attached devices."/>
+        </Property>
+        <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
+          <Annotation Term="OData.Description" String="The durable names for the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the associated storage controller."/>
+        </Property>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location of the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated storage controller."/>
+        </Property>
+        <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the assembly associated with this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="CacheSummary" Type="StorageController.v1_0_0.CacheSummary" Nullable="false">
+          <Annotation Term="OData.Description" String="The cache memory of the storage controller in general detail."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the cache memory for this resource."/>
+        </Property>
+        <Property Name="PCIeInterface" Type="PCIeDevice.PCIeInterface" Nullable="false">
+          <Annotation Term="OData.Description" String="The PCIe interface details for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain details on the PCIe interface that connects this PCIe-based controller to its host."/>
+        </Property>
+        <Property Name="SupportedRAIDTypes" Type="Collection(Volume.RAIDType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of RAID types supported by the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of all the RAID types supported by this controller."/>
+        </Property>
+        <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of ports that exist on the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection."/>
+        </NavigationProperty>
+        <Property Name="ControllerRates" Type="StorageController.v1_0_0.Rates" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the various controller rates used for processes such as volume rebuild or consistency checks."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain all the rate settings available on the controller."/>
+        </Property>
+        <Property Name="NVMeControllerProperties" Type="StorageController.v1_0_0.NVMeControllerProperties" Nullable="false">
+          <Annotation Term="OData.Description" String="The NVMe related properties for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe related properties for this storage controller."/>
+        </Property>
+        <Property Name="Links" Type="StorageController.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="StorageController.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint with which this controller is associated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the PCIe functions that the storage controller produces."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeFunction that represents the PCIe functions associated with this resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="AttachedVolumes" Type="Collection(Volume.Volume)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to volumes that are attached to this controller instance."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Volume that are attached to this instance of storage controller."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="StorageController.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <ComplexType Name="CacheSummary">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes the cache memory of the storage controller in general detail."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the cache memory for a storage controller."/>
+        <Property Name="TotalCacheSizeMiB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total configured cache memory, measured in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of configured cache memory as measured in mebibytes."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="PersistentCacheSizeMiB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The portion of the cache memory that is persistent, measured in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of cache memory that is persistent as measured in mebibytes.  This size shall be less than or equal to the TotalCacheSizeMib."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Rates">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes the various controller rates used for processes such as volume rebuild or consistency checks."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain all the rate settings available on the controller."/>
+        <Property Name="RebuildRatePercent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The percentage of controller resources used for rebuilding/repairing volumes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of controller resources used for rebuilding volumes."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+        </Property>
+        <Property Name="TransformationRatePercent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The percentage of controller resources used for transforming volumes from one configuration to another."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of controller resources used for transforming volumes."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+        </Property>
+        <Property Name="ConsistencyCheckRatePercent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The percentage of controller resources used for performing a data consistency check on volumes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of controller resources used for checking data consistency on volumes."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NVMeControllerProperties">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="NVMe related properties for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe related properties for a storage controller."/>
+        <Property Name="ControllerType" Type="StorageController.v1_0_0.NVMeControllerType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of NVMe controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of NVMe controller."/>
+        </Property>
+        <Property Name="NVMeVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of the NVMe Base Specification supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of the NVMe Base Specification supported."/>
+        </Property>
+        <Property Name="NVMeControllerAttributes" Type="StorageController.v1_0_0.NVMeControllerAttributes">
+          <Annotation Term="OData.Description" String="The NVMe controller attributes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe controller attributes."/>
+        </Property>
+        <Property Name="MaxQueueSize" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum individual queue size that an NVMe IO controller supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum individual queue entry size supported per queue.  This is a zero-based value, where the minimum value is one, indicating two entries.  For PCIe, this applies to both submission and completion queues.  For NVMe-oF, this applies to only submission queues."/>
+        </Property>
+        <Property Name="ANACharacteristics" Type="Collection(StorageController.v1_0_0.ANACharacteristics)">
+          <Annotation Term="OData.Description" String="The ANA characteristics and volume information."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ANA characteristics and volume information."/>
+        </Property>
+        <Property Name="NVMeSMARTCriticalWarnings" Type="StorageController.v1_0_0.NVMeSMARTCriticalWarnings">
+          <Annotation Term="OData.Description" String="The NVMe SMART Critical Warnings for this storage controller.  This property contains possible triggers for the predictive drive failure warning for the corresponding drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe SMART Critical Warnings for this storage controller.  This property can contain possible triggers for the predictive drive failure warning for the corresponding drive."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="ANACharacteristics">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The ANA characteristics and volume information for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the ANA characteristics and volume information for a storage controller."/>
+        <Property Name="AccessState" Type="StorageController.v1_0_0.ANAAccessState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Reported ANA access state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the reported ANA access state."/>
+        </Property>
+        <NavigationProperty Name="Volume" Type="Volume.Volume" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The specified volume."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Volume."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="NVMeControllerAttributes">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The NVMe controller attributes for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe controller attributes  for a storage controller."/>
+        <Property Name="ReportsUUIDList" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports reporting of a UUID list."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports reporting of a UUID list."/>
+        </Property>
+        <Property Name="SupportsSQAssociations" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports SQ Associations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports SQ Associations."/>
+        </Property>
+        <Property Name="ReportsNamespaceGranularity" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports reporting of Namespace Granularity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports reporting of Namespace Granularity."/>
+        </Property>
+        <Property Name="SupportsTrafficBasedKeepAlive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports restarting Keep Alive Timer if traffic is processed from an admin command or IO during a Keep Alive Timeout interval."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports restarting Keep Alive Timer if traffic is processed from an admin command or IO during a Keep Alive Timeout interval."/>
+        </Property>
+        <Property Name="SupportsPredictableLatencyMode" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports Predictable Latency Mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports Predictable Latency Mode."/>
+        </Property>
+        <Property Name="SupportsEnduranceGroups" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports Endurance Groups."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports Endurance Groups."/>
+        </Property>
+        <Property Name="SupportsReadRecoveryLevels" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports Read Recovery Levels."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports Read Recovery Levels."/>
+        </Property>
+        <Property Name="SupportsNVMSets" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports NVM Sets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports NVM Sets."/>
+        </Property>
+        <Property Name="SupportsExceedingPowerOfNonOperationalState" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller initiated background operations in a non-operational power state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller initiated background operations in a non-operational power state."/>
+        </Property>
+        <Property Name="Supports128BitHostId" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports a 128-bit Host Identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports a 128-bit Host Identifier."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NVMeSMARTCriticalWarnings">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The NVMe SMART Critical Warnings for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the NVMe SMART Critical Warnings for a storage controller."/>
+        <Property Name="PMRUnreliable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Persistent Memory Region has become unreliable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the Persistent Memory Region has become unreliable.  PCIe memory reads might return invalid data or generate poisoned PCIe TLP(s).  Persistent Memory Region memory writes might not update memory or might update memory with undefined data.  The Persistent Memory Region might also have become non-persistent."/>
+        </Property>
+        <Property Name="PowerBackupFailed" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates that the volatile memory backup device has failed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the volatile memory backup device has failed."/>
+        </Property>
+        <Property Name="MediaInReadOnly" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the media has been placed in read only mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the media has been placed in read only mode.  This is not set when the read-only condition on the media is a result of a change in the write protection state of a namespace."/>
+        </Property>
+        <Property Name="OverallSubsystemDegraded" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates that the NVM subsystem reliability has been compromised."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the NVM subsystem reliability has been compromised."/>
+        </Property>
+        <Property Name="SpareCapacityWornOut" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates that the available spare capacity has fallen below the threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the available spare capacity has fallen below the threshold."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="NVMeControllerType">
+        <Member Name="Admin">
+          <Annotation Term="OData.Description" String="The NVMe controller is an admin controller."/>
+        </Member>
+        <Member Name="Discovery">
+          <Annotation Term="OData.Description" String="The NVMe controller is a discovery controller."/>
+        </Member>
+        <Member Name="IO">
+          <Annotation Term="OData.Description" String="The NVMe controller is an IO controller."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ANAAccessState">
+        <Member Name="Optimized">
+          <Annotation Term="OData.Description" String="Commands processed by a controller provide optimized access to any namespace in the ANA group."/>
+        </Member>
+        <Member Name="NonOptimized">
+          <Annotation Term="OData.Description" String="Commands processed by a controller that reports this state for an ANA Group provide non-optimized access characteristics, such as lower performance or non-optimal use of subsystem resources, to any namespace in the ANA Group."/>
+        </Member>
+        <Member Name="Inacessible">
+          <Annotation Term="OData.Description" String="Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA Group."/>
+        </Member>
+        <Member Name="PersistentLoss">
+          <Annotation Term="OData.Description" String="The group is persistently inaccessible.  Commands are persistently not able to access user data of namespaces in the ANA Group."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

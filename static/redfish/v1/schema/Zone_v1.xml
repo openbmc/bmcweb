@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Zone v1.4.2                                                         -->
+<!--# Redfish Schema:  Zone v1.5.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -67,6 +67,58 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="AddEndpoint" IsBound="true">
+        <Annotation Term="OData.Description" String="This action adds an endpoint to a zone."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add an endpoint to a zone."/>
+        <Parameter Name="Zone" Type="Zone.v1_1_0.Actions"/>
+        <Parameter Name="Endpoint" Type="Endpoint.Endpoint" Nullable="false">
+          <Annotation Term="OData.Description" String="The endpoint to add to the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified endpoint to add to the zone."/>
+        </Parameter>
+        <Parameter Name="EndpointETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the endpoint to add to the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the endpoint to add to the zone.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Parameter Name="ZoneETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="RemoveEndpoint" IsBound="true">
+        <Annotation Term="OData.Description" String="This action removes an endpoint from a zone."/>
+        <Annotation Term="OData.LongDescription" String="This action shall remove an endpoint from a zone."/>
+        <Parameter Name="Zone" Type="Zone.v1_1_0.Actions"/>
+        <Parameter Name="Endpoint" Type="Endpoint.Endpoint" Nullable="false">
+          <Annotation Term="OData.Description" String="The endpoint to remove from the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified endpoint to remove from the zone."/>
+        </Parameter>
+        <Parameter Name="EndpointETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the endpoint to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the endpoint to remove from the system.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Parameter Name="ZoneETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_0">
@@ -266,6 +318,10 @@
           <Annotation Term="OData.Description" String="Only accessible by endpoints that this zone explicitly lists."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate that endpoints in this zone are only accessible by endpoints that this zone explicitly lists."/>
         </Member>
+        <Member Name="NoInternalRouting">
+          <Annotation Term="OData.Description" String="Routing is not enabled within this zone."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that implicit routing within this zone is not defined."/>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -351,6 +407,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Zone" BaseType="Zone.v1_4_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add AddEndpoint and RemoveEndpoint actions.  It was also created to add `NoInternalRouting` to ExternalAccessibility."/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_4_2.Zone"/>
     </Schema>
 
   </edmx:DataServices>

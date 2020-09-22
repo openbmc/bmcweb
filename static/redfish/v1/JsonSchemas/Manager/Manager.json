@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_10_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -409,8 +409,8 @@
                 },
                 "GraphicalConsole": {
                     "$ref": "#/definitions/GraphicalConsole",
-                    "description": "The information about the graphical console (KVM-IP) service of this manager.",
-                    "longDescription": "This property shall contain the information about the graphical console (KVM-IP) service of this manager."
+                    "description": "The information about the graphical console service of this manager.",
+                    "longDescription": "This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the GraphicalConsole property in ComputerSystem."
                 },
                 "HostInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/HostInterfaceCollection.json#/definitions/HostInterfaceCollection",
@@ -538,8 +538,10 @@
                 },
                 "SerialConsole": {
                     "$ref": "#/definitions/SerialConsole",
+                    "deprecated": "This property has been deprecated in favor of the SerialConsole property in the ComputerSystem resource.",
                     "description": "The serial console service that this manager provides.",
-                    "longDescription": "This property shall contain information about the serial console service of this manager."
+                    "longDescription": "This property shall contain information about the serial console service of this manager.",
+                    "versionDeprecated": "v1_10_0"
                 },
                 "SerialInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SerialInterfaceCollection.json#/definitions/SerialInterfaceCollection",
@@ -575,6 +577,13 @@
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
+                "TimeZoneName": {
+                    "description": "The time zone of the manager.",
+                    "longDescription": "This property shall contain the time zone of the manager.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  A Redfish service might not be able to ensure accuracy and consistency between the DateTimeOffset property and this property.  Therefore, to specify the correct time zone offset, see the DateTimeOffset property.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_10_0"
+                },
                 "UUID": {
                     "anyOf": [
                         {
@@ -590,9 +599,11 @@
                 },
                 "VirtualMedia": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMediaCollection.json#/definitions/VirtualMediaCollection",
+                    "deprecated": "This property has been deprecated in favor of the VirtualMedia property in the ComputerSystem resource.",
                     "description": "The link to the Virtual Media services for this particular manager.",
                     "longDescription": "This property shall contain a link to a resource collection of type VirtualMediaCollection, which this manager uses.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_10_0"
                 }
             },
             "required": [
@@ -737,7 +748,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."
                 }
             },
             "patternProperties": {
@@ -881,6 +892,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.2",
-    "title": "#Manager.v1_9_0.Manager"
+    "release": "2020.3",
+    "title": "#Manager.v1_10_0.Manager"
 }

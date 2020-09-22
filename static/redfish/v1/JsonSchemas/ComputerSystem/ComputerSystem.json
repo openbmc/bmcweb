@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_13_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -287,7 +287,7 @@
                 },
                 "UefiTargetBootSourceOverride": {
                     "description": "The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`.",
-                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  BootSourceOverrideEnabled set to `Continuous` is not supported for BootSourceOverrideTarget set to `UefiTarget` because this setting is defined in UEFI as a one-time boot setting.  Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -306,6 +306,108 @@
             "enumDescriptions": {
                 "AliasBootOrder": "The system uses the AliasBootOrder property to specify the persistent boot order.",
                 "BootOrder": "The system uses the BootOrder property to specify the persistent boot order."
+            },
+            "type": "string"
+        },
+        "BootProgress": {
+            "additionalProperties": false,
+            "description": "This object describes the last boot progress state.",
+            "longDescription": "This object shall contain the last boot progress state and time.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LastState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BootProgressTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The last boot progress state.",
+                    "longDescription": "This property shall contain the last boot progress state.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
+                "LastStateTime": {
+                    "description": "The date and time when the last boot state was updated.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the last boot state was updated.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_13_0"
+                },
+                "OemLastState": {
+                    "description": "The OEM-specific last state, if the LastState type is `OEM`.",
+                    "longDescription": "This property shall represent the OEM-specific LastState of the BootProgress.  This property shall only be present if LastState is `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                }
+            },
+            "type": "object"
+        },
+        "BootProgressTypes": {
+            "enum": [
+                "None",
+                "PrimaryProcessorInitializationStarted",
+                "BusInitializationStarted",
+                "MemoryInitializationStarted",
+                "SecondaryProcessorInitializationStarted",
+                "PCIResourceConfigStarted",
+                "SystemHardwareInitializationComplete",
+                "OSBootStarted",
+                "OSRunning",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "BusInitializationStarted": "The system has started initializing the buses.",
+                "MemoryInitializationStarted": "The system has started initializing the memory.",
+                "None": "The system is not booting.",
+                "OEM": "A boot progress state in an OEM-defined format.",
+                "OSBootStarted": "The operating system has started booting.",
+                "OSRunning": "The operating system is running.",
+                "PCIResourceConfigStarted": "The system has started initializing the PCI resources.",
+                "PrimaryProcessorInitializationStarted": "The system has started initializing the primary processor.",
+                "SecondaryProcessorInitializationStarted": "The system has started initializing the remaining processors.",
+                "SystemHardwareInitializationComplete": "The system has completed initializing all hardware."
+            },
+            "enumLongDescriptions": {
+                "BusInitializationStarted": "This value shall indicate that the system has started to initialize the buses.",
+                "MemoryInitializationStarted": "This value shall indicate that the system has started to initialize memory.",
+                "None": "This value shall indicate that the system is not booting or running, such as the system is powered off.",
+                "OEM": "This value shall indicate an OEM-defined boot progress state.",
+                "OSBootStarted": "This value shall indicate that the operating system has started to boot.",
+                "OSRunning": "This value shall indicate that the operating system is running and shall indicate the final boot progress state.",
+                "PCIResourceConfigStarted": "This value shall indicate that the system has started to initialize PCI resources.",
+                "PrimaryProcessorInitializationStarted": "This value shall indicate that the system has started to initialize the primary processor.",
+                "SecondaryProcessorInitializationStarted": "This value shall indicate that the system has started to initialize the secondary processors.",
+                "SystemHardwareInitializationComplete": "This value shall indicate that the system has completed initializing all hardware."
             },
             "type": "string"
         },
@@ -399,6 +501,19 @@
                     "description": "The boot settings for this system.",
                     "longDescription": "This property shall contain the boot settings for this system."
                 },
+                "BootProgress": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BootProgress"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This object describes the last boot progress state.",
+                    "longDescription": "This object shall contain the last boot progress state and time.",
+                    "versionAdded": "v1_13_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -422,6 +537,12 @@
                     "longDescription": "This property shall contain a link to a resource collection of type FabricAdapterCollection.",
                     "readonly": true,
                     "versionAdded": "v1_10_0"
+                },
+                "GraphicalConsole": {
+                    "$ref": "#/definitions/HostGraphicalConsole",
+                    "description": "The information about the graphical console (KVM-IP) service of this system.",
+                    "longDescription": "This property shall contain the information about the graphical console (KVM-IP) service of this system.",
+                    "versionAdded": "v1_13_0"
                 },
                 "HostName": {
                     "description": "The DNS host name, without any domain information.",
@@ -467,9 +588,11 @@
                             "type": "null"
                         }
                     ],
+                    "deprecated": "This property has been deprecated in favor of the LocationIndicatorActive property.",
                     "description": "The state of the indicator LED, which identifies the system.",
                     "longDescription": "This property shall contain the state of the indicator light, which identifies this system.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionDeprecated": "v1_13_0"
                 },
                 "LastResetTime": {
                     "description": "The date and time when the system was last reset or rebooted.",
@@ -483,6 +606,16 @@
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
                     "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
@@ -578,6 +711,36 @@
                         "null"
                     ]
                 },
+                "PowerCycleDelaySeconds": {
+                    "description": "The number of seconds to delay power on after a `Reset` action requesting `PowerCycle`.  Zero seconds indicates no delay.",
+                    "longDescription": "This property shall contain the number of seconds to delay power on after a `Reset` action requesting `PowerCycle`.  The value `0` shall indicate no delay to power on.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "PowerOffDelaySeconds": {
+                    "description": "The number of seconds to delay power off during a reset.  Zero seconds indicates no delay to power off.",
+                    "longDescription": "This property shall contain the number of seconds to delay power off during a reset.  The value `0` shall indicate no delay to power off.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "PowerOnDelaySeconds": {
+                    "description": "The number of seconds to delay power on after a power cycle or during a reset.  Zero seconds indicates no delay to power up.",
+                    "longDescription": "This property shall contain the number of seconds to delay power on after a power cycle or during a reset.  The value `0` shall indicate no delay to power on.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
                 "PowerRestorePolicy": {
                     "$ref": "#/definitions/PowerRestorePolicyTypes",
                     "description": "The desired power state of the system when power is restored after a power loss.",
@@ -601,7 +764,7 @@
                 "ProcessorSummary": {
                     "$ref": "#/definitions/ProcessorSummary",
                     "description": "The central processors of the system in general detail.",
-                    "longDescription": "This property shall describe the central processors for this resource."
+                    "longDescription": "This property shall describe the central processors for this resource.  Processors described by this property shall be limited to the processors that execute system code, and shall not include processors used for offload functionality."
                 },
                 "Processors": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection",
@@ -638,6 +801,12 @@
                     "longDescription": "This property shall contain a link to a resource of type SecureBoot.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
+                },
+                "SerialConsole": {
+                    "$ref": "#/definitions/HostSerialConsole",
+                    "description": "The serial console services that this system provides.",
+                    "longDescription": "This property shall contain information about the serial console services of this system.",
+                    "versionAdded": "v1_13_0"
                 },
                 "SerialNumber": {
                     "description": "The serial number for this system.",
@@ -703,6 +872,19 @@
                     "description": "The UUID for this system.",
                     "longDescription": "This property shall contain the universal unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode.",
                     "readonly": true
+                },
+                "VirtualMedia": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMediaCollection.json#/definitions/VirtualMediaCollection",
+                    "description": "The link to the virtual media services for this system.",
+                    "longDescription": "This property shall contain a link to a resource collection of type VirtualMediaCollection that this system uses.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
+                "VirtualMediaConfig": {
+                    "$ref": "#/definitions/VirtualMediaConfig",
+                    "description": "The information about the virtual media service of this system.",
+                    "longDescription": "This property shall contain the information about the virtual media service of this system.",
+                    "versionAdded": "v1_13_0"
                 }
             },
             "required": [
@@ -711,6 +893,123 @@
                 "Id",
                 "Name"
             ],
+            "type": "object"
+        },
+        "GraphicalConnectTypesSupported": {
+            "enum": [
+                "KVMIP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "KVMIP": "The controller supports a graphical console connection through a KVM-IP (redirection of Keyboard, Video, Mouse over IP) protocol.",
+                "OEM": "The controller supports a graphical console connection through an OEM-specific protocol."
+            },
+            "type": "string"
+        },
+        "HostGraphicalConsole": {
+            "additionalProperties": false,
+            "description": "The information about a graphical console service for this system.",
+            "longDescription": "This type shall describe a graphical console service for a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ConnectTypesSupported": {
+                    "description": "This property enumerates the graphical console connection types that the implementation allows.",
+                    "items": {
+                        "$ref": "#/definitions/GraphicalConnectTypesSupported"
+                    },
+                    "longDescription": "This property shall contain an array of the enumerations.  KVMIP shall be included if a vendor-define KVM-IP protocol is supported.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_13_0"
+                },
+                "MaxConcurrentSessions": {
+                    "description": "The maximum number of service sessions, regardless of protocol, that this system can support.",
+                    "longDescription": "This property shall contain the maximum number of concurrent service sessions that this implementation supports.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_13_0"
+                },
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the service.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether the service is enabled for this system.",
+                    "longDescription": "This property shall indicate whether the protocol for the service is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_13_0"
+                }
+            },
+            "type": "object"
+        },
+        "HostSerialConsole": {
+            "additionalProperties": false,
+            "description": "The information about the serial console services that this system provides.",
+            "longDescription": "This type shall describe the serial console services for a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "IPMI": {
+                    "$ref": "#/definitions/SerialConsoleProtocol",
+                    "description": "The connection details for an IPMI Serial-over-LAN service.",
+                    "longDescription": "This property shall contain connection details for a serial console service that uses the IPMI Serial-over-LAN (SOL) protocol.",
+                    "versionAdded": "v1_13_0"
+                },
+                "MaxConcurrentSessions": {
+                    "description": "The maximum number of service sessions, regardless of protocol, that this system can support.",
+                    "longDescription": "This property shall contain the maximum number of concurrent service sessions that this implementation supports.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_13_0"
+                },
+                "SSH": {
+                    "$ref": "#/definitions/SerialConsoleProtocol",
+                    "description": "The connection details for an SSH serial console service.",
+                    "longDescription": "This property shall contain connection details for a serial console service that uses the Secure Shell (SSH) protocol.",
+                    "versionAdded": "v1_13_0"
+                },
+                "Telnet": {
+                    "$ref": "#/definitions/SerialConsoleProtocol",
+                    "description": "The connection details for a Telnet serial console service.",
+                    "longDescription": "This property shall contain connection details for a serial console service that uses the Telnet protocol.",
+                    "versionAdded": "v1_13_0"
+                }
+            },
             "type": "object"
         },
         "HostedServices": {
@@ -1098,7 +1397,7 @@
         "ProcessorSummary": {
             "additionalProperties": false,
             "description": "The central processors of the system in general detail.",
-            "longDescription": "This type shall contain properties that describe the central processors for a system.",
+            "longDescription": "This type shall contain properties that describe the central processors for a system.  Processors described by this type shall be limited to the processors that execute system code, and shall not include processors used for offload functionality.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1217,7 +1516,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."
                 }
             },
             "patternProperties": {
@@ -1243,6 +1542,73 @@
                 "title": {
                     "description": "Friendly action name",
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SerialConsoleProtocol": {
+            "additionalProperties": false,
+            "description": "The information about a serial console service that this system provides.",
+            "longDescription": "This type shall describe a serial console service for a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ConsoleEntryCommand": {
+                    "description": "The command string passed to the service to select or enter the system's serial console.",
+                    "longDescription": "This property shall contain a command string that can be provided by a client to select or enter the system's serial console, when the console is shared among several systems or a manager CLI.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "HotKeySequenceDisplay": {
+                    "description": "The hotkey sequence available for the user to exit the serial console session.",
+                    "longDescription": "This property shall contain a string that can be provided to a user to describe the hotkey sequence used to exit the serial console session, or, if shared with a manager CLI, to return to the CLI.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether the service is enabled for this system.",
+                    "longDescription": "This property shall indicate whether the protocol for the service is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_13_0"
+                },
+                "SharedWithManagerCLI": {
+                    "description": "Indicates whether the serial console service is shared with access to the manager's command-line interface (CLI).",
+                    "longDescription": "This property shall indicate whether the serial console service is shared with access to the manager's command-line interface (CLI).",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_13_0"
                 }
             },
             "type": "object"
@@ -1392,6 +1758,46 @@
             },
             "type": "object"
         },
+        "VirtualMediaConfig": {
+            "additionalProperties": false,
+            "description": "The information about virtual media service for this system.",
+            "longDescription": "This type shall describe a virtual media service service for a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the service.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether the service is enabled for this system.",
+                    "longDescription": "This property shall indicate whether the protocol for the service is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_13_0"
+                }
+            },
+            "type": "object"
+        },
         "WatchdogTimeoutActions": {
             "description": "The enumerations of WatchdogTimeoutActions specify the choice of action to take when the host watchdog timer reaches its timeout value.",
             "enum": [
@@ -1508,6 +1914,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.2",
-    "title": "#ComputerSystem.v1_12_0.ComputerSystem"
+    "release": "2020.3",
+    "title": "#ComputerSystem.v1_13_0.ComputerSystem"
 }

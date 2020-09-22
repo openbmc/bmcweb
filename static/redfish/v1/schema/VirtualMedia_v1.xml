@@ -51,6 +51,9 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Managers/{ManagerId}/VirtualMedia/{VirtualMediaId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}</String>
           </Collection>
         </Annotation>
       </EntityType>

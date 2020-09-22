@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkAdapter v1.4.0                                               -->
+<!--# Redfish Schema:  NetworkAdapter v1.5.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,6 +42,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Assembly_v1.xml">
     <edmx:Include Namespace="Assembly"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PortCollection_v1.xml">
+    <edmx:Include Namespace="PortCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -58,7 +64,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -94,6 +100,15 @@
           <Annotation Term="OData.Description" String="The link to the collection of network ports associated with this network adapter."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type NetworkPortCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Ports property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="NetworkDeviceFunctions" Type="NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -241,6 +256,15 @@
           <Annotation Term="OData.Description" String="An array of links to the network ports associated with this network controller."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkPort that represent the network ports associated with this network controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Ports property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -481,6 +505,29 @@
         </Property>
       </EntityType>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_4_0.NetworkAdapter">
+        <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of ports associated with this network adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="ControllerLinks" BaseType="NetworkAdapter.v1_0_0.ControllerLinks">
+        <NavigationProperty Name="Ports" Type="Collection(Port.Port)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the ports associated with this network controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the ports associated with this network controller."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>   
 
   </edmx:DataServices>
 </edmx:Edmx>

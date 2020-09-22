@@ -4,7 +4,7 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 108,
+  "Members@odata.count": 111,
   "Members": [
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction"
@@ -64,6 +64,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/ComputerSystem"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/Connection"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/ConnectionMethod"
     },
     {
@@ -71,6 +74,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Endpoint"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/EndpointGroup"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/EthernetInterface"
@@ -281,6 +287,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Storage"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/StorageController"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Switch"

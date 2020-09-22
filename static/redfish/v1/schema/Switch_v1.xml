@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Switch v1.3.1                                                       -->
+<!--# Redfish Schema:  Switch v1.4.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -16,6 +16,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -44,6 +47,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
     <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -151,6 +157,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The state of the indicator LED, which identifies the switch."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator light associated with this switch."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the LocationIndicatorActive property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="PowerState" Type="Resource.PowerState">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -346,6 +361,41 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Switch" BaseType="Switch.v1_3_0.Switch"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add LocationIndicatorActive, CurrentBandwidthGbps, and MaxBandwidthGbps.  It was also created to deprecate IndicatorLED properties."/>
+
+      <EntityType Name="Switch" BaseType="Switch.v1_3_1.Switch">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+        </Property>
+        <Property Name="CurrentBandwidthGbps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current internal bandwidth of this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the internal bandwidth of this switch currently negotiated and running."/>
+          <Annotation Term="Measures.Unit" String="Gbit/s"/>
+        </Property>
+        <Property Name="MaxBandwidthGbps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum internal bandwidth of this switch as currently configured."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum internal bandwidth this switch is capable of being configured.  If capable of autonegotiation, the switch shall attempt to negotiate to the specified maximum bandwidth."/>
+          <Annotation Term="Measures.Unit" String="Gbit/s"/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Switch.v1_3_0.Links">
+        <NavigationProperty Name="PCIeDevice" Type="PCIeDevice.PCIeDevice">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the PCIe device providing this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PCIeDevice that represents the PCIe device providing this switch."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
