@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "7d1c435e_6c7e360d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-22T04:52:59Z",
+      "side": 1,
+      "message": "Ignore my comment about reset, that was on an older version of BEAST, but the point still remains, is this needed at all?  There should be no need to reset if you\u0027re destroying the connection.",
+      "parentUuid": "170e54ea_14812e26",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "507d73b0_2af93a30",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -238,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "a3bbddca_db25053e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-22T04:52:59Z",
+      "side": 1,
+      "message": "1. You\u0027re right, it\u0027s not in the specification.  If you want to find a way to avoid DOS attacks and overloading the BMC/other server through another mechanism, feel free, but I don\u0027t see it implemented in this patchset.\n2. That would certainly help, but I don\u0027t think solves the problem.  SSL negotiation is very...very expensive on the BMC.  We should strive to do it as few times as possible.\n\n\"We can avoid the DOS at the server end if we start the timer and aggregating the events and send the event once timer expires.\"\nI think that would be a good thing to do as well, but I don\u0027t think solves the problem.  An aggregation timer means that the BMC has to store the events in memory, which causes the same problem, just that the BMC will run out of memory, not out of CPU cycles.\n\nAlso, it delays the receipt of the event.\n\n\nI\u0027m surprised at the pushback here.  Keepalive is a relatively easy feature to implement here, and we already have examples of how to do it.  Am I missing something?",
+      "parentUuid": "096911ba_9a4be648",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685dcd0c_622407da",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -321,6 +369,30 @@
       "side": 1,
       "message": "Ed, How it is DOS for BMC?",
       "parentUuid": "5e765135_0ac5bd59",
+      "range": {
+        "startLine": 238,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db87bc53_66b4366b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-22T04:52:59Z",
+      "side": 1,
+      "message": "The easiest way I can explain would be to tell you to try it by subscribing to all sensors, and check the CPU usage on the BMC.   It will be spinning up 100 SSL connections per second, each of them expensive to build.",
+      "parentUuid": "e53cd0ea_34a19ab9",
       "range": {
         "startLine": 238,
         "startChar": 23,
