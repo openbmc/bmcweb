@@ -12,7 +12,7 @@ import glob
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2020.2"
+VERSION = "DSP8010_2020.3"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -103,7 +103,7 @@ with open(metadata_index_path, 'w') as metadata_index:
     </edmx:DataServices>
 """)
     # TODO:Issue#32 There's a bug in the script that currently deletes this
-    # schema (because it's an OEM schema). Because it's the only five, and we
+    # schema (because it's an OEM schema). Because it's the only six, and we
     # don't update schemas very often, we just manually fix it. Need a
     # permanent fix to the script.
     metadata_index.write(
@@ -131,18 +131,6 @@ with open(metadata_index_path, 'w') as metadata_index:
         "    <edmx:Reference Uri=\"/redfish/v1/schema/OemAccountService_v1.xml\">\n")
     metadata_index.write("        <edmx:Include Namespace=\"OemAccountService\"/>\n")
     metadata_index.write("        <edmx:Include Namespace=\"OemAccountService.v1_0_0\"/>\n")
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemLogService_v1.xml\">\n")
-    metadata_index.write("        <edmx:Include Namespace=\"OemLogService\"/>\n")
-    metadata_index.write("        <edmx:Include Namespace=\"OemLogService.v1_0_0\"/>\n")
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemLogEntry_v1.xml\">\n")
-    metadata_index.write("        <edmx:Include Namespace=\"OemLogEntry\"/>\n")
-    metadata_index.write("        <edmx:Include Namespace=\"OemLogEntry.v1_0_0\"/>\n")
     metadata_index.write("    </edmx:Reference>\n")
 
     metadata_index.write(

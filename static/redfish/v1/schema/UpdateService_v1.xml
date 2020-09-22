@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.8.1                                                -->
+<!--# Redfish Schema:  UpdateService v1.8.2                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -74,8 +74,8 @@
           <Annotation Term="OData.LongDescription" String="This parameter shall contain an RFC3986-defined URI that links to a software image that the update service retrieves to install software in that image.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to get the image."/>
         </Parameter>
         <Parameter Name="TransferProtocol" Type="UpdateService.v1_0_0.TransferProtocolType">
-          <Annotation Term="OData.Description" String="The network protocol that the update service uses to retrieve the software image file located at the URI provided in ImageURI, if the URI does not contain a scheme."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the network protocol that the update service shall use to retreive the software image located at the ImageURI.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."/>
+          <Annotation Term="OData.Description" String="The network protocol that the update service uses to retrieve the software image file located at the URI provided in ImageURI.  This parameter is ignored if the URI provided in ImageURI contains a scheme."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the network protocol that the update service shall use to retreive the software image located at the ImageURI.  Services should ignore this parameter if the URI provided in ImageURI contains a scheme.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."/>
         </Parameter>
         <Parameter Name="Targets" Type="Collection(Edm.String)">
           <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
@@ -148,13 +148,13 @@
         <NavigationProperty Name="FirmwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An inventory of firmware."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SoftwareInventoryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SoftwareInventoryCollection.  The resource collection should contain the set of software components generally referred to as platform firmware or that does not execute within a host operating system.  Software in this collection is generally updated using platform-specific methods or utilities."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SoftwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An inventory of software."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SoftwareInventoryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SoftwareInventoryCollection.  The resource collection should contain the set of software components executed in the context of a host operating system.  This can include device drivers, applications, or offload workloads.  Software in this collection is generally updated using operating system-centric methods."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="UpdateService.v1_0_0.Actions" Nullable="false">
@@ -286,6 +286,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_7.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_8.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -342,6 +348,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_6.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_7.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -396,6 +408,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_5.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_6.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -425,6 +443,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_3.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_4.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_0">
@@ -515,6 +539,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_2.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_3.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -539,6 +569,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_2.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_0">
@@ -573,6 +609,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_0.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_1.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -585,6 +627,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_1.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_0">
@@ -605,6 +653,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the FirmwareInventory and SoftwareInventory resource collections.  It was also updated to clarify the behavior of TransferProtocol if ImageURI contains a scheme."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_1.UpdateService"/>
     </Schema>
 
   </edmx:DataServices>

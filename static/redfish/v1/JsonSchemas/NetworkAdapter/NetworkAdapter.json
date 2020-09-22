@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_5_0.json",
     "$ref": "#/definitions/NetworkAdapter",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -127,13 +127,15 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "NetworkPorts": {
+                    "deprecated": "This property has been deprecated in favor of the Ports property.",
                     "description": "An array of links to the network ports associated with this network controller.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort"
                     },
                     "longDescription": "This property shall contain an array of links to resources of type NetworkPort that represent the network ports associated with this network controller.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionDeprecated": "v1_5_0"
                 },
                 "NetworkPorts@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
@@ -153,6 +155,19 @@
                     "type": "array"
                 },
                 "PCIeDevices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Ports": {
+                    "description": "An array of links to the ports associated with this network controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the ports associated with this network controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "Ports@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
@@ -402,9 +417,11 @@
                 },
                 "NetworkPorts": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPortCollection.json#/definitions/NetworkPortCollection",
+                    "deprecated": "This property has been deprecated in favor of the Ports property.",
                     "description": "The link to the collection of network ports associated with this network adapter.",
                     "longDescription": "This property shall contain a link to a resource collection of type NetworkPortCollection.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_5_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -419,6 +436,13 @@
                         "string",
                         "null"
                     ]
+                },
+                "Ports": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
+                    "description": "The link to the collection of ports associated with this network adapter.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "SKU": {
                     "description": "The manufacturer SKU for this network adapter.",
@@ -661,6 +685,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.2",
-    "title": "#NetworkAdapter.v1_4_0.NetworkAdapter"
+    "release": "2020.3",
+    "title": "#NetworkAdapter.v1_5_0.NetworkAdapter"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.8.1                                                                  -->
+<!--# Redfish Schema:  Storage v1.9.0                                                                  -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -73,11 +73,17 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection_v1.xml">
     <edmx:Include Namespace="StorageGroupCollection"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/EndpointGroupCollection_v1.xml">
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EndpointGroupCollection_v1.xml">
     <edmx:Include Namespace="EndpointGroupCollection"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroupCollection_v1.xml">
     <edmx:Include Namespace="ConsistencyGroupCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SimpleStorage_v1.xml">
+    <edmx:Include Namespace="SimpleStorage"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/StorageControllerCollection_v1.xml">
+    <edmx:Include Namespace="StorageControllerCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -106,6 +112,7 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
+            <String>/redfish/v1/Storage/{StorageId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}</String>
@@ -560,6 +567,15 @@
           <Annotation Term="OData.Description" String="An array of links to the storage services that connect to this controller."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type StorageService with which this controller is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of StorageServices within the Links property at the root level."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </ComplexType>
     </Schema>
@@ -819,6 +835,39 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_8_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_8_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_8_1.Storage">
+        <NavigationProperty Name="Controllers" Type="StorageControllerCollection.StorageControllerCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of controllers instantiated by this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageControllerCollection that contains the set of storage controllers allocated to this storage subsystem."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
+          <Annotation Term="OData.Description" String="The durable names for the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the storage subsystem."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Storage.v1_0_0.Links">
+        <NavigationProperty Name="SimpleStorage" Type="SimpleStorage.SimpleStorage" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the simple storage instance that corresponds to this storage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SimpleStorage that represents the same storage subsystem as this resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="StorageServices" Type="Collection(StorageService.StorageService)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the storage services that connect to this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type StorageService with which this storage subsystem is associated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

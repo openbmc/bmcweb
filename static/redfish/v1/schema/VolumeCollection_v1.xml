@@ -47,6 +47,11 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Volumes</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Volumes</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Volumes</String>
+            <String>/redfish/v1/Storage/{StorageId}/ConsistencyGroups/{ConsistencyGroupId}/Volumes</String>
+            <String>/redfish/v1/Storage/{StorageId}/FileSystems/{FileSystemId}/CapacitySources/{CapacitySourceId}/ProvidingVolumes</String>
+            <String>/redfish/v1/Storage/{StorageId}/StoragePools/{StoragePoolId}/AllocatedVolumes</String>
+            <String>/redfish/v1/Storage/{StorageId}/StoragePools/{StoragePoolId}/CapacitySources/{CapacitySourceId}/ProvidingVolumes</String>
+            <String>/redfish/v1/Storage/{StorageId}/Volumes</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/ConsistencyGroups/{ConsistencyGroupId}/Volumes</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/FileSystems/{FileSystemId}/CapacitySources/{CapacitySourceId}/ProvidingVolumes</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StoragePools/{StoragePoolId}/AllocatedVolumes</String>

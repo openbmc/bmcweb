@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Task v1.4.3                                                         -->
+<!--# Redfish Schema:  Task v1.5.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -29,6 +29,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Message_v1.xml">
     <edmx:Include Namespace="Message"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TaskCollection_v1.xml">
+    <edmx:Include Namespace="TaskCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -58,6 +61,7 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/TaskService/Tasks/{TaskId}</String>
+            <String>/redfish/v1/TaskService/Tasks/{TaskId}/SubTasks/{TaskId2}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -414,6 +418,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions of the HidePayload property."/>
       <EntityType Name="Task" BaseType="Task.v1_4_2.Task"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="Task" BaseType="Task.v1_4_3.Task">
+        <NavigationProperty Name="SubTasks" Type="TaskCollection.TaskCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of sub-tasks for this task."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type TaskCollection.  This property shall not be present if this resource represents a sub-task for a task."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

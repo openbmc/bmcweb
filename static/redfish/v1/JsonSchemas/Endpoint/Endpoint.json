@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_5_0.json",
     "$ref": "#/definitions/Endpoint",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -311,7 +311,8 @@
                 "MediaController",
                 "MemoryChunk",
                 "Switch",
-                "FabricBridge"
+                "FabricBridge",
+                "Manager"
             ],
             "enumDescriptions": {
                 "AccelerationFunction": "The entity is an acceleration function realized through a device, such as an FPGA.  The EntityLink property, if present, should be an AccelerationFunction type.",
@@ -319,6 +320,7 @@
                 "DisplayController": "The entity is a display controller.",
                 "Drive": "The entity is a disk drive.  The EntityLink property, if present, should be a Drive type.",
                 "FabricBridge": "The entity is a fabric bridge.  The EntityLink property, if present, should be a FabricAdapter type.",
+                "Manager": "The entity is a manager.  The EntityLink property, if present, should be a Manager type.",
                 "MediaController": "The entity is a media controller.  The EntityLink property, if present, should be a MediaController type.",
                 "MemoryChunk": "The entity is a memory chunk.  The EntityLink property, if present, should be a MemoryChunk type.",
                 "NetworkController": "The entity is a network controller.  The EntityLink property, if present, should contain an EthernetInterface type.",
@@ -332,6 +334,7 @@
             "enumVersionAdded": {
                 "AccelerationFunction": "v1_3_0",
                 "FabricBridge": "v1_4_0",
+                "Manager": "v1_5_0",
                 "MediaController": "v1_4_0",
                 "MemoryChunk": "v1_4_0",
                 "Switch": "v1_4_0",
@@ -535,6 +538,19 @@
                 "ConnectedPorts@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "Connections": {
+                    "description": "The connections to which this endpoint belongs.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Connection.json#/definitions/Connection"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Connection that represent the connections to which this endpoint belongs.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "Connections@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "MutuallyExclusiveEndpoints": {
                     "description": "An array of links to the endpoints that cannot be used in zones if this endpoint is in a zone.",
                     "items": {
@@ -686,6 +702,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Endpoint.v1_4_2.Endpoint"
+    "release": "2020.3",
+    "title": "#Endpoint.v1_5_0.Endpoint"
 }

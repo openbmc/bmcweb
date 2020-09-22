@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Assembly.v1_2_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Assembly.v1_3_0.json",
     "$ref": "#/definitions/Assembly",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -165,6 +165,22 @@
                         "string",
                         "null"
                     ]
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the assembly.",
+                    "longDescription": "This property shall contain location information of the associated assembly.",
+                    "versionAdded": "v1_3_0"
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "MemberId": {
                     "description": "The identifier for the member within the collection.",
@@ -360,6 +376,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.2",
-    "title": "#Assembly.v1_2_3.Assembly"
+    "release": "2020.3",
+    "title": "#Assembly.v1_3_0.Assembly"
 }

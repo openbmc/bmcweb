@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_0_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_1_0.json",
     "$ref": "#/definitions/MetricDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -50,24 +50,30 @@
             "enum": [
                 "Average",
                 "Maximum",
-                "Minimum"
+                "Minimum",
+                "OEM"
             ],
             "enumDescriptions": {
                 "Average": "The metric is calculated as the average metric reading over a sliding time interval.",
                 "Maximum": "The metric is calculated as the maximum metric reading over during a time interval.",
-                "Minimum": "The metric is calculated as the minimum metric reading over a sliding time interval."
+                "Minimum": "The metric is calculated as the minimum metric reading over a sliding time interval.",
+                "OEM": "The metric is calculated as specified by an OEM."
             },
             "enumLongDescriptions": {
                 "Average": "The metric shall be calculated as the average metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value.",
                 "Maximum": "The metric shall be calculated as the maximum metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value.",
-                "Minimum": "The metric shall be calculated as the minimum metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value."
+                "Minimum": "The metric shall be calculated as the minimum metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value.",
+                "OEM": "The metric shall be calculated as specified by an OEM.  The OEMCalculationAlgorithm property shall contain the specific OEM calculation algorithm."
+            },
+            "enumVersionAdded": {
+                "OEM": "v1_1_0"
             },
             "type": "string"
         },
         "CalculationParamsType": {
             "additionalProperties": false,
             "description": "The usage of the parameter in the calculation.",
-            "longDescription": "The list element shall contain the usage of the parameter in the calculation.  This property is present when the MetricType property is `Synthesized`.",
+            "longDescription": "The list element shall contain the usage of the parameter in the calculation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -84,8 +90,8 @@
             },
             "properties": {
                 "ResultMetric": {
-                    "description": "The link to a metric property that stores the result of the calculation.",
-                    "longDescription": "This property shall contain a link to a metric property that stores the result of the calcuation.",
+                    "description": "The link to a metric property that stores the result of the calculation.  If the link has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
+                    "longDescription": "This property shall contain a link to a metric property that stores the result of the calcuation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -93,8 +99,8 @@
                     ]
                 },
                 "SourceMetric": {
-                    "description": "The metric property used as the input into the calculation.",
-                    "longDescription": "This property shall contain a link to a metric property used in a calcuation.",
+                    "description": "The metric property used as the input into the calculation.  If the link has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
+                    "longDescription": "This property shall contain a link to a metric property used in a calcuation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -212,7 +218,7 @@
                     "readonly": true
                 },
                 "CalculationParameters": {
-                    "description": "The metric properties that are part of the synthesis calculation.  This property is present when the MetricType property is `Synthesized`.",
+                    "description": "The metric properties that are part of a calculation.",
                     "items": {
                         "anyOf": [
                             {
@@ -223,7 +229,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall list the metric properties that are part of the synthesis calculation.  When MetricType=Synthesis, this property can be present.",
+                    "longDescription": "This property shall list the metric properties that are part of a calculation.  This property should be present when the value of the ImplementationType property is `Synthesized or `Calculated`.",
                     "type": "array"
                 },
                 "CalculationTimeInterval": {
@@ -354,6 +360,16 @@
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
+                },
+                "OEMCalculationAlgorithm": {
+                    "description": "The OEM-defined calculation that is performed on a source metric to obtain the metric being defined.",
+                    "longDescription": "This property shall contain the OEM-defined calculation performed to obtain the metric.  This property shall be present if CalculationAlgorithm is `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -516,6 +532,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.2",
-    "title": "#MetricDefinition.v1_0_4.MetricDefinition"
+    "release": "2020.3",
+    "title": "#MetricDefinition.v1_1_0.MetricDefinition"
 }

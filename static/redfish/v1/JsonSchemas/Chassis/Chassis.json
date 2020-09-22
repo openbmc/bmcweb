@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_13_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_14_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -115,6 +115,12 @@
                     ],
                     "readonly": true
                 },
+                "Drives": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/DriveCollection.json#/definitions/DriveCollection",
+                    "description": "The link to the collection of drives within this chassis.",
+                    "longDescription": "This property shall contain a link to a resource collection of type DriveCollection.",
+                    "versionAdded": "v1_14_0"
+                },
                 "EnvironmentalClass": {
                     "anyOf": [
                         {
@@ -154,9 +160,11 @@
                             "type": "null"
                         }
                     ],
+                    "deprecated": "This property has been deprecated in favor of the LocationIndicatorActive property.",
                     "description": "The state of the indicator LED, which identifies the chassis.",
                     "longDescription": "This property shall contain the indicator light state for the indicator light associated with this system.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionDeprecated": "v1_14_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
@@ -168,6 +176,16 @@
                     "description": "The location of the chassis.",
                     "longDescription": "This property shall contain location information of the associated chassis.",
                     "versionAdded": "v1_2_0"
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_14_0"
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
@@ -802,7 +820,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and complete an implementation-specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and complete an implementation-specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."
                 }
             },
             "patternProperties": {
@@ -834,6 +852,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.2",
-    "title": "#Chassis.v1_13_0.Chassis"
+    "release": "2020.3",
+    "title": "#Chassis.v1_14_0.Chassis"
 }
