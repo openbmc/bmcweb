@@ -358,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "dd8d6ee4_2bd3e699",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-09-22T10:54:18Z",
+      "side": 1,
+      "message": "\u003e I think that would be a good thing to do as well, but I don\u0027t think solves the problem.  An aggregation timer means that the BMC has to store the events in memory, which causes the same problem, just that the BMC will run out of memory, not out of CPU cycles.\n\nI thought,keeping events in memory is anyways requirement as per the redfish spec for SSE and now it fits here also.We can implement later.\n\nEd, I was mentioning because of in spec was not clear and we have other way to solve the problem which you listed above..\n\nI agree with you that making tcp connection and doing ssl handshake is expensive operation..",
+      "parentUuid": "e89cf9c5_4f009bbd",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685dcd0c_622407da",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
