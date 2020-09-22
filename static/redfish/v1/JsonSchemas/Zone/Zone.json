@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_4_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_5_0.json",
     "$ref": "#/definitions/Zone",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -23,6 +23,12 @@
                 }
             },
             "properties": {
+                "#Zone.AddEndpoint": {
+                    "$ref": "#/definitions/AddEndpoint"
+                },
+                "#Zone.RemoveEndpoint": {
+                    "$ref": "#/definitions/RemoveEndpoint"
+                },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this resource.",
@@ -32,19 +38,72 @@
             },
             "type": "object"
         },
+        "AddEndpoint": {
+            "additionalProperties": false,
+            "description": "This action adds an endpoint to a zone.",
+            "longDescription": "This action shall add an endpoint to a zone.",
+            "parameters": {
+                "Endpoint": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint",
+                    "description": "The endpoint to add to the zone.",
+                    "longDescription": "This parameter shall contain a link to the specified endpoint to add to the zone.",
+                    "requiredParameter": true
+                },
+                "EndpointETag": {
+                    "description": "The current ETag of the endpoint to add to the zone.",
+                    "longDescription": "This parameter shall contain the current ETag of the endpoint to add to the zone.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                },
+                "ZoneETag": {
+                    "description": "The current ETag of the zone.",
+                    "longDescription": "This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
+        },
         "ExternalAccessibility": {
             "enum": [
                 "GloballyAccessible",
                 "NonZonedAccessible",
-                "ZoneOnly"
+                "ZoneOnly",
+                "NoInternalRouting"
             ],
             "enumDescriptions": {
                 "GloballyAccessible": "Any external entity with the correct access details, which might include authorization information, can access the endpoints that this zone lists.",
+                "NoInternalRouting": "Routing is not enabled within this zone.",
                 "NonZonedAccessible": "Any external entity that another zone does not explicitly list can access the endpoints that this zone lists.",
                 "ZoneOnly": "Only accessible by endpoints that this zone explicitly lists."
             },
             "enumLongDescriptions": {
                 "GloballyAccessible": "This value shall indicate that any external entity with the correct access details, which might include authorization information, can access the endpoints that this zone lists, regardless of zone.",
+                "NoInternalRouting": "This value shall indicate that implicit routing within this zone is not defined.",
                 "NonZonedAccessible": "This value shall indicate that any external entity that another zone does not explicitly list can access the endpoints that this zone lists.",
                 "ZoneOnly": "This value shall indicate that endpoints in this zone are only accessible by endpoints that this zone explicitly lists."
             },
@@ -173,6 +232,56 @@
             },
             "properties": {},
             "type": "object"
+        },
+        "RemoveEndpoint": {
+            "additionalProperties": false,
+            "description": "This action removes an endpoint from a zone.",
+            "longDescription": "This action shall remove an endpoint from a zone.",
+            "parameters": {
+                "Endpoint": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint",
+                    "description": "The endpoint to remove from the zone.",
+                    "longDescription": "This parameter shall contain a link to the specified endpoint to remove from the zone.",
+                    "requiredParameter": true
+                },
+                "EndpointETag": {
+                    "description": "The current ETag of the endpoint to remove from the system.",
+                    "longDescription": "This parameter shall contain the current ETag of the endpoint to remove from the system.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                },
+                "ZoneETag": {
+                    "description": "The current ETag of the zone.",
+                    "longDescription": "This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
         },
         "Zone": {
             "additionalProperties": false,
@@ -321,6 +430,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Zone.v1_4_2.Zone"
+    "release": "2020.3",
+    "title": "#Zone.v1_5_0.Zone"
 }

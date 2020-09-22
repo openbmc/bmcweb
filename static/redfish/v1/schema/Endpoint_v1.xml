@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Endpoint v1.4.2                                                     -->
+<!--# Redfish Schema:  Endpoint v1.5.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -47,6 +47,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AddressPool_v1.xml">
     <edmx:Include Namespace="AddressPool"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Connection_v1.xml">
+    <edmx:Include Namespace="Connection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -313,6 +316,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Manager">
+          <Annotation Term="OData.Description" String="The entity is a manager.  The EntityLink property, if present, should be a Manager type."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -660,6 +674,22 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Endpoint" BaseType="Endpoint.v1_4_1.Endpoint"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Endpoint.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Manager` to the EntityType enumeration."/>
+
+      <EntityType Name="Endpoint" BaseType="Endpoint.v1_4_2.Endpoint"/>
+
+      <ComplexType Name="Links" BaseType="Endpoint.v1_4_0.Links">
+        <NavigationProperty Name="Connections" Type="Collection(Connection.Connection)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The connections to which this endpoint belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Connection that represent the connections to which this endpoint belongs."/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

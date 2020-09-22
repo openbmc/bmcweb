@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService v1.1.3                                                   -->
+<!--# Redfish Schema:  LogService v1.2.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -72,6 +72,27 @@
         <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the Entries collection for this Log Service."/>
       </Action>
 
+      <Action Name="CollectDiagnosticData" IsBound="true">
+        <Annotation Term="OData.Description" String="The action to collect the diagnostic data for the given type."/>
+        <Annotation Term="OData.LongDescription" String="This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data."/>
+        <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
+        <Parameter Name="DiagnosticDataType" Type="LogService.v1_2_0.LogDiagnosticDataTypes" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of diagnostic data to collect."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of diagnostic data to collect."/>
+        </Parameter>
+        <Parameter Name="OEMDiagnosticDataType" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The OEM-defined type of diagnostic data to collect."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the OEM-defined type of diagnostic data to collect.  This parameter shall be required if DiagnosticDataType is `OEM`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_0">
@@ -149,7 +170,6 @@
           <Annotation Term="OData.Description" String="When full, new entries to the log are discarded."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_2">
@@ -198,6 +218,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
       <Annotation Term="OData.Description" String="This version was created to add LogPurpose and EntryType properties."/>
+
       <EntityType Name="LogService" BaseType="LogService.v1_0_5.LogService">
         <Property Name="LogEntryType" Type="LogService.v1_1_0.LogEntryTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -238,6 +259,159 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="LogService" BaseType="LogService.v1_1_2.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add local syslog support and the CollectDiagnosticData action."/>
+
+      <EntityType Name="LogService" BaseType="LogService.v1_1_3.LogService">
+        <Property Name="SyslogFilters" Type="Collection(LogService.v1_2_0.SyslogFilter)">
+          <Annotation Term="OData.Description" String="A list of syslog message filters to be logged locally."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe all desired syslog messages to be logged locally.  If this property contains an empty array, all messages shall be logged."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SyslogFilter">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A syslog filter."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the filter for a syslog message.  The filter shall describe the desired syslog message to be enabled locally."/>
+        <Property Name="LowestSeverity" Type="LogService.v1_2_0.SyslogSeverity">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The lowest severity level message that will be logged."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lowest syslog severity level that will be logged.  The service shall log all messages equal to or greater than the value in this property.  The value `All` shall indicate all severities."/>
+        </Property>
+        <Property Name="LogFacilities" Type="Collection(LogService.v1_2_0.SyslogFacility)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The types of programs that can log messages."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the types of programs that can log messages.  If this property contains an empty array or is absent, all facilities shall be indicated."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SyslogSeverity">
+        <Annotation Term="OData.Description" String="The syslog severity is an application-specific rating used to describe the urgency of the message."/>
+        <Annotation Term="OData.LongDescription" String="This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424."/>
+        <Member Name="Emergency">
+          <Annotation Term="OData.Description" String="A panic condition."/>
+        </Member>
+        <Member Name="Alert">
+          <Annotation Term="OData.Description" String="A condition that should be corrected immediately, such as a corrupted system database."/>
+        </Member>
+        <Member Name="Critical">
+          <Annotation Term="OData.Description" String="Hard device errors."/>
+        </Member>
+        <Member Name="Error">
+          <Annotation Term="OData.Description" String="An Error."/>
+        </Member>
+        <Member Name="Warning">
+          <Annotation Term="OData.Description" String="A Warning."/>
+        </Member>
+        <Member Name="Notice">
+          <Annotation Term="OData.Description" String="Conditions that are not error conditions, but that may require special handling."/>
+        </Member>
+        <Member Name="Informational">
+          <Annotation Term="OData.Description" String="Informational only."/>
+        </Member>
+        <Member Name="Debug">
+          <Annotation Term="OData.Description" String="Messages that contain information normally of use only when debugging a program."/>
+        </Member>
+        <Member Name="All">
+          <Annotation Term="OData.Description" String="A message of any severity."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SyslogFacility">
+        <Annotation Term="OData.Description" String="The syslog facility code is an enumeration of program types."/>
+        <Annotation Term="OData.LongDescription" String="This type shall specify the syslog facility codes as program types.  Facility values are described in the RFC5424."/>
+         <Member Name="Kern">
+          <Annotation Term="OData.Description" String="Kernel messages."/>
+        </Member>
+        <Member Name="User">
+          <Annotation Term="OData.Description" String="User-level messages."/>
+        </Member>
+        <Member Name="Mail">
+          <Annotation Term="OData.Description" String="Mail system."/>
+        </Member>
+        <Member Name="Daemon">
+          <Annotation Term="OData.Description" String="System daemons."/>
+        </Member>
+        <Member Name="Auth">
+          <Annotation Term="OData.Description" String="Security/authentication messages."/>
+        </Member>
+        <Member Name="Syslog">
+          <Annotation Term="OData.Description" String="Messages generated internally by syslogd."/>
+        </Member>
+        <Member Name="LPR">
+          <Annotation Term="OData.Description" String="Line printer subsystem."/>
+        </Member>
+        <Member Name="News">
+          <Annotation Term="OData.Description" String="Network news subsystem."/>
+        </Member>
+        <Member Name="UUCP">
+          <Annotation Term="OData.Description" String="UUCP subsystem."/>
+        </Member>
+        <Member Name="Cron">
+          <Annotation Term="OData.Description" String="Clock daemon."/>
+        </Member>
+        <Member Name="Authpriv">
+          <Annotation Term="OData.Description" String="Security/authentication messages."/>
+        </Member>
+        <Member Name="FTP">
+          <Annotation Term="OData.Description" String="FTP daemon."/>
+        </Member>
+        <Member Name="NTP">
+          <Annotation Term="OData.Description" String="NTP subsystem."/>
+        </Member>
+        <Member Name="Security">
+          <Annotation Term="OData.Description" String="Log audit."/>
+        </Member>
+        <Member Name="Console">
+          <Annotation Term="OData.Description" String="Log alert."/>
+        </Member>
+        <Member Name="SolarisCron">
+          <Annotation Term="OData.Description" String="Scheduling daemon."/>
+        </Member>
+        <Member Name="Local0">
+          <Annotation Term="OData.Description" String="Locally used facility 0."/>
+        </Member>
+        <Member Name="Local1">
+          <Annotation Term="OData.Description" String="Locally used facility 1."/>
+        </Member>
+        <Member Name="Local2">
+          <Annotation Term="OData.Description" String="Locally used facility 2."/>
+        </Member>
+        <Member Name="Local3">
+          <Annotation Term="OData.Description" String="Locally used facility 3."/>
+        </Member>
+        <Member Name="Local4">
+          <Annotation Term="OData.Description" String="Locally used facility 4."/>
+        </Member>
+        <Member Name="Local5">
+          <Annotation Term="OData.Description" String="Locally used facility 5."/>
+        </Member>
+        <Member Name="Local6">
+          <Annotation Term="OData.Description" String="Locally used facility 6."/>
+        </Member>
+        <Member Name="Local7">
+          <Annotation Term="OData.Description" String="Locally used facility 7."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="LogDiagnosticDataTypes">
+        <Member Name="Manager">
+          <Annotation Term="OData.Description" String="Manager diagnostic data."/>
+        </Member>
+        <Member Name="PreOS">
+          <Annotation Term="OData.Description" String="Pre-OS diagnostic data."/>
+        </Member>
+        <Member Name="OS">
+          <Annotation Term="OData.Description" String="Operating system (OS) diagnostic data."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM diagnostic data."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

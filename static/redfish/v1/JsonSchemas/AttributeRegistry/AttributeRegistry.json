@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_4.json",
     "$ref": "#/definitions/AttributeRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -601,7 +601,7 @@
                 "MapTerms": {
                     "$ref": "#/definitions/MapTerms",
                     "description": "The logical term that combines two or more map-from conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR.",
-                    "longDescription": "This property shall contain the logical term that combines two or more MapFrom conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR.",
+                    "longDescription": "This property shall contain the logical term that combines two or more MapFrom conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR.  If multiple logical terms are present in a dependency expression, they should be evaluated in array order, meaning they are evaluated left-to-right when displayed as a logic expression.",
                     "readonly": true
                 }
             },
@@ -919,5 +919,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#AttributeRegistry.v1_3_3.AttributeRegistry"
+    "title": "#AttributeRegistry.v1_3_4.AttributeRegistry"
 }

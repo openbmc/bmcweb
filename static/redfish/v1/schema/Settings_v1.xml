@@ -153,7 +153,7 @@
         <Property Name="SupportedApplyTimes" Type="Collection(Settings.v1_1_0.ApplyTime)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The time when the settings can be applied."/>
-          <Annotation Term="OData.LongDescription" String="A service shall advertise its applytime capabilities by using this property to set the time when the settings can be applied."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supported apply time values a client is allowed to request when configuring the settings apply time.  Services that do not support clients configuring the apply time can support this property with a single array member in order to inform the client when the settings will be applied."/>
         </Property>
       </ComplexType>
 
@@ -218,6 +218,13 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <ComplexType Name="Settings" BaseType="Settings.v1_1_2.Settings"/>
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_2.PreferredApplyTime"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of SupportedApplyTimes to state that having a single member is valid."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_1_3.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_3.PreferredApplyTime"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_0">
@@ -309,6 +316,15 @@
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_2.MaintenanceWindow"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of SupportedApplyTimes to state that having a single member is valid."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_2_3.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_3.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_3.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_3.MaintenanceWindow"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -327,6 +343,15 @@
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_0.PreferredApplyTime"/>
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_0.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_0.MaintenanceWindow"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of SupportedApplyTimes to state that having a single member is valid."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_3_1.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_1.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_1.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_1.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>

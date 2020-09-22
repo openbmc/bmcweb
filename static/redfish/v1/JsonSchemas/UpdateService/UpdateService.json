@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_2.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -182,8 +182,8 @@
                 },
                 "TransferProtocol": {
                     "$ref": "#/definitions/TransferProtocolType",
-                    "description": "The network protocol that the update service uses to retrieve the software image file located at the URI provided in ImageURI, if the URI does not contain a scheme.",
-                    "longDescription": "This parameter shall contain the network protocol that the update service shall use to retreive the software image located at the ImageURI.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."
+                    "description": "The network protocol that the update service uses to retrieve the software image file located at the URI provided in ImageURI.  This parameter is ignored if the URI provided in ImageURI contains a scheme.",
+                    "longDescription": "This parameter shall contain the network protocol that the update service shall use to retreive the software image located at the ImageURI.  Services should ignore this parameter if the URI provided in ImageURI contains a scheme.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."
                 },
                 "Username": {
                     "description": "The user name to access the URI specified by the ImageURI parameter.",
@@ -381,7 +381,7 @@
                 "FirmwareInventory": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection.json#/definitions/SoftwareInventoryCollection",
                     "description": "An inventory of firmware.",
-                    "longDescription": "This property shall contain a link to a resource collection of type SoftwareInventoryCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type SoftwareInventoryCollection.  The resource collection should contain the set of software components generally referred to as platform firmware or that does not execute within a host operating system.  Software in this collection is generally updated using platform-specific methods or utilities.",
                     "readonly": true
                 },
                 "HttpPushUri": {
@@ -476,7 +476,7 @@
                 "SoftwareInventory": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection.json#/definitions/SoftwareInventoryCollection",
                     "description": "An inventory of software.",
-                    "longDescription": "This property shall contain a link to a resource collection of type SoftwareInventoryCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type SoftwareInventoryCollection.  The resource collection should contain the set of software components executed in the context of a host operating system.  This can include device drivers, applications, or offload workloads.  Software in this collection is generally updated using operating system-centric methods.",
                     "readonly": true
                 },
                 "Status": {
@@ -496,5 +496,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#UpdateService.v1_8_1.UpdateService"
+    "title": "#UpdateService.v1_8_2.UpdateService"
 }

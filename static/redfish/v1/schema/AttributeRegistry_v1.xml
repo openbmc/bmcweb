@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry v1.3.3                                            -->
+<!--# Redfish Schema:  AttributeRegistry v1.3.4                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -361,7 +361,7 @@
         <Property Name="MapTerms" Type="AttributeRegistry.v1_0_0.MapTerms" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The logical term that combines two or more map-from conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the logical term that combines two or more MapFrom conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the logical term that combines two or more MapFrom conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR.  If multiple logical terms are present in a dependency expression, they should be evaluated in array order, meaning they are evaluated left-to-right when displayed as a logic expression."/>
         </Property>
       </ComplexType>
 
@@ -558,6 +558,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_7.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the evaluation order for Dependencies containing multiple logic expressions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_8.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -636,6 +642,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_6.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the evaluation order for Dependencies containing multiple logic expressions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_7.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -698,6 +710,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_4.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the evaluation order for Dependencies containing multiple logic expressions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_5.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -740,6 +758,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_2.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the evaluation order for Dependencies containing multiple logic expressions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_3.AttributeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

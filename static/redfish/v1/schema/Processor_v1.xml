@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.9.0                                                    -->
+<!--# Redfish Schema:  Processor v1.10.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -26,6 +26,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
     <edmx:Include Namespace="Chassis"/>
@@ -77,7 +78,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -1227,6 +1228,46 @@
           <Annotation Term="OData.Description" String="Base speed priority is disabled."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_9_0.Processor">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+        </Property>
+        <Property Name="BaseSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The base (nominal) clock speed of the processor in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the base (nominal) clock speed of the processor in MHz."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+        <Property Name="SpeedLimitMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The clock limit of the processor in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the clock limit of the processor in MHz. This value shall be within the range of MinSpeedMHz and MaxSpeedMHz as provided by the manufacturer of this processor."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+        <Property Name="SpeedLocked" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the clock speed of the processor is fixed at the value specified in the SpeedLimitMHz property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the clock speed of the processor is fixed, where a value `true` shall indicate that the clock speed is fixed at the value specified in the SpeedLimitMHz property."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ProcessorId" BaseType="Processor.v1_0_0.ProcessorId">
+        <Property Name="ProtectedIdentificationNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Protected Processor Identification Number (PPIN) for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Protected Processor Identification Number (PPIN) for this processor."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_6_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_7_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -78,6 +78,21 @@
             },
             "type": "object"
         },
+        "LogDiagnosticDataTypes": {
+            "enum": [
+                "Manager",
+                "PreOS",
+                "OS",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Manager": "Manager diagnostic data.",
+                "OEM": "OEM diagnostic data.",
+                "OS": "Operating system (OS) diagnostic data.",
+                "PreOS": "Pre-OS diagnostic data."
+            },
+            "type": "string"
+        },
         "LogEntry": {
             "additionalProperties": false,
             "description": "The LogEntry schema defines the record format for a log.  It is designed for Redfish event logs, OEM-specific log formats, and the IPMI System Event Log (SEL).  The EntryType field indicates the type of log and the resource includes several additional properties dependent on the EntryType.",
@@ -115,6 +130,28 @@
                     "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_2_0"
                 },
+                "AdditionalDataSizeBytes": {
+                    "description": "The size of the additional data for the log entry.",
+                    "longDescription": "This property shall contain the size of the additional data referenced by the AdditionalDataURI property for the log entry.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By",
+                    "versionAdded": "v1_7_0"
+                },
+                "AdditionalDataURI": {
+                    "description": "The URI at which to access the additional data for the log entry, such as diagnostic data, image captures, or other files.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI at which to access the additional data for the log entry, using the Redfish protocol and authentication methods.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
                 "Created": {
                     "description": "The date and time when the log entry was created.",
                     "format": "date-time",
@@ -132,6 +169,20 @@
                         }
                     ],
                     "readonly": true
+                },
+                "DiagnosticDataType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LogDiagnosticDataTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of diagnostic data.",
+                    "longDescription": "This property shall contain the type of diagnostic data.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
                 },
                 "EntryCode": {
                     "anyOf": [
@@ -242,6 +293,16 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
                 },
+                "OEMDiagnosticDataType": {
+                    "description": "The OEM-defined type of diagnostic data.",
+                    "longDescription": "This property shall contain the OEM-defined type of diagnostic data.  This property shall be present if DiagnosticDataType is `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -277,8 +338,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "SensorNumber": {
-                    "description": "The sensor number, the count of events, or OEM-specific information.  This property value is decoded from the entry type.  If the entry type is `SEL`, this property contains the sensor number.  If the entry type is `Event`, this property contains the count of events.  Otherwise, this property contains OEM-specific information.",
-                    "longDescription": "This property shall contain the sensor number, the count of events, or OEM-specific information.  This property value is decoded from the entry type.  If the entry type is `SEL`, this property contains the sensor number.  If the entry type is `Event`, this property contains the count of events.  Otherwise, this property contains OEM-specific information.",
+                    "description": "The IPMI-defined sensor number.",
+                    "longDescription": "This property shall contain the IPMI sensor number if the value of the EntryType property is `SEL`.  This property should not appear in the resource for other values of EntryType.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -588,6 +649,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#LogEntry.v1_6_1.LogEntry"
+    "release": "2020.3",
+    "title": "#LogEntry.v1_7_0.LogEntry"
 }

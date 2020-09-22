@@ -53,6 +53,7 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/TaskService/Tasks</String>
+            <String>/redfish/v1/TaskService/Tasks/{TaskId}/SubTasks</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Task.Task)">

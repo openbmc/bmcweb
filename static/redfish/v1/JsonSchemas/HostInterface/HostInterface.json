@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/HostInterface.v1_2_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/HostInterface.v1_3_0.json",
     "$ref": "#/definitions/HostInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -46,6 +46,55 @@
                 "RedfishSessionAuth": "Requests using Redfish Session Authentication are allowed."
             },
             "type": "string"
+        },
+        "CredentialBootstrapping": {
+            "additionalProperties": false,
+            "description": "The credential bootstrapping settings for this interface.",
+            "longDescription": "This type shall contain settings for the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature for this interface.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EnableAfterReset": {
+                    "description": "An indication of whether credential bootstrapping is enabled after a reset for this interface.",
+                    "longDescription": "This property shall indicate whether credential bootstrapping is enabled after a reset for this interface.  If `true`, services shall set the Enabled property to `true` after a reset of the host or the service.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Enabled": {
+                    "description": "An indication of whether credential bootstrapping is enabled for this interface.",
+                    "longDescription": "This property shall indicate whether credential bootstrapping is enabled for this interface.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "RoleId": {
+                    "description": "The role used for the bootstrap account created for this interface.",
+                    "longDescription": "This property shall contain the Id property of the role resource that is used for the bootstrap account created for this interface.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
         },
         "HostInterface": {
             "additionalProperties": false,
@@ -100,6 +149,12 @@
                     "readonly": false,
                     "type": "array"
                 },
+                "CredentialBootstrapping": {
+                    "$ref": "#/definitions/CredentialBootstrapping",
+                    "description": "The credential bootstrapping settings for this interface.",
+                    "longDescription": "This property shall contain settings for the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature for this interface.  This property shall be absent if credential bootstrapping is not supported by the service.",
+                    "versionAdded": "v1_3_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -121,19 +176,23 @@
                     ]
                 },
                 "FirmwareAuthEnabled": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
                     "description": "An indication of whether this firmware authentication is enabled for this interface.",
                     "longDescription": "This property shall indicate whether firmware authentication is enabled for this interface.",
                     "readonly": false,
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionDeprecated": "v1_3_0"
                 },
                 "FirmwareAuthRoleId": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
                     "description": "The Role used for firmware authentication on this interface.",
                     "longDescription": "This property shall contain the Id property of the Role Resource that is configured for firmware authentication on this interface.",
                     "readonly": false,
-                    "type": "string"
+                    "type": "string",
+                    "versionDeprecated": "v1_3_0"
                 },
                 "HostEthernetInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection",
@@ -168,19 +227,23 @@
                     ]
                 },
                 "KernelAuthEnabled": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
                     "description": "An indication of whether this kernel authentication is enabled for this interface.",
                     "longDescription": "This property shall indicate whether kernel authentication is enabled for this interface.",
                     "readonly": false,
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionDeprecated": "v1_3_0"
                 },
                 "KernelAuthRoleId": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
                     "description": "The Role used for kernel authentication on this interface.",
                     "longDescription": "This property shall contain the Id property of the Role Resource that is configured for kernel authentication on this interface.",
                     "readonly": false,
-                    "type": "string"
+                    "type": "string",
+                    "versionDeprecated": "v1_3_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
@@ -269,17 +332,28 @@
                 "ComputerSystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "CredentialBootstrappingRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "The link to the role that contains the privileges for the bootstrap account created for this interface.",
+                    "longDescription": "This property shall contain a link to a resource of type Role, and should link to the resource identified by the RoleId property within CredentialBootstrapping.  This property shall be absent if the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature is not supported by the service.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
                 "FirmwareAuthRole": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
                     "description": "The link to the Redfish Role that has firmware authentication privileges on this Host Interface.",
                     "longDescription": "This property shall contain a link to a Resource of type Role, and should link to the Resource identified by property FirmwareAuthRoleId.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_3_0"
                 },
                 "KernelAuthRole": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
                     "description": "The link to the Redfish Role defining privileges for this Host Interface when using kernel authentication.",
                     "longDescription": "This property shall contain a link to a Resource of type Role, and should link to the Resource identified by property KernelAuthRoleId.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_3_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -312,6 +386,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.2",
-    "title": "#HostInterface.v1_2_2.HostInterface"
+    "release": "2020.3",
+    "title": "#HostInterface.v1_3_0.HostInterface"
 }

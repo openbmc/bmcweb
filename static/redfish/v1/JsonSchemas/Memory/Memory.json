@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_9_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_10_0.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -162,8 +162,8 @@
             "properties": {
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
-                    "description": "The link to the chassis that contains this memory.",
-                    "longDescription": "This property shall contain a link to a resource of type Chassis that represents the physical container associated with this memory.",
+                    "description": "The link to the chassis that contains this memory device.",
+                    "longDescription": "This property shall contain a link to a resource of type Chassis that represents the physical container associated with this memory device.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -177,8 +177,8 @@
         },
         "Memory": {
             "additionalProperties": false,
-            "description": "The schema for definition of a memory and its configuration.",
-            "longDescription": "This resource contains the memory in a Redfish implementation.",
+            "description": "The Memory schema represents a memory device, such as a DIMM, and its configuration.",
+            "longDescription": "This resource shall represent a memory device in a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -234,18 +234,18 @@
                     "versionAdded": "v1_2_0"
                 },
                 "AllowedSpeedsMHz": {
-                    "description": "Speeds supported by this memory.",
+                    "description": "Speeds supported by this memory device.",
                     "items": {
                         "type": "integer"
                     },
-                    "longDescription": "This property shall contain the speed supported by this memory.",
+                    "longDescription": "This property shall contain the speed supported by this memory device.",
                     "readonly": true,
                     "type": "array",
                     "units": "MHz"
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
-                    "description": "The link to the assembly resource associated with this memory.",
+                    "description": "The link to the assembly resource associated with this memory device.",
                     "longDescription": "This property shall contain a link to a resource of type Assembly.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
@@ -259,8 +259,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The base module type of the memory.",
-                    "longDescription": "This property shall contain the base module type of the memory.",
+                    "description": "The base module type of the memory device.",
+                    "longDescription": "This property shall contain the base module type of the memory device.",
                     "readonly": true
                 },
                 "BusWidthBits": {
@@ -294,8 +294,8 @@
                     "units": "MiBy"
                 },
                 "ConfigurationLocked": {
-                    "description": "An indication of whether the configuration of this memory is locked and cannot be altered.",
-                    "longDescription": "This property shall indicate whether the configuration of this memory is locked and cannot be altered.",
+                    "description": "An indication of whether the configuration of this memory device is locked and cannot be altered.",
+                    "longDescription": "This property shall indicate whether the configuration of this memory device is locked and cannot be altered.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -326,7 +326,7 @@
                 "DeviceID": {
                     "deprecated": "This property has been deprecated in favor of ModuleProductID.",
                     "description": "Device ID.",
-                    "longDescription": "This property shall contain the device ID of the memory.",
+                    "longDescription": "This property shall contain the device ID of the memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -336,8 +336,8 @@
                 },
                 "DeviceLocator": {
                     "deprecated": "This property has been deprecated in favor of the ServiceLabel property within Location.",
-                    "description": "Location of the memory in the platform.",
-                    "longDescription": "This property shall contain location of the memory in the platform, typically marked in the silk screen.",
+                    "description": "Location of the memory device in the platform.",
+                    "longDescription": "This property shall contain location of the memory device in the platform, typically marked in the silk screen.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -354,8 +354,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Error correction scheme supported for this memory.",
-                    "longDescription": "This property shall contain the error correction scheme supported for this memory.",
+                    "description": "Error correction scheme supported for this memory device.",
+                    "longDescription": "This property shall contain the error correction scheme supported for this memory device.",
                     "readonly": true
                 },
                 "FirmwareApiVersion": {
@@ -378,11 +378,11 @@
                 },
                 "FunctionClasses": {
                     "deprecated": "This property has been deprecated in favor of OperatingMemoryModes at the root of the resource, or MemoryClassification found within RegionSet.",
-                    "description": "Function classes by the memory.",
+                    "description": "Function classes by the memory device.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain the function classes by the memory.",
+                    "longDescription": "This property shall contain the function classes by the memory device.",
                     "readonly": true,
                     "type": "array",
                     "versionDeprecated": "v1_3_0"
@@ -392,8 +392,8 @@
                     "readonly": true
                 },
                 "IsRankSpareEnabled": {
-                    "description": "An indication of whether rank spare is enabled for this memory.",
-                    "longDescription": "This property shall indicate whether rank spare is enabled for this memory.",
+                    "description": "An indication of whether rank spare is enabled for this memory device.",
+                    "longDescription": "This property shall indicate whether rank spare is enabled for this memory device.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -401,7 +401,7 @@
                     ]
                 },
                 "IsSpareDeviceEnabled": {
-                    "description": "An indication of whether a spare device is enabled for this memory.",
+                    "description": "An indication of whether a spare device is enabled for this memory device.",
                     "longDescription": "This property shall indicate whether the spare device is enabled.",
                     "readonly": true,
                     "type": [
@@ -417,9 +417,19 @@
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
-                    "description": "The location of the memory.",
-                    "longDescription": "This property shall contain location information of the associated memory.",
+                    "description": "The location of the memory device.",
+                    "longDescription": "This property shall contain location information of the associated memory device.",
                     "versionAdded": "v1_4_0"
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
                 },
                 "LogicalSizeMiB": {
                     "description": "Total size of the logical memory in MiB.",
@@ -433,8 +443,8 @@
                     "versionAdded": "v1_4_0"
                 },
                 "Manufacturer": {
-                    "description": "The memory manufacturer.",
-                    "longDescription": "This property shall contain the manufacturer of the memory.",
+                    "description": "The memory device manufacturer.",
+                    "longDescription": "This property shall contain the manufacturer of the memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -442,11 +452,11 @@
                     ]
                 },
                 "MaxTDPMilliWatts": {
-                    "description": "Set of maximum power budgets supported by the memory in milliwatts.",
+                    "description": "Set of maximum power budgets supported by the memory device in milliwatts.",
                     "items": {
                         "type": "integer"
                     },
-                    "longDescription": "This property shall contain an array of maximum power budgets supported by the memory in milliwatts.",
+                    "longDescription": "This property shall contain an array of maximum power budgets supported by the memory device in milliwatts.",
                     "readonly": true,
                     "type": "array",
                     "units": "mW"
@@ -460,7 +470,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Type details of the memory.",
+                    "description": "Type details of the memory device.",
                     "longDescription": "This property shall contain the Memory Device Type as defined by SMBIOS.",
                     "readonly": true
                 },
@@ -470,17 +480,17 @@
                     "longDescription": "This object shall contain properties that describe the memory connection information to sockets and memory controllers."
                 },
                 "MemoryMedia": {
-                    "description": "Media of this memory.",
+                    "description": "Media of this memory device.",
                     "items": {
                         "$ref": "#/definitions/MemoryMedia"
                     },
-                    "longDescription": "This property shall contain the media types of this memory.",
+                    "longDescription": "This property shall contain the media types of this memory device.",
                     "readonly": true,
                     "type": "array"
                 },
                 "MemorySubsystemControllerManufacturerID": {
-                    "description": "The manufacturer ID of the memory subsystem controller of this memory module.",
-                    "longDescription": "This property shall contain the two byte manufacturer ID of the memory subsystem controller of this memory module as defined by JEDEC in JEP-106.",
+                    "description": "The manufacturer ID of the memory subsystem controller of this memory device.",
+                    "longDescription": "This property shall contain the two byte manufacturer ID of the memory subsystem controller of this memory device as defined by JEDEC in JEP-106.",
                     "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
                     "readonly": true,
                     "type": [
@@ -490,8 +500,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "MemorySubsystemControllerProductID": {
-                    "description": "The product ID of the memory subsystem controller of this memory module.",
-                    "longDescription": "This property shall contain the two byte product ID of the memory subsystem controller of this memory module as defined by the manufacturer.",
+                    "description": "The product ID of the memory subsystem controller of this memory device.",
+                    "longDescription": "This property shall contain the two byte product ID of the memory subsystem controller of this memory device as defined by the manufacturer.",
                     "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
                     "readonly": true,
                     "type": [
@@ -509,19 +519,19 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The type of memory.",
-                    "longDescription": "This property shall contain the type of memory that this resource represents.",
+                    "description": "The type of memory device.",
+                    "longDescription": "This property shall contain the type of memory device that this resource represents.",
                     "readonly": true
                 },
                 "Metrics": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json#/definitions/MemoryMetrics",
-                    "description": "The link to the Metrics associated with this memory.",
-                    "longDescription": "The link to the metrics associated with this memory.",
+                    "description": "The link to the metrics associated with this memory device.",
+                    "longDescription": "The link to the metrics associated with this memory device.",
                     "readonly": true
                 },
                 "ModuleManufacturerID": {
-                    "description": "The manufacturer ID of this memory module.",
-                    "longDescription": "This property shall contain the two byte manufacturer ID of this memory module as defined by JEDEC in JEP-106.",
+                    "description": "The manufacturer ID of this memory device.",
+                    "longDescription": "This property shall contain the two byte manufacturer ID of this memory device as defined by JEDEC in JEP-106.",
                     "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
                     "readonly": true,
                     "type": [
@@ -531,8 +541,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "ModuleProductID": {
-                    "description": "The product ID of this memory module.",
-                    "longDescription": "This property shall contain the two byte product ID of this memory module as defined by the manufacturer.",
+                    "description": "The product ID of this memory device.",
+                    "longDescription": "This property shall contain the two byte product ID of this memory device as defined by the manufacturer.",
                     "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
                     "readonly": true,
                     "type": [
@@ -562,17 +572,17 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "OperatingMemoryModes": {
-                    "description": "Memory modes supported by the memory.",
+                    "description": "Memory modes supported by the memory device.",
                     "items": {
                         "$ref": "#/definitions/OperatingMemoryModes"
                     },
-                    "longDescription": "This property shall contain the memory modes supported by the memory.",
+                    "longDescription": "This property shall contain the memory modes supported by the memory device.",
                     "readonly": true,
                     "type": "array"
                 },
                 "OperatingSpeedMhz": {
-                    "description": "Operating speed of memory in MHz or MT/s as appropriate.",
-                    "longDescription": "This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  Memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  The reported value shall match the conventionally reported values for the technology used by the memory device.",
+                    "description": "Operating speed of the memory device in MHz or MT/s as appropriate.",
+                    "longDescription": "This property shall contain the operating speed of the memory device in MHz or MT/s (mega-transfers per second) as reported by the memory device.  Memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  The reported value shall match the conventionally reported values for the technology used by the memory device.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -582,7 +592,7 @@
                 },
                 "PartNumber": {
                     "description": "The product part number of this device.",
-                    "longDescription": "This property shall indicate the part number as provided by the manufacturer of this memory.",
+                    "longDescription": "This property shall indicate the part number as provided by the manufacturer of this memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -590,8 +600,8 @@
                     ]
                 },
                 "PersistentRegionNumberLimit": {
-                    "description": "Total number of persistent regions this memory can support.",
-                    "longDescription": "This property shall contain the total number of persistent regions this memory can support.",
+                    "description": "Total number of persistent regions this memory device can support.",
+                    "longDescription": "This property shall contain the total number of persistent regions this memory device can support.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -626,8 +636,8 @@
                     "longDescription": "This object shall contain properties that describe the power management policy for this resource."
                 },
                 "RankCount": {
-                    "description": "Number of ranks available in the memory.",
-                    "longDescription": "This property shall contain the number of ranks available in the memory.  The ranks could be used for spare or interleave.",
+                    "description": "Number of ranks available in the memory device.",
+                    "longDescription": "This property shall contain the number of ranks available in the memory device.  The ranks could be used for spare or interleave.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -635,17 +645,17 @@
                     ]
                 },
                 "Regions": {
-                    "description": "Memory regions information within the memory.",
+                    "description": "Memory regions information within the memory device.",
                     "items": {
                         "$ref": "#/definitions/RegionSet"
                     },
-                    "longDescription": "This property shall contain the memory region information within the memory.",
+                    "longDescription": "This property shall contain the memory region information within the memory device.",
                     "type": "array"
                 },
                 "SecurityCapabilities": {
                     "$ref": "#/definitions/SecurityCapabilities",
-                    "description": "Security capabilities of the memory.",
-                    "longDescription": "This property shall contain properties that describe the security capabilities of the memory."
+                    "description": "Security capabilities of the memory device.",
+                    "longDescription": "This property shall contain properties that describe the security capabilities of the memory device."
                 },
                 "SecurityState": {
                     "anyOf": [
@@ -656,14 +666,14 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The current security state of this memory.",
-                    "longDescription": "This property shall contain the current security state of this memory.",
+                    "description": "The current security state of this memory device.",
+                    "longDescription": "This property shall contain the current security state of this memory device.",
                     "readonly": false,
                     "versionAdded": "v1_7_0"
                 },
                 "SerialNumber": {
                     "description": "The product serial number of this device.",
-                    "longDescription": "This property shall indicate the serial number as provided by the manufacturer of this memory.",
+                    "longDescription": "This property shall indicate the serial number as provided by the manufacturer of this memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -671,8 +681,8 @@
                     ]
                 },
                 "SpareDeviceCount": {
-                    "description": "Number of unused spare devices available in the memory.",
-                    "longDescription": "This property shall contain the number of unused spare devices available in the memory.  If memory devices fails, the spare device could be used.",
+                    "description": "Number of unused spare devices available in the memory device.",
+                    "longDescription": "This property shall contain the number of unused spare devices available in the memory device.  If memory devices fails, the spare device could be used.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -688,7 +698,7 @@
                 "SubsystemDeviceID": {
                     "deprecated": "This property has been deprecated in favor of MemorySubsystemControllerProductID.",
                     "description": "Subsystem device ID.",
-                    "longDescription": "This property shall contain the subsystem device ID of the memory.",
+                    "longDescription": "This property shall contain the subsystem device ID of the memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -699,7 +709,7 @@
                 "SubsystemVendorID": {
                     "deprecated": "This property has been deprecated in favor of MemorySubsystemControllerManufacturerID.",
                     "description": "SubSystem vendor ID.",
-                    "longDescription": "This property shall contain the subsystem vendor ID of the memory.",
+                    "longDescription": "This property shall contain the subsystem vendor ID of the memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -710,7 +720,7 @@
                 "VendorID": {
                     "deprecated": "This property has been deprecated in favor of ModuleManufacturerID.",
                     "description": "Vendor ID.",
-                    "longDescription": "This property shall contain the vendor ID of the memory.",
+                    "longDescription": "This property shall contain the vendor ID of the memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -719,8 +729,8 @@
                     "versionDeprecated": "v1_3_0"
                 },
                 "VolatileRegionNumberLimit": {
-                    "description": "Total number of volatile regions this memory can support.",
-                    "longDescription": "This property shall contain the total number of volatile regions this memory can support.",
+                    "description": "Total number of volatile regions this memory device can support.",
+                    "longDescription": "This property shall contain the total number of volatile regions this memory device can support.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -858,8 +868,8 @@
             },
             "properties": {
                 "Channel": {
-                    "description": "The channel number to which the memory is connected.",
-                    "longDescription": "This property shall contain the channel number to which the memory is connected.",
+                    "description": "The channel number to which the memory device is connected.",
+                    "longDescription": "This property shall contain the channel number to which the memory device is connected.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -867,8 +877,8 @@
                     ]
                 },
                 "MemoryController": {
-                    "description": "The memory controller number to which the memory is connected.",
-                    "longDescription": "This property shall contain the memory controller number to which the memory is connected.",
+                    "description": "The memory controller number to which the memory device is connected.",
+                    "longDescription": "This property shall contain the memory controller number to which the memory device is connected.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -876,8 +886,8 @@
                     ]
                 },
                 "Slot": {
-                    "description": "The slot number to which the memory is connected.",
-                    "longDescription": "This property shall contain the slot number to which the memory is connected.",
+                    "description": "The slot number to which the memory device is connected.",
+                    "longDescription": "This property shall contain the slot number to which the memory device is connected.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -885,8 +895,8 @@
                     ]
                 },
                 "Socket": {
-                    "description": "The socket number to which the memory is connected.",
-                    "longDescription": "This property shall contain the socket number to which the memory is connected.",
+                    "description": "The socket number to which the memory device is connected.",
+                    "longDescription": "This property shall contain the socket number to which the memory device is connected.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -923,18 +933,18 @@
                 "IntelOptane"
             ],
             "enumDescriptions": {
-                "DRAM": "The memory module is comprised of volatile memory.",
-                "IntelOptane": "The memory module is an Intel Optane DC Persistent Memory Module.",
-                "NVDIMM_F": "The memory module is comprised of non-volatile memory.",
-                "NVDIMM_N": "The memory module is comprised of volatile memory backed by non-volatile memory.",
-                "NVDIMM_P": "The memory module is comprised of a combination of non-volatile and volatile memory."
+                "DRAM": "The memory device is comprised of volatile memory.",
+                "IntelOptane": "The memory device is an Intel Optane DC Persistent Memory Module.",
+                "NVDIMM_F": "The memory device is comprised of non-volatile memory.",
+                "NVDIMM_N": "The memory device is comprised of volatile memory backed by non-volatile memory.",
+                "NVDIMM_P": "The memory device is comprised of a combination of non-volatile and volatile memory."
             },
             "enumLongDescriptions": {
-                "DRAM": "This memory type shall represent volatile DRAM.",
-                "IntelOptane": "This memory type shall represent an Intel Optane DC Persistent Memory Module.",
-                "NVDIMM_F": "This memory type shall represent NVDIMM_F as defined by JEDEC.",
-                "NVDIMM_N": "This memory type shall represent NVDIMM_N as defined by JEDEC.",
-                "NVDIMM_P": "This memory type shall represent NVDIMM_P as defined by JEDEC."
+                "DRAM": "This value shall represent a volatile DRAM memory device.",
+                "IntelOptane": "This value shall represent an Intel Optane DC Persistent Memory Module.",
+                "NVDIMM_F": "This value shall represent an NVDIMM_F memory device as defined by JEDEC.",
+                "NVDIMM_N": "This value shall represent an NVDIMM_N memory device as defined by JEDEC.",
+                "NVDIMM_P": "This value shall represent an NVDIMM_P memory device as defined by JEDEC."
             },
             "enumVersionAdded": {
                 "IntelOptane": "v1_6_0"
@@ -1146,8 +1156,8 @@
                     "versionDeprecated": "v1_5_0"
                 },
                 "RegionId": {
-                    "description": "Unique region ID representing a specific region within the memory.",
-                    "longDescription": "This property shall contain the unique region ID representing a specific region within the memory.",
+                    "description": "Unique region ID representing a specific region within the memory device.",
+                    "longDescription": "This property shall contain the unique region ID representing a specific region within the memory device.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1169,8 +1179,8 @@
         },
         "Reset": {
             "additionalProperties": false,
-            "description": "This action resets this memory.",
-            "longDescription": "This action shall reset this memory.",
+            "description": "This action resets this memory device.",
+            "longDescription": "This action shall reset this memory device.",
             "parameters": {
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
@@ -1271,8 +1281,8 @@
             },
             "properties": {
                 "ConfigurationLockCapable": {
-                    "description": "An indication of whether this memory supports the locking, or freezing, of the configuration.",
-                    "longDescription": "This property shall indicate whether this memory supports the locking, or freezing, of the configuration.",
+                    "description": "An indication of whether this memory device supports the locking, or freezing, of the configuration.",
+                    "longDescription": "This property shall indicate whether this memory device supports the locking, or freezing, of the configuration.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -1281,8 +1291,8 @@
                     "versionAdded": "v1_7_0"
                 },
                 "DataLockCapable": {
-                    "description": "An indication of whether this memory supports data locking.",
-                    "longDescription": "This property shall indicate whether this memory supports the locking of data access.",
+                    "description": "An indication of whether this memory device supports data locking.",
+                    "longDescription": "This property shall indicate whether this memory device supports the locking of data access.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -1291,8 +1301,8 @@
                     "versionAdded": "v1_7_0"
                 },
                 "MaxPassphraseCount": {
-                    "description": "Maximum number of passphrases supported for this memory.",
-                    "longDescription": "This property shall contain the maximum number of passphrases supported for this memory.",
+                    "description": "Maximum number of passphrases supported for this memory device.",
+                    "longDescription": "This property shall contain the maximum number of passphrases supported for this memory device.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1300,8 +1310,8 @@
                     ]
                 },
                 "PassphraseCapable": {
-                    "description": "An indication of whether the memory is passphrase capable.",
-                    "longDescription": "This property shall indicate whether the memory is passphrase capable.",
+                    "description": "An indication of whether the memory device is passphrase capable.",
+                    "longDescription": "This property shall indicate whether the memory device is passphrase capable.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -1309,7 +1319,7 @@
                     ]
                 },
                 "PassphraseLockLimit": {
-                    "description": "The maximum number of incorrect passphrase attempts allowed before memory is locked.",
+                    "description": "The maximum number of incorrect passphrase attempts allowed before memory device is locked.",
                     "longDescription": "This property shall contain the maximum number of incorrect passphrase access attempts allowed before access to data is locked.  If 0, the number of attempts is infinite.",
                     "readonly": true,
                     "type": [
@@ -1320,11 +1330,11 @@
                 },
                 "SecurityStates": {
                     "deprecated": "This property has been deprecated in favor of using the individual PassphraseCapable, DataLockCapable and ConfigurationLockCapable properties.",
-                    "description": "Security states supported by the memory.",
+                    "description": "Security states supported by the memory device.",
                     "items": {
                         "$ref": "#/definitions/SecurityStates"
                     },
-                    "longDescription": "This property shall contain the security states supported by the memory.",
+                    "longDescription": "This property shall contain the security states supported by the memory device.",
                     "readonly": true,
                     "type": "array",
                     "versionDeprecated": "v1_7_0"
@@ -1451,6 +1461,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Memory.v1_9_2.Memory"
+    "release": "2020.3",
+    "title": "#Memory.v1_10_0.Memory"
 }

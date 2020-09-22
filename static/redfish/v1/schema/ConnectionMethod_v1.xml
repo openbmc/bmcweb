@@ -43,12 +43,12 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="true"/>
+            <PropertyValue Property="Updatable" Bool="false"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
-            <PropertyValue Property="Deletable" Bool="true"/>
+            <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">

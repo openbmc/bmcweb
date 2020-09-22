@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.v1_2_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.v1_3_0.json",
     "$ref": "#/definitions/SimpleStorage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -133,6 +133,13 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Storage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage",
+                    "description": "The link to the storage instance that corresponds to this simple storage.",
+                    "longDescription": "This property shall contain a link to a Resource of type Storage that represents the same storage subsystem as this Resource.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -258,6 +265,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2017.1",
-    "title": "#SimpleStorage.v1_2_3.SimpleStorage"
+    "release": "2020.3",
+    "title": "#SimpleStorage.v1_3_0.SimpleStorage"
 }

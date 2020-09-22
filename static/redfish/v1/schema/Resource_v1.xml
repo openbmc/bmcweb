@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.9.2                                                     -->
+<!--# Redfish Schema:  Resource v1.10.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -208,30 +208,39 @@
       <EnumType Name="ResetType">
         <Member Name="On">
           <Annotation Term="OData.Description" String="Turn on the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
         </Member>
         <Member Name="ForceOff">
           <Annotation Term="OData.Description" String="Turn off the unit immediately (non-graceful shutdown)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state.  The transition will start immediately.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."/>
         </Member>
         <Member Name="GracefulShutdown">
           <Annotation Term="OData.Description" String="Shut down gracefully and power off."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state.  The transition will start after first performing tasks to safely shutdown the resource.  For example, when shutting down a computer system, the hosted operating system is allowed to safely shutdown processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."/>
         </Member>
         <Member Name="GracefulRestart">
           <Annotation Term="OData.Description" String="Shut down gracefully and restart the system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transion will start after first performing tasks to safely shutdown the resource.  For example, when shutting down a computer system, the hosted operating system is allowed to safely shutting down processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
         </Member>
         <Member Name="ForceRestart">
           <Annotation Term="OData.Description" String="Shut down immediately and non-gracefully and restart the system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transion will start immediately.  Upon successful completion, the PowerState property, if supported, shall shall contain the value `On`."/>
         </Member>
         <Member Name="Nmi">
           <Annotation Term="OData.Description" String="Generate a diagnostic interrupt, which is usually an NMI on x86 systems, to stop normal operations, complete diagnostic actions, and, typically, halt the system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will generate a diagnostic interrupt."/>
         </Member>
         <Member Name="ForceOn">
           <Annotation Term="OData.Description" String="Turn on the unit immediately."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  The transition will start immediately.  Upon successful completion, the PowerState property shall contain the value `On`."/>
         </Member>
         <Member Name="PushPowerButton">
           <Annotation Term="OData.Description" String="Simulate the pressing of the physical power button on this unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will behave as if the physical power button is pressed.  The behavior of pressing the physical power button might be dependent on the state of the unit and the behavior might be configurable."/>  
         </Member>
         <Member Name="PowerCycle">
-          <Annotation Term="OData.Description" String="Power cycle the unit."/>
+          <Annotation Term="OData.Description" String="Power cycle the unit.  Behaves like a full power removal, followed by a power restore to the resource."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -478,6 +487,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="NGUID">
+          <Annotation Term="OData.Description" String="The Namespace Globally Unique Identifier (NGUID)."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1263,6 +1284,17 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the ResetType enumeration values."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `NGUID` enumeration to Identifers."/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunction v1.4.1                                        -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.5.0                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,6 +42,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterface_v1.xml">
     <edmx:Include Namespace="EthernetInterface"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -117,6 +120,15 @@
           <Annotation Term="OData.Description" String="An array of physical ports to which this network device function can be assigned."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkPort that are the physical ports to which this network device function can be assigned."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AssignablePhysicalNetowrkPorts property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="PhysicalPortAssignment" Type="NetworkPort.NetworkPort" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -410,67 +422,78 @@
 
       <EnumType Name="NetworkDeviceTechnology">
         <Member Name="Disabled">
-          <Annotation Term="OData.Description" String="Neither enumerated nor visible to the operating system." />
+          <Annotation Term="OData.Description" String="Neither enumerated nor visible to the operating system."/>
         </Member>
         <Member Name="Ethernet">
-          <Annotation Term="OData.Description" String="Appears to the operating system as an Ethernet device." />
+          <Annotation Term="OData.Description" String="Appears to the operating system as an Ethernet device."/>
         </Member>
         <Member Name="FibreChannel">
-          <Annotation Term="OData.Description" String="Appears to the operating system as a Fibre Channel device." />
+          <Annotation Term="OData.Description" String="Appears to the operating system as a Fibre Channel device."/>
         </Member>
         <Member Name="iSCSI">
-          <Annotation Term="OData.Description" String="Appears to the operating system as an iSCSI device." />
+          <Annotation Term="OData.Description" String="Appears to the operating system as an iSCSI device."/>
         </Member>
         <Member Name="FibreChannelOverEthernet">
-          <Annotation Term="OData.Description" String="Appears to the operating system as an FCoE device." />
+          <Annotation Term="OData.Description" String="Appears to the operating system as an FCoE device."/>
+        </Member>
+        <Member Name="InfiniBand">
+          <Annotation Term="OData.Description" String="Appears to the operating system as an InfiniBand device."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
       <EnumType Name="IPAddressType">
         <Member Name="IPv4">
-          <Annotation Term="OData.Description" String="IPv4 addressing is used for all IP-fields in this object." />
+          <Annotation Term="OData.Description" String="IPv4 addressing is used for all IP-fields in this object."/>
         </Member>
         <Member Name="IPv6">
-          <Annotation Term="OData.Description" String="IPv6 addressing is used for all IP-fields in this object." />
+          <Annotation Term="OData.Description" String="IPv6 addressing is used for all IP-fields in this object."/>
         </Member>
       </EnumType>
 
       <EnumType Name="AuthenticationMethod">
         <Member Name="None">
-          <Annotation Term="OData.Description" String="No iSCSI authentication is used." />
+          <Annotation Term="OData.Description" String="No iSCSI authentication is used."/>
         </Member>
         <Member Name="CHAP">
-          <Annotation Term="OData.Description" String="iSCSI Challenge Handshake Authentication Protocol (CHAP) authentication is used." />
+          <Annotation Term="OData.Description" String="iSCSI Challenge Handshake Authentication Protocol (CHAP) authentication is used."/>
         </Member>
         <Member Name="MutualCHAP">
-          <Annotation Term="OData.Description" String="iSCSI Mutual Challenge Handshake Authentication Protocol (CHAP) authentication is used." />
+          <Annotation Term="OData.Description" String="iSCSI Mutual Challenge Handshake Authentication Protocol (CHAP) authentication is used."/>
         </Member>
       </EnumType>
 
       <EnumType Name="WWNSource">
         <Member Name="ConfiguredLocally">
-          <Annotation Term="OData.Description" String="The set of FC/FCoE boot targets was applied locally through API or UI." />
+          <Annotation Term="OData.Description" String="The set of FC/FCoE boot targets was applied locally through API or UI."/>
         </Member>
         <Member Name="ProvidedByFabric">
-          <Annotation Term="OData.Description" String="The set of FC/FCoE boot targets was applied by the Fibre Channel fabric." />
+          <Annotation Term="OData.Description" String="The set of FC/FCoE boot targets was applied by the Fibre Channel fabric."/>
         </Member>
       </EnumType>
 
       <EnumType Name="BootMode">
         <Member Name="Disabled">
-          <Annotation Term="OData.Description" String="Do not indicate to UEFI/BIOS that this device is bootable." />
+          <Annotation Term="OData.Description" String="Do not indicate to UEFI/BIOS that this device is bootable."/>
         </Member>
         <Member Name="PXE">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded PXE support.  Only applicable if the NetworkDeviceFunctionType is `Ethernet`." />
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded PXE support.  Only applicable if the NetworkDeviceFunctionType is `Ethernet` or `InfiniBand`."/>
         </Member>
         <Member Name="iSCSI">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded iSCSI boot support and configuration.  Only applicable if the NetworkDeviceFunctionType is `iSCSI`." />
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded iSCSI boot support and configuration.  Only applicable if the NetworkDeviceFunctionType is `iSCSI`."/>
         </Member>
         <Member Name="FibreChannel">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel support and configuration.  Only applicable if the NetworkDeviceFunctionType is `FibreChannel`." />
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel support and configuration.  Only applicable if the NetworkDeviceFunctionType is `FibreChannel`."/>
         </Member>
         <Member Name="FibreChannelOverEthernet">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel over Ethernet (FCoE) boot support and configuration.  Only applicable if the NetworkDeviceFunctionType is `FibreChannelOverEthernet`." />
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel over Ethernet (FCoE) boot support and configuration.  Only applicable if the NetworkDeviceFunctionType is `FibreChannelOverEthernet`."/>
         </Member>
       </EnumType>
     </Schema>
@@ -645,6 +668,15 @@
           <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkPort to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PhysicalNetworkPortAssignment property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </ComplexType>
 
@@ -700,6 +732,7 @@
       <Annotation Term="OData.Description" String="This version was created to add the link to EthernetInterface when one of the NetworkDeviceFunction VLANs has been represented as a virtual NIC for the purpose of showing the IP Address associated with that VLAN."/>
 
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_3.NetworkDeviceFunction"/>
+
       <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_3_0.Links">
         <NavigationProperty Name="EthernetInterface" Type="EthernetInterface.EthernetInterface" Nullable="false">
           <Annotation Term="OData.Description" String="The link to a virtual Ethernet interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
@@ -713,6 +746,98 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_1.NetworkDeviceFunction">
+        <NavigationProperty Name="AssignablePhysicalNetworkPorts" Type="Collection(Port.Port)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that are the physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PhysicalNetworkPortAssignment" Type="Port.Port" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Port that is the physical port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalNetworkPorts array members."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="InfiniBand" Type="NetworkDeviceFunction.v1_5_0.InfiniBand" Nullable="false">
+          <Annotation Term="OData.Description" String="The InfiniBand capabilities, status, and configuration values for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain InfiniBand capabilities, status, and configuration values for this network device function."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_3_0.Links">
+        <NavigationProperty Name="PhysicalNetworkPortAssignment" Type="Port.Port" Nullable="false">
+          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Ethernet" BaseType="NetworkDeviceFunction.v1_3_0.Ethernet">
+        <Property Name="MTUSizeMaximum" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The largest maximum transmission unit (MTU) size supported for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the largest maximum transmission unit (MTU) size supported for this network device function."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="InfiniBand">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes InifiniBand capabilities, status, and configuration of a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the InifiniBand capabilities, status, and configuration values for a network device function."/>
+        <Property Name="PermanentPortGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent port GUID assigned to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent port GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="PermanentNodeGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent node GUID assigned to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent node GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="PermanentSystemGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent system GUID assigned to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent system GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="PortGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The currently configured port GUID of the network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current virtual port GUID of this network device function.  If an assignable port GUID is not supported, this is a read-only alias of the PermanentPortGUID."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="NodeGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the currently configured node GUID of the network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current node GUID of this virtual port of this network device function.  If an assignable node GUID is not supported, this is a read-only alias of the PermanentNodeGUID."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="SystemGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the currently configured system GUID of the network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current system GUID of this virtual port of this network device function.  If an assignable system GUID is not supported, this is a read-only alias of the PermanentSystemGUID."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="SupportedMTUSizes" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum transmission unit (MTU) sizes supported for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the maximum transmission unit (MTU) sizes supported for this network device function."/>
+        </Property>
+        <Property Name="MTUSize" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum transmission unit (MTU) configured for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="The maximum transmission unit (MTU) configured for this network device function."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
