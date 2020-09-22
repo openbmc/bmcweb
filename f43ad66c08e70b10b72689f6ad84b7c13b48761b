@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "23698d36_51b946ed",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-22T06:44:36Z",
+      "side": 1,
+      "message": "line number 213 will ultimately invoke the retry policies",
+      "parentUuid": "094ff7e7_90e614a6",
+      "range": {
+        "startLine": 220,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82853aae_448186aa",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "Ignore my comment about reset, that was on an older version of BEAST, but the point still remains, is this needed at all?  There should be no need to reset if you\u0027re destroying the connection.",
       "parentUuid": "170e54ea_14812e26",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a4727b_53becb50",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-22T06:44:36Z",
+      "side": 1,
+      "message": "We will not destroy the connection",
+      "parentUuid": "7d1c435e_6c7e360d",
       "range": {
         "startLine": 232,
         "startChar": 12,
@@ -286,6 +334,30 @@
     },
     {
       "key": {
+        "uuid": "e89cf9c5_4f009bbd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-22T06:44:36Z",
+      "side": 1,
+      "message": "There is no pushback :)\nAgree with the reasoning where the SSL connection establishment can possibly take up lot of CPU cycles. We can implement the keep_alive",
+      "parentUuid": "a3bbddca_db25053e",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685dcd0c_622407da",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -393,6 +465,30 @@
       "side": 1,
       "message": "The easiest way I can explain would be to tell you to try it by subscribing to all sensors, and check the CPU usage on the BMC.   It will be spinning up 100 SSL connections per second, each of them expensive to build.",
       "parentUuid": "e53cd0ea_34a19ab9",
+      "range": {
+        "startLine": 238,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "878cfb2c_12a0fd2b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-22T06:44:36Z",
+      "side": 1,
+      "message": "Makes sense.",
+      "parentUuid": "db87bc53_66b4366b",
       "range": {
         "startLine": 238,
         "startChar": 23,
