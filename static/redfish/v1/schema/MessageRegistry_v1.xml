@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.4.0                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.4.1                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -32,8 +32,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="MessageRegistry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The MessageRegistry schema describes all Message Registries.  It represents the properties for the Message Registries themselves."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Message Registry for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The MessageRegistry schema describes all message registries.  It represents the properties for the message registries themselves."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a message registry for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -50,7 +50,6 @@
           </Record>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_0_0">
@@ -60,40 +59,40 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.MessageRegistry">
         <Property Name="Language" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The RFC5646-conformant language code for the Message Registry."/>
+          <Annotation Term="OData.Description" String="The RFC5646-conformant language code for the message registry."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an RFC5646-conformant language code."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="RegistryPrefix" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The single-word prefix that is used in forming and decoding MessageIds."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Redfish Specification-defined prefix used in forming and decoding MessageIds that uniquely identifies all messages that belong to this Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Redfish Specification-defined prefix used in forming and decoding MessageIds that uniquely identifies all messages that belong to this message registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="RegistryVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Message Registry version in the middle portion of a MessageId."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this Message Registry."/>
+          <Annotation Term="OData.Description" String="The message registry version in the middle portion of a MessageId."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this message registry."/>
           <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OwningEntity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The organization or company that publishes this Message Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this Message Registry."/>
+          <Annotation Term="OData.Description" String="The organization or company that publishes this message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this message registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Messages" Type="MessageRegistry.v1_0_0.MessageProperty" Nullable="false">
-          <Annotation Term="OData.Description" String="The message keys contained in the Message Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message keys contained in the Message Registy.  The message keys are the suffix of the MessageId and shall be unique within this Message Registry."/>
+          <Annotation Term="OData.Description" String="The message keys contained in the message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message keys contained in the message registry.  The message keys are the suffix of the MessageId and shall be unique within this message registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
       </EntityType>
 
       <ComplexType Name="MessageProperty" OpenType="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The message keys contained in the Message Registry."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the message keys contained in the Message Registy.  The message keys are the suffix of the MessageId and shall be unique within this Message Registry."/>
+        <Annotation Term="OData.Description" String="The message keys contained in the message registry."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the message keys contained in the message registry.  The message keys are the suffix of the MessageId and shall be unique within this message registry."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
@@ -106,12 +105,12 @@
 
       <ComplexType Name="Message">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This type represents how a message is defined within the Message Registry."/>
-        <Annotation Term="OData.LongDescription" String="The type shall represent how a message is defined within a Message Registry."/>
+        <Annotation Term="OData.Description" String="This type represents how a message is defined within the message registry."/>
+        <Annotation Term="OData.LongDescription" String="The type shall represent how a message is defined within a message registry."/>
         <Property Name="Description" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A short description of how and when to use this message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate how and when this message is returned by the Redfish Service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate how and when this message is returned by the Redfish service."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Message" Type="Edm.String" Nullable="false">
@@ -150,7 +149,7 @@
         <Property Name="Resolution" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Used to provide suggestions on how to resolve the situation that caused the error."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an override of the resolution of the message in the Message Registry, if present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the message.  Services can replace the resolution defined in the message registry with a more specific resolution in message payloads."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
@@ -167,7 +166,6 @@
           <Annotation Term="OData.Description" String="The argument is a number."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_0_2">
@@ -212,30 +210,36 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_7.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Resolution can be overridden by the service."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_8.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_4.MessageRegistry">
         <Property Name="Actions" Type="MessageRegistry.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="MessageRegistry.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -263,6 +267,12 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_3.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Resolution can be overridden by the service."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_4.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -273,14 +283,14 @@
       <ComplexType Name="Message" BaseType="MessageRegistry.v1_0_0.Message">
         <Property Name="ClearingLogic" Type="MessageRegistry.v1_2_0.ClearingLogic" Nullable="false">
           <Annotation Term="OData.Description" String="The clearing logic associated with this message.  The properties within indicate that what messages are cleared by this message as well as under what conditions."/>
-          <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="ClearingLogic">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The clearing logic associated with this message.  The properties within indicate that what messages are cleared by this message as well as under what conditions."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="ClearsIf" Type="MessageRegistry.v1_2_0.ClearingType" Nullable="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The condition when the event is cleared."/>
@@ -289,7 +299,7 @@
         <Property Name="ClearsMessage" Type="Collection(Edm.String)" Nullable="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The array of MessageIds that this message clears when the other conditions are met."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of MessageIds that this message clears when the other conditions are met.  The MessageIds shall not include the Message Registry name or version and shall contain only the MessageId portion.  MessageIds shall not refer to other Message Registries."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of MessageIds that this message clears when the other conditions are met.  The MessageIds shall not include the message registry name or version and shall contain only the MessageId portion.  MessageIds shall not refer to other message registries."/>
         </Property>
         <Property Name="ClearsAll" Type="Edm.Boolean" Nullable="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -318,10 +328,16 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_2_1.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Resolution can be overridden by the service."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_2_2.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add LongDescription, ArgDescriptions, and ArgLongDescriptions to a Message Registry.  It also corrected terminology in descriptions to consistently use `argument` instead of `parameter`."/>
+      <Annotation Term="OData.Description" String="This version was created to add LongDescription, ArgDescriptions, and ArgLongDescriptions to a message registry.  It also corrected terminology in descriptions to consistently use `argument` instead of `parameter`."/>
 
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_2_1.MessageRegistry"/>
 
@@ -350,6 +366,12 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_3_0.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Resolution can be overridden by the service."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_3_1.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -365,6 +387,12 @@
           <Annotation Term="Redfish.Required"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Resolution can be overridden by the service."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_4_0.MessageRegistry"/>
     </Schema>
 
   </edmx:DataServices>

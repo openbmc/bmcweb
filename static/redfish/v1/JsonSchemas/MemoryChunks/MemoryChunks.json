@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.v1_4_0.json",
     "$ref": "#/definitions/MemoryChunks",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -223,6 +223,16 @@
                     ],
                     "readonly": true
                 },
+                "DisplayName": {
+                    "description": "A user-configurable string to name the memory chunk.",
+                    "longDescription": "This property shall contain a user-configurable string to name the memory chunk.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -316,6 +326,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#MemoryChunks.v1_3_1.MemoryChunks"
+    "release": "2020.3",
+    "title": "#MemoryChunks.v1_4_0.MemoryChunks"
 }

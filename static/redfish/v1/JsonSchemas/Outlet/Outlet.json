@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_0_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_1_0.json",
     "$ref": "#/definitions/Outlet",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -291,14 +291,26 @@
                             "type": "null"
                         }
                     ],
+                    "deprecated": "This property has been deprecated in favor of the LocationIndicatorActive property.",
                     "description": "The state of the indicator LED, which identifies the outlet.",
                     "longDescription": "This property shall contain the indicator light state for the indicator light associated with this outlet.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionDeprecated": "v1_1_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
                     "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -691,6 +703,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Outlet.v1_0_1.Outlet"
+    "release": "2020.3",
+    "title": "#Outlet.v1_1_0.Outlet"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_4_0.json",
     "$ref": "#/definitions/Switch",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -88,6 +88,20 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeDevice": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the PCIe device providing this switch.",
+                    "longDescription": "This property shall contain a link to a resource of type PCIeDevice that represents the PCIe device providing this switch.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 }
             },
             "type": "object"
@@ -196,6 +210,17 @@
                         "null"
                     ]
                 },
+                "CurrentBandwidthGbps": {
+                    "description": "The current internal bandwidth of this switch.",
+                    "longDescription": "This property shall contain the internal bandwidth of this switch currently negotiated and running.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Gbit/s",
+                    "versionAdded": "v1_4_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -239,9 +264,11 @@
                             "type": "null"
                         }
                     ],
+                    "deprecated": "This property has been deprecated in favor of the LocationIndicatorActive property.",
                     "description": "The state of the indicator LED, which identifies the switch.",
                     "longDescription": "This property shall contain the state of the indicator light associated with this switch.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionDeprecated": "v1_4_0"
                 },
                 "IsManaged": {
                     "description": "An indication of whether the switch is in a managed or unmanaged state.",
@@ -263,6 +290,16 @@
                     "longDescription": "This property shall contain location information of the associated switch.",
                     "versionAdded": "v1_1_0"
                 },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
                     "description": "The link to the collection of log services associated with this switch.",
@@ -277,6 +314,17 @@
                         "string",
                         "null"
                     ]
+                },
+                "MaxBandwidthGbps": {
+                    "description": "The maximum internal bandwidth of this switch as currently configured.",
+                    "longDescription": "This property shall contain the maximum internal bandwidth this switch is capable of being configured.  If capable of autonegotiation, the switch shall attempt to negotiate to the specified maximum bandwidth.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Gbit/s",
+                    "versionAdded": "v1_4_0"
                 },
                 "Model": {
                     "description": "The product model number of this switch.",
@@ -416,6 +464,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Switch.v1_3_1.Switch"
+    "release": "2020.3",
+    "title": "#Switch.v1_4_0.Switch"
 }

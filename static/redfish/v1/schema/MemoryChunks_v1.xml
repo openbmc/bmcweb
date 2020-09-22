@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryChunks v1.3.1                                                 -->
+<!--# Redfish Schema:  MemoryChunks v1.4.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -309,6 +309,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_3_0.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_3_1.MemoryChunks">
+        <Property Name="DisplayName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A user-configurable string to name the memory chunk."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-configurable string to name the memory chunk."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

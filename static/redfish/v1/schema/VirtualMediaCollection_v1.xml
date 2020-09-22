@@ -53,6 +53,9 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Managers/{ManagerId}/VirtualMedia</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia</String> 
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(VirtualMedia.VirtualMedia)">

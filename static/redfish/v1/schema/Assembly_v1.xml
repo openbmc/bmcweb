@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Assembly v1.2.3                                                     -->
+<!--# Redfish Schema:  Assembly v1.3.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -323,6 +323,25 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_2.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_2.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="Assembly" BaseType="Assembly.v1_2_3.Assembly"/>
+
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_3.AssemblyData">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource."/>
+        </Property>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated assembly."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
