@@ -28,14 +28,14 @@
                 <Property Name="OpenBmc" Type="OemManager.OpenBmc"/>
             </ComplexType>
 
-            <ComplexType Name="OpenBmc">
+            <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
                 <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
                 <Annotation Term="OData.AutoExpand"/>
                 <Property Name="Fan" Type="OemManager.Fan"/>
             </ComplexType>
 
-            <ComplexType Name="Fan">
+            <ComplexType Name="Fan" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
                 <Annotation Term="OData.Description" String="OpenBmc oem fan properties." />
                 <Annotation Term="OData.AutoExpand"/>

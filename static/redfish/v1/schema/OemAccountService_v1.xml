@@ -25,7 +25,7 @@
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
       <Annotation Term="Redfish.Release" String="1.0"/>
 
-      <ComplexType Name="AuthMethodsConfig">
+      <ComplexType Name="AuthMethodsConfig" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
         <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
