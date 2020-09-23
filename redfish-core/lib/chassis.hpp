@@ -524,6 +524,31 @@ class Chassis : public Node
     }
 };
 
+inline void doChassisForceRestart(std::shared_ptr<AsyncResp> asyncResp)
+{
+    const char* processName = "xyz.openbmc_project.State.Chassis";
+    const char* objectPath = "/xyz/openbmc_project/state/chassis_system0";
+    const char* interfaceName = "xyz.openbmc_project.State.Chassis";
+    const char* destProperty = "RequestedPowerTransition";
+    const std::string propertyValue =
+        "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            // Use "Set" method to set the property value.
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            messages::success(asyncResp->res);
+        },
+        processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
+        interfaceName, destProperty, std::variant<std::string>{propertyValue});
+}
+
 inline void doChassisPowerCycle(std::shared_ptr<AsyncResp> asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.Chassis";
@@ -582,7 +607,15 @@ class ChassisResetAction : public Node
             return;
         }
 
-        if (resetType != "PowerCycle")
+        if (resetType == "PowerCycle")
+        {
+            doChassisPowerCycle(asyncResp);
+        }
+        else if (resetType == "ForceRestart")
+        {
+            doChassisForceRestart(asyncResp);
+        }
+        else
         {
             BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
                              << resetType;
@@ -591,7 +624,6 @@ class ChassisResetAction : public Node
 
             return;
         }
-        doChassisPowerCycle(asyncResp);
     }
 };
 
@@ -632,16 +664,17 @@ class ChassisResetActionInfo : public Node
         }
         const std::string& chassisId = params[0];
 
-        res.jsonValue = {{"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                         {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
-                                           "/ResetActionInfo"},
-                         {"Name", "Reset Action Info"},
-                         {"Id", "ResetActionInfo"},
-                         {"Parameters",
-                          {{{"Name", "ResetType"},
-                            {"Required", true},
-                            {"DataType", "String"},
-                            {"AllowableValues", {"PowerCycle"}}}}}};
+        res.jsonValue = {
+            {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+            {"@odata.id",
+             "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"},
+            {"Name", "Reset Action Info"},
+            {"Id", "ResetActionInfo"},
+            {"Parameters",
+             {{{"Name", "ResetType"},
+               {"Required", true},
+               {"DataType", "String"},
+               {"AllowableValues", {"PowerCycle", "ForceRestart"}}}}}};
         res.end();
     }
 };
