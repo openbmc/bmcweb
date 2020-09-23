@@ -533,27 +533,61 @@ class Chassis : public Node
 
 inline void doChassisPowerCycle(const std::shared_ptr<AsyncResp>& asyncResp)
 {
-    const char* processName = "xyz.openbmc_project.State.Chassis";
-    const char* objectPath = "/xyz/openbmc_project/state/chassis0";
-    const char* interfaceName = "xyz.openbmc_project.State.Chassis";
-    const char* destProperty = "RequestedPowerTransition";
-    const std::string propertyValue =
-        "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
+    const char* busName = "xyz.openbmc_project.ObjectMapper";
+    const char* path = "/xyz/openbmc_project/object_mapper";
+    const char* interface = "xyz.openbmc_project.ObjectMapper";
+    const char* method = "GetSubTreePaths";
 
+    const std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.State.Chassis"};
+
+    // Use mapper to get subtree paths.
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
-            // Use "Set" method to set the property value.
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<std::string>& chassisList) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: " << ec;
+                BMCWEB_LOG_DEBUG << "[mapper] Bad D-Bus request error: " << ec;
                 messages::internalError(asyncResp->res);
                 return;
             }
 
-            messages::success(asyncResp->res);
+            const char* processName = "xyz.openbmc_project.State.Chassis";
+            const char* interfaceName = "xyz.openbmc_project.State.Chassis";
+            const char* destProperty = "RequestedPowerTransition";
+            const std::string propertyValue =
+                "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
+            std::string objectPath =
+                "/xyz/openbmc_project/state/chassis_system0";
+
+            /* Look for system reset chassis path */
+            if ((std::find(chassisList.begin(), chassisList.end(),
+                           objectPath)) == chassisList.end())
+            {
+                /* We prefer to reset the full chassis_system, but if it doesn't
+                 * exist on some platforms, fall back to a host-only power reset
+                 */
+                objectPath = "/xyz/openbmc_project/state/chassis0";
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    // Use "Set" method to set the property value.
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: "
+                                         << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    messages::success(asyncResp->res);
+                },
+                processName, objectPath, "org.freedesktop.DBus.Properties",
+                "Set", interfaceName, destProperty,
+                std::variant<std::string>{propertyValue});
         },
-        processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
-        interfaceName, destProperty, std::variant<std::string>{propertyValue});
+        busName, path, interface, method, "/", 0, interfaces);
 }
 
 /**
