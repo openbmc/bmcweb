@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9dd22252_73636fa8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-23T11:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b63e5d6_80e0e946",
+      "range": {
+        "startLine": 165,
+        "startChar": 58,
+        "endLine": 165,
+        "endChar": 68
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f6b2a28_0c880887",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -263,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "b1f5c734_27e8cb28",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-23T11:59:55Z",
+      "side": 1,
+      "message": "Removed the parser in the latest patch set. Please let me know if this approach is good.",
+      "parentUuid": "854c37b1_44be8111",
+      "range": {
+        "startLine": 232,
+        "startChar": 12,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "507d73b0_2af93a30",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -454,6 +502,30 @@
     },
     {
       "key": {
+        "uuid": "812d6012_161465c1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-23T11:59:55Z",
+      "side": 1,
+      "message": "Done. The ssl handshake \u0026 connection establishment is not happening now for each event",
+      "parentUuid": "b6af4c25_378d32e8",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685dcd0c_622407da",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -620,6 +692,30 @@
     },
     {
       "key": {
+        "uuid": "07dec840_672ad920",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-23T11:59:55Z",
+      "side": 1,
+      "message": "I checked implementing the async_resolve. It crashed with below error.\n\n terminate called after throwing an instance of \u0027boost::wrapexcept\u003cboost::system::system_error\u003e\u0027\n   what():  thread: Operation not supported\n\nThe issue looked similar to https://github.com/boostorg/beast/issues/1599\n\nThe resolution for this issue was to upgrade the boost version. So i think we can keep this TODO for now in this commit.",
+      "parentUuid": "305c4dfc_31ffb19c",
+      "range": {
+        "startLine": 440,
+        "startChar": 11,
+        "endLine": 440,
+        "endChar": 15
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0f6bffb_d1b16740",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -631,6 +727,30 @@
       "writtenOn": "2020-09-21T08:09:47Z",
       "side": 1,
       "message": "These headers are populated from the subscription data. What kind of validation are expected here ?",
+      "range": {
+        "startLine": 472,
+        "startChar": 15,
+        "endLine": 472,
+        "endChar": 62
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c80cd8c_310a4df1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-23T11:59:55Z",
+      "side": 1,
+      "message": "I removed this TODO , since i think its not needed",
+      "parentUuid": "f0f6bffb_d1b16740",
       "range": {
         "startLine": 472,
         "startChar": 15,
