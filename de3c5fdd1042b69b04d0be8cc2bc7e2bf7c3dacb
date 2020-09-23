@@ -22,6 +22,30 @@
       "revId": "de3c5fdd1042b69b04d0be8cc2bc7e2bf7c3dacb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1817220_dcb3f035",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-09-23T17:29:43Z",
+      "side": 1,
+      "message": "yeah I\u0027m not really sure why its being set to error in the first place. just because one object is empty doesn\u0027t mean theres anything wrong?",
+      "parentUuid": "47104346_378f071b",
+      "range": {
+        "startLine": 1068,
+        "startChar": 20,
+        "endLine": 1068,
+        "endChar": 28
+      },
+      "revId": "de3c5fdd1042b69b04d0be8cc2bc7e2bf7c3dacb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
