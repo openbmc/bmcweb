@@ -1412,6 +1412,10 @@ inline void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
                     propertiesList) {
             nlohmann::json& oemPFR =
                 aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
+            aResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
+                "#OemComputerSystem.OpenBmc";
+            oemPFR["@odata.type"] = "#OemComputerSystem.FirmwareProvisioning";
+
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
