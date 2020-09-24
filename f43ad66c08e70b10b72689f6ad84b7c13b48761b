@@ -716,6 +716,30 @@
     },
     {
       "key": {
+        "uuid": "81826471_afba34e6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:38:42Z",
+      "side": 1,
+      "message": "You shouldn\u0027t be using the version that throws.\n\nThat bug is unrelated.  Please continue debugging.  Operation not supported usually means that you setthe resolver Protocol incorrectly\n\nNo, we cannot keep this as a TODO.  It needs done before merge.",
+      "parentUuid": "07dec840_672ad920",
+      "range": {
+        "startLine": 440,
+        "startChar": 11,
+        "endLine": 440,
+        "endChar": 15
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0f6bffb_d1b16740",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
