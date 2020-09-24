@@ -256,10 +256,13 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
+// TODO (https://github.com/openbmc/bmcweb/issues/153): This should be
+// implemented as asynchronous task for avoiding user waiting for response
+// until image ready.
 static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
                                         const crow::Request& req,
                                         const std::string& url,
-                                        int timeoutTimeSeconds = 10)
+                                        int timeoutTimeSeconds = 30)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
