@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c9c03843_6baf9424",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T21:05:02Z",
+      "side": 1,
+      "message": "sslConn is only the SSL layer, and there\u0027s no such thing as an SSL timeout, so you have to reach a layer deeper and set the timeout there.",
+      "parentUuid": "9f379d69_4980322e",
+      "range": {
+        "startLine": 251,
+        "startChar": 12,
+        "endLine": 251,
+        "endChar": 16
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "104814cb_fce67791",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "61200877_2a7d1d53",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T21:05:02Z",
+      "side": 1,
+      "message": "It could be.  Now that it\u0027s a value, it\u0027s not a big deal either way.",
+      "parentUuid": "104814cb_fce67791",
+      "range": {
+        "startLine": 363,
+        "startChar": 33,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "071b7cc8_8e6730cd",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -59,6 +107,30 @@
       "writtenOn": "2020-09-24T20:45:12Z",
       "side": 1,
       "message": "const_expr?",
+      "range": {
+        "startLine": 471,
+        "startChar": 20,
+        "endLine": 471,
+        "endChar": 22
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef908054_16a553f3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T21:05:02Z",
+      "side": 1,
+      "message": "eh, this is documented well enough for my liking, but up to the submitter.\n\nTechnically version() takes an unsigned type, so it really should be 11U, but eh, this compiles without warnings.",
+      "parentUuid": "071b7cc8_8e6730cd",
       "range": {
         "startLine": 471,
         "startChar": 20,
