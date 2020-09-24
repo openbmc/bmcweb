@@ -614,6 +614,30 @@
     },
     {
       "key": {
+        "uuid": "c39a987e_aad684af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-24T15:51:43Z",
+      "side": 1,
+      "message": "Ed, I made some changes in the Patch Set #13.",
+      "parentUuid": "4c163032_fb3e9b38",
+      "range": {
+        "startLine": 242,
+        "startChar": 12,
+        "endLine": 242,
+        "endChar": 57
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65e728e4_e7b975d6",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
