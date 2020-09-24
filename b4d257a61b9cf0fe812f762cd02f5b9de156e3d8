@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d692dba_403c3656",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "req inherits from boost::beast::http::fields.  I suspect this parameter can be dropped entirely, and you can just set your values on req.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0787ace_8d963cc7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "Still needs done.  I suspect that now that the resolver is on line 58, this crash has been handled.",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 67
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c76b69e_cab18da2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "I really dislike these state checks in the handlers.  They make me feel like this code can be called an any time.\n\nI would expect to see 1 state handler, at the beginning where an event gets added to the queue, and that\u0027s it, other control flow should be handled by the callers.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 9
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06de0bc5_97430fc6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "Did anyone set the state to sslHandshakeInProgress?  This seems like it will fail right away.",
+      "range": {
+        "startLine": 122,
+        "startChar": 26,
+        "endLine": 122,
+        "endChar": 42
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "987d76f0_f70cd798",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "I think this check is uneeded.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146198d5_cefca99e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "This seems incorrect.  I would assume application/json is correct, but can you please check with the redfish spec.",
+      "range": {
+        "startLine": 173,
+        "startChar": 57,
+        "endLine": 173,
+        "endChar": 69
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdb51391_a9a742cb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "partial_message should be treated as a failure as well in this case, it means that we never got a full reply.",
+      "range": {
+        "startLine": 222,
+        "startChar": 22,
+        "endLine": 222,
+        "endChar": 70
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ab1b4b_a62451f3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-24T01:36:03Z",
+      "side": 1,
+      "message": "You\u0027re setting the response keepalive based on your request?  Shouldn\u0027t this already be set?",
+      "range": {
+        "startLine": 242,
+        "startChar": 12,
+        "endLine": 242,
+        "endChar": 57
+      },
+      "revId": "b4d257a61b9cf0fe812f762cd02f5b9de156e3d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
