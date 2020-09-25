@@ -61,7 +61,8 @@ static const boost::container::flat_map<std::string_view,
              {node::sensors,
               {"/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/utilization"}},
+               "/xyz/openbmc_project/sensors/utilization",
+               "/xyz/openbmc_project/sensors/oem"}},
              {node::thermal,
               {"/xyz/openbmc_project/sensors/fan_tach",
                "/xyz/openbmc_project/sensors/temperature",
@@ -1004,6 +1005,7 @@ inline void objectInterfacesToJson(
 
                 const double* doubleValue = std::get_if<double>(&valueVariant);
                 const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
+                const std::string* svalue = std::get_if<std::string>(&valueVariant);
                 double temp = 0.0;
                 if (int64Value != nullptr)
                 {
@@ -1017,10 +1019,15 @@ inline void objectInterfacesToJson(
                 {
                     temp = *uValue;
                 }
+                else if (svalue != nullptr)
+                {
+                     sensor_json[key] = *svalue;
+                     continue;
+                }
                 else
                 {
                     BMCWEB_LOG_ERROR
-                        << "Got value interface that wasn't int or double";
+                        << "Got value interface that wasn't int or double or string";
                     continue;
                 }
                 temp = temp * std::pow(10, scaleMultiplier);
