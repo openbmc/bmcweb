@@ -294,7 +294,13 @@ inline void handleBroadcastService(const crow::Request& req,
         res.result(boost::beast::http::status::bad_request);
         return;
     }
-    redfish::EventServiceManager::getInstance().sendBroadcastMsg(broadcastMsg);
+    // Set the origin as Broadcast
+    std::string origin = "/ibm/v1/HMC/BroadcastService";
+    nlohmann::json msgJson = {{"Message", broadcastMsg}};
+
+    redfish::EventServiceManager::getInstance().sendEvent(
+        msgJson, origin, "BroadcastService");
+
     res.end();
     return;
 }
