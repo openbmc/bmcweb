@@ -176,9 +176,9 @@ set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall")
 
 # reenable when https://github.com/chriskohlhoff/asio/issues/533
 # is resolved.  ASIO default executor doesn't build with no-rtti
-#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-#    -fno-rtti \
-#")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    -fno-rtti \
+")
 
 set (
     CMAKE_CXX_FLAGS
