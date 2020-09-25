@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7a48f3ff_e670e57f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "Did you checked this case? When control lands here, We see stale connection. If you don\u0027t attempt to close and re-open connection here, it will fail and fallback to retry.",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 35
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f379d69_4980322e",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -96,6 +119,98 @@
     },
     {
       "key": {
+        "uuid": "1512bc13_de042c44",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "This condition is wrong. When control lands here, It leads to Terminate the checkQueue loop. Only send event will restart that loop. So we will miss sending events. \n\nNo point in check ec for timer case here which is not the actual really business logic. If we want, we need to retrigger timer alone not interfering with actual business logic. So IMO, Keep original code same from patchset 10.",
+      "range": {
+        "startLine": 364,
+        "startChar": 16,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cd9f40d_49463b25",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "This leaves the unexpected results.\n\nClose connection state is handled differently in this case.",
+      "range": {
+        "startLine": 403,
+        "startChar": 12,
+        "endLine": 403,
+        "endChar": 35
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "789703fd_29564a87",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "No need to perform reconnect if wait fails. This condition is wrong.",
+      "range": {
+        "startLine": 410,
+        "startChar": 12,
+        "endLine": 410,
+        "endChar": 39
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "580b7574_75e9ffca",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "Any specific reason for changing this from patchset 10?",
+      "range": {
+        "startLine": 431,
+        "startChar": 30,
+        "endLine": 431,
+        "endChar": 51
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "071b7cc8_8e6730cd",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -140,6 +255,29 @@
       "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c14f43b2_d99f5ef0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "Formatting the request here leaves the race condition.  This setHeaders() function can called asynchronously. If this gets called when performing the sendMessage(), That leaves the unexpected results and may lead to crash.\n\nSo code which was done in patchset 10 should be fine just addressing(Change placement of content_type setting) ED comments, should be good.",
+      "range": {
+        "startLine": 467,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 29
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
