@@ -278,6 +278,30 @@
       "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbabd8f0_31958b6d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T14:51:28Z",
+      "side": 1,
+      "message": "I suspect we don\u0027t want to be doing this work every time, we should be building most of the request int he constructor, then calling req.base().clear(), req.body().clear(), req.body().shrink_to_fit() to clear the headers and reset the request object.",
+      "parentUuid": "c14f43b2_d99f5ef0",
+      "range": {
+        "startLine": 467,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 29
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
