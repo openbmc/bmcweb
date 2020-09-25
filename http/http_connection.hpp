@@ -304,6 +304,14 @@ class Connection :
     {
         cancelDeadlineTimer();
 
+        // if someone else (probably authentication) already completed the
+        // response while still in the headers phase, send it now
+        if (res.completed)
+        {
+            completeRequest();
+            return;
+        }
+
         bool isInvalidRequest = false;
 
         // Check for HTTP version 1.1.
@@ -329,7 +337,6 @@ class Connection :
 
         if (!isInvalidRequest)
         {
-            res.completeRequestHandler = [] {};
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
             req->ioService = static_cast<decltype(req->ioService)>(
@@ -404,6 +411,9 @@ class Connection :
 
     void completeRequest()
     {
+        res.completeRequestHandler = [] {};
+        res.isAliveHelper = [] { return false; };
+
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
@@ -421,9 +431,6 @@ class Connection :
             // << ' ' << isWriting;
             // delete this;
 
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            res.completeRequestHandler = nullptr;
             return;
         }
         if (res.body().empty() && !res.jsonValue.empty())
@@ -459,10 +466,6 @@ class Connection :
         res.keepAlive(req->keepAlive());
 
         doWrite();
-
-        // delete lambda with self shared_ptr
-        // to enable connection destruction
-        res.completeRequestHandler = nullptr;
     }
 
   private:
