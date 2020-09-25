@@ -569,6 +569,30 @@
     },
     {
       "key": {
+        "uuid": "eae42d09_d1cd4d98",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T14:51:28Z",
+      "side": 1,
+      "message": "Then document that, and log the error code, don\u0027t ignore it.",
+      "parentUuid": "2ac0c224_5a83a995",
+      "range": {
+        "startLine": 382,
+        "startChar": 59,
+        "endLine": 382,
+        "endChar": 69
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18c53c16_d3b5268c",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
