@@ -70,6 +70,30 @@
       "revId": "de3c5fdd1042b69b04d0be8cc2bc7e2bf7c3dacb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac24b9e6_9137e7e6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-09-25T12:57:20Z",
+      "side": 1,
+      "message": "Okay, thanks. dbus allows to create interface that is empty (no property, no method). Than it should be possible, please, remove comment.",
+      "parentUuid": "7b89999a_99b95450",
+      "range": {
+        "startLine": 1068,
+        "startChar": 20,
+        "endLine": 1068,
+        "endChar": 28
+      },
+      "revId": "de3c5fdd1042b69b04d0be8cc2bc7e2bf7c3dacb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
