@@ -157,6 +157,30 @@
     },
     {
       "key": {
+        "uuid": "fa0cb419_f8853d88",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "This is used for checking operational state of connection. Since events(sendEvents) can be called asynchronously, we need to maintain the operation state of current connection and queue the Event data if its busy(Also depending on state, we take some actions like perform connect or send event or close etc...).",
+      "parentUuid": "926f9cc3_655d55f9",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 9
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae8276a5_8365abb8",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -405,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "bc91b534_0e3dfec8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "I still see the failure. Added TODO for now.",
+      "parentUuid": "51403382_ec3d22e1",
+      "range": {
+        "startLine": 229,
+        "startChar": 54,
+        "endLine": 230,
+        "endChar": 55
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0dfb0724_55adc111",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -485,6 +533,30 @@
       "writtenOn": "2020-08-05T16:36:26Z",
       "side": 1,
       "message": "handle your error codes, even if it\u0027s just logging.  Keep in mind, you will need to handle the operation canceled case explicitly here.",
+      "range": {
+        "startLine": 382,
+        "startChar": 59,
+        "endLine": 382,
+        "endChar": 69
+      },
+      "revId": "dd02e5d9f64c42c4d8bf19d968d93a9fa3e833c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ac0c224_5a83a995",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-09-25T13:54:45Z",
+      "side": 1,
+      "message": "There is no option for canceling the retry timer. once retry started means, It has to expire the timeout.",
+      "parentUuid": "229ca844_2d201909",
       "range": {
         "startLine": 382,
         "startChar": 59,
