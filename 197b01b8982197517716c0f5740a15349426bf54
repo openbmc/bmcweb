@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a88dd176_92155de9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "spelling.",
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44651d44_3326c681",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "This isn\u0027t a variant, it\u0027s a map.",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d227669d_4da3db40",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "You\u0027re not using this as a map anywhere.  I suspect a vector of pairs would be a better choice.",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cae3b2b_8aeb2b50",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "This is also not a variant.",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "443d0abb_d266996f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 12
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0994bad_7b533888",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "Please inline your type here.",
+      "range": {
+        "startLine": 85,
+        "startChar": 21,
+        "endLine": 85,
+        "endChar": 26
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12668dd1_d7785fed",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "Don\u0027t use auto here.",
+      "range": {
+        "startLine": 87,
+        "startChar": 20,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d68b3f90_2e2e17ab",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "Magic number.",
+      "range": {
+        "startLine": 87,
+        "startChar": 43,
+        "endLine": 87,
+        "endChar": 44
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5826cd53_ee361cae",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "don\u0027t use auto here.",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 24
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd66cd9_e90bb655",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "This has the potential to be an expensive copy.  Please build the object in place by moving this above to line 84 and inverting it:\n\nnlohmann\u0026 attributesJson \u003d asyncResp-\u003eres.jsonValue[\"Attributes\"]",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 72
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b10bbb2_2c9436dc",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "I suspect this is a case where we should be using the mapper.  There\u0027s likely to be multiple implementations of this.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 56
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecea149e_bc10dbc2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "Same comment as above, build this object in place.",
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f379a667_e9df4855",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-25T16:07:36Z",
+      "side": 1,
+      "message": "Please make this a function.  Also, handle errors properly if it\u0027s not a known type.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 21
+      },
+      "revId": "197b01b8982197517716c0f5740a15349426bf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
