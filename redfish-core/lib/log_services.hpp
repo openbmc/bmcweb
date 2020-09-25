@@ -427,21 +427,14 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
 
             nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
             entriesArray = nlohmann::json::array();
+            std::string dumpEntryPath =
+                "/xyz/openbmc_project/dump/" +
+                std::string(boost::algorithm::to_lower_copy(dumpType)) +
+                "/entry/";
 
             for (auto& object : resp)
             {
-                bool foundDumpEntry = false;
-                for (auto& interfaceMap : object.second)
-                {
-                    if (interfaceMap.first ==
-                        ("xyz.openbmc_project.Dump.Entry." + dumpType))
-                    {
-                        foundDumpEntry = true;
-                        break;
-                    }
-                }
-
-                if (foundDumpEntry == false)
+                if (object.first.str.find(dumpEntryPath) == std::string::npos)
                 {
                     continue;
                 }
@@ -566,32 +559,20 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
                 return;
             }
 
+            bool foundDumpEntry = false;
+            std::string dumpEntryPath =
+                "/xyz/openbmc_project/dump/" +
+                std::string(boost::algorithm::to_lower_copy(dumpType)) +
+                "/entry/";
+
             for (auto& objectPath : resp)
             {
-                if (objectPath.first.str.find(
-                        "/xyz/openbmc_project/dump/entry/" + entryID) ==
-                    std::string::npos)
+                if (objectPath.first.str != dumpEntryPath + entryID)
                 {
                     continue;
                 }
 
-                bool foundDumpEntry = false;
-                for (auto& interfaceMap : objectPath.second)
-                {
-                    if (interfaceMap.first ==
-                        ("xyz.openbmc_project.Dump.Entry." + dumpType))
-                    {
-                        foundDumpEntry = true;
-                        break;
-                    }
-                }
-                if (foundDumpEntry == false)
-                {
-                    BMCWEB_LOG_ERROR << "Can't find Dump Entry";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
+                foundDumpEntry = true;
                 std::time_t timestamp;
                 uint64_t size = 0;
 
@@ -667,12 +648,19 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
                         entryID;
                 }
             }
+            if (foundDumpEntry == false)
+            {
+                BMCWEB_LOG_ERROR << "Can't find Dump Entry";
+                messages::internalError(asyncResp->res);
+                return;
+            }
         },
         "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void deleteDumpEntry(crow::Response& res, const std::string& entryID)
+inline void deleteDumpEntry(crow::Response& res, const std::string& entryID,
+                            const std::string& dumpType)
 {
     std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -688,7 +676,9 @@ inline void deleteDumpEntry(crow::Response& res, const std::string& entryID)
     };
     crow::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/entry/" + entryID,
+        "/xyz/openbmc_project/dump/" +
+            std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/" +
+            entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -717,22 +707,21 @@ inline void createDumpTaskCallback(const crow::Request& req,
 
             m.read(objPath, interfacesList);
 
-            for (auto& interface : interfacesList)
+            if (objPath.str ==
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)) +
+                    "/entry/" + std::to_string(dumpId))
             {
-                if (interface.first ==
-                    ("xyz.openbmc_project.Dump.Entry." + dumpType))
-                {
-                    nlohmann::json retMessage = messages::success();
-                    taskData->messages.emplace_back(retMessage);
+                nlohmann::json retMessage = messages::success();
+                taskData->messages.emplace_back(retMessage);
 
-                    std::string headerLoc =
-                        "Location: " + dumpPath + std::to_string(dumpId);
-                    taskData->payload->httpHeaders.emplace_back(
-                        std::move(headerLoc));
+                std::string headerLoc =
+                    "Location: " + dumpPath + std::to_string(dumpId);
+                taskData->payload->httpHeaders.emplace_back(
+                    std::move(headerLoc));
 
-                    taskData->state = "Completed";
-                    break;
-                }
+                taskData->state = "Completed";
+                return task::completed;
             }
             return task::completed;
         },
@@ -831,16 +820,20 @@ inline void createDump(crow::Response& res, const crow::Request& req,
 
             createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
         },
-        "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+        "xyz.openbmc_project.Dump.Manager",
+        "/xyz/openbmc_project/dump/" +
+            std::string(boost::algorithm::to_lower_copy(dumpType)),
         "xyz.openbmc_project.Dump.Create", "CreateDump");
 }
 
-inline void clearDump(crow::Response& res, const std::string& dumpInterface)
+inline void clearDump(crow::Response& res, const std::string& dumpType)
 {
+    std::string dumpTypeLowerCopy =
+        std::string(boost::algorithm::to_lower_copy(dumpType));
     std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::vector<std::string>& subTreePaths) {
+        [asyncResp, dumpType](const boost::system::error_code ec,
+                              const std::vector<std::string>& subTreePaths) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "resp_handler got error " << ec;
@@ -854,15 +847,16 @@ inline void clearDump(crow::Response& res, const std::string& dumpInterface)
                 if (pos != std::string::npos)
                 {
                     std::string logID = path.substr(pos + 1);
-                    deleteDumpEntry(asyncResp->res, logID);
+                    deleteDumpEntry(asyncResp->res, logID, dumpType);
                 }
             }
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/dump", 0,
-        std::array<std::string, 1>{dumpInterface});
+        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy, 0,
+        std::array<std::string, 1>{"xyz.openbmc_project.Dump.Entry." +
+                                   dumpType});
 }
 
 static void parseCrashdumpParameters(
@@ -2103,7 +2097,7 @@ class BMCDumpEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        deleteDumpEntry(asyncResp->res, params[0]);
+        deleteDumpEntry(asyncResp->res, params[0], "bmc");
     }
 };
 
@@ -2153,7 +2147,7 @@ class BMCDumpClear : public Node
     void doPost(crow::Response& res, const crow::Request&,
                 const std::vector<std::string>&) override
     {
-        clearDump(res, "xyz.openbmc_project.Dump.Entry.BMC");
+        clearDump(res, "BMC");
     }
 };
 
@@ -2273,7 +2267,7 @@ class SystemDumpEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        deleteDumpEntry(asyncResp->res, params[0]);
+        deleteDumpEntry(asyncResp->res, params[0], "system");
     }
 };
 
@@ -2323,7 +2317,7 @@ class SystemDumpClear : public Node
     void doPost(crow::Response& res, const crow::Request&,
                 const std::vector<std::string>&) override
     {
-        clearDump(res, "xyz.openbmc_project.Dump.Entry.System");
+        clearDump(res, "System");
     }
 };
 
