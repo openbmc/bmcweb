@@ -16,6 +16,24 @@
       "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c3c2ee6_6edd50b2",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-26T00:29:49Z",
+      "side": 1,
+      "message": "\u003e Hey Ed, If we have a separate javascript bundle for login and this feature only allows that javascript bundle unauthenticated would you support renaming this to something like \n\u003e BMCWEB_Enable_VUE_LOGIN \n\u003e BMCWEB_Enable_WEBUI_VUE\n\u003e BMCWEB_Enable_JAVASCRIPT_LOGIN_PAGE\n\u003e \n\u003e ?\n\nI\u0027m not quite following what you\u0027re proposing.  You want to push the names of the webui into the name of the option here?  Or are you proposing we combine BMCWEB_ENABLE_LOGIN_PAGE with BMCWEB_INSECURE_UNAUTHENTICATED_JAVASCRIPT (or whatever we end up calling them) into one option?  That seems like it would remove the utility of anyone being able to replace the login page, not just in the webui-vue case.  I\u0027m not a huge fan of that, because it\u0027s not very descriptive, but I suspect I\u0027m not understanding what you\u0027re asking for.  I\u0027m assuming we\u0027d keep the _INSECURE_ part of the flag, right?\n\nIn the other commit, Brad suggested that we make webui-vue and phosphor-webui image options, and use those to set these flags appropriately, that way most people don\u0027t have to think about it, and as webui-vue evolves, it can revert the flags to default that it doesn\u0027t use.  I kinda like that idea from a \"options are descriptive of what they do\" standpoint.",
+      "parentUuid": "2e9004af_1556a69b",
+      "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
