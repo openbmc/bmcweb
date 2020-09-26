@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "de1248a8_45c17bc2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-26T18:07:19Z",
+      "side": 1,
+      "message": "Sure if the commiter wants to add a comment, it sounds like you would appreciate it.  Also, this call is duplicated between the two branches, so it can be moved to line 248, and deduplicated with line 283.",
+      "parentUuid": "abd407be_2ab3d898",
+      "range": {
+        "startLine": 251,
+        "startChar": 12,
+        "endLine": 251,
+        "endChar": 16
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "104814cb_fce67791",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -163,6 +187,30 @@
       "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ce86fda_ffc237a8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-26T18:07:19Z",
+      "side": 1,
+      "message": "The coding standard says that error codes need checked.  The logic might be wrong, but at a minimum we need a log message here, and comment about why we should continue even if the timer fails.\n\nI suspect this needs a special case for operation_aborted, which might be expected in this case.",
+      "parentUuid": "1512bc13_de042c44",
+      "range": {
+        "startLine": 364,
+        "startChar": 16,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
