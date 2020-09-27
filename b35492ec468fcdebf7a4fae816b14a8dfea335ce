@@ -52,6 +52,24 @@
       "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00961d3b_6aba85d8",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-27T16:57:54Z",
+      "side": 1,
+      "message": "\u003e \u003e I\u0027m assuming we\u0027d keep the _INSECURE_ part of the flag, right?\n\u003e \n\u003e Yes, the JavaScript will be unauthenticated on the login page only. We are restricting that bundle to only the JavaScript needed to render the page and establish the translation functionality.\n\nThen you won\u0027t need this option.  Note, that bundle should not include any frameworks that might be upgraded each release, and shouldn\u0027t be doing any XHR requests from javascript.  Happy to review when you guys have something.\n\n\u003e In that case, I feel like this flag, BMCWEB_INSECURE_UNAUTHENTICATED_JAVASCRIPT, is not an accurate descriptor. \nI like Gunnar\u0027s suggestion of BMCWEB_Enable_JAVASCRIPT_LOGIN_PAGE. Possibly, something like BMCWEB_ENABLE_UNAUTHENTICATED_JAVASCRIPT_LOGIN_PAGE?\n\nGetting a little wordy, but sure, I can get behind that.  Can we keep the insecure though?  How about BMCWEB_INSECURE_ENABLE_UNAUTHENTICATED_ASSETS.  Technically this option isn\u0027t limited to javascript today, and you\u0027re right, doesn\u0027t apply to the login page.\nIf webui-vue exposes a login page, css, and javascript with no framework code, no template code, and only the JS needed (although with form based login I\u0027m not sure what that would be), then I think we\u0027re good.\n\n\u003e \n\u003e \u003e In the other commit, Brad suggested that we make webui-vue and phosphor-webui image options\n\u003e \n\u003e I think this is an interesting option also.\n\nInteresting as in, that\u0027s what you\u0027d like to see going forward?\nGunnar, does that work for you?",
+      "parentUuid": "c738a532_19679dc2",
+      "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
