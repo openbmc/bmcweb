@@ -34,6 +34,24 @@
       "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c738a532_19679dc2",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000281
+      },
+      "writtenOn": "2020-09-27T16:08:00Z",
+      "side": 1,
+      "message": "\u003e I\u0027m assuming we\u0027d keep the _INSECURE_ part of the flag, right?\n\nYes, the JavaScript will be unauthenticated on the login page only. We are restricting that bundle to only the JavaScript needed to render the page and establish the translation functionality. In that case, I feel like this flag, BMCWEB_INSECURE_UNAUTHENTICATED_JAVASCRIPT, is not an accurate descriptor. I like Gunnar\u0027s suggestion of BMCWEB_Enable_JAVASCRIPT_LOGIN_PAGE. Possibly, something like BMCWEB_ENABLE_UNAUTHENTICATED_JAVASCRIPT_LOGIN_PAGE?\n\n\u003e In the other commit, Brad suggested that we make webui-vue and phosphor-webui image options\n\nI think this is an interesting option also.",
+      "parentUuid": "9c3c2ee6_6edd50b2",
+      "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
