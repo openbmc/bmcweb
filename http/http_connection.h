@@ -61,12 +61,12 @@ class Connection :
     public std::enable_shared_from_this<Connection<Adaptor, Handler>>
 {
   public:
-    Connection(Handler* handlerIn, const std::string& ServerNameIn,
+    Connection(Handler* handlerIn,
                std::function<std::string()>& get_cached_date_str_f,
                detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
-        handler(handlerIn), serverName(ServerNameIn),
-        getCachedDateStr(get_cached_date_str_f), timerQueue(timerQueueIn)
+        handler(handlerIn), getCachedDateStr(get_cached_date_str_f),
+        timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
@@ -81,11 +81,15 @@ class Connection :
                                .tls)
         {
             adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
-            SSL_set_session_id_context(
+            std::string id = "bmcweb";
+            int ret = SSL_set_session_id_context(
                 adaptor.native_handle(),
-                reinterpret_cast<const unsigned char*>(serverName.c_str()),
-                static_cast<unsigned int>(serverName.length()));
-            BMCWEB_LOG_DEBUG << this << " TLS is enabled on this connection.";
+                reinterpret_cast<const unsigned char*>(id.c_str()),
+                static_cast<unsigned int>(id.length()));
+            if (ret == 0)
+            {
+                BMCWEB_LOG_ERROR << this << " failed to set SSL id";
+            }
         }
 
         adaptor.set_verify_callback([this](
@@ -447,7 +451,6 @@ class Connection :
             res.body().clear();
         }
 
-        res.addHeader(boost::beast::http::field::server, serverName);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         res.keepAlive(req->keepAlive());
@@ -743,8 +746,6 @@ class Connection :
     crow::Response res;
 
     std::weak_ptr<persistent_data::UserSession> session;
-
-    const std::string& serverName;
 
     std::optional<size_t> timerCancelKey;
 
