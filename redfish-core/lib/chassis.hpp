@@ -324,7 +324,7 @@ class Chassis : public Node
                     }
 
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#Chassis.v1_10_0.Chassis";
+                        "#Chassis.v1_14_0.Chassis";
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId;
                     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -353,7 +353,7 @@ class Chassis : public Node
                         if (std::find(interfaces2.begin(), interfaces2.end(),
                                       interface) != interfaces2.end())
                         {
-                            getIndicatorLedState(asyncResp);
+                            getLocationIndicatorActive(asyncResp);
                             break;
                         }
                     }
@@ -417,7 +417,7 @@ class Chassis : public Node
 
                 // Couldn't find an object with that name.  return an error
                 messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_10_0.Chassis", chassisId);
+                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -430,7 +430,7 @@ class Chassis : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        std::optional<std::string> indicatorLed;
+        std::optional<bool> locationIndicatorActive;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
@@ -438,12 +438,13 @@ class Chassis : public Node
             return;
         }
 
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed))
+        if (!json_util::readJson(req, res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
         {
             return;
         }
 
-        if (!indicatorLed)
+        if (!locationIndicatorActive)
         {
             return; // delete this when we support more patch properties
         }
@@ -455,7 +456,7 @@ class Chassis : public Node
         const std::string& chassisId = params[0];
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, chassisId, indicatorLed](
+            [asyncResp, chassisId, locationIndicatorActive](
                 const boost::system::error_code ec,
                 const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
@@ -490,7 +491,7 @@ class Chassis : public Node
                     const std::vector<std::string>& interfaces3 =
                         connectionNames[0].second;
 
-                    if (indicatorLed)
+                    if (locationIndicatorActive)
                     {
                         const std::array<const char*, 2> hasIndicatorLed = {
                             "xyz.openbmc_project.Inventory.Item.Panel",
@@ -509,20 +510,20 @@ class Chassis : public Node
                         }
                         if (indicatorChassis)
                         {
-                            setIndicatorLedState(asyncResp,
-                                                 std::move(*indicatorLed));
+                            setLocationIndicatorActive(
+                                asyncResp, std::move(*locationIndicatorActive));
                         }
                         else
                         {
-                            messages::propertyUnknown(asyncResp->res,
-                                                      "IndicatorLED");
+                            messages::propertyUnknown(
+                                asyncResp->res, "LocationIndicatorActive");
                         }
                     }
                     return;
                 }
 
                 messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_10_0.Chassis", chassisId);
+                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",

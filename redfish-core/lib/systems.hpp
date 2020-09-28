@@ -1905,7 +1905,7 @@ class Systems : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_12_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_13_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
@@ -1975,7 +1975,7 @@ class Systems : public Node
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
         });
 
-        getIndicatorLedState(asyncResp);
+        getLocationIndicatorActive(asyncResp);
         getComputerSystem(asyncResp, health);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
@@ -1992,14 +1992,15 @@ class Systems : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>&) override
     {
-        std::optional<std::string> indicatorLed;
+        std::optional<bool> locationIndicatorActive;
         std::optional<nlohmann::json> bootProps;
         std::optional<nlohmann::json> wdtTimerProps;
         std::optional<std::string> powerRestorePolicy;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps, "WatchdogTimer", wdtTimerProps,
+        if (!json_util::readJson(req, res, "LocationIndicatorActive",
+                                 locationIndicatorActive, "Boot", bootProps,
+                                 "WatchdogTimer", wdtTimerProps,
                                  "PowerRestorePolicy", powerRestorePolicy))
         {
             return;
@@ -2046,9 +2047,10 @@ class Systems : public Node
             }
         }
 
-        if (indicatorLed)
+        if (locationIndicatorActive)
         {
-            setIndicatorLedState(asyncResp, std::move(*indicatorLed));
+            setLocationIndicatorActive(asyncResp,
+                                       std::move(*locationIndicatorActive));
         }
 
         if (powerRestorePolicy)
