@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c58a09c3_fbe8164d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-09-28T16:26:19Z",
+      "side": 1,
+      "message": "This is Redundancy for a Chassis? but I don\u0027t see Redundancy as a property in Chassis..\nLike it is in https://redfish.dmtf.org/schemas/v1/Power.v1_6_1.json\n\n                \"Redundancy\": {\n                    \"autoExpand\": true,\n                    \"description\": \"The redundancy information for the set of power supplies in this chassis.\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/Redundancy\"\n                    },\n                    \"longDescription\": \"This property shall contain redundancy information for the set of power supplies in this system or device.\",\n                    \"type\": \"array\"\n                },\n                \"Redundancy@odata.count\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count\"\n                },",
+      "revId": "9a920c172968589d02e82360efccbadd32f96f7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
