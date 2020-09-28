@@ -12,18 +12,6 @@
 
 #include <variant>
 
-namespace nlohmann
-{
-template <typename... Args>
-struct adl_serializer<std::variant<Args...>>
-{
-    static void to_json(json& j, const std::variant<Args...>& v)
-    {
-        std::visit([&](auto&& val) { j = val; }, v);
-    }
-};
-} // namespace nlohmann
-
 namespace crow
 {
 namespace dbus_monitor
