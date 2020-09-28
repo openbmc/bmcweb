@@ -1,0 +1,9 @@
+Checks: '-*,readability-identifier-naming,clang-analyzer-*,cert-*,-cert-err58-cpp,modernize-*,-modernize-use-trailing-return-type,-modernize-use-auto,-modernize-pass-by-value,-modernize-use-nodiscard,bugprone-*,-bugprone-move-forwarding-reference,-bugprone-exception-escape,-modernize-avoid-c-arrays,google-build-using-namespace,misc-misplaced-const,misc-no-recursion,misc-redundant-expression,misc-static-assert,misc-throw-by-value-catch-by-reference,misc-unconventional-assign-operator,misc-uniqueptr-reset-release,misc-unused-using-decls,performance-*,readability-braces-around-statements,readability-const-return-type,readability-container-size-empty,readability-delete-null-pointer,readability-deleted-default,readability-else-after-return,readability-implicit-bool-conversion'
+CheckOptions:
+  - { key: readability-identifier-naming.ClassCase,     value: CamelCase  }
+  - { key: readability-identifier-naming.VariableCase,  value: camelBack }
+  - { key: readability-identifier-naming.FunctionCase,  value: camelBack }
+  - { key: readability-identifier-naming.ParameterCase, value: lowerCamel }
+  - { key: readability-identifier-naming.NamespaceCase, value: lower_case }
+  - { key: readability-identifier-naming.StructCase,    value: CamelCase  }
+
