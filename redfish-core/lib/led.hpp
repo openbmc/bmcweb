@@ -30,7 +30,7 @@ namespace redfish
  *
  * @return None.
  */
-inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
+inline void getLocationIndicatorActive(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
@@ -50,7 +50,7 @@ inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
                 // Blinking ON, no need to check enclosure_identify assert.
                 if (*blinking)
                 {
-                    aResp->res.jsonValue["IndicatorLED"] = "Blinking";
+                    aResp->res.jsonValue["LocationIndicatorActive"] = true;
                     return;
                 }
             }
@@ -70,11 +70,13 @@ inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
 
                         if (*ledOn)
                         {
-                            aResp->res.jsonValue["IndicatorLED"] = "Lit";
+                            aResp->res.jsonValue["LocationIndicatorActive"] =
+                                true;
                         }
                         else
                         {
-                            aResp->res.jsonValue["IndicatorLED"] = "Off";
+                            aResp->res.jsonValue["LocationIndicatorActive"] =
+                                false;
                         }
                     }
                     return;
@@ -98,38 +100,18 @@ inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
-                                 const std::string& ledState)
+inline void setLocationIndicatorActive(std::shared_ptr<AsyncResp> aResp,
+                                       const bool ledState)
 {
     BMCWEB_LOG_DEBUG << "Set led groups";
-    bool ledOn = false;
-    bool ledBlinkng = false;
-
-    if (ledState == "Lit")
-    {
-        ledOn = true;
-    }
-    else if (ledState == "Blinking")
-    {
-        ledBlinkng = true;
-    }
-    else if (ledState != "Off")
-    {
-        messages::propertyValueNotInList(aResp->res, ledState, "IndicatorLED");
-        return;
-    }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, ledOn, ledBlinkng](const boost::system::error_code ec) mutable {
+        [aResp, ledState](const boost::system::error_code ec) mutable {
             if (ec)
             {
                 // Some systems may not have enclosure_identify_blink object so
-                // Lets set enclosure_identify state to true if Blinking is
+                // Lets set enclosure_identify state to true also if ledState is
                 // true.
-                if (ledBlinkng)
-                {
-                    ledOn = true;
-                }
             }
             crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec2) {
@@ -144,12 +126,12 @@ inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
-                std::variant<bool>(ledOn));
+                std::variant<bool>(ledState));
         },
         "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        std::variant<bool>(ledBlinkng));
+        std::variant<bool>(ledState));
 }
 } // namespace redfish
