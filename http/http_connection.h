@@ -314,6 +314,9 @@ class Connection :
             }
         }
 
+        // Copy the client's IP address
+        req->ipAddress = adaptor.next_layer().remote_endpoint().address();
+
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()

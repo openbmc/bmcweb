@@ -36,6 +36,8 @@ struct Request
 
     std::string userRole{};
     std::function<Adaptor&()> socket;
+    boost::asio::ip::address ipAddress;
+
     Request(
         boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
         req(reqIn),
