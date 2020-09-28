@@ -237,11 +237,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             -Wcovered-switch-default \
             -Wcomma \
             -Wextra-semi \
-            -Wzero-as-null-pointer-constant \
+            -Wno-zero-as-null-pointer-constant \
             -Wswitch-enum \
             -Wnull-dereference \
             -Wdouble-promotion \
-            -Wformat=2 \
+	    -Wformat=2 \
         "
         )
     endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.0)
