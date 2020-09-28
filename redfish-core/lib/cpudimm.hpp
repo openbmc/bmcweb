@@ -110,10 +110,6 @@ inline void
                 }
                 aResp->res.jsonValue["TotalCores"] = *coresCount;
             }
-            else if (property.first == "MaxSpeedInMhz")
-            {
-                aResp->res.jsonValue["MaxSpeedMHz"] = property.second;
-            }
             else if (property.first == "Socket")
             {
                 const std::string* value =
@@ -125,7 +121,11 @@ inline void
             }
             else if (property.first == "ThreadCount")
             {
-                aResp->res.jsonValue["TotalThreads"] = property.second;
+                const int64_t* value = std::get_if<int64_t>(&property.second);
+                if (value != nullptr)
+                {
+                    aResp->res.jsonValue["TotalThreads"] = *value;
+                }
             }
             else if (property.first == "Family")
             {
@@ -643,24 +643,53 @@ inline void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
         }
         else if (property.first == "VolatileRegionNumberLimit")
         {
-            aResp->res.jsonValue["VolatileRegionNumberLimit"] = property.second;
+            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["VolatileRegionNumberLimit"] = *value;
         }
         else if (property.first == "PmRegionNumberLimit")
         {
-            aResp->res.jsonValue["PersistentRegionNumberLimit"] =
-                property.second;
+            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["PersistentRegionNumberLimit"] = *value;
         }
         else if (property.first == "SpareDeviceCount")
         {
-            aResp->res.jsonValue["SpareDeviceCount"] = property.second;
+            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["SpareDeviceCount"] = *value;
         }
         else if (property.first == "IsSpareDeviceInUse")
         {
-            aResp->res.jsonValue["IsSpareDeviceEnabled"] = property.second;
+            const bool* value = std::get_if<bool>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["IsSpareDeviceEnabled"] = *value;
         }
         else if (property.first == "IsRankSpareEnabled")
         {
-            aResp->res.jsonValue["IsRankSpareEnabled"] = property.second;
+            const bool* value = std::get_if<bool>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["IsRankSpareEnabled"] = *value;
         }
         else if (property.first == "MaxAveragePowerLimitmW")
         {
@@ -675,13 +704,15 @@ inline void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
             }
             aResp->res.jsonValue["MaxTDPMilliWatts"] = *value;
         }
-        else if (property.first == "CurrentSecurityState")
-        {
-            aResp->res.jsonValue["SecurityState"] = property.second;
-        }
         else if (property.first == "ConfigurationLocked")
         {
-            aResp->res.jsonValue["ConfigurationLocked"] = property.second;
+            const bool* value = std::get_if<bool>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["ConfigurationLocked"] = *value;
         }
         else if (property.first == "AllowedMemoryModes")
         {
@@ -727,26 +758,31 @@ inline void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
                 }
             }
         }
-        // PersistantMemory.PowerManagmentPolicy interface
-        else if (property.first == "AveragePowerBudgetmW" ||
-                 property.first == "MaxTDPmW" ||
-                 property.first == "PeakPowerBudgetmW" ||
-                 property.first == "PolicyEnabled")
-        {
-            std::string name =
-                boost::replace_all_copy(property.first, "mW", "MilliWatts");
-            aResp->res.jsonValue["PowerManagementPolicy"][name] =
-                property.second;
-        }
         // PersistantMemory.SecurityCapabilites interface
         else if (property.first == "ConfigurationLockCapable" ||
                  property.first == "DataLockCapable" ||
-                 property.first == "MaxPassphraseCount" ||
-                 property.first == "PassphraseCapable" ||
+                 property.first == "PassphraseCapable")
+        {
+            const bool* value = std::get_if<bool>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
+            aResp->res.jsonValue["SecurityCapabilities"][property.first] =
+                *value;
+        }
+        else if (property.first == "MaxPassphraseCount" ||
                  property.first == "PassphraseLockLimit")
         {
+            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                continue;
+            }
             aResp->res.jsonValue["SecurityCapabilities"][property.first] =
-                property.second;
+                *value;
         }
     }
 }
@@ -803,19 +839,43 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
             {
                 if (property.first == "MemoryDataWidth")
                 {
-                    aResp->res.jsonValue["DataWidthBits"] = property.second;
+                    const uint16_t* value =
+                        std::get_if<uint16_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["DataWidthBits"] = *value;
                 }
                 else if (property.first == "PartNumber")
                 {
-                    aResp->res.jsonValue["PartNumber"] = property.second;
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["PartNumber"] = *value;
                 }
                 else if (property.first == "SerialNumber")
                 {
-                    aResp->res.jsonValue["SerialNumber"] = property.second;
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["SerialNumber"] = *value;
                 }
                 else if (property.first == "Manufacturer")
                 {
-                    aResp->res.jsonValue["Manufacturer"] = property.second;
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["Manufacturer"] = *value;
                 }
                 else if (property.first == "RevisionCode")
                 {
@@ -834,7 +894,13 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
                 else if (property.first == "MemoryTotalWidth")
                 {
-                    aResp->res.jsonValue["BusWidthBits"] = property.second;
+                    const uint16_t* value =
+                        std::get_if<uint16_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["BusWidthBits"] = *value;
                 }
                 else if (property.first == "ECC")
                 {
@@ -887,7 +953,19 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
                 else if (property.first == "AllowedSpeedsMT")
                 {
-                    aResp->res.jsonValue["AllowedSpeedsMHz"] = property.second;
+                    const std::vector<uint16_t>* value =
+                        std::get_if<std::vector<uint16_t>>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    nlohmann::json& jValue =
+                        aResp->res.jsonValue["AllowedSpeedsMHz"];
+                    jValue = nlohmann::json::array();
+                    for (uint16_t subVal : *value)
+                    {
+                        jValue.push_back(subVal);
+                    }
                 }
                 else if (property.first == "MemoryAttributes")
                 {
@@ -906,7 +984,13 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
                 else if (property.first == "MemoryConfiguredSpeedInMhz")
                 {
-                    aResp->res.jsonValue["OperatingSpeedMhz"] = property.second;
+                    const uint16_t* value =
+                        std::get_if<uint16_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["OperatingSpeedMhz"] = *value;
                 }
                 else if (property.first == "MemoryType")
                 {
@@ -939,8 +1023,15 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                          property.first == "MemoryController" ||
                          property.first == "Slot" || property.first == "Socket")
                 {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
                     aResp->res.jsonValue["MemoryLocation"][property.first] =
-                        property.second;
+                        *value;
                 }
                 else
                 {
@@ -976,7 +1067,13 @@ inline void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
             {
                 if (key == "MemoryClassification")
                 {
-                    partition[key] = val;
+                    const std::string* value = std::get_if<std::string>(&val);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
+                    partition[key] = *value;
                 }
                 else if (key == "OffsetInKiB")
                 {
@@ -984,8 +1081,6 @@ inline void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
                     if (value == nullptr)
                     {
                         messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for OffsetInKiB";
                         continue;
                     }
 
@@ -993,12 +1088,24 @@ inline void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
                 }
                 else if (key == "PartitionId")
                 {
-                    partition["RegionId"] = val;
+                    const std::string* value = std::get_if<std::string>(&val);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
+                    partition["RegionId"] = *value;
                 }
 
                 else if (key == "PassphraseState")
                 {
-                    partition["PassphraseEnabled"] = val;
+                    const bool* value = std::get_if<bool>(&val);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
+                    partition["PassphraseEnabled"] = *value;
                 }
                 else if (key == "SizeInKiB")
                 {
