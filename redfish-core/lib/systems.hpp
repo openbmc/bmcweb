@@ -1951,7 +1951,7 @@ class Systems : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_12_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_13_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
@@ -2021,6 +2021,8 @@ class Systems : public Node
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
         });
 
+        getLocationIndicatorActive(asyncResp);
+        // TODO (Gunnar): Remove IndicatorLED after enough time has passed
         getIndicatorLedState(asyncResp);
         getComputerSystem(asyncResp, health);
         getHostState(asyncResp);
@@ -2038,6 +2040,7 @@ class Systems : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>&) override
     {
+        std::optional<bool> locationIndicatorActive;
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
         std::optional<nlohmann::json> wdtTimerProps;
@@ -2045,10 +2048,11 @@ class Systems : public Node
         std::optional<std::string> powerRestorePolicy;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps, "WatchdogTimer", wdtTimerProps,
-                                 "PowerRestorePolicy", powerRestorePolicy,
-                                 "AssetTag", assetTag))
+        if (!json_util::readJson(
+                req, res, "IndicatorLED", indicatorLed,
+                "LocationIndicatorActive", locationIndicatorActive, "Boot",
+                bootProps, "WatchdogTimer", wdtTimerProps, "PowerRestorePolicy",
+                powerRestorePolicy, "AssetTag", assetTag))
         {
             return;
         }
@@ -2098,6 +2102,12 @@ class Systems : public Node
             }
         }
 
+        if (locationIndicatorActive)
+        {
+            setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        }
+
+        // TODO (Gunnar): Remove IndicatorLED after enough time has passed
         if (indicatorLed)
         {
             setIndicatorLedState(asyncResp, *indicatorLed);

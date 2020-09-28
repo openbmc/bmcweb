@@ -288,7 +288,7 @@ class Chassis : public Node
                     }
 
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#Chassis.v1_10_0.Chassis";
+                        "#Chassis.v1_14_0.Chassis";
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId;
                     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -318,6 +318,7 @@ class Chassis : public Node
                                       interface) != interfaces2.end())
                         {
                             getIndicatorLedState(asyncResp);
+                            getLocationIndicatorActive(asyncResp);
                             break;
                         }
                     }
@@ -381,7 +382,7 @@ class Chassis : public Node
 
                 // Couldn't find an object with that name.  return an error
                 messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_10_0.Chassis", chassisId);
+                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -394,6 +395,7 @@ class Chassis : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
+        std::optional<bool> locationIndicatorActive;
         std::optional<std::string> indicatorLed;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -402,12 +404,15 @@ class Chassis : public Node
             return;
         }
 
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed))
+        if (!json_util::readJson(req, res, "LocationIndicatorActive",
+                                 locationIndicatorActive, "IndicatorLED",
+                                 indicatorLed))
         {
             return;
         }
 
-        if (!indicatorLed)
+        // TODO (Gunnar): Remove IndicatorLED after enough time has passed
+        if (!locationIndicatorActive && !indicatorLed)
         {
             return; // delete this when we support more patch properties
         }
@@ -419,7 +424,7 @@ class Chassis : public Node
         const std::string& chassisId = params[0];
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, chassisId, indicatorLed](
+            [asyncResp, chassisId, locationIndicatorActive, indicatorLed](
                 const boost::system::error_code ec,
                 const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
@@ -454,26 +459,39 @@ class Chassis : public Node
                     const std::vector<std::string>& interfaces3 =
                         connectionNames[0].second;
 
-                    if (indicatorLed)
+                    const std::array<const char*, 2> hasIndicatorLed = {
+                        "xyz.openbmc_project.Inventory.Item.Panel",
+                        "xyz.openbmc_project.Inventory.Item.Board."
+                        "Motherboard"};
+                    bool indicatorChassis = false;
+                    for (const char* interface : hasIndicatorLed)
                     {
-                        const std::array<const char*, 2> hasIndicatorLed = {
-                            "xyz.openbmc_project.Inventory.Item.Panel",
-                            "xyz.openbmc_project.Inventory.Item.Board."
-                            "Motherboard"};
-                        bool indicatorChassis = false;
-                        for (const char* interface : hasIndicatorLed)
+                        if (std::find(interfaces3.begin(), interfaces3.end(),
+                                      interface) != interfaces3.end())
                         {
-                            if (std::find(interfaces3.begin(),
-                                          interfaces3.end(),
-                                          interface) != interfaces3.end())
-                            {
-                                indicatorChassis = true;
-                                break;
-                            }
+                            indicatorChassis = true;
+                            break;
                         }
+                    }
+                    if (locationIndicatorActive)
+                    {
                         if (indicatorChassis)
                         {
-                            setIndicatorLedState(asyncResp, *indicatorLed);
+                            setLocationIndicatorActive(
+                                asyncResp, *locationIndicatorActive);
+                        }
+                        else
+                        {
+                            messages::propertyUnknown(
+                                asyncResp->res, "LocationIndicatorActive");
+                        }
+                    }
+                    if (indicatorLed)
+                    {
+                        if (indicatorChassis)
+                        {
+                            setIndicatorLedState(asyncResp,
+                                                 std::move(*indicatorLed));
                         }
                         else
                         {
@@ -485,7 +503,7 @@ class Chassis : public Node
                 }
 
                 messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_10_0.Chassis", chassisId);
+                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
