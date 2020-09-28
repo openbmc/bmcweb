@@ -880,7 +880,7 @@ inline void clearDump(crow::Response& res, const std::string& dumpInterface)
         std::array<std::string, 1>{dumpInterface});
 }
 
-static void ParseCrashdumpParameters(
+static void parseCrashdumpParameters(
     const std::vector<std::pair<std::string, VariantType>>& params,
     std::string& filename, std::string& timestamp, std::string& logfile)
 {
@@ -2466,7 +2466,7 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
             std::string timestamp{};
             std::string filename{};
             std::string logfile{};
-            ParseCrashdumpParameters(params, filename, timestamp, logfile);
+            parseCrashdumpParameters(params, filename, timestamp, logfile);
 
             if (filename.empty() || timestamp.empty())
             {
@@ -2662,7 +2662,7 @@ class CrashdumpFile : public Node
                 std::string dbusTimestamp{};
                 std::string dbusFilepath{};
 
-                ParseCrashdumpParameters(resp, dbusFilename, dbusTimestamp,
+                parseCrashdumpParameters(resp, dbusFilename, dbusTimestamp,
                                          dbusFilepath);
 
                 if (dbusFilename.empty() || dbusTimestamp.empty() ||
@@ -2965,7 +2965,7 @@ class DBusLogServiceActionsClear : public Node
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         // Process response from Logging service.
-        auto resp_handler = [asyncResp](const boost::system::error_code ec) {
+        auto respHandler = [asyncResp](const boost::system::error_code ec) {
             BMCWEB_LOG_DEBUG << "doClearLog resp_handler callback: Done";
             if (ec)
             {
@@ -2981,7 +2981,7 @@ class DBusLogServiceActionsClear : public Node
 
         // Make call to Logging service to request Clear Log
         crow::connections::systemBus->async_method_call(
-            resp_handler, "xyz.openbmc_project.Logging",
+            respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
     }
