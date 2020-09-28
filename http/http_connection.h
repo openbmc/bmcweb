@@ -74,11 +74,11 @@ class Connection :
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        auto ca_available = !std::filesystem::is_empty(
+        auto caAvailable = !std::filesystem::is_empty(
             std::filesystem::path(ensuressl::trustStorePath));
-        if (ca_available && persistent_data::SessionStore::getInstance()
-                                .getAuthMethodsConfig()
-                                .tls)
+        if (caAvailable && persistent_data::SessionStore::getInstance()
+                               .getAuthMethodsConfig()
+                               .tls)
         {
             adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
             std::string id = "bmcweb";

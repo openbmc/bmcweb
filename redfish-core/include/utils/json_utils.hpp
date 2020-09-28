@@ -46,37 +46,28 @@ namespace details
 {
 
 template <typename Type>
-struct is_optional : std::false_type
+struct IsOptional : std::false_type
 {};
 
 template <typename Type>
-struct is_optional<std::optional<Type>> : std::true_type
+struct IsOptional<std::optional<Type>> : std::true_type
 {};
 
 template <typename Type>
-constexpr bool is_optional_v = is_optional<Type>::value;
-
-template <typename Type>
-struct is_vector : std::false_type
+struct IsVector : std::false_type
 {};
 
 template <typename Type>
-struct is_vector<std::vector<Type>> : std::true_type
+struct IsVector<std::vector<Type>> : std::true_type
 {};
 
 template <typename Type>
-constexpr bool is_vector_v = is_vector<Type>::value;
-
-template <typename Type>
-struct is_std_array : std::false_type
+struct IsStdArray : std::false_type
 {};
 
 template <typename Type, std::size_t size>
-struct is_std_array<std::array<Type, size>> : std::true_type
+struct IsStdArray<std::array<Type, size>> : std::true_type
 {};
-
-template <typename Type>
-constexpr bool is_std_array_v = is_std_array<Type>::value;
 
 enum class UnpackErrorCode
 {
@@ -206,14 +197,14 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
 {
     bool ret = true;
 
-    if constexpr (is_optional_v<Type>)
+    if constexpr (IsOptional<Type>::value)
     {
         value.emplace();
         ret = unpackValue<typename Type::value_type>(jsonValue, key, res,
                                                      *value) &&
               ret;
     }
-    else if constexpr (is_std_array_v<Type>)
+    else if constexpr (IsStdArray<Type>::value)
     {
         if (!jsonValue.is_array())
         {
@@ -233,7 +224,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                   ret;
         }
     }
-    else if constexpr (is_vector_v<Type>)
+    else if constexpr (IsVector<Type>::value)
     {
         if (!jsonValue.is_array())
         {
@@ -273,13 +264,13 @@ template <typename Type>
 bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 {
     bool ret = true;
-    if constexpr (is_optional_v<Type>)
+    if constexpr (IsOptional<Type>::value)
     {
         value.emplace();
         ret = unpackValue<typename Type::value_type>(jsonValue, key, *value) &&
               ret;
     }
-    else if constexpr (is_std_array_v<Type>)
+    else if constexpr (IsStdArray<Type>::value)
     {
         if (!jsonValue.is_array())
         {
@@ -297,7 +288,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
                   ret;
         }
     }
-    else if constexpr (is_vector_v<Type>)
+    else if constexpr (IsVector<Type>::value)
     {
         if (!jsonValue.is_array())
         {
@@ -366,7 +357,7 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
                    const char* key, ValueType&, UnpackTypes&... in)
 {
     bool ret = true;
-    if (!handled.test(Index) && !is_optional_v<ValueType>)
+    if (!handled.test(Index) && !IsOptional<ValueType>::value)
     {
         ret = false;
         messages::propertyMissing(res, key);
