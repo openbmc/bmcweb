@@ -821,17 +821,17 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             {
                 return -1;
             }
-            const std::string& key_type = codes[0];
-            const std::string& value_type = codes[1];
+            const std::string& keyType = codes[0];
+            const std::string& valueType = codes[1];
             for (auto it : j->items())
             {
-                r = convertJsonToDbus(m, key_type, it.key());
+                r = convertJsonToDbus(m, keyType, it.key());
                 if (r < 0)
                 {
                     return r;
                 }
 
-                r = convertJsonToDbus(m, value_type, it.value());
+                r = convertJsonToDbus(m, valueType, it.value());
                 if (r < 0)
                 {
                     return r;

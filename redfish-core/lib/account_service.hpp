@@ -29,7 +29,7 @@ namespace redfish
 
 constexpr const char* ldapConfigObjectName =
     "/xyz/openbmc_project/user/ldap/openldap";
-constexpr const char* ADConfigObject =
+constexpr const char* adConfigObject =
     "/xyz/openbmc_project/user/ldap/active_directory";
 
 constexpr const char* ldapRootObject = "/xyz/openbmc_project/user/ldap";
@@ -340,7 +340,7 @@ inline void handleRoleMapPatch(
                 std::string dbusObjectPath;
                 if (serverType == "ActiveDirectory")
                 {
-                    dbusObjectPath = ADConfigObject;
+                    dbusObjectPath = adConfigObject;
                 }
                 else if (serverType == "LDAP")
                 {
@@ -970,7 +970,7 @@ class AccountService : public Node
         std::string dbusObjectPath;
         if (serverType == "ActiveDirectory")
         {
-            dbusObjectPath = ADConfigObject;
+            dbusObjectPath = adConfigObject;
         }
         else if (serverType == "LDAP")
         {

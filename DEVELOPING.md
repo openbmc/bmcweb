@@ -225,17 +225,29 @@
 ## clang-tidy
 
 clang-tidy is a tool that can be used to identify coding style violations, bad
-design patterns, and bug prone constructs.  It's not guaranteed that all tests
-pass, but ideally should be run on new code to find issues.  To run, make sure
-you have clang++-9 installed, and clang-tidy-9 installed, and run.  the -checks
-field can be modified to enable or disable which clang-tidy checks are run.
-The below enables everything in the cert namespace.
+design patterns, and bug prone constructs.  The checks are implemented in the
+.clang-tidy file in the root of bmcweb, and are expected to be passing.  To
+run, the best way is to run the checks in yocto.
 
 ```
-mkdir build
-cd build
-cmake .. -DCMAKE_CXX_COMPILER=clang++-9 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-make -j
-run-clang-tidy-9 -p . -header-filter=".*" -checks="-*,cert-*"
-```
+# check out meta-clang in your openbmc root
+cd openbmc
+git clone https://github.com/kraj/meta-clang
 
+# add the meta-clang layer to BBLAYERS in $BBPATH/conf/bblayers.conf
+<path_to_your_build_dir>/meta-clang
+
+# Add this line to $BBPATH/conf/local.conf to build bmcweb with clang
+TOOLCHAIN_pn-bmcweb = "clang"
+
+# and build
+bitbake bmcweb
+
+# Open devshell (this will open a shell)
+bitbake -c devshell bmcweb
+
+# cd into the work dir
+cd oe-workdir/bmcweb-1.0+git999
+# run clang tidy
+clang-tidy --header-filter=".*" -p . $BBPATH/workspace/sources/bmcweb/src/webserver_main.cpp
+```
