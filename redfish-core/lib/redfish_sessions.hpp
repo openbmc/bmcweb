@@ -60,15 +60,15 @@ class Sessions : public Node
         res.jsonValue["UserName"] = session->username;
         res.jsonValue["@odata.id"] =
             "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
-        res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
+        res.jsonValue["@odata.type"] = "#Session.v1_3_0.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
+        res.jsonValue["ClientOriginIPAddress"] = session->clientIp;
         res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
             "#OemSession.v1_0_0.Session";
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
 #endif
-        res.jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] = session->clientIp;
         res.end();
     }
 
@@ -174,7 +174,6 @@ class SessionCollection : public Node
         std::string password;
         std::optional<nlohmann::json> oemObject;
         std::string clientId;
-        std::string clientIp;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
                                  password, "Oem", oemObject))
         {
@@ -226,12 +225,14 @@ class SessionCollection : public Node
             }
         }
 #endif
+        BMCWEB_LOG_DEBUG << "Session created from IPAddress: "
+                         << req.ipAddress.to_string();
 
         // User is authenticated - create session
         std::shared_ptr<persistent_data::UserSession> session =
             persistent_data::SessionStore::getInstance().generateUserSession(
                 username, persistent_data::PersistenceType::TIMEOUT,
-                isConfigureSelfOnly, clientId, clientIp);
+                isConfigureSelfOnly, clientId, req.ipAddress.to_string());
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);

@@ -317,6 +317,10 @@ class Connection :
             }
         }
 
+        // Copy the client's IP address
+        req->ipAddress =
+            boost::beast::get_lowest_layer(adaptor).remote_endpoint().address();
+
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()
