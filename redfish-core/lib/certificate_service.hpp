@@ -263,7 +263,7 @@ class CertificateActionGenerateCSR : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        static const int RSA_KEY_BIT_LENGTH = 2048;
+        static const int rsaKeyBitLength = 2048;
         auto asyncResp = std::make_shared<AsyncResp>(res);
         // Required parameters
         std::string city;
@@ -282,7 +282,7 @@ class CertificateActionGenerateCSR : public Node
         std::optional<std::string> optEmail = "";
         std::optional<std::string> optGivenName = "";
         std::optional<std::string> optInitials = "";
-        std::optional<int64_t> optKeyBitLength = RSA_KEY_BIT_LENGTH;
+        std::optional<int64_t> optKeyBitLength = rsaKeyBitLength;
         std::optional<std::string> optKeyCurveId = "secp384r1";
         std::optional<std::string> optKeyPairAlgorithm = "EC";
         std::optional<std::vector<std::string>> optKeyUsage =
@@ -355,7 +355,7 @@ class CertificateActionGenerateCSR : public Node
         // supporting only 2048 key bit length for RSA algorithm due to time
         // consumed in generating private key
         if (*optKeyPairAlgorithm == "RSA" &&
-            *optKeyBitLength != RSA_KEY_BIT_LENGTH)
+            *optKeyBitLength != rsaKeyBitLength)
         {
             messages::propertyValueNotInList(asyncResp->res,
                                              std::to_string(*optKeyBitLength),
@@ -414,17 +414,17 @@ class CertificateActionGenerateCSR : public Node
 
         // Only allow one CSR matcher at a time so setting retry time-out and
         // timer expiry to 10 seconds for now.
-        static const int TIME_OUT = 10;
+        static const int timeOut = 10;
         if (csrMatcher)
         {
             messages::serviceTemporarilyUnavailable(asyncResp->res,
-                                                    std::to_string(TIME_OUT));
+                                                    std::to_string(timeOut));
             return;
         }
 
         // Make this static so it survives outside this method
         static boost::asio::steady_timer timeout(*req.ioService);
-        timeout.expires_after(std::chrono::seconds(TIME_OUT));
+        timeout.expires_after(std::chrono::seconds(timeOut));
         timeout.async_wait([asyncResp](const boost::system::error_code& ec) {
             csrMatcher = nullptr;
             if (ec)

@@ -315,12 +315,12 @@ struct CallHelper<F, S<Args...>>
 {
     template <typename F1, typename... Args1,
               typename = decltype(std::declval<F1>()(std::declval<Args1>()...))>
-    static char __test(int);
+    static char test(int);
 
     template <typename...>
-    static int __test(...);
+    static int test(...);
 
-    static constexpr bool value = sizeof(__test<F, Args...>(0)) == sizeof(char);
+    static constexpr bool value = sizeof(test<F, Args...>(0)) == sizeof(char);
 };
 
 template <uint64_t N>
