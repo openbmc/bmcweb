@@ -148,12 +148,12 @@ class Power : public Node
             res.end();
             return;
         }
-        const std::string& chassis_name = params[0];
+        const std::string& chassisName = params[0];
 
         res.jsonValue["PowerControl"] = nlohmann::json::array();
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassis_name, sensors::dbus::types.at(sensors::node::power),
+            res, chassisName, sensors::dbus::types.at(sensors::node::power),
             sensors::node::power);
 
         getChassisData(sensorAsyncResp);

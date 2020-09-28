@@ -122,13 +122,13 @@ class HypervisorInterfaceCollection : public Node
                 ifaceArray = nlohmann::json::array();
                 for (const std::string& iface : ifaceList)
                 {
-                    std::size_t last_pos = iface.rfind("/");
-                    if (last_pos != std::string::npos)
+                    std::size_t lastPos = iface.rfind("/");
+                    if (lastPos != std::string::npos)
                     {
                         ifaceArray.push_back(
                             {{"@odata.id", "/redfish/v1/Systems/hypervisor/"
                                            "EthernetInterfaces/" +
-                                               iface.substr(last_pos + 1)}});
+                                               iface.substr(lastPos + 1)}});
                     }
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
@@ -691,7 +691,7 @@ class HypervisorInterface : public Node
                         const std::shared_ptr<AsyncResp> asyncResp)
     {
         const std::string dhcp =
-            GetDHCPEnabledEnumeration(ipv4DHCPEnabled, false);
+            getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
                 if (ec)

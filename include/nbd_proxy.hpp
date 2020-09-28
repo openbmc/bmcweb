@@ -44,7 +44,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                    const std::string& endpointIdIn, const std::string& pathIn) :
         socketId(socketIdIn),
         endpointId(endpointIdIn), path(pathIn),
-        acceptor(connIn.get_io_context(), stream_protocol::endpoint(socketId)),
+        acceptor(connIn.getIoContext(), stream_protocol::endpoint(socketId)),
         connection(connIn)
     {}
 

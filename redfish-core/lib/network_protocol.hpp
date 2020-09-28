@@ -240,12 +240,12 @@ class NetworkProtocol : public Node
                 asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
                 if (hostName.empty() == false)
                 {
-                    std::string FQDN = std::move(hostName);
+                    std::string fqdn = std::move(hostName);
                     if (domainNames.empty() == false)
                     {
-                        FQDN += "." + domainNames[0];
+                        fqdn += "." + domainNames[0];
                     }
-                    asyncResp->res.jsonValue["FQDN"] = std::move(FQDN);
+                    asyncResp->res.jsonValue["FQDN"] = std::move(fqdn);
                 }
             });
 
