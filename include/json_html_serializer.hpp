@@ -56,7 +56,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
     std::size_t bytes = 0; // number of bytes written to string_buffer
 
     // number of bytes written at the point of the last valid byte
-    std::size_t bytes_after_last_accept = 0;
+    std::size_t bytesAfterLastAccept = 0;
     std::size_t undumpedChars = 0;
 
     for (std::size_t i = 0; i < str.size(); ++i)
@@ -198,7 +198,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                 }
 
                 // remember the byte position of this accept
-                bytes_after_last_accept = bytes;
+                bytesAfterLastAccept = bytes;
                 undumpedChars = 0;
                 break;
             }
@@ -216,7 +216,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
 
                 // reset length buffer to the last accepted index;
                 // thus removing/ignoring the invalid characters
-                bytes = bytes_after_last_accept;
+                bytes = bytesAfterLastAccept;
 
                 stringBuffer[bytes++] = '\\';
                 stringBuffer[bytes++] = 'u';
@@ -225,7 +225,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                 stringBuffer[bytes++] = 'f';
                 stringBuffer[bytes++] = 'd';
 
-                bytes_after_last_accept = bytes;
+                bytesAfterLastAccept = bytes;
 
                 undumpedChars = 0;
 
@@ -256,34 +256,34 @@ inline void dumpEscaped(std::string& out, const std::string& str)
     else
     {
         // write all accepted bytes
-        out.append(stringBuffer.data(), bytes_after_last_accept);
+        out.append(stringBuffer.data(), bytesAfterLastAccept);
         out += "\\ufffd";
     }
 }
 
 inline unsigned int countDigits(uint64_t number) noexcept
 {
-    unsigned int n_digits = 1;
+    unsigned int nDigits = 1;
     for (;;)
     {
         if (number < 10)
         {
-            return n_digits;
+            return nDigits;
         }
         if (number < 100)
         {
-            return n_digits + 1;
+            return nDigits + 1;
         }
         if (number < 1000)
         {
-            return n_digits + 2;
+            return nDigits + 2;
         }
         if (number < 10000)
         {
-            return n_digits + 3;
+            return nDigits + 3;
         }
         number = number / 10000u;
-        n_digits += 4;
+        nDigits += 4;
     }
 }
 
@@ -295,7 +295,7 @@ void dumpInteger(std::string& out, NumberType number)
 {
     std::array<char, 64> numberbuffer{{}};
 
-    static constexpr std::array<std::array<char, 2>, 100> digits_to_99{{
+    static constexpr std::array<std::array<char, 2>, 100> digitsTo99{{
         {'0', '0'}, {'0', '1'}, {'0', '2'}, {'0', '3'}, {'0', '4'}, {'0', '5'},
         {'0', '6'}, {'0', '7'}, {'0', '8'}, {'0', '9'}, {'1', '0'}, {'1', '1'},
         {'1', '2'}, {'1', '3'}, {'1', '4'}, {'1', '5'}, {'1', '6'}, {'1', '7'},
@@ -361,15 +361,15 @@ void dumpInteger(std::string& out, NumberType number)
     {
         const auto digitsIndex = static_cast<unsigned>((absValue % 100));
         absValue /= 100;
-        *(--bufferPtr) = digits_to_99[digitsIndex][1];
-        *(--bufferPtr) = digits_to_99[digitsIndex][0];
+        *(--bufferPtr) = digitsTo99[digitsIndex][1];
+        *(--bufferPtr) = digitsTo99[digitsIndex][0];
     }
 
     if (absValue >= 10)
     {
         const auto digitsIndex = static_cast<unsigned>(absValue);
-        *(--bufferPtr) = digits_to_99[digitsIndex][1];
-        *(--bufferPtr) = digits_to_99[digitsIndex][0];
+        *(--bufferPtr) = digitsTo99[digitsIndex][1];
+        *(--bufferPtr) = digitsTo99[digitsIndex][0];
     }
     else
     {
