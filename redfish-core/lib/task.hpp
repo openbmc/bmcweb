@@ -79,14 +79,6 @@ struct Payload
     nlohmann::json jsonBody;
 };
 
-inline void to_json(nlohmann::json& j, const Payload& p)
-{
-    j = {{"TargetUri", p.targetUri},
-         {"HttpOperation", p.httpOperation},
-         {"HttpHeaders", p.httpHeaders},
-         {"JsonBody", p.jsonBody.dump()}};
-}
-
 struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
@@ -446,7 +438,12 @@ class Task : public Node
         }
         if (ptr->payload)
         {
-            asyncResp->res.jsonValue["Payload"] = *(ptr->payload);
+            const task::Payload& p = *(ptr->payload);
+            asyncResp->res.jsonValue["Payload"] = {
+                {"TargetUri", p.targetUri},
+                {"HttpOperation", p.httpOperation},
+                {"HttpHeaders", p.httpHeaders},
+                {"JsonBody", p.jsonBody.dump()}};
         }
     }
 };
