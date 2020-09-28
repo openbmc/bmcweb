@@ -168,13 +168,38 @@ class ConfigFile
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
         std::filesystem::permissions(filename, permission);
+        const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        nlohmann::json data{{"auth_config",
+                             {{"XToken", c.xtoken},
+                              {"Cookie", c.cookie},
+                              {"SessionToken", c.sessionToken},
+                              {"BasicAuth", c.basic},
+                              {"TLS", c.tls}}
 
-        nlohmann::json data{
-            {"sessions", SessionStore::getInstance().authTokens},
-            {"auth_config", SessionStore::getInstance().getAuthMethodsConfig()},
-            {"system_uuid", systemUuid},
-            {"revision", jsonRevision},
-            {"timeout", SessionStore::getInstance().getTimeoutInSeconds()}};
+                            },
+                            {"system_uuid", systemUuid},
+                            {"revision", jsonRevision}};
+
+        nlohmann::json& sessions = data["sessions"];
+        sessions = nlohmann::json::array();
+        for (const auto& p : SessionStore::getInstance().authTokens)
+        {
+            if (p.second->persistence !=
+                persistent_data::PersistenceType::SINGLE_REQUEST)
+            {
+                sessions.push_back({
+                    {"unique_id", p.second->uniqueId},
+                    {"session_token", p.second->sessionToken},
+                    {"username", p.second->username},
+                    {"csrf_token", p.second->csrfToken},
+                    {"timeout",
+                     SessionStore::getInstance().getTimeoutInSeconds()},
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+                    {"client_id", p.second->clientId},
+#endif
+                });
+            }
+        }
         persistentFile << data;
     }
 
