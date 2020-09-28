@@ -13,7 +13,7 @@ namespace crow
 namespace obmc_console
 {
 
-static std::unique_ptr<boost::asio::local::stream_protocol::socket> host_socket;
+static std::unique_ptr<boost::asio::local::stream_protocol::socket> hostSocket;
 
 static std::array<char, 4096> outputBuffer;
 static std::string inputBuffer;
@@ -37,7 +37,7 @@ inline void doWrite()
     }
 
     doingWrite = true;
-    host_socket->async_write_some(
+    hostSocket->async_write_some(
         boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
         [](boost::beast::error_code ec, std::size_t bytes_written) {
             doingWrite = false;
@@ -63,7 +63,7 @@ inline void doWrite()
 inline void doRead()
 {
     BMCWEB_LOG_DEBUG << "Reading from socket";
-    host_socket->async_read_some(
+    hostSocket->async_read_some(
         boost::asio::buffer(outputBuffer.data(), outputBuffer.size()),
         [](const boost::system::error_code& ec, std::size_t bytesRead) {
             BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
@@ -112,15 +112,15 @@ inline void requestRoutes(App& app)
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             sessions.insert(&conn);
-            if (host_socket == nullptr)
+            if (hostSocket == nullptr)
             {
                 const std::string consoleName("\0obmc-console", 13);
                 boost::asio::local::stream_protocol::endpoint ep(consoleName);
 
-                host_socket = std::make_unique<
+                hostSocket = std::make_unique<
                     boost::asio::local::stream_protocol::socket>(
-                    conn.get_io_context());
-                host_socket->async_connect(ep, connectHandler);
+                    conn.getIoContext());
+                hostSocket->async_connect(ep, connectHandler);
             }
         })
         .onclose([](crow::websocket::Connection& conn,
@@ -128,7 +128,7 @@ inline void requestRoutes(App& app)
             sessions.erase(&conn);
             if (sessions.empty())
             {
-                host_socket = nullptr;
+                hostSocket = nullptr;
                 inputBuffer.clear();
                 inputBuffer.shrink_to_fit();
             }

@@ -168,9 +168,9 @@ inline void requestRoutes(App& app)
                                             paths->size() *
                                                 (1U + interfaceCount));
             }
-            std::string object_manager_match_string;
-            std::string properties_match_string;
-            std::string object_manager_interfaces_match_string;
+            std::string objectManagerMatchString;
+            std::string propertiesMatchString;
+            std::string objectManagerInterfacesMatchString;
             // These regexes derived on the rules here:
             // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
             std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
@@ -193,7 +193,7 @@ inline void requestRoutes(App& app)
                     conn.close();
                     return;
                 }
-                properties_match_string =
+                propertiesMatchString =
                     ("type='signal',"
                      "interface='org.freedesktop.DBus.Properties',"
                      "path_namespace='" +
@@ -205,12 +205,12 @@ inline void requestRoutes(App& app)
                 if (thisSession.interfaces.size() == 0)
                 {
                     BMCWEB_LOG_DEBUG << "Creating match "
-                                     << properties_match_string;
+                                     << propertiesMatchString;
 
                     thisSession.matches.emplace_back(
                         std::make_unique<sdbusplus::bus::match::match>(
                             *crow::connections::systemBus,
-                            properties_match_string, onPropertyUpdate, &conn));
+                            propertiesMatchString, onPropertyUpdate, &conn));
                 }
                 else
                 {
@@ -225,7 +225,7 @@ inline void requestRoutes(App& app)
                             conn.close();
                             return;
                         }
-                        std::string ifaceMatchString = properties_match_string +
+                        std::string ifaceMatchString = propertiesMatchString +
                                                        ",arg0='" + interface +
                                                        "'";
                         BMCWEB_LOG_DEBUG << "Creating match "
@@ -236,7 +236,7 @@ inline void requestRoutes(App& app)
                                 onPropertyUpdate, &conn));
                     }
                 }
-                object_manager_match_string =
+                objectManagerMatchString =
                     ("type='signal',"
                      "interface='org.freedesktop.DBus.ObjectManager',"
                      "path_namespace='" +
@@ -244,11 +244,11 @@ inline void requestRoutes(App& app)
                      "',"
                      "member='InterfacesAdded'");
                 BMCWEB_LOG_DEBUG << "Creating match "
-                                 << object_manager_match_string;
+                                 << objectManagerMatchString;
                 thisSession.matches.emplace_back(
                     std::make_unique<sdbusplus::bus::match::match>(
                         *crow::connections::systemBus,
-                        object_manager_match_string, onPropertyUpdate, &conn));
+                        objectManagerMatchString, onPropertyUpdate, &conn));
             }
         });
 }

@@ -1059,10 +1059,10 @@ class Router
         {
             return;
         }
-        for (uint32_t method = 0, method_bit = 1; method < maxHttpVerbCount;
-             method++, method_bit <<= 1)
+        for (uint32_t method = 0, methodBit = 1; method < maxHttpVerbCount;
+             method++, methodBit <<= 1)
         {
-            if (ruleObject->methodsBitfield & method_bit)
+            if (ruleObject->methodsBitfield & methodBit)
             {
                 perMethods[method].rules.emplace_back(ruleObject);
                 perMethods[method].trie.add(
