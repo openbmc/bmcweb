@@ -25,6 +25,7 @@ struct Request
     const std::string& body;
 
     boost::asio::io_context* ioService{};
+    boost::asio::ip::address ipAddress;
 
     std::shared_ptr<persistent_data::UserSession> session;
 
