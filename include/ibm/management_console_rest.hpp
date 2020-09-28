@@ -249,8 +249,8 @@ inline void handleFileDelete(crow::Response& res, const std::string& fileID)
     std::string filePath("/var/lib/obmc/bmc-console-mgmt/save-area/" + fileID);
     BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
 
-    std::ifstream file_open(filePath.c_str());
-    if (static_cast<bool>(file_open))
+    std::ifstream fileOpen(filePath.c_str());
+    if (static_cast<bool>(fileOpen))
         if (remove(filePath.c_str()) == 0)
         {
             BMCWEB_LOG_DEBUG << "File removed!\n";
