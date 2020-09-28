@@ -220,16 +220,10 @@ inline void handleFilePut(const crow::Request& req,
         BMCWEB_LOG_DEBUG << "config file is updated";
         asyncResp->res.jsonValue["Description"] = "File Updated";
 
-        redfish::EventServiceManager::getInstance().sendEvent(
-            redfish::messages::resourceChanged(), origin, "IBMConfigFile");
-    }
     else
     {
         BMCWEB_LOG_DEBUG << "config file is created";
         asyncResp->res.jsonValue["Description"] = "File Created";
-
-        redfish::EventServiceManager::getInstance().sendEvent(
-            redfish::messages::resourceCreated(), origin, "IBMConfigFile");
     }
 }
 
@@ -383,7 +377,6 @@ inline void
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
-    redfish::EventServiceManager::getInstance().sendBroadcastMsg(broadcastMsg);
 }
 
 inline void handleFileUrl(const crow::Request& req,
