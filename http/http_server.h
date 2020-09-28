@@ -104,7 +104,7 @@ class Server
         };
         timer.async_wait(timerHandler);
 
-        BMCWEB_LOG_INFO << serverName << " server is running, local endpoint "
+        BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
                         << acceptor->local_endpoint();
         startAsyncWaitForSignal();
         doAccept();
@@ -185,7 +185,7 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
             auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, serverName, getCachedDateStr, timerQueue,
+                handler, getCachedDateStr, timerQueue,
                 std::move(adaptorTemp.value()));
 
             acceptor->async_accept(p->socket().next_layer(),
@@ -203,7 +203,7 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService);
             auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, serverName, getCachedDateStr, timerQueue,
+                handler, getCachedDateStr, timerQueue,
                 std::move(adaptorTemp.value()));
 
             acceptor->async_accept(
@@ -229,7 +229,6 @@ class Server
     std::string dateStr;
 
     Handler* handler;
-    std::string serverName = "bmcweb";
 
     std::function<void(const boost::system::error_code& ec)> timerHandler;
 
