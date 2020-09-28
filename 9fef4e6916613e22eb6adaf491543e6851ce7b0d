@@ -93,6 +93,30 @@
       "revId": "9fef4e6916613e22eb6adaf491543e6851ce7b0d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4773a8f_14516a8f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-09-28T14:52:55Z",
+      "side": 1,
+      "message": "\u003e We are working on an oem privilege model for the IBM clients, to subscribe for these IBM resources.\n\u003e Until that is implemented, we will have to work with this compiler flag so that the non-IBM clients will not get these resources listed as supported resources.\n\nWith respect, we don\u0027t have to \"work\" with the compiler flag, because as pointed out, it doesn\u0027t work.  I would much rather see the incorrect code adding IBM resources to Redfish endpoints removed entirely, considering it\u0027s incorrect as-is.",
+      "parentUuid": "37877886_7ebb4550",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 43
+      },
+      "revId": "9fef4e6916613e22eb6adaf491543e6851ce7b0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
