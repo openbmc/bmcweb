@@ -91,9 +91,9 @@ class Node
                 doPut(res, req, paramVec);
             });
 
-        crow::DynamicRule& delete_ = app.routeDynamic(entityUrl.c_str());
-        deleteRule = &delete_;
-        delete_.methods(boost::beast::http::verb::delete_)(
+        crow::DynamicRule& deleteR = app.routeDynamic(entityUrl.c_str());
+        deleteRule = &deleteR;
+        deleteR.methods(boost::beast::http::verb::delete_)(
             [this](const crow::Request& req, crow::Response& res,
                    Params... params) {
                 std::vector<std::string> paramVec = {params...};

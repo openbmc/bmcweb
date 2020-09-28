@@ -17,7 +17,7 @@ class KvmSession
 {
   public:
     explicit KvmSession(crow::websocket::Connection& connIn) :
-        conn(connIn), hostSocket(conn.get_io_context()), doingWrite(false)
+        conn(connIn), hostSocket(conn.getIoContext()), doingWrite(false)
     {
         boost::asio::ip::tcp::endpoint endpoint(
             boost::asio::ip::make_address("127.0.0.1"), 5900);
