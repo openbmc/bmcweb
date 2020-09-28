@@ -1694,19 +1694,19 @@ class SystemsCollection : public Node
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const std::variant<std::string>& /*hostName*/) {
-                nlohmann::json& iface_array =
+                nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
-                iface_array = nlohmann::json::array();
+                ifaceArray = nlohmann::json::array();
                 auto& count = asyncResp->res.jsonValue["Members@odata.count"];
                 count = 0;
-                iface_array.push_back(
+                ifaceArray.push_back(
                     {{"@odata.id", "/redfish/v1/Systems/system"}});
                 if (!ec)
                 {
                     BMCWEB_LOG_DEBUG << "Hypervisor is available";
-                    iface_array.push_back(
+                    ifaceArray.push_back(
                         {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
-                    count = iface_array.size();
+                    count = ifaceArray.size();
                     return;
                 }
             },
