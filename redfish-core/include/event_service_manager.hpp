@@ -601,11 +601,6 @@ class EventServiceManager
     uint32_t retryAttempts;
     uint32_t retryTimeoutInterval;
 
-    EventServiceManager(const EventServiceManager&) = delete;
-    EventServiceManager& operator=(const EventServiceManager&) = delete;
-    EventServiceManager(EventServiceManager&&) = delete;
-    EventServiceManager& operator=(EventServiceManager&&) = delete;
-
     EventServiceManager() :
         noOfEventLogSubscribers(0), noOfMetricReportSubscribers(0), eventId(1)
     {
@@ -623,6 +618,11 @@ class EventServiceManager
     uint64_t eventId;
 
   public:
+    EventServiceManager(const EventServiceManager&) = delete;
+    EventServiceManager& operator=(const EventServiceManager&) = delete;
+    EventServiceManager(EventServiceManager&&) = delete;
+    EventServiceManager& operator=(EventServiceManager&&) = delete;
+
     static EventServiceManager& getInstance()
     {
         static EventServiceManager handler;
