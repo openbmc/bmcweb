@@ -162,9 +162,9 @@ static const std::shared_ptr<persistent_data::UserSession>
     return session;
 }
 
-static const std::shared_ptr<persistent_data::UserSession>
-    performTLSAuth(const crow::Request& req, Response& res,
-                   std::weak_ptr<persistent_data::UserSession> session)
+static const std::shared_ptr<persistent_data::UserSession> performTLSAuth(
+    [[maybe_unused]] const crow::Request& req, [[maybe_unused]] Response& res,
+    [[maybe_unused]] std::weak_ptr<persistent_data::UserSession> session)
 {
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (auto sp = session.lock())
