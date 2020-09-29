@@ -97,7 +97,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
   public:
     TaskData() = delete;
-    
+
     static std::shared_ptr<TaskData>& createTask(
         std::function<bool(boost::system::error_code,
                            sdbusplus::message::message&,
