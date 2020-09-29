@@ -497,7 +497,7 @@ inline bool Lock::isValidLockRequest(const LockRequest refLockRecord)
     {
         BMCWEB_LOG_DEBUG << "Validation of Number of Segments Failed";
         BMCWEB_LOG_DEBUG << "Number of Segments provied : "
-                         << sizeof(std::get<4>(refLockRecord));
+                         << std::get<4>(refLockRecord).size();
         return false;
     }
 
