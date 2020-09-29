@@ -57,6 +57,30 @@
       "revId": "9a920c172968589d02e82360efccbadd32f96f7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed3c8e71_7ab4f8f0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-09-29T05:16:07Z",
+      "side": 1,
+      "message": "What\u0027s your point? Switch to this new schema right now in this patch?",
+      "parentUuid": "cadade72_db9cdfbe",
+      "range": {
+        "startLine": 1145,
+        "startChar": 35,
+        "endLine": 1145,
+        "endChar": 36
+      },
+      "revId": "9a920c172968589d02e82360efccbadd32f96f7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
