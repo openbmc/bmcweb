@@ -216,7 +216,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
                                const std::string& messageID,
                                const std::vector<std::string>& messageArgs,
                                std::string timestamp,
-                               const std::string customText,
+                               const std::string& customText,
                                nlohmann::json& logEntryJson)
 {
     // Get the Message from the MessageRegistry
@@ -923,7 +923,7 @@ class EventServiceManager
         return subValue;
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription> subValue,
+    std::string addSubscription(const std::shared_ptr<Subscription>& subValue,
                                 const bool updateFile = true)
     {
         std::srand(static_cast<uint32_t>(std::time(nullptr)));

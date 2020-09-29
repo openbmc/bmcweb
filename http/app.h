@@ -80,7 +80,7 @@ class App
 
     App& bindaddr(std::string bindaddr)
     {
-        bindaddrStr = bindaddr;
+        bindaddrStr = std::move(bindaddr);
         return *this;
     }
 

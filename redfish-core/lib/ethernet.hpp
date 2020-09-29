@@ -706,7 +706,7 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
  * @return None
  */
 inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
-                       const std::shared_ptr<AsyncResp> asyncResp)
+                       const std::shared_ptr<AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -733,7 +733,7 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
  */
 inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
                        const std::string& gateway, const std::string& address,
-                       std::shared_ptr<AsyncResp> asyncResp)
+                       const std::shared_ptr<AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -766,7 +766,7 @@ inline void deleteAndCreateIPv4(const std::string& ifaceId,
                                 const std::string& id, uint8_t prefixLength,
                                 const std::string& gateway,
                                 const std::string& address,
-                                std::shared_ptr<AsyncResp> asyncResp)
+                                const std::shared_ptr<AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, ifaceId, address, prefixLength,
@@ -803,7 +803,7 @@ inline void deleteAndCreateIPv4(const std::string& ifaceId,
  * @return None
  */
 inline void deleteIPv6(const std::string& ifaceId, const std::string& ipHash,
-                       const std::shared_ptr<AsyncResp> asyncResp)
+                       const std::shared_ptr<AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -832,7 +832,7 @@ inline void deleteIPv6(const std::string& ifaceId, const std::string& ipHash,
 inline void deleteAndCreateIPv6(const std::string& ifaceId,
                                 const std::string& id, uint8_t prefixLength,
                                 const std::string& address,
-                                std::shared_ptr<AsyncResp> asyncResp)
+                                const std::shared_ptr<AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, ifaceId, address,
@@ -871,7 +871,7 @@ inline void deleteAndCreateIPv6(const std::string& ifaceId,
  */
 inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
                        const std::string& address,
-                       std::shared_ptr<AsyncResp> asyncResp)
+                       const std::shared_ptr<AsyncResp>& asyncResp)
 {
     auto createIpHandler = [asyncResp](const boost::system::error_code ec) {
         if (ec)
@@ -1089,7 +1089,7 @@ class EthernetInterface : public Node
 
   private:
     void handleHostnamePatch(const std::string& hostname,
-                             const std::shared_ptr<AsyncResp> asyncResp)
+                             const std::shared_ptr<AsyncResp>& asyncResp)
     {
         // SHOULD handle host names of up to 255 characters(RFC 1123)
         if (hostname.length() > 255)
@@ -1114,7 +1114,7 @@ class EthernetInterface : public Node
 
     void handleDomainnamePatch(const std::string& ifaceId,
                                const std::string& domainname,
-                               const std::shared_ptr<AsyncResp> asyncResp)
+                               const std::shared_ptr<AsyncResp>& asyncResp)
     {
         std::vector<std::string> vectorDomainname = {domainname};
         crow::connections::systemBus->async_method_call(
@@ -1132,7 +1132,7 @@ class EthernetInterface : public Node
     }
 
     void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
-                         const std::shared_ptr<AsyncResp> asyncResp)
+                         const std::shared_ptr<AsyncResp>& asyncResp)
     {
         // Total length of FQDN must not exceed 255 characters(RFC 1035)
         if (fqdn.length() > 255)
@@ -1212,7 +1212,7 @@ class EthernetInterface : public Node
     void setDHCPEnabled(const std::string& ifaceId,
                         const std::string& propertyName, const bool v4Value,
                         const bool v6Value,
-                        const std::shared_ptr<AsyncResp> asyncResp)
+                        const std::shared_ptr<AsyncResp>& asyncResp)
     {
         const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
         crow::connections::systemBus->async_method_call(
@@ -1233,7 +1233,7 @@ class EthernetInterface : public Node
 
     void setEthernetInterfaceBoolProperty(
         const std::string& ifaceId, const std::string& propertyName,
-        const bool& value, const std::shared_ptr<AsyncResp> asyncResp)
+        const bool& value, const std::shared_ptr<AsyncResp>& asyncResp)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
@@ -1252,7 +1252,7 @@ class EthernetInterface : public Node
     }
 
     void setDHCPv4Config(const std::string& propertyName, const bool& value,
-                         const std::shared_ptr<AsyncResp> asyncResp)
+                         const std::shared_ptr<AsyncResp>& asyncResp)
     {
         BMCWEB_LOG_DEBUG << propertyName << " = " << value;
         crow::connections::systemBus->async_method_call(
@@ -1274,7 +1274,7 @@ class EthernetInterface : public Node
     void handleDHCPPatch(const std::string& ifaceId,
                          const EthernetInterfaceData& ethData,
                          DHCPParameters v4dhcpParms, DHCPParameters v6dhcpParms,
-                         const std::shared_ptr<AsyncResp> asyncResp)
+                         const std::shared_ptr<AsyncResp>& asyncResp)
     {
         bool ipv4Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
         bool ipv6Active =
@@ -1385,7 +1385,8 @@ class EthernetInterface : public Node
     boost::container::flat_set<IPv4AddressData>::const_iterator
         getNextStaticIpEntry(
             boost::container::flat_set<IPv4AddressData>::const_iterator head,
-            boost::container::flat_set<IPv4AddressData>::const_iterator end)
+            const boost::container::flat_set<IPv4AddressData>::const_iterator&
+                end)
     {
         for (; head != end; head++)
         {
@@ -1400,7 +1401,8 @@ class EthernetInterface : public Node
     boost::container::flat_set<IPv6AddressData>::const_iterator
         getNextStaticIpEntry(
             boost::container::flat_set<IPv6AddressData>::const_iterator head,
-            boost::container::flat_set<IPv6AddressData>::const_iterator end)
+            const boost::container::flat_set<IPv6AddressData>::const_iterator&
+                end)
     {
         for (; head != end; head++)
         {
@@ -1415,7 +1417,7 @@ class EthernetInterface : public Node
     void handleIPv4StaticPatch(
         const std::string& ifaceId, nlohmann::json& input,
         const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-        const std::shared_ptr<AsyncResp> asyncResp)
+        const std::shared_ptr<AsyncResp>& asyncResp)
     {
         if ((!input.is_array()) || input.empty())
         {
@@ -1613,7 +1615,7 @@ class EthernetInterface : public Node
     void handleIPv6StaticAddressesPatch(
         const std::string& ifaceId, nlohmann::json& input,
         const boost::container::flat_set<IPv6AddressData>& ipv6Data,
-        const std::shared_ptr<AsyncResp> asyncResp)
+        const std::shared_ptr<AsyncResp>& asyncResp)
     {
         if (!input.is_array() || input.empty())
         {
@@ -1727,8 +1729,8 @@ class EthernetInterface : public Node
     }
 
     void parseInterfaceData(
-        std::shared_ptr<AsyncResp> asyncResp, const std::string& iface_id,
-        const EthernetInterfaceData& ethData,
+        const std::shared_ptr<AsyncResp>& asyncResp,
+        const std::string& iface_id, const EthernetInterfaceData& ethData,
         const boost::container::flat_set<IPv4AddressData>& ipv4Data,
         const boost::container::flat_set<IPv6AddressData>& ipv6Data)
     {

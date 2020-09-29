@@ -153,7 +153,7 @@ class Lock
      *
      */
 
-    RcAcquireLock acquireLock(const LockRequests);
+    RcAcquireLock acquireLock(const LockRequests&);
 
     /*
      * This function implements the logic for releasing the lock that are
@@ -333,7 +333,7 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
     return std::make_pair(false, status);
 }
 
-inline RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
+inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 {
 
     // validate the lock request

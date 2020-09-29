@@ -38,7 +38,7 @@ namespace redfish
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls
  */
-inline void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
+inline void doBMCGracefulRestart(const std::shared_ptr<AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -66,7 +66,7 @@ inline void doBMCGracefulRestart(std::shared_ptr<AsyncResp> asyncResp)
         interfaceName, destProperty, dbusPropertyValue);
 }
 
-inline void doBMCForceRestart(std::shared_ptr<AsyncResp> asyncResp)
+inline void doBMCForceRestart(const std::shared_ptr<AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -281,7 +281,7 @@ inline void asyncPopulatePid(const std::string& connection,
                              const std::string& path,
                              const std::string& currentProfile,
                              const std::vector<std::string>& supportedProfiles,
-                             std::shared_ptr<AsyncResp> asyncResp)
+                             const std::shared_ptr<AsyncResp>& asyncResp)
 {
 
     crow::connections::systemBus->async_method_call(
@@ -766,7 +766,7 @@ inline const dbus::utility::ManagedItem*
 
 inline CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
-    nlohmann::json::iterator it, const std::string& path,
+    const nlohmann::json::iterator& it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
         output,
@@ -1802,7 +1802,7 @@ class Manager : public Node
         pids->run();
 
         getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                       const std::shared_ptr<AsyncResp> aRsp) {
+                                       const std::shared_ptr<AsyncResp>& aRsp) {
             aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
@@ -1913,7 +1913,7 @@ class Manager : public Node
         }
     }
 
-    void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
+    void getLastResetTime(const std::shared_ptr<AsyncResp>& aResp)
     {
         BMCWEB_LOG_DEBUG << "Getting Manager Last Reset Time";
 
@@ -1956,7 +1956,7 @@ class Manager : public Node
      *
      * @return void
      */
-    void setActiveFirmwareImage(std::shared_ptr<AsyncResp> aResp,
+    void setActiveFirmwareImage(const std::shared_ptr<AsyncResp>& aResp,
                                 const std::string&& runningFirmwareTarget)
     {
         // Get the Id from /redfish/v1/UpdateService/FirmwareInventory/<Id>

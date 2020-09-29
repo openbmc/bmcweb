@@ -25,6 +25,7 @@
 #include <utils/json_utils.hpp>
 
 #include <cmath>
+#include <utility>
 #include <variant>
 
 namespace redfish
@@ -89,7 +90,7 @@ class SensorsAsyncResp
     };
 
     SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
-                     const std::vector<const char*> typesIn,
+                     const std::vector<const char*>& typesIn,
                      const std::string_view& subNode) :
         res(response),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
@@ -97,7 +98,7 @@ class SensorsAsyncResp
 
     // Store extra data about sensor mapping and return it in callback
     SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
-                     const std::vector<const char*> typesIn,
+                     const std::vector<const char*>& typesIn,
                      const std::string_view& subNode,
                      DataCompleteCb&& creationComplete) :
         res(response),
@@ -222,8 +223,8 @@ class InventoryItem
  */
 template <typename Callback>
 void getObjectsWithConnection(
-    std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
+    const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection enter";
@@ -321,9 +322,10 @@ void getConnections(
  * made, and eliminate Power sensors when a Thermal request is made.
  */
 inline void reduceSensorList(
-    std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
+    const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp,
     const std::vector<std::string>* allSensors,
-    std::shared_ptr<boost::container::flat_set<std::string>> activeSensors)
+    const std::shared_ptr<boost::container::flat_set<std::string>>&
+        activeSensors)
 {
     if (SensorsAsyncResp == nullptr)
     {
@@ -363,7 +365,7 @@ inline void reduceSensorList(
  * @param callback  Callback for next step to get valid chassis path
  */
 template <typename Callback>
-void getValidChassisPath(std::shared_ptr<SensorsAsyncResp> asyncResp,
+void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
                          Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "checkChassisId enter";
@@ -419,7 +421,7 @@ void getValidChassisPath(std::shared_ptr<SensorsAsyncResp> asyncResp,
  * @param callback  Callback for next step in gathered sensor processing
  */
 template <typename Callback>
-void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                 Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getChassis enter";
@@ -565,8 +567,9 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
  * @param callback Callback to invoke when object paths obtained.
  */
 template <typename Callback>
-void getObjectManagerPaths(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
-                           Callback&& callback)
+void getObjectManagerPaths(
+    const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp,
+    Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getObjectManagerPaths enter";
     const std::array<std::string, 1> interfaces = {
@@ -795,7 +798,7 @@ inline void setLedState(nlohmann::json& sensorJson,
  */
 inline void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, SensorVariant>>&
         interfacesDict,
@@ -1043,8 +1046,8 @@ inline void objectInterfacesToJson(
     BMCWEB_LOG_DEBUG << "Added sensor " << sensorName;
 }
 
-inline void
-    populateFanRedundancy(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp)
+inline void populateFanRedundancy(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [sensorsAsyncResp](const boost::system::error_code ec,
@@ -1250,7 +1253,8 @@ inline void
             "xyz.openbmc_project.Control.FanRedundancy"});
 }
 
-inline void sortJSONResponse(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
+inline void
+    sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp)
 {
     nlohmann::json& response = SensorsAsyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
@@ -1296,7 +1300,7 @@ inline void sortJSONResponse(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
  * @return Inventory item within vector, or nullptr if no match found.
  */
 inline InventoryItem* findInventoryItem(
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     const std::string& invItemObjPath)
 {
     for (InventoryItem& inventoryItem : *inventoryItems)
@@ -1316,7 +1320,7 @@ inline InventoryItem* findInventoryItem(
  * @return Inventory item within vector, or nullptr if no match found.
  */
 inline InventoryItem* findInventoryItemForSensor(
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     const std::string& sensorObjPath)
 {
     for (InventoryItem& inventoryItem : *inventoryItems)
@@ -1363,10 +1367,9 @@ inline InventoryItem*
  * @param invItemObjPath D-Bus object path of inventory item.
  * @param sensorObjPath D-Bus object path of sensor
  */
-inline void
-    addInventoryItem(std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-                     const std::string& invItemObjPath,
-                     const std::string& sensorObjPath)
+inline void addInventoryItem(
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::string& invItemObjPath, const std::string& sensorObjPath)
 {
     // Look for inventory item in vector
     InventoryItem* inventoryItem =
@@ -1626,8 +1629,8 @@ static void getInventoryItemsData(
  */
 template <typename Callback>
 static void getInventoryItemsConnections(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemsConnections enter";
@@ -1713,9 +1716,9 @@ static void getInventoryItemsConnections(
  */
 template <typename Callback>
 static void getInventoryItemAssociations(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
+    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
         objectMgrPaths,
     Callback&& callback)
 {
@@ -2076,7 +2079,7 @@ void getInventoryLeds(
  */
 template <typename Callback>
 void getPowerSupplyAttributesData(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
     const boost::container::flat_map<std::string, std::string>&
         psAttributesConnections,
@@ -2417,12 +2420,12 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
  * @param inventoryItems Inventory items associated with the sensors.
  */
 inline void getSensorData(
-    std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
+    const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
     const boost::container::flat_set<std::string>& connections,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
         objectMgrPaths,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "getSensorData enter";
     // Get managed objects from all services exposing sensors
@@ -2601,18 +2604,17 @@ inline void getSensorData(
 }
 
 inline void processSensorList(
-    std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
-    std::shared_ptr<boost::container::flat_set<std::string>> sensorNames)
+    const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
 {
     auto getConnectionCb =
         [SensorsAsyncResp, sensorNames](
             const boost::container::flat_set<std::string>& connections) {
             BMCWEB_LOG_DEBUG << "getConnectionCb enter";
             auto getObjectManagerPathsCb =
-                [SensorsAsyncResp, sensorNames, connections](
-                    std::shared_ptr<
-                        boost::container::flat_map<std::string, std::string>>
-                        objectMgrPaths) {
+                [SensorsAsyncResp, sensorNames,
+                 connections](const std::shared_ptr<boost::container::flat_map<
+                                  std::string, std::string>>& objectMgrPaths) {
                     BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb enter";
                     auto getInventoryItemsCb =
                         [SensorsAsyncResp, sensorNames, connections,
@@ -2623,7 +2625,7 @@ inline void processSensorList(
                             // Get sensor data and store results in JSON
                             getSensorData(SensorsAsyncResp, sensorNames,
                                           connections, objectMgrPaths,
-                                          inventoryItems);
+                                          std::move(inventoryItems));
                             BMCWEB_LOG_DEBUG << "getInventoryItemsCb exit";
                         };
 
@@ -2651,7 +2653,8 @@ inline void processSensorList(
  *        chassis.
  * @param SensorsAsyncResp   Pointer to object holding response data
  */
-inline void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
+inline void
+    getChassisData(const std::shared_ptr<SensorsAsyncResp>& SensorsAsyncResp)
 {
     BMCWEB_LOG_DEBUG << "getChassisData enter";
     auto getChassisCb =
@@ -2659,7 +2662,7 @@ inline void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
             std::shared_ptr<boost::container::flat_set<std::string>>
                 sensorNames) {
             BMCWEB_LOG_DEBUG << "getChassisCb enter";
-            processSensorList(SensorsAsyncResp, sensorNames);
+            processSensorList(SensorsAsyncResp, std::move(sensorNames));
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
     SensorsAsyncResp->res.jsonValue["Redundancy"] = nlohmann::json::array();
@@ -2708,7 +2711,7 @@ inline bool findSensorNameUsingSensorPath(
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 inline void setSensorsOverride(
-    std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
+    const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
     std::unordered_map<std::string, std::vector<nlohmann::json>>&
         allCollections)
 {
@@ -2745,11 +2748,10 @@ inline void setSensorsOverride(
         }
     }
 
-    auto getChassisSensorListCb = [sensorAsyncResp,
-                                   overrideMap](const std::shared_ptr<
-                                                boost::container::flat_set<
-                                                    std::string>>
-                                                    sensorsList) {
+    auto getChassisSensorListCb = [sensorAsyncResp, overrideMap](
+                                      const std::shared_ptr<
+                                          boost::container::flat_set<
+                                              std::string>>& sensorsList) {
         // Match sensor names in the PATCH request to those managed by the
         // chassis node
         const std::shared_ptr<boost::container::flat_set<std::string>>
@@ -2861,7 +2863,7 @@ inline bool isOverridingAllowed(const std::string& manufacturingModeStatus)
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 inline void checkAndDoSensorsOverride(
-    std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
+    const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
     std::unordered_map<std::string, std::vector<nlohmann::json>>&
         allCollections)
 {
@@ -3031,8 +3033,9 @@ class SensorCollection : public Node
                 sensors::node::sensors);
 
         auto getChassisCb =
-            [asyncResp](std::shared_ptr<boost::container::flat_set<std::string>>
-                            sensorNames) {
+            [asyncResp](
+                const std::shared_ptr<boost::container::flat_set<std::string>>&
+                    sensorNames) {
                 BMCWEB_LOG_DEBUG << "getChassisCb enter";
 
                 nlohmann::json& entriesArray =

@@ -38,7 +38,7 @@ namespace redfish
  *
  * @return None.
  */
-inline void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
+inline void updateDimmProperties(const std::shared_ptr<AsyncResp>& aResp,
                                  const std::variant<bool>& dimmState)
 {
     const bool* isDimmFunctional = std::get_if<bool>(&dimmState);
@@ -72,7 +72,7 @@ inline void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
+inline void modifyCpuPresenceState(const std::shared_ptr<AsyncResp>& aResp,
                                    const std::variant<bool>& cpuPresenceState)
 {
     const bool* isCpuPresent = std::get_if<bool>(&cpuPresenceState);
@@ -108,7 +108,7 @@ inline void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
  * @return None.
  */
 inline void
-    modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
+    modifyCpuFunctionalState(const std::shared_ptr<AsyncResp>& aResp,
                              const std::variant<bool>& cpuFunctionalState)
 {
     const bool* isCpuFunctional = std::get_if<bool>(&cpuFunctionalState);
@@ -144,8 +144,9 @@ inline void
  *
  * @return None.
  */
-inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
-                              std::shared_ptr<HealthPopulate> systemHealth)
+inline void
+    getComputerSystem(const std::shared_ptr<AsyncResp>& aResp,
+                      const std::shared_ptr<HealthPopulate>& systemHealth)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
 
@@ -609,7 +610,7 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void getHostState(std::shared_ptr<AsyncResp> aResp)
+inline void getHostState(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host information.";
     crow::connections::systemBus->async_method_call(
@@ -733,7 +734,7 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
  *
  * @return Integer error code.
  */
-inline int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
+inline int assignBootParameters(const std::shared_ptr<AsyncResp>& aResp,
                                 const std::string& rfSource,
                                 std::string& bootSource, std::string& bootMode)
 {
@@ -793,8 +794,8 @@ inline int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void getBootMode(std::shared_ptr<AsyncResp> aResp,
-                        std::string bootDbusObj)
+inline void getBootMode(const std::shared_ptr<AsyncResp>& aResp,
+                        const std::string& bootDbusObj)
 {
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
@@ -908,7 +909,7 @@ inline void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
  *
  * @return None.
  */
-inline void getBootProperties(std::shared_ptr<AsyncResp> aResp)
+inline void getBootProperties(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get boot information.";
 
@@ -949,7 +950,7 @@ inline void getBootProperties(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-inline void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
+inline void getLastResetTime(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Getting System Last Reset Time";
 
@@ -992,7 +993,7 @@ inline void getLastResetTime(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-inline void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
+inline void getAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
@@ -1083,7 +1084,7 @@ inline void getAutomaticRetry(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-inline void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
+inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get power restore policy";
 
@@ -1263,7 +1264,7 @@ inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  *
  * @return Integer error code.
  */
-inline void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
+inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
                                     std::optional<std::string> bootSource,
                                     std::optional<std::string> bootEnable)
 {
@@ -1307,7 +1308,7 @@ inline void setBootSourceProperties(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
+inline void setAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp,
                               const std::string&& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
@@ -1356,7 +1357,7 @@ inline void setAutomaticRetry(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void setPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp,
+inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
                                   std::optional<std::string> policy)
 {
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
@@ -1538,7 +1539,7 @@ inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
  *
  * @return None.
  */
-inline void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
+inline void getHostWatchdogTimer(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
@@ -1609,7 +1610,7 @@ inline void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-inline void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
+inline void setWDTProperties(const std::shared_ptr<AsyncResp>& aResp,
                              const std::optional<bool> wdtEnable,
                              const std::optional<std::string>& wdtTimeOutAction)
 {
@@ -1965,7 +1966,7 @@ class Systems : public Node
         health->populate();
 
         getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                       std::shared_ptr<AsyncResp> aRsp) {
+                                       const std::shared_ptr<AsyncResp>& aRsp) {
             aRsp->res.jsonValue["Links"]["Chassis"] = {
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
         });

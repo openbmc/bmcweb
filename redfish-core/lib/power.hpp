@@ -39,7 +39,7 @@ class Power : public Node
 
   private:
     void setPowerCapOverride(
-        std::shared_ptr<SensorsAsyncResp> asyncResp,
+        const std::shared_ptr<SensorsAsyncResp>& asyncResp,
         std::vector<nlohmann::json>& powerControlCollections)
     {
         auto getChassisPath =
