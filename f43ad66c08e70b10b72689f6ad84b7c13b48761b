@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e99425de_62a4b6a7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Yes I used that flag for building my test patch.\nI agree with you. The events are received and then the subscriber sends this partial message. So i will re-add the code to ignore the partial_message error.",
+      "parentUuid": "8659e05b_1181a94c",
+      "range": {
+        "startLine": 209,
+        "startChar": 22,
+        "endLine": 209,
+        "endChar": 70
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f6b2a28_0c880887",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
