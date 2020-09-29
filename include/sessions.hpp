@@ -269,7 +269,7 @@ class SessionStore
         return nullptr;
     }
 
-    void removeSession(std::shared_ptr<UserSession> session)
+    void removeSession(const std::shared_ptr<UserSession>& session)
     {
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         crow::ibm_mc_lock::Lock::getInstance().releaseLock(session->uniqueId);

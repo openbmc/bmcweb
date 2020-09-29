@@ -15,7 +15,6 @@ namespace crow
 namespace ibm_mc_lock
 {
 
-namespace fs = std::filesystem;
 using SType = std::string;
 
 /*----------------------------------------
@@ -68,7 +67,7 @@ class Lock
      * Returns : False (if not a Valid lock request)
      */
 
-    virtual bool isValidLockRequest(const LockRequest);
+    virtual bool isValidLockRequest(const LockRequest&);
 
     /*
      * This function implements the logic of checking if the incoming
@@ -78,7 +77,7 @@ class Lock
      * Returns : False (if not conflicting)
      */
 
-    virtual bool isConflictRequest(const LockRequests);
+    virtual bool isConflictRequest(const LockRequests&);
     /*
      * Implements the core algorithm to find the conflicting
      * lock requests.
@@ -89,7 +88,7 @@ class Lock
      * Returns : True (if conflicting)
      * Returns : False (if not conflicting)
      */
-    virtual bool isConflictRecord(const LockRequest, const LockRequest);
+    virtual bool isConflictRecord(const LockRequest&, const LockRequest&);
 
     /*
      * This function implements the logic of checking the conflicting
@@ -98,7 +97,7 @@ class Lock
      *
      */
 
-    virtual Rc isConflictWithTable(const LockRequests);
+    virtual Rc isConflictWithTable(const LockRequests&);
     /*
      * This function implements the logic of checking the ownership of the
      * lock from the releaselock request.
@@ -153,7 +152,7 @@ class Lock
      *
      */
 
-    RcAcquireLock acquireLock(const LockRequests);
+    RcAcquireLock acquireLock(const LockRequests&);
 
     /*
      * This function implements the logic for releasing the lock that are
@@ -260,9 +259,10 @@ inline void Lock::saveLocks()
     }
     std::ofstream persistentFile(fileName);
     // set the permission of the file to 640
-    fs::perms permission =
-        fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read;
-    fs::permissions(fileName, permission);
+    std::filesystem::perms permission = std::filesystem::perms::owner_read |
+                                        std::filesystem::perms::owner_write |
+                                        std::filesystem::perms::group_read;
+    std::filesystem::permissions(fileName, permission);
     nlohmann::json data;
     for (const auto& it : lockTable)
     {
@@ -329,7 +329,7 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
     return std::make_pair(true, status);
 }
 
-inline RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
+inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 {
 
     // validate the lock request
@@ -466,7 +466,7 @@ inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
     return true;
 }
 
-inline bool Lock::isValidLockRequest(const LockRequest refLockRecord)
+inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 {
 
     // validate the locktype
@@ -534,7 +534,7 @@ inline bool Lock::isValidLockRequest(const LockRequest refLockRecord)
     return true;
 }
 
-inline Rc Lock::isConflictWithTable(const LockRequests refLockRequestStructure)
+inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 {
 
     uint32_t transactionId;
@@ -588,7 +588,7 @@ inline Rc Lock::isConflictWithTable(const LockRequests refLockRequestStructure)
     return std::make_pair(false, transactionId);
 }
 
-inline bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
+inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 {
     // check for all the locks coming in as a part of single request
     // return conflict if any two lock requests are conflicting
@@ -647,8 +647,8 @@ inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
     return true;
 }
 
-inline bool Lock::isConflictRecord(const LockRequest refLockRecord1,
-                                   const LockRequest refLockRecord2)
+inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
+                                   const LockRequest& refLockRecord2)
 {
     // No conflict if both are read locks
 

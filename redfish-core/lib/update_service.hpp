@@ -60,7 +60,7 @@ static void activateImage(const std::string& objPath,
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
-static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
+static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
                                    sdbusplus::message::message& m,
                                    const crow::Request& req)
 {
@@ -256,10 +256,9 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
-static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
-                                        const crow::Request& req,
-                                        const std::string& url,
-                                        int timeoutTimeSeconds = 10)
+static void monitorForSoftwareAvailable(
+    const std::shared_ptr<AsyncResp>& asyncResp, const crow::Request& req,
+    const std::string& url, int timeoutTimeSeconds = 10)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
@@ -775,7 +774,7 @@ class SoftwareInventory : public Node
 
   private:
     /* Fill related item links (i.e. bmc, bios) in for inventory */
-    static void getRelatedItems(std::shared_ptr<AsyncResp> aResp,
+    static void getRelatedItems(const std::shared_ptr<AsyncResp>& aResp,
                                 const std::string& purpose)
     {
         if (purpose == fw_util::bmcPurpose)

@@ -119,7 +119,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
 }
 
 inline void userErrorMessageHandler(const sd_bus_error* e,
-                                    std::shared_ptr<AsyncResp> asyncResp,
+                                    const std::shared_ptr<AsyncResp>& asyncResp,
                                     const std::string& newUser,
                                     const std::string& username)
 {
@@ -1038,87 +1038,87 @@ class AccountService : public Node
 
         // Get the existing resource first then keep modifying
         // whenever any property gets updated.
-        getLDAPConfigData(serverType, [this, asyncResp, userName, password,
-                                       baseDNList, userNameAttribute,
-                                       groupsAttribute, serviceAddressList,
-                                       serviceEnabled, dbusObjectPath,
-                                       remoteRoleMapData](
-                                          bool success, LDAPConfigData confData,
-                                          const std::string& serverT) {
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            parseLDAPConfigData(asyncResp->res.jsonValue, confData, serverT);
-            if (confData.serviceEnabled)
-            {
-                // Disable the service first and update the rest of
-                // the properties.
-                handleServiceEnablePatch(false, asyncResp, serverT,
-                                         dbusObjectPath);
-            }
-
-            if (serviceAddressList)
-            {
-                handleServiceAddressPatch(*serviceAddressList, asyncResp,
-                                          serverT, dbusObjectPath);
-            }
-            if (userName)
-            {
-                handleUserNamePatch(*userName, asyncResp, serverT,
-                                    dbusObjectPath);
-            }
-            if (password)
-            {
-                handlePasswordPatch(*password, asyncResp, serverT,
-                                    dbusObjectPath);
-            }
-
-            if (baseDNList)
-            {
-                handleBaseDNPatch(*baseDNList, asyncResp, serverT,
-                                  dbusObjectPath);
-            }
-            if (userNameAttribute)
-            {
-                handleUserNameAttrPatch(*userNameAttribute, asyncResp, serverT,
-                                        dbusObjectPath);
-            }
-            if (groupsAttribute)
-            {
-                handleGroupNameAttrPatch(*groupsAttribute, asyncResp, serverT,
-                                         dbusObjectPath);
-            }
-            if (serviceEnabled)
-            {
-                // if user has given the value as true then enable
-                // the service. if user has given false then no-op
-                // as service is already stopped.
-                if (*serviceEnabled)
+        getLDAPConfigData(
+            serverType, [this, asyncResp, userName, password, baseDNList,
+                         userNameAttribute, groupsAttribute, serviceAddressList,
+                         serviceEnabled, dbusObjectPath, remoteRoleMapData](
+                            bool success, const LDAPConfigData& confData,
+                            const std::string& serverT) {
+                if (!success)
                 {
-                    handleServiceEnablePatch(*serviceEnabled, asyncResp,
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                parseLDAPConfigData(asyncResp->res.jsonValue, confData,
+                                    serverT);
+                if (confData.serviceEnabled)
+                {
+                    // Disable the service first and update the rest of
+                    // the properties.
+                    handleServiceEnablePatch(false, asyncResp, serverT,
+                                             dbusObjectPath);
+                }
+
+                if (serviceAddressList)
+                {
+                    handleServiceAddressPatch(*serviceAddressList, asyncResp,
+                                              serverT, dbusObjectPath);
+                }
+                if (userName)
+                {
+                    handleUserNamePatch(*userName, asyncResp, serverT,
+                                        dbusObjectPath);
+                }
+                if (password)
+                {
+                    handlePasswordPatch(*password, asyncResp, serverT,
+                                        dbusObjectPath);
+                }
+
+                if (baseDNList)
+                {
+                    handleBaseDNPatch(*baseDNList, asyncResp, serverT,
+                                      dbusObjectPath);
+                }
+                if (userNameAttribute)
+                {
+                    handleUserNameAttrPatch(*userNameAttribute, asyncResp,
+                                            serverT, dbusObjectPath);
+                }
+                if (groupsAttribute)
+                {
+                    handleGroupNameAttrPatch(*groupsAttribute, asyncResp,
                                              serverT, dbusObjectPath);
                 }
-            }
-            else
-            {
-                // if user has not given the service enabled value
-                // then revert it to the same state as it was
-                // before.
-                handleServiceEnablePatch(confData.serviceEnabled, asyncResp,
-                                         serverT, dbusObjectPath);
-            }
+                if (serviceEnabled)
+                {
+                    // if user has given the value as true then enable
+                    // the service. if user has given false then no-op
+                    // as service is already stopped.
+                    if (*serviceEnabled)
+                    {
+                        handleServiceEnablePatch(*serviceEnabled, asyncResp,
+                                                 serverT, dbusObjectPath);
+                    }
+                }
+                else
+                {
+                    // if user has not given the service enabled value
+                    // then revert it to the same state as it was
+                    // before.
+                    handleServiceEnablePatch(confData.serviceEnabled, asyncResp,
+                                             serverT, dbusObjectPath);
+                }
 
-            if (remoteRoleMapData)
-            {
-                std::vector<nlohmann::json> remoteRoleMap =
-                    std::move(*remoteRoleMapData);
+                if (remoteRoleMapData)
+                {
+                    std::vector<nlohmann::json> remoteRoleMap =
+                        std::move(*remoteRoleMapData);
 
-                handleRoleMapPatch(asyncResp, confData.groupRoleList, serverT,
-                                   remoteRoleMap);
-            }
-        });
+                    handleRoleMapPatch(asyncResp, confData.groupRoleList,
+                                       serverT, remoteRoleMap);
+                }
+            });
     }
 
     void doGet(crow::Response& res, const crow::Request&,

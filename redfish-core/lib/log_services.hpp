@@ -683,7 +683,7 @@ inline void deleteDumpEntry(crow::Response& res, const std::string& entryID,
 }
 
 inline void createDumpTaskCallback(const crow::Request& req,
-                                   std::shared_ptr<AsyncResp> asyncResp,
+                                   const std::shared_ptr<AsyncResp>& asyncResp,
                                    const uint32_t& dumpId,
                                    const std::string& dumpPath,
                                    const std::string& dumpType)
@@ -1067,7 +1067,7 @@ class JournalEventLogClear : public Node
 };
 
 static int fillEventLogEntryJson(const std::string& logEntryID,
-                                 const std::string logEntry,
+                                 const std::string& logEntry,
                                  nlohmann::json& logEntryJson)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
@@ -2418,7 +2418,7 @@ class CrashdumpClear : public Node
     }
 };
 
-static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
+static void logCrashdumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
                               const std::string& logID,
                               nlohmann::json& logEntryJson)
 {
@@ -3052,7 +3052,7 @@ class PostCodesClear : public Node
 };
 
 static void fillPostCodeEntry(
-    std::shared_ptr<AsyncResp> aResp,
+    const std::shared_ptr<AsyncResp>& aResp,
     const boost::container::flat_map<uint64_t, uint64_t>& postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
     const uint64_t skip = 0, const uint64_t top = 0)
@@ -3170,7 +3170,7 @@ static void fillPostCodeEntry(
     }
 }
 
-static void getPostCodeForEntry(std::shared_ptr<AsyncResp> aResp,
+static void getPostCodeForEntry(const std::shared_ptr<AsyncResp>& aResp,
                                 const uint16_t bootIndex,
                                 const uint64_t codeIndex)
 {
@@ -3202,7 +3202,7 @@ static void getPostCodeForEntry(std::shared_ptr<AsyncResp> aResp,
         bootIndex);
 }
 
-static void getPostCodeForBoot(std::shared_ptr<AsyncResp> aResp,
+static void getPostCodeForBoot(const std::shared_ptr<AsyncResp>& aResp,
                                const uint16_t bootIndex,
                                const uint16_t bootCount,
                                const uint64_t entryCount, const uint64_t skip,
@@ -3257,7 +3257,7 @@ static void getPostCodeForBoot(std::shared_ptr<AsyncResp> aResp,
         bootIndex);
 }
 
-static void getCurrentBootNumber(std::shared_ptr<AsyncResp> aResp,
+static void getCurrentBootNumber(const std::shared_ptr<AsyncResp>& aResp,
                                  const uint64_t skip, const uint64_t top)
 {
     uint64_t entryCount = 0;
