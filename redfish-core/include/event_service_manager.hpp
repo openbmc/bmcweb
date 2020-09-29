@@ -25,6 +25,7 @@
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
+#include <random.hpp>
 #include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
 
@@ -926,13 +927,20 @@ class EventServiceManager
     std::string addSubscription(const std::shared_ptr<Subscription> subValue,
                                 const bool updateFile = true)
     {
-        std::srand(static_cast<uint32_t>(std::time(nullptr)));
+
+        std::uniform_int_distribution<uint32_t> dist(0);
+        bmcweb::OpenSSLGenerator gen;
+
         std::string id;
 
         int retry = 3;
         while (retry)
         {
-            id = std::to_string(std::rand());
+            id = std::to_string(dist(gen));
+            if (gen.error())
+            {
+                break;
+            }
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
