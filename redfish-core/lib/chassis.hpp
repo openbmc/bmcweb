@@ -531,7 +531,7 @@ class Chassis : public Node
     }
 };
 
-inline void doChassisPowerCycle(std::shared_ptr<AsyncResp> asyncResp)
+inline void doChassisPowerCycle(const std::shared_ptr<AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.Chassis";
     const char* objectPath = "/xyz/openbmc_project/state/chassis0";

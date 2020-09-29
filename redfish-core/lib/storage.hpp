@@ -346,7 +346,7 @@ class Drive : public Node
 
                 getMainChassisId(
                     asyncResp, [](const std::string& chassisId,
-                                  std::shared_ptr<AsyncResp> aRsp) {
+                                  const std::shared_ptr<AsyncResp>& aRsp) {
                         aRsp->res.jsonValue["Links"]["Chassis"] = {
                             {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
                     });
