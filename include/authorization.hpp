@@ -162,11 +162,11 @@ static const std::shared_ptr<persistent_data::UserSession>
     return session;
 }
 
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 static const std::shared_ptr<persistent_data::UserSession>
     performTLSAuth(const crow::Request& req, Response& res,
                    std::weak_ptr<persistent_data::UserSession> session)
 {
-#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (auto sp = session.lock())
     {
         // set cookie only if this is req from the browser.
@@ -196,9 +196,9 @@ static const std::shared_ptr<persistent_data::UserSession>
             }
         }
     }
-#endif
     return nullptr;
 }
+#endif
 
 // checks if request can be forwarded without authentication
 static bool isOnWhitelist(const crow::Request& req)
@@ -234,8 +234,9 @@ static bool isOnWhitelist(const crow::Request& req)
     return false;
 }
 
-static void authenticate(crow::Request& req, Response& res,
-                         std::weak_ptr<persistent_data::UserSession> session)
+static void authenticate(
+    crow::Request& req, Response& res,
+    [[maybe_unused]] std::weak_ptr<persistent_data::UserSession> session)
 {
     if (isOnWhitelist(req))
     {
@@ -245,10 +246,12 @@ static void authenticate(crow::Request& req, Response& res,
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (req.session == nullptr && authMethodsConfig.tls)
     {
         req.session = performTLSAuth(req, res, session);
     }
+#endif
     if (req.session == nullptr && authMethodsConfig.xtoken)
     {
         req.session = performXtokenAuth(req);
