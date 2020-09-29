@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2cb3aa70_5c1d1db9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done.\nIt retries sending and fails. I will put doCloseAndCheckQueue here for doing the cleanup. This will again try opening the connection, which can successfully send the event to the subscriber in the retry attempt.",
+      "parentUuid": "7a48f3ff_e670e57f",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 35
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f379d69_4980322e",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -120,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "30947b20_60308880",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de1248a8_45c17bc2",
+      "range": {
+        "startLine": 251,
+        "startChar": 12,
+        "endLine": 251,
+        "endChar": 16
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "104814cb_fce67791",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -154,6 +202,30 @@
       "writtenOn": "2020-09-24T21:05:02Z",
       "side": 1,
       "message": "It could be.  Now that it\u0027s a value, it\u0027s not a big deal either way.",
+      "parentUuid": "104814cb_fce67791",
+      "range": {
+        "startLine": 363,
+        "startChar": 33,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef9904f_bb56d81a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "104814cb_fce67791",
       "range": {
         "startLine": 363,
@@ -214,6 +286,54 @@
     },
     {
       "key": {
+        "uuid": "a00a8f8c_98944eed",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce86fda_ffc237a8",
+      "range": {
+        "startLine": 364,
+        "startChar": 16,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "054ae49e_40b4ebe5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1512bc13_de042c44",
+      "range": {
+        "startLine": 364,
+        "startChar": 16,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cd9f40d_49463b25",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -225,6 +345,30 @@
       "writtenOn": "2020-09-25T13:54:45Z",
       "side": 1,
       "message": "This leaves the unexpected results.\n\nClose connection state is handled differently in this case.",
+      "range": {
+        "startLine": 403,
+        "startChar": 12,
+        "endLine": 403,
+        "endChar": 35
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f63757b_cbb64dfd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cd9f40d_49463b25",
       "range": {
         "startLine": 403,
         "startChar": 12,
@@ -260,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "1bde7180_94146a1b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "removed this state",
+      "parentUuid": "789703fd_29564a87",
+      "range": {
+        "startLine": 410,
+        "startChar": 12,
+        "endLine": 410,
+        "endChar": 39
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "580b7574_75e9ffca",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -271,6 +439,30 @@
       "writtenOn": "2020-09-25T13:54:45Z",
       "side": 1,
       "message": "Any specific reason for changing this from patchset 10?",
+      "range": {
+        "startLine": 431,
+        "startChar": 30,
+        "endLine": 431,
+        "endChar": 51
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe7e001f_77080efc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Passing the uriProto removes the need of the member useSsl",
+      "parentUuid": "580b7574_75e9ffca",
       "range": {
         "startLine": 431,
         "startChar": 30,
@@ -365,6 +557,30 @@
       "side": 1,
       "message": "I suspect we don\u0027t want to be doing this work every time, we should be building most of the request int he constructor, then calling req.base().clear(), req.body().clear(), req.body().shrink_to_fit() to clear the headers and reset the request object.",
       "parentUuid": "c14f43b2_d99f5ef0",
+      "range": {
+        "startLine": 467,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 29
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "888ace44_5fb688ed",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-29T11:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbabd8f0_31958b6d",
       "range": {
         "startLine": 467,
         "startChar": 8,
