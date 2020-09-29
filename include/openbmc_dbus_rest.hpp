@@ -2162,7 +2162,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)([](const crow::Request&,
                                                    crow::Response& res,
                                                    const std::string& dumpId) {
-            std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
+            std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
             if (!std::regex_match(dumpId, validFilename))
             {
                 res.result(boost::beast::http::status::bad_request);
