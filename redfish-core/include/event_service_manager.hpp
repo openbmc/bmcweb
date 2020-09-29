@@ -27,6 +27,7 @@
 #include <http_client.hpp>
 #include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
+#include <random.hpp>
 
 #include <cstdlib>
 #include <ctime>
@@ -928,13 +929,16 @@ class EventServiceManager
     std::string addSubscription(const std::shared_ptr<Subscription> subValue,
                                 const bool updateFile = true)
     {
-        std::srand(static_cast<uint32_t>(std::time(nullptr)));
+
+        std::uniform_int_distribution<uint32_t> dist(0);
+	bmcweb::OpenSSLGenerator gen;
+
         std::string id;
 
         int retry = 3;
         while (retry)
         {
-            id = std::to_string(std::rand());
+            id = std::to_string(dist(gen));
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
