@@ -102,9 +102,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         timer(crow::connections::systemBus->get_io_context())
 
     {}
-    TaskData() = delete;
 
   public:
+    TaskData() = delete;
+    
     static std::shared_ptr<TaskData>& createTask(
         std::function<bool(boost::system::error_code,
                            sdbusplus::message::message&,
@@ -161,7 +162,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         }
     }
 
-    void finishTask(void)
+    void finishTask()
     {
         endTime = std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now());
