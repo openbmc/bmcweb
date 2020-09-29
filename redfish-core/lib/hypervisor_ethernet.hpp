@@ -8,6 +8,7 @@
 #include <utils/json_utils.hpp>
 
 #include <optional>
+#include <utility>
 #include <variant>
 
 namespace redfish
@@ -334,7 +335,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
  *
  * @return None.
  */
-inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
+inline void setHypervisorIPv4Address(const std::shared_ptr<AsyncResp>& aResp,
                                      const std::string& ethIfaceId,
                                      const std::string& ipv4Address)
 {
@@ -365,7 +366,7 @@ inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
+inline void setHypervisorIPv4Subnet(const std::shared_ptr<AsyncResp>& aResp,
                                     const std::string& ethIfaceId,
                                     const uint8_t subnet)
 {
@@ -397,7 +398,7 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
+inline void setHypervisorIPv4Gateway(const std::shared_ptr<AsyncResp>& aResp,
                                      const std::string& gateway)
 {
     BMCWEB_LOG_DEBUG
@@ -434,7 +435,7 @@ inline void createHypervisorIPv4(const std::string& ifaceId,
                                  uint8_t prefixLength,
                                  const std::string& gateway,
                                  const std::string& address,
-                                 std::shared_ptr<AsyncResp> asyncResp)
+                                 const std::shared_ptr<AsyncResp>& asyncResp)
 {
     setHypervisorIPv4Address(asyncResp, ifaceId, address);
     setHypervisorIPv4Gateway(asyncResp, gateway);
@@ -450,7 +451,7 @@ inline void createHypervisorIPv4(const std::string& ifaceId,
  * @return None
  */
 inline void deleteHypervisorIPv4(const std::string& ifaceId,
-                                 const std::shared_ptr<AsyncResp> asyncResp)
+                                 const std::shared_ptr<AsyncResp>& asyncResp)
 {
     std::string address = "0.0.0.0";
     std::string gateway = "0.0.0.0";
@@ -522,7 +523,7 @@ class HypervisorInterface : public Node
 
     void handleHypervisorIPv4StaticPatch(
         const std::string& ifaceId, nlohmann::json&& input,
-        const std::shared_ptr<AsyncResp> asyncResp)
+        const std::shared_ptr<AsyncResp>& asyncResp)
     {
         if ((!input.is_array()) || input.empty())
         {
@@ -642,7 +643,7 @@ class HypervisorInterface : public Node
     }
 
     void handleHostnamePatch(const std::string& hostName,
-                             const std::shared_ptr<AsyncResp> asyncResp)
+                             const std::shared_ptr<AsyncResp>& asyncResp)
     {
         if (!isHostnameValid(hostName))
         {
@@ -668,7 +669,7 @@ class HypervisorInterface : public Node
 
     void setIPv4InterfaceEnabled(const std::string& ifaceId,
                                  const bool& isActive,
-                                 const std::shared_ptr<AsyncResp> asyncResp)
+                                 const std::shared_ptr<AsyncResp>& asyncResp)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
@@ -688,7 +689,7 @@ class HypervisorInterface : public Node
     }
 
     void setDHCPEnabled(const std::string& ifaceId, const bool& ipv4DHCPEnabled,
-                        const std::shared_ptr<AsyncResp> asyncResp)
+                        const std::shared_ptr<AsyncResp>& asyncResp)
     {
         const std::string dhcp =
             getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);

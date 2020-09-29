@@ -66,17 +66,17 @@ class LockTest : public ::testing::Test
 class MockLock : public crow::ibm_mc_lock::Lock
 {
   public:
-    bool isValidLockRequest(LockRequest record1) override
+    bool isValidLockRequest(const LockRequest& record1) override
     {
         bool status = Lock::isValidLockRequest(record1);
         return status;
     }
-    bool isConflictRequest(LockRequests request) override
+    bool isConflictRequest(const LockRequests& request) override
     {
         bool status = Lock::isConflictRequest(request);
         return status;
     }
-    Rc isConflictWithTable(LockRequests request) override
+    Rc isConflictWithTable(const LockRequests& request) override
     {
         auto conflict = Lock::isConflictWithTable(request);
         return conflict;

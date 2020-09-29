@@ -13,6 +13,7 @@
 #include <pam_authenticate.hpp>
 
 #include <random>
+#include <utility>
 
 namespace crow
 {
@@ -165,7 +166,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performTLSAuth(const crow::Request& req, Response& res,
-                   std::weak_ptr<persistent_data::UserSession> session)
+                   const std::weak_ptr<persistent_data::UserSession>& session)
 {
     if (auto sp = session.lock())
     {
@@ -244,7 +245,7 @@ static void authenticate(
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (req.session == nullptr && authMethodsConfig.tls)
     {
-        req.session = performTLSAuth(req, res, session);
+        req.session = performTLSAuth(req, res, std::move(session));
     }
 #endif
     if (req.session == nullptr && authMethodsConfig.xtoken)

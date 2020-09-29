@@ -28,8 +28,9 @@ static constexpr char const* pciePath = "/xyz/openbmc_project/PCIe";
 static constexpr char const* pcieDeviceInterface =
     "xyz.openbmc_project.PCIe.Device";
 
-static inline void getPCIeDeviceList(std::shared_ptr<AsyncResp> asyncResp,
-                                     const std::string& name)
+static inline void
+    getPCIeDeviceList(const std::shared_ptr<AsyncResp>& asyncResp,
+                      const std::string& name)
 {
     auto getPCIeMapCallback = [asyncResp, name](
                                   const boost::system::error_code ec,
