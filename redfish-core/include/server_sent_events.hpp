@@ -267,8 +267,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
         startSSE();
     }
 
-    ~ServerSentEvents()
-    {}
+    ~ServerSentEvents() = default;
 
     void sendData(const uint64_t& id, const std::string& data)
     {
