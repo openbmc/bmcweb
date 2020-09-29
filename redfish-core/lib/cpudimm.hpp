@@ -70,7 +70,7 @@ inline void getResourceList(std::shared_ptr<AsyncResp> aResp,
 }
 
 inline void
-    getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
+    getCpuDataByInterface(const std::shared_ptr<AsyncResp>& aResp,
                           const InterfacesProperties& cpuInterfacesProperties)
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
@@ -418,7 +418,7 @@ inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
 
 inline void getCpuData(std::shared_ptr<AsyncResp> aResp,
                        const std::string& cpuId,
-                       const std::vector<const char*> inventoryItems)
+                       const std::vector<const char*>& inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources.";
 
@@ -489,7 +489,7 @@ using DimmProperty =
 
 using DimmProperties = boost::container::flat_map<std::string, DimmProperty>;
 
-inline void dimmPropToHex(std::shared_ptr<AsyncResp> aResp, const char* key,
+inline void dimmPropToHex(const std::shared_ptr<AsyncResp>& aResp, const char* key,
                           const std::pair<std::string, DimmProperty>& property)
 {
     const uint16_t* value = std::get_if<uint16_t>(&property.second);
@@ -503,7 +503,7 @@ inline void dimmPropToHex(std::shared_ptr<AsyncResp> aResp, const char* key,
     aResp->res.jsonValue[key] = (boost::format("0x%04x") % *value).str();
 }
 
-inline void getPersistentMemoryProperties(std::shared_ptr<AsyncResp> aResp,
+inline void getPersistentMemoryProperties(const std::shared_ptr<AsyncResp>& aResp,
                                           const DimmProperties& properties)
 {
     for (const auto& property : properties)

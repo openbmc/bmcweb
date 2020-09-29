@@ -119,7 +119,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
 }
 
 inline void userErrorMessageHandler(const sd_bus_error* e,
-                                    std::shared_ptr<AsyncResp> asyncResp,
+                                    const std::shared_ptr<AsyncResp>& asyncResp,
                                     const std::string& newUser,
                                     const std::string& username)
 {
@@ -1043,7 +1043,7 @@ class AccountService : public Node
                                        groupsAttribute, serviceAddressList,
                                        serviceEnabled, dbusObjectPath,
                                        remoteRoleMapData](
-                                          bool success, LDAPConfigData confData,
+                                          bool success, const LDAPConfigData& confData,
                                           const std::string& serverT) {
             if (!success)
             {

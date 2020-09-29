@@ -30,7 +30,7 @@ namespace redfish
  *
  * @return None.
  */
-inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
+inline void getIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
@@ -98,7 +98,7 @@ inline void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
  *
  * @return None.
  */
-inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
+inline void setIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp,
                                  const std::string& ledState)
 {
     BMCWEB_LOG_DEBUG << "Set led groups";

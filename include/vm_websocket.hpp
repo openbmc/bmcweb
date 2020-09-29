@@ -160,7 +160,7 @@ inline void requestRoutes(App& app)
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
-                   std::shared_ptr<bmcweb::AsyncResp>) {
+                   const std::shared_ptr<bmcweb::AsyncResp>&) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             if (session != nullptr)

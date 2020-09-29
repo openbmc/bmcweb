@@ -26,6 +26,7 @@
 #include <filesystem>
 #include <fstream>
 #include <regex>
+#include <utility>
 
 namespace crow
 {
@@ -68,7 +69,7 @@ inline void setErrorResponse(crow::Response& res,
 
 inline void introspectObjects(const std::string& processName,
                               const std::string& objectPath,
-                              std::shared_ptr<bmcweb::AsyncResp> transaction)
+                              const std::shared_ptr<bmcweb::AsyncResp>& transaction)
 {
     if (transaction->res.jsonValue.is_null())
     {
@@ -130,7 +131,7 @@ inline void introspectObjects(const std::string& processName,
 
 inline void getPropertiesForEnumerate(
     const std::string& objectPath, const std::string& service,
-    const std::string& interface, std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+    const std::string& interface, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
                      << service << " " << interface;
@@ -169,8 +170,8 @@ inline void getPropertiesForEnumerate(
 // Find any results that weren't picked up by ObjectManagers, to be
 // called after all ObjectManagers are searched for and called.
 inline void findRemainingObjectsForEnumerate(
-    const std::string& objectPath, std::shared_ptr<GetSubTreeType> subtree,
-    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+    const std::string& objectPath, const std::shared_ptr<GetSubTreeType>& subtree,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << "findRemainingObjectsForEnumerate";
     const nlohmann::json& dataJson = asyncResp->res.jsonValue["data"];
@@ -204,7 +205,7 @@ struct InProgressEnumerateData
     InProgressEnumerateData(const std::string& objectPathIn,
                             std::shared_ptr<bmcweb::AsyncResp> asyncRespIn) :
         objectPath(objectPathIn),
-        asyncResp(asyncRespIn)
+        asyncResp(std::move(asyncRespIn))
     {}
 
     ~InProgressEnumerateData()
@@ -220,7 +221,7 @@ struct InProgressEnumerateData
 inline void getManagedObjectsForEnumerate(
     const std::string& object_name, const std::string& object_manager_path,
     const std::string& connection_name,
-    std::shared_ptr<InProgressEnumerateData> transaction)
+    const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
     BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << object_name
                      << " object_manager_path " << object_manager_path
@@ -280,7 +281,7 @@ inline void getManagedObjectsForEnumerate(
 
 inline void findObjectManagerPathForEnumerate(
     const std::string& object_name, const std::string& connection_name,
-    std::shared_ptr<InProgressEnumerateData> transaction)
+    const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
     BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << object_name
                      << " on connection:" << connection_name;
@@ -323,7 +324,7 @@ inline void findObjectManagerPathForEnumerate(
 // the results of GetSubTree, as GetSubTree will not return info for the
 // target path, and then continues on enumerating the rest of the tree.
 inline void
-    getObjectAndEnumerate(std::shared_ptr<InProgressEnumerateData> transaction)
+    getObjectAndEnumerate(const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
     using GetObjectType =
         std::vector<std::pair<std::string, std::vector<std::string>>>;
@@ -1238,7 +1239,7 @@ inline int convertDBusToJSON(const std::string& returnType,
 }
 
 inline void
-    handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
+    handleMethodResponse(const std::shared_ptr<InProgressActionData>& transaction,
                          sdbusplus::message::message& m,
                          const std::string& returnType)
 {
@@ -1303,7 +1304,7 @@ inline void
 }
 
 inline void
-    findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
+    findActionOnInterface(const std::shared_ptr<InProgressActionData>& transaction,
                           const std::string& connectionName)
 {
     BMCWEB_LOG_DEBUG << "findActionOnInterface for connection "

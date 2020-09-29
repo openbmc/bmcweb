@@ -32,7 +32,7 @@ constexpr const char* bmcPurpose =
  * @return void
  */
 inline void populateFirmwareInformation(
-    std::shared_ptr<AsyncResp> aResp, const std::string& fwVersionPurpose,
+    const std::shared_ptr<AsyncResp>& aResp, const std::string& fwVersionPurpose,
     const std::string& activeVersionPropName, const bool populateLinkToImages)
 {
     // Used later to determine running (known on Redfish as active) FW images
@@ -340,8 +340,8 @@ inline std::string getRedfishFWHealth(const std::string& fwState)
  *
  * @return void
  */
-inline void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
-                        const std::shared_ptr<std::string> swId,
+inline void getFwStatus(const std::shared_ptr<AsyncResp>& asyncResp,
+                        const std::shared_ptr<std::string>& swId,
                         const std::string& dbusSvc)
 {
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
@@ -398,8 +398,8 @@ inline void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
  * @param[i,o] asyncResp  Async response object
  * @param[i]   fwId       The firmware ID
  */
-inline void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
-                                  const std::shared_ptr<std::string> fwId)
+inline void getFwUpdateableStatus(const std::shared_ptr<AsyncResp>& asyncResp,
+                                  const std::shared_ptr<std::string>& fwId)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, fwId](const boost::system::error_code ec,
