@@ -396,8 +396,7 @@ class Subscription
         sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);
     }
 
-    ~Subscription()
-    {}
+    ~Subscription() = default;
 
     void sendEvent(const std::string& msg)
     {
@@ -601,28 +600,27 @@ class EventServiceManager
     uint32_t retryAttempts;
     uint32_t retryTimeoutInterval;
 
-    EventServiceManager(const EventServiceManager&) = delete;
-    EventServiceManager& operator=(const EventServiceManager&) = delete;
-    EventServiceManager(EventServiceManager&&) = delete;
-    EventServiceManager& operator=(EventServiceManager&&) = delete;
-
-    EventServiceManager() :
-        noOfEventLogSubscribers(0), noOfMetricReportSubscribers(0), eventId(1)
+    EventServiceManager()
     {
         // Load config from persist store.
         initConfig();
     }
 
     std::string lastEventTStr;
-    size_t noOfEventLogSubscribers;
-    size_t noOfMetricReportSubscribers;
+    size_t noOfEventLogSubscribers{0};
+    size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
-    uint64_t eventId;
+    uint64_t eventId{1};
 
   public:
+    EventServiceManager(const EventServiceManager&) = delete;
+    EventServiceManager& operator=(const EventServiceManager&) = delete;
+    EventServiceManager(EventServiceManager&&) = delete;
+    EventServiceManager& operator=(EventServiceManager&&) = delete;
+
     static EventServiceManager& getInstance()
     {
         static EventServiceManager handler;
