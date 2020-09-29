@@ -34,7 +34,7 @@ constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
  *
  *
  * @returns Message ResourceInUse formatted to JSON */
-nlohmann::json resourceInUse(void);
+nlohmann::json resourceInUse();
 
 void resourceInUse(crow::Response& res);
 
@@ -45,7 +45,7 @@ void resourceInUse(crow::Response& res);
  *
  *
  * @returns Message MalformedJSON formatted to JSON */
-nlohmann::json malformedJSON(void);
+nlohmann::json malformedJSON();
 
 void malformedJSON(crow::Response& res);
 
@@ -86,7 +86,7 @@ void actionParameterValueFormatError(crow::Response& res,
  *
  *
  * @returns Message InternalError formatted to JSON */
-nlohmann::json internalError(void);
+nlohmann::json internalError();
 
 void internalError(crow::Response& res);
 
@@ -97,7 +97,7 @@ void internalError(crow::Response& res);
  *
  *
  * @returns Message UnrecognizedRequestBody formatted to JSON */
-nlohmann::json unrecognizedRequestBody(void);
+nlohmann::json unrecognizedRequestBody();
 
 void unrecognizedRequestBody(crow::Response& res);
 
@@ -138,7 +138,7 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message ResourceCannotBeDeleted formatted to JSON */
-nlohmann::json resourceCannotBeDeleted(void);
+nlohmann::json resourceCannotBeDeleted();
 
 void resourceCannotBeDeleted(crow::Response& res);
 
@@ -190,7 +190,7 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message AccountForSessionNoLongerExists formatted to JSON */
-nlohmann::json accountForSessionNoLongerExists(void);
+nlohmann::json accountForSessionNoLongerExists();
 
 void accountForSessionNoLongerExists(crow::Response& res);
 
@@ -256,7 +256,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message ServiceInUnknownState formatted to JSON */
-nlohmann::json serviceInUnknownState(void);
+nlohmann::json serviceInUnknownState();
 
 void serviceInUnknownState(crow::Response& res);
 
@@ -267,7 +267,7 @@ void serviceInUnknownState(crow::Response& res);
  *
  *
  * @returns Message EventSubscriptionLimitExceeded formatted to JSON */
-nlohmann::json eventSubscriptionLimitExceeded(void);
+nlohmann::json eventSubscriptionLimitExceeded();
 
 void eventSubscriptionLimitExceeded(crow::Response& res);
 
@@ -305,7 +305,7 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message SessionTerminated formatted to JSON */
-nlohmann::json sessionTerminated(void);
+nlohmann::json sessionTerminated();
 
 void sessionTerminated(crow::Response& res);
 
@@ -315,7 +315,7 @@ void sessionTerminated(crow::Response& res);
  *
  *
  * @returns Message SubscriptionTerminated formatted to JSON */
-nlohmann::json subscriptionTerminated(void);
+nlohmann::json subscriptionTerminated();
 
 void subscriptionTerminated(crow::Response& res);
 
@@ -421,7 +421,7 @@ void resourceCreationConflict(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message MaximumErrorsExceeded formatted to JSON */
-nlohmann::json maximumErrorsExceeded(void);
+nlohmann::json maximumErrorsExceeded();
 
 void maximumErrorsExceeded(crow::Response& res);
 
@@ -432,7 +432,7 @@ void maximumErrorsExceeded(crow::Response& res);
  *
  *
  * @returns Message PreconditionFailed formatted to JSON */
-nlohmann::json preconditionFailed(void);
+nlohmann::json preconditionFailed();
 
 void preconditionFailed(crow::Response& res);
 
@@ -443,7 +443,7 @@ void preconditionFailed(crow::Response& res);
  *
  *
  * @returns Message PreconditionRequired formatted to JSON */
-nlohmann::json preconditionRequired(void);
+nlohmann::json preconditionRequired();
 
 void preconditionRequired(crow::Response& res);
 
@@ -454,7 +454,7 @@ void preconditionRequired(crow::Response& res);
  *
  *
  * @returns Message OperationFailed formatted to JSON */
-nlohmann::json operationFailed(void);
+nlohmann::json operationFailed();
 
 void operationFailed(crow::Response& res);
 
@@ -465,7 +465,7 @@ void operationFailed(crow::Response& res);
  *
  *
  * @returns Message OperationTimeout formatted to JSON */
-nlohmann::json operationTimeout(void);
+nlohmann::json operationTimeout();
 
 void operationTimeout(crow::Response& res);
 
@@ -545,7 +545,7 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message ServiceShuttingDown formatted to JSON */
-nlohmann::json serviceShuttingDown(void);
+nlohmann::json serviceShuttingDown();
 
 void serviceShuttingDown(crow::Response& res);
 
@@ -600,7 +600,7 @@ void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message AccountRemoved formatted to JSON */
-nlohmann::json accountRemoved(void);
+nlohmann::json accountRemoved();
 
 void accountRemoved(crow::Response& res);
 
@@ -622,7 +622,7 @@ void accessDenied(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message QueryNotSupported formatted to JSON */
-nlohmann::json queryNotSupported(void);
+nlohmann::json queryNotSupported();
 
 void queryNotSupported(crow::Response& res);
 
@@ -633,7 +633,7 @@ void queryNotSupported(crow::Response& res);
  *
  *
  * @returns Message CreateLimitReachedForResource formatted to JSON */
-nlohmann::json createLimitReachedForResource(void);
+nlohmann::json createLimitReachedForResource();
 
 void createLimitReachedForResource(crow::Response& res);
 
@@ -644,7 +644,7 @@ void createLimitReachedForResource(crow::Response& res);
  *
  *
  * @returns Message GeneralError formatted to JSON */
-nlohmann::json generalError(void);
+nlohmann::json generalError();
 
 void generalError(crow::Response& res);
 
@@ -654,7 +654,7 @@ void generalError(crow::Response& res);
  *
  *
  * @returns Message Success formatted to JSON */
-nlohmann::json success(void);
+nlohmann::json success();
 
 void success(crow::Response& res);
 
@@ -664,7 +664,7 @@ void success(crow::Response& res);
  *
  *
  * @returns Message Created formatted to JSON */
-nlohmann::json created(void);
+nlohmann::json created();
 
 void created(crow::Response& res);
 
@@ -675,7 +675,7 @@ void created(crow::Response& res);
  *
  *
  * @returns Message NoOperation formatted to JSON */
-nlohmann::json noOperation(void);
+nlohmann::json noOperation();
 
 void noOperation(crow::Response& res);
 
@@ -698,7 +698,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message NoValidSession formatted to JSON */
-nlohmann::json noValidSession(void);
+nlohmann::json noValidSession();
 
 void noValidSession(crow::Response& res);
 
@@ -720,7 +720,7 @@ void invalidObject(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message ResourceInStandby formatted to JSON */
-nlohmann::json resourceInStandby(void);
+nlohmann::json resourceInStandby();
 
 void resourceInStandby(crow::Response& res);
 
@@ -749,7 +749,7 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message SessionLimitExceeded formatted to JSON */
-nlohmann::json sessionLimitExceeded(void);
+nlohmann::json sessionLimitExceeded();
 
 void sessionLimitExceeded(crow::Response& res);
 
@@ -782,7 +782,7 @@ void invalidIndex(crow::Response& res, const int& arg1);
  *
  *
  * @returns Message EmptyJSON formatted to JSON */
-nlohmann::json emptyJSON(void);
+nlohmann::json emptyJSON();
 
 void emptyJSON(crow::Response& res);
 
@@ -792,7 +792,7 @@ void emptyJSON(crow::Response& res);
  *
  *
  * @returns Message QueryNotSupportedOnResource formatted to JSON */
-nlohmann::json queryNotSupportedOnResource(void);
+nlohmann::json queryNotSupportedOnResource();
 
 void queryNotSupportedOnResource(crow::Response& res);
 
@@ -802,7 +802,7 @@ void queryNotSupportedOnResource(crow::Response& res);
  *
  *
  * @returns Message QueryNotSupportedOnOperation formatted to JSON */
-nlohmann::json queryNotSupportedOnOperation(void);
+nlohmann::json queryNotSupportedOnOperation();
 
 void queryNotSupportedOnOperation(crow::Response& res);
 
@@ -813,7 +813,7 @@ void queryNotSupportedOnOperation(crow::Response& res);
  *
  *
  * @returns Message QueryCombinationInvalid formatted to JSON */
-nlohmann::json queryCombinationInvalid(void);
+nlohmann::json queryCombinationInvalid();
 
 void queryCombinationInvalid(crow::Response& res);
 
@@ -825,7 +825,7 @@ void queryCombinationInvalid(crow::Response& res);
  *
  *
  * @returns Message InsufficientPrivilege formatted to JSON */
-nlohmann::json insufficientPrivilege(void);
+nlohmann::json insufficientPrivilege();
 
 void insufficientPrivilege(crow::Response& res);
 
@@ -850,7 +850,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
  *
  *
  * @returns Message AccountNotModified formatted to JSON */
-nlohmann::json accountNotModified(void);
+nlohmann::json accountNotModified();
 
 void accountNotModified(crow::Response& res);
 
@@ -901,7 +901,7 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message AccountModified formatted to JSON */
-nlohmann::json accountModified(void);
+nlohmann::json accountModified();
 
 void accountModified(crow::Response& res);
 
