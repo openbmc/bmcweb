@@ -406,7 +406,7 @@ inline void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
                           const std::variant<std::vector<std::string>>& resp) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << __FUNCTION__ << " error_code = " << ec
+                BMCWEB_LOG_DEBUG << " error_code = " << ec
                                  << " error msg =  " << ec.message();
                 // System can exist with no updateable firmware,
                 // so don't throw error here.
