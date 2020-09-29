@@ -189,7 +189,7 @@ class Lock
     }
 
     virtual ~Lock()
-    {}
+    = default;
 };
 
 inline bool Lock::createPersistentLockFilePath()
@@ -293,7 +293,7 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 
                     // Push the whole lock record into a vector for returning
                     // the json
-                    lockList.push_back(std::make_pair(it->first, it->second));
+                    lockList.emplace_back(it->first, it->second);
                 }
                 // Go to next entry in map
                 it++;
