@@ -366,14 +366,14 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
 
     // print lock request into journal
 
-    for (uint32_t i = 0; i < lockRequestStructure.size(); i++)
+    for (auto& i : lockRequestStructure)
     {
-        BMCWEB_LOG_DEBUG << std::get<0>(lockRequestStructure[i]);
-        BMCWEB_LOG_DEBUG << std::get<1>(lockRequestStructure[i]);
-        BMCWEB_LOG_DEBUG << std::get<2>(lockRequestStructure[i]);
-        BMCWEB_LOG_DEBUG << std::get<3>(lockRequestStructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<0>(i);
+        BMCWEB_LOG_DEBUG << std::get<1>(i);
+        BMCWEB_LOG_DEBUG << std::get<2>(i);
+        BMCWEB_LOG_DEBUG << std::get<3>(i);
 
-        for (const auto& p : std::get<4>(lockRequestStructure[i]))
+        for (const auto& p : std::get<4>(i))
         {
             BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
         }
@@ -436,10 +436,10 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
             returnJson["LockType"] = std::get<2>(var.second);
             returnJson["ResourceID"] = std::get<3>(var.second);
 
-            for (uint32_t i = 0; i < std::get<4>(var.second).size(); i++)
+            for (auto& i : std::get<4>(var.second))
             {
-                segments["LockFlag"] = std::get<4>(var.second)[i].first;
-                segments["SegmentLength"] = std::get<4>(var.second)[i].second;
+                segments["LockFlag"] = i.first;
+                segments["SegmentLength"] = i.second;
                 myarray.push_back(segments);
             }
 
@@ -465,9 +465,9 @@ inline void
 {
     BMCWEB_LOG_DEBUG << listTransactionIds.size();
     BMCWEB_LOG_DEBUG << "Data is present";
-    for (uint32_t i = 0; i < listTransactionIds.size(); i++)
+    for (unsigned int listTransactionId : listTransactionIds)
     {
-        BMCWEB_LOG_DEBUG << listTransactionIds[i];
+        BMCWEB_LOG_DEBUG << listTransactionId;
     }
 
     // validate the request ids
@@ -511,10 +511,10 @@ inline void
             returnJson["LockType"] = std::get<2>(var.second);
             returnJson["ResourceID"] = std::get<3>(var.second);
 
-            for (uint32_t i = 0; i < std::get<4>(var.second).size(); i++)
+            for (auto& i : std::get<4>(var.second))
             {
-                segments["LockFlag"] = std::get<4>(var.second)[i].first;
-                segments["SegmentLength"] = std::get<4>(var.second)[i].second;
+                segments["LockFlag"] = i.first;
+                segments["SegmentLength"] = i.second;
                 myArray.push_back(segments);
             }
 
