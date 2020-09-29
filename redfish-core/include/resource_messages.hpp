@@ -5,7 +5,7 @@ namespace redfish
 namespace messages
 {
 
-inline nlohmann::json resourceChanged(void)
+inline nlohmann::json resourceChanged()
 {
     return nlohmann::json{
         {"EventType", "ResourceChanged"},
@@ -16,7 +16,7 @@ inline nlohmann::json resourceChanged(void)
         {"MessageSeverity", "OK"}};
 }
 
-inline nlohmann::json resourceCreated(void)
+inline nlohmann::json resourceCreated()
 {
     return nlohmann::json{
         {"EventType", "ResourceAdded"},
@@ -27,7 +27,7 @@ inline nlohmann::json resourceCreated(void)
         {"MessageSeverity", "OK"}};
 }
 
-inline nlohmann::json resourceRemoved(void)
+inline nlohmann::json resourceRemoved()
 {
     return nlohmann::json{
         {"EventType", "ResourceRemoved"},
