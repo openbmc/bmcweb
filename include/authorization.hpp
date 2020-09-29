@@ -212,8 +212,8 @@ static bool isOnWhitelist(const crow::Request& req)
         {
             return true;
         }
-        else if (crow::webroutes::routes.find(std::string(req.url)) !=
-                 crow::webroutes::routes.end())
+        if (crow::webroutes::routes.find(std::string(req.url)) !=
+            crow::webroutes::routes.end())
         {
             return true;
         }

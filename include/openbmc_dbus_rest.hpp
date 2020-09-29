@@ -1112,23 +1112,7 @@ inline int convertDBusToJSON(const std::string& returnType,
             thisElement = &response.back();
         }
 
-        if (typeCode == "s")
-        {
-            r = readMessageItem<char*>(typeCode, m, *thisElement);
-            if (r < 0)
-            {
-                return r;
-            }
-        }
-        else if (typeCode == "g")
-        {
-            r = readMessageItem<char*>(typeCode, m, *thisElement);
-            if (r < 0)
-            {
-                return r;
-            }
-        }
-        else if (typeCode == "o")
+        if (typeCode == "s" || typeCode == "g" || typeCode == "o")
         {
             r = readMessageItem<char*>(typeCode, m, *thisElement);
             if (r < 0)

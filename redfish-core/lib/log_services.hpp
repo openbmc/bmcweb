@@ -107,31 +107,16 @@ using GetManagedObjectsType = boost::container::flat_map<
 
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
 {
-    if (s == "xyz.openbmc_project.Logging.Entry.Level.Alert")
+    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Error"))
     {
         return "Critical";
     }
-    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Critical")
-    {
-        return "Critical";
-    }
-    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Debug")
-    {
-        return "OK";
-    }
-    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency")
-    {
-        return "Critical";
-    }
-    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Error")
-    {
-        return "Critical";
-    }
-    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Informational")
-    {
-        return "OK";
-    }
-    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Notice")
+    else if ((s == "xyz.openbmc_project.Logging.Entry.Level.Debug") ||
+             (s == "xyz.openbmc_project.Logging.Entry.Level.Informational") ||
+             (s == "xyz.openbmc_project.Logging.Entry.Level.Notice"))
     {
         return "OK";
     }

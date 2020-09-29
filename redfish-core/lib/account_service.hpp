@@ -143,8 +143,11 @@ inline void userErrorMessageHandler(const sd_bus_error* e,
         messages::resourceNotFound(
             asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount", username);
     }
-    else if (strcmp(errorMessage,
-                    "xyz.openbmc_project.Common.Error.InvalidArgument") == 0)
+    else if ((strcmp(errorMessage,
+                     "xyz.openbmc_project.Common.Error.InvalidArgument") ==
+              0) ||
+             (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
+                                   "UserNameGroupFail") == 0))
     {
         messages::propertyValueFormatError(asyncResp->res, newUser, "UserName");
     }
@@ -152,11 +155,6 @@ inline void userErrorMessageHandler(const sd_bus_error* e,
                     "xyz.openbmc_project.User.Common.Error.NoResource") == 0)
     {
         messages::createLimitReachedForResource(asyncResp->res);
-    }
-    else if (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
-                                  "UserNameGroupFail") == 0)
-    {
-        messages::propertyValueFormatError(asyncResp->res, newUser, "UserName");
     }
     else
     {
