@@ -1750,7 +1750,7 @@ class SystemActionsReset : public Node
         // Get the command and host vs. chassis
         std::string command;
         bool hostCommand;
-        if (resetType == "On")
+        if ((resetType == "On") || (resetType == "ForceOn"))
         {
             command = "xyz.openbmc_project.State.Host.Transition.On";
             hostCommand = true;
@@ -1759,11 +1759,6 @@ class SystemActionsReset : public Node
         {
             command = "xyz.openbmc_project.State.Chassis.Transition.Off";
             hostCommand = false;
-        }
-        else if (resetType == "ForceOn")
-        {
-            command = "xyz.openbmc_project.State.Host.Transition.On";
-            hostCommand = true;
         }
         else if (resetType == "ForceRestart")
         {
