@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4247a15a_fe306178",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-30T14:37:16Z",
+      "side": 1,
+      "message": "This is removed in the next patchset - PS14",
+      "parentUuid": "666dfa76_4311a9ff",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 14
+      },
+      "revId": "556a01fb9542e844d6f5251b11cb8608a88efb7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a48f3ff_e670e57f",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
