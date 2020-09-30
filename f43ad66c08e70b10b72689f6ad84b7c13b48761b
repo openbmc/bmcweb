@@ -756,6 +756,30 @@
     },
     {
       "key": {
+        "uuid": "ad9fb9a8_7d76d7fb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-09-30T14:37:16Z",
+      "side": 1,
+      "message": "1) When the subscriber sets SuspendRetries on his subscription, that means that he does not want to receive the events - but the connection needs to be retained. So we will return from the sendData() method without doing anything.\n\n2) Yes When the retry policy is \"TerminateAfterRetries\" ; we need to delete the subscription. This is already marked as TODO here! But when i analyzed the changes needed to do this, i saw that there is no infrastructure here to get the subscription id associated with the sslConn/conn. This needs more changes - which can go as a separate commit.",
+      "parentUuid": "f953e863_9c8753b0",
+      "range": {
+        "startLine": 333,
+        "startChar": 1,
+        "endLine": 344,
+        "endChar": 13
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b01d6571_9af1388e",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
