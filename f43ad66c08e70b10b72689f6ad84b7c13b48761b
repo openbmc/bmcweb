@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e772052c_e6807441",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-09-30T08:59:41Z",
+      "side": 1,
+      "message": "Currently in this code state check is being done randomly by any function.Can we enhance the connectionstateCheck function and let it call other sub functions, and theses sub function will do the required functionality and set the connection state and call the connectionStateCheck function again.\neg:\n\n  void connStateCheck()\n    {\n        switch (state)\n        {\n            case ConnState::connectInProgress:\n\n            case ConnState::sslHandshakeInProgress:\n            case ConnState::sendInProgress:\n            case ConnState::suspended:\n            {\n                  call function which starts the timer and once the timer expires then set the connection state\n                 break;\n            }\n            case ConnState::terminated:\n                // do nothing\n                break;\n            case ConnState::initialized:\n                 doResolve(); Sets the connection state to resolved \n                 break;\n\n            case ConnState::Resolved:\n                 retryCount \u003d 0;\n                 doConnect() :Set the connection state to eithe connected or connect failed and call this function again..\n                 break;\n\n            case ConnState::closed:\n                break\n            case ConnState::connectFailed:\n            {\n                  retryCount++;\n                  checkRetryPolicy();\n                  doConnect();\n            }\n            case ConnState::sendFailed:\n            {\n                   rettryCount++;\n                   checkRetryPolicy();\n                   doSend();\n            }\n            case ConnState::recvFailed:\n            {\n                Start timer before retrying \n                retryCount ++;\n                checkRetryPolicy()  \n                doRecv()\n            }\n            case ConnState::connected:\n            case ConnState::idle:\n            {\n                if (sslConn)\n                {\t\n\t\t\tperformHandshake();\n\t\t\t\n\t\t}\n                else\n                {\n\t\t\tretryCount \u003d 0;\n                        sendMessage();\n                }\n                break;\n            }\n            case HandShakeCompleted:\n            {\n                doSend();\n            }\n            case ConnSate:close\n            {\n                   doClose();\n            }\n            default:\n                break;\n        }",
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60ad06e4_4db20ca4",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -709,6 +726,75 @@
         "startChar": 23,
         "endLine": 239,
         "endChar": 29
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f953e863_9c8753b0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-09-30T08:59:41Z",
+      "side": 1,
+      "message": "What is the difference here? In both the cases we are not doing anything.\n\n1) Suspend case: Once the connection reached into this state, from Send message() the control will return.\n   Hence no use, we can delete the subscription or start a timer so that we can retry later.\n\n2) Terminated case: Once the connection reached into this state,caller will keep pushing the data in the      queue and and checkqueue will keep poping up the data.We need to delete the subscription.",
+      "range": {
+        "startLine": 333,
+        "startChar": 1,
+        "endLine": 344,
+        "endChar": 13
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b01d6571_9af1388e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-09-30T08:59:41Z",
+      "side": 1,
+      "message": "This also should go in connectionState check function..",
+      "range": {
+        "startLine": 352,
+        "startChar": 1,
+        "endLine": 382,
+        "endChar": 9
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baffe6b6_835cbc83",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-09-30T08:59:41Z",
+      "side": 1,
+      "message": "Don\u0027t we need to do this at connectionStateCheck function?\nCase:case ConnState::idle:\n     retryCount \u003d 0;",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 388,
+        "endChar": 9
       },
       "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
