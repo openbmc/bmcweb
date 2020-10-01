@@ -375,7 +375,6 @@ inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Name"] = "Processor";
             const bool* accPresent = nullptr;
             const bool* accFunctional = nullptr;
-            std::string state = "";
 
             for (const auto& property : properties)
             {
@@ -389,28 +388,28 @@ inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
             }
 
-            if (!accPresent || !accFunctional)
-            {
-                BMCWEB_LOG_DEBUG << "Required properties missing in DBUS "
-                                    "response";
-                messages::internalError(aResp->res);
-                return;
-            }
+            std::string state = "Enabled";
+            std::string health = "OK";
 
-            if (*accPresent && *accFunctional)
-            {
-                state = "Enabled";
-            }
-            else if (*accPresent)
-            {
-                state = "UnavailableOffline";
-            }
-            else
+            if (accPresent != nullptr && *accPresent == false)
             {
                 state = "Absent";
             }
+
+            if ((accFunctional != nullptr) && (*accFunctional == false))
+            {
+                if (state == "Enabled")
+                {
+                    health = "Critical";
+                }
+                else
+                {
+                    health = "UnavailableOffline";
+                }
+            }
+
             aResp->res.jsonValue["Status"]["State"] = state;
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["Health"] = health;
             aResp->res.jsonValue["ProcessorType"] = "Accelerator";
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
