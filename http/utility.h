@@ -629,7 +629,8 @@ inline static std::string base64encodeUrlsafe(const char* data, size_t size)
 
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
-inline bool base64Decode(const std::string_view input, std::string& output)
+template <typename T>
+inline bool base64Decode(const std::string_view input, T& output)
 {
     static const char nop = static_cast<char>(-1);
     // See note on encoding_data[] in above function
@@ -791,6 +792,33 @@ inline std::time_t getTimestamp(uint64_t millisTimeStamp)
                chronoTimeStamp)
         .count();
 }
+
+namespace zero
+{
+
+template <typename T>
+struct allocator : public std::allocator<T>
+{
+
+    template <typename U>
+    struct rebind
+    {
+        using other = allocator<U>;
+    };
+
+    void deallocate(T* p, size_t n)
+    {
+        explicit_bzero(p, n * sizeof(T));
+    }
+};
+
+using string = std::basic_string<char, std::char_traits<char>, allocator<char>>;
+using json = nlohmann::basic_json<std::map, std::vector,
+                                  zero::string>; //, bool,
+                                                 // int64_t, uint64_t, double,
+                                                 // allocator>;
+
+} // namespace zero
 
 } // namespace utility
 } // namespace crow

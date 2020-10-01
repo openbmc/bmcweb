@@ -57,8 +57,8 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 inline int pamAuthenticateUser(const std::string_view username,
                                const std::string_view password)
 {
-    std::string userStr(username);
-    std::string passStr(password);
+    utility::zero::string userStr(username);
+    utility::zero::string passStr(password);
     const struct pam_conv localConversation = {
         pamFunctionConversation, const_cast<char*>(passStr.c_str())};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start

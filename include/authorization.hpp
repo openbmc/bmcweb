@@ -39,7 +39,7 @@ static const std::shared_ptr<persistent_data::UserSession>
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
-    std::string authData;
+    utility::zero::string authData;
     std::string_view param = auth_header.substr(strlen("Basic "));
     if (!crow::utility::base64Decode(param, authData))
     {
@@ -51,13 +51,13 @@ static const std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
 
-    std::string user = authData.substr(0, separator);
+    utility::zero::string user(authData.substr(0, separator));
     separator += 1;
     if (separator > authData.size())
     {
         return nullptr;
     }
-    std::string pass = authData.substr(separator);
+    utility::zero::string pass(authData.substr(separator));
 
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
 

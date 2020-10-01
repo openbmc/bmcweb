@@ -30,12 +30,12 @@ inline void requestRoutes(App& app)
 
             // This object needs to be declared at this scope so the strings
             // within it are not destroyed before we can use them
-            nlohmann::json loginCredentials;
+            utility::zero::json loginCredentials;
             // Check if auth was provided by a payload
             if (boost::starts_with(contentType, "application/json"))
             {
                 loginCredentials =
-                    nlohmann::json::parse(req.body, nullptr, false);
+                    utility::zero::json::parse(req.body, nullptr, false);
                 if (loginCredentials.is_discarded())
                 {
                     BMCWEB_LOG_DEBUG << "Bad json in request";
@@ -46,17 +46,17 @@ inline void requestRoutes(App& app)
 
                 // check for username/password in the root object
                 // THis method is how intel APIs authenticate
-                nlohmann::json::iterator userIt =
+                utility::zero::json::iterator userIt =
                     loginCredentials.find("username");
-                nlohmann::json::iterator passIt =
+                utility::zero::json::iterator passIt =
                     loginCredentials.find("password");
                 if (userIt != loginCredentials.end() &&
                     passIt != loginCredentials.end())
                 {
-                    const std::string* userStr =
-                        userIt->get_ptr<const std::string*>();
-                    const std::string* passStr =
-                        passIt->get_ptr<const std::string*>();
+                    const utility::zero::string* userStr =
+                        userIt->get_ptr<const utility::zero::string*>();
+                    const utility::zero::string* passStr =
+                        passIt->get_ptr<const utility::zero::string*>();
                     if (userStr != nullptr && passStr != nullptr)
                     {
                         username = *userStr;
@@ -76,18 +76,20 @@ inline void requestRoutes(App& app)
                         {
                             if (dataIt->size() == 2)
                             {
-                                nlohmann::json::iterator userIt2 =
+                                utility::zero::json::iterator userIt2 =
                                     dataIt->begin();
-                                nlohmann::json::iterator passIt2 =
+                                utility::zero::json::iterator passIt2 =
                                     dataIt->begin() + 1;
                                 looksLikePhosphorRest = true;
                                 if (userIt2 != dataIt->end() &&
                                     passIt2 != dataIt->end())
                                 {
-                                    const std::string* userStr =
-                                        userIt2->get_ptr<const std::string*>();
-                                    const std::string* passStr =
-                                        passIt2->get_ptr<const std::string*>();
+                                    const utility::zero::string* userStr =
+                                        userIt2->get_ptr<
+                                            const utility::zero::string*>();
+                                    const utility::zero::string* passStr =
+                                        passIt2->get_ptr<
+                                            const utility::zero::string*>();
                                     if (userStr != nullptr &&
                                         passStr != nullptr)
                                     {
@@ -99,17 +101,19 @@ inline void requestRoutes(App& app)
                         }
                         else if (dataIt->is_object())
                         {
-                            nlohmann::json::iterator userIt2 =
+                            utility::zero::json::iterator userIt2 =
                                 dataIt->find("username");
-                            nlohmann::json::iterator passIt2 =
+                            utility::zero::json::iterator passIt2 =
                                 dataIt->find("password");
                             if (userIt2 != dataIt->end() &&
                                 passIt2 != dataIt->end())
                             {
-                                const std::string* userStr =
-                                    userIt2->get_ptr<const std::string*>();
-                                const std::string* passStr =
-                                    passIt2->get_ptr<const std::string*>();
+                                const utility::zero::string* userStr =
+                                    userIt2->get_ptr<
+                                        const utility::zero::string*>();
+                                const utility::zero::string* passStr =
+                                    passIt2->get_ptr<
+                                        const utility::zero::string*>();
                                 if (userStr != nullptr && passStr != nullptr)
                                 {
                                     username = *userStr;
