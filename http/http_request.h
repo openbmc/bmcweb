@@ -5,8 +5,8 @@
 #include "sessions.hpp"
 
 #include <boost/asio/io_context.hpp>
-#include <boost/beast/http.hpp>
-#include <boost/beast/ssl/ssl_stream.hpp>
+#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/string_body.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url_view.hpp>
 

@@ -18,8 +18,9 @@
 #include "node.hpp"
 
 #include <boost/asio/strand.hpp>
-#include <boost/beast/core.hpp>
-#include <boost/beast/http.hpp>
+#include <boost/beast/core/span.hpp>
+#include <boost/beast/http/buffer_body.hpp>
+#include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
 
 #include <cstdlib>

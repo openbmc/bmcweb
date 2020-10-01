@@ -17,7 +17,8 @@
 
 #include "node.hpp"
 
-#include <boost/asio.hpp>
+#include <boost/asio/post.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <task_messages.hpp>
 

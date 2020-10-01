@@ -13,9 +13,8 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/ssl.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
-#include <boost/beast/http.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
 #include <json_html_serializer.hpp>

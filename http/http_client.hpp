@@ -14,9 +14,10 @@
 // limitations under the License.
 */
 #pragma once
-#include <boost/asio/strand.hpp>
-#include <boost/beast/core.hpp>
-#include <boost/beast/http.hpp>
+#include <boost/asio/steady_timer.hpp>
+#include <boost/beast/core/flat_buffer.hpp>
+#include <boost/beast/core/tcp_stream.hpp>
+#include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
 
 #include <cstdlib>
