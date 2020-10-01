@@ -780,6 +780,30 @@
     },
     {
       "key": {
+        "uuid": "638fd1f5_2ad204d9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-10-01T02:44:51Z",
+      "side": 1,
+      "message": "\u003e1) When the subscriber sets SuspendRetries on his subscription, that means that he does not want to receive the events - but the connection needs to be retained. So we will return from the sendData() method without doing anything.\n\nWhy keep connection then? you just need to delete the subscription that is what I asked I don\u0027t see the difference in both cases.",
+      "parentUuid": "ad9fb9a8_7d76d7fb",
+      "range": {
+        "startLine": 333,
+        "startChar": 1,
+        "endLine": 344,
+        "endChar": 13
+      },
+      "revId": "f43ad66c08e70b10b72689f6ad84b7c13b48761b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b01d6571_9af1388e",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
