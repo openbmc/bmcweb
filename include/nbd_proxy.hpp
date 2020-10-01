@@ -17,7 +17,9 @@
 #include <app.h>
 #include <websocket.h>
 
-#include <boost/asio.hpp>
+#include <boost/asio/buffer.hpp>
+#include <boost/asio/local/stream_protocol.hpp>
+#include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/container/flat_map.hpp>

@@ -168,11 +168,8 @@ struct AuthConfigMethods
     }
 };
 
-class Middleware;
-
 struct OpenSSLGenerator
 {
-
     uint8_t operator()(void)
     {
         uint8_t index = 0;
