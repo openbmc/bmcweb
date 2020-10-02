@@ -19,7 +19,7 @@ enum class LogLevel
     Critical,
 };
 
-class logger
+class Logger
 {
   private:
     //
@@ -40,7 +40,7 @@ class logger
     }
 
   public:
-    logger([[maybe_unused]] const std::string& prefix,
+    Logger([[maybe_unused]] const std::string& prefix,
            [[maybe_unused]] const std::string& filename,
            [[maybe_unused]] const size_t line, LogLevel levelIn) :
         level(levelIn)
@@ -51,9 +51,9 @@ class logger
                      << line << "] ";
 #endif
     }
-    ~logger()
+    ~Logger()
     {
-        if (level >= get_current_log_level())
+        if (level >= getCurrentLogLevel())
         {
 #ifdef BMCWEB_ENABLE_LOGGING
             stringstream << std::endl;
@@ -64,9 +64,9 @@ class logger
 
     //
     template <typename T>
-    logger& operator<<([[maybe_unused]] T const& value)
+    Logger& operator<<([[maybe_unused]] T const& value)
     {
-        if (level >= get_current_log_level())
+        if (level >= getCurrentLogLevel())
         {
 #ifdef BMCWEB_ENABLE_LOGGING
             stringstream << value;
@@ -81,7 +81,7 @@ class logger
         getLogLevelRef() = level;
     }
 
-    static LogLevel get_current_log_level()
+    static LogLevel getCurrentLogLevel()
     {
         return getLogLevelRef();
     }
@@ -101,17 +101,17 @@ class logger
 } // namespace crow
 
 #define BMCWEB_LOG_CRITICAL                                                    \
-    if (crow::logger::get_current_log_level() <= crow::LogLevel::Critical)     \
-    crow::logger("CRITICAL", __FILE__, __LINE__, crow::LogLevel::Critical)
+    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Critical)        \
+    crow::Logger("CRITICAL", __FILE__, __LINE__, crow::LogLevel::Critical)
 #define BMCWEB_LOG_ERROR                                                       \
-    if (crow::logger::get_current_log_level() <= crow::LogLevel::Error)        \
-    crow::logger("ERROR", __FILE__, __LINE__, crow::LogLevel::Error)
+    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Error)           \
+    crow::Logger("ERROR", __FILE__, __LINE__, crow::LogLevel::Error)
 #define BMCWEB_LOG_WARNING                                                     \
-    if (crow::logger::get_current_log_level() <= crow::LogLevel::Warning)      \
-    crow::logger("WARNING", __FILE__, __LINE__, crow::LogLevel::Warning)
+    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Warning)         \
+    crow::Logger("WARNING", __FILE__, __LINE__, crow::LogLevel::Warning)
 #define BMCWEB_LOG_INFO                                                        \
-    if (crow::logger::get_current_log_level() <= crow::LogLevel::Info)         \
-    crow::logger("INFO", __FILE__, __LINE__, crow::LogLevel::Info)
+    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Info)            \
+    crow::Logger("INFO", __FILE__, __LINE__, crow::LogLevel::Info)
 #define BMCWEB_LOG_DEBUG                                                       \
-    if (crow::logger::get_current_log_level() <= crow::LogLevel::Debug)        \
-    crow::logger("DEBUG", __FILE__, __LINE__, crow::LogLevel::Debug)
+    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Debug)           \
+    crow::Logger("DEBUG", __FILE__, __LINE__, crow::LogLevel::Debug)
