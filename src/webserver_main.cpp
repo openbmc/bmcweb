@@ -59,7 +59,7 @@ inline void setupSocket(crow::App& app)
 
 int main(int /*argc*/, char** /*argv*/)
 {
-    crow::logger::setLogLevel(crow::LogLevel::Debug);
+    crow::Logger::setLogLevel(crow::LogLevel::Debug);
 
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
