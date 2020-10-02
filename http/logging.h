@@ -19,7 +19,7 @@ enum class LogLevel
     Critical,
 };
 
-class logger
+class Logger
 {
   private:
     //
@@ -40,7 +40,7 @@ class logger
     }
 
   public:
-    logger([[maybe_unused]] const std::string& prefix,
+    Logger([[maybe_unused]] const std::string& prefix,
            [[maybe_unused]] const std::string& filename,
            [[maybe_unused]] const size_t line, LogLevel levelIn) :
         level(levelIn)
@@ -51,9 +51,9 @@ class logger
                      << line << "] ";
 #endif
     }
-    ~logger()
+    ~Logger()
     {
-        if (level >= get_current_log_level())
+        if (level >= getCurrentLogLevel())
         {
 #ifdef BMCWEB_ENABLE_LOGGING
             stringstream << std::endl;
@@ -64,9 +64,9 @@ class logger
 
     //
     template <typename T>
-    logger& operator<<([[maybe_unused]] T const& value)
+    Logger& operator<<([[maybe_unused]] T const& value)
     {
-        if (level >= get_current_log_level())
+        if (level >= getCurrentLogLevel())
         {
 #ifdef BMCWEB_ENABLE_LOGGING
             stringstream << value;
@@ -81,7 +81,7 @@ class logger
         getLogLevelRef() = level;
     }
 
-    static LogLevel get_current_log_level()
+    static LogLevel getCurrentLogLevel()
     {
         return getLogLevelRef();
     }
