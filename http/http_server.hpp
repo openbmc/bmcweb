@@ -1,8 +1,8 @@
 #pragma once
 
-#include "http_connection.h"
-#include "logging.h"
-#include "timer_queue.h"
+#include "http_connection.hpp"
+#include "logging.hpp"
+#include "timer_queue.hpp"
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>

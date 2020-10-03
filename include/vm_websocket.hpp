@@ -1,10 +1,9 @@
 #pragma once
 
-#include <app.h>
-#include <websocket.h>
-
+#include <app.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/process.hpp>
+#include <websocket.hpp>
 
 #include <csignal>
 
