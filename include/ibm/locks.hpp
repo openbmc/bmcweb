@@ -1,10 +1,9 @@
 #pragma once
 
-#include <logging.h>
-
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
+#include <logging.hpp>
 #include <nlohmann/json.hpp>
 
 #include <filesystem>

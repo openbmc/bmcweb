@@ -2,13 +2,12 @@
 
 #include "webroutes.hpp"
 
-#include <app.h>
-#include <http_request.h>
-#include <http_response.h>
-#include <routing.h>
-
+#include <app.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/container/flat_set.hpp>
+#include <http_request.hpp>
+#include <http_response.hpp>
+#include <routing.hpp>
 
 #include <filesystem>
 #include <fstream>
