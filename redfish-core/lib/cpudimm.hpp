@@ -468,6 +468,12 @@ inline void getCpuData(std::shared_ptr<AsyncResp> aResp,
                                 getAcceleratorDataByService(
                                     aResp, cpuId, service.first, object.first);
                             }
+                            else if (inventory == "xyz.openbmc_project."
+                                                  "Association.Definitions")
+                            {
+                                getLocationIndicatorActive(aResp, service.first,
+                                                           object.first);
+                            }
                         }
                     }
                     return;
@@ -1157,7 +1163,7 @@ class Processor : public Node
             return;
         }
         const std::string& processorId = params[0];
-        res.jsonValue["@odata.type"] = "#Processor.v1_9_0.Processor";
+        res.jsonValue["@odata.type"] = "#Processor.v1_14_0.Processor";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
 
@@ -1167,6 +1173,71 @@ class Processor : public Node
                    {"xyz.openbmc_project.Inventory.Item.Cpu",
                     "xyz.openbmc_project.Inventory.Decorator.Asset",
                     "xyz.openbmc_project.Inventory.Item.Accelerator"});
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        std::optional<bool> locationIndicatorActive;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            return;
+        }
+
+        if (!json_util::readJson(req, res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        const std::string& cpuId = params[0];
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, cpuId, locationIndicatorActive](
+                const boost::system::error_code ec,
+                const boost::container::flat_map<
+                    std::string, boost::container::flat_map<
+                                     std::string, std::vector<std::string>>>&
+                    subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                // Iterate over all retrieved ObjectPaths.
+                for (const auto& object : subtree)
+                {
+                    if (boost::ends_with(object.first, cpuId))
+                    {
+                        for (const auto& service : object.second)
+                        {
+                            for (const auto& inventory : service.second)
+                            {
+                                if (inventory == "xyz.openbmc_project."
+                                                 "Association.Definitions")
+                                {
+                                    setLocationIndicatorActive(
+                                        asyncResp, service.first, object.first,
+                                        *locationIndicatorActive);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                messages::resourceNotFound(
+                    asyncResp->res, "#Processor.v1_14_0.Processor", cpuId);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Cpu"});
     }
 };
 
