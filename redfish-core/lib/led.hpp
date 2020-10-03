@@ -255,4 +255,134 @@ inline void
         "xyz.openbmc_project.Led.Group", "Asserted",
         dbus::utility::DbusVariantType(ledState));
 }
+
+/**
+ * @brief Retrieves identify led group properties over D-Bus
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] objPath   Object path
+ *
+ * @return None.
+ */
+inline void
+    getLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get location indicator active";
+
+    crow::connections::systemBus->async_method_call(
+        [objPath, aResp](const boost::system::error_code ec,
+                         const std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error, ec: " << ec.value();
+                return;
+            }
+
+            const std::vector<std::string>* endpoints =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (endpoints == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "No endpoints, skipping get location "
+                                    "indicator active";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (const auto& endpoint : *endpoints)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [aResp](const boost::system::error_code ec,
+                            const std::variant<bool> asserted) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "async_method_call failed with ec "
+                                << ec.value();
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+
+                        const bool* ledOn = std::get_if<bool>(&asserted);
+                        if (!ledOn)
+                        {
+                            BMCWEB_LOG_ERROR << "Fail to get Asserted status ";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+
+                        aResp->res.jsonValue["LocationIndicatorActive"] =
+                            *ledOn;
+                    },
+                    "xyz.openbmc_project.LED.GroupManager", endpoint,
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Led.Group", "Asserted");
+                break;
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/identify_led_group",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Sets identify led group properties
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] objPath   Object path
+ * @param[in] locationIndicatorActive true or false
+ *
+ * @return None.
+ */
+inline void
+    setLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& objPath,
+                               bool locationIndicatorActive)
+{
+    BMCWEB_LOG_DEBUG << "Set location indicator active";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, locationIndicatorActive](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error, ec: " << ec.value();
+                return;
+            }
+
+            const std::vector<std::string>* endpoints =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (endpoints == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "No endpoints, skipping get location "
+                                    "indicator active";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (auto& endpoint : *endpoints)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [aResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "async_method_call failed with ec "
+                                << ec.value();
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.LED.GroupManager", endpoint,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Led.Group", "Asserted",
+                    std::variant<bool>(locationIndicatorActive));
+                break;
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/identify_led_group",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
 } // namespace redfish
