@@ -986,6 +986,7 @@ other.
 #### Processor
 
 - InstructionSet
+- LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
 - PartNumber
