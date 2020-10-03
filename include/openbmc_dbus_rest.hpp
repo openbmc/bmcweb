@@ -13,9 +13,9 @@
 // limitations under the License.
 
 #pragma once
-#include <app.h>
 #include <tinyxml2.h>
 
+#include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>

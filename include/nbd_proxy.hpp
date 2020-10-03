@@ -14,15 +14,14 @@
 // limitations under the License.
 */
 #pragma once
-#include <app.h>
-#include <websocket.h>
-
+#include <app.hpp>
 #include <boost/asio.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <privileges.hpp>
+#include <websocket.hpp>
 
 #include <variant>
 

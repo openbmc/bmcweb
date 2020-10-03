@@ -1,7 +1,5 @@
 #pragma once
-#include <app.h>
-#include <websocket.h>
-
+#include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
@@ -9,6 +7,7 @@
 #include <openbmc_dbus_rest.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
+#include <websocket.hpp>
 
 #include <variant>
 

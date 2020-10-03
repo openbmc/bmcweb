@@ -1,15 +1,14 @@
 #pragma once
 
-#include "common.h"
-#include "http_request.h"
-#include "http_response.h"
-#include "logging.h"
-#include "utility.h"
-#include "websocket.h"
-
+#include "common.hpp"
 #include "error_messages.hpp"
+#include "http_request.hpp"
+#include "http_response.hpp"
+#include "logging.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
+#include "utility.hpp"
+#include "websocket.hpp"
 
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>

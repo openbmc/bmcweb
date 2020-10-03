@@ -1,7 +1,7 @@
 #pragma once
 
-#include "logging.h"
-#include "utility.h"
+#include "logging.hpp"
+#include "utility.hpp"
 
 #include <openssl/rand.h>
 

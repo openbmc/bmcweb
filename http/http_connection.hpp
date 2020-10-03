@@ -1,13 +1,12 @@
 #pragma once
 #include "config.h"
 
-#include "http_response.h"
-#include "logging.h"
-#include "timer_queue.h"
-#include "utility.h"
-
 #include "authorization.hpp"
+#include "http_response.hpp"
 #include "http_utility.hpp"
+#include "logging.hpp"
+#include "timer_queue.hpp"
+#include "utility.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
