@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "led.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
@@ -684,13 +685,14 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 6>{
+        std::array<const char*, 7>{
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Decorator.Revision",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Decorator.LocationCode",
             "xyz.openbmc_project.Inventory.Item.Accelerator",
-            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
+            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+            "xyz.openbmc_project.Association.Definitions"});
 }
 
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -700,19 +702,25 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
+        bool assertInterface = false;
+        bool cpuInterface = false;
+        bool associationInterface = false;
+        bool revisionInterface = false;
+        bool locationCodeInterface = false;
         for (const auto& interface : interfaceList)
         {
             if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
-                getCpuAssetData(aResp, serviceName, objectPath);
+                assertInterface = true;
             }
             else if (interface == "xyz.openbmc_project.Inventory."
                                   "Decorator.Revision")
             {
-                getCpuRevisionData(aResp, serviceName, objectPath);
+                revisionInterface = true;
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
             {
+                cpuInterface = true;
                 getCpuDataByService(aResp, processorId, serviceName,
                                     objectPath);
             }
@@ -730,10 +738,137 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             else if (interface == "xyz.openbmc_project.Inventory."
                                   "Decorator.LocationCode")
             {
-                getCpuLocationCode(aResp, serviceName, objectPath);
+                locationCodeInterface = true;
+            }
+            else if (interface == "xyz.openbmc_project."
+                                  "Association.Definitions")
+            {
+                associationInterface = true;
+            }
+        }
+
+        if (cpuInterface && assertInterface)
+        {
+            getCpuAssetData(aResp, serviceName, objectPath);
+        }
+
+        if (cpuInterface && revisionInterface)
+        {
+            getCpuRevisionData(aResp, serviceName, objectPath);
+        }
+
+        if (cpuInterface && locationCodeInterface)
+        {
+            getCpuLocationCode(aResp, serviceName, objectPath);
+        }
+
+        if (cpuInterface && associationInterface)
+        {
+            // Find `endpoints` array by this interface and the
+            // <cpu object path>/identify_led_group object path,
+            // and then get the Asserted property value by this
+            // path.
+            getLocationIndicatorActive(aResp, objectPath);
+        }
+    }
+}
+
+inline void setProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const MapperServiceMap& serviceMap,
+                             const std::string& objectPath,
+                             std::optional<bool> value)
+{
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        for (const auto& interface : interfaceList)
+        {
+            if (interface == "xyz.openbmc_project."
+                             "Association.Definitions" &&
+                value)
+            {
+                // Find `endpoints` array by this interface and the <cpu object
+                // path>/identify_led_group object path, and then set the
+                // Asserted property value by this path and the current value.
+                setLocationIndicatorActive(aResp, objectPath, *value);
+                return;
             }
         }
     }
+}
+
+/**
+ * Find the D-Bus object representing the requested Processor, and call the
+ * setProcessorData with the results. If matching object is not found, add 404
+ * error to response and don't call the setProcessorData.
+ *
+ * @param[in,out]   resp         Async HTTP response.
+ * @param[in]       processorId  Redfish Processor Id.
+ * @param[in]       value        Value of the property
+ */
+inline void setProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
+                               const std::string& processorId,
+                               std::optional<bool> value)
+{
+    // GetSubTree on all interfaces which provide info about a Processor
+    crow::connections::systemBus->async_method_call(
+        [resp, processorId,
+         value](boost::system::error_code ec,
+                const MapperGetSubTreeResponse& subtree) mutable {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
+                messages::internalError(resp->res);
+                return;
+            }
+            for (const auto& [objectPath, serviceMap] : subtree)
+            {
+                // Ignore any objects which don't end with our desired cpu name
+                sdbusplus::message::object_path path(objectPath);
+                std::string name = path.filename();
+                if (name.empty() || name != processorId)
+                {
+                    continue;
+                }
+
+                bool found = false;
+                // Filter out objects that don't have the CPU-specific
+                // interfaces to make sure we can return 404 on non-CPUs (e.g.
+                // /redfish/../Processors/dimm0)
+                for (const auto& [serviceName, interfaceList] : serviceMap)
+                {
+                    if (std::find_first_of(
+                            interfaceList.begin(), interfaceList.end(),
+                            processorInterfaces.begin(),
+                            processorInterfaces.end()) != interfaceList.end())
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    continue;
+                }
+
+                // Process the first object which does match our cpu name and
+                // required interfaces, and potentially ignore any other
+                // matching objects. Assume all interfaces we want to process
+                // must be on the same object path.
+                setProcessorData(resp, serviceMap, objectPath, value);
+                return;
+            }
+            messages::resourceNotFound(
+                resp->res, "#Processor.v1_11_0.Processor", processorId);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 3>{
+            "xyz.openbmc_project.Inventory.Item.Cpu",
+            "xyz.openbmc_project.Inventory.Item.Accelerator",
+            "xyz.openbmc_project.Association.Definitions"});
 }
 
 /**
@@ -1086,6 +1221,29 @@ class Processor : public Node
             "/redfish/v1/Systems/system/Processors/" + processorId;
 
         getProcessorObject(asyncResp, processorId, getProcessorData);
+    }
+
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Processor doPatch param size is not equal to 1";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::optional<bool> locationIndicatorActive;
+        if (!json_util::readJson(req, asyncResp->res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        const std::string& processorId = params[0];
+        setProcessorObject(asyncResp, processorId, locationIndicatorActive);
     }
 };
 
