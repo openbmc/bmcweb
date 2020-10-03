@@ -25,6 +25,7 @@
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <privileges.hpp>
+#include <websocket.hpp>
 
 #include <variant>
 

@@ -15,10 +15,9 @@
 */
 #pragma once
 
-#include <http_request.h>
-#include <http_response.h>
-
 #include <error_messages.hpp>
+#include <http_request.hpp>
+#include <http_response.hpp>
 #include <nlohmann/json.hpp>
 
 #include <bitset>

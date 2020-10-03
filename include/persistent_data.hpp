@@ -1,13 +1,12 @@
 #pragma once
 
-#include <app.h>
-#include <http_request.h>
-#include <http_response.h>
-
+#include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <http_request.hpp>
+#include <http_response.hpp>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <sessions.hpp>

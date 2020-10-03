@@ -2,13 +2,12 @@
 
 #include "webroutes.hpp"
 
-#include <app.h>
-#include <common.h>
-#include <http_request.h>
-#include <http_response.h>
-
+#include <app.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
+#include <common.hpp>
+#include <http_request.hpp>
+#include <http_response.hpp>
 #include <http_utility.hpp>
 #include <pam_authenticate.hpp>
 
