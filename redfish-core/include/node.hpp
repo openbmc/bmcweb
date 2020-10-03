@@ -15,9 +15,8 @@
 */
 #pragma once
 
-#include "http_request.h"
-#include "http_response.h"
-
+#include "http_request.hpp"
+#include "http_response.hpp"
 #include "privileges.hpp"
 
 #include <error_messages.hpp>

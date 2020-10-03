@@ -15,10 +15,9 @@
 */
 #pragma once
 
-#include <logging.h>
-
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
+#include <logging.hpp>
 
 #include <array>
 #include <bitset>

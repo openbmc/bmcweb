@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utility.h"
+#include "utility.hpp"
 
 #include <boost/beast/http/verb.hpp>
 
