@@ -1,7 +1,6 @@
 #pragma once
-#include "http_request.h"
-#include "logging.h"
-
+#include "http_request.hpp"
+#include "logging.hpp"
 #include "nlohmann/json.hpp"
 
 #include <boost/beast/http/message.hpp>
