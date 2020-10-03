@@ -1,12 +1,11 @@
 #pragma once
 
-#include "http_request.h"
-#include "http_server.h"
-#include "logging.h"
-#include "routing.h"
-#include "utility.h"
-
+#include "http_request.hpp"
+#include "http_server.hpp"
+#include "logging.hpp"
 #include "privileges.hpp"
+#include "routing.hpp"
+#include "utility.hpp"
 
 #include <chrono>
 #include <cstdint>

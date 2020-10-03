@@ -1,5 +1,4 @@
-#include <app.h>
-
+#include <app.hpp>
 #include <security_headers_middleware.hpp>
 
 #include <gmock/gmock.h>

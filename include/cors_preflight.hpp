@@ -1,8 +1,8 @@
 #pragma once
 
-#include <app.h>
-#include <http_request.h>
-#include <http_response.h>
+#include <app.hpp>
+#include <http_request.hpp>
+#include <http_response.hpp>
 
 namespace cors_preflight
 {

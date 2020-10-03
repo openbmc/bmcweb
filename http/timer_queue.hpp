@@ -1,6 +1,6 @@
 #pragma once
 
-#include "logging.h"
+#include "logging.hpp"
 
 #include <boost/circular_buffer.hpp>
 #include <boost/circular_buffer/space_optimized.hpp>
