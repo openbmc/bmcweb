@@ -152,4 +152,170 @@ inline void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Led.Group", "Asserted",
         std::variant<bool>(ledBlinkng));
 }
+
+/**
+ * @brief Retrieves identify led group properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] service   Object service
+ * @param[in] objPath   Object path
+ *
+ * @return None.
+ */
+inline void getLocationIndicatorActive(std::shared_ptr<AsyncResp> aResp,
+                                       const std::string& service,
+                                       const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get location indicator active";
+
+    crow::connections::systemBus->async_method_call(
+        [objPath, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const std::variant<
+                std::vector<std::tuple<std::string, std::string, std::string>>>
+                associationList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::vector<std::tuple<std::string, std::string,
+                                         std::string>>* associations =
+                std::get_if<std::vector<
+                    std::tuple<std::string, std::string, std::string>>>(
+                    &associationList);
+            if ((associations == nullptr) || (associations->size() == 0))
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            std::string ledTpye = "identify_led_group";
+            std::string groupPath{};
+            for (auto& item : *associations)
+            {
+                if (std::get<0>(item).compare(ledTpye) == 0)
+                {
+                    groupPath = std::get<2>(item);
+                    break;
+                }
+            }
+
+            if (groupPath.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Get group path error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                          const std::variant<bool> asserted) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    const bool* ledOn = std::get_if<bool>(&asserted);
+                    if (!ledOn)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    if (*ledOn)
+                    {
+                        aResp->res.jsonValue["LocationIndicatorActive"] = true;
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["LocationIndicatorActive"] = false;
+                    }
+                },
+                "xyz.openbmc_project.LED.GroupManager", groupPath.c_str(),
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Led.Group", "Asserted");
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association.Definitions", "Associations");
+}
+
+/**
+ * @brief Sets identify led group properties
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] service   Object service
+ * @param[in] objPath   Object path
+ * @param[in] locationIndicatorActive true or fasle
+ *
+ * @return None.
+ */
+inline void setLocationIndicatorActive(std::shared_ptr<AsyncResp> aResp,
+                                       const std::string& service,
+                                       const std::string& objPath,
+                                       bool locationIndicatorActive)
+{
+    BMCWEB_LOG_DEBUG << "Set location indicator active";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}, locationIndicatorActive](
+            const boost::system::error_code ec,
+            const std::variant<
+                std::vector<std::tuple<std::string, std::string, std::string>>>
+                associationList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::vector<std::tuple<std::string, std::string,
+                                         std::string>>* associations =
+                std::get_if<std::vector<
+                    std::tuple<std::string, std::string, std::string>>>(
+                    &associationList);
+            if ((associations == nullptr) || (associations->size() == 0))
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            std::string ledTpye = "identify_led_group";
+            std::string groupPath{};
+            for (auto& item : *associations)
+            {
+                if (std::get<0>(item).compare(ledTpye) == 0)
+                {
+                    groupPath = std::get<2>(item);
+                    break;
+                }
+            }
+
+            if (groupPath.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Get group path error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [aResp{std::move(aResp)}](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.LED.GroupManager", groupPath.c_str(),
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                std::variant<bool>(locationIndicatorActive));
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association.Definitions", "Associations");
+}
 } // namespace redfish
