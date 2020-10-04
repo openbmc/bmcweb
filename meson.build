@@ -370,7 +370,7 @@ executable('bmcweb',srcfiles_bmcweb,
             include_directories : incdir,
             dependencies: [
                               boost, boost_url, pam, atomic, sdbusplus, openssl,
-                              tinyxml, systemd, zlib
+                              tinyxml, systemd, zlib, nlohmann_json
                           ],
             install: true,
             install_dir:bindir)
@@ -382,7 +382,7 @@ if(get_option('tests').enabled())
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock
+                                boost, boost_url, gtest,openssl,gmock,nlohmann_json
                               ]))
   endforeach
 endif
