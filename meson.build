@@ -195,7 +195,7 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
       endif
   endif
 
-    if( get_option('bmcweb-logging').enabled() and \
+    if( get_option('bmcweb-logging').enabled() or \
         get_option('buildtype').startswith('debug'))
      add_project_arguments([
        '-DBMCWEB_ENABLE_LOGGING',
