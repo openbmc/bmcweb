@@ -321,6 +321,24 @@
     },
     {
       "key": {
+        "uuid": "120f2d93_1145eefe",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T21:43:36Z",
+      "side": 1,
+      "message": "\u003e https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#67\n\u003e \n\u003e In the awk implementation, the port is shutdown as it is a separate service.\n\nSo there\u0027s an admin API facing administration command for \"shutdown this service\"?  If so, that\u0027s good to know.  That just moves the compile-time http_connection option to runtime.  Not a big deal.  I can look into this if this is already supported today, although I was a big fan of the \"just decide at compile time\" approach.\n\n\u003e \n\u003e Re the later, yes, the socket can refer to the service or the service can refer to multiple sockets.\n\u003e \n\u003e I\u0027m assuming you meant the implicit link is same Description not same name (since they document which path takes precedence for same unit file names in different directories).\n\nI\u0027m saying when names are not exact matches, but starts with.  I intend to look into this some more, and come up with a better solution that doesn\u0027t rely on the implicit linking.",
+      "parentUuid": "f6c511bd_af596b75",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -604,6 +622,24 @@
     },
     {
       "key": {
+        "uuid": "18ff1f0c_7aea0542",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T21:43:36Z",
+      "side": 1,
+      "message": "Seems reasonable.  Will fix.",
+      "parentUuid": "3b3a15bf_a4495ce4",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "130a8e19_20fe4781",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -687,6 +723,24 @@
       "side": 1,
       "message": "So is the code in this commit redirecting clients to use https on port 80 ?\n\nIf not how does it decide which port to direct clients toward?",
       "parentUuid": "48323a6f_9cc02155",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6b6bee6_855ae392",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T21:43:36Z",
+      "side": 1,
+      "message": "\u003e So is the code in this commit redirecting clients to use https on port 80 ?\n\nNo.  In the port 80 case, the location header doesn\u0027t include the port, so changing the protocol is sufficient to redirect to 443.  If the client is using a non-standard port, yes, it would redirect them to use HTTPS on that non-standard port, which is I think the best we can do there (and is explicitly not functional on a lot of BMC implementations I know of).\n\n\u003e \n\u003e If not how does it decide which port to direct clients toward?\n\nIt doesn\u0027t, it either uses the browsers/clients preference (which forwards to 443 correctly) or, if the port is explicit, forwards to the same port, just using the SSL protocol.",
+      "parentUuid": "ad89dfd1_28b44a47",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
