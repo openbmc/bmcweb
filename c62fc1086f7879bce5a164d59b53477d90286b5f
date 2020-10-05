@@ -303,6 +303,24 @@
     },
     {
       "key": {
+        "uuid": "f6c511bd_af596b75",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T20:57:46Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#67\n\nIn the awk implementation, the port is shutdown as it is a separate service.\n\nRe the later, yes, the socket can refer to the service or the service can refer to multiple sockets.\n\nI\u0027m assuming you meant the implicit link is same Description not same name (since they document which path takes precedence for same unit file names in different directories).",
+      "parentUuid": "833d92e2_f48e5b90",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -568,6 +586,24 @@
     },
     {
       "key": {
+        "uuid": "3b3a15bf_a4495ce4",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T20:57:46Z",
+      "side": 1,
+      "message": "The only thing that comes to mind is if the assertion is wrong to immediately cause a failure response.  The current code is conditionally calling a handler then proceeding with some unclear path.",
+      "parentUuid": "0e35249e_8c8d5415",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "130a8e19_20fe4781",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -633,6 +669,24 @@
       "side": 1,
       "message": "\u003e That sounds like its what the client sends not what the server requires based on the connecting port.\n\nPart of the point of this patch is that the server doesn\u0027t \"require\" either.  If you ask for non-SSL, it politely (ie 307 redirect) points you to the SSL implementation.  If you ask for SSL, it just works.  \"requiring\" a particular port match a particular protocol would cause the example in the commit message, as well as non-standard ports to no longer forward correctly.  I\u0027ve personally seen this behavior on commercial BMCs non-standard ports, and it\u0027s very annoying when you type in http://\u003cmybmc\u003e:4000 and the redirects fail to work.",
       "parentUuid": "da69c8c9_36457856",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad89dfd1_28b44a47",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T20:57:46Z",
+      "side": 1,
+      "message": "So is the code in this commit redirecting clients to use https on port 80 ?\n\nIf not how does it decide which port to direct clients toward?",
+      "parentUuid": "48323a6f_9cc02155",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
