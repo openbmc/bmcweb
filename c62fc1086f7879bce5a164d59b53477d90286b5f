@@ -231,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "5a1fabca_27f6c1d6",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T16:21:18Z",
+      "side": 1,
+      "message": "So how does the admin enforce the redirect service be disabled?",
+      "parentUuid": "c768f906_c753eadf",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -260,6 +278,24 @@
       "side": 1,
       "message": "I\u0027m not sure how you determined this labmda was a void function.  Please look again, it it returns bool in all cases (and would cause a warning/compile error if it didn\u0027t).",
       "parentUuid": "e7523eea_d2a9433d",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3949ad2c_2fb80801",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T16:21:18Z",
+      "side": 1,
+      "message": "So this is one of those advanced c++ things. I was looking at line 109.\n\nBut I don\u0027t see any returns that are not true either.  they are all just debug log hooks?",
+      "parentUuid": "0d49f54a_689fc038",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
