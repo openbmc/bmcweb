@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82d14504_9312cab1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 43
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "This has not been true since patch 15 when I pointed out HTTPS pinning is required to not be sent on an insecure connection.\n\nPlease add the exception clause to this statement of the rule.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef3e462_f5bc3a1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 43
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "Both GET and HEAD are now accepted.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9931f86d_61390bf6",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "Does this need to interact with BMCWEB_INSECURE_DISABLE_SSL ?",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14b02a73_77945b7c",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "This name should be distinct so the admin can tell what service is being referred to in the journal.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd922313_a98ee638",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "I don\u0027t see a separate service file for a new instance, nor do I see a service\u003d line linking this to the base webserver service.\n\nalso:\nhttp://0pointer.de/public/systemd-man/sd_listen_fds.html\n\nIf a daemon receives more than one file descriptor, they will be passed in the same order as configured in the systemd socket unit file\n...\nIf multiple socket units activate the same service the order of the file descriptors passed to its main process is undefined.\n\nWhat if we wanted this redirect service on a non-default port?",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7523eea_d2a9433d",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "I don\u0027t know much C++, but I see a lot of return true; from a void function.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "893c123a_389e0731",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "What if the user chose BMCWEB_INSECURE_DISABLE_SSL for bringup testing?",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e19a2022_294f9b32",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "This appears to be existing behavior, but we should handle all HTTP/1.x version requests see https://tools.ietf.org/html/rfc7230#section-2.6.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20bb9ce7_98c78874",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "Agree with placing these where we detect the result.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77f0b0cc_159b2481",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "so we checked isSecure in this function above but also check the sslStream is set here?",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "130a8e19_20fe4781",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "So this is the second place we can set isSecure (the first being the afterDetectSsl hook on line 328.\n\nis this a concern?  Can we negotiate a SSL session in the middle of a request?\n\nThe connection type is determined by the client initiating the connection?",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8884d2_e07ea4f0",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T02:02:13Z",
+      "side": 1,
+      "message": "Ok this is the systemd multi-listeing server model.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
