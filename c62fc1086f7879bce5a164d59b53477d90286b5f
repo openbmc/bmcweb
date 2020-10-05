@@ -249,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "e6b6d346_085eeec9",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T16:41:04Z",
+      "side": 1,
+      "message": "\u003e So how does the admin enforce the redirect service be disabled?\n\nBy setting the https-redirect (now in meson) option to false, which avoids installing this file, and therefore doesn\u0027t open a socket on port 80.",
+      "parentUuid": "5a1fabca_27f6c1d6",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -296,6 +314,24 @@
       "side": 1,
       "message": "So this is one of those advanced c++ things. I was looking at line 109.\n\nBut I don\u0027t see any returns that are not true either.  they are all just debug log hooks?",
       "parentUuid": "0d49f54a_689fc038",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22b8c4b1_60f653e8",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T16:41:04Z",
+      "side": 1,
+      "message": "\u003e So this is one of those advanced c++ things. I was looking at line 109.\n\u003e \n\nlambda functions are 9 years old.  Do we call them \"advanced\" if they\u0027re in many examples in the std, I\u0027m not sure, but bmcweb uses them in a lot of cases.  Now that we\u0027re on c++14, we could annotate the return type to make it more clear (ie \n\n[this](bool preverified, boost::asio::ssl::verify_context\u0026 ctx)-\u003ebool\n\nBut thusfar, we haven\u0027t been enforcing this in bmcweb/openbmc, as it is a new feature of the standard.\n\nIt should be noted, I personally dislike this lambda, given it\u0027s giant, and obfuscates intent, but I didn\u0027t write it.  Cleaning it up is outside the scope of this patch (but rest assured, will be cleaned up in a future patch).\n\n\n\u003e But I don\u0027t see any returns that are not true either.  they are all just debug log hooks?\n\nThe return value determines whether or not we should fail the SSL handshake because of a failed client cert.  Because OpenBMC supports other, non Mutual TLS auth mechanisms, we can\u0027t completely close the connection if mtls auth fails.\n\nInterestingly, you\u0027ve found a \"bug\" IMO.  See discussion here:\nhttps://lore.kernel.org/openbmc/CACWQX80QSyf95+ibN24nwiAdNLCtdWOQdsgqaHvVbdEG9b8jbA@mail.gmail.com/\n\nThe fix mention has yet to be submitted to the tree by anyone (it\u0027s on my list).\n\nWith that said, this too is outside the scope of this patchset, this function wasn\u0027t changed, simply moved scopes (hence the changes in indent changes that you\u0027re seeing).",
+      "parentUuid": "3949ad2c_2fb80801",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
