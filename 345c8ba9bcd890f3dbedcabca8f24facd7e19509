@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3610add3_fbec001c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-10-05T00:47:37Z",
+      "side": 1,
+      "message": "Right.\nNow, this is an example, I will change it if there is no problem elsewhere.",
+      "parentUuid": "780a4ac5_bafa8eda",
+      "range": {
+        "startLine": 195,
+        "startChar": 35,
+        "endLine": 195,
+        "endChar": 50
+      },
+      "revId": "345c8ba9bcd890f3dbedcabca8f24facd7e19509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f0010f3_d62aa410",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "90eef79e_5952742c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-10-05T00:47:37Z",
+      "side": 1,
+      "message": "as above.",
+      "parentUuid": "1f0010f3_d62aa410",
+      "range": {
+        "startLine": 287,
+        "startChar": 35,
+        "endLine": 287,
+        "endChar": 50
+      },
+      "revId": "345c8ba9bcd890f3dbedcabca8f24facd7e19509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9f4592f_7b17311f",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-10-03T14:46:33Z",
       "side": 1,
       "message": "hmm. where is it setting the Asserted to true/false based on the input ?",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 18
+      },
+      "revId": "345c8ba9bcd890f3dbedcabca8f24facd7e19509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a91d3ac_47dea746",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-10-05T00:47:37Z",
+      "side": 1,
+      "message": "use the following command:\nEg: updated the LocationIndicatorActive property of the cpu0 to true.\n```\ncurl -k -H \"X-Auth-Token: $token\" -X PATCH -d \u0027{\"LocationIndicatorActive\":true}\u0027 https://${bmc}/redfish/v1/Systems/system/Processors/cpu0\n```",
+      "parentUuid": "b9f4592f_7b17311f",
       "range": {
         "startLine": 309,
         "startChar": 0,
