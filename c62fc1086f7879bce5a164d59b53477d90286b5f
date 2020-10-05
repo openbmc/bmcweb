@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e2ebb55c_816259e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 43
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "82d14504_9312cab1",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ef3e462_f5bc3a1d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 43
@@ -30,6 +48,24 @@
       "writtenOn": "2020-10-05T02:02:13Z",
       "side": 1,
       "message": "Both GET and HEAD are now accepted.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328e39ab_fdc3e6bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 43
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "6ef3e462_f5bc3a1d",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7e1890b6_4b40e8c5",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "BMCWEB_INSECURE_DISABLE_SSL Has been functionally broken for about 9 months now, and pulls in ssl regardless of how it\u0027s set.  I plan on fixing it (although given the new dependence on OpenSSL for non-SSL things, I\u0027m not sure how yet) but this patchset makes it no worse (I think).",
+      "parentUuid": "9931f86d_61390bf6",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14b02a73_77945b7c",
         "filename": "bmcweb_redirect.socket",
         "patchSetId": 43
@@ -64,6 +118,24 @@
       "writtenOn": "2020-10-05T02:02:13Z",
       "side": 1,
       "message": "This name should be distinct so the admin can tell what service is being referred to in the journal.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "495a69c4_106541ee",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "You mean the description?  The name is determined by the filename, which is distinct.\n\nWill fix the description, although functionally the two sockets are identical, hence why I shared the commit descritpion initially.",
+      "parentUuid": "14b02a73_77945b7c",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "c768f906_c753eadf",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t see a separate service file for a new instance, nor do I see a service\u003d line linking this to the base webserver service.\n\nThere isn\u0027t one.  Two socket files are handled by a single service.\n\n\u003e \n\u003e also:\n\u003e http://0pointer.de/public/systemd-man/sd_listen_fds.html\n\u003e \n\u003e If a daemon receives more than one file descriptor, they will be passed in the same order as configured in the systemd socket unit file\n\u003e ...\n\u003e If multiple socket units activate the same service the order of the file descriptors passed to its main process is undefined.\n\nIf this implementation relied on the order that the descriptors were passed, that would be a problem.  As it stands, it does not, and I don\u0027t believe that modifications in order would change anything in regards to this service.\n\n\u003e \n\u003e What if we wanted this redirect service on a non-default port?\n\nIt would work just fine.  The two sockets are functionally identical, and can be opened on any port as needed.  In addition, one could move the SSL port to a non-standard port, and a redirect would continue to work on that port in all cases which is generally not the case with redirects.",
+      "parentUuid": "cd922313_a98ee638",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -98,6 +188,24 @@
       "writtenOn": "2020-10-05T02:02:13Z",
       "side": 1,
       "message": "I don\u0027t know much C++, but I see a lot of return true; from a void function.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d49f54a_689fc038",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure how you determined this labmda was a void function.  Please look again, it it returns bool in all cases (and would cause a warning/compile error if it didn\u0027t).",
+      "parentUuid": "e7523eea_d2a9433d",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "677d3e82_ca35064b",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "See previous comment;  BMCWEB_INSECURE_DISABLE_SSL has already been broken prior to this patch (unless someone fixed it that I haven\u0027t seen).  This makes it no worse, and at least makes the feature operate as designed in the golden path.",
+      "parentUuid": "893c123a_389e0731",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e19a2022_294f9b32",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -132,6 +258,24 @@
       "writtenOn": "2020-10-05T02:02:13Z",
       "side": 1,
       "message": "This appears to be existing behavior, but we should handle all HTTP/1.x version requests see https://tools.ietf.org/html/rfc7230#section-2.6.",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8350e8b8_246a8081",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "Feel free to go ahead and implement support for 2.0 and 3.0, if that\u0027s what you\u0027re talking about, but those are huge changes to the protocol, and will require a large rearchitecture of bmcweb.  If you\u0027d like to take that on, I\u0027d be all for it.\n\nIf you\u0027re talking about 1.0, I believe this already does, hence this check for version before requiring a host header.\n\nWas there another protocol version you were referring to?  1.0, 1.1, 2.0 and 3.0 are the only http spec variations I\u0027m aware of.",
+      "parentUuid": "e19a2022_294f9b32",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "7642493f_3865ccb2",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure what the question is asking.  a nullptr check here is required to follow secure coding standards.",
+      "parentUuid": "77f0b0cc_159b2481",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "130a8e19_20fe4781",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -183,6 +345,47 @@
       "writtenOn": "2020-10-05T02:02:13Z",
       "side": 1,
       "message": "So this is the second place we can set isSecure (the first being the afterDetectSsl hook on line 328.\n\nis this a concern?  Can we negotiate a SSL session in the middle of a request?\n\nThe connection type is determined by the client initiating the connection?",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd18692f_f768ccd3",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "\u003e So this is the second place we can set isSecure (the first being the afterDetectSsl hook on line 328.\n\u003e \n\u003e is this a concern?  Can we negotiate a SSL session in the middle of a request?\n\nNo, but we clear the request on line 764.  This is transplanting the connection-specific data back into request for the remaining connection handlers.\n\n\u003e \n\u003e The connection type is determined by the client initiating the connection?\n\nThe connection type is determined by the underlying socket;  If it sends an SSL handshake, it\u0027s SSL, if it sends an HTTP request raw, it\u0027s non-ssl.",
+      "parentUuid": "130a8e19_20fe4781",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce6041a8_8b7c332d",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T05:37:01Z",
+      "side": 1,
+      "message": "This is wrong, will fix.",
+      "range": {
+        "startLine": 878,
+        "startChar": 3,
+        "endLine": 878,
+        "endChar": 20
+      },
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
