@@ -285,6 +285,24 @@
     },
     {
       "key": {
+        "uuid": "833d92e2_f48e5b90",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T20:20:34Z",
+      "side": 1,
+      "message": "\u003e The supplier can compile out the code, but the admin does not build a signed image.\n\u003e \n\u003e The admin can adjust which services ports are enabled, but it sounds like an arbitrary connection can still access this code via the url http://bmc.example:443/ am I missing something?\n\nIf bmcweb-enable-redirect/BMCWEB_ENABLE_HTTPS_REDIRECT is disabled, you can\u0027t access the code. Notice how the logic here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35265/45/http/http_connection.h#361 prevents the detection routine from even being run if HTTPS redirect support is disabled?  Are you looking for runtime support for adjusting that rather than compile time?  Does runtime modification of redirection work today in the awk stuff?  If so, I wasn\u0027t aware of it.\n\n\u003e \n\u003e Also,\n\u003e | There isn\u0027t one.  Two socket files are handled by the same service.\n\u003e Doesn\u0027t that require the socket files to refer to the service or the service refer to the socket files?   I am not seeing where that link is being established.\n\nYou get an implicit linkage if you use the same name.  With that said, I might be relying on undefined behavior here.  I\u0027ll take a look and see if there\u0027s a way to make this more explicit.",
+      "parentUuid": "a03d41cc_2882c4d3",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -444,6 +462,24 @@
     },
     {
       "key": {
+        "uuid": "8884326b_0b33cd37",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T20:20:34Z",
+      "side": 1,
+      "message": "It\u0027s unlikely that there will be a 1.2, considering 2.0 and 3.0 have been standardized already, neither of which we support, and both of which require upstream of this file changes (2.0 requires an ALPN header in the SSL request, and 3.0 requires UDP sockets) so it\u0027s unlikely we\u0027d have issues.\n\nWith that said, sure, we could adjust this check to a \u003e\u003d if we felt so inclined.  Probably not something for this patch.",
+      "parentUuid": "0bb2c05f_01285ee1",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20bb9ce7_98c78874",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -514,6 +550,24 @@
     },
     {
       "key": {
+        "uuid": "0e35249e_8c8d5415",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T20:20:34Z",
+      "side": 1,
+      "message": "That\u0027s a fair point.  Without removing the necessary nullptr check here, what change would you suggest to make this more clear?",
+      "parentUuid": "30dc4122_55d3256a",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "130a8e19_20fe4781",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -561,6 +615,24 @@
       "side": 1,
       "message": "That sounds like its what the client sends not what the server requires based on the connecting port.",
       "parentUuid": "cd18692f_f768ccd3",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48323a6f_9cc02155",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-05T20:20:34Z",
+      "side": 1,
+      "message": "\u003e That sounds like its what the client sends not what the server requires based on the connecting port.\n\nPart of the point of this patch is that the server doesn\u0027t \"require\" either.  If you ask for non-SSL, it politely (ie 307 redirect) points you to the SSL implementation.  If you ask for SSL, it just works.  \"requiring\" a particular port match a particular protocol would cause the example in the commit message, as well as non-standard ports to no longer forward correctly.  I\u0027ve personally seen this behavior on commercial BMCs non-standard ports, and it\u0027s very annoying when you type in http://\u003cmybmc\u003e:4000 and the redirects fail to work.",
+      "parentUuid": "da69c8c9_36457856",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
