@@ -267,6 +267,24 @@
     },
     {
       "key": {
+        "uuid": "a03d41cc_2882c4d3",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T18:26:15Z",
+      "side": 1,
+      "message": "The supplier can compile out the code, but the admin does not build a signed image.\n\nThe admin can adjust which services ports are enabled, but it sounds like an arbitrary connection can still access this code via the url http://bmc.example:443/ am I missing something?\n\nAlso,\n| There isn\u0027t one.  Two socket files are handled by the same service.\nDoesn\u0027t that require the socket files to refer to the service or the service refer to the socket files?   I am not seeing where that link is being established.",
+      "parentUuid": "e6b6d346_085eeec9",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -408,6 +426,24 @@
     },
     {
       "key": {
+        "uuid": "0bb2c05f_01285ee1",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T18:26:15Z",
+      "side": 1,
+      "message": "I was referring to a client claiming some HTTP/1.x for x !\u003d 1.\n\nAs you point out this is only checking that the host header exists, and is relaxing the requrment for 1.0, so is correct from that point.  \n\nShould we assume that 1.2 would keep the requirement in 1.1?  We would still respond with 1.1 compliance.  A minor point.",
+      "parentUuid": "8350e8b8_246a8081",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20bb9ce7_98c78874",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -460,6 +496,24 @@
     },
     {
       "key": {
+        "uuid": "30dc4122_55d3256a",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T18:26:15Z",
+      "side": 1,
+      "message": "I was pointing out multiple ways of checking for a condition which would seem to be a place where things get out of sync leading to errors.",
+      "parentUuid": "7642493f_3865ccb2",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "130a8e19_20fe4781",
         "filename": "http/http_connection.h",
         "patchSetId": 43
@@ -489,6 +543,24 @@
       "side": 1,
       "message": "\u003e So this is the second place we can set isSecure (the first being the afterDetectSsl hook on line 328.\n\u003e \n\u003e is this a concern?  Can we negotiate a SSL session in the middle of a request?\n\nNo, but we clear the request on line 764.  This is transplanting the connection-specific data back into request for the remaining connection handlers.\n\n\u003e \n\u003e The connection type is determined by the client initiating the connection?\n\nThe connection type is determined by the underlying socket;  If it sends an SSL handshake, it\u0027s SSL, if it sends an HTTP request raw, it\u0027s non-ssl.",
       "parentUuid": "130a8e19_20fe4781",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da69c8c9_36457856",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-10-05T18:26:15Z",
+      "side": 1,
+      "message": "That sounds like its what the client sends not what the server requires based on the connecting port.",
+      "parentUuid": "cd18692f_f768ccd3",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
