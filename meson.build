@@ -289,7 +289,7 @@ else
     )
 endif
 
-boost = dependency('boost',version : '1.73.0', required : false)
+boost = dependency('boost',version : '>=1.73.0', required : false)
 if not boost.found()
   subproject('boost', required: false)
   boost_inc = include_directories('subprojects/boost_1_73_0/', is_system:true)
