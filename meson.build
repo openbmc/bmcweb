@@ -289,7 +289,7 @@ else
     )
 endif
 
-boost = dependency('boost',version : '1.73.0', required : false)
+boost = dependency('boost',version : '>=1.73.0', required : false)
 if not boost.found()
   subproject('boost', required: false)
   boost_inc = include_directories('subprojects/boost_1_73_0/', is_system:true)
@@ -316,7 +316,7 @@ endif
 
 # Source files
 
-srcfiles_bmcweb = ['src/webserver_main.cpp','redfish-core/src/error_messages.cpp',
+srcfiles_bmcweb = ['src/webserver_main.cpp',
                    'redfish-core/src/utils/json_utils.cpp']
 
 srcfiles_unittest = ['redfish-core/ut/privileges_test.cpp',
