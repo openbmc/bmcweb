@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "251fdf79_b8e8907e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "Not big enough.  I\u0027d say lets start with 8k, and adjust as needed.",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98803822_7576a909",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "This is not a sufficient initialization of the SSL context.  Notably, supported cipher suites seems missing.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 76
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e38ee6_9d8cd3a8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "Not part of this commit, but we should use boost::circular_buffer here.",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01953d70_4074e927",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "This needs a timer on it in case the resolution fails to happen quickly.",
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24334030_c340074c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "Have you tried using the overload of this function that takes protocol as well to pin it on TCP/IPV4?",
+      "range": {
+        "startLine": 95,
+        "startChar": 31,
+        "endLine": 95,
+        "endChar": 32
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a3ad83_17d46a13",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "use the std::string_view overloads for this, not the c_str() overloads.",
+      "range": {
+        "startLine": 95,
+        "startChar": 31,
+        "endLine": 95,
+        "endChar": 43
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4e48330_8ef3f016",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "Why would we be ok with a partial message error?",
+      "range": {
+        "startLine": 194,
+        "startChar": 28,
+        "endLine": 194,
+        "endChar": 70
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f2216d_510ae1af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "Don\u0027t use this macro for unused variables.  Look at the conventions in other places.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 51
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "038ab827_f9ade7b2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "I believe redfish requires that endpoints be idempotent, so this isn\u0027t quite true.  Can you verify and add the relevant section of the spec here.",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 79
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88268d8c_cb0cee37",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "If this is expected this needs to be LOG_INFO, not LOG_ERROR.",
+      "range": {
+        "startLine": 260,
+        "startChar": 24,
+        "endLine": 260,
+        "endChar": 40
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13291df3_d3c2947f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-06T17:23:31Z",
+      "side": 1,
+      "message": "Does this need to be conn.socket().shutdown?  Can this be deduplicated with the below?",
+      "range": {
+        "startLine": 273,
+        "startChar": 27,
+        "endLine": 273,
+        "endChar": 32
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
