@@ -265,7 +265,8 @@ class NetworkProtocol : public Node
                 for (auto& unit : r)
                 {
                     /* Only traverse through <xyz>.socket units */
-                    std::string unitName = std::get<NET_PROTO_UNIT_NAME>(unit);
+                    const std::string& unitName =
+                        std::get<NET_PROTO_UNIT_NAME>(unit);
                     if (!boost::ends_with(unitName, ".socket"))
                     {
                         continue;
@@ -280,9 +281,9 @@ class NetworkProtocol : public Node
                             continue;
                         }
                         const char* rfServiceKey = kv.first;
-                        std::string socketPath =
+                        const std::string& socketPath =
                             std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
-                        std::string unitState =
+                        const std::string& unitState =
                             std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
 
                         asyncResp->res
