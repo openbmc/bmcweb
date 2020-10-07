@@ -14,4 +14,4 @@ docker build -t bmcweb .
 
 mkdir -p build
 
-docker run -v $PWD:/app -it bmcweb cp -r /build/bmcweb /build/webtest /app/build
+docker run -v "$PWD":/app -it bmcweb cp -r /build/bmcweb /build/webtest /app/build
