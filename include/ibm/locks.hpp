@@ -317,20 +317,16 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
         BMCWEB_LOG_DEBUG << "Not a Valid request id";
         return std::make_pair(false, status);
     }
-    else
+    // Validation passed, check if all the locks are owned by the
+    // requesting HMC
+    auto status = isItMyLock(p, ids);
+    if (status.first)
     {
-        // Validation passed, check if all the locks are owned by the
-        // requesting HMC
-        auto status = isItMyLock(p, ids);
-        if (status.first)
-        {
-            // The current hmc owns all the locks, so we can release
-            // them
-            releaseLock(p);
-        }
-        return std::make_pair(true, status);
+        // The current hmc owns all the locks, so we can release
+        // them
+        releaseLock(p);
     }
-    return std::make_pair(false, status);
+    return std::make_pair(true, status);
 }
 
 inline RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
@@ -358,19 +354,14 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
         BMCWEB_LOG_DEBUG << "There is a conflict within itself";
         return std::make_pair(true, std::make_pair(status, 1));
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG << "The request is not conflicting within itself";
+    BMCWEB_LOG_DEBUG << "The request is not conflicting within itself";
 
-        // Need to check for conflict with the locktable entries.
+    // Need to check for conflict with the locktable entries.
 
-        auto conflict = isConflictWithTable(multiRequest);
+    auto conflict = isConflictWithTable(multiRequest);
 
-        BMCWEB_LOG_DEBUG << "Done with checking conflict with the locktable";
-        return std::make_pair(false, conflict);
-    }
-
-    return std::make_pair(true, std::make_pair(true, 1));
+    BMCWEB_LOG_DEBUG << "Done with checking conflict with the locktable";
+    return std::make_pair(false, conflict);
 }
 
 inline void Lock::releaseLock(const ListOfTransactionIds& refRids)
@@ -562,43 +553,38 @@ inline Rc Lock::isConflictWithTable(const LockRequests refLockRequestStructure)
         saveLocks();
         return std::make_pair(false, transactionId);
     }
+    BMCWEB_LOG_DEBUG
+        << "Lock table is not empty, check for conflict with lock table";
+    // Lock table is not empty, compare the lockrequest entries with
+    // the entries in the lock table
 
-    else
+    for (const auto& lockRecord1 : refLockRequestStructure)
     {
-        BMCWEB_LOG_DEBUG
-            << "Lock table is not empty, check for conflict with lock table";
-        // Lock table is not empty, compare the lockrequest entries with
-        // the entries in the lock table
-
-        for (const auto& lockRecord1 : refLockRequestStructure)
+        for (const auto& map : lockTable)
         {
-            for (const auto& map : lockTable)
+            for (const auto& lockRecord2 : map.second)
             {
-                for (const auto& lockRecord2 : map.second)
+                bool status = isConflictRecord(lockRecord1, lockRecord2);
+                if (status)
                 {
-                    bool status = isConflictRecord(lockRecord1, lockRecord2);
-                    if (status)
-                    {
-                        return std::make_pair(
-                            true, std::make_pair(map.first, lockRecord2));
-                    }
+                    return std::make_pair(
+                        true, std::make_pair(map.first, lockRecord2));
                 }
             }
         }
-
-        // Reached here, so no conflict with the locktable, so we are safe to
-        // add the request records into the lock table
-
-        // Lock table is empty, so we are safe to add the lockrecords
-        // as there will be no conflict
-        BMCWEB_LOG_DEBUG << " Adding elements into lock table";
-        transactionId = generateTransactionId();
-        lockTable.emplace(
-            std::make_pair(transactionId, refLockRequestStructure));
-
-        // save the lock in the persistent file
-        saveLocks();
     }
+
+    // Reached here, so no conflict with the locktable, so we are safe to
+    // add the request records into the lock table
+
+    // Lock table is empty, so we are safe to add the lockrecords
+    // as there will be no conflict
+    BMCWEB_LOG_DEBUG << " Adding elements into lock table";
+    transactionId = generateTransactionId();
+    lockTable.emplace(std::make_pair(transactionId, refLockRequestStructure));
+
+    // save the lock in the persistent file
+    saveLocks();
     return std::make_pair(false, transactionId);
 }
 
@@ -615,25 +601,22 @@ inline bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
         return false;
     }
 
-    else
+    BMCWEB_LOG_DEBUG
+        << "There are multiple lock requests coming in a single request";
+
+    // There are multiple requests a part of one request
+
+    for (uint32_t i = 0; i < refLockRequestStructure.size(); i++)
     {
-        BMCWEB_LOG_DEBUG
-            << "There are multiple lock requests coming in a single request";
-
-        // There are multiple requests a part of one request
-
-        for (uint32_t i = 0; i < refLockRequestStructure.size(); i++)
+        for (uint32_t j = i + 1; j < refLockRequestStructure.size(); j++)
         {
-            for (uint32_t j = i + 1; j < refLockRequestStructure.size(); j++)
-            {
-                const LockRequest& p = refLockRequestStructure[i];
-                const LockRequest& q = refLockRequestStructure[j];
-                bool status = isConflictRecord(p, q);
+            const LockRequest& p = refLockRequestStructure[i];
+            const LockRequest& q = refLockRequestStructure[j];
+            bool status = isConflictRecord(p, q);
 
-                if (status)
-                {
-                    return true;
-                }
+            if (status)
+            {
+                return true;
             }
         }
     }
