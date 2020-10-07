@@ -402,10 +402,6 @@ inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
                 {
                     health = "Critical";
                 }
-                else
-                {
-                    health = "UnavailableOffline";
-                }
             }
 
             aResp->res.jsonValue["Status"]["State"] = state;
