@@ -65,7 +65,7 @@ inline void requestRoutes(App& app)
 
     for (const std::filesystem::directory_entry& dir : paths)
     {
-        std::filesystem::path absolutePath = dir.path();
+        const std::filesystem::path& absolutePath = dir.path();
         std::filesystem::path relativePath{
             absolutePath.string().substr(rootpath.string().size() - 1)};
         if (std::filesystem::is_directory(dir))

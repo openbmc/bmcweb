@@ -222,16 +222,13 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 state = ConnState::terminated;
                 return;
             }
-            else if (retryPolicyAction == "SuspendRetries")
+            if (retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
                 return;
             }
-            else
-            {
-                // keep retrying, reset count and continue.
-                retryCount = 0;
-            }
+            // keep retrying, reset count and continue.
+            retryCount = 0;
         }
 
         if ((state == ConnState::connectFailed) ||

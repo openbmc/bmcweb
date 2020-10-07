@@ -83,15 +83,15 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "Administrator";
     }
-    else if (role == "priv-user")
+    if (role == "priv-user")
     {
         return "ReadOnly";
     }
-    else if (role == "priv-operator")
+    if (role == "priv-operator")
     {
         return "Operator";
     }
-    else if ((role == "") || (role == "priv-noaccess"))
+    if ((role == "") || (role == "priv-noaccess"))
     {
         return "NoAccess";
     }
@@ -103,15 +103,15 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     {
         return "priv-admin";
     }
-    else if (role == "ReadOnly")
+    if (role == "ReadOnly")
     {
         return "priv-user";
     }
-    else if (role == "Operator")
+    if (role == "Operator")
     {
         return "priv-operator";
     }
-    else if ((role == "NoAccess") || (role == ""))
+    if ((role == "NoAccess") || (role == ""))
     {
         return "priv-noaccess";
     }
@@ -185,7 +185,7 @@ inline void parseLDAPConfigData(nlohmann::json& json_response,
             {"GroupsAttribute", confData.groupAttribute}}}}},
     };
 
-    json_response[ldapType].update(std::move(ldap));
+    json_response[ldapType].update(ldap);
 
     nlohmann::json& roleMapArray = json_response[ldapType]["RemoteRoleMapping"];
     roleMapArray = nlohmann::json::array();
@@ -365,7 +365,7 @@ inline void handleRoleMapPatch(
                              {"RemoteGroup", *remoteGroup}});
                     },
                     ldapDbusService, dbusObjectPath, ldapPrivMapperInterface,
-                    "Create", std::move(*remoteGroup),
+                    "Create", *remoteGroup,
                     getPrivilegeFromRoleId(std::move(*localRole)));
             }
         }
@@ -1731,28 +1731,25 @@ class ManagerAccount : public Node
                                  locked);
             return;
         }
-        else
-        {
-            crow::connections::systemBus->async_method_call(
-                [this, asyncResp, username, password(std::move(password)),
-                 roleId(std::move(roleId)), enabled(std::move(enabled)),
-                 newUser{std::string(*newUserName)},
-                 locked(std::move(locked))](const boost::system::error_code ec,
-                                            sdbusplus::message::message& m) {
-                    if (ec)
-                    {
-                        userErrorMessageHandler(m.get_error(), asyncResp,
-                                                newUser, username);
-                        return;
-                    }
+        crow::connections::systemBus->async_method_call(
+            [this, asyncResp, username, password(std::move(password)),
+             roleId(std::move(roleId)), enabled(std::move(enabled)),
+             newUser{std::string(*newUserName)},
+             locked(std::move(locked))](const boost::system::error_code ec,
+                                        sdbusplus::message::message& m) {
+                if (ec)
+                {
+                    userErrorMessageHandler(m.get_error(), asyncResp, newUser,
+                                            username);
+                    return;
+                }
 
-                    updateUserProperties(asyncResp, newUser, password, enabled,
-                                         roleId, locked);
-                },
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "xyz.openbmc_project.User.Manager", "RenameUser", username,
-                *newUserName);
-        }
+                updateUserProperties(asyncResp, newUser, password, enabled,
+                                     roleId, locked);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "RenameUser", username,
+            *newUserName);
     }
 
     void updateUserProperties(std::shared_ptr<AsyncResp> asyncResp,
