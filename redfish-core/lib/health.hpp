@@ -122,8 +122,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 rollup = "Critical";
                 return;
             }
-            else if (boost::starts_with(path.str, globalInventoryPath) &&
-                     boost::ends_with(path.str, "warning"))
+            if (boost::starts_with(path.str, globalInventoryPath) &&
+                boost::ends_with(path.str, "warning"))
             {
                 health = "Warning";
                 if (rollup != "Critical")
