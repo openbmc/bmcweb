@@ -28,15 +28,15 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     {
         return "Administrator";
     }
-    else if (priv == "priv-user")
+    if (priv == "priv-user")
     {
         return "ReadOnly";
     }
-    else if (priv == "priv-operator")
+    if (priv == "priv-operator")
     {
         return "Operator";
     }
-    else if (priv == "priv-noaccess")
+    if (priv == "priv-noaccess")
     {
         return "NoAccess";
     }

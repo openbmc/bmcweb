@@ -34,7 +34,7 @@ static void cleanupTempSession(Request& req)
     }
 }
 
-static const std::shared_ptr<persistent_data::UserSession>
+static std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(std::string_view auth_header)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
@@ -79,7 +79,7 @@ static const std::shared_ptr<persistent_data::UserSession>
         isConfigureSelfOnly);
 }
 
-static const std::shared_ptr<persistent_data::UserSession>
+static std::shared_ptr<persistent_data::UserSession>
     performTokenAuth(std::string_view auth_header)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
@@ -90,7 +90,7 @@ static const std::shared_ptr<persistent_data::UserSession>
     return session;
 }
 
-static const std::shared_ptr<persistent_data::UserSession>
+static std::shared_ptr<persistent_data::UserSession>
     performXtokenAuth(const crow::Request& req)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
@@ -105,7 +105,7 @@ static const std::shared_ptr<persistent_data::UserSession>
     return session;
 }
 
-static const std::shared_ptr<persistent_data::UserSession>
+static std::shared_ptr<persistent_data::UserSession>
     performCookieAuth(const crow::Request& req)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
@@ -163,7 +163,7 @@ static const std::shared_ptr<persistent_data::UserSession>
 }
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-static const std::shared_ptr<persistent_data::UserSession>
+static std::shared_ptr<persistent_data::UserSession>
     performTLSAuth(const crow::Request& req, Response& res,
                    std::weak_ptr<persistent_data::UserSession> session)
 {
@@ -176,24 +176,19 @@ static const std::shared_ptr<persistent_data::UserSession>
                              << " will be used for this request.";
             return sp;
         }
-        else
+        std::string_view cookieValue = req.getHeaderValue("Cookie");
+        if (cookieValue.empty() ||
+            cookieValue.find("SESSION=") == std::string::npos)
         {
-            std::string_view cookieValue = req.getHeaderValue("Cookie");
-            if (cookieValue.empty() ||
-                cookieValue.find("SESSION=") == std::string::npos)
-            {
-                // TODO: change this to not switch to cookie auth
-                res.addHeader(
-                    "Set-Cookie",
-                    "XSRF-TOKEN=" + sp->csrfToken +
-                        "; Secure\r\nSet-Cookie: SESSION=" + sp->sessionToken +
-                        "; Secure; HttpOnly\r\nSet-Cookie: "
-                        "IsAuthenticated=true; Secure");
-                BMCWEB_LOG_DEBUG
-                    << " TLS session: " << sp->uniqueId
-                    << " with cookie will be used for this request.";
-                return sp;
-            }
+            // TODO: change this to not switch to cookie auth
+            res.addHeader("Set-Cookie", "XSRF-TOKEN=" + sp->csrfToken +
+                                            "; Secure\r\nSet-Cookie: SESSION=" +
+                                            sp->sessionToken +
+                                            "; Secure; HttpOnly\r\nSet-Cookie: "
+                                            "IsAuthenticated=true; Secure");
+            BMCWEB_LOG_DEBUG << " TLS session: " << sp->uniqueId
+                             << " with cookie will be used for this request.";
+            return sp;
         }
     }
     return nullptr;
