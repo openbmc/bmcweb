@@ -1453,10 +1453,7 @@ inline void
                                         }
                                         return;
                                     }
-                                    else
-                                    {
-                                        transaction->methodPassed = true;
-                                    }
+                                    transaction->methodPassed = true;
 
                                     handleMethodResponse(transaction, m2,
                                                          returnType);
