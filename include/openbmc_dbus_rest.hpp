@@ -823,7 +823,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             }
             const std::string& keyType = codes[0];
             const std::string& valueType = codes[1];
-            for (auto it : j->items())
+            for (const auto& it : j->items())
             {
                 r = convertJsonToDbus(m, keyType, it.key());
                 if (r < 0)
@@ -1453,10 +1453,7 @@ inline void
                                         }
                                         return;
                                     }
-                                    else
-                                    {
-                                        transaction->methodPassed = true;
-                                    }
+                                    transaction->methodPassed = true;
 
                                     handleMethodResponse(transaction, m2,
                                                          returnType);
@@ -2146,7 +2143,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)([](const crow::Request&,
                                                    crow::Response& res,
                                                    const std::string& dumpId) {
-            std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
+            std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
             if (!std::regex_match(dumpId, validFilename))
             {
                 res.result(boost::beast::http::status::bad_request);
@@ -2250,7 +2247,7 @@ inline void requestRoutes(App& app)
                     // causes the normal trailing backslash redirector to
                     // fail.
                 }
-                else if (!it->empty())
+                if (!it->empty())
                 {
                     objectPath += "/" + *it;
                 }

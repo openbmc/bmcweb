@@ -351,7 +351,9 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                     std::get_if<uint64_t>(
                                                         &property.second);
                                                 if (nullptr != procFamily)
+                                                {
                                                     break;
+                                                }
                                                 continue;
                                             }
 
@@ -361,7 +363,9 @@ inline void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                     std::get_if<std::string>(
                                                         &property.second);
                                                 if (nullptr != processorId)
+                                                {
                                                     break;
+                                                }
                                                 continue;
                                             }
                                         }
@@ -670,30 +674,25 @@ inline std::string dbusToRfBootSource(const std::string& dbusSource)
     {
         return "None";
     }
-    else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.Disk")
+    if (dbusSource == "xyz.openbmc_project.Control.Boot.Source.Sources.Disk")
     {
         return "Hdd";
     }
-    else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia")
+    if (dbusSource ==
+        "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia")
     {
         return "Cd";
     }
-    else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.Network")
+    if (dbusSource == "xyz.openbmc_project.Control.Boot.Source.Sources.Network")
     {
         return "Pxe";
     }
-    else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia")
+    if (dbusSource ==
+        "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia")
     {
         return "Usb";
     }
-    else
-    {
-        return "";
-    }
+    return "";
 }
 
 /**
@@ -710,18 +709,15 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
     {
         return "None";
     }
-    else if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe")
+    if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe")
     {
         return "Diags";
     }
-    else if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup")
+    if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup")
     {
         return "BiosSetup";
     }
-    else
-    {
-        return "";
-    }
+    return "";
 }
 
 /**
@@ -747,7 +743,7 @@ inline int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
     {
         return 0;
     }
-    else if (rfSource == "Pxe")
+    if (rfSource == "Pxe")
     {
         bootSource = "xyz.openbmc_project.Control.Boot.Source.Sources.Network";
     }
@@ -1482,17 +1478,15 @@ inline std::string dbusToRfWatchdogAction(const std::string& dbusAction)
     {
         return "None";
     }
-    else if (dbusAction ==
-             "xyz.openbmc_project.State.Watchdog.Action.HardReset")
+    if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.HardReset")
     {
         return "ResetSystem";
     }
-    else if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerOff")
+    if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerOff")
     {
         return "PowerDown";
     }
-    else if (dbusAction ==
-             "xyz.openbmc_project.State.Watchdog.Action.PowerCycle")
+    if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerCycle")
     {
         return "PowerCycle";
     }
@@ -1515,15 +1509,15 @@ inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
     {
         return "xyz.openbmc_project.State.Watchdog.Action.None";
     }
-    else if (rfAction == "PowerCycle")
+    if (rfAction == "PowerCycle")
     {
         return "xyz.openbmc_project.State.Watchdog.Action.PowerCycle";
     }
-    else if (rfAction == "PowerDown")
+    if (rfAction == "PowerDown")
     {
         return "xyz.openbmc_project.State.Watchdog.Action.PowerOff";
     }
-    else if (rfAction == "ResetSystem")
+    if (rfAction == "ResetSystem")
     {
         return "xyz.openbmc_project.State.Watchdog.Action.HardReset";
     }

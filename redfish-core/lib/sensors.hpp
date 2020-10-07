@@ -304,9 +304,7 @@ void getConnections(
     auto objectsWithConnectionCb =
         [callback](const boost::container::flat_set<std::string>& connections,
                    const std::set<std::pair<std::string, std::string>>&
-                   /*objectsWithConnection*/) {
-            callback(std::move(connections));
-        };
+                   /*objectsWithConnection*/) { callback(connections); };
     getObjectsWithConnection(SensorsAsyncResp, sensorNames,
                              std::move(objectsWithConnectionCb));
 }

@@ -158,11 +158,11 @@ inline std::string getDhcpEnabledEnumeration(bool isIPv4, bool isIPv6)
     {
         return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both";
     }
-    else if (isIPv4)
+    if (isIPv4)
     {
         return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4";
     }
-    else if (isIPv6)
+    if (isIPv6)
     {
         return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6";
     }
@@ -183,10 +183,7 @@ inline std::string
         {
             return "IPv4LinkLocal";
         }
-        else
-        {
-            return "LinkLocal";
-        }
+        return "LinkLocal";
     }
     if (inputOrigin == "xyz.openbmc_project.Network.IP.AddressOrigin.DHCP")
     {
@@ -194,10 +191,7 @@ inline std::string
         {
             return "DHCP";
         }
-        else
-        {
-            return "DHCPv6";
-        }
+        return "DHCPv6";
     }
     if (inputOrigin == "xyz.openbmc_project.Network.IP.AddressOrigin.SLAAC")
     {
@@ -678,10 +672,7 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
                         // Continuity not preserved
                         return false;
                     }
-                    else
-                    {
-                        (*bits)++;
-                    }
+                    (*bits)++;
                 }
                 else
                 {
@@ -1567,12 +1558,9 @@ class EthernetInterface : public Node
                         messages::resourceCannotBeDeleted(asyncResp->res);
                         return;
                     }
-                    else
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, thisJson.dump(), pathString);
-                        return;
-                    }
+                    messages::propertyValueFormatError(
+                        asyncResp->res, thisJson.dump(), pathString);
+                    return;
                 }
 
                 if (thisJson.is_null())
@@ -1704,12 +1692,9 @@ class EthernetInterface : public Node
                         messages::resourceCannotBeDeleted(asyncResp->res);
                         return;
                     }
-                    else
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, thisJson.dump(), pathString);
-                        return;
-                    }
+                    messages::propertyValueFormatError(
+                        asyncResp->res, thisJson.dump(), pathString);
+                    return;
                 }
 
                 if (thisJson.is_null())
@@ -2099,10 +2084,7 @@ class VlanNetworkInterface : public Node
         {
             return false;
         }
-        else
-        {
-            return true;
-        }
+        return true;
     }
 
     /**
