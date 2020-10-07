@@ -1423,7 +1423,7 @@ class Router
     };
 
     const static size_t maxHttpVerbCount =
-        static_cast<size_t>(boost::beast::http::verb::trace);
+        static_cast<size_t>(boost::beast::http::verb::unlink);
 
     std::array<PerMethod, maxHttpVerbCount> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
