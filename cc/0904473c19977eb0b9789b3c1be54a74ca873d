@@ -1,0 +1,10 @@
+Code-Review+1: Andrew Geissler <geissonator@yahoo.com>
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: ManojKiran Eda <manojkiran.eda@gmail.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Wed, 07 Oct 2020 15:55:33 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37172
+Project: openbmc/bmcweb
+Branch: refs/heads/master
