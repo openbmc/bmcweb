@@ -1064,7 +1064,7 @@ class EventServiceManager
             // send everything.
             if (entry->resourceTypes.size())
             {
-                for (auto resource : entry->resourceTypes)
+                for (const auto& resource : entry->resourceTypes)
                 {
                     if (resType == resource)
                     {

@@ -284,21 +284,18 @@ inline std::string getRedfishFWState(const std::string& fwState)
     {
         return "Enabled";
     }
-    else if (fwState == "xyz.openbmc_project.Software.Activation."
-                        "Activations.Activating")
+    if (fwState == "xyz.openbmc_project.Software.Activation."
+                   "Activations.Activating")
     {
         return "Updating";
     }
-    else if (fwState == "xyz.openbmc_project.Software.Activation."
-                        "Activations.StandbySpare")
+    if (fwState == "xyz.openbmc_project.Software.Activation."
+                   "Activations.StandbySpare")
     {
         return "StandbySpare";
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG << "Default fw state " << fwState << " to Disabled";
-        return "Disabled";
-    }
+    BMCWEB_LOG_DEBUG << "Default fw state " << fwState << " to Disabled";
+    return "Disabled";
 }
 
 /**
@@ -321,11 +318,8 @@ inline std::string getRedfishFWHealth(const std::string& fwState)
     {
         return "OK";
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG << "FW state " << fwState << " to Warning";
-        return "Warning";
-    }
+    BMCWEB_LOG_DEBUG << "FW state " << fwState << " to Warning";
+    return "Warning";
 }
 
 /**
