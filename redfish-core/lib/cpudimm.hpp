@@ -103,11 +103,8 @@ inline void
                     // HTTP Code will be set up automatically, just return
                     return;
                 }
-                else
-                {
-                    aResp->res.jsonValue["Status"]["State"] = "Enabled";
-                    present = true;
-                }
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+                present = true;
                 aResp->res.jsonValue["TotalCores"] = *coresCount;
             }
             else if (property.first == "Socket")

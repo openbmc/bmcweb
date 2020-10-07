@@ -133,21 +133,18 @@ class ManagerResetAction : public Node
             doBMCGracefulRestart(asyncResp);
             return;
         }
-        else if (resetType == "ForceRestart")
+        if (resetType == "ForceRestart")
         {
             BMCWEB_LOG_DEBUG << "Proceeding with " << resetType;
             doBMCForceRestart(asyncResp);
             return;
         }
-        else
-        {
-            BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
-                             << resetType;
-            messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                                  "ResetType");
+        BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
+                         << resetType;
+        messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                              "ResetType");
 
-            return;
-        }
+        return;
     }
 };
 
@@ -1611,7 +1608,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     return;
                 }
-                else if (ret == CreatePIDRet::del)
+                if (ret == CreatePIDRet::del)
                 {
                     continue;
                 }

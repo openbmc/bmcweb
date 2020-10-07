@@ -45,7 +45,7 @@ static inline void getPCIeDeviceList(std::shared_ptr<AsyncResp> asyncResp,
         pcieDeviceList = nlohmann::json::array();
         for (const std::string& pcieDevicePath : pcieDevicePaths)
         {
-            size_t devStart = pcieDevicePath.rfind("/");
+            size_t devStart = pcieDevicePath.rfind('/');
             if (devStart == std::string::npos)
             {
                 continue;
