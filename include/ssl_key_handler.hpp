@@ -32,10 +32,7 @@ inline bool isTrustChainError(int errnum)
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 inline bool validateCertificate(X509* const cert)
@@ -85,12 +82,9 @@ inline bool validateCertificate(X509* const cert)
                              << X509_verify_cert_error_string(errCode);
             return true;
         }
-        else
-        {
-            BMCWEB_LOG_ERROR << "Certificate verification failed. Reason: "
-                             << X509_verify_cert_error_string(errCode);
-            return false;
-        }
+        BMCWEB_LOG_ERROR << "Certificate verification failed. Reason: "
+                         << X509_verify_cert_error_string(errCode);
+        return false;
     }
 
     BMCWEB_LOG_ERROR

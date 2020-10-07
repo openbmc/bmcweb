@@ -59,8 +59,8 @@ class LockTest : public ::testing::Test
                      234,
                      {{"LockAll", 2}, {"DontLock", 4}}}};
     }
-    ~LockTest()
-    {}
+
+    ~LockTest() override = default;
 };
 
 class MockLock : public crow::ibm_mc_lock::Lock

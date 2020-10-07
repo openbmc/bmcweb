@@ -19,7 +19,7 @@ inline bool requestPrefersHtml(const crow::Request& req)
         {
             return true;
         }
-        else if (encoding == "application/json")
+        if (encoding == "application/json")
         {
             return false;
         }

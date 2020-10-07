@@ -40,7 +40,9 @@ class BaseRule
     std::unique_ptr<BaseRule> upgrade()
     {
         if (ruleToUpgrade)
+        {
             return std::move(ruleToUpgrade);
+        }
         return {};
     }
 
@@ -660,12 +662,16 @@ class Trie
         for (size_t x : node->paramChildrens)
         {
             if (!x)
+            {
                 continue;
+            }
             Node* child = &nodes[x];
             optimizeNode(child);
         }
         if (node->children.empty())
+        {
             return;
+        }
         bool mergeWithChild = true;
         for (const std::pair<std::string, unsigned>& kv : node->children)
         {
@@ -710,8 +716,10 @@ class Trie
     void validate()
     {
         if (!head()->isSimpleNode())
+        {
             throw std::runtime_error(
                 "Internal error: Trie header should be simple!");
+        }
         optimize();
     }
 
@@ -754,15 +762,21 @@ class Trie
     {
         RoutingParams empty;
         if (params == nullptr)
+        {
             params = &empty;
+        }
 
         unsigned found{};
         RoutingParams matchParams;
 
         if (node == nullptr)
+        {
             node = head();
+        }
         if (pos == req_url.size())
+        {
             return {node->ruleIndex, *params};
+        }
 
         auto updateFound =
             [&found, &matchParams](std::pair<unsigned, RoutingParams>& ret) {
@@ -847,7 +861,9 @@ class Trie
             for (; epos < req_url.size(); epos++)
             {
                 if (req_url[epos] == '/')
+                {
                     break;
+                }
             }
 
             if (epos != pos)
@@ -948,7 +964,9 @@ class Trie
             }
         }
         if (nodes[idx].ruleIndex)
+        {
             throw std::runtime_error("handler already exists for " + url);
+        }
         nodes[idx].ruleIndex = ruleIndex;
     }
 
@@ -1085,7 +1103,9 @@ class Router
             {
                 std::unique_ptr<BaseRule> upgraded = rule->upgrade();
                 if (upgraded)
+                {
                     rule = std::move(upgraded);
+                }
                 rule->validate();
                 internalAddRuleObject(rule->rule, rule.get());
             }
@@ -1121,7 +1141,9 @@ class Router
         }
 
         if (ruleIndex >= rules.size())
+        {
             throw std::runtime_error("Trie internal structure corrupted!");
+        }
 
         if (ruleIndex == ruleSpecialRedirectSlash)
         {
@@ -1223,7 +1245,9 @@ class Router
         }
 
         if (ruleIndex >= rules.size())
+        {
             throw std::runtime_error("Trie internal structure corrupted!");
+        }
 
         if (ruleIndex == ruleSpecialRedirectSlash)
         {
