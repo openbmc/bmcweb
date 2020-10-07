@@ -91,10 +91,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         res.jsonValue["Description"] = contentNotAcceptableMsg;
         return;
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG << "Not a multipart/form-data. Continue..";
-    }
+    BMCWEB_LOG_DEBUG << "Not a multipart/form-data. Continue..";
 
     BMCWEB_LOG_DEBUG
         << "handleIbmPut: Request to create/update the save-area file";
@@ -109,7 +106,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
     loc /= fileID;
 
-    std::string data = std::move(req.body);
+    const std::string& data = req.body;
     BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
     if (data.capacity() > maxSaveareaFileSize)
     {
@@ -133,27 +130,24 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         res.jsonValue["Description"] = "Error while creating the file";
         return;
     }
+    file << data;
+    std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
+    // Push an event
+    if (fileExists)
+    {
+        BMCWEB_LOG_DEBUG << "config file is updated";
+        res.jsonValue["Description"] = "File Updated";
+
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::resourceChanged(), origin, "IBMConfigFile");
+    }
     else
     {
-        file << data;
-        std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
-        // Push an event
-        if (fileExists)
-        {
-            BMCWEB_LOG_DEBUG << "config file is updated";
-            res.jsonValue["Description"] = "File Updated";
+        BMCWEB_LOG_DEBUG << "config file is created";
+        res.jsonValue["Description"] = "File Created";
 
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::resourceChanged(), origin, "IBMConfigFile");
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG << "config file is created";
-            res.jsonValue["Description"] = "File Created";
-
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::resourceCreated(), origin, "IBMConfigFile");
-        }
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::resourceCreated(), origin, "IBMConfigFile");
     }
 }
 
@@ -165,7 +159,7 @@ inline void handleConfigFileList(crow::Response& res)
     {
         for (const auto& file : std::filesystem::directory_iterator(loc))
         {
-            std::filesystem::path pathObj(file.path());
+            const std::filesystem::path& pathObj = file.path();
             pathObjList.push_back("/ibm/v1/Host/ConfigFiles/" +
                                   pathObj.filename().string());
         }
@@ -257,6 +251,7 @@ inline void handleFileDelete(crow::Response& res, const std::string& fileID)
 
     std::ifstream fileOpen(filePath.c_str());
     if (static_cast<bool>(fileOpen))
+    {
         if (remove(filePath.c_str()) == 0)
         {
             BMCWEB_LOG_DEBUG << "File removed!\n";
@@ -268,6 +263,7 @@ inline void handleFileDelete(crow::Response& res, const std::string& fileID)
             res.result(boost::beast::http::status::internal_server_error);
             res.jsonValue["Description"] = internalServerError;
         }
+    }
     else
     {
         BMCWEB_LOG_ERROR << "File not found!\n";
@@ -429,33 +425,30 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
             res.end();
             return;
         }
-        else
+        BMCWEB_LOG_DEBUG << "There is a conflict with the lock table";
+        res.result(boost::beast::http::status::conflict);
+        auto var =
+            std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
+        nlohmann::json returnJson, segments;
+        nlohmann::json myarray = nlohmann::json::array();
+        returnJson["TransactionID"] = var.first;
+        returnJson["SessionID"] = std::get<0>(var.second);
+        returnJson["HMCID"] = std::get<1>(var.second);
+        returnJson["LockType"] = std::get<2>(var.second);
+        returnJson["ResourceID"] = std::get<3>(var.second);
+
+        for (auto& i : std::get<4>(var.second))
         {
-            BMCWEB_LOG_DEBUG << "There is a conflict with the lock table";
-            res.result(boost::beast::http::status::conflict);
-            auto var = std::get<std::pair<uint32_t, LockRequest>>(
-                conflictStatus.second);
-            nlohmann::json returnJson, segments;
-            nlohmann::json myarray = nlohmann::json::array();
-            returnJson["TransactionID"] = var.first;
-            returnJson["SessionID"] = std::get<0>(var.second);
-            returnJson["HMCID"] = std::get<1>(var.second);
-            returnJson["LockType"] = std::get<2>(var.second);
-            returnJson["ResourceID"] = std::get<3>(var.second);
-
-            for (auto& i : std::get<4>(var.second))
-            {
-                segments["LockFlag"] = i.first;
-                segments["SegmentLength"] = i.second;
-                myarray.push_back(segments);
-            }
-
-            returnJson["SegmentFlags"] = myarray;
-
-            res.jsonValue["Record"] = returnJson;
-            res.end();
-            return;
+            segments["LockFlag"] = i.first;
+            segments["SegmentLength"] = i.second;
+            myarray.push_back(segments);
         }
+
+        returnJson["SegmentFlags"] = myarray;
+
+        res.jsonValue["Record"] = returnJson;
+        res.end();
+        return;
     }
 }
 inline void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
@@ -490,47 +483,41 @@ inline void
         res.end();
         return;
     }
-    else
+    auto statusRelease =
+        std::get<crow::ibm_mc_lock::RcRelaseLock>(varReleaselock.second);
+    if (statusRelease.first)
     {
-        auto statusRelease =
-            std::get<crow::ibm_mc_lock::RcRelaseLock>(varReleaselock.second);
-        if (statusRelease.first)
-        {
-            // The current hmc owns all the locks, so we already released
-            // them
-            res.result(boost::beast::http::status::ok);
-            res.end();
-            return;
-        }
-
-        else
-        {
-            // valid rid, but the current hmc does not own all the locks
-            BMCWEB_LOG_DEBUG << "Current HMC does not own all the locks";
-            res.result(boost::beast::http::status::unauthorized);
-
-            auto var = statusRelease.second;
-            nlohmann::json returnJson, segments;
-            nlohmann::json myArray = nlohmann::json::array();
-            returnJson["TransactionID"] = var.first;
-            returnJson["SessionID"] = std::get<0>(var.second);
-            returnJson["HMCID"] = std::get<1>(var.second);
-            returnJson["LockType"] = std::get<2>(var.second);
-            returnJson["ResourceID"] = std::get<3>(var.second);
-
-            for (auto& i : std::get<4>(var.second))
-            {
-                segments["LockFlag"] = i.first;
-                segments["SegmentLength"] = i.second;
-                myArray.push_back(segments);
-            }
-
-            returnJson["SegmentFlags"] = myArray;
-            res.jsonValue["Record"] = returnJson;
-            res.end();
-            return;
-        }
+        // The current hmc owns all the locks, so we already released
+        // them
+        res.result(boost::beast::http::status::ok);
+        res.end();
+        return;
     }
+
+    // valid rid, but the current hmc does not own all the locks
+    BMCWEB_LOG_DEBUG << "Current HMC does not own all the locks";
+    res.result(boost::beast::http::status::unauthorized);
+
+    auto var = statusRelease.second;
+    nlohmann::json returnJson, segments;
+    nlohmann::json myArray = nlohmann::json::array();
+    returnJson["TransactionID"] = var.first;
+    returnJson["SessionID"] = std::get<0>(var.second);
+    returnJson["HMCID"] = std::get<1>(var.second);
+    returnJson["LockType"] = std::get<2>(var.second);
+    returnJson["ResourceID"] = std::get<3>(var.second);
+
+    for (auto& i : std::get<4>(var.second))
+    {
+        segments["LockFlag"] = i.first;
+        segments["SegmentLength"] = i.second;
+        myArray.push_back(segments);
+    }
+
+    returnJson["SegmentFlags"] = myArray;
+    res.jsonValue["Record"] = returnJson;
+    res.end();
+    return;
 }
 
 inline void handleGetLockListAPI(crow::Response& res,
