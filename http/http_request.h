@@ -40,37 +40,37 @@ struct Request
         return req.method();
     }
 
-    const std::string_view getHeaderValue(std::string_view key) const
+    std::string_view getHeaderValue(std::string_view key) const
     {
         return req[key];
     }
 
-    const std::string_view getHeaderValue(boost::beast::http::field key) const
+    std::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return req[key];
     }
 
-    const std::string_view methodString() const
+    std::string_view methodString() const
     {
         return req.method_string();
     }
 
-    const std::string_view target() const
+    std::string_view target() const
     {
         return req.target();
     }
 
-    unsigned version()
+    unsigned version() const
     {
         return req.version();
     }
 
-    bool isUpgrade()
+    bool isUpgrade() const
     {
         return boost::beast::websocket::is_upgrade(req);
     }
 
-    bool keepAlive()
+    bool keepAlive() const
     {
         return req.keep_alive();
     }

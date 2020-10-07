@@ -6,118 +6,130 @@
 
 #include "gmock/gmock.h"
 
-using namespace redfish;
-
 TEST(PrivilegeTest, PrivilegeConstructor)
 {
-    Privileges privileges{"Login", "ConfigureManager"};
+    redfish::Privileges privileges{"Login", "ConfigureManager"};
 
-    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::UnorderedElementsAre("Login", "ConfigureManager"));
+    EXPECT_THAT(
+        privileges.getActivePrivilegeNames(redfish::PrivilegeType::BASE),
+        ::testing::UnorderedElementsAre("Login", "ConfigureManager"));
 }
 
-TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
+TEST(PrivilegeTest, PrivilegeCheckForNoredfish::PrivilegesRequired)
 {
-    Privileges userPrivileges{"Login"};
+    redfish::Privileges userredfish::Privileges{"Login"};
 
-    OperationMap entityPrivileges{{boost::beast::http::verb::get, {{"Login"}}}};
+    redfish::OperationMap entityredfish::Privileges{
+        {boost::beast::http::verb::get, {{"Login"}}}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess)
 {
-    auto userPrivileges = Privileges{"Login"};
-    OperationMap entityPrivileges{{boost::beast::http::verb::get, {}}};
+    auto userredfish::Privileges = redfish::Privileges{"Login"};
+    redfish::OperationMap entityredfish::Privileges{
+        {boost::beast::http::verb::get, {}}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseFailure)
 {
-    auto userPrivileges = Privileges{"Login"};
-    OperationMap entityPrivileges{
+    auto userredfish::Privileges = redfish::Privileges{"Login"};
+    redfish::OperationMap entityredfish::Privileges{
         {boost::beast::http::verb::get, {{"ConfigureManager"}}}};
 
-    EXPECT_FALSE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_FALSE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess)
 {
-    auto userPrivileges =
-        Privileges{"Login", "ConfigureManager", "ConfigureSelf"};
-    OperationMap entityPrivileges{
+    auto userredfish::Privileges =
+        redfish::Privileges{"Login", "ConfigureManager", "ConfigureSelf"};
+    redfish::OperationMap entityredfish::Privileges{
         {boost::beast::http::verb::get,
          {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseFailure)
 {
-    auto userPrivileges = Privileges{"Login", "ConfigureManager"};
-    OperationMap entityPrivileges{
+    auto userredfish::Privileges =
+        redfish::Privileges{"Login", "ConfigureManager"};
+    redfish::OperationMap entityredfish::Privileges{
         {boost::beast::http::verb::get,
          {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
 
-    EXPECT_FALSE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_FALSE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseSuccess)
 {
-    auto userPrivileges = Privileges{"ConfigureManager"};
-    OperationMap entityPrivileges{
+    auto userredfish::Privileges = redfish::Privileges{"ConfigureManager"};
+    redfish::OperationMap entityredfish::Privileges{
         {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseFailure)
 {
-    auto userPrivileges = Privileges{"ConfigureComponents"};
-    OperationMap entityPrivileges = OperationMap(
+    auto userredfish::Privileges = redfish::Privileges{"ConfigureComponents"};
+    redfish::OperationMap entityredfish::Privileges = redfish::OperationMap(
         {{boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}});
 
-    EXPECT_FALSE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_FALSE(isMethodAllowedWithredfish::Privileges(
+        boost::beast::http::verb::get, entityredfish::Privileges,
+        userredfish::Privileges));
 }
 
 TEST(PrivilegeTest, DefaultPrivilegeBitsetsAreEmpty)
 {
-    Privileges privileges;
+    redfish::Privileges privileges;
 
-    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::IsEmpty());
+    EXPECT_THAT(
+        privileges.getActivePrivilegeNames(redfish::PrivilegeType::BASE),
+        ::testing::IsEmpty());
 
-    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::OEM),
+    EXPECT_THAT(privileges.getActivePrivilegeNames(redfish::PrivilegeType::OEM),
                 ::testing::IsEmpty());
 }
 
 TEST(PrivilegeTest, GetActivePrivilegeNames)
 {
-    Privileges privileges;
+    redfish::Privileges privileges;
 
-    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::IsEmpty());
+    EXPECT_THAT(
+        privileges.getActivePrivilegeNames(redfish::PrivilegeType::BASE),
+        ::testing::IsEmpty());
 
-    std::array<const char*, 5> expectedPrivileges{
+    std::array<const char*, 5> expectedredfish::Privileges{
         "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
         "ConfigureSelf"};
 
-    for (const auto& privilege : expectedPrivileges)
+    for (const auto& privilege : expectedredfish::Privileges)
     {
         EXPECT_TRUE(privileges.setSinglePrivilege(privilege));
     }
 
-    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::UnorderedElementsAre(
-                    expectedPrivileges[0], expectedPrivileges[1],
-                    expectedPrivileges[2], expectedPrivileges[3],
-                    expectedPrivileges[4]));
+    EXPECT_THAT(
+        privileges.getActivePrivilegeNames(redfish::PrivilegeType::BASE),
+        ::testing::UnorderedElementsAre(
+            expectedredfish::Privileges[0], expectedredfish::Privileges[1],
+            expectedredfish::Privileges[2], expectedredfish::Privileges[3],
+            expectedredfish::Privileges[4]));
 }
