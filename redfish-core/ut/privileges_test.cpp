@@ -6,7 +6,7 @@
 
 #include "gmock/gmock.h"
 
-using namespace redfish;
+using Privileges = redfish::Privileges;
 
 TEST(PrivilegeTest, PrivilegeConstructor)
 {

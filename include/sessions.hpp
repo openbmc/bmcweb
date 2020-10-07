@@ -170,7 +170,7 @@ struct AuthConfigMethods
 
 struct OpenSSLGenerator
 {
-    uint8_t operator()(void)
+    uint8_t operator()()
     {
         uint8_t index = 0;
         int rc = RAND_bytes(&index, sizeof(index));
