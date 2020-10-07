@@ -29,7 +29,7 @@ namespace systemd_utils
  * @return Service root UUID
  */
 
-inline const std::string getUuid()
+inline std::string getUuid()
 {
     std::string ret;
     // This ID needs to match the one in ipmid
