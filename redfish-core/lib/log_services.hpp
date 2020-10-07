@@ -789,8 +789,8 @@ inline void createDump(crow::Response& res, const crow::Request& req,
                 "DiagnosticDataType & OEMDiagnosticDataType");
             return;
         }
-        else if ((*oemDiagnosticDataType != "System") ||
-                 (*diagnosticDataType != "OEM"))
+        if ((*oemDiagnosticDataType != "System") ||
+            (*diagnosticDataType != "OEM"))
         {
             BMCWEB_LOG_ERROR << "Wrong parameter values passed";
             messages::invalidObject(asyncResp->res,
@@ -808,7 +808,7 @@ inline void createDump(crow::Response& res, const crow::Request& req,
                 asyncResp->res, "CollectDiagnosticData", "DiagnosticDataType");
             return;
         }
-        else if (*diagnosticDataType != "Manager")
+        if (*diagnosticDataType != "Manager")
         {
             BMCWEB_LOG_ERROR
                 << "Wrong parameter value passed for 'DiagnosticDataType'";

@@ -280,9 +280,9 @@ class NetworkProtocol : public Node
                             continue;
                         }
                         const char* rfServiceKey = kv.first;
-                        std::string socketPath =
+                        const std::string& socketPath =
                             std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
-                        std::string unitState =
+                        const std::string& unitState =
                             std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
 
                         asyncResp->res
