@@ -4,7 +4,7 @@ FROM bmcweb-base
 
 ADD . /source
 
-RUN cmake --build .
+RUN ninja -C /source/build
 
 RUN mkdir -p /usr/share/www
 
