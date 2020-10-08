@@ -624,7 +624,7 @@ nlohmann::json eventSubscriptionLimitExceeded(void)
 
 void eventSubscriptionLimitExceeded(crow::Response& res)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, eventSubscriptionLimitExceeded());
 }
 
