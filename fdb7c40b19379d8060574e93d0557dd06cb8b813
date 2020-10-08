@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "646e582c_9b16036d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "251fdf79_b8e8907e",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98803822_7576a909",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -83,6 +107,30 @@
       "writtenOn": "2020-10-06T17:23:31Z",
       "side": 1,
       "message": "Not part of this commit, but we should use boost::circular_buffer here.",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22fd5239_554a9387",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28e38ee6_9d8cd3a8",
       "range": {
         "startLine": 61,
         "startChar": 9,
@@ -158,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "fbe71e6d_57a598ac",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "working on this",
+      "parentUuid": "b4a3ad83_17d46a13",
+      "range": {
+        "startLine": 95,
+        "startChar": 31,
+        "endLine": 95,
+        "endChar": 43
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4e48330_8ef3f016",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -205,6 +277,54 @@
     },
     {
       "key": {
+        "uuid": "001417cf_0abd803c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "Ratan, Since we are discarding the response anyway, i dont think we should wait for the complete response from the destination. We are going to check the keep-alive flag from the response and will keep the connection alive to receive more data if the event destination needs to send. The async_read should be able to handle that.",
+      "parentUuid": "cb7c7853_aea3e917",
+      "range": {
+        "startLine": 194,
+        "startChar": 28,
+        "endLine": 194,
+        "endChar": 70
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfaa3bcb_69c9eef7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "Ed, If there is any error; we go ahead and retry sending the event again. If its a partial_message; that means that the destination has received the req - which is nothing but the event. So there is no point in retrying sending the same event again.",
+      "parentUuid": "a4e48330_8ef3f016",
+      "range": {
+        "startLine": 194,
+        "startChar": 28,
+        "endLine": 194,
+        "endChar": 70
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f2216d_510ae1af",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -216,6 +336,30 @@
       "writtenOn": "2020-10-06T17:23:31Z",
       "side": 1,
       "message": "Don\u0027t use this macro for unused variables.  Look at the conventions in other places.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 51
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e7c77b_2d3936e7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "I am not understanding what conventions you are referring to. When i searched for the ways boost ignores the unused bytes, i saw this boost::ignore_unused being used.",
+      "parentUuid": "d3f2216d_510ae1af",
       "range": {
         "startLine": 205,
         "startChar": 0,
@@ -251,6 +395,30 @@
     },
     {
       "key": {
+        "uuid": "c50cb22f_80e8d2dc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "I did not see any reference to this in the spec. But since we are ignoring and discarding the response data, we should not care if its partial or complete. If there is more response data coming in, bmcweb can still receive it, since we do not close the connection.",
+      "parentUuid": "038ab827_f9ade7b2",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 79
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88268d8c_cb0cee37",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -274,6 +442,30 @@
     },
     {
       "key": {
+        "uuid": "735aad90_4e668dd9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88268d8c_cb0cee37",
+      "range": {
+        "startLine": 260,
+        "startChar": 24,
+        "endLine": 260,
+        "endChar": 40
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13291df3_d3c2947f",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -285,6 +477,30 @@
       "writtenOn": "2020-10-06T17:23:31Z",
       "side": 1,
       "message": "Does this need to be conn.socket().shutdown?  Can this be deduplicated with the below?",
+      "range": {
+        "startLine": 273,
+        "startChar": 27,
+        "endLine": 273,
+        "endChar": 32
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a8d95d_f830a97d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-08T12:37:12Z",
+      "side": 1,
+      "message": "Done. Moved it out of if-else\n\nFor ssl it is async_shutdown and for non-ssl its conn.socket().shutdown",
+      "parentUuid": "13291df3_d3c2947f",
       "range": {
         "startLine": 273,
         "startChar": 27,
