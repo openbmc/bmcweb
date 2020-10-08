@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ab10bf64_1a09f86e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-08T21:25:59Z",
+      "side": 1,
+      "message": "\u003e As previously talked about in the comments, it also makes enterprise theming harder.\n\nOnly if the option is enabled.\n\n\u003e  \n\u003e For example, IBM and several other companies want to change the logo both on the login page and in the header and themeing in general, currently with webui-vue, with a couple of lines you can completely change the color of the GUI, https://youtu.be/KpYQNTv_sYA?t\u003d784 shows this.\n\nI\u0027m not understanding why, in the current patchset, this is any harder.  webui-vue can simply publish the minified login html and css with the vendor theming on them, and set BMCWEB_ENABLE_LOGIN_PAGE\u003dOFF.  Can you elaborate why this makes it \"harder\"?\n\n\u003e \n\u003e It also does not currently support language translation.\n\nOnly if the option is enabled.  Once webui-vue has adoption, it\u0027s easy to add to add.",
+      "parentUuid": "17fa22f6_80a65ee1",
+      "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e9004af_1556a69b",
         "filename": "CMakeLists.txt",
         "patchSetId": 15
