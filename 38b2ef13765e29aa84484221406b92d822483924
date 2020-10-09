@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57191882_41a96c2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-10-09T15:27:41Z",
+      "side": 1,
+      "message": "Can you explain more about this design? \nYou are using the Association interface to find the LED group?\nCan you point us at a doc? \nI think this design is okay, but I think we need a paragraph about these associations to \nhttps://github.com/openbmc/docs/blob/357556a5dc0622ecbb3ef0f1988e5e5b0ed5b611/architecture/LED-architecture.md ?",
+      "revId": "38b2ef13765e29aa84484221406b92d822483924",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
