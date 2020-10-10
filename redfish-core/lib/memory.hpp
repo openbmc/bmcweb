@@ -790,26 +790,36 @@ inline void getDimmData(std::shared_ptr<AsyncResp> aResp,
                 {
                     for (const auto& [service, interfaces] : object)
                     {
-                        if (!found &&
-                            (std::find(
-                                 interfaces.begin(), interfaces.end(),
-                                 "xyz.openbmc_project.Inventory.Item.Dimm") !=
-                             interfaces.end()))
+                        for (const auto& interface : interfaces)
                         {
-                            getDimmDataByService(aResp, dimmId, service, path);
-                            found = true;
-                        }
-
-                        // partitions are separate as there can be multiple per
-                        // device, i.e.
-                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
-                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                        if (std::find(interfaces.begin(), interfaces.end(),
-                                      "xyz.openbmc_project.Inventory.Item."
-                                      "PersistentMemory.Partition") !=
-                            interfaces.end())
-                        {
-                            getDimmPartitionData(aResp, service, path);
+                            if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.Dimm")
+                            {
+                                getDimmDataByService(aResp, dimmId, service,
+                                                     path);
+                                found = true;
+                            }
+                            else if (interface ==
+                                     "xyz.openbmc_project.Inventory.Item."
+                                     "PersistentMemory.Partition")
+                            {
+                                // partitions are separate as there can be
+                                // multiple per
+                                // device, i.e.
+                                // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                                // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                                getDimmPartitionData(aResp, service, path);
+                            }
+                            else if (interface ==
+                                     "xyz.openbmc_project.Association."
+                                     "Definitions")
+                            {
+                                // Find `endpoints` array by this interface and
+                                // the <cpu object path>/identify_led_group
+                                // object path, and then get the Asserted
+                                // property value by this path.
+                                getLocationIndicatorActive(aResp, path);
+                            }
                         }
                     }
                 }
@@ -825,9 +835,10 @@ inline void getDimmData(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 2>{
+        std::array<const char*, 3>{
             "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
+            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
+            "xyz.openbmc_project.Association.Definitions"});
 }
 
 class MemoryCollection : public Node
@@ -900,12 +911,90 @@ class Memory : public Node
         }
         const std::string& dimmId = params[0];
 
-        res.jsonValue["@odata.type"] = "#Memory.v1_7_0.Memory";
+        res.jsonValue["@odata.type"] = "#Memory.v1_10_0.Memory";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory/" + dimmId;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getDimmData(asyncResp, dimmId);
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        std::optional<bool> locationIndicatorActive;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (!json_util::readJson(req, res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        const std::string& dimmId = params[0];
+        if (locationIndicatorActive)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, dimmId, locationIndicatorActive](
+                    const boost::system::error_code ec,
+                    const boost::container::flat_map<
+                        std::string,
+                        boost::container::flat_map<
+                            std::string, std::vector<std::string>>>& subtree) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "DBus method call failed with error "
+                            << ec.value();
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    // Iterate over all retrieved ObjectPaths.
+                    for (const auto& object : subtree)
+                    {
+                        if (boost::ends_with(object.first, dimmId))
+                        {
+                            for (const auto& service : object.second)
+                            {
+                                for (const auto& inventory : service.second)
+                                {
+                                    if (inventory == "xyz.openbmc_project."
+                                                     "Association.Definitions")
+                                    {
+                                        // Find `endpoints` array by this
+                                        // interface and the <cpu object
+                                        // path>/identify_led_group object path,
+                                        // and then set the Asserted property
+                                        // value by this path and the current
+                                        // value.
+                                        setLocationIndicatorActive(
+                                            asyncResp, object.first,
+                                            *locationIndicatorActive);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    messages::resourceNotFound(
+                        asyncResp->res, "#Memory.v1_10_0.Memory", dimmId);
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/inventory", 0,
+                std::array<const char*, 2>{
+                    "xyz.openbmc_project.Inventory.Item.Dimm",
+                    "xyz.openbmc_project.Association.Definitions"});
+        }
     }
 };
 
