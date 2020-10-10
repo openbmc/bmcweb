@@ -16,6 +16,24 @@
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd8ffa13_a3a0d27a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-10-10T01:34:58Z",
+      "side": 1,
+      "message": "\u003e Can you explain more about this design? \n\nsure.\n1. First, we need to define fType:identify_led_group in associations.json as follows:\n```\n{\n\t\"path\": \"system/chassis/motherboard/cpu0\",\n\t\"endpoints\":\n\t[\n\t... ...\n\t\t{\n\t\t\t\"types\":\n\t\t\t{\n\t\t\t\t\"rType\": \"fru_identify\",\n\t\t\t\t\"fType\": \"identify_led_group\"\n\t\t\t},\n\t\t\t\"paths\":\n\t\t\t[\n\t\t\t\t\"/xyz/openbmc_project/led/groups/cpu0_identify\"\n\t\t\t]\n\t\t}\n\t... ...\n\t]\n}\n```\n2. We can find the corresponding LEDsGroupPaths by the `path` and `fType` equal to `identify_led_group` in types.\n3. Get the Asserted property value by the LEDsGroupPaths.\n4. If Asserted\u003dtrue, the corresponding physical LEDs will turn on, so it can be considered that LocationIndicatorActive\u003dtrue, otherwise, LocationIndicatorActive\u003dfalse.\n\n\u003e You are using the Association interface to find the LED group?\n\nyes, as above.\n\n\u003e Can you point us at a doc?\n\nNow, we can refer to the following tasks:\nhttps://github.com/ibm-openbmc/dev/issues/2084\nIt was created by @Vishwa\n\n\u003e but I think we need a paragraph about these associations to \nhttps://github.com/openbmc/docs/blob/357556a5dc0622ecbb3ef0f1988e5e5b0ed5b611/architecture/LED-architecture.md ?\n\nYes, Since @Vishwa is an expert on LEDs, I will update it after discussing with @Vishwa.",
+      "parentUuid": "57191882_41a96c2f",
+      "revId": "38b2ef13765e29aa84484221406b92d822483924",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
