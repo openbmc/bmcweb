@@ -717,6 +717,17 @@ inline void getDimmData(std::shared_ptr<AsyncResp> aResp,
                         {
                             getDimmPartitionData(aResp, service, path);
                         }
+
+                        if (std::find(interfaces.begin(), interfaces.end(),
+                                      "xyz.openbmc_project.Association."
+                                      "Definitions") != interfaces.end())
+                        {
+                            // Find all the paths whose `fType` is equal to
+                            // `identify_led_group` in the `endpoints` array
+                            // by this interface, and then get the Asserted
+                            // property value by this path.
+                            getLocationIndicatorActive(aResp, service, path);
+                        }
                     }
                 }
             }
@@ -806,12 +817,82 @@ class Memory : public Node
         }
         const std::string& dimmId = params[0];
 
-        res.jsonValue["@odata.type"] = "#Memory.v1_7_0.Memory";
+        res.jsonValue["@odata.type"] = "#Memory.v1_14_0.Memory";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory/" + dimmId;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getDimmData(asyncResp, dimmId);
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        std::optional<bool> locationIndicatorActive;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            return;
+        }
+
+        if (!json_util::readJson(req, res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        const std::string& dimmId = params[0];
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, dimmId, locationIndicatorActive](
+                const boost::system::error_code ec,
+                const boost::container::flat_map<
+                    std::string, boost::container::flat_map<
+                                     std::string, std::vector<std::string>>>&
+                    subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                // Iterate over all retrieved ObjectPaths.
+                for (const auto& object : subtree)
+                {
+                    if (boost::ends_with(object.first, dimmId))
+                    {
+                        for (const auto& service : object.second)
+                        {
+                            for (const auto& inventory : service.second)
+                            {
+                                if (inventory == "xyz.openbmc_project."
+                                                 "Association.Definitions")
+                                {
+                                    // Find all the paths whose `fType` is equal
+                                    // to `identify_led_group` in the
+                                    // `endpoints` array by this interface, and
+                                    // then set the Asserted property value by
+                                    // this path and the current value.
+                                    setLocationIndicatorActive(
+                                        asyncResp, service.first, object.first,
+                                        *locationIndicatorActive);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                messages::resourceNotFound(
+                    asyncResp->res, "#Processor.v1_14_0.Processor", dimmId);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Dimm"});
     }
 };
 
