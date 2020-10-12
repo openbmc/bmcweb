@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "db0c0cb3_37592036",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-10-12T11:13:29Z",
+      "side": 1,
+      "message": "\u003ethat enables _every_ tls 1.2 cipher, which if we\u0027re only enabling 1.2, might be ok, but we should be explicit about it so the defaults don\u0027t break us in the future.\n\nToday the default TLSv1.2 ciphers are secure. I didn\u0027t get, how we can gurantee by having an explict here.\nWhatsoever today which is nonvulnerable may become vulenerable so we can\u0027t be future proof. \n\nTo accomaodate all the secure ciphers(tlsv1.2, tlsv1.3), tls_client can be used which will allow all the tls ciphers(Vulnerable + non vulnerable) and then we can explicitly remove tlsv1.1,tlsv1, sslv3 etc",
+      "parentUuid": "82de5884_0fcbe6f0",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 76
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28e38ee6_9d8cd3a8",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
