@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c1018ba_75c51b94",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-12T06:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99941041_49b7b179",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "251fdf79_b8e8907e",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -396,6 +420,30 @@
     },
     {
       "key": {
+        "uuid": "82795738_c41157dc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-12T06:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c8e4281_ace6eefc",
+      "range": {
+        "startLine": 194,
+        "startChar": 28,
+        "endLine": 194,
+        "endChar": 70
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f2216d_510ae1af",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
@@ -526,6 +574,30 @@
       "side": 1,
       "message": "\u003e I did not see any reference to this in the spec. But since we are ignoring and discarding the response data, we should not care if its partial or complete.\n\nThis is also incorrect, which I pointed out on previous patchsets.  You can\u0027t ignore the error code, just as you can\u0027t ignore error codes when calling methods within the program.\n\n\u003e If there is more response data coming in, bmcweb can still receive it, since we do not close the connection.\nif we got partial_message, it means the connection closed while we were sending or receiving, and the HTTP connection can be thrown away, and recreated.",
       "parentUuid": "c50cb22f_80e8d2dc",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 79
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01040c64_ab77cea7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-12T06:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19fe6d4b_e7038ef3",
       "range": {
         "startLine": 211,
         "startChar": 0,
