@@ -161,7 +161,7 @@ class CertificateFile
     CertificateFile& operator=(CertificateFile&&) = delete;
     CertificateFile(const std::string& certString)
     {
-        std::array<char, 20> dirTemplate = {'/', 't', 'm', 'p', '/', 'C',
+        std::array<char, 18> dirTemplate = {'/', 't', 'm', 'p', '/', 'C',
                                             'e', 'r', 't', 's', '.', 'X',
                                             'X', 'X', 'X', 'X', 'X', '\0'};
         char* tempDirectory = mkdtemp(dirTemplate.data());
