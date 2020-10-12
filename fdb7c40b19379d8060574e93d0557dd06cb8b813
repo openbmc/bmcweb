@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "dfffcd14_abf49ce7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-12T15:23:39Z",
+      "side": 1,
+      "message": "\u003e \u003ethat enables _every_ tls 1.2 cipher, which if we\u0027re only enabling 1.2, might be ok, but we should be explicit about it so the defaults don\u0027t break us in the future.\n\u003e \n\u003e Today the default TLSv1.2 ciphers are secure. I didn\u0027t get, how we can gurantee by having an explict here.\n\u003e Whatsoever today which is nonvulnerable may become vulenerable so we can\u0027t be future proof. \n\nI\u0027m not asking to be future proof.  I\u0027m asking to have an explicit list;  If all the ciphers are secure, how do we know that?  What authority to we base that on?  When ciphers are found to be insecure, what list do we change?  If you take a look at the other place where we have ciphers, we\u0027re very explicit about what ciphers we support, which makes it easier to change.  I\u0027d like to see something similar here, or at minimum pointing to the openssl document that says what ciphers we support, so I can point to it when the next person asks.\n\n\u003e \n\u003e To accomaodate all the secure ciphers(tlsv1.2, tlsv1.3), tls_client can be used which will allow all the tls ciphers(Vulnerable + non vulnerable) and then we can explicitly remove tlsv1.1,tlsv1, sslv3 etc\n\nI think that works?  It\u0027s been so long since I\u0027ve written anything that approximates this, that I\u0027m not sure how it works anymore.",
+      "parentUuid": "db0c0cb3_37592036",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 76
+      },
+      "revId": "fdb7c40b19379d8060574e93d0557dd06cb8b813",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28e38ee6_9d8cd3a8",
         "filename": "http/http_client.hpp",
         "patchSetId": 15
