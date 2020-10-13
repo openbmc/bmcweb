@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "498167af_7955b387",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-13T15:25:19Z",
+      "side": 1,
+      "message": "This worked with no new daemons or other patchsets required?  What daemon exposes the API you\u0027re looking at?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 66
+      },
+      "revId": "f2b14615a521e2ae8ffa32fac4d33df6514641c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bda44f9_f7f6a3f0",
+        "filename": "redfish-core/include/registries/bios_registry.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-13T15:25:19Z",
+      "side": 1,
+      "message": "it\u0027s not 2018",
+      "range": {
+        "startLine": 22,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "f2b14615a521e2ae8ffa32fac4d33df6514641c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
