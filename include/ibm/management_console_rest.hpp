@@ -41,10 +41,38 @@ constexpr size_t maxBroadcastMsgSize =
 
 inline bool createSaveAreaPath(crow::Response& res)
 {
-    // The path /var/lib/obmc will be created by initrdscripts
     // Create the directories for the save-area files, when we get
     // first file upload request
     std::error_code ec;
+
+    if (!std::filesystem::is_directory("/var/lib", ec))
+    {
+        std::filesystem::create_directory("/var/lib", ec);
+    }
+    if (ec)
+    {
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPost: Failed to create /var/lib directory. ec : "
+            << ec;
+        return false;
+    }
+
+    if (!std::filesystem::is_directory("/var/lib/obmc", ec))
+    {
+        std::filesystem::create_directory("/var/lib/obmc", ec);
+    }
+    if (ec)
+    {
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPost: Failed to create /var/lib/obmc directory. ec : "
+            << ec;
+        return false;
+    }
+
     if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt", ec))
     {
         std::filesystem::create_directory("/var/lib/obmc/bmc-console-mgmt", ec);
@@ -53,9 +81,9 @@ inline bool createSaveAreaPath(crow::Response& res)
     {
         res.result(boost::beast::http::status::internal_server_error);
         res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_DEBUG
-            << "handleIbmPost: Failed to prepare save-area directory. ec : "
-            << ec;
+        BMCWEB_LOG_DEBUG << "handleIbmPost: Failed to prepare "
+                            "/var/lib/obmc/bmc-console-mgmt directory. ec : "
+                         << ec;
         return false;
     }
 
