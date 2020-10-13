@@ -80,9 +80,6 @@ static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
 
         if (interface.first == "xyz.openbmc_project.Software.Activation")
         {
-            // Found our interface, disable callbacks
-            fwUpdateMatcher = nullptr;
-
             // Retrieve service and activate
             crow::connections::systemBus->async_method_call(
                 [objPath, asyncResp,
