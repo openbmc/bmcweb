@@ -100,6 +100,11 @@ class MockLock : public crow::ibm_mc_lock::Lock
         auto status = Lock::getLockList(listSessionid);
         return status;
     }
+    void saveLocks()
+    {
+        Lock::saveLocks();
+    }
+
     friend class LockTest;
 };
 
@@ -286,7 +291,7 @@ TEST_F(LockTest, ValidateTransactionIDsBadTestCase)
     // Insert the request1 into the lock table
     const LockRequests& t = request1;
     auto rc1 = lockManager.isConflictWithTable(t);
-    std::vector<uint32_t> tids = {3};
+    std::vector<uint32_t> tids = {10};
     const std::vector<uint32_t>& p = tids;
     ASSERT_EQ(0, lockManager.validateRids(p));
 }
@@ -318,7 +323,7 @@ TEST_F(LockTest, ValidateisItMyLockBadTestCase)
     std::vector<uint32_t> tids = {1};
     const std::vector<uint32_t>& p = tids;
     std::string hmcid = "hmc-id";
-    std::string sessionid = "xxxxx";
+    std::string sessionid = "random";
     std::pair<SType, SType> ids = std::make_pair(hmcid, sessionid);
     auto rc = lockManager.isItMyLock(p, ids);
     ASSERT_EQ(0, rc.first);
@@ -347,7 +352,8 @@ TEST_F(LockTest, ValidateSessionIDForGetlocklistGoodTestCase)
     auto status = lockManager.getLockList(sessionid);
     auto result =
         std::get<std::vector<std::pair<uint32_t, LockRequests>>>(status);
-    ASSERT_EQ(1, result.size());
+    // By this time there should be 9 lock records in the table
+    ASSERT_EQ(9, result.size());
 }
 } // namespace ibm_mc_lock
 } // namespace crow
