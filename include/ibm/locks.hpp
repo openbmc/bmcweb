@@ -36,18 +36,13 @@ using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
 using SessionFlags = std::pair<SType, SType>;
 using ListOfSessionIds = std::vector<std::string>;
 static constexpr const char* fileName =
-    "/var/lib/obmc/bmc-console-mgmt/locks/ibm_mc_persistent_lock_data.json";
+    "/var/lib/bmcweb/ibm-management-console/locks/"
+    "ibm_mc_persistent_lock_data.json";
 
 class Lock
 {
     uint32_t transactionId;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
-
-    /*
-     * This API implements the logic to persist the locks that are contained in
-     * the lock table into a json file.
-     */
-    void saveLocks();
 
     /*
      * This API implements the logic to load the locks that are present in the
@@ -58,6 +53,12 @@ class Lock
     bool createPersistentLockFilePath();
 
   protected:
+    /*
+     * This API implements the logic to persist the locks that are contained in
+     * the lock table into a json file.
+     */
+    void saveLocks();
+
     /*
      * This function implements the logic for validating an incoming
      * lock request/requests.
@@ -191,25 +192,19 @@ class Lock
 
 inline bool Lock::createPersistentLockFilePath()
 {
-    // The path /var/lib/obmc will be created by initrdscripts
     // Create the directories for the persistent lock file
     std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt", ec))
-    {
-        std::filesystem::create_directory("/var/lib/obmc/bmc-console-mgmt", ec);
-    }
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG
-            << "Failed to prepare bmc-console-mgmt directory. ec : " << ec;
-        return false;
-    }
 
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks",
-                                       ec))
+    // set the permission of the directory to 700
+    std::filesystem::perms permission = std::filesystem::perms::owner_all;
+
+    if (!std::filesystem::is_directory(
+            "/var/lib/bmcweb/ibm-management-console/locks", ec))
     {
-        std::filesystem::create_directory(
-            "/var/lib/obmc/bmc-console-mgmt/locks", ec);
+        std::filesystem::create_directories(
+            "/var/lib/bmcweb/ibm-management-console/locks", ec);
+        std::filesystem::permissions(
+            "/var/lib/bmcweb/ibm-management-console/locks", permission);
     }
     if (ec)
     {
@@ -247,8 +242,8 @@ inline void Lock::loadLocks()
 inline void Lock::saveLocks()
 {
     std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks",
-                                       ec))
+    if (!std::filesystem::is_directory(
+            "/var/lib/bmcweb/ibm-management-console/locks", ec))
     {
         if (!createPersistentLockFilePath())
         {
@@ -257,10 +252,9 @@ inline void Lock::saveLocks()
         }
     }
     std::ofstream persistentFile(fileName);
-    // set the permission of the file to 640
+    // set the permission of the file to 600
     std::filesystem::perms permission = std::filesystem::perms::owner_read |
-                                        std::filesystem::perms::owner_write |
-                                        std::filesystem::perms::group_read;
+                                        std::filesystem::perms::owner_write;
     std::filesystem::permissions(fileName, permission);
     nlohmann::json data;
     for (const auto& it : lockTable)
@@ -358,6 +352,9 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
     // Need to check for conflict with the locktable entries.
 
     auto conflict = isConflictWithTable(multiRequest);
+
+    // save the lock in the persistent file
+    saveLocks();
 
     BMCWEB_LOG_DEBUG << "Done with checking conflict with the locktable";
     return std::make_pair(false, conflict);
@@ -548,8 +545,6 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
         lockTable.emplace(std::pair<uint32_t, LockRequests>(
             transactionId, refLockRequestStructure));
 
-        // save the lock in the persistent file
-        saveLocks();
         return std::make_pair(false, transactionId);
     }
     BMCWEB_LOG_DEBUG
@@ -582,8 +577,6 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
     transactionId = generateTransactionId();
     lockTable.emplace(std::make_pair(transactionId, refLockRequestStructure));
 
-    // save the lock in the persistent file
-    saveLocks();
     return std::make_pair(false, transactionId);
 }
 
