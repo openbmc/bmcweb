@@ -36,7 +36,8 @@ using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
 using SessionFlags = std::pair<SType, SType>;
 using ListOfSessionIds = std::vector<std::string>;
 static constexpr const char* fileName =
-    "/var/lib/obmc/bmc-console-mgmt/locks/ibm_mc_persistent_lock_data.json";
+    "/var/lib/bmcweb/ibm-management-console/locks/"
+    "ibm_mc_persistent_lock_data.json";
 
 class Lock
 {
@@ -191,25 +192,14 @@ class Lock
 
 inline bool Lock::createPersistentLockFilePath()
 {
-    // The path /var/lib/obmc will be created by initrdscripts
     // Create the directories for the persistent lock file
     std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt", ec))
-    {
-        std::filesystem::create_directory("/var/lib/obmc/bmc-console-mgmt", ec);
-    }
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG
-            << "Failed to prepare bmc-console-mgmt directory. ec : " << ec;
-        return false;
-    }
 
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks",
-                                       ec))
+    if (!std::filesystem::is_directory(
+            "/var/lib/bmcweb/ibm-management-console/locks", ec))
     {
-        std::filesystem::create_directory(
-            "/var/lib/obmc/bmc-console-mgmt/locks", ec);
+        std::filesystem::create_directories(
+            "/var/lib/bmcweb/ibm-management-console/locks", ec);
     }
     if (ec)
     {
@@ -247,8 +237,8 @@ inline void Lock::loadLocks()
 inline void Lock::saveLocks()
 {
     std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks",
-                                       ec))
+    if (!std::filesystem::is_directory(
+            "/var/lib/bmcweb/ibm-management-console/locks", ec))
     {
         if (!createPersistentLockFilePath())
         {
