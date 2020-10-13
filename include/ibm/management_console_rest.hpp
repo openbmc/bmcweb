@@ -39,31 +39,22 @@ constexpr size_t maxSaveareaFileSize =
 constexpr size_t maxBroadcastMsgSize =
     1000; // Allow Broadcast message size upto 1KB
 
-inline bool createSaveAreaPath(crow::Response& res)
+inline bool createConfigFilePath(crow::Response& res)
 {
-    // The path /var/lib/obmc will be created by initrdscripts
-    // Create the directories for the save-area files, when we get
+    // Create the directories for the configfiles, when we get
     // first file upload request
     std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt", ec))
-    {
-        std::filesystem::create_directory("/var/lib/obmc/bmc-console-mgmt", ec);
-    }
-    if (ec)
-    {
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_DEBUG
-            << "handleIbmPost: Failed to prepare save-area directory. ec : "
-            << ec;
-        return false;
-    }
+
+    // set the permission of the directory to 700
+    std::filesystem::perms permission = std::filesystem::perms::owner_all;
 
     if (!std::filesystem::is_directory(
-            "/var/lib/obmc/bmc-console-mgmt/save-area", ec))
+            "/var/lib/bmcweb/ibm-management-console/configfiles", ec))
     {
-        std::filesystem::create_directory(
-            "/var/lib/obmc/bmc-console-mgmt/save-area", ec);
+        std::filesystem::create_directories(
+            "/var/lib/bmcweb/ibm-management-console/configfiles", ec);
+        std::filesystem::permissions(
+            "/var/lib/bmcweb/ibm-management-console/configfiles", permission);
     }
     if (ec)
     {
@@ -95,7 +86,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
 
     BMCWEB_LOG_DEBUG
         << "handleIbmPut: Request to create/update the save-area file";
-    if (!createSaveAreaPath(res))
+    if (!createConfigFilePath(res))
     {
         res.result(boost::beast::http::status::not_found);
         res.jsonValue["Description"] = resourceNotFoundMsg;
@@ -103,7 +94,8 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     }
     // Create the file
     std::ofstream file;
-    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    std::filesystem::path loc(
+        "/var/lib/bmcweb/ibm-management-console/configfiles");
     loc /= fileID;
 
     const std::string& data = req.body;
@@ -123,6 +115,12 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         fileExists = true;
     }
     file.open(loc, std::ofstream::out);
+
+    // set the permission of the file to 600
+    std::filesystem::perms permission = std::filesystem::perms::owner_write |
+                                        std::filesystem::perms::owner_read;
+    std::filesystem::permissions(loc, permission);
+
     if (file.fail())
     {
         BMCWEB_LOG_DEBUG << "Error while opening the file for writing";
@@ -131,6 +129,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         return;
     }
     file << data;
+
     std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
     // Push an event
     if (fileExists)
@@ -154,7 +153,8 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
 inline void handleConfigFileList(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
-    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    std::filesystem::path loc(
+        "/var/lib/bmcweb/ibm-management-console/configfiles");
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         for (const auto& file : std::filesystem::directory_iterator(loc))
@@ -180,7 +180,8 @@ inline void deleteConfigFiles(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
     std::error_code ec;
-    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    std::filesystem::path loc(
+        "/var/lib/bmcweb/ibm-management-console/configfiles");
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         std::filesystem::remove_all(loc, ec);
@@ -215,8 +216,8 @@ inline void getLockServiceData(crow::Response& res)
 inline void handleFileGet(crow::Response& res, const std::string& fileID)
 {
     BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: " << fileID;
-    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/" +
-                              fileID);
+    std::filesystem::path loc(
+        "/var/lib/bmcweb/ibm-management-console/configfiles/" + fileID);
     if (!std::filesystem::exists(loc))
     {
         BMCWEB_LOG_ERROR << loc << "Not found";
@@ -246,7 +247,8 @@ inline void handleFileGet(crow::Response& res, const std::string& fileID)
 
 inline void handleFileDelete(crow::Response& res, const std::string& fileID)
 {
-    std::string filePath("/var/lib/obmc/bmc-console-mgmt/save-area/" + fileID);
+    std::string filePath("/var/lib/bmcweb/ibm-management-console/configfiles/" +
+                         fileID);
     BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
 
     std::ifstream fileOpen(filePath.c_str());
