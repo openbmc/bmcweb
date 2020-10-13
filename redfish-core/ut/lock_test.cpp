@@ -1,5 +1,6 @@
 #include "ibm/locks.hpp"
 
+#include <filesystem>
 #include <string>
 
 #include "gmock/gmock.h"
@@ -28,8 +29,20 @@ class LockTest : public ::testing::Test
     LockRequests request;
     LockRequests request1, request2;
     LockRequest record;
+    std::filesystem::path dir;
 
   public:
+    void SetUp() override
+    {
+        char tmpdir[] = "/tmp/ibm-management-console.XXXXXX";
+        dir = std::filesystem::path(mkdtemp(tmpdir));
+    }
+
+    void TearDown() override
+    {
+        std::filesystem::remove_all(dir);
+    }
+
     LockTest()
     {
         record = {
@@ -286,7 +299,7 @@ TEST_F(LockTest, ValidateTransactionIDsBadTestCase)
     // Insert the request1 into the lock table
     const LockRequests& t = request1;
     auto rc1 = lockManager.isConflictWithTable(t);
-    std::vector<uint32_t> tids = {3};
+    std::vector<uint32_t> tids = {10};
     const std::vector<uint32_t>& p = tids;
     ASSERT_EQ(0, lockManager.validateRids(p));
 }
@@ -309,7 +322,6 @@ TEST_F(LockTest, ValidateisItMyLockGoodTestCase)
 TEST_F(LockTest, ValidateisItMyLockBadTestCase)
 {
     MockLock lockManager;
-
     // Corrupt the client identifier
     std::get<1>(request1[0]) = "randomid";
     // Insert the request1 into the lock table
@@ -318,7 +330,7 @@ TEST_F(LockTest, ValidateisItMyLockBadTestCase)
     std::vector<uint32_t> tids = {1};
     const std::vector<uint32_t>& p = tids;
     std::string hmcid = "hmc-id";
-    std::string sessionid = "xxxxx";
+    std::string sessionid = "random";
     std::pair<SType, SType> ids = std::make_pair(hmcid, sessionid);
     auto rc = lockManager.isItMyLock(p, ids);
     ASSERT_EQ(0, rc.first);
@@ -349,5 +361,11 @@ TEST_F(LockTest, ValidateSessionIDForGetlocklistGoodTestCase)
         std::get<std::vector<std::pair<uint32_t, LockRequests>>>(status);
     ASSERT_EQ(1, result.size());
 }
+
+TEST_F(LockTest, ValidateBaseDirCreation)
+{
+    EXPECT_TRUE(crow::ibm_utils::createPersistentPaths(dir.c_str()));
+}
+
 } // namespace ibm_mc_lock
 } // namespace crow
