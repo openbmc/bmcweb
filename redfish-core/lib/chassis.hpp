@@ -20,6 +20,7 @@
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <utils/collection.hpp>
 
 #include <variant>
 
@@ -182,49 +183,12 @@ class ChassisCollection : public Node
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         res.jsonValue["Name"] = "Chassis Collection";
 
-        const std::array<const char*, 2> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis"};
-
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string>& chassisList) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                nlohmann::json& chassisArray =
-                    asyncResp->res.jsonValue["Members"];
-                chassisArray = nlohmann::json::array();
-                for (const std::string& objpath : chassisList)
-                {
-                    std::size_t lastPos = objpath.rfind("/");
-                    if (lastPos == std::string::npos)
-                    {
-                        BMCWEB_LOG_ERROR << "Failed to find '/' in " << objpath;
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    if ((lastPos + 1) >= objpath.size())
-                    {
-                        BMCWEB_LOG_ERROR << "Failed to parse path " << objpath;
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    chassisArray.push_back(
-                        {{"@odata.id", "/redfish/v1/Chassis/" +
-                                           objpath.substr(lastPos + 1)}});
-                }
 
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    chassisArray.size();
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", 0, interfaces);
+        collection_util::getCollectionMembers(
+            asyncResp, "/redfish/v1/Chassis",
+            {"xyz.openbmc_project.Inventory.Item.Board",
+             "xyz.openbmc_project.Inventory.Item.Chassis"});
     }
 };
 
