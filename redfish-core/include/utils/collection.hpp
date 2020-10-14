@@ -10,13 +10,24 @@ namespace redfish
 namespace collection_util
 {
 
-inline void getResourceList(std::shared_ptr<AsyncResp> aResp,
-                            const std::string& subclass,
-                            const std::vector<const char*>& collectionName)
+/**
+ * @brief Populate the collection "Members" from a GetSubTree search of
+ *        inventory
+ *
+ * @param[i,o] aResp  Async response object
+ * @param[i]   collectionPath  Redfish collection path which is used for the
+ *             Members Redfish Path
+ * @param[i]   interfaces  List of interfaces to constrain the GetSubTree search
+ *
+ * @return void
+ */
+inline void getCollectionMembers(std::shared_ptr<AsyncResp> aResp,
+                                 const std::string& collectionPath,
+                                 const std::vector<const char*>& interfaces)
 {
-    BMCWEB_LOG_DEBUG << "Get available system cpu/mem resources.";
+    BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
     crow::connections::systemBus->async_method_call(
-        [subclass, aResp{std::move(aResp)}](
+        [collectionPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -37,8 +48,7 @@ inline void getResourceList(std::shared_ptr<AsyncResp> aResp,
                 if ((iter != std::string::npos) && (iter < object.first.size()))
                 {
                     members.push_back(
-                        {{"@odata.id", "/redfish/v1/Systems/system/" +
-                                           subclass + "/" +
+                        {{"@odata.id", collectionPath + "/" +
                                            object.first.substr(iter + 1)}});
                 }
             }
@@ -47,7 +57,7 @@ inline void getResourceList(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0, collectionName);
+        "/xyz/openbmc_project/inventory", 0, interfaces);
 }
 
 } // namespace collection_util
