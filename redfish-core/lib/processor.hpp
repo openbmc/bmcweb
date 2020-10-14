@@ -466,7 +466,7 @@ class ProcessorCollection : public Node
             "#ProcessorCollection.ProcessorCollection";
         res.jsonValue["Name"] = "Processor Collection";
 
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors/";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors";
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         collection_util::getCollectionMembers(
