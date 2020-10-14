@@ -416,15 +416,14 @@ template <typename Type>
 bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
                             Type& value)
 {
-    nlohmann::json jsonValue = jsonData[key];
-    if (jsonValue.is_null())
+    nlohmann::json::iterator it = jsonData.find(key);
+    if (it == jsonData.end())
     {
         BMCWEB_LOG_DEBUG << "Key " << key << " not exist";
         return false;
     }
 
-    return details::unpackValue(jsonValue, key, value);
+    return details::unpackValue(*it, key, value);
 }
-
 } // namespace json_util
 } // namespace redfish
