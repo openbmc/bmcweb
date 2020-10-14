@@ -763,8 +763,9 @@ class MemoryCollection : public Node
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Memory";
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        collection_util::getResourceList(
-            asyncResp, "Memory", {"xyz.openbmc_project.Inventory.Item.Dimm"});
+        collection_util::getCollectionMembers(
+            asyncResp, "/redfish/v1/Systems/system/Memory",
+            {"xyz.openbmc_project.Inventory.Item.Dimm"});
     }
 };
 
