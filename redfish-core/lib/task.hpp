@@ -43,18 +43,18 @@ struct Payload
         httpHeaders(nlohmann::json::array())
 
     {
+        jsonBody = nlohmann::json::parse(req.body(), nullptr, false);
+        if (jsonBody.is_discarded())
+        {
+            jsonBody = nullptr;
+        }
+/*
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>
             headerWhitelist = {field_ns::accept,     field_ns::accept_encoding,
                                field_ns::user_agent, field_ns::host,
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
-
-        jsonBody = nlohmann::json::parse(req.body, nullptr, false);
-        if (jsonBody.is_discarded())
-        {
-            jsonBody = nullptr;
-        }
 
         for (const auto& field : req.fields)
         {
@@ -71,6 +71,7 @@ struct Payload
             header += field.value();
             httpHeaders.emplace_back(std::move(header));
         }
+        */
     }
     Payload() = delete;
 

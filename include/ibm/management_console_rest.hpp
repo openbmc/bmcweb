@@ -106,7 +106,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
     loc /= fileID;
 
-    const std::string& data = req.body;
+    const std::string& data = req.body();
     BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
     if (data.capacity() > maxSaveareaFileSize)
     {
