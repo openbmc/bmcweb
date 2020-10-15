@@ -99,7 +99,7 @@ class CertificateService : public Node
  */
 inline long getIDFromURL(const std::string_view url)
 {
-    std::size_t found = url.rfind("/");
+    std::size_t found = url.rfind('/');
     if (found == std::string::npos)
     {
         return -1;

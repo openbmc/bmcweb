@@ -415,7 +415,7 @@ class UpdateServiceActionsSimpleUpdate : public Node
         {
             // Must be option 2
             // Verify ImageURI has transfer protocol in it
-            size_t separator = imageURI.find(":");
+            size_t separator = imageURI.find(':');
             if ((separator == std::string::npos) ||
                 ((separator + 1) > imageURI.size()))
             {
@@ -451,7 +451,7 @@ class UpdateServiceActionsSimpleUpdate : public Node
         }
 
         // Format should be <IP or Hostname>/<file> for imageURI
-        size_t separator = imageURI.find("/");
+        size_t separator = imageURI.find('/');
         if ((separator == std::string::npos) ||
             ((separator + 1) > imageURI.size()))
         {
@@ -726,7 +726,7 @@ class SoftwareInventoryCollection : public Node
                 {
                     // if can't parse fw id then return
                     std::size_t idPos;
-                    if ((idPos = obj.first.rfind("/")) == std::string::npos)
+                    if ((idPos = obj.first.rfind('/')) == std::string::npos)
                     {
                         messages::internalError(asyncResp->res);
                         BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
@@ -913,7 +913,7 @@ class SoftwareInventory : public Node
                             // swInvPurpose is of format:
                             // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
                             // Translate this to "ABC image"
-                            size_t endDesc = swInvPurpose->rfind(".");
+                            size_t endDesc = swInvPurpose->rfind('.');
                             if (endDesc == std::string::npos)
                             {
                                 messages::internalError(asyncResp->res);

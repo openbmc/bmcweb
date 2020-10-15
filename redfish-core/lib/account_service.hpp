@@ -208,11 +208,11 @@ inline void parseLDAPConfigData(nlohmann::json& json_response,
 inline void handleRoleMapPatch(
     const std::shared_ptr<AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, LDAPRoleMapData>>& roleMapObjData,
-    const std::string& serverType, std::vector<nlohmann::json>& input)
+    const std::string& serverType, const std::vector<nlohmann::json>& input)
 {
     for (size_t index = 0; index < input.size(); index++)
     {
-        nlohmann::json& thisJson = input[index];
+        const nlohmann::json& thisJson = input[index];
 
         if (thisJson.is_null())
         {
@@ -255,8 +255,12 @@ inline void handleRoleMapPatch(
             std::optional<std::string> remoteGroup;
             std::optional<std::string> localRole;
 
-            if (!json_util::readJson(thisJson, asyncResp->res, "RemoteGroup",
-                                     remoteGroup, "LocalRole", localRole))
+            // This is a copy, but it's required in this case because of how
+            // readJson is structured
+            nlohmann::json thisJsonCopy = thisJson;
+            if (!json_util::readJson(thisJsonCopy, asyncResp->res,
+                                     "RemoteGroup", remoteGroup, "LocalRole",
+                                     localRole))
             {
                 continue;
             }
@@ -1112,11 +1116,8 @@ class AccountService : public Node
 
                 if (remoteRoleMapData)
                 {
-                    std::vector<nlohmann::json> remoteRoleMap =
-                        std::move(*remoteRoleMapData);
-
                     handleRoleMapPatch(asyncResp, confData.groupRoleList,
-                                       serverT, remoteRoleMap);
+                                       serverT, *remoteRoleMapData);
                 }
             });
     }
@@ -1367,7 +1368,7 @@ class AccountsCollection : public Node
                 {
                     const std::string& path =
                         static_cast<const std::string&>(user.first);
-                    std::size_t lastIndex = path.rfind("/");
+                    std::size_t lastIndex = path.rfind('/');
                     if (lastIndex == std::string::npos)
                     {
                         lastIndex = 0;
@@ -1453,9 +1454,9 @@ class AccountsCollection : public Node
                 }
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, username, password{std::move(password)}](
-                        const boost::system::error_code ec2,
-                        sdbusplus::message::message& m) {
+                    [asyncResp, username,
+                     password](const boost::system::error_code ec2,
+                               sdbusplus::message::message& m) {
                         if (ec2)
                         {
                             userErrorMessageHandler(m.get_error(), asyncResp,
@@ -1733,10 +1734,10 @@ class ManagerAccount : public Node
         }
         crow::connections::systemBus->async_method_call(
             [this, asyncResp, username, password(std::move(password)),
-             roleId(std::move(roleId)), enabled(std::move(enabled)),
+             roleId(std::move(roleId)), enabled,
              newUser{std::string(*newUserName)},
-             locked(std::move(locked))](const boost::system::error_code ec,
-                                        sdbusplus::message::message& m) {
+             locked](const boost::system::error_code ec,
+                     sdbusplus::message::message& m) {
                 if (ec)
                 {
                     userErrorMessageHandler(m.get_error(), asyncResp, newUser,
@@ -1765,9 +1766,8 @@ class ManagerAccount : public Node
         dbus::utility::checkDbusPathExists(
             dbusObjectPath,
             [dbusObjectPath(std::move(dbusObjectPath)), username,
-             password(std::move(password)), roleId(std::move(roleId)),
-             enabled(std::move(enabled)), locked(std::move(locked)),
-             asyncResp{std::move(asyncResp)}](int rc) {
+             password(std::move(password)), roleId(std::move(roleId)), enabled,
+             locked, asyncResp{std::move(asyncResp)}](int rc) {
                 if (!rc)
                 {
                     messages::resourceNotFound(
@@ -1901,8 +1901,8 @@ class ManagerAccount : public Node
         const std::string userPath = "/xyz/openbmc_project/user/" + params[0];
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, username{std::move(params[0])}](
-                const boost::system::error_code ec) {
+            [asyncResp,
+             username{params[0]}](const boost::system::error_code ec) {
                 if (ec)
                 {
                     messages::resourceNotFound(
