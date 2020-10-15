@@ -44,7 +44,7 @@ inline void getCollectionMembers(std::shared_ptr<AsyncResp> aResp,
 
             for (const auto& object : subtree)
             {
-                auto iter = object.first.rfind("/");
+                auto iter = object.first.rfind('/');
                 if ((iter != std::string::npos) && (iter < object.first.size()))
                 {
                     members.push_back(

@@ -82,7 +82,7 @@ inline void
                                     &propertyPair.second);
                             if (ntpServers != nullptr)
                             {
-                                ntpData = std::move(*ntpServers);
+                                ntpData = *ntpServers;
                             }
                         }
                         else if (propertyPair.first == "DomainName")
@@ -92,7 +92,7 @@ inline void
                                     &propertyPair.second);
                             if (domainNames != nullptr)
                             {
-                                dnData = std::move(*domainNames);
+                                dnData = *domainNames;
                             }
                         }
                     }
@@ -240,10 +240,11 @@ class NetworkProtocol : public Node
                 asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
                 if (hostName.empty() == false)
                 {
-                    std::string fqdn = std::move(hostName);
+                    std::string fqdn = hostName;
                     if (domainNames.empty() == false)
                     {
-                        fqdn += "." + domainNames[0];
+                        fqdn += ".";
+                        fqdn += domainNames[0];
                     }
                     asyncResp->res.jsonValue["FQDN"] = std::move(fqdn);
                 }
@@ -317,7 +318,7 @@ class NetworkProtocol : public Node
                                     std::get<NET_PROTO_LISTEN_STREAM>(
                                         (*responsePtr)[0]);
                                 std::size_t lastColonPos =
-                                    listenStream.rfind(":");
+                                    listenStream.rfind(':');
                                 if (lastColonPos == std::string::npos)
                                 {
                                     // Not a port

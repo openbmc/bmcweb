@@ -473,8 +473,7 @@ class Chassis : public Node
                         }
                         if (indicatorChassis)
                         {
-                            setIndicatorLedState(asyncResp,
-                                                 std::move(*indicatorLed));
+                            setIndicatorLedState(asyncResp, *indicatorLed);
                         }
                         else
                         {

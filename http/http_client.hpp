@@ -306,7 +306,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                         const std::string& destUri) :
         conn(ioc),
         timer(ioc), subId(id), host(destIP), port(destPort), uri(destUri),
-        retryCount(0), maxRetryAttempts(5),
+        retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
         retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
     {
         boost::asio::ip::tcp::resolver resolver(ioc);
