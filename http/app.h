@@ -1,6 +1,7 @@
 #pragma once
 
 #include "http_request.h"
+#include "http_request_impl.h"
 #include "http_server.h"
 #include "logging.h"
 #include "routing.h"
@@ -45,7 +46,7 @@ class App
     }
 
     template <typename Adaptor>
-    void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
+    void handleUpgrade(const RequestImpl& req, Response& res, Adaptor&& adaptor)
     {
         router.handleUpgrade(req, res, std::move(adaptor));
     }

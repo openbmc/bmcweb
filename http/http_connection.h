@@ -1,6 +1,7 @@
 #pragma once
 #include "config.h"
 
+#include "http_request_impl.h"
 #include "http_response.h"
 #include "logging.h"
 #include "timer_queue.h"
@@ -745,7 +746,7 @@ class Connection :
         boost::beast::http::string_body>>
         serializer;
 
-    std::optional<crow::Request> req;
+    std::optional<crow::RequestImpl> req;
     crow::Response res;
 
     std::weak_ptr<persistent_data::UserSession> session;

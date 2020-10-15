@@ -6,9 +6,7 @@
 
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
-#include <boost/beast/http/message.hpp>
-#include <boost/beast/http/string_body.hpp>
-#include <boost/beast/websocket.hpp>
+#include <boost/beast/http/field.hpp>
 #include <boost/url/url_view.hpp>
 
 namespace crow
@@ -16,14 +14,12 @@ namespace crow
 
 struct Request
 {
-    boost::beast::http::request<boost::beast::http::string_body>& req;
-    boost::beast::http::fields& fields;
+    virtual ~Request() = default;
+
     std::string_view url{};
     boost::urls::url_view urlView{};
     boost::urls::url_view::params_type urlParams{};
     bool isSecure{false};
-
-    const std::string& body;
 
     boost::asio::io_context* ioService{};
     boost::asio::ip::address ipAddress;
@@ -31,51 +27,25 @@ struct Request
     std::shared_ptr<persistent_data::UserSession> session;
 
     std::string userRole{};
-    Request(
-        boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
-        req(reqIn),
-        fields(reqIn.base()), body(reqIn.body())
-    {}
 
-    boost::beast::http::verb method() const
-    {
-        return req.method();
-    }
+    virtual std::string& body() const = 0;
 
-    std::string_view getHeaderValue(std::string_view key) const
-    {
-        return req[key];
-    }
+    virtual boost::beast::http::verb method() const = 0;
 
-    std::string_view getHeaderValue(boost::beast::http::field key) const
-    {
-        return req[key];
-    }
+    virtual std::string_view getHeaderValue(std::string_view key) const = 0;
 
-    std::string_view methodString() const
-    {
-        return req.method_string();
-    }
+    virtual std::string_view
+        getHeaderValue(boost::beast::http::field key) const = 0;
 
-    std::string_view target() const
-    {
-        return req.target();
-    }
+    virtual std::string_view methodString() const = 0;
 
-    unsigned version() const
-    {
-        return req.version();
-    }
+    virtual std::string_view target() const = 0;
 
-    bool isUpgrade() const
-    {
-        return boost::beast::websocket::is_upgrade(req);
-    }
+    virtual unsigned version() const = 0;
 
-    bool keepAlive() const
-    {
-        return req.keep_alive();
-    }
+    virtual bool isUpgrade() const = 0;
+
+    virtual bool keepAlive() const = 0;
 };
 
 } // namespace crow
