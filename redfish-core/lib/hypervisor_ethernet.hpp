@@ -123,7 +123,7 @@ class HypervisorInterfaceCollection : public Node
                 ifaceArray = nlohmann::json::array();
                 for (const std::string& iface : ifaceList)
                 {
-                    std::size_t lastPos = iface.rfind("/");
+                    std::size_t lastPos = iface.rfind('/');
                     if (lastPos != std::string::npos)
                     {
                         ifaceArray.push_back(
@@ -522,7 +522,7 @@ class HypervisorInterface : public Node
     }
 
     void handleHypervisorIPv4StaticPatch(
-        const std::string& ifaceId, nlohmann::json&& input,
+        const std::string& ifaceId, const nlohmann::json& input,
         const std::shared_ptr<AsyncResp>& asyncResp)
     {
         if ((!input.is_array()) || input.empty())
@@ -535,7 +535,7 @@ class HypervisorInterface : public Node
         // Hypervisor considers the first IP address in the array list
         // as the Hypervisor's virtual management interface supports single IPv4
         // address
-        nlohmann::json& thisJson = input[0];
+        const nlohmann::json& thisJson = input[0];
 
         // For the error string
         std::string pathString = "IPv4StaticAddresses/1";
@@ -545,8 +545,8 @@ class HypervisorInterface : public Node
             std::optional<std::string> address;
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
-
-            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
+            nlohmann::json thisJsonCopy = thisJson;
+            if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
                                      address, "SubnetMask", subnetMask,
                                      "Gateway", gateway))
             {
@@ -818,8 +818,7 @@ class HypervisorInterface : public Node
             ifaceId,
             [this, asyncResp, ifaceId, hostName = std::move(hostName),
              ipv4StaticAddresses = std::move(ipv4StaticAddresses),
-             ipv4DHCPEnabled = std::move(ipv4DHCPEnabled),
-             dhcpv4 = std::move(dhcpv4)](
+             ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
                 const bool& success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>&) {
                 if (!success)
@@ -831,8 +830,9 @@ class HypervisorInterface : public Node
 
                 if (ipv4StaticAddresses)
                 {
-                    nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
-                    nlohmann::json& ipv4Json = ipv4Static[0];
+                    const nlohmann::json& ipv4Static =
+                        std::move(*ipv4StaticAddresses);
+                    const nlohmann::json& ipv4Json = ipv4Static[0];
                     // Check if the param is 'null'. If its null, it means that
                     // user wants to delete the IP address. Deleting the IP
                     // address is allowed only if its statically configured.
@@ -846,8 +846,8 @@ class HypervisorInterface : public Node
                     }
                     else
                     {
-                        handleHypervisorIPv4StaticPatch(
-                            ifaceId, std::move(ipv4Static), asyncResp);
+                        handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
+                                                        asyncResp);
                     }
                 }
 
