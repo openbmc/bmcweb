@@ -5,6 +5,7 @@
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
+#include "http_request_impl.hpp"
 #include "timer_queue.hpp"
 #include "utility.hpp"
 
@@ -768,7 +769,7 @@ class Connection :
         boost::beast::http::string_body>>
         serializer;
 
-    std::optional<crow::Request> req;
+    std::optional<crow::RequestImpl> req;
     crow::Response res;
 
     std::weak_ptr<persistent_data::UserSession> session;

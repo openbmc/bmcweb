@@ -4,6 +4,7 @@
 #include "nlohmann/json.hpp"
 
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/string_body.hpp>
 
 #include <string>
 
