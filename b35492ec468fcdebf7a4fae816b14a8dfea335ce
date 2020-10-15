@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "ec79d7c1_d714a347",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-15T22:15:49Z",
+      "side": 1,
+      "message": "\u003e \u003e Are you trying to understand how webui-vue could support both translations, theming, and a minimum fingerprint footprint?  Or do you believe that a minimum fingerprint footprint isn\u0027t worth completing and merging?\n\u003e \n\u003e We really wanted a better understanding of the risk before we made a decision. Since you all discussed this in the security work group and recognized that fingerprinting and the targeting of unauthenticated assets are \"relatively minor\" for many environments, we are planning to use the BMCWEB_INSECURE_ENABLE_UNAUTHENTICATED_ASSETS flag for webui-vue and not create a separate login page and bundle at this time.\n\nI\u0027m not sure where the \"relatively minor\" statement came from, but yes, I agree there are deployments whos security posture doesn\u0027t require limiting fingerprinting.\n\nUnderstood about using the UNAUTHENTICATED_ASSETS flag today.  That was the intent.  We can discuss the other mechanical things at a later date.\n\n\u003e \n\u003e \u003e If you care about fingerprintability, and don\u0027t care about themability/translations enable these options for higher security.\n\u003e \u003e If you don\u0027t care about fingerprintability, and would prefer easy themability/translations, disable these options.\n\u003e \n\u003e Yes, we agree with this.\n\u003e \n\u003e \u003e In the long term, I\u0027d like to see us make both these features compatible with one another, and these options become moot.\n\u003e \n\u003e That seems like a great long term strategy.\n\nCool.  Sounds like we\u0027re on the same page.  I\u0027ll try to get patchsets cleaned up and pushed to:\n1. make webui-vue vs phosphor-webui image features.\n2. move rainier over to using the image feature, and not the package append it uses today.\n3. Correctly set the appropriate bmcweb flags for each.\n\nI think this would alleviate everyones concerns.  Let me know if I\u0027m mistaken, or I haven\u0027t accounted for someones needs.",
+      "parentUuid": "5893e5b8_aeaa3a88",
+      "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e9004af_1556a69b",
         "filename": "CMakeLists.txt",
         "patchSetId": 15
