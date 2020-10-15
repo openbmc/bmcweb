@@ -543,7 +543,7 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                         std::get_if<std::string>(&property.second);
                     if (value != nullptr)
                     {
-                        size_t idx = value->rfind(".");
+                        size_t idx = value->rfind('.');
                         if (idx == std::string::npos ||
                             idx + 1 >= value->size())
                         {

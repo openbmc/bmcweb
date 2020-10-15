@@ -1900,7 +1900,7 @@ class Manager : public Node
 
                 if (odataId)
                 {
-                    setActiveFirmwareImage(response, std::move(*odataId));
+                    setActiveFirmwareImage(response, *odataId);
                 }
             }
         }
@@ -1954,10 +1954,10 @@ class Manager : public Node
      * @return void
      */
     void setActiveFirmwareImage(const std::shared_ptr<AsyncResp>& aResp,
-                                const std::string&& runningFirmwareTarget)
+                                const std::string& runningFirmwareTarget)
     {
         // Get the Id from /redfish/v1/UpdateService/FirmwareInventory/<Id>
-        std::string::size_type idPos = runningFirmwareTarget.rfind("/");
+        std::string::size_type idPos = runningFirmwareTarget.rfind('/');
         if (idPos == std::string::npos)
         {
             messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
@@ -1999,7 +1999,7 @@ class Manager : public Node
                 {
                     const std::string& path =
                         static_cast<const std::string&>(object.first);
-                    std::size_t idPos2 = path.rfind("/");
+                    std::size_t idPos2 = path.rfind('/');
 
                     if (idPos2 == std::string::npos)
                     {

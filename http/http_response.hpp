@@ -37,17 +37,6 @@ struct Response
     Response() : stringResponse(response_type{})
     {}
 
-    Response(Response&& r)
-    {
-        BMCWEB_LOG_DEBUG << "Moving response containers";
-        *this = std::move(r);
-    }
-
-    ~Response()
-    {
-        BMCWEB_LOG_DEBUG << this << " Destroying response";
-    }
-
     Response& operator=(const Response& r) = delete;
 
     Response& operator=(Response&& r) noexcept

@@ -2444,12 +2444,21 @@ inline void requestRoutes(App& app)
                             const char* name = methods->Attribute("name");
                             if (name != nullptr)
                             {
-                                methodsArray.push_back(
-                                    {{"name", name},
-                                     {"uri", "/bus/system/" + processName +
-                                                 objectPath + "/" +
-                                                 interfaceName + "/" + name},
-                                     {"args", argsArray}});
+                                std::string uri;
+                                uri.reserve(14 + processName.size() +
+                                            objectPath.size() +
+                                            interfaceName.size() +
+                                            strlen(name));
+                                uri += "/bus/system/";
+                                uri += processName;
+                                uri += objectPath;
+                                uri += "/";
+                                uri += interfaceName;
+                                uri += "/";
+                                uri += name;
+                                methodsArray.push_back({{"name", name},
+                                                        {"uri", std::move(uri)},
+                                                        {"args", argsArray}});
                             }
                             methods = methods->NextSiblingElement("method");
                         }

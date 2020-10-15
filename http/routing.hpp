@@ -30,7 +30,7 @@ namespace crow
 class BaseRule
 {
   public:
-    BaseRule(std::string thisRule) : rule(std::move(thisRule))
+    BaseRule(const std::string& thisRule) : rule(thisRule)
     {}
 
     virtual ~BaseRule() = default;
@@ -313,7 +313,7 @@ class WebSocketRule : public BaseRule
     using self_t = WebSocketRule;
 
   public:
-    WebSocketRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
+    WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
     void validate() override
@@ -402,10 +402,10 @@ struct RuleParameterTraits
         return *p;
     }
 
-    self_t& name(const std::string& name) noexcept
+    self_t& name(const std::string_view name) noexcept
     {
         self_t* self = static_cast<self_t*>(this);
-        self->nameStr = std::move(name);
+        self->nameStr = name;
         return *self;
     }
 
@@ -448,7 +448,7 @@ struct RuleParameterTraits
 class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
 {
   public:
-    DynamicRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
+    DynamicRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
     void validate() override
@@ -521,7 +521,7 @@ class TaggedRule :
   public:
     using self_t = TaggedRule<Args...>;
 
-    TaggedRule(const std::string& ruleIn) : BaseRule(std::move(ruleIn))
+    TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
     void validate() override
@@ -612,9 +612,9 @@ class TaggedRule :
     }
 
     template <typename Func>
-    void operator()(const std::string& name, Func&& f)
+    void operator()(const std::string_view name, Func&& f)
     {
-        nameStr = std::move(name);
+        nameStr = name;
         (*this).template operator()<Func>(std::forward(f));
     }
 
