@@ -682,7 +682,7 @@ inline void deleteDumpEntry(crow::Response& res, const std::string& entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void createDumpTaskCallback(const crow::Request& req,
+inline void createDumpTaskCallback(/*const crow::Request& req,*/
                                    const std::shared_ptr<AsyncResp>& asyncResp,
                                    const uint32_t& dumpId,
                                    const std::string& dumpPath,
@@ -732,7 +732,7 @@ inline void createDumpTaskCallback(const crow::Request& req,
 
     task->startTimer(std::chrono::minutes(3));
     task->populateResp(asyncResp->res);
-    task->payload.emplace(req);
+    // task->payload.emplace(req);
 }
 
 inline void createDump(crow::Response& res, const crow::Request& req,
@@ -808,8 +808,8 @@ inline void createDump(crow::Response& res, const crow::Request& req,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, req, dumpPath, dumpType](const boost::system::error_code ec,
-                                             const uint32_t& dumpId) {
+        [asyncResp /*, req*/, dumpPath,
+         dumpType](const boost::system::error_code ec, const uint32_t& dumpId) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
@@ -818,7 +818,8 @@ inline void createDump(crow::Response& res, const crow::Request& req,
             }
             BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
 
-            createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
+            createDumpTaskCallback(/*req,*/ asyncResp, dumpId, dumpPath,
+                                   dumpType);
         },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" +
@@ -2715,13 +2716,13 @@ class OnDemandCrashdump : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(crow::Response& res, const crow::Request& /*req*/,
                 const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        auto generateonDemandLogCallback = [asyncResp,
-                                            req](const boost::system::error_code
+        auto generateonDemandLogCallback = [asyncResp/*,
+                                            req*/](const boost::system::error_code
                                                      ec,
                                                  const std::string&) {
             if (ec)
@@ -2759,7 +2760,7 @@ class OnDemandCrashdump : public Node
                 "crashdump'");
             task->startTimer(std::chrono::minutes(5));
             task->populateResp(asyncResp->res);
-            task->payload.emplace(req);
+            //task->payload.emplace(req);
         };
         crow::connections::systemBus->async_method_call(
             std::move(generateonDemandLogCallback), crashdumpObject,
@@ -2787,12 +2788,12 @@ class TelemetryCrashdump : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(crow::Response& res, const crow::Request& /* req*/,
                 const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        auto generateTelemetryLogCallback = [asyncResp, req](
+        auto generateTelemetryLogCallback = [asyncResp /*, req*/](
                                                 const boost::system::error_code
                                                     ec,
                                                 const std::string&) {
@@ -2831,7 +2832,7 @@ class TelemetryCrashdump : public Node
                 "crashdump'");
             task->startTimer(std::chrono::minutes(5));
             task->populateResp(asyncResp->res);
-            task->payload.emplace(req);
+            // task->payload.emplace(req);
         };
         crow::connections::systemBus->async_method_call(
             std::move(generateTelemetryLogCallback), crashdumpObject,
