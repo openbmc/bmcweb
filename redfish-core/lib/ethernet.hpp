@@ -201,13 +201,13 @@ inline std::string
 }
 
 inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
-                                         const GetManagedObjects& dbus_data,
+                                         GetManagedObjects& dbus_data,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
-    for (const auto& objpath : dbus_data)
+    for (auto& objpath : dbus_data)
     {
-        for (const auto& ifacePair : objpath.second)
+        for (auto& ifacePair : objpath.second)
         {
             if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
             {
@@ -285,7 +285,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
                         }
                         else if (propertyPair.first == "Nameservers")
                         {
-                            const std::vector<std::string>* nameservers =
+                            std::vector<std::string>* nameservers =
                                 std::get_if<std::vector<std::string>>(
                                     &propertyPair.second);
                             if (nameservers != nullptr)
@@ -971,7 +971,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                     {
                         // Cut out everything until last "/", ...
                         const std::string& ifaceId = objpath.first.str;
-                        std::size_t lastPos = ifaceId.rfind("/");
+                        std::size_t lastPos = ifaceId.rfind('/');
                         if (lastPos != std::string::npos)
                         {
                             // and put it into output vector.
@@ -1781,7 +1781,7 @@ class EthernetInterface : public Node
             // When domain name is empty then it means, that it is a network
             // without domain names, and the host name itself must be treated as
             // FQDN
-            std::string fqdn = std::move(ethData.hostname);
+            std::string fqdn = ethData.hostname;
             if (!ethData.domainnames.empty())
             {
                 fqdn += "." + ethData.domainnames[0];

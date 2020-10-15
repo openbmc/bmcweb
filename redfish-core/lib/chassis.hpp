@@ -200,7 +200,7 @@ class ChassisCollection : public Node
                 chassisArray = nlohmann::json::array();
                 for (const std::string& objpath : chassisList)
                 {
-                    std::size_t lastPos = objpath.rfind("/");
+                    std::size_t lastPos = objpath.rfind('/');
                     if (lastPos == std::string::npos)
                     {
                         BMCWEB_LOG_ERROR << "Failed to find '/' in " << objpath;
@@ -509,8 +509,7 @@ class Chassis : public Node
                         }
                         if (indicatorChassis)
                         {
-                            setIndicatorLedState(asyncResp,
-                                                 std::move(*indicatorLed));
+                            setIndicatorLedState(asyncResp, *indicatorLed);
                         }
                         else
                         {

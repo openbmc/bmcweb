@@ -214,7 +214,9 @@ inline void requestRoutes(App& app)
                             return;
                         }
                         std::string ifaceMatchString =
-                            propertiesMatchString + ",arg0='" + interface + "'";
+                            propertiesMatchString ifaceMatchString += ",arg0='";
+                        ifaceMatchString += interface;
+                        ifaceMatchString += "'";
                         BMCWEB_LOG_DEBUG << "Creating match "
                                          << ifaceMatchString;
                         thisSession.matches.emplace_back(
