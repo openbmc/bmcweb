@@ -1141,8 +1141,8 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
  */
 inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                                 bool oneTimeEnabled,
-                                std::optional<std::string> bootSource,
-                                std::optional<std::string> bootEnable)
+                                const std::optional<std::string>& bootSource,
+                                const std::optional<std::string>& bootEnable)
 {
     std::string bootSourceStr =
         "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
@@ -1288,7 +1288,7 @@ inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
             BMCWEB_LOG_DEBUG << "Got one time: " << *oneTimePtr;
 
             setBootModeOrSource(aResp, *oneTimePtr, std::move(bootSource),
-                                std::move(bootEnable));
+                                bootEnable);
         },
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot/one_time",
@@ -2008,8 +2008,7 @@ class Systems : public Node
             {
                 return;
             }
-            setWDTProperties(asyncResp, std::move(wdtEnable),
-                             std::move(wdtTimeOutAction));
+            setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
         }
 
         if (bootProps)
@@ -2032,13 +2031,14 @@ class Systems : public Node
             }
             if (automaticRetryConfig)
             {
-                setAutomaticRetry(asyncResp, std::move(*automaticRetryConfig));
+                setAutomaticRetry(asyncResp,
+                                  std::move(automaticRetryConfig.value()));
             }
         }
 
         if (indicatorLed)
         {
-            setIndicatorLedState(asyncResp, std::move(*indicatorLed));
+            setIndicatorLedState(asyncResp, std::move(indicatorLed.value()));
         }
 
         if (powerRestorePolicy)
