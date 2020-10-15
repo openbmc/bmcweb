@@ -43,34 +43,35 @@ struct Payload
         httpHeaders(nlohmann::json::array())
 
     {
-        using field_ns = boost::beast::http::field;
-        constexpr const std::array<boost::beast::http::field, 7>
-            headerWhitelist = {field_ns::accept,     field_ns::accept_encoding,
-                               field_ns::user_agent, field_ns::host,
-                               field_ns::connection, field_ns::content_length,
-                               field_ns::upgrade};
-
-        jsonBody = nlohmann::json::parse(req.body, nullptr, false);
+        jsonBody = nlohmann::json::parse(req.body(), nullptr, false);
         if (jsonBody.is_discarded())
         {
             jsonBody = nullptr;
         }
+        /*
+                using field_ns = boost::beast::http::field;
+                constexpr const std::array<boost::beast::http::field, 7>
+                    headerWhitelist = {field_ns::accept,
+           field_ns::accept_encoding, field_ns::user_agent, field_ns::host,
+                                       field_ns::connection,
+           field_ns::content_length, field_ns::upgrade};
 
-        for (const auto& field : req.fields)
-        {
-            if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
-                          field.name()) == headerWhitelist.end())
-            {
-                continue;
-            }
-            std::string header;
-            header.reserve(field.name_string().size() + 2 +
-                           field.value().size());
-            header += field.name_string();
-            header += ": ";
-            header += field.value();
-            httpHeaders.emplace_back(std::move(header));
-        }
+                for (const auto& field : req.fields)
+                {
+                    if (std::find(headerWhitelist.begin(),
+           headerWhitelist.end(), field.name()) == headerWhitelist.end())
+                    {
+                        continue;
+                    }
+                    std::string header;
+                    header.reserve(field.name_string().size() + 2 +
+                                   field.value().size());
+                    header += field.name_string();
+                    header += ": ";
+                    header += field.value();
+                    httpHeaders.emplace_back(std::move(header));
+                }
+                */
     }
     Payload() = delete;
 
