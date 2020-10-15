@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "5893e5b8_aeaa3a88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000281
+      },
+      "writtenOn": "2020-10-15T21:34:40Z",
+      "side": 1,
+      "message": "\u003e Are you trying to understand how webui-vue could support both translations, theming, and a minimum fingerprint footprint?  Or do you believe that a minimum fingerprint footprint isn\u0027t worth completing and merging?\n\nWe really wanted a better understanding of the risk before we made a decision. Since you all discussed this in the security work group and recognized that fingerprinting and the targeting of unauthenticated assets are \"relatively minor\" for many environments, we are planning to use the BMCWEB_INSECURE_ENABLE_UNAUTHENTICATED_ASSETS flag for webui-vue and not create a separate login page and bundle at this time.\n\n\u003e If you care about fingerprintability, and don\u0027t care about themability/translations enable these options for higher security.\n\u003e If you don\u0027t care about fingerprintability, and would prefer easy themability/translations, disable these options.\n\nYes, we agree with this.\n\n\u003e In the long term, I\u0027d like to see us make both these features compatible with one another, and these options become moot.\n\nThat seems like a great long term strategy.",
+      "parentUuid": "636be7fe_e84ba91a",
+      "revId": "b35492ec468fcdebf7a4fae816b14a8dfea335ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e9004af_1556a69b",
         "filename": "CMakeLists.txt",
         "patchSetId": 15
