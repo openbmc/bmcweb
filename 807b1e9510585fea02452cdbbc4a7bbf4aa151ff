@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cf2286f_aa12661a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-10-15T09:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3673969_48931fa2",
+      "range": {
+        "startLine": 20,
+        "startChar": 9,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "807b1e9510585fea02452cdbbc4a7bbf4aa151ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf6a8b52_d16ef6fd",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 33
@@ -36,6 +60,30 @@
       "writtenOn": "2020-10-14T15:53:43Z",
       "side": 1,
       "message": "https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md#types\n\nnit: UpperCamelCase\n\nsame comment applies for pendingAttributesType",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "807b1e9510585fea02452cdbbc4a7bbf4aa151ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e67ed8_1d594346",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-10-15T09:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf6a8b52_d16ef6fd",
       "range": {
         "startLine": 15,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8e02c217_f22f57b6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-10-15T09:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b48dc0a_d239ac30",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "807b1e9510585fea02452cdbbc4a7bbf4aa151ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "34122b5d_3f89068e",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 33
@@ -82,6 +154,30 @@
       "writtenOn": "2020-10-14T15:53:43Z",
       "side": 1,
       "message": "Typo",
+      "range": {
+        "startLine": 374,
+        "startChar": 35,
+        "endLine": 374,
+        "endChar": 46
+      },
+      "revId": "807b1e9510585fea02452cdbbc4a7bbf4aa151ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4138aff_11a787ff",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-10-15T09:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34122b5d_3f89068e",
       "range": {
         "startLine": 374,
         "startChar": 35,
