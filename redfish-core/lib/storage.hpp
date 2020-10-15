@@ -101,7 +101,7 @@ class Storage : public Node
 
                 for (const std::string& objpath : storageList)
                 {
-                    std::size_t lastPos = objpath.rfind("/");
+                    std::size_t lastPos = objpath.rfind('/');
                     if (lastPos == std::string::npos ||
                         (objpath.size() <= lastPos + 1))
                     {
@@ -139,7 +139,7 @@ class Storage : public Node
                 root = nlohmann::json::array();
                 for (const auto& [path, interfaceDict] : subtree)
                 {
-                    std::size_t lastPos = path.rfind("/");
+                    std::size_t lastPos = path.rfind('/');
                     if (lastPos == std::string::npos ||
                         (path.size() <= lastPos + 1))
                     {

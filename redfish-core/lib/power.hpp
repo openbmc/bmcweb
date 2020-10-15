@@ -176,7 +176,7 @@ class Power : public Node
             for (const std::string& chassis : chassisPaths)
             {
                 size_t len = std::string::npos;
-                size_t lastPos = chassis.rfind("/");
+                size_t lastPos = chassis.rfind('/');
                 if (lastPos == std::string::npos)
                 {
                     continue;

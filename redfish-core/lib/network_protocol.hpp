@@ -317,7 +317,7 @@ class NetworkProtocol : public Node
                                     std::get<NET_PROTO_LISTEN_STREAM>(
                                         (*responsePtr)[0]);
                                 std::size_t lastColonPos =
-                                    listenStream.rfind(":");
+                                    listenStream.rfind(':');
                                 if (lastColonPos == std::string::npos)
                                 {
                                     // Not a port

@@ -444,7 +444,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                 nlohmann::json& thisEntry = entriesArray.back();
                 const std::string& path =
                     static_cast<const std::string&>(object.first);
-                std::size_t lastPos = path.rfind("/");
+                std::size_t lastPos = path.rfind('/');
                 if (lastPos == std::string::npos)
                 {
                     continue;
@@ -843,7 +843,7 @@ inline void clearDump(crow::Response& res, const std::string& dumpType)
 
             for (const std::string& path : subTreePaths)
             {
-                std::size_t pos = path.rfind("/");
+                std::size_t pos = path.rfind('/');
                 if (pos != std::string::npos)
                 {
                     std::string logID = path.substr(pos + 1);
@@ -1072,14 +1072,14 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
-    size_t space = logEntry.find_first_of(" ");
+    size_t space = logEntry.find_first_of(' ');
     if (space == std::string::npos)
     {
         return 1;
     }
     std::string timestamp = logEntry.substr(0, space);
     // Then get the log contents
-    size_t entryStart = logEntry.find_first_not_of(" ", space);
+    size_t entryStart = logEntry.find_first_not_of(' ', space);
     if (entryStart == std::string::npos)
     {
         return 1;
@@ -1139,7 +1139,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     // Get the Created time from the timestamp. The log timestamp is in RFC3339
     // format which matches the Redfish format except for the fractional seconds
     // between the '.' and the '+', so just remove them.
-    std::size_t dot = timestamp.find_first_of(".");
+    std::size_t dot = timestamp.find_first_of('.');
     std::size_t plus = timestamp.find_first_of("+");
     if (dot != std::string::npos && plus != std::string::npos)
     {
@@ -2529,7 +2529,7 @@ class CrashdumpEntryCollection : public Node
             for (const std::string& objpath : resp)
             {
                 // Get the log ID
-                std::size_t lastPos = objpath.rfind("/");
+                std::size_t lastPos = objpath.rfind('/');
                 if (lastPos == std::string::npos)
                 {
                     continue;
