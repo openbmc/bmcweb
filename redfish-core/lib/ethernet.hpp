@@ -201,13 +201,13 @@ inline std::string
 }
 
 inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
-                                         const GetManagedObjects& dbus_data,
+                                         GetManagedObjects& dbus_data,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
-    for (const auto& objpath : dbus_data)
+    for (auto& objpath : dbus_data)
     {
-        for (const auto& ifacePair : objpath.second)
+        for (auto& ifacePair : objpath.second)
         {
             if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
             {
@@ -290,7 +290,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
                                     &propertyPair.second);
                             if (nameservers != nullptr)
                             {
-                                ethData.nameServers = std::move(*nameservers);
+                                ethData.nameServers = *nameservers;
                             }
                         }
                         else if (propertyPair.first == "StaticNameServers")
@@ -300,8 +300,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
                                     &propertyPair.second);
                             if (staticNameServers != nullptr)
                             {
-                                ethData.staticNameServers =
-                                    std::move(*staticNameServers);
+                                ethData.staticNameServers = *staticNameServers;
                             }
                         }
                         else if (propertyPair.first == "DHCPEnabled")
@@ -320,7 +319,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
                                     &propertyPair.second);
                             if (domainNames != nullptr)
                             {
-                                ethData.domainnames = std::move(*domainNames);
+                                ethData.domainnames = *domainNames;
                             }
                         }
                     }
@@ -895,7 +894,7 @@ void getEthernetIfaceData(const std::string& ethiface_id,
     crow::connections::systemBus->async_method_call(
         [ethifaceId{std::string{ethiface_id}}, callback{std::move(callback)}](
             const boost::system::error_code error_code,
-            const GetManagedObjects& resp) {
+            GetManagedObjects& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             boost::container::flat_set<IPv6AddressData> ipv6Data;
@@ -971,7 +970,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                     {
                         // Cut out everything until last "/", ...
                         const std::string& ifaceId = objpath.first.str;
-                        std::size_t lastPos = ifaceId.rfind("/");
+                        std::size_t lastPos = ifaceId.rfind('/');
                         if (lastPos != std::string::npos)
                         {
                             // and put it into output vector.
@@ -1264,7 +1263,8 @@ class EthernetInterface : public Node
 
     void handleDHCPPatch(const std::string& ifaceId,
                          const EthernetInterfaceData& ethData,
-                         DHCPParameters v4dhcpParms, DHCPParameters v6dhcpParms,
+                         const DHCPParameters& v4dhcpParms,
+                         const DHCPParameters& v6dhcpParms,
                          const std::shared_ptr<AsyncResp>& asyncResp)
     {
         bool ipv4Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
@@ -1601,7 +1601,7 @@ class EthernetInterface : public Node
     }
 
     void handleIPv6StaticAddressesPatch(
-        const std::string& ifaceId, nlohmann::json& input,
+        const std::string& ifaceId, const nlohmann::json& input,
         const boost::container::flat_set<IPv6AddressData>& ipv6Data,
         const std::shared_ptr<AsyncResp>& asyncResp)
     {
@@ -1614,7 +1614,7 @@ class EthernetInterface : public Node
         size_t entryIdx = 1;
         boost::container::flat_set<IPv6AddressData>::const_iterator niciPentry =
             getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
-        for (nlohmann::json& thisJson : input)
+        for (const nlohmann::json& thisJson : input)
         {
             std::string pathString =
                 "IPv6StaticAddresses/" + std::to_string(entryIdx);
@@ -1623,9 +1623,10 @@ class EthernetInterface : public Node
             {
                 std::optional<std::string> address;
                 std::optional<uint8_t> prefixLength;
-
-                if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                         address, "PrefixLength", prefixLength))
+                nlohmann::json thisJsonCopy = thisJson;
+                if (!json_util::readJson(thisJsonCopy, asyncResp->res,
+                                         "Address", address, "PrefixLength",
+                                         prefixLength))
                 {
                     messages::propertyValueFormatError(
                         asyncResp->res, thisJson.dump(), pathString);
@@ -1781,7 +1782,7 @@ class EthernetInterface : public Node
             // When domain name is empty then it means, that it is a network
             // without domain names, and the host name itself must be treated as
             // FQDN
-            std::string fqdn = std::move(ethData.hostname);
+            std::string fqdn = ethData.hostname;
             if (!ethData.domainnames.empty())
             {
                 fqdn += "." + ethData.domainnames[0];
@@ -1959,8 +1960,7 @@ class EthernetInterface : public Node
              staticNameServers = std::move(staticNameServers),
              dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6),
              v4dhcpParms = std::move(v4dhcpParms),
-             v6dhcpParms = std::move(v6dhcpParms),
-             interfaceEnabled = std::move(interfaceEnabled)](
+             v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
                 const bool& success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>& ipv4Data,
                 const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
@@ -1976,8 +1976,8 @@ class EthernetInterface : public Node
 
                 if (dhcpv4 || dhcpv6)
                 {
-                    handleDHCPPatch(ifaceId, ethData, std::move(v4dhcpParms),
-                                    std::move(v6dhcpParms), asyncResp);
+                    handleDHCPPatch(ifaceId, ethData, v4dhcpParms, v6dhcpParms,
+                                    asyncResp);
                 }
 
                 if (hostname)
@@ -2004,7 +2004,7 @@ class EthernetInterface : public Node
                     // nlohmann::json objects. This makes a copy of the
                     // structure, and operates on that, but could be done
                     // more efficiently
-                    nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
+                    nlohmann::json ipv4Static = *ipv4StaticAddresses;
                     handleIPv4StaticPatch(ifaceId, ipv4Static, ipv4Data,
                                           asyncResp);
                 }
@@ -2023,7 +2023,7 @@ class EthernetInterface : public Node
 
                 if (ipv6StaticAddresses)
                 {
-                    nlohmann::json ipv6Static = std::move(*ipv6StaticAddresses);
+                    nlohmann::json ipv6Static = *ipv6StaticAddresses;
                     handleIPv6StaticAddressesPatch(ifaceId, ipv6Static,
                                                    ipv6Data, asyncResp);
                 }
@@ -2346,10 +2346,12 @@ class VlanNetworkInterfaceCollection : public Node
                 {
                     if (boost::starts_with(ifaceItem, rootInterfaceName + "_"))
                     {
-                        ifaceArray.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                                  rootInterfaceName + "/VLANs/" + ifaceItem}});
+                        std::string path =
+                            "/redfish/v1/Managers/bmc/EthernetInterfaces/";
+                        path += rootInterfaceName;
+                        path += "/VLANs/";
+                        path += ifaceItem;
+                        ifaceArray.push_back({{"@odata.id", std::move(path)}});
                     }
                 }
 
