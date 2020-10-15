@@ -123,7 +123,7 @@ class HypervisorInterfaceCollection : public Node
                 ifaceArray = nlohmann::json::array();
                 for (const std::string& iface : ifaceList)
                 {
-                    std::size_t lastPos = iface.rfind("/");
+                    std::size_t lastPos = iface.rfind('/');
                     if (lastPos != std::string::npos)
                     {
                         ifaceArray.push_back(
@@ -818,8 +818,7 @@ class HypervisorInterface : public Node
             ifaceId,
             [this, asyncResp, ifaceId, hostName = std::move(hostName),
              ipv4StaticAddresses = std::move(ipv4StaticAddresses),
-             ipv4DHCPEnabled = std::move(ipv4DHCPEnabled),
-             dhcpv4 = std::move(dhcpv4)](
+             ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
                 const bool& success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>&) {
                 if (!success)

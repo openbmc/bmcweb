@@ -156,14 +156,14 @@ inline int getEventLogParams(const std::string& logEntry,
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
-    size_t space = logEntry.find_first_of(" ");
+    size_t space = logEntry.find_first_of(' ');
     if (space == std::string::npos)
     {
         return -EINVAL;
     }
     timestamp = logEntry.substr(0, space);
     // Then get the log contents
-    size_t entryStart = logEntry.find_first_not_of(" ", space);
+    size_t entryStart = logEntry.find_first_not_of(' ', space);
     if (entryStart == std::string::npos)
     {
         return -EINVAL;
@@ -247,7 +247,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // Get the Created time from the timestamp. The log timestamp is in
     // RFC3339 format which matches the Redfish format except for the
     // fractional seconds between the '.' and the '+', so just remove them.
-    std::size_t dot = timestamp.find_first_of(".");
+    std::size_t dot = timestamp.find_first_of('.');
     std::size_t plus = timestamp.find_first_of("+");
     if (dot != std::string::npos && plus != std::string::npos)
     {
@@ -1122,7 +1122,7 @@ class EventServiceManager
         std::string logEntry;
         while (std::getline(logStream, logEntry))
         {
-            size_t space = logEntry.find_first_of(" ");
+            size_t space = logEntry.find_first_of(' ');
             if (space == std::string::npos)
             {
                 // Shouldn't enter here but lets skip it.

@@ -69,7 +69,7 @@ inline void
             for (auto& fw : *functionalFw)
             {
 
-                std::string::size_type idPos = fw.rfind("/");
+                std::string::size_type idPos = fw.rfind('/');
                 if (idPos == std::string::npos)
                 {
                     BMCWEB_LOG_DEBUG << "Can't parse firmware ID!";
@@ -110,7 +110,7 @@ inline void
                          subtree)
                     {
                         // if can't parse fw id then return
-                        std::string::size_type idPos = obj.first.rfind("/");
+                        std::string::size_type idPos = obj.first.rfind('/');
                         if (idPos == std::string::npos)
                         {
                             messages::internalError(aResp->res);
