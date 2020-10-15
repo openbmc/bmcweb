@@ -388,7 +388,7 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
             std::string chassisName;
             for (const std::string& chassis : chassisPaths)
             {
-                std::size_t lastPos = chassis.rfind("/");
+                std::size_t lastPos = chassis.rfind('/');
                 if (lastPos == std::string::npos)
                 {
                     BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
@@ -441,7 +441,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         std::string chassisName;
         for (const std::string& chassis : chassisPaths)
         {
-            std::size_t lastPos = chassis.rfind("/");
+            std::size_t lastPos = chassis.rfind('/');
             if (lastPos == std::string::npos)
             {
                 BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
@@ -1149,7 +1149,7 @@ inline void populateFanRedundancy(
                                         sensorsAsyncResp->res);
                                     return;
                                 }
-                                size_t lastSlash = path.rfind("/");
+                                size_t lastSlash = path.rfind('/');
                                 if (lastSlash == std::string::npos)
                                 {
                                     // this should be impossible
@@ -1180,7 +1180,7 @@ inline void populateFanRedundancy(
                                     sensorsAsyncResp->res.jsonValue["Fans"];
                                 for (const std::string& item : *collection)
                                 {
-                                    lastSlash = item.rfind("/");
+                                    lastSlash = item.rfind('/');
                                     // make a copy as collection is const
                                     std::string itemName =
                                         item.substr(lastSlash + 1);
@@ -2686,7 +2686,7 @@ inline bool findSensorNameUsingSensorPath(
 {
     for (std::string_view chassisSensor : sensorsList)
     {
-        std::size_t pos = chassisSensor.rfind("/");
+        std::size_t pos = chassisSensor.rfind('/');
         if (pos >= (chassisSensor.size() - 1))
         {
             continue;
@@ -3042,7 +3042,7 @@ class SensorCollection : public Node
                 {
                     BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
 
-                    std::size_t lastPos = sensor.rfind("/");
+                    std::size_t lastPos = sensor.rfind('/');
                     if (lastPos == std::string::npos ||
                         lastPos + 1 >= sensor.size())
                     {
@@ -3129,7 +3129,7 @@ class Sensor : public Node
                                                   std::vector<std::string>>>>&
                             object) {
                         std::string_view sensor = object.first;
-                        std::size_t lastPos = sensor.rfind("/");
+                        std::size_t lastPos = sensor.rfind('/');
                         if (lastPos == std::string::npos ||
                             lastPos + 1 >= sensor.size())
                         {

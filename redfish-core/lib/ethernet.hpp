@@ -201,13 +201,13 @@ inline std::string
 }
 
 inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
-                                         const GetManagedObjects& dbus_data,
+                                         GetManagedObjects& dbus_data,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
-    for (const auto& objpath : dbus_data)
+    for (auto& objpath : dbus_data)
     {
-        for (const auto& ifacePair : objpath.second)
+        for (auto& ifacePair : objpath.second)
         {
             if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
             {
@@ -290,7 +290,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
                                     &propertyPair.second);
                             if (nameservers != nullptr)
                             {
-                                ethData.nameServers = std::move(*nameservers);
+                                ethData.nameServers = *nameservers;
                             }
                         }
                         else if (propertyPair.first == "StaticNameServers")
@@ -895,7 +895,7 @@ void getEthernetIfaceData(const std::string& ethiface_id,
     crow::connections::systemBus->async_method_call(
         [ethifaceId{std::string{ethiface_id}}, callback{std::move(callback)}](
             const boost::system::error_code error_code,
-            const GetManagedObjects& resp) {
+            GetManagedObjects& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             boost::container::flat_set<IPv6AddressData> ipv6Data;
@@ -971,7 +971,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                     {
                         // Cut out everything until last "/", ...
                         const std::string& ifaceId = objpath.first.str;
-                        std::size_t lastPos = ifaceId.rfind("/");
+                        std::size_t lastPos = ifaceId.rfind('/');
                         if (lastPos != std::string::npos)
                         {
                             // and put it into output vector.
@@ -1781,7 +1781,7 @@ class EthernetInterface : public Node
             // When domain name is empty then it means, that it is a network
             // without domain names, and the host name itself must be treated as
             // FQDN
-            std::string fqdn = std::move(ethData.hostname);
+            std::string fqdn = ethData.hostname;
             if (!ethData.domainnames.empty())
             {
                 fqdn += "." + ethData.domainnames[0];

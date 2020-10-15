@@ -123,7 +123,7 @@ class HypervisorInterfaceCollection : public Node
                 ifaceArray = nlohmann::json::array();
                 for (const std::string& iface : ifaceList)
                 {
-                    std::size_t lastPos = iface.rfind("/");
+                    std::size_t lastPos = iface.rfind('/');
                     if (lastPos != std::string::npos)
                     {
                         ifaceArray.push_back(

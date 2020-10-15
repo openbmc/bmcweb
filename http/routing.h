@@ -403,7 +403,7 @@ struct RuleParameterTraits
         return *p;
     }
 
-    self_t& name(const std::string& name) noexcept
+    self_t& name(std::string name) noexcept
     {
         self_t* self = static_cast<self_t*>(this);
         self->nameStr = std::move(name);
@@ -522,7 +522,7 @@ class TaggedRule :
   public:
     using self_t = TaggedRule<Args...>;
 
-    TaggedRule(const std::string& ruleIn) : BaseRule(std::move(ruleIn))
+    TaggedRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
     {}
 
     void validate() override
@@ -613,7 +613,7 @@ class TaggedRule :
     }
 
     template <typename Func>
-    void operator()(const std::string& name, Func&& f)
+    void operator()(std::string name, Func&& f)
     {
         nameStr = std::move(name);
         (*this).template operator()<Func>(std::forward(f));

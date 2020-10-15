@@ -160,7 +160,7 @@ static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
                 nlohmann::json item;
                 const std::string& path =
                     static_cast<const std::string&>(object.first);
-                std::size_t lastIndex = path.rfind("/");
+                std::size_t lastIndex = path.rfind('/');
                 if (lastIndex == std::string::npos)
                 {
                     continue;
@@ -203,7 +203,7 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
                 const std::string& path =
                     static_cast<const std::string&>(item.first);
 
-                std::size_t lastItem = path.rfind("/");
+                std::size_t lastItem = path.rfind('/');
                 if (lastItem == std::string::npos)
                 {
                     continue;
@@ -521,7 +521,7 @@ class VirtualMediaActionInsertMedia : public Node
                             const std::string& path =
                                 static_cast<const std::string&>(object.first);
 
-                            std::size_t lastIndex = path.rfind("/");
+                            std::size_t lastIndex = path.rfind('/');
                             if (lastIndex == std::string::npos)
                             {
                                 continue;
@@ -903,7 +903,7 @@ class VirtualMediaActionEjectMedia : public Node
                             const std::string& path =
                                 static_cast<const std::string&>(object.first);
 
-                            std::size_t lastIndex = path.rfind("/");
+                            std::size_t lastIndex = path.rfind('/');
                             if (lastIndex == std::string::npos)
                             {
                                 continue;
