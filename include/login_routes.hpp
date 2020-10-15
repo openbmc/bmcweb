@@ -38,7 +38,7 @@ inline void requestRoutes(App& app)
             if (boost::starts_with(contentType, "application/json"))
             {
                 loginCredentials =
-                    nlohmann::json::parse(req.body, nullptr, false);
+                    nlohmann::json::parse(req.body(), nullptr, false);
                 if (loginCredentials.is_discarded())
                 {
                     BMCWEB_LOG_DEBUG << "Bad json in request";

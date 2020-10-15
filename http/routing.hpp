@@ -52,7 +52,7 @@ class BaseRule
     virtual void handle(const Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
                         const RoutingParams&) = 0;
-    virtual void handleUpgrade(const Request& /*req*/, Response& res,
+    virtual void handleUpgrade(const RequestImpl& /*req*/, Response& res,
                                boost::asio::ip::tcp::socket&& /*adaptor*/)
     {
         res.result(boost::beast::http::status::not_found);
@@ -60,7 +60,7 @@ class BaseRule
     }
 #ifdef BMCWEB_ENABLE_SSL
     virtual void handleUpgrade(
-        const Request& /*req*/, Response& res,
+        const RequestImpl& /*req*/, Response& res,
         boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&& /*adaptor*/)
     {
         res.result(boost::beast::http::status::not_found);
@@ -340,7 +340,7 @@ class WebSocketRule : public BaseRule
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
 
-    void handleUpgrade(const Request& req, Response& /*res*/,
+    void handleUpgrade(const RequestImpl& req, Response& /*res*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
         BMCWEB_LOG_DEBUG << "Websocket handles upgrade";
@@ -353,7 +353,7 @@ class WebSocketRule : public BaseRule
         myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
-    void handleUpgrade(const Request& req, Response& /*res*/,
+    void handleUpgrade(const RequestImpl& req, Response& /*res*/,
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
@@ -1140,7 +1140,7 @@ class Router
     }
 
     template <typename Adaptor>
-    void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
+    void handleUpgrade(const RequestImpl& req, Response& res, Adaptor&& adaptor)
     {
         if (static_cast<size_t>(req.method()) >= perMethods.size())
         {

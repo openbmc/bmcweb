@@ -2,6 +2,7 @@
 #include "bmcweb_config.h"
 
 #include "authorization.hpp"
+#include "http_request_impl.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -317,7 +318,7 @@ class Connection :
     void handle()
     {
         std::error_code reqEc;
-        crow::Request& thisReq = req.emplace(parser->release(), reqEc);
+        crow::RequestImpl& thisReq = req.emplace(parser->release(), reqEc);
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG << "Request failed to construct" << reqEc;
@@ -738,7 +739,7 @@ class Connection :
         boost::beast::http::string_body>>
         serializer;
 
-    std::optional<crow::Request> req;
+    std::optional<crow::RequestImpl> req;
     crow::Response res;
 
     bool sessionIsFromTransport = false;

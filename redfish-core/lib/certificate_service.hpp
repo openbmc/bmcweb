@@ -114,12 +114,12 @@ inline std::string getCertificateFromReqBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req)
 {
-    nlohmann::json reqJson = nlohmann::json::parse(req.body, nullptr, false);
+    nlohmann::json reqJson = nlohmann::json::parse(req.body(), nullptr, false);
 
     if (reqJson.is_discarded())
     {
         // We did not receive JSON request, proceed as it is RAW data
-        return req.body;
+        return req.body();
     }
 
     std::string certificate;

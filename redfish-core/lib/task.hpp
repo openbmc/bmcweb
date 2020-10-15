@@ -51,26 +51,24 @@ struct Payload
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
 
-        jsonBody = nlohmann::json::parse(req.body, nullptr, false);
+        jsonBody = nlohmann::json::parse(req.body(), nullptr, false);
         if (jsonBody.is_discarded())
         {
             jsonBody = nullptr;
         }
 
-        for (const auto& field : req.fields)
-        {
-            if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
-                          field.name()) == headerWhitelist.end())
+        for (const auto& fieldToCheck : headerWhitelist)
+        {   
+            std::string_view field = req.getHeaderValue(fieldToCheck);
+            if (field.empty())
             {
                 continue;
             }
-            std::string header;
-            header.reserve(field.name_string().size() + 2 +
-                           field.value().size());
-            header += field.name_string();
-            header += ": ";
-            header += field.value();
-            httpHeaders.emplace_back(std::move(header));
+            std::string_view header = boost::beast::http::to_string(fieldToCheck);
+            std::string combined(header);
+            combined += ": ";
+            combined += field;
+            httpHeaders.emplace_back(std::move(combined));
         }
     }
     Payload() = delete;

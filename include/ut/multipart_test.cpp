@@ -1,5 +1,6 @@
 #include <http_utility.hpp>
 #include <multipart_parser.hpp>
+#include <http_request_impl.hpp>
 
 #include <map>
 
@@ -30,7 +31,7 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
                  "{\r\n--------d74496d6695887}\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ParserError rc = parser.parse(reqIn);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
@@ -63,7 +64,7 @@ TEST_F(MultipartTest, TestBadMultipartParser1)
                  "1234567890\r\n"
                  "-----------------------------d74496d66958873e\r-\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ParserError rc = parser.parse(reqIn);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
@@ -83,7 +84,7 @@ TEST_F(MultipartTest, TestBadMultipartParser2)
                  "abcd\r\n"
                  "-----------------------------d74496d66958873e-\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ParserError rc = parser.parse(reqIn);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
@@ -106,7 +107,7 @@ TEST_F(MultipartTest, TestErrorBoundaryFormat)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_FORMAT);
 }
 
@@ -124,7 +125,7 @@ TEST_F(MultipartTest, TestErrorBoundaryCR)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_CR);
 }
 
@@ -142,7 +143,7 @@ TEST_F(MultipartTest, TestErrorBoundaryLF)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_LF);
 }
 
@@ -160,7 +161,7 @@ TEST_F(MultipartTest, TestErrorBoundaryData)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_DATA);
 }
 
@@ -178,7 +179,7 @@ TEST_F(MultipartTest, TestErrorEmptyHeader)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_EMPTY_HEADER);
 }
 
@@ -196,7 +197,7 @@ TEST_F(MultipartTest, TestErrorHeaderName)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_NAME);
 }
 
@@ -214,7 +215,7 @@ TEST_F(MultipartTest, TestErrorHeaderValue)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_VALUE);
 }
 
@@ -232,6 +233,6 @@ TEST_F(MultipartTest, TestErrorHeaderEnding)
                  "123456\r\n"
                  "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(req, ec);
+    crow::RequestImpl reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_ENDING);
 }

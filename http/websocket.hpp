@@ -1,5 +1,6 @@
 #pragma once
 #include "http_request.hpp"
+#include "http_request_impl.hpp"
 
 #include <async_resp.hpp>
 #include <boost/algorithm/string/predicate.hpp>
@@ -21,11 +22,11 @@ namespace websocket
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& reqIn) :
+    explicit Connection(const crow::RequestImpl& reqIn) :
         req(reqIn.req), userdataPtr(nullptr)
     {}
 
-    explicit Connection(const crow::Request& reqIn, std::string user) :
+    explicit Connection(const crow::RequestImpl& reqIn, std::string user) :
         req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr)
     {}
 
@@ -69,7 +70,7 @@ class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& reqIn, Adaptor adaptorIn,
+        const crow::RequestImpl& reqIn, Adaptor adaptorIn,
         std::function<void(Connection&)> openHandler,
         std::function<void(Connection&, const std::string&, bool)>
             messageHandler,
