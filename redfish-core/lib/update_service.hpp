@@ -61,8 +61,8 @@ static void activateImage(const std::string& objPath,
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
-                                   sdbusplus::message::message& m,
-                                   const crow::Request& req)
+                                   sdbusplus::message::message& m/*,
+                                   const crow::Request& req*/)
 {
     std::vector<std::pair<
         std::string,
@@ -85,8 +85,8 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 
             // Retrieve service and activate
             crow::connections::systemBus->async_method_call(
-                [objPath, asyncResp,
-                 req](const boost::system::error_code error_code,
+                [objPath, asyncResp/*,
+                 req*/](const boost::system::error_code error_code,
                       const std::vector<std::pair<
                           std::string, std::vector<std::string>>>& objInfo) {
                     if (error_code)
@@ -241,7 +241,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                     objPath.str + "'");
                         task->startTimer(std::chrono::minutes(5));
                         task->populateResp(asyncResp->res);
-                        task->payload.emplace(req);
+                        //task->payload.emplace(req);
                     }
                     fwUpdateInProgress = false;
                 },
@@ -299,9 +299,9 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
             }
         });
 
-    auto callback = [asyncResp, req](sdbusplus::message::message& m) {
+    auto callback = [asyncResp /*, req*/](sdbusplus::message::message& m) {
         BMCWEB_LOG_DEBUG << "Match fired";
-        softwareInterfaceAdded(asyncResp, m, req);
+        softwareInterfaceAdded(asyncResp, m /*, req*/);
     };
 
     fwUpdateInProgress = true;
@@ -676,7 +676,7 @@ class UpdateService : public Node
         BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
         std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                         std::ofstream::trunc);
-        out << req.body;
+        out << req.body();
         out.close();
         BMCWEB_LOG_DEBUG << "file upload complete!!";
     }
