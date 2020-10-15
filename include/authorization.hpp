@@ -232,7 +232,7 @@ static bool isOnWhitelist(const crow::Request& req)
 
 static void authenticate(
     crow::Request& req, Response& res,
-    [[maybe_unused]] std::weak_ptr<persistent_data::UserSession> session)
+    [[maybe_unused]] const std::weak_ptr<persistent_data::UserSession>& session)
 {
     if (isOnWhitelist(req))
     {
@@ -245,7 +245,7 @@ static void authenticate(
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (req.session == nullptr && authMethodsConfig.tls)
     {
-        req.session = performTLSAuth(req, res, std::move(session));
+        req.session = performTLSAuth(req, res, session);
     }
 #endif
     if (req.session == nullptr && authMethodsConfig.xtoken)

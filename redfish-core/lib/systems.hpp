@@ -202,11 +202,10 @@ inline void
 
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
-                                 path(std::move(path))](
-                                    const boost::system::error_code ec2,
-                                    const std::vector<
-                                        std::pair<std::string, VariantType>>&
-                                        properties) {
+                                 path](const boost::system::error_code ec2,
+                                       const std::vector<
+                                           std::pair<std::string, VariantType>>&
+                                           properties) {
                                     if (ec2)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -309,11 +308,10 @@ inline void
 
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
-                                 path(std::move(path))](
-                                    const boost::system::error_code ec2,
-                                    const std::vector<
-                                        std::pair<std::string, VariantType>>&
-                                        properties) {
+                                 path](const boost::system::error_code ec2,
+                                       const std::vector<
+                                           std::pair<std::string, VariantType>>&
+                                           properties) {
                                     if (ec2)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -854,7 +852,8 @@ inline void getBootMode(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
+inline void getBootSource(const std::shared_ptr<AsyncResp>& aResp,
+                          bool oneTimeEnabled)
 {
     std::string bootDbusObj =
         oneTimeEnabled ? "/xyz/openbmc_project/control/host0/boot/one_time"
@@ -894,7 +893,7 @@ inline void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
         "xyz.openbmc_project.Settings", bootDbusObj,
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Control.Boot.Source", "BootSource");
-    getBootMode(std::move(aResp), std::move(bootDbusObj));
+    getBootMode(aResp, bootDbusObj);
 }
 
 /**
@@ -1141,8 +1140,8 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
  */
 inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                                 bool oneTimeEnabled,
-                                std::optional<std::string> bootSource,
-                                std::optional<std::string> bootEnable)
+                                const std::optional<std::string>& bootSource,
+                                const std::optional<std::string>& bootEnable)
 {
     std::string bootSourceStr =
         "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
@@ -1287,8 +1286,7 @@ inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
 
             BMCWEB_LOG_DEBUG << "Got one time: " << *oneTimePtr;
 
-            setBootModeOrSource(aResp, *oneTimePtr, std::move(bootSource),
-                                std::move(bootEnable));
+            setBootModeOrSource(aResp, *oneTimePtr, bootSource, bootEnable);
         },
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot/one_time",
@@ -2008,8 +2006,7 @@ class Systems : public Node
             {
                 return;
             }
-            setWDTProperties(asyncResp, std::move(wdtEnable),
-                             std::move(wdtTimeOutAction));
+            setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
         }
 
         if (bootProps)
@@ -2032,13 +2029,13 @@ class Systems : public Node
             }
             if (automaticRetryConfig)
             {
-                setAutomaticRetry(asyncResp, std::move(*automaticRetryConfig));
+                setAutomaticRetry(asyncResp, *automaticRetryConfig);
             }
         }
 
         if (indicatorLed)
         {
-            setIndicatorLedState(asyncResp, std::move(*indicatorLed));
+            setIndicatorLedState(asyncResp, *indicatorLed);
         }
 
         if (powerRestorePolicy)
