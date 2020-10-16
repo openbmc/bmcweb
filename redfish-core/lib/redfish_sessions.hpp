@@ -170,6 +170,15 @@ class SessionCollection : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>&) override
     {
+        if (crow::persistent_data::SessionStore::getInstance().getSessionsCount(
+                false, crow::persistent_data::PersistenceType::TIMEOUT) >=
+            crow::persistent_data::maxPersistentSessionsSupported)
+        {
+            messages::sessionLimitExceeded(res);
+            res.end();
+            return;
+        }
+
         std::string username;
         std::string password;
         std::optional<nlohmann::json> oemObject;
