@@ -1,15 +1,47 @@
 FROM ubuntu:20.04
 
+# obtain the essential build tools for bmcweb compilation
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y libpam0g-dev libssl-dev zlib1g-dev pkg-config xxd cmake \
-    libgtest-dev libgmock-dev ninja-build python3 autoconf-archive autoconf \
+    libgtest-dev libgmock-dev ninja-build python python3 autoconf-archive autoconf \
     build-essential git libsystemd-dev systemd libtinyxml2-dev python3-wheel python3-pip \
-    python3-yaml python3-mako python3-inflection python3-setuptools && \
+    python3-yaml python3-mako python3-inflection python3-setuptools xz-utils curl && \
     pip3 install meson
 
-ADD . /source
 
-RUN cd source && meson setup build && \
-    meson compile -C build
+# fetch and install sdbusplus 
+RUN curl -L https://api.github.com/repos/openbmc/sdbusplus/tarball | tar -xz && \
+cd openbmc-sdbusplus-* && \
+cd tools && ./setup.py install --root=/  && \
+cd .. && meson build -Dtests=disabled -Dexamples=disabled && \
+ninja -C build && \
+ninja -C build install
 
-WORKDIR /build
+
+# fetch and install nlohmann json
+RUN mkdir /usr/include/nlohmann/ && \
+curl -L -o /usr/include/nlohmann/json.hpp https://github.com/nlohmann/json/releases/download/v3.9.1/json.hpp && \
+ln -s nlohmann/json.hpp /usr/include/json.hpp
+
+# Getting prebuilt binary from llvm 
+RUN curl -SL https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz \
+ | tar -xJC . && \
+ mv clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04 clang_10 && \
+ echo 'export PATH=/clang_10/bin:$PATH' >> ~/.bashrc && \
+ echo 'export LD_LIBRARY_PATH=/clang_10/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
+
+# Get the boost library & install it
+RUN curl -L https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.gz | tar -xz && \
+cd boost_*/ && \
+./bootstrap.sh --prefix=/usr --with-libraries=context,coroutine && \
+./b2 && ./b2 install --prefix=/usr
+
+# Get boost-url & install it
+RUN curl -L https://github.com/CPPAlliance/url/archive/a56ae0df6d3078319755fbaa67822b4fa7fd352b.tar.gz | tar -xz && \
+cd url-* && \
+mkdir buildir && \
+cd buildir && \
+cmake -DBOOST_URL_STANDALONE=ON -DBOOST_URL_BUILD_TESTS=OFF -DBOOST_URL_BUILD_EXAMPLES=OFF .. && \
+make -j$(nproc) && \
+make install
+

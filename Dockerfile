@@ -4,8 +4,9 @@ FROM bmcweb-base
 
 ADD . /source
 
-RUN ninja -C /source/build
+RUN cd source && CXX=/clang_10/bin/clang++ meson setup build-clang
 
-RUN mkdir -p /usr/share/www
+RUN cd source && CXX=c++ meson setup build-gcc
 
-CMD ["/build/bmcweb"]
+WORKDIR /source
+
