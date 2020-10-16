@@ -25,6 +25,8 @@
 namespace persistent_data
 {
 
+constexpr std::size_t maxPersistentSessionsSupported = 100;
+
 // entropy: 20 characters, 62 possibilities.  log2(62^20) = 119 bits of
 // entropy.  OWASP recommends at least 64
 // https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-entropy
@@ -276,6 +278,28 @@ class SessionStore
 #endif
         authTokens.erase(session->sessionToken);
         needWrite = true;
+    }
+
+    std::size_t getSessionsCount(
+        bool getAll = true,
+        const PersistenceType& type = PersistenceType::SINGLE_REQUEST)
+    {
+        applySessionTimeouts();
+
+        if (getAll)
+        {
+            return authTokens.size();
+        }
+
+        std::size_t count = 0;
+        for (auto& session : authTokens)
+        {
+            if (type == session.second->persistence)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     std::vector<const std::string*> getUniqueIds(
