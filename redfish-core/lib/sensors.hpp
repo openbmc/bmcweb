@@ -36,7 +36,7 @@ using GetSubTreeType = std::vector<
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 using SensorVariant =
-    std::variant<int64_t, double, uint32_t, bool, std::string>;
+    std::variant<int64_t, double, uint32_t, uint16_t, bool, std::string>;
 
 using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
@@ -1005,6 +1005,7 @@ inline void objectInterfacesToJson(
 
                 const double* doubleValue = std::get_if<double>(&valueVariant);
                 const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
+                const uint16_t* sValue = std::get_if<uint16_t>(&valueVariant);
                 double temp = 0.0;
                 if (int64Value != nullptr)
                 {
@@ -1017,6 +1018,10 @@ inline void objectInterfacesToJson(
                 else if (uValue != nullptr)
                 {
                     temp = *uValue;
+                }
+                else if (sValue != nullptr)
+                {
+                    temp = *sValue;
                 }
                 else
                 {
