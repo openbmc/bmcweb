@@ -339,6 +339,24 @@
     },
     {
       "key": {
+        "uuid": "d10c34ec_637332aa",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-16T16:36:06Z",
+      "side": 1,
+      "message": "\u003e \u003e https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#67\n\u003e \u003e \n\u003e \u003e In the awk implementation, the port is shutdown as it is a separate service.\n\u003e \n\u003e So there\u0027s an admin API facing administration command for \"shutdown this service\"?  If so, that\u0027s good to know.  That just moves the compile-time http_connection option to runtime.  Not a big deal.  I can look into this if this is already supported today, although I was a big fan of the \"just decide at compile time\" approach.\n\nIn the latest iteration of this, I\u0027ve moved the HTTP redirector to be both compile time and runtime (still untested).  If a single socket file is detected, the HTTP forwarding behavior is disabled for all sockets, which gives the administrator a way to \"opt out\" at runtime.\n\nLet me know if the logic matches what you were hoping for in this regard.\n\n\u003e \n\u003e \u003e \n\u003e \u003e Re the later, yes, the socket can refer to the service or the service can refer to multiple sockets.\n\u003e \u003e \n\u003e \u003e I\u0027m assuming you meant the implicit link is same Description not same name (since they document which path takes precedence for same unit file names in different directories).\n\u003e \n\u003e I\u0027m saying when names are not exact matches, but starts with.  I intend to look into this some more, and come up with a better solution that doesn\u0027t rely on the implicit linking.\n\nThis still needs looked into.",
+      "parentUuid": "120f2d93_1145eefe",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
