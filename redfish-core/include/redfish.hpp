@@ -147,6 +147,8 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<ProcessorCollection>(app));
         nodes.emplace_back(std::make_unique<Processor>(app));
+        nodes.emplace_back(std::make_unique<OperatingConfigCollection>(app));
+        nodes.emplace_back(std::make_unique<OperatingConfig>(app));
         nodes.emplace_back(std::make_unique<MemoryCollection>(app));
         nodes.emplace_back(std::make_unique<Memory>(app));
 
