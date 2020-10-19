@@ -94,6 +94,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0400eb7e_6bc8cc7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-10-19T06:57:36Z",
+      "side": 1,
+      "message": "\u003e New patchset still has not moved these to install time, although it looks like some permissions have been added.\n\n+1\n\n@sunitha, if needed the base directory should be created at install phase via do_install/ do_install_append from the recipe that owns the directory.",
+      "parentUuid": "002526a0_5d8f7158",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
