@@ -166,6 +166,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73342c3c_8bc1e545",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-19T17:04:44Z",
+      "side": 1,
+      "message": "\u003e Spoke with Adraiana on the same and seems the above references are to make sure that these files/directories persist across boot.\n\u003e \n\u003e In this case, when the bmcweb is coming up, it needs to make sure that it has all the directories created and bmcweb can create the directory if it is not created.\n\nNo, if the directory doesn\u0027t exist, bmcweb can simply crash, as the code was not installed correctly.  Very similar to if /var/www/ doesn\u0027t exist.\n\n\u003e \n\u003e I would suggest that not to use the /var/lib/obmc. Instead we can use something like /var/lib/bmcweb.\n\nconsidering this is IBM specific, I\u0027d much rather us use something like \"ibm-manage-console\" in the name.\n\n\u003e \n\u003e Ed, Do you see any concern if bmcweb creates the diretory as it is application specific directory and can\u0027t depend on the recipe to create/install the directory for bmcweb.\n\nbmcweb already depends on the recipe being used, so there\u0027s no change here.  You also don\u0027t need to do it in the recipe.",
+      "parentUuid": "1a243f6f_a728fed2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
