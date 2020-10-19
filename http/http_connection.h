@@ -340,7 +340,8 @@ class Connection :
             {
                 needToCallAfterHandlers = true;
                 res.completeRequestHandler = [self(shared_from_this())] {
-                    self->completeRequest();
+                    boost::asio::post(self->adaptor.get_executor(),
+                                      [self] { self->completeRequest(); });
                 };
                 if (req->isUpgrade() &&
                     boost::iequals(
