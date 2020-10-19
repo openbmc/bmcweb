@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ba7f2dd_4ce632cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-19T15:30:12Z",
+      "side": 1,
+      "message": "How would you like to see this rephrased?  This IS a common error by people unfamiliar with C++;\n\nFacebook calls it the \"greatest C++ newbie bug\"\n\nhttps://www.youtube.com/watch?v\u003dJt0d_R0YwTE\u0026\u0026t\u003d440",
+      "parentUuid": "01b8cdfe_64f535e2",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-10-19T08:39:26Z",
       "side": 1,
       "message": "It looks like you didn\u0027t test the change that you have made. Please do it and put confirmation here.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2e7c09_fb022a31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-19T15:30:12Z",
+      "side": 1,
+      "message": "I\u0027m not following.  No, I did not test it, but I\u0027ve requested the original author test it, considering they\u0027re the one the wrote the code, and should be the most familiar with what they\u0027re expecting the behavior to be.  It sounds like you have some interest.  Could you help test it here?  I\u0027ve put this relatively clearly in the tested statement.  How were you hoping it would be phrased?",
+      "parentUuid": "fb2aa3f0_7f0591d8",
       "range": {
         "startLine": 16,
         "startChar": 0,
