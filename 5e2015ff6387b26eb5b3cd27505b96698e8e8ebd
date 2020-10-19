@@ -118,6 +118,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb54f86_5dfc277f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-10-19T11:00:33Z",
+      "side": 1,
+      "message": "Seems we need to identify why the obmc folder was not created, It should have been created in first place.\n\nFew refrences are below\n\nhttps://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/initrdscripts/obmc-phosphor-initfs.bb#L29\n\nhttps://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/initrdscripts/files/whitelist#L10\n\nhttps://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/initrdscripts/files/obmc-init.sh#L21\n\nWe should look at why this path was not created after boot.",
+      "parentUuid": "0400eb7e_6bc8cc7e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
