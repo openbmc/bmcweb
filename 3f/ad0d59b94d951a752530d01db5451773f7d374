@@ -1,0 +1,9 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: ManojKiran Eda <manojkiran.eda@gmail.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Submitted-by: Ravi Teja <raviteja28031990@gmail.com>
+Submitted-at: Mon, 19 Oct 2020 17:04:59 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37489
+Project: openbmc/bmcweb
+Branch: refs/heads/master
