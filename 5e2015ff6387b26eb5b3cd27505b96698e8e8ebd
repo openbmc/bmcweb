@@ -142,6 +142,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a243f6f_a728fed2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-10-19T14:56:47Z",
+      "side": 1,
+      "message": "Spoke with Adraiana on the same and seems the above references are to make sure that these files/directories persist across boot.\n\nIn this case, when the bmcweb is coming up, it needs to make sure that it has all the directories created and bmcweb can create the directory if it is not created.\n\nI would suggest that not to use the /var/lib/obmc. Instead we can use something like /var/lib/bmcweb.\n\nEd, Do you see any concern if bmcweb creates the diretory as it is application specific directory and can\u0027t depend on the recipe to create/install the directory for bmcweb.",
+      "parentUuid": "dfb54f86_5dfc277f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
