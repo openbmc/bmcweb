@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f08dac4a_8f030caf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000433
+      },
+      "writtenOn": "2020-10-20T08:05:57Z",
+      "side": 1,
+      "message": "Instead of stating that someone did a newbie mistake here just explain why this is a mistake and how you are going to fix it in your commit.\nInformation that this is a newbie mistake brings no value and in my culture sounds a little bit offensive.",
+      "parentUuid": "9ba7f2dd_4ce632cd",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I\u0027m not following.  No, I did not test it, but I\u0027ve requested the original author test it, considering they\u0027re the one the wrote the code, and should be the most familiar with what they\u0027re expecting the behavior to be.  It sounds like you have some interest.  Could you help test it here?  I\u0027ve put this relatively clearly in the tested statement.  How were you hoping it would be phrased?",
       "parentUuid": "fb2aa3f0_7f0591d8",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53eaba98_985f270c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000433
+      },
+      "writtenOn": "2020-10-20T08:05:57Z",
+      "side": 1,
+      "message": "`Each commit is expected to be tested` - CONTRIBUTING.md\nYou are the author of this commit and you should have test it before putting it here.\nRelaying on others that will test it for you might lead to merging untested changes.",
+      "parentUuid": "da2e7c09_fb022a31",
       "range": {
         "startLine": 16,
         "startChar": 0,
