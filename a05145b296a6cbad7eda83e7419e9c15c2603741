@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1f2acc58_6ddaf2ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-20T08:29:57Z",
+      "side": 1,
+      "message": "\u003e Instead of stating that someone did a newbie mistake here just explain why this is a mistake and how you are going to fix it in your commit.\n\nTo be clear, I did not call it a \"newbie mistake\".  I called it a \"common mistake made by first time c++ writers that are expecting python behavior for operator[]\", which is technically accurate, and true of the differences in programmers expecting python behavior.  This also comes after a sentence about why this is a mistake.  I\u0027m pretty sure I\u0027ve done what you\u0027ve asked already, so I\u0027ll ask again.  Specifically, how would you reword it?\n\n\u003e Information that this is a newbie mistake brings no value and in my culture sounds a little bit offensive.\n\nAgain, I did not use the words \"newbie mistake\" in my commit message.  I\u0027d like to hope that you understand I was quoting someone else.  I\u0027m happy to rephase this commit message, but you haven\u0027t given a suggestion about what text you would like to see instead.  If you give me a concrete suggestion of how you\u0027d like to see it reworded, I\u0027m happy to do it, but only saying this \"sounds a little bit offensive\" without an alternative doesn\u0027t give the impression that you want to see this resolved, which is I\u0027m sure not the case.",
+      "parentUuid": "f08dac4a_8f030caf",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "`Each commit is expected to be tested` - CONTRIBUTING.md\nYou are the author of this commit and you should have test it before putting it here.\nRelaying on others that will test it for you might lead to merging untested changes.",
       "parentUuid": "da2e7c09_fb022a31",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "852bea39_c67f5fa2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-20T08:29:57Z",
+      "side": 1,
+      "message": "\u003e `Each commit is expected to be tested` - CONTRIBUTING.md\n\u003e You are the author of this commit and you should have test it before putting it here.\n\nThe next line of that is \"The expectation of testing may vary from subproject to subproject\".  It also makes no statements about gerrit commits vs master commits, which I suspect was your confusion.\n\n\u003e Relaying on others that will test it for you might lead to merging untested changes.\n\nWith respect, I think asking the author of a bug to test someones correction of said bug to be reasonable, and something that goes along with the spirit of collaboration in the Open Source community.  If they chooses to reply and test is up to the author, and of course, it will be tested by someone before merge, but considering how specific this was to one portion of the code that I\u0027m not familiar with, I asked for help from the people that wrote it.  If you think asking for help is unreasonable on an open source project, I suspect you need to realign your expectations.  If I (a maintainer of this project) merge this without proper testing and cause a bug, feel free to call me out on it, but that\u0027s definitely not what I intend to do.  This change will be tested before merge by someone.\n\nThe idea that we cannot publish changes before they are fully tested reduces the amount of collaboration that\u0027s available, and increases the amount of rework.  With that said, if you want to suggest a change that states the every gerrit commit be tested, feel free to propose a change to the docs, but I would be against it.",
+      "parentUuid": "53eaba98_985f270c",
       "range": {
         "startLine": 16,
         "startChar": 0,
