@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "04f496c1_ec2e223d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-20T15:46:53Z",
+      "side": 1,
+      "message": "I have not called anyone out by name, nor disrespected anyone.  I\u0027ve focused on the technical specifics of the patch, and pointed to the code itself being the problem, not any individual person, author, or reviewer.  I believe I\u0027m in accordance with the code of conduct at this time.\n\nWith that said, to reiterate, if you give me a concrete rephrasing that you\u0027d like to see, I\u0027m happy to put it in, otherwise, I don\u0027t see the issue here.",
+      "parentUuid": "84b5780e_8ac78246",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -228,6 +252,30 @@
       "side": 1,
       "message": "In the commit message the community would like to see a statement describing that the code changes in the patch were tested. Not that testes were shifted to someone else.\n\nIf help is needed then add such person to review and ask to do some testing for you in comments under review or use IRC or mailing list.\nMarking such review as WIP until tests are done would be nice too.\n\nOther argumentations that cannot be supported by any documentation or are directed to my person like ‘realign your expectations’ I think are out of place and please keep them for yourself.",
       "parentUuid": "852bea39_c67f5fa2",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94250b2f_8699c969",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-20T15:46:53Z",
+      "side": 1,
+      "message": "\u003e In the commit message the community would like to see a statement describing that the code changes in the patch were tested. Not that testes were shifted to someone else.\n\nWith respect, I (as part of the community) like to see both.  A statement that this wasn\u0027t tested is just as valuable as a statement that it was, and allows myself and other maintainers to know the tested state of the commit, and possibly test ourselves if we find the commit important and would like to see it on master.\n\n\u003e \n\u003e If help is needed then add such person to review\n\nWith respect, I already did that.  The blame owner author of that line (Appu) was added to the review when it was pushed.\n\n\u003e and ask to do some testing for you in comments under review or use IRC or mailing list.\n\nTo be clear, the change you\u0027re asking for is for me to put the request for help to test under the comments section instead of in the commit message?  That moves the \"TODO\" type information out of the commit message, which removes tracking of it, which makes it harder to know what\u0027s done and what isn\u0027t.  I don\u0027t think I\u0027d be in support of that mechanical change to our process.\n\n\u003e Marking such review as WIP until tests are done would be nice too.\n\nDone.  WIP tag added, as this is a concrete change that I can make to the structure of this review.  Thank you for your help.\n\n\u003e \n\u003e Other argumentations that cannot be supported by any documentation or are directed to my person like ‘realign your expectations’ I think are out of place and please keep them for yourself.\n\nUnderstand that\u0027s what you believe.  \"Stay on topic\" is line item 9, we can keep the topic of this discussion focused on the patch in question.",
+      "parentUuid": "1b1d1b4c_46e9dcef",
       "range": {
         "startLine": 16,
         "startChar": 0,
