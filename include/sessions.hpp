@@ -71,6 +71,7 @@ struct UserSession
     {
         std::shared_ptr<UserSession> userSession =
             std::make_shared<UserSession>();
+        int foundKeys = 0;
         for (const auto& element : j.items())
         {
             const std::string* thisValue =
@@ -79,31 +80,39 @@ struct UserSession
             {
                 BMCWEB_LOG_ERROR << "Error reading persistent store.  Property "
                                  << element.key() << " was not of type string";
-                return nullptr;
+                continue;
             }
             if (element.key() == "unique_id")
             {
                 userSession->uniqueId = *thisValue;
+                foundKeys++;
             }
             else if (element.key() == "session_token")
             {
                 userSession->sessionToken = *thisValue;
+                foundKeys++;
             }
             else if (element.key() == "csrf_token")
             {
                 userSession->csrfToken = *thisValue;
+                foundKeys++;
             }
             else if (element.key() == "username")
             {
                 userSession->username = *thisValue;
+                foundKeys++;
             }
+#ifdef IBM_MANAGEMENT_CONSOLE
             else if (element.key() == "client_id")
             {
                 userSession->clientId = *thisValue;
+                foundKeys++;
             }
+#endif
             else if (element.key() == "client_ip")
             {
                 userSession->clientIp = *thisValue;
+                foundKeys++;
             }
 
             else
@@ -111,8 +120,16 @@ struct UserSession
                 BMCWEB_LOG_ERROR
                     << "Got unexpected property reading persistent file: "
                     << element.key();
-                return nullptr;
+                continue;
             }
+        }
+        int expectedKeys = 5;
+        #ifdef IBM_MANAGEMENT_CONSOLE
+            expectedKeys++;
+        #endif
+
+        if (foundKeys < expectedKeys){
+            return nullptr;
         }
 
         // For now, sessions that were persisted through a reboot get their idle
