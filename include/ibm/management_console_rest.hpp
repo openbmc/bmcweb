@@ -318,7 +318,8 @@ inline void handleFileUrl(const crow::Request& req, crow::Response& res,
     }
 }
 
-inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
+inline void handleAcquireLockAPI(const crow::Request& req [[maybe_unused]],
+                                 crow::Response& res,
                                  std::vector<nlohmann::json> body)
 {
     LockRequests lockRequestStructure;
@@ -362,9 +363,17 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
 
             segInfo.push_back(std::make_pair(lockFlags, segmentLength));
         }
+// clientId isn't present in session if IBM management console isn't enabled
+#ifdef IBM_MANAGEMENT_CONSOLE
         lockRequestStructure.push_back(
             make_tuple(req.session->uniqueId, req.session->clientId, lockType,
                        resourceId, segInfo));
+#else
+        // Shouldn't be possible to hit this
+        res.result(boost::beast::http::status::internal_server_error);
+        res.end();
+        return;
+#endif
     }
 
     // print lock request into journal
@@ -460,7 +469,8 @@ inline void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
 }
 
 inline void
-    handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
+    handleReleaseLockAPI(const crow::Request& req [[maybe_unused]],
+                         crow::Response& res,
                          const std::vector<uint32_t>& listTransactionIds)
 {
     BMCWEB_LOG_DEBUG << listTransactionIds.size();
@@ -470,8 +480,9 @@ inline void
         BMCWEB_LOG_DEBUG << listTransactionId;
     }
 
+    // clientId is only available if IBM_MANAGEMENT_CONSOLE is enabled
+#ifdef IBM_MANAGEMENT_CONSOLE
     // validate the request ids
-
     auto varReleaselock = crow::ibm_mc_lock::Lock::getInstance().releaseLock(
         listTransactionIds,
         std::make_pair(req.session->clientId, req.session->uniqueId));
@@ -483,6 +494,7 @@ inline void
         res.end();
         return;
     }
+
     auto statusRelease =
         std::get<crow::ibm_mc_lock::RcRelaseLock>(varReleaselock.second);
     if (statusRelease.first)
@@ -516,6 +528,10 @@ inline void
 
     returnJson["SegmentFlags"] = myArray;
     res.jsonValue["Record"] = returnJson;
+#else
+    res.result(boost::beast::http::status::internal_server_error);
+#endif
+
     res.end();
     return;
 }
