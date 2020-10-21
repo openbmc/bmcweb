@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff496c79_6df0d348",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-21T19:52:55Z",
+      "side": 1,
+      "message": "Note.  I\u0027m unsure of this one.  Input needed.",
+      "revId": "6094a72ff3d60bca2ecb95c07290176111b9c045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
