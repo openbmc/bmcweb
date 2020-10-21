@@ -42,7 +42,10 @@ struct UserSession
     std::string sessionToken;
     std::string username;
     std::string csrfToken;
+#ifdef IBM_MANAGEMENT_CONSOLE
     std::string clientId;
+#endif
+
     std::string clientIp;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;

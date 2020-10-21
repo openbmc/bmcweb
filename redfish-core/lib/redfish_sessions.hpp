@@ -64,9 +64,10 @@ class Sessions : public Node
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
         res.jsonValue["ClientOriginIPAddress"] = session->clientIp;
+        res.jsonValue["Oem"] = {{}};
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
             "#OemSession.v1_0_0.Session";
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
 #endif
         res.end();
