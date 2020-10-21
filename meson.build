@@ -106,13 +106,6 @@ if(get_option('tests').enabled())
   summary('unittest','NA', section : 'Enabled Features')
 endif
 
-if get_option('yocto-deps').disabled()
-  # This is an out of tree build, so enable ibm console flag
-  # for CI purpose.
-  add_project_arguments('-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE', language: 'cpp')
-  summary('ibm-management-console','-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',section : 'Enabled Features')
-endif
-
 # Add compiler arguments
 
 # -Wpedantic, -Wextra comes by default with warning level
