@@ -79,7 +79,7 @@ struct UserSession
             {
                 BMCWEB_LOG_ERROR << "Error reading persistent store.  Property "
                                  << element.key() << " was not of type string";
-                return nullptr;
+                continue;
             }
             if (element.key() == "unique_id")
             {
@@ -97,10 +97,12 @@ struct UserSession
             {
                 userSession->username = *thisValue;
             }
+#ifdef IBM_MANAGEMENT_CONSOLE
             else if (element.key() == "client_id")
             {
                 userSession->clientId = *thisValue;
             }
+#endif
             else if (element.key() == "client_ip")
             {
                 userSession->clientIp = *thisValue;
@@ -111,8 +113,19 @@ struct UserSession
                 BMCWEB_LOG_ERROR
                     << "Got unexpected property reading persistent file: "
                     << element.key();
-                return nullptr;
+                continue;
             }
+        }
+        // If any of these three fields are missing, we can't restore the
+        // session, as we don't have enough information.  These 4 fields have
+        // been present in ever version of this file in bmcwebs history, so any
+        // file, even on upgrade, should have these present
+        if (userSession->uniqueId.empty() || userSession->username.empty() ||
+            userSession->sessionToken.empty() || userSession->csrfToken.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Session missing required security "
+                                "information, refusing to restore";
+            return nullptr;
         }
 
         // For now, sessions that were persisted through a reboot get their idle
