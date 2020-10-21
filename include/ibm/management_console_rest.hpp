@@ -362,9 +362,17 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
 
             segInfo.push_back(std::make_pair(lockFlags, segmentLength));
         }
+// clientId isn't present if IBM management console isn't enabled
+#ifdef IBM_MANAGEMENT_CONSOLE
         lockRequestStructure.push_back(
             make_tuple(req.session->uniqueId, req.session->clientId, lockType,
                        resourceId, segInfo));
+#else
+        // Shouldn't be possible to hit this
+        res.result(boost::beast::http::status::internal_error);
+        res.end();
+        return;
+#endif
     }
 
     // print lock request into journal
