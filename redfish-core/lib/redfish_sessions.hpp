@@ -172,10 +172,17 @@ class SessionCollection : public Node
     {
         std::string username;
         std::string password;
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         std::optional<nlohmann::json> oemObject;
         std::string clientId;
+#endif
         if (!json_util::readJson(req, res, "UserName", username, "Password",
-                                 password, "Oem", oemObject))
+                                 password
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+                                 ,
+                                 "Oem", oemObject
+#endif
+                                 ))
         {
             res.end();
             return;
@@ -214,13 +221,11 @@ class SessionCollection : public Node
             std::optional<nlohmann::json> bmcOem;
             if (!json_util::readJson(*oemObject, res, "OpenBMC", bmcOem))
             {
-                res.end();
                 return;
             }
             if (!json_util::readJson(*bmcOem, res, "ClientID", clientId))
             {
                 BMCWEB_LOG_ERROR << "Could not read ClientId";
-                res.end();
                 return;
             }
         }
@@ -230,7 +235,17 @@ class SessionCollection : public Node
         std::shared_ptr<persistent_data::UserSession> session =
             persistent_data::SessionStore::getInstance().generateUserSession(
                 username, persistent_data::PersistenceType::TIMEOUT,
-                isConfigureSelfOnly, clientId, req.ipAddress.to_string());
+                isConfigureSelfOnly, req.ipAddress.to_string());
+        if (session == nullptr)
+        {
+            messages::internalError(res);
+            return;
+        }
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+        session->clientId = clientId;
+#endif
+
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
