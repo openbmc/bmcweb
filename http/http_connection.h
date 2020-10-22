@@ -238,11 +238,15 @@ class Connection :
                 return true;
             }
             sslUser.resize(lastChar);
-
+            std::string ipAddress = boost::beast::get_lowest_layer(adaptor)
+                                        .remote_endpoint()
+                                        .address()
+                                        .to_string();
             session =
                 persistent_data::SessionStore::getInstance()
                     .generateUserSession(
-                        sslUser, persistent_data::PersistenceType::TIMEOUT);
+                        sslUser, persistent_data::PersistenceType::TIMEOUT,
+                        false, ipAddress);
             if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this

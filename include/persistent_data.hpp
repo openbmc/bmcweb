@@ -194,6 +194,7 @@ class ConfigFile
                     {"session_token", p.second->sessionToken},
                     {"username", p.second->username},
                     {"csrf_token", p.second->csrfToken},
+                    {"client_ip", p.second->clientIp},
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                     {"client_id", p.second->clientId},
 #endif
