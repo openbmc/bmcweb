@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "d220b47c_5a754b0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-10-22T07:06:14Z",
+      "side": 1,
+      "message": "You can rephrase it to:\nUsing operator[] as a result of expression is a common mistake in c++. First it creates a key in container with empty value than execute an expression and assign result from it to the key in container. The result of it is that object is created two times.\n\nThan instead \"Fix bad json utils function\" you can write:\n\"Avoid using operator[] in assignment operator\"\nor\n\"Omit using subscripting operator in json utils\"",
+      "parentUuid": "04f496c1_ec2e223d",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
