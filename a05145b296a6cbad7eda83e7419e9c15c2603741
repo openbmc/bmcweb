@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "24eeebd8_7db2e6b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000433
+      },
+      "writtenOn": "2020-10-22T09:07:49Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d220b47c_5a754b0f",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -305,6 +329,53 @@
         "startChar": 0,
         "endLine": 17,
         "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50256983_82fb2bee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000433
+      },
+      "writtenOn": "2020-10-22T09:07:49Z",
+      "side": 1,
+      "message": "\u003e With respect, I (as part of the community) like to see both..\n\nI respect this. So, when you get confirmation it was tested, please add this information to commit message.\n\n\u003e That moves the \"TODO\" type information out of the commit message, which removes tracking of it...\n\nThere is some true in this, but from the other hand the gerrit allows to track all unresolved comments so both ways of trucking can work as well.\n\n\n\u003e WIP tag added, as this is a concrete change that I can make to the structure of this review.  Thank you for your help.\n\nThank you.",
+      "parentUuid": "94250b2f_8699c969",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f51934d_3675c77e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000433
+      },
+      "writtenOn": "2020-10-22T09:07:49Z",
+      "side": 1,
+      "message": "If we want to avoid copy shouldn\u0027t we use `const nlohmann::json::iterator\u0026` here ?",
+      "range": {
+        "startLine": 419,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 31
       },
       "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
