@@ -142,7 +142,7 @@ inline void requestRoutes(App& app)
                             .generateUserSession(
                                 username,
                                 persistent_data::PersistenceType::TIMEOUT,
-                                isConfigureSelfOnly);
+                                isConfigureSelfOnly, req.ipAddress.to_string());
 
                     if (looksLikePhosphorRest)
                     {
