@@ -193,6 +193,30 @@
     },
     {
       "key": {
+        "uuid": "a9438ae4_2aa16b9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-22T16:08:55Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "24eeebd8_7db2e6b0",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb2aa3f0_7f0591d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -348,6 +372,30 @@
       "side": 1,
       "message": "\u003e With respect, I (as part of the community) like to see both..\n\nI respect this. So, when you get confirmation it was tested, please add this information to commit message.\n\n\u003e That moves the \"TODO\" type information out of the commit message, which removes tracking of it...\n\nThere is some true in this, but from the other hand the gerrit allows to track all unresolved comments so both ways of trucking can work as well.\n\n\n\u003e WIP tag added, as this is a concrete change that I can make to the structure of this review.  Thank you for your help.\n\nThank you.",
       "parentUuid": "94250b2f_8699c969",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "a05145b296a6cbad7eda83e7419e9c15c2603741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832a1a62_9df156fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-22T16:08:55Z",
+      "side": 1,
+      "message": "\u003e \u003e With respect, I (as part of the community) like to see both..\n\u003e \n\u003e I respect this. So, when you get confirmation it was tested, please add this information to commit message.\n\u003e \n\nWill do!\n\n\u003e \u003e That moves the \"TODO\" type information out of the commit message, which removes tracking of it...\n\u003e \n\u003e There is some true in this, but from the other hand the gerrit allows to track all unresolved comments so both ways of trucking can work as well.\n\nIMO Tracking in comments doesn\u0027t work as well when many people are commenting, as it means more work for the maintainer to track every comment.  As a matter of efficiency, it\u0027s much easier if the owner tracks this, and simply flags to the maintainer that it\u0027s done with a completed tested flag, and a removing any TODOs or WIP notes.\n\n\u003e \n\u003e \n\u003e \u003e WIP tag added, as this is a concrete change that I can make to the structure of this review.  Thank you for your help.\n\u003e \n\u003e Thank you.",
+      "parentUuid": "50256983_82fb2bee",
       "range": {
         "startLine": 16,
         "startChar": 0,
