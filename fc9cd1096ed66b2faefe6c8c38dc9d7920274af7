@@ -104,6 +104,30 @@
       "revId": "fc9cd1096ed66b2faefe6c8c38dc9d7920274af7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bb1f9aa_e2426b32",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-23T16:11:24Z",
+      "side": 1,
+      "message": "I ended up having to call res.end() because this handler doesn\u0027t use AsyncResp yet.  oh well.",
+      "parentUuid": "6a7c5a5d_bfb43f1c",
+      "range": {
+        "startLine": 249,
+        "startChar": 38,
+        "endLine": 249,
+        "endChar": 59
+      },
+      "revId": "fc9cd1096ed66b2faefe6c8c38dc9d7920274af7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
