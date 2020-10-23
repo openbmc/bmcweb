@@ -22,6 +22,30 @@
       "revId": "efb833749485ae7f35dd69624bb047c08462477d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa311fec_2e4754e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-10-23T16:19:18Z",
+      "side": 1,
+      "message": "I believe this is copied from previous commit where both cpu and dimm were in one.",
+      "parentUuid": "4f3c3e86_0108b0f2",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "efb833749485ae7f35dd69624bb047c08462477d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
