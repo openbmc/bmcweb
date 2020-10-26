@@ -27,7 +27,7 @@
 #include <http_client.hpp>
 #include <random.hpp>
 #include <server_sent_events.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 #include <cstdlib>
 #include <ctime>

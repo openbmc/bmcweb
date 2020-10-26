@@ -22,8 +22,8 @@
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
-#include <utils/fw_utils.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/firmware.hpp>
+#include <utils/json.hpp>
 
 #include <variant>
 

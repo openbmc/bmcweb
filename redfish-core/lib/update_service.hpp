@@ -18,7 +18,7 @@
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
-#include <utils/fw_utils.hpp>
+#include <utils/firmware.hpp>
 
 #include <variant>
 

@@ -17,7 +17,7 @@
 
 #include "node.hpp"
 
-#include <utils/systemd_utils.hpp>
+#include <utils/systemd.hpp>
 
 namespace redfish
 {

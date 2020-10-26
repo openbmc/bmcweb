@@ -22,7 +22,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 #include <cmath>
 #include <utility>

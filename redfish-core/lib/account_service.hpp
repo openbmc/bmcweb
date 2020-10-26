@@ -20,7 +20,7 @@
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 #include <variant>
 

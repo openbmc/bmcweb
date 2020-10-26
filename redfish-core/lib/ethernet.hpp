@@ -20,7 +20,7 @@
 #include <dbus_singleton.hpp>
 #include <error_messages.hpp>
 #include <node.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 #include <optional>
 #include <regex>

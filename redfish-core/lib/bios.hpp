@@ -2,7 +2,7 @@
 
 #include "node.hpp"
 
-#include <utils/fw_utils.hpp>
+#include <utils/firmware.hpp>
 namespace redfish
 {
 /**
