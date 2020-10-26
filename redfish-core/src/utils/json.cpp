@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-#include "utils/json_utils.hpp"
+#include "utils/json.hpp"
 
 namespace redfish
 {

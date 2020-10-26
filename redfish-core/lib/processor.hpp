@@ -20,7 +20,7 @@
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/collection.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 namespace redfish
 {

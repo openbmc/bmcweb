@@ -22,8 +22,8 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
-#include <utils/fw_utils.hpp>
-#include <utils/systemd_utils.hpp>
+#include <utils/firmware.hpp>
+#include <utils/systemd.hpp>
 
 #include <cstdint>
 #include <memory>

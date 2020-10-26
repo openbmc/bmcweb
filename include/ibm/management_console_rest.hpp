@@ -11,7 +11,7 @@
 #include <nlohmann/json.hpp>
 #include <resource_messages.hpp>
 #include <sdbusplus/message/types.hpp>
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 #include <filesystem>
 #include <fstream>

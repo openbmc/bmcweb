@@ -19,7 +19,7 @@
 #include "node.hpp"
 #include "openbmc_dbus_rest.hpp"
 
-#include <utils/json_utils.hpp>
+#include <utils/json.hpp>
 
 #include <optional>
 #include <variant>
