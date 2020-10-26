@@ -2994,7 +2994,6 @@ class PostCodesLogService : public Node
         asyncResp->res.jsonValue = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices/PostCodes"},
             {"@odata.type", "#LogService.v1_1_0.LogService"},
-            {"@odata.context", "/redfish/v1/$metadata#LogService.LogService"},
             {"Name", "POST Code Log Service"},
             {"Description", "POST Code Log Service"},
             {"Id", "BIOS POST Code Log"},
@@ -3155,7 +3154,6 @@ static void fillPostCodeEntry(
         nlohmann::json& bmcLogEntry = logEntryArray.back();
         bmcLogEntry = {
             {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-            {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
             {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
                           "PostCodes/Entries/" +
                               postcodeEntryID},
@@ -3310,9 +3308,6 @@ class PostCodesEntryCollection : public Node
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
         asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";
@@ -3396,8 +3391,6 @@ class PostCodesEntry : public Node
         }
 
         asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_4_0.LogEntry";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogEntry.LogEntry";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/"
             "Entries";
