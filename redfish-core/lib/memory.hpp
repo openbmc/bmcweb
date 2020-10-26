@@ -552,7 +552,12 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                                                 "MemoryType";
                         }
                         std::string result = value->substr(idx + 1);
-                        aResp->res.jsonValue["MemoryDeviceType"] = result;
+                        // No "Unknown" or "Other" value so just leave off if
+                        // either of these
+                        if ((result != "Unknown") && (result != "Other"))
+                        {
+                            aResp->res.jsonValue["MemoryDeviceType"] = result;
+                        }
                         if (value->find("DDR") != std::string::npos)
                         {
                             aResp->res.jsonValue["MemoryType"] = "DRAM";
