@@ -32,6 +32,110 @@ using DimmProperty =
 
 using DimmProperties = boost::container::flat_map<std::string, DimmProperty>;
 
+inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
+{
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR")
+    {
+        return "DDR";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2")
+    {
+        return "DDR2";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR3")
+    {
+        return "DDR3";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR4")
+    {
+        return "DDR4";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR4E_SDRAM")
+    {
+        return "DDR4E_SDRAM";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.LPDDR4_SDRAM")
+    {
+        return "LPDDR4_SDRAM";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.LPDDR3_SDRAM")
+    {
+        return "LPDDR3_SDRAM";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2_SDRAM_FB_DIMM")
+    {
+        return "DDR2_SDRAM_FB_DIMM";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2_"
+                      "SDRAM_FB_DIMM_PROB")
+    {
+        return "DDR2_SDRAM_FB_DIMM_PROBE";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR_SGRAM")
+    {
+        return "DDR_SGRAM";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.ROM")
+    {
+        return "ROM";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.SDRAM")
+    {
+        return "SDRAM";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.EDO")
+    {
+        return "EDO";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.FastPageMode")
+    {
+        return "FastPageMode";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.PipelinedNibble")
+    {
+        return "PipelinedNibble";
+    }
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.Logical")
+    {
+        return "Logical";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.HBM")
+    {
+        return "HBM";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.HBM2")
+    {
+        return "HBM2";
+    }
+    // This is values like Other or Unknown
+    // Also D-Bus values:
+    // DRAM
+    // EDRAM
+    // VRAM
+    // SRAM
+    // RAM
+    // FLASH
+    // EEPROM
+    // FEPROM
+    // EPROM
+    // CDRAM
+    // ThreeDRAM
+    // RDRAM
+    // FBD2
+    // LPDDR_SDRAM
+    // LPDDR2_SDRAM
+    return "";
+}
+
 inline void dimmPropToHex(const std::shared_ptr<AsyncResp>& aResp,
                           const char* key,
                           const std::pair<std::string, DimmProperty>& property)
@@ -543,16 +647,15 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                         std::get_if<std::string>(&property.second);
                     if (value != nullptr)
                     {
-                        size_t idx = value->rfind('.');
-                        if (idx == std::string::npos ||
-                            idx + 1 >= value->size())
+                        std::string memoryDeviceType =
+                            translateMemoryTypeToRedfish(*value);
+                        // Values like "Unknown" or "Other" will return empty
+                        // so just leave off
+                        if (!memoryDeviceType.empty())
                         {
-                            messages::internalError(aResp->res);
-                            BMCWEB_LOG_DEBUG << "Invalid property type for "
-                                                "MemoryType";
+                            aResp->res.jsonValue["MemoryDeviceType"] =
+                                memoryDeviceType;
                         }
-                        std::string result = value->substr(idx + 1);
-                        aResp->res.jsonValue["MemoryDeviceType"] = result;
                         if (value->find("DDR") != std::string::npos)
                         {
                             aResp->res.jsonValue["MemoryType"] = "DRAM";
