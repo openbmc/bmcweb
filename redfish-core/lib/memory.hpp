@@ -360,22 +360,10 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
             {
                 const uint32_t* memorySize =
                     std::get_if<uint32_t>(&memorySizeProperty->second);
-                if (memorySize == nullptr)
+                if (memorySize != nullptr)
                 {
-                    // Important property not in desired type
-                    messages::internalError(aResp->res);
-
-                    return;
+                    aResp->res.jsonValue["CapacityMiB"] = (*memorySize >> 10);
                 }
-                if (*memorySize == 0)
-                {
-                    // Slot is not populated, set status end return
-                    aResp->res.jsonValue["Status"]["State"] = "Absent";
-                    aResp->res.jsonValue["Status"]["Health"] = "OK";
-                    // HTTP Code will be set up automatically, just return
-                    return;
-                }
-                aResp->res.jsonValue["CapacityMiB"] = (*memorySize >> 10);
             }
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
