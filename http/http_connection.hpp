@@ -316,9 +316,10 @@ class Connection :
             }
         }
 
+        error_code ec;
         // Copy the client's IP address
         req->ipAddress =
-            boost::beast::get_lowest_layer(adaptor).remote_endpoint().address();
+            boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec).address();
 
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
