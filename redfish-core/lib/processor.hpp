@@ -67,6 +67,14 @@ inline void
                 present = true;
                 aResp->res.jsonValue["TotalCores"] = *coresCount;
             }
+            else if (property.first == "MaxSpeedInMhz")
+            {
+                const uint32_t* value = std::get_if<uint32_t>(&property.second);
+                if (value != nullptr)
+                {
+                    aResp->res.jsonValue["MaxSpeedMHz"] = *value;
+                }
+            }
             else if (property.first == "Socket")
             {
                 const std::string* value =
@@ -78,7 +86,7 @@ inline void
             }
             else if (property.first == "ThreadCount")
             {
-                const int64_t* value = std::get_if<int64_t>(&property.second);
+                const uint16_t* value = std::get_if<uint16_t>(&property.second);
                 if (value != nullptr)
                 {
                     aResp->res.jsonValue["TotalThreads"] = *value;
