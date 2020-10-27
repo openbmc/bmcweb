@@ -316,9 +316,17 @@ class Connection :
             }
         }
 
+        boost::system::error_code ec;
         // Copy the client's IP address
-        req->ipAddress =
-            boost::beast::get_lowest_layer(adaptor).remote_endpoint().address();
+        req->ipAddress = boost::beast::get_lowest_layer(adaptor)
+                             .remote_endpoint(ec)
+                             .address();
+
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "Failed to get the client's IP Address. ec : "
+                             << ec;
+        }
 
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
