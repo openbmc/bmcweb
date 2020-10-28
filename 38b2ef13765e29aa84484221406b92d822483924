@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c48c7ae3_3d558bc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-10-28T13:59:39Z",
+      "side": 1,
+      "message": "Can we update https://github.com/openbmc/docs/blob/357556a5dc0622ecbb3ef0f1988e5e5b0ed5b611/architecture/LED-architecture.md to include this design  ?",
+      "parentUuid": "cd8ffa13_a3a0d27a",
+      "revId": "38b2ef13765e29aa84484221406b92d822483924",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ecd45ea4_045f6ab2",
         "filename": "redfish-core/lib/cpudimm.hpp",
         "patchSetId": 3
