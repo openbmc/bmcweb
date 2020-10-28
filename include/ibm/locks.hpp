@@ -325,7 +325,7 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
         // them
         releaseLock(p);
     }
-    return std::make_pair(true, status);
+    return std::make_pair(true, status2);
 }
 
 inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
