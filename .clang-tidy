@@ -239,7 +239,7 @@ readability-const-return-type,
 readability-delete-null-pointer,
 readability-deleted-default,
 readability-else-after-return,
-readability-identifier-naming,
+readability-identifier-naming'
 
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
