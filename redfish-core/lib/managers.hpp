@@ -1692,6 +1692,269 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
+/**
+ * @brief Retrieves BMC manager related data over DBus
+ * 
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @return none
+ */
+inline void getManager(const std::shared_ptr<AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get BMC manager data.";
+/*
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string,std::vector<std::pair<std::string,
+            std::vector<std::string>>>>>&subtree) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                // Iterate over all retrieved ObjectPaths.
+                for (const auto& object : subtree)
+                {
+                    const std::string& path = object.first;
+                    BMCWEB_LOG_DEBUG << "Got path: " << path;
+                    const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+                    
+                    if (connectionNames.size() < 1)
+                    {
+                        continue;
+                    }
+
+                    for (const auto& connection : connectionNames)
+                    {
+                        for (const auto& interfaceName : connection.second)
+                        {
+                            if (interfaceName ==
+                                "xyz.openbmc_project.Inventory.Item.Bmc")
+                            {
+                                BMCWEB_LOG_DEBUG
+                                << "Found bmc, now get its properties.";
+
+                                crow::connections::systemBus->async_method_call(
+                                [aResp](
+                                    const boost::system::error_code ec2,
+                                    const std::vector<
+                                        std::pair<std::string, VariantType>>&
+                                        propertiesList) {
+                                    if (ec2)
+                                    {
+                                        // doesn't have to include this
+                                        // interface
+                                        return;
+                                    }
+
+                                    BMCWEB_LOG_DEBUG
+                                        << "Got " << propertiesList.size()
+                                        << " properties for bmc";
+
+                                    for (const std::pair<std::string,
+                                                         VariantType>&
+                                             property : propertiesList)
+                                    {
+                                        const std::string& propertyName =
+                                            property.first;
+                                        if ((propertyName == "PartNumber") ||
+                                            (propertyName == "SerialNumber"))
+                                        {
+                                            const std::string* value =
+                                                std::get_if<std::string>(
+                                                    &property.second);
+                                            if (value != nullptr)
+                                            {
+                                                aResp->res
+                                                    .jsonValue[propertyName] =
+                                                    *value;
+                                            }
+                                        }
+                                    }
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                "xyz.openbmc_project.Inventory.Decorator."
+                                "Asset");
+                            }
+                        }
+                    }    
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/Inventory", int32_t(0),
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Bmc"
+            });
+            */
+    
+    std::vector<std::string> interfaces{
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "com.ibm.ipzvpd.VINI",
+        "com.ibm.ipzvpd.Location"
+    };
+    //interfaces.push_back("xyz.openbmc_project.Inventory.Decorator.Asset");
+    //interfaces.push_back("com.ibm.ipzvpd.VINI");
+    //interfaces.push_back("com.ibm.ipzvpd.Location");
+
+    for(auto anInterface : interfaces)
+    {
+        crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<
+                std::pair<std::string, std::variant<std::string, std::vector<uint8_t>>>>&
+                propertiesList) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error for asset properties";
+                    return;
+                }
+                BMCWEB_LOG_DEBUG
+                    << "Got " << propertiesList.size()
+                    << " properties Bmc manager";
+                for (const std::pair<std::string,
+                                        std::variant<std::string, std::vector<uint8_t>>>&
+                            property : propertiesList)
+                {
+                    const std::string& propertyName =
+                        property.first;
+
+                    BMCWEB_LOG_DEBUG<<propertyName;
+                    
+                    if ((propertyName == "PartNumber") ||
+                        (propertyName == "SerialNumber") ||
+                        (propertyName == "LocationCode"))
+                    {
+                        const std::string* value =
+                            std::get_if<std::string>(
+                                &property.second);
+
+                        BMCWEB_LOG_DEBUG<<*value;
+
+                        if (value != nullptr)
+                        {
+                            aResp->res
+                                .jsonValue[propertyName] =
+                                *value;
+                        }
+                    }
+                    else if((propertyName == "CC") ||
+                            (propertyName == "FN"))
+                    {
+                        auto value = std::get_if<std::vector<uint8_t>>(&property.second);
+                        std::string propVal {};
+                        propVal.assign(reinterpret_cast<const char*>(value->data()), value->size());
+                        
+                        BMCWEB_LOG_DEBUG << propertyName << "Value = " << propVal;
+                    }
+
+                    
+                }
+            },
+            "xyz.openbmc_project.Inventory.Manager", "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc",
+            "org.freedesktop.DBus.Properties", "GetAll",
+            anInterface);//"xyz.openbmc_project.Inventory.Decorator.Asset");
+
+    }
+/*
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<
+                std::pair<std::string, VariantType>>&
+                propertiesList) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error for asset properties";
+                    return;
+                }
+                BMCWEB_LOG_DEBUG
+                    << "Got " << propertiesList.size()
+                    << " properties Bmc manager";
+                for (const std::pair<std::string,
+                                        VariantType>&
+                            property : propertiesList)
+                {
+                    const std::string& propertyName =
+                        property.first;
+                    if ((propertyName == "PartNumber") ||
+                        (propertyName == "SerialNumber"))
+                    {
+                        const std::string* value =
+                            std::get_if<std::string>(
+                                &property.second);
+                        if (value != nullptr)
+                        {
+                            aResp->res
+                                .jsonValue[propertyName] =
+                                *value;
+                        }
+                    }
+                    
+                }
+            },
+            "xyz.openbmc_project.Inventory.Manager", "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc",
+            "org.freedesktop.DBus.Properties", "GetAll",
+            "xyz.openbmc_project.Inventory.Decorator.Asset");
+    
+    crow::connections::systemBus->async_method_call(
+    [aResp](
+        const boost::system::error_code ec2,
+        const std::vector<
+            std::pair<std::string, std::variant<std::vector<uint8_t>>>>&
+            propertiesList) {
+        if (ec2)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error for VINI properties";
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG
+            << "Got " << propertiesList.size()
+            << " properties Bmc manager VINI record";
+
+        for (const std::pair<std::string,
+                                std::variant<std::<uint8_t>>>&
+                    property : propertiesList)
+        {
+            const std::string& propertyName =
+                property.first;
+            
+            BMCWEB_LOG_DEBUG<<propertyName;
+
+            if ((propertyName == "CC") ||
+                (propertyName == "FN"))
+            {
+                //BMCWEB_LOG_DEBUG << property.second.getType();
+               auto value = std::get_if<std::vector<uint8_t>>(&property.second);
+               //     std::get_if<std::vector<uint8_t>>(
+               //         &property.second);
+                
+               std::string propVal {};
+               propVal.assign(reinterpret_cast<const char*>(value->data()), value->size());
+               //for(auto item : value)
+               //{
+                    BMCWEB_LOG_DEBUG << propertyName << "Value = " << propVal;
+               //}
+                //aResp->res
+                    // .jsonValue[propertyName] =
+                    // *value;
+            }
+        }
+    },
+    "xyz.openbmc_project.Inventory.Manager", "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc",
+    "org.freedesktop.DBus.Properties", "GetAll",
+    "com.ibm.ipzvpd.VINI");
+    */
+}
+
 class Manager : public Node
 {
   public:
@@ -1712,6 +1975,7 @@ class Manager : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
+        std::cout<<"do get manager"<<std::endl;
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
         res.jsonValue["@odata.type"] = "#Manager.v1_9_0.Manager";
         res.jsonValue["Id"] = "bmc";
@@ -1723,6 +1987,7 @@ class Manager : public Node
         res.jsonValue["UUID"] = systemd_utils::getUuid();
         res.jsonValue["ServiceEntryPointUUID"] = uuid;
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+        std::cout<<"do get manager2"<<std::endl;
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
@@ -1794,6 +2059,8 @@ class Manager : public Node
                                              "FirmwareVersion", true);
 
         getLastResetTime(asyncResp);
+        
+        getManager(asyncResp);
 
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
