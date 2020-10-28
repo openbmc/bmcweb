@@ -1692,6 +1692,81 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
+/**
+ * @brief Retrieves BMC manager related data over DBus
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @return none
+ */
+inline void getManager(const std::shared_ptr<AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get BMC manager VPD data.";
+
+    std::vector<std::string> interfaces{
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "com.ibm.ipzvpd.VINI",
+        "com.ibm.ipzvpd.Location"
+    };
+
+    for(auto anInterface : interfaces)
+    {
+        crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<
+                std::pair<std::string, std::variant<std::string, std::vector<uint8_t>>>>&
+                propertiesList) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error for asset properties";
+                    return;
+                }
+                BMCWEB_LOG_DEBUG
+                    << "Got " << propertiesList.size()
+                    << " properties Bmc manager";
+                for (const std::pair<std::string,
+                                        std::variant<std::string, std::vector<uint8_t>>>&
+                            property : propertiesList)
+                {
+                    const std::string& propertyName =
+                        property.first;
+
+                    if ((propertyName == "PartNumber") ||
+                        (propertyName == "SerialNumber") ||
+                        (propertyName == "LocationCode") ||
+                        (propertyName == "CC") ||
+                        (propertyName == "FN"))
+                    {
+                        if(auto value = std::get_if<std::string>(&property.second))
+                        {
+                            aResp->res
+                                .jsonValue[propertyName] =
+                                *value;
+                        }
+                        else if(auto value = std::get_if<std::vector<uint8_t>>(&property.second))
+                        {
+                            std::string propVal {};
+                            propVal.assign(reinterpret_cast<const char*>(value->data()), value->size());
+
+                            if(propertyName == "CC")
+                            {
+                                aResp->res.jsonValue["Model"] = propVal;
+                            }
+
+                            if(propertyName == "FN")
+                            {
+                                aResp->res.jsonValue["SparePartNumber"] = propVal;
+                            }
+                        }
+                    }
+                }
+            },
+            "xyz.openbmc_project.Inventory.Manager", "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc",
+            "org.freedesktop.DBus.Properties", "GetAll",
+            anInterface);
+    }
+}
+
 class Manager : public Node
 {
   public:
@@ -1712,6 +1787,7 @@ class Manager : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
+        std::cout<<"do get manager"<<std::endl;
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
         res.jsonValue["@odata.type"] = "#Manager.v1_9_0.Manager";
         res.jsonValue["Id"] = "bmc";
@@ -1723,6 +1799,7 @@ class Manager : public Node
         res.jsonValue["UUID"] = systemd_utils::getUuid();
         res.jsonValue["ServiceEntryPointUUID"] = uuid;
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+        std::cout<<"do get manager2"<<std::endl;
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
@@ -1794,6 +1871,8 @@ class Manager : public Node
                                              "FirmwareVersion", true);
 
         getLastResetTime(asyncResp);
+        
+        getManager(asyncResp);
 
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
