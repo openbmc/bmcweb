@@ -45,6 +45,29 @@
       "revId": "de415bef55bbcb7506ccf5cc36e659928b372c61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bfbb718_3fa7ca0c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-10-28T03:58:46Z",
+      "side": 1,
+      "message": "This would be Unused Variable when compiling without ibm flag right ?",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 28
+      },
+      "revId": "de415bef55bbcb7506ccf5cc36e659928b372c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
