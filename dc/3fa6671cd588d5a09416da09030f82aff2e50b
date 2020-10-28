@@ -1,0 +1,12 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: <smriti.ayushi@linux.intel.com>
+Code-Review+1: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: Bruce Mitchell <Bruce_Mitchell@Phoenix.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Ok-To-Test+1: Gunnar Mills <gmills@us.ibm.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Jonathan Doman <jonathan.doman@intel.com>
+Submitted-at: Wed, 28 Oct 2020 18:01:32 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37695
+Project: openbmc/bmcweb
+Branch: refs/heads/master
