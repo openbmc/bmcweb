@@ -190,6 +190,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46834d17_1b010f47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-29T10:00:37Z",
+      "side": 1,
+      "message": "Ed, Can you please help to clarify:\n1. Make change in recipe ? \nor \n2. Not to make change in recipe and do the directory creation in the existing function createSaveAreaPath in management_console_rest file ?",
+      "parentUuid": "73342c3c_8bc1e545",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
