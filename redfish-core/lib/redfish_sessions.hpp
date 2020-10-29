@@ -24,6 +24,138 @@ namespace redfish
 
 class SessionCollection;
 
+inline void getSessionInfo(
+    const std::shared_ptr<AsyncResp>& sessionAsyncResp,
+    const std::shared_ptr<std::vector<std::string>>& ipmiSessions)
+{
+    BMCWEB_LOG_DEBUG << "Get available Sessions info.";
+
+    sessionAsyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+    for (const std::string& sid : *ipmiSessions)
+    {
+        if (sid.length() != 0)
+        {
+            sessionAsyncResp->res.jsonValue["Members"].push_back(
+                {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + sid}});
+        }
+    }
+
+    std::vector<const std::string*> sessionIds =
+        persistent_data::SessionStore::getInstance().getUniqueIds(
+            false, persistent_data::PersistenceType::TIMEOUT);
+    for (const std::string* uid : sessionIds)
+    {
+        if ((*uid).length() != 0)
+        {
+            sessionAsyncResp->res.jsonValue["Members"].push_back(
+                {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
+        }
+    }
+    sessionAsyncResp->res.jsonValue["Members@odata.count"] =
+        sessionAsyncResp->res.jsonValue["Members"].size();
+    sessionAsyncResp->res.jsonValue["@odata.type"] =
+        "#SessionCollection.SessionCollection";
+    sessionAsyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/SessionService/Sessions/";
+    sessionAsyncResp->res.jsonValue["Name"] = "Session Collection";
+    sessionAsyncResp->res.jsonValue["Description"] = "Session Collection";
+    sessionAsyncResp->res.end();
+}
+
+inline void
+    getIpmiHandleSession(const std::shared_ptr<AsyncResp>& sessionAsyncResp)
+{
+    BMCWEB_LOG_DEBUG << "Get available Ipmi Sessions info.";
+
+    std::array<std::string, 1> interfaces = {
+        "xyz.openbmc_project.Ipmi.SessionInfo"};
+    std::vector<std::string> ipmiSessions;
+
+    auto sessionSharedPtr =
+        std::make_shared<std::vector<std::string>>(ipmiSessions);
+
+    crow::connections::systemBus->async_method_call(
+        [sessionAsyncResp, sessionSharedPtr](const boost::system::error_code ec,
+                                             const GetSubTreeType& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Error in querying GetSubTree with Object Mapper. "
+                    << ec;
+                messages::internalError(sessionAsyncResp->res);
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find  Session Info Attributes!";
+                getSessionInfo(sessionAsyncResp, sessionSharedPtr);
+            }
+
+            size_t subtreeEnd = 0;
+            auto subtreeEndPtr = std::make_shared<size_t>(subtreeEnd);
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                if (object.first.empty() || object.second.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "Session Info Attributes mapper error!";
+                    continue;
+                }
+
+                const std::string& objPath = object.first;
+                for (const std::pair<std::string, std::vector<std::string>>&
+                         objData : object.second)
+                {
+                    const std::string& objectServiceName = objData.first;
+                    if (objectServiceName.empty())
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Session Info Attributes mapper error!";
+                        continue;
+                    }
+
+                    crow::connections::systemBus->async_method_call(
+                        [sessionAsyncResp, sessionSharedPtr, objectServiceName,
+                         objPath, subtreeEndPtr,
+                         subtree](const boost::system::error_code ec,
+                                  std::variant<uint8_t> state) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_DEBUG << "Error in querying Session "
+                                                    "Info State property "
+                                                 << ec;
+                                messages::internalError(sessionAsyncResp->res);
+                                return;
+                            }
+                            (*subtreeEndPtr)++;
+                            const uint8_t* sessionState =
+                                std::get_if<uint8_t>(&state);
+                            if (sessionState != nullptr && *sessionState != 0)
+                            {
+                                size_t lastSlash = objPath.find_last_of('/');
+                                std::string sessionName =
+                                    objPath.substr(lastSlash + 1);
+                                sessionSharedPtr->push_back(sessionName);
+                            }
+                            if (*subtreeEndPtr == subtree.size())
+                            {
+                                getSessionInfo(sessionAsyncResp,
+                                               sessionSharedPtr);
+                            }
+                        },
+                        objectServiceName, objPath,
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Ipmi.SessionInfo", "State");
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0, interfaces);
+}
+
 class Sessions : public Node
 {
   public:
@@ -148,23 +280,8 @@ class SessionCollection : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
-        std::vector<const std::string*> sessionIds =
-            persistent_data::SessionStore::getInstance().getUniqueIds(
-                false, persistent_data::PersistenceType::TIMEOUT);
-
-        res.jsonValue["Members@odata.count"] = sessionIds.size();
-        res.jsonValue["Members"] = nlohmann::json::array();
-        for (const std::string* uid : sessionIds)
-        {
-            res.jsonValue["Members"].push_back(
-                {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
-        }
-        res.jsonValue["Members@odata.count"] = sessionIds.size();
-        res.jsonValue["@odata.type"] = "#SessionCollection.SessionCollection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
-        res.jsonValue["Name"] = "Session Collection";
-        res.jsonValue["Description"] = "Session Collection";
-        res.end();
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        getIpmiHandleSession(asyncResp);
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
