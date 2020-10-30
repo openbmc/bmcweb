@@ -4,6 +4,7 @@
 #include "sessions.hpp"
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/address.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/websocket.hpp>
@@ -24,6 +25,7 @@ struct Request
     const std::string& body;
 
     boost::asio::io_context* ioService{};
+    boost::asio::ip::address ipAddress;
 
     std::shared_ptr<persistent_data::UserSession> session;
 

@@ -238,10 +238,28 @@ class Connection :
             }
             sslUser.resize(lastChar);
 
+            boost::system::error_code ec;
+            std::string ipAddress;
+            boost::asio::ip::tcp::endpoint endpoint =
+                boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
+
+            if (ec)
+            {
+                // If remote endpoint fails keep going. "ClientOriginIPAddress"
+                // will be empty.
+                BMCWEB_LOG_ERROR
+                    << "Failed to get the client's IP Address. ec : " << ec;
+            }
+            else
+            {
+                ipAddress = endpoint.address().to_string();
+            }
+
             session =
                 persistent_data::SessionStore::getInstance()
                     .generateUserSession(
-                        sslUser, persistent_data::PersistenceType::TIMEOUT);
+                        sslUser, persistent_data::PersistenceType::TIMEOUT,
+                        false, ipAddress);
             if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this
@@ -305,6 +323,7 @@ class Connection :
         cancelDeadlineTimer();
 
         bool isInvalidRequest = false;
+        boost::system::error_code ec;
 
         // Check for HTTP version 1.1.
         if (req->version() == 11)
@@ -316,10 +335,26 @@ class Connection :
             }
         }
 
+        // Fetch the client IP address
+        boost::asio::ip::tcp::endpoint endpoint =
+            boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
+
+        if (ec)
+        {
+            // If remote endpoint fails keep going. "ClientOriginIPAddress"
+            // will be empty.
+            BMCWEB_LOG_ERROR << "Failed to get the client's IP Address. ec : "
+                             << ec;
+        }
+        else
+        {
+            req->ipAddress = endpoint.address();
+        }
+
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
+                        << " " << req->target() << " " << req->ipAddress;
 
         needToCallAfterHandlers = false;
 
