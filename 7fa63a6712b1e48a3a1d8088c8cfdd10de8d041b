@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5caea68_bb809b5b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-10-30T06:09:01Z",
+      "side": 1,
+      "message": "is string_view a better contender here ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 36,
+        "endLine": 58,
+        "endChar": 63
+      },
+      "revId": "7fa63a6712b1e48a3a1d8088c8cfdd10de8d041b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f5e25e_9ff194e7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-10-30T06:09:01Z",
+      "side": 1,
+      "message": "can we directly return the strings and avoid this string copy ?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "7fa63a6712b1e48a3a1d8088c8cfdd10de8d041b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a6cfd4e_a5351144",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-10-30T06:09:01Z",
+      "side": 1,
+      "message": "is this redundant check ? because the inner lamda can take care of the error condition. And I believe lamda inside another in this case will not give any added benefit,as there is a delta between finding the service name \u0026 using it again (and the service can go bad with in that delta) which anyways will be taken take by inner lamda.\n\nwith that said, please correct me if i missing something ?",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 185,
+        "endChar": 42
+      },
+      "revId": "7fa63a6712b1e48a3a1d8088c8cfdd10de8d041b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
