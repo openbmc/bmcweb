@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b28b372_0278d017",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-30T15:27:05Z",
+      "side": 1,
+      "message": "\u003e I am not getting the intent behind this flag check inside this file at random locations.\n\u003e \n\u003e Shouldn\u0027t we do this at the starting of all the functions or don\u0027t enable the API at all for the non IBM machines.\n\u003e \n\u003e Are these changes related to this commit?\n\nThe intent is to test as much code as we can in all cases, and have it get deleted at link time.  This prevents people from passing CI, yet checking in IBM specific bugs.\n\nIt also makes it very apparent when we have cross protocol dependencies, like this one.",
+      "parentUuid": "5239f30e_a56afb00",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 6
+      },
+      "revId": "de415bef55bbcb7506ccf5cc36e659928b372c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1f00aba_ab1424c4",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "98f52803_5f8118ba",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-30T15:27:05Z",
+      "side": 1,
+      "message": "See above.  The intent is to test as much as possible in CI.  We could put at the top of the function, but then that would require ifdefs everywhere that function is used.",
+      "parentUuid": "c1f00aba_ab1424c4",
+      "range": {
+        "startLine": 483,
+        "startChar": 0,
+        "endLine": 484,
+        "endChar": 29
+      },
+      "revId": "de415bef55bbcb7506ccf5cc36e659928b372c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2bfbb718_3fa7ca0c",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2020-10-28T03:58:46Z",
       "side": 1,
       "message": "This would be Unused Variable when compiling without ibm flag right ?",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 28
+      },
+      "revId": "de415bef55bbcb7506ccf5cc36e659928b372c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "571ffec4_53a0bb07",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-10-30T15:27:05Z",
+      "side": 1,
+      "message": "it should\u0027ve been, but it didn\u0027t get flagged;  will fix.",
+      "parentUuid": "2bfbb718_3fa7ca0c",
       "range": {
         "startLine": 178,
         "startChar": 8,
