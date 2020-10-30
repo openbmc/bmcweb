@@ -35,7 +35,7 @@ static void cleanupTempSession(Request& req)
 }
 
 static std::shared_ptr<persistent_data::UserSession>
-    performBasicAuth(std::string_view auth_header)
+    performBasicAuth(std::string_view clientIp, std::string_view auth_header)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
@@ -76,7 +76,7 @@ static std::shared_ptr<persistent_data::UserSession>
     // calling directly into pam for every request
     return persistent_data::SessionStore::getInstance().generateUserSession(
         user, persistent_data::PersistenceType::SINGLE_REQUEST,
-        isConfigureSelfOnly);
+        isConfigureSelfOnly, clientIp);
 }
 
 static std::shared_ptr<persistent_data::UserSession>
@@ -269,7 +269,8 @@ static void authenticate(
             else if (boost::starts_with(authHeader, "Basic ") &&
                      authMethodsConfig.basic)
             {
-                req.session = performBasicAuth(authHeader);
+                req.session =
+                    performBasicAuth(req.ipAddress.to_string(), authHeader);
             }
         }
     }

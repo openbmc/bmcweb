@@ -238,10 +238,14 @@ class Connection :
             }
             sslUser.resize(lastChar);
 
+            // Fetch the client IP address
+            readClientIp();
+
             session =
                 persistent_data::SessionStore::getInstance()
                     .generateUserSession(
-                        sslUser, persistent_data::PersistenceType::TIMEOUT);
+                        sslUser, persistent_data::PersistenceType::TIMEOUT,
+                        false, req->ipAddress.to_string());
             if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this
@@ -298,6 +302,8 @@ class Connection :
         {
             doReadHeaders();
         }
+        // Fetch the client IP address
+        readClientIp();
     }
 
     void handle()
@@ -305,6 +311,7 @@ class Connection :
         cancelDeadlineTimer();
 
         bool isInvalidRequest = false;
+        boost::system::error_code ec;
 
         // Check for HTTP version 1.1.
         if (req->version() == 11)
@@ -319,7 +326,7 @@ class Connection :
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
+                        << " " << req->target() << " " << req->ipAddress;
 
         needToCallAfterHandlers = false;
 
@@ -459,6 +466,26 @@ class Connection :
         // delete lambda with self shared_ptr
         // to enable connection destruction
         res.completeRequestHandler = nullptr;
+    }
+
+    void readClientIp()
+    {
+        boost::system::error_code ec;
+        BMCWEB_LOG_DEBUG << "Fetch the client IP address";
+        boost::asio::ip::tcp::endpoint endpoint =
+            boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
+
+        if (ec)
+        {
+            // If remote endpoint fails keep going. "ClientOriginIPAddress"
+            // will be empty.
+            BMCWEB_LOG_ERROR << "Failed to get the client's IP Address. ec : "
+                             << ec;
+        }
+        else
+        {
+            req->ipAddress = endpoint.address();
+        }
     }
 
   private:
