@@ -1296,6 +1296,83 @@ inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
 }
 
 /**
+ * @brief Sets AssetTag
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] assetTag  "AssetTag" from request.
+ *
+ * @return None.
+ */
+inline void setAssetTag(const std::shared_ptr<AsyncResp>& aResp,
+                        const std::string& assetTag)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp, assetTag](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find system D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Assume only 1 system D-Bus object
+            // Throw an error if there is more than 1
+            if (subtree.size() > 1)
+            {
+                BMCWEB_LOG_DEBUG << "Found more than 1 system D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "Asset Tag Set mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string& path = subtree[0].first;
+            const std::string& service = subtree[0].second.begin()->first;
+
+            if (service.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Asset Tag Set service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec2) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "D-Bus response error on AssetTag Set " << ec2;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
+                std::variant<std::string>(assetTag));
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.System"});
+}
+
+/**
  * @brief Sets automaticRetry (Auto Reboot)
  *
  * @param[in] aResp   Shared pointer for generating response message.
@@ -1984,17 +2061,24 @@ class Systems : public Node
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
         std::optional<nlohmann::json> wdtTimerProps;
+        std::optional<std::string> assetTag;
         std::optional<std::string> powerRestorePolicy;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
                                  bootProps, "WatchdogTimer", wdtTimerProps,
-                                 "PowerRestorePolicy", powerRestorePolicy))
+                                 "PowerRestorePolicy", powerRestorePolicy,
+                                 "AssetTag", assetTag))
         {
             return;
         }
 
         res.result(boost::beast::http::status::no_content);
+
+        if (assetTag)
+        {
+            setAssetTag(asyncResp, *assetTag);
+        }
 
         if (wdtTimerProps)
         {
