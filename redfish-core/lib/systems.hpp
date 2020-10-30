@@ -140,7 +140,7 @@ inline void
  * @brief Retrieves computer system properties over dbus
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] name  Computer system name from request
+ * @param[in] systemHealth  Shared HealthPopulate pointer
  *
  * @return None.
  */
