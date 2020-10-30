@@ -32,10 +32,6 @@
               <Annotation Term="OData.Description" String="The Id of the client creating this session."/>
               <Annotation Term="OData.LongDescription" String="This will be the unique identifier set by the client."/>
             </Property>
-            <Property Name="ClientOriginIP" Type="Edm.String">
-              <Annotation Term="OData.Description" String="The IP address where the Session was created from."/>
-              <Annotation Term="OData.LongDescription" String="This property shall contain the IP address where the client created the session from."/>
-            </Property>
 
       </EntityType>
     </Schema>

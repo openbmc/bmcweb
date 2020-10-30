@@ -28,12 +28,6 @@
                     "readonly": true,
                     "type" : "string"
                 },
-                "ClientOriginIP" : {
-                     "description": "The IP address where the Session was created from.",
-                     "longDescription": "This property shall contain the IP address where the client created the session from.",
-                     "readonly": true,
-                     "type": "string"
-                },
             "type": "object"
             }
         }
