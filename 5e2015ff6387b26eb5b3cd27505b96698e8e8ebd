@@ -262,6 +262,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed267313_b3e76637",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-10-31T14:56:02Z",
+      "side": 1,
+      "message": "I tried using the install with install_subdir API and also the add_install_script. I was not successful in getting the empty directories created at BMC. May be i need this meson issue resolved ?\nhttps://github.com/mesonbuild/meson/issues/2904",
+      "parentUuid": "eef9c430_a25fd16f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
