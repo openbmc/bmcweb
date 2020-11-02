@@ -68,6 +68,30 @@
       "revId": "7fa63a6712b1e48a3a1d8088c8cfdd10de8d041b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af968684_548e83bd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-11-02T07:01:44Z",
+      "side": 1,
+      "message": "It is to follow the rule to get service string from mapper, but not hard code.\n\nhttps://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/29670/30/redfish-core/lib/bios.hpp@134",
+      "parentUuid": "0a6cfd4e_a5351144",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 185,
+        "endChar": 42
+      },
+      "revId": "7fa63a6712b1e48a3a1d8088c8cfdd10de8d041b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
