@@ -123,13 +123,13 @@ inline void userErrorMessageHandler(const sd_bus_error* e,
                                     const std::string& newUser,
                                     const std::string& username)
 {
-    const char* errorMessage = e->name;
     if (e == nullptr)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
+    const char* errorMessage = e->name;
     if (strcmp(errorMessage,
                "xyz.openbmc_project.User.Common.Error.UserNameExists") == 0)
     {
