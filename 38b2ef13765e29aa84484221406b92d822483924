@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "3a609c6d_126b4554",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-11-04T08:23:33Z",
+      "side": 1,
+      "message": "yeah.. you missed it :) \n\nI just put https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/37941/",
+      "parentUuid": "7aecdc9b_7845633d",
+      "revId": "38b2ef13765e29aa84484221406b92d822483924",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ecd45ea4_045f6ab2",
         "filename": "redfish-core/lib/cpudimm.hpp",
         "patchSetId": 3
