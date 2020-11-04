@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "770aadbd_48073a6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-04T15:29:01Z",
+      "side": 1,
+      "message": "Much more than a 1 sentence description is needed here.\n\n1. Why are we mixing protocols?\n2. For those that don\u0027t use IPMI, how does one disable this behavior?\n3. Is POST, and DELETE implemented, or just get?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "a8a3429fcf9a49020126416eacfb6d5906c9785b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
