@@ -659,11 +659,9 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void deleteDumpEntry(crow::Response& res, const std::string& entryID,
+inline void deleteDumpEntry(const std::shared_ptr<AsyncResp>& asyncResp, const std::string& entryID,
                             const std::string& dumpType)
 {
-    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
     auto respHandler = [asyncResp](const boost::system::error_code ec) {
         BMCWEB_LOG_DEBUG << "Dump Entry doDelete callback: Done";
         if (ec)
@@ -847,7 +845,7 @@ inline void clearDump(crow::Response& res, const std::string& dumpType)
                 if (pos != std::string::npos)
                 {
                     std::string logID = path.substr(pos + 1);
-                    deleteDumpEntry(asyncResp->res, logID, dumpType);
+                    deleteDumpEntry(asyncResp, logID, dumpType);
                 }
             }
         },
@@ -2097,7 +2095,7 @@ class BMCDumpEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        deleteDumpEntry(asyncResp->res, params[0], "bmc");
+        deleteDumpEntry(asyncResp, params[0], "bmc");
     }
 };
 
@@ -2267,7 +2265,7 @@ class SystemDumpEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        deleteDumpEntry(asyncResp->res, params[0], "system");
+        deleteDumpEntry(asyncResp, params[0], "system");
     }
 };
 
