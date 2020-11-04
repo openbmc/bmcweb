@@ -26,43 +26,128 @@ class SessionCollection;
 
 inline void getSessionInfo(
     const std::shared_ptr<AsyncResp>& sessionAsyncResp,
-    const std::shared_ptr<std::vector<std::string>>& ipmiSessions)
+    const std::shared_ptr<std::vector<std::string>>& ipmiSessions,
+    const std::vector<std::string>& params,
+    const std::optional<bool>& sessionDelete)
 {
     BMCWEB_LOG_DEBUG << "Get available Sessions info.";
 
-    sessionAsyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-    for (const std::string& sid : *ipmiSessions)
+    if (!params.empty())
     {
-        if (sid.length() != 0)
+        // This will support to get session details and to delete valid Redfish
+        // session
+        bool ipmiSessionsFlag = false;
+        if (std::find(ipmiSessions->begin(), ipmiSessions->end(), params[0]) !=
+            ipmiSessions->end())
         {
-            sessionAsyncResp->res.jsonValue["Members"].push_back(
-                {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + sid}});
+            ipmiSessionsFlag = true;
         }
-    }
 
-    std::vector<const std::string*> sessionIds =
-        persistent_data::SessionStore::getInstance().getUniqueIds(
-            false, persistent_data::PersistenceType::TIMEOUT);
-    for (const std::string* uid : sessionIds)
-    {
-        if ((*uid).length() != 0)
+        // Note that control also reaches here via doPost and doDelete.
+        auto session =
+            persistent_data::SessionStore::getInstance().getSessionByUid(
+                params[0]);
+        if (session == nullptr && ipmiSessionsFlag != true)
         {
-            sessionAsyncResp->res.jsonValue["Members"].push_back(
-                {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
+            messages::resourceNotFound(sessionAsyncResp->res, "Session",
+                                       params[0]);
+            sessionAsyncResp->res.end();
+            return;
+        }
+
+        // Delete IPMI session from Redfish
+        if (sessionDelete.value() == true && ipmiSessionsFlag)
+        {
+            messages::actionNotSupported(sessionAsyncResp->res,
+                                         "deleting IPMI session from Redfish");
+            BMCWEB_LOG_DEBUG
+                << "Deleting IPMI session from Redfish is not allowed.";
+            return;
+        }
+        if (ipmiSessionsFlag)
+        {
+            sessionAsyncResp->res.jsonValue["Id"] = params[0];
+            sessionAsyncResp->res.jsonValue["UserName"] = "root";
+            sessionAsyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/SessionService/Sessions/" + params[0];
+            sessionAsyncResp->res
+                .jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] = "NA";
+        }
+        else
+        {
+            sessionAsyncResp->res.jsonValue["Id"] = session->uniqueId;
+            sessionAsyncResp->res.jsonValue["UserName"] = session->username;
+            sessionAsyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
+            sessionAsyncResp->res
+                .jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] =
+                session->clientIp;
+        }
+        sessionAsyncResp->res.jsonValue["@odata.type"] =
+            "#Session.v1_0_2.Session";
+        sessionAsyncResp->res.jsonValue["Name"] = "User Session";
+        sessionAsyncResp->res.jsonValue["Description"] = "Manager User Session";
+        sessionAsyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+            "#OemSession.v1_0_0.Session";
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+        sessionAsyncResp->res.jsonValue["Oem"]["OpenBMC"]["ClientID"] =
+            session->clientId;
+#endif
+        sessionAsyncResp->res.end();
+        // Delete session from Redfish
+        if (sessionDelete.value() == true)
+        {
+            if (ipmiSessionsFlag != true)
+            {
+                persistent_data::SessionStore::getInstance().removeSession(
+                    session);
+                return;
+            }
         }
     }
-    sessionAsyncResp->res.jsonValue["Members@odata.count"] =
-        sessionAsyncResp->res.jsonValue["Members"].size();
-    sessionAsyncResp->res.jsonValue["@odata.type"] =
-        "#SessionCollection.SessionCollection";
-    sessionAsyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/SessionService/Sessions/";
-    sessionAsyncResp->res.jsonValue["Name"] = "Session Collection";
-    sessionAsyncResp->res.jsonValue["Description"] = "Session Collection";
-    sessionAsyncResp->res.end();
+    else
+    {
+        // This will support to get available sessions created from Redfish and
+        // IPMI
+        sessionAsyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+        for (const std::string& sid : *ipmiSessions)
+        {
+            if (sid.length() != 0)
+            {
+                sessionAsyncResp->res.jsonValue["Members"].push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/SessionService/Sessions/" + sid}});
+            }
+        }
+
+        std::vector<const std::string*> sessionIds =
+            persistent_data::SessionStore::getInstance().getUniqueIds(
+                false, persistent_data::PersistenceType::TIMEOUT);
+        for (const std::string* uid : sessionIds)
+        {
+            if ((*uid).length() != 0)
+            {
+                sessionAsyncResp->res.jsonValue["Members"].push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/SessionService/Sessions/" + *uid}});
+            }
+        }
+        sessionAsyncResp->res.jsonValue["Members@odata.count"] =
+            sessionAsyncResp->res.jsonValue["Members"].size();
+        sessionAsyncResp->res.jsonValue["@odata.type"] =
+            "#SessionCollection.SessionCollection";
+        sessionAsyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/SessionService/Sessions/";
+        sessionAsyncResp->res.jsonValue["Name"] = "Session Collection";
+        sessionAsyncResp->res.jsonValue["Description"] = "Session Collection";
+        sessionAsyncResp->res.end();
+    }
 }
 
-inline void getSessionHandle(const std::shared_ptr<AsyncResp>& sessionAsyncResp)
+inline void
+    getSessionHandle(const std::shared_ptr<AsyncResp>& sessionAsyncResp,
+                         const std::vector<std::string>& params,
+                         std::optional<bool> sessionDelete)
 {
     BMCWEB_LOG_DEBUG << "Get available Ipmi Sessions info.";
 
@@ -74,8 +159,8 @@ inline void getSessionHandle(const std::shared_ptr<AsyncResp>& sessionAsyncResp)
         std::make_shared<std::vector<std::string>>(ipmiSessions);
 
     crow::connections::systemBus->async_method_call(
-        [sessionAsyncResp, sessionSharedPtr](const boost::system::error_code ec,
-                                             const GetSubTreeType& subtree) {
+        [sessionAsyncResp, sessionSharedPtr, params, sessionDelete](
+            const boost::system::error_code ec, const GetSubTreeType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -87,7 +172,8 @@ inline void getSessionHandle(const std::shared_ptr<AsyncResp>& sessionAsyncResp)
             if (subtree.size() == 0)
             {
                 BMCWEB_LOG_DEBUG << "Can't find  Session Info Attributes!";
-                getSessionInfo(sessionAsyncResp, sessionSharedPtr);
+                getSessionInfo(sessionAsyncResp, sessionSharedPtr, params,
+                               sessionDelete);
             }
 
             size_t subtreeEnd = 0;
@@ -116,8 +202,9 @@ inline void getSessionHandle(const std::shared_ptr<AsyncResp>& sessionAsyncResp)
                     }
 
                     crow::connections::systemBus->async_method_call(
-                        [sessionAsyncResp, sessionSharedPtr, objectServiceName,
-                         objPath, subtreeEndPtr,
+                        [sessionAsyncResp, sessionSharedPtr, params,
+                         sessionDelete, objectServiceName, objPath,
+                         subtreeEndPtr,
                          subtree](const boost::system::error_code ec,
                                   std::variant<uint8_t> state) {
                             if (ec)
@@ -141,7 +228,8 @@ inline void getSessionHandle(const std::shared_ptr<AsyncResp>& sessionAsyncResp)
                             if (*subtreeEndPtr == subtree.size())
                             {
                                 getSessionInfo(sessionAsyncResp,
-                                               sessionSharedPtr);
+                                               sessionSharedPtr, params,
+                                               sessionDelete);
                             }
                         },
                         objectServiceName, objPath,
@@ -175,32 +263,8 @@ class Sessions : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        // Note that control also reaches here via doPost and doDelete.
-        auto session =
-            persistent_data::SessionStore::getInstance().getSessionByUid(
-                params[0]);
-
-        if (session == nullptr)
-        {
-            messages::resourceNotFound(res, "Session", params[0]);
-            res.end();
-            return;
-        }
-
-        res.jsonValue["Id"] = session->uniqueId;
-        res.jsonValue["UserName"] = session->username;
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
-        res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
-        res.jsonValue["Name"] = "User Session";
-        res.jsonValue["Description"] = "Manager User Session";
-        res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-            "#OemSession.v1_0_0.Session";
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-        res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
-#endif
-        res.jsonValue["Oem"]["OpenBMC"]["ClientOriginIP"] = session->clientIp;
-        res.end();
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        getSessionHandle(asyncResp, params, false);
     }
 
     void doDelete(crow::Response& res, const crow::Request& req,
@@ -222,33 +286,29 @@ class Sessions : public Node
             persistent_data::SessionStore::getInstance().getSessionByUid(
                 params[0]);
 
-        if (session == nullptr)
-        {
-            messages::resourceNotFound(res, "Session", params[0]);
-            res.end();
-            return;
-        }
-
         // Perform a proper ConfigureSelf authority check.  If a
         // session is being used to DELETE some other user's session,
         // then the ConfigureSelf privilege does not apply.  In that
         // case, perform the authority check again without the user's
         // ConfigureSelf privilege.
-        if (session->username != req.session->username)
+        if (session != nullptr)
         {
-            if (!isAllowedWithoutConfigureSelf(req))
+            if (session->username != req.session->username)
             {
-                BMCWEB_LOG_WARNING << "DELETE Session denied access";
-                messages::insufficientPrivilege(res);
-                res.end();
-                return;
+                if (!isAllowedWithoutConfigureSelf(req))
+                {
+                    BMCWEB_LOG_WARNING << "DELETE Session denied access";
+                    messages::insufficientPrivilege(res);
+                    res.end();
+                    return;
+                }
             }
         }
 
         // DELETE should return representation of object that will be removed
-        doGet(res, req, params);
-
-        persistent_data::SessionStore::getInstance().removeSession(session);
+        std::optional<bool> sessionDelete = true;
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        getSessionHandle(asyncResp, params, sessionDelete);
     }
 
     /**
@@ -277,10 +337,10 @@ class SessionCollection : public Node
 
   private:
     void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+               const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        getSessionHandle(asyncResp);
+        getSessionHandle(asyncResp, params, false);
     }
 
     void doPost(crow::Response& res, const crow::Request& req,
