@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a846c13e_fa47a9a0",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-05T16:08:13Z",
+      "side": 1,
+      "message": "I suspect these can be replaced by the official sd-dbus functions:\n\nint sd_bus_interface_name_is_valid(const char *p);\nint sd_bus_member_name_is_valid(const char *p);\nint sd_bus_object_path_is_valid(const char *p);\n\nTODO.",
+      "revId": "4730b0a2d03b888059e45f9195ac29816b81f562",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
