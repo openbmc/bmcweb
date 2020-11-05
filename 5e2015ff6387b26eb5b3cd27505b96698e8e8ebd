@@ -334,6 +334,30 @@
       "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5629b8ec_ef9a3dae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-11-05T06:25:13Z",
+      "side": 1,
+      "message": "Hi Ed, Earlier I had tried using this MESON_INSTALL_LOCALSTATEDIR path. After a bitbake, this does not create the directory under sysroot-destdir, the path which gets installed in the BMC. \n\nTo get the new directories under the sysroot-destdir, i had to use the MESON_INSTALL_PREFIX which is the meson \u0027installation prefix\u0027.\n\nThus asked you to suggest the code, which you were expecting to implement in the meson install phase. Can you please check and let me know how to achieve this ?",
+      "parentUuid": "58cc4d07_e8390247",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5e2015ff6387b26eb5b3cd27505b96698e8e8ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
