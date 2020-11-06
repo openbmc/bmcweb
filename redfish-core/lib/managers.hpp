@@ -1768,6 +1768,9 @@ class Manager : public Node
 
         res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
 
+        // TODO (Gunnar): Remove these one day since moved to ComputerSystem
+        // Still used by OCP profiles
+        // https://github.com/opencomputeproject/OCP-Profiles/issues/23
         // Fill in SerialConsole info
         res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
         res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;

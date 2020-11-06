@@ -1971,7 +1971,7 @@ class Systems : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_12_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_13_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
@@ -2008,6 +2008,28 @@ class Systems : public Node
             {"Health", "OK"},
             {"State", "Enabled"},
         };
+
+        // Fill in SerialConsole info
+        res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
+        res.jsonValue["SerialConsole"]["IPMI"] = {
+            {"ServiceEnabled", true},
+        };
+        // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
+        res.jsonValue["SerialConsole"]["SSH"] = {
+            {"ServiceEnabled", true},
+            {"Port", 2200},
+            // https://github.com/openbmc/docs/blob/master/console.md
+            {"HotKeySequenceDisplay", "Press ~. to exit console"},
+        };
+#ifdef BMCWEB_ENABLE_KVM
+        // Fill in GraphicalConsole info
+        res.jsonValue["GraphicalConsole"] = {
+            {"ServiceEnabled", true},
+            {"MaxConcurrentSessions", 4},
+            {"ConnectTypesSupported", {"KVMIP"}},
+        };
+#endif // BMCWEB_ENABLE_KVM
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         constexpr const std::array<const char*, 4> inventoryForSystems = {
