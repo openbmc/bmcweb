@@ -97,7 +97,19 @@ static void vmParseInterfaceObject(const DbusInterfaceType& interface,
                     std::get_if<std::string>(&imageUrlProperty->second);
                 if (imageUrlValue && !imageUrlValue->empty())
                 {
-                    aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    std::filesystem::path filePath = *imageUrlValue;
+                    if (!filePath.has_filename())
+                    {
+                        // this will handle https share, which not necessarily
+                        // has to have filename given.
+                        aResp->res.jsonValue["ImageName"] = "";
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["ImageName"] = filePath.filename();
+                    }
+
+                    aResp->res.jsonValue["Image"] = *imageUrlValue;
                     aResp->res.jsonValue["Inserted"] = *activeValue;
                     if (*activeValue == true)
                     {
@@ -121,15 +133,9 @@ static nlohmann::json vmItemTemplate(const std::string& name,
     item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
-    item["Image"] = nullptr;
-    item["Inserted"] = nullptr;
-    item["ImageName"] = nullptr;
     item["WriteProtected"] = true;
-    item["ConnectedVia"] = "NotConnected";
     item["MediaTypes"] = {"CD", "USBStick"};
     item["TransferMethod"] = "Stream";
-    item["TransferProtocolType"] = nullptr;
-    item["Oem"]["OpenBMC"]["WebSocketEndpoint"] = nullptr;
     item["Oem"]["OpenBMC"]["@odata.type"] =
         "#OemVirtualMedia.v1_0_0.VirtualMedia";
 
