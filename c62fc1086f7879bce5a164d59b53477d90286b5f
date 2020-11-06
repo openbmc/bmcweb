@@ -375,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "b100dead_5a44d765",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2020-11-06T20:24:40Z",
+      "side": 1,
+      "message": "\u003e \nIn the latest iteration of this, I\u0027ve moved the HTTP redirector to be both compile time and runtime (still untested).  If a single socket file is detected, the HTTP forwarding behavior is disabled for all sockets, which gives the administrator a way to \"opt out\" at runtime.\n\nLet me know if the logic matches what you were hoping for in this regard.\n\u003c\n\nIf the \"bump\" was like a ping for this topic, then I guess its acceptable in that it can meet the minimum requirements but needs to be documented.  Its a bit more permissive in that an installation could not, say, allow the http and redirect from some IP addresses but block the port from others with an external firewall.  \n\nThis would need to be well documented for this unusual behaviour, and should probably be reviewed by the security working group.  \n\nEg for example if the 443 port was disabled and the 80 port was enabled, the result would be https traffic accepted on the 80 port.  What happens when a user sends a http request?  Does it disconnect?   (it seems it won\u0027t be an expected 4xx code).",
+      "parentUuid": "18df072a_02f237ca",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
