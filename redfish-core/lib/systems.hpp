@@ -1894,7 +1894,7 @@ class Systems : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_12_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_13_0.ComputerSystem";
         res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
@@ -1931,6 +1931,22 @@ class Systems : public Node
             {"Health", "OK"},
             {"State", "Enabled"},
         };
+
+        // Fill in SerialConsole info
+        res.jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] = true;
+        res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] = true;
+        res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
+        res.jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
+            "Press ~. to exit console";
+        res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
+
+#ifdef BMCWEB_ENABLE_KVM
+        // Fill in GraphicalConsole info
+        res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
+        res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
+#endif // BMCWEB_ENABLE_KVM
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         constexpr const std::array<const char*, 4> inventoryForSystems = {
