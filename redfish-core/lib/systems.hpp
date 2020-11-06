@@ -2109,6 +2109,29 @@ inline void requestRoutesSystems(App& app)
                 {"Health", "OK"},
                 {"State", "Enabled"},
             };
+
+            // Fill in SerialConsole info
+            asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
+                15;
+            asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
+                {"ServiceEnabled", true},
+            };
+            // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
+            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
+                {"ServiceEnabled", true},
+                {"Port", 2200},
+                // https://github.com/openbmc/docs/blob/master/console.md
+                {"HotKeySequenceDisplay", "Press ~. to exit console"},
+            };
+
+#ifdef BMCWEB_ENABLE_KVM
+            // Fill in GraphicalConsole info
+            asyncResp->res.jsonValue["GraphicalConsole"] = {
+                {"ServiceEnabled", true},
+                {"MaxConcurrentSessions", 4},
+                {"ConnectTypesSupported", {"KVMIP"}},
+            };
+#endif // BMCWEB_ENABLE_KVM
             constexpr const std::array<const char*, 4> inventoryForSystems = {
                 "xyz.openbmc_project.Inventory.Item.Dimm",
                 "xyz.openbmc_project.Inventory.Item.Cpu",
