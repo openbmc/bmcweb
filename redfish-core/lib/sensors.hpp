@@ -2369,10 +2369,22 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
         "/redfish/v1/Chassis/" + chassisId + "/Power#/PowerSupplies/";
     powerSupply["MemberId"] = inventoryItem.name;
     powerSupply["Name"] = boost::replace_all_copy(inventoryItem.name, "_", " ");
-    powerSupply["Manufacturer"] = inventoryItem.manufacturer;
-    powerSupply["Model"] = inventoryItem.model;
-    powerSupply["PartNumber"] = inventoryItem.partNumber;
-    powerSupply["SerialNumber"] = inventoryItem.serialNumber;
+    if (!inventoryItem.manufacturer.empty())
+    {
+        powerSupply["Manufacturer"] = inventoryItem.manufacturer;
+    }
+    if (!inventoryItem.model.empty())
+    {
+        powerSupply["Model"] = inventoryItem.model;
+    }
+    if (!inventoryItem.partNumber.empty())
+    {
+        powerSupply["PartNumber"] = inventoryItem.partNumber;
+    }
+    if (!inventoryItem.serialNumber.empty())
+    {
+        powerSupply["SerialNumber"] = inventoryItem.serialNumber;
+    }
     setLedState(powerSupply, &inventoryItem);
 
     if (inventoryItem.powerSupplyEfficiencyPercent >= 0)
