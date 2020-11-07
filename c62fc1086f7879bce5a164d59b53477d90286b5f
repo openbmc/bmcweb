@@ -393,6 +393,24 @@
     },
     {
       "key": {
+        "uuid": "a07b5c2b_8e003fb9",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 43
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-07T00:37:46Z",
+      "side": 1,
+      "message": "\u003e \u003e \n\u003e In the latest iteration of this, I\u0027ve moved the HTTP redirector to be both compile time and runtime (still untested).  If a single socket file is detected, the HTTP forwarding behavior is disabled for all sockets, which gives the administrator a way to \"opt out\" at runtime.\n\u003e \n\u003e Let me know if the logic matches what you were hoping for in this regard.\n\u003e \u003c\n\u003e \n\u003e If the \"bump\" was like a ping for this topic, then I guess its acceptable in that it can meet the minimum requirements but needs to be documented.\n\nYes, that was what I was looking for input on.  I can definitely document some of our discussions.\n\n\u003e  Its a bit more permissive in that an installation could not, say, allow the http and redirect from some IP addresses but block the port from others with an external firewall.  \n\nDo any of the existing systems do what you describe?  I don\u0027t see that as being difficult to add later, but is your use case hypothetical, or real?\nIt seems odd to block only redirects from a particular IP range?  You\u0027d think you would want to block them in tandem.\n\n\u003e \n\u003e This would need to be well documented for this unusual behaviour, and should probably be reviewed by the security working group.\n\nI think it\u0027s already been brought up in the security working group.  If you have specific people that you\u0027d like to see added to this review, please let me know, and I can add them to the reviewers list.\n\n\u003e \n\u003e Eg for example if the 443 port was disabled and the 80 port was enabled, the result would be https traffic accepted on the 80 port.\n\nDoes anyone in openbmc do that?  The option of allowing a non-ssl build of bmcweb has been functionally un-buildable for some time.  If someone cares, we could certainly add it back in a similar fashion, and get it fixed to get the behavior that you expect in that case.\n\n\u003e  What happens when a user sends a http request?  Does it disconnect?   (it seems it won\u0027t be an expected 4xx code).\n\nIf you have a single socket set up, it simply rejects the request, the same as the old behavior was.\n\n\nThanks for getting back to me on this.",
+      "parentUuid": "b100dead_5a44d765",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
         "patchSetId": 43
