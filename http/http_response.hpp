@@ -3,6 +3,9 @@
 #include "logging.hpp"
 #include "nlohmann/json.hpp"
 
+#include <boost/asio/buffer.hpp>
+#include <boost/beast/core/flat_static_buffer.hpp>
+#include <boost/beast/http/basic_dynamic_body.hpp>
 #include <boost/beast/http/message.hpp>
 
 #include <string>
@@ -36,6 +39,17 @@ struct Response
 
     Response() : stringResponse(response_type{})
     {}
+
+    Response(Response&& r)
+    {
+        BMCWEB_LOG_DEBUG << "Moving response containers";
+        *this = std::move(r);
+    }
+
+    ~Response()
+    {
+        BMCWEB_LOG_DEBUG << this << " Destroying response";
+    }
 
     Response& operator=(const Response& r) = delete;
 
@@ -145,4 +159,136 @@ struct Response
         addHeader("Content-Type", "application/json");
     }
 };
+
+struct DynamicResponse
+{
+    template <typename Adaptor, typename Handler, typename DynamicBuffer>
+    friend class crow::Connection;
+    using response_type =
+        boost::beast::http::response<boost::beast::http::basic_dynamic_body<
+            boost::beast::flat_static_buffer<1024 * 1024>>>;
+
+    std::optional<response_type> bufferResponse;
+
+    nlohmann::json jsonValue;
+
+    void addHeader(const std::string_view key, const std::string_view value)
+    {
+        bufferResponse->set(key, value);
+    }
+
+    void addHeader(boost::beast::http::field key, std::string_view value)
+    {
+        bufferResponse->set(key, value);
+    }
+
+    DynamicResponse() : bufferResponse(response_type{})
+    {}
+
+    DynamicResponse(DynamicResponse&& r)
+    {
+        BMCWEB_LOG_DEBUG << "Moving response containers";
+        *this = std::move(r);
+    }
+
+    ~DynamicResponse()
+    {
+        BMCWEB_LOG_DEBUG << this << " Destroying response";
+    }
+
+    DynamicResponse& operator=(const DynamicResponse& r) = delete;
+
+    DynamicResponse& operator=(DynamicResponse&& r) noexcept
+    {
+        BMCWEB_LOG_DEBUG << "Moving response containers";
+        bufferResponse = std::move(r.bufferResponse);
+        r.bufferResponse.emplace(response_type{});
+        jsonValue = std::move(r.jsonValue);
+        completed = r.completed;
+        return *this;
+    }
+
+    void result(boost::beast::http::status v)
+    {
+        bufferResponse->result(v);
+    }
+
+    boost::beast::http::status result()
+    {
+        return bufferResponse->result();
+    }
+
+    unsigned resultInt()
+    {
+        return bufferResponse->result_int();
+    }
+
+    std::string_view reason()
+    {
+        return bufferResponse->reason();
+    }
+
+    bool isCompleted() const noexcept
+    {
+        return completed;
+    }
+
+    std::string& body()
+    {
+        std::size_t size = bufferResponse->body().size();
+        string_body = std::string(
+            static_cast<char*>(bufferResponse->body().data().data()), size);
+        return string_body;
+    }
+
+    void keepAlive(bool k)
+    {
+        bufferResponse->keep_alive(k);
+    }
+
+    bool keepAlive()
+    {
+        return bufferResponse->keep_alive();
+    }
+
+    void preparePayload()
+    {
+        bufferResponse->prepare_payload();
+    }
+
+    void clear()
+    {
+        BMCWEB_LOG_DEBUG << this << " Clearing response containers";
+        bufferResponse.emplace(response_type{});
+        jsonValue.clear();
+        completed = false;
+    }
+
+    void end()
+    {
+        if (completed)
+        {
+            BMCWEB_LOG_ERROR << "Dynamic response was ended twice";
+            return;
+        }
+        completed = true;
+        BMCWEB_LOG_DEBUG << "calling completion handler";
+        if (completeRequestHandler)
+        {
+            BMCWEB_LOG_DEBUG << "completion handler was valid";
+            completeRequestHandler();
+        }
+    }
+    bool isAlive()
+    {
+        return isAliveHelper && isAliveHelper();
+    }
+
+  private:
+    bool completed{};
+    std::function<void()> completeRequestHandler;
+    std::function<bool()> isAliveHelper;
+    std::string string_body;
+};
+
 } // namespace crow
