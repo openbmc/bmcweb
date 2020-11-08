@@ -5,6 +5,7 @@
 #include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <dump_offload.hpp>
 #include <hostname_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
 #include <image_upload.hpp>
@@ -132,6 +133,10 @@ int main(int /*argc*/, char** /*argv*/)
 #ifdef BMCWEB_ENABLE_SSL
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
+#endif
+
+#ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
+    crow::obmc_dump::requestRoutes(app);
 #endif
 
     app.run();

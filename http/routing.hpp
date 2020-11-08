@@ -4,6 +4,7 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "http_stream.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
@@ -398,6 +399,95 @@ class WebSocketRule : public BaseRule
     std::function<void(crow::websocket::Connection&)> errorHandler;
 };
 
+class StreamingResponseRule : public BaseRule
+{
+    using self_t = StreamingResponseRule;
+
+  public:
+    StreamingResponseRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    {}
+
+    void validate() override
+    {}
+
+    void handle(const Request&,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const RoutingParams&) override
+    {
+        asyncResp->res.result(boost::beast::http::status::not_found);
+    }
+
+    void handleUpgrade(const Request& req, Response&,
+                       boost::asio::ip::tcp::socket&& adaptor) override
+    {
+        std::shared_ptr<crow::streaming_response::ConnectionImpl<
+            boost::asio::ip::tcp::socket>>
+            myConnection =
+                std::make_shared<crow::streaming_response::ConnectionImpl<
+                    boost::asio::ip::tcp::socket>>(req, std::move(adaptor),
+                                                   openHandler, messageHandler,
+                                                   closeHandler, errorHandler);
+
+        myConnection->start();
+        myConnection.reset();
+        myConnection = nullptr;
+    }
+
+#ifdef BMCWEB_ENABLE_SSL
+    void handleUpgrade(const Request& req, Response&,
+                       boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
+                           adaptor) override
+    {
+        std::shared_ptr<crow::streaming_response::ConnectionImpl<
+            boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
+            myConnection =
+                std::make_shared<crow::streaming_response::ConnectionImpl<
+                    boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
+                    req, std::move(adaptor), openHandler, messageHandler,
+                    closeHandler, errorHandler);
+        myConnection->start();
+        myConnection.reset();
+        myConnection = nullptr;
+    }
+#endif
+
+    template <typename Func>
+    self_t& onopen(Func f)
+    {
+        openHandler = f;
+        return *this;
+    }
+
+    template <typename Func>
+    self_t& onmessage(Func f)
+    {
+        messageHandler = f;
+        return *this;
+    }
+
+    template <typename Func>
+    self_t& onclose(Func f)
+    {
+        closeHandler = f;
+        return *this;
+    }
+
+    template <typename Func>
+    self_t& onerror(Func f)
+    {
+        errorHandler = f;
+        return *this;
+    }
+
+  protected:
+    std::function<void(crow::streaming_response::Connection&)> openHandler;
+    std::function<void(crow::streaming_response::Connection&,
+                       const std::string&, bool)>
+        messageHandler;
+    std::function<void(crow::streaming_response::Connection&)> closeHandler;
+    std::function<void(crow::streaming_response::Connection&)> errorHandler;
+};
+
 template <typename T>
 struct RuleParameterTraits
 {
@@ -406,6 +496,15 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         WebSocketRule* p = new WebSocketRule(self->rule);
+        self->ruleToUpgrade.reset(p);
+        return *p;
+    }
+
+    StreamingResponseRule& streamingResponse()
+    {
+        BMCWEB_LOG_DEBUG << "Invoking stream response rule";
+        self_t* self = static_cast<self_t*>(this);
+        StreamingResponseRule* p = new StreamingResponseRule(self->rule);
         self->ruleToUpgrade.reset(p);
         return *p;
     }
