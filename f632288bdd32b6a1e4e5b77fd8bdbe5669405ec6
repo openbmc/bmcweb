@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b2a59ef2_7970af18",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-09T19:57:49Z",
+      "side": 1,
+      "message": "Yeah, that is a good idea. Let me play with that. \n\n\n  systemctl list-units --type\u003dservice | grep 2200  \n  obmc-console-ssh@2200.service                                                                      loaded active running Console Client on 2200",
+      "parentUuid": "3d7bf364_434085f9",
+      "range": {
+        "startLine": 1938,
+        "startChar": 0,
+        "endLine": 1938,
+        "endChar": 61
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d9a68cf_8bf59df9",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2020-11-09T05:29:18Z",
       "side": 1,
       "message": "Where does this come from?  Is this something we have to keep updated with some other piece of code in openbmc?  If so, can you add a comment to where we sync it from?",
+      "range": {
+        "startLine": 1940,
+        "startChar": 13,
+        "endLine": 1940,
+        "endChar": 38
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3398ec1c_39010172",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-09T19:57:49Z",
+      "side": 1,
+      "message": "Done. https://github.com/openbmc/docs/blob/master/console.md\nInspired by Redfish\u0027s example of this field. \nhttps://github.com/DMTF/Redfish/blob/e2ed9e2842e50171e4f928aac36dbb97a22d3a08/mockups/development/Systems/1/index.json#L131",
+      "parentUuid": "0d9a68cf_8bf59df9",
       "range": {
         "startLine": 1940,
         "startChar": 13,
@@ -85,6 +133,24 @@
       "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057418b7_87d5c58d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1948,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-09T19:57:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db719c29_da571f16",
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
