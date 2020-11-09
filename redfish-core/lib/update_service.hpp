@@ -258,7 +258,7 @@ static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
 // then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(
     const std::shared_ptr<AsyncResp>& asyncResp, const crow::Request& req,
-    const std::string& url, int timeoutTimeSeconds = 10)
+    const std::string& url, int timeoutTimeSeconds = 20)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
