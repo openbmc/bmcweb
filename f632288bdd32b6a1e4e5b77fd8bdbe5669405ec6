@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9281b041_af5b665f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-09T05:29:18Z",
+      "side": 1,
+      "message": "I know of none (honestly, I\u0027m not sure even why we added them in the first place).\n\nIf you can verify that OCP schema doesn\u0027t require them, I suspect we can just move them.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7bf364_434085f9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-09T05:29:18Z",
+      "side": 1,
+      "message": "Considering in other places we grab this from systemd dynamically, using the socket activation files, should we do the same here?\n\nReference to the existing code list of services we fill and populate:\nhttps://github.com/openbmc/bmcweb/blob/f23b729676559f539790580930b1ff3b0c05805b/redfish-core/lib/network_protocol.hpp#L57",
+      "range": {
+        "startLine": 1938,
+        "startChar": 0,
+        "endLine": 1938,
+        "endChar": 61
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9a68cf_8bf59df9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-09T05:29:18Z",
+      "side": 1,
+      "message": "Where does this come from?  Is this something we have to keep updated with some other piece of code in openbmc?  If so, can you add a comment to where we sync it from?",
+      "range": {
+        "startLine": 1940,
+        "startChar": 13,
+        "endLine": 1940,
+        "endChar": 38
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db719c29_da571f16",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1948,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-09T05:29:18Z",
+      "side": 1,
+      "message": "Nit, can you update this block to use brace construction, similar to line 1930, just for consistency.",
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
