@@ -788,8 +788,7 @@ inline CreatePIDRet createPidInterface(
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
-                             << type;
+            BMCWEB_LOG_ERROR << "Illegal Type " << type;
             messages::propertyUnknown(response->res, type);
             return CreatePIDRet::fail;
         }
@@ -902,8 +901,7 @@ inline CreatePIDRet createPidInterface(
                 "PositiveHysteresis", doubles["PositiveHysteresis"],
                 "NegativeHysteresis", doubles["NegativeHysteresis"]))
         {
-            BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << it.value().dump();
+            BMCWEB_LOG_ERROR << "Illegal Property " << it.value().dump();
             return CreatePIDRet::fail;
         }
         if (zones)
@@ -911,7 +909,7 @@ inline CreatePIDRet createPidInterface(
             std::vector<std::string> zonesStr;
             if (!getZonesFromJsonReq(response, *zones, zonesStr))
             {
-                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Zones";
+                BMCWEB_LOG_ERROR << "Illegal Zones";
                 return CreatePIDRet::fail;
             }
             if (chassis.empty() &&
@@ -1009,8 +1007,7 @@ inline CreatePIDRet createPidInterface(
                                           failSafePercent, "MinThermalOutput",
                                           minThermalOutput))
         {
-            BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << it.value().dump();
+            BMCWEB_LOG_ERROR << "Illegal Property " << it.value().dump();
             return CreatePIDRet::fail;
         }
 
@@ -1021,7 +1018,7 @@ inline CreatePIDRet createPidInterface(
             if (!redfish::json_util::readJson(*chassisContainer, response->res,
                                               "@odata.id", chassisId))
             {
-                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
+                BMCWEB_LOG_ERROR << "Illegal Property "
                                  << chassisContainer->dump();
                 return CreatePIDRet::fail;
             }
@@ -1059,8 +1056,7 @@ inline CreatePIDRet createPidInterface(
                 "NegativeHysteresis", negativeHysteresis, "Direction",
                 direction))
         {
-            BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << it.value().dump();
+            BMCWEB_LOG_ERROR << "Illegal Property " << it.value().dump();
             return CreatePIDRet::fail;
         }
 
@@ -1069,7 +1065,7 @@ inline CreatePIDRet createPidInterface(
             std::vector<std::string> zonesStrs;
             if (!getZonesFromJsonReq(response, *zones, zonesStrs))
             {
-                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Zones";
+                BMCWEB_LOG_ERROR << "Illegal Zones";
                 return CreatePIDRet::fail;
             }
             if (chassis.empty() &&
@@ -1093,8 +1089,7 @@ inline CreatePIDRet createPidInterface(
                 if (!redfish::json_util::readJson(step, response->res, "Target",
                                                   target, "Output", out))
                 {
-                    BMCWEB_LOG_ERROR << "Line:" << __LINE__
-                                     << ", Illegal Property "
+                    BMCWEB_LOG_ERROR << "Illegal Property "
                                      << it.value().dump();
                     return CreatePIDRet::fail;
                 }
@@ -1136,7 +1131,7 @@ inline CreatePIDRet createPidInterface(
     }
     else
     {
-        BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type " << type;
+        BMCWEB_LOG_ERROR << "Illegal Type " << type;
         messages::propertyUnknown(response->res, type);
         return CreatePIDRet::fail;
     }
@@ -1336,8 +1331,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 "FanControllers", fanControllers, "FanZones", fanZones,
                 "StepwiseControllers", stepwiseControllers, "Profile", profile))
         {
-            BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << data.dump();
+            BMCWEB_LOG_ERROR << "Illegal Property " << data.dump();
             return;
         }
         configuration.emplace_back("PidControllers", std::move(pidControllers));
@@ -1863,8 +1857,7 @@ class Manager : public Node
             std::optional<nlohmann::json> openbmc;
             if (!redfish::json_util::readJson(*oem, res, "OpenBmc", openbmc))
             {
-                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                                 << oem->dump();
+                BMCWEB_LOG_ERROR << "Illegal Property " << oem->dump();
                 return;
             }
             if (openbmc)
@@ -1872,9 +1865,7 @@ class Manager : public Node
                 std::optional<nlohmann::json> fan;
                 if (!redfish::json_util::readJson(*openbmc, res, "Fan", fan))
                 {
-                    BMCWEB_LOG_ERROR << "Line:" << __LINE__
-                                     << ", Illegal Property "
-                                     << openbmc->dump();
+                    BMCWEB_LOG_ERROR << "Illegal Property " << openbmc->dump();
                     return;
                 }
                 if (fan)
