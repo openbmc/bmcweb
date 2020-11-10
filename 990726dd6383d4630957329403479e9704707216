@@ -16,6 +16,24 @@
       "revId": "990726dd6383d4630957329403479e9704707216",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56341b0_eb84588c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2020-11-10T15:35:44Z",
+      "side": 1,
+      "message": "Now updated API name to generic. Thanks",
+      "parentUuid": "8e971095_a2e7a4a8",
+      "revId": "990726dd6383d4630957329403479e9704707216",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
