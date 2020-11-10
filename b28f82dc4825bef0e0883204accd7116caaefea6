@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2e449b1_188e5d8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-10T16:35:43Z",
+      "side": 1,
+      "message": "What if someone is trying to send uint32_min over the wire?  Seem like an issue special casing it;\n\n\nWhen I thought about this before, I assumed we would allow readJson to accept a variant type, that way we can support basically anything, and don\u0027t have to use special int types to represent null.",
+      "range": {
+        "startLine": 22,
+        "startChar": 30,
+        "endLine": 22,
+        "endChar": 40
+      },
+      "revId": "b28f82dc4825bef0e0883204accd7116caaefea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b05bbb4f_4da4bd9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-10T16:35:43Z",
+      "side": 1,
+      "message": "Seems arbitrary?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "b28f82dc4825bef0e0883204accd7116caaefea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
