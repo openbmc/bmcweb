@@ -46,6 +46,30 @@
       "revId": "a8a3429fcf9a49020126416eacfb6d5906c9785b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b140ff59_d11077bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-11T20:06:00Z",
+      "side": 1,
+      "message": "\u003e 1. Based latest Redfish schema, Redfish should include to display IPMI session Id\u0027s as well. So implementation is done as part of this patch.\n\nJust because Redfish has a field for it doesn\u0027t mean that OpenBMC needs it.  What\u0027s your specific use case for wanting it?\n\n\u003e Schema: https://redfish.dmtf.org/schemas/v1/Session_v1.xml\n\u003e \n\u003e 2. Here including Redfish and EWS sessions Id\u0027s\n\nJust so you\u0027re aware, Redfish and EWS sessions are functionally the same thing internally.\n\n\u003e will get IPMI sol sessions as well. Updated the API name.\n\nDid 2 get desyncronized?  It doesn\u0027t look like you answered the question.\n\n\u003e 3. Pushed another patch.\n\u003e https://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/37953/\n\nIt should be noted.... I asked for this detail in the commit message.    You\u0027ve added a little more..... lets try to get more of this captured there.",
+      "parentUuid": "98722be3_3ec1d496",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "a8a3429fcf9a49020126416eacfb6d5906c9785b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
