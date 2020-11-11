@@ -346,23 +346,6 @@ class SessionStore
         return sessionStore;
     }
 
-    SessionStore(const SessionStore&) = delete;
-    SessionStore& operator=(const SessionStore&) = delete;
-
-    std::unordered_map<std::string, std::shared_ptr<UserSession>,
-                       std::hash<std::string>,
-                       crow::utility::ConstantTimeCompare>
-        authTokens;
-
-    std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
-    bool needWrite{false};
-    std::chrono::seconds timeoutInSeconds;
-    AuthConfigMethods authMethodsConfig;
-
-  private:
-    SessionStore() : timeoutInSeconds(3600)
-    {}
-
     void applySessionTimeouts()
     {
         auto timeNow = std::chrono::steady_clock::now();
@@ -390,6 +373,23 @@ class SessionStore
             }
         }
     }
+
+    SessionStore(const SessionStore&) = delete;
+    SessionStore& operator=(const SessionStore&) = delete;
+
+    std::unordered_map<std::string, std::shared_ptr<UserSession>,
+                       std::hash<std::string>,
+                       crow::utility::ConstantTimeCompare>
+        authTokens;
+
+    std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
+    bool needWrite{false};
+    std::chrono::seconds timeoutInSeconds;
+    AuthConfigMethods authMethodsConfig;
+
+  private:
+    SessionStore() : timeoutInSeconds(3600)
+    {}
 };
 
 } // namespace persistent_data
