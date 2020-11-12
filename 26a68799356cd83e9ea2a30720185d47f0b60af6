@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29fe5016_9a3f6fc5",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-12T15:19:36Z",
+      "side": 1,
+      "message": "Severity was deprecated. \nhttps://redfish.dmtf.org/schemas/v1/Message.v1_1_1.json\n\n\n                \"Severity\": {\n                    \"deprecated\": \"This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.\",\n                    \"description\": \"The severity of the errors.\",\n                    \"longDescription\": \"This property shall contain the severity of the error, as defined in the Status section of the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ],\n                    \"versionDeprecated\": \"v1_1_0\"",
+      "revId": "26a68799356cd83e9ea2a30720185d47f0b60af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
