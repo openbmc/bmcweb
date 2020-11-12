@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ade7200_8fef05e3",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2020-11-12T18:28:27Z",
+      "side": 1,
+      "message": "Does this path exist on all BMCs?",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 49
+      },
+      "revId": "89d21936c91330dde6ec065f35375119aa588133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ed2726c_4e020a0e",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2020-11-12T18:28:27Z",
+      "side": 1,
+      "message": "It looks like phosphor-debug-collector needs to be modified a bit so that its offload function writes to a socket instead of an ofstream for this to work.",
+      "range": {
+        "startLine": 101,
+        "startChar": 46,
+        "endLine": 102,
+        "endChar": 26
+      },
+      "revId": "89d21936c91330dde6ec065f35375119aa588133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
