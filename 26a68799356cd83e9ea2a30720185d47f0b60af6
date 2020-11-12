@@ -63,6 +63,24 @@
       "revId": "26a68799356cd83e9ea2a30720185d47f0b60af6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31c6181c_8d5a4516",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-12T20:04:06Z",
+      "side": 1,
+      "message": "Sure, but that was deprecated in v1.1.0 and here, the odata type points to v1.0.0. Will update the odata type to the latest schema (with MessageSeverity)",
+      "parentUuid": "29fe5016_9a3f6fc5",
+      "revId": "26a68799356cd83e9ea2a30720185d47f0b60af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
