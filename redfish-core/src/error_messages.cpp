@@ -25,6 +25,7 @@ namespace messages
 static void addMessageToErrorJson(nlohmann::json& target,
                                   const nlohmann::json& message)
 {
+    target["@odata.type"] = "#RedfishError.v1_0_1.RedfishError";
     auto& error = target["error"];
 
     // If this is the first error message, fill in the information from the
@@ -56,17 +57,6 @@ static void addMessageToErrorJson(nlohmann::json& target,
         error["message"] = "A general error has occurred. See Resolution for "
                            "information on how to resolve the error.";
     }
-
-    // This check could technically be done in in the default construction
-    // branch above, but because we need the pointer to the extended info field
-    // anyway, it's more efficient to do it here.
-    auto& extendedInfo = error[messages::messageAnnotation];
-    if (!extendedInfo.is_array())
-    {
-        extendedInfo = nlohmann::json::array();
-    }
-
-    extendedInfo.push_back(message);
 }
 
 static void addMessageToJsonRoot(nlohmann::json& target,
@@ -81,22 +71,6 @@ static void addMessageToJsonRoot(nlohmann::json& target,
     target[messages::messageAnnotation].push_back(message);
 }
 
-static void addMessageToJson(nlohmann::json& target,
-                             const nlohmann::json& message,
-                             const std::string& fieldPath)
-{
-    std::string extendedInfo(fieldPath + messages::messageAnnotation);
-
-    if (!target[extendedInfo].is_array())
-    {
-        // Force object to be an array
-        target[extendedInfo] = nlohmann::json::array();
-    }
-
-    // Object exists and it is an array so we can just push in the message
-    target[extendedInfo].push_back(message);
-}
-
 /**
  * @internal
  * @brief Formats ResourceInUse message into JSON
@@ -107,7 +81,7 @@ static void addMessageToJson(nlohmann::json& target,
 nlohmann::json resourceInUse(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceInUse"},
         {"Message", "The change to the requested resource failed because "
                     "the resource is in use or in transition."},
@@ -133,7 +107,7 @@ void resourceInUse(crow::Response& res)
 nlohmann::json malformedJSON(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.MalformedJSON"},
         {"Message", "The request body submitted was malformed JSON and "
                     "could not be parsed by the receiving service."},
@@ -159,7 +133,7 @@ void malformedJSON(crow::Response& res)
 nlohmann::json resourceMissingAtURI(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceMissingAtURI"},
         {"Message", "The resource at the URI " + arg1 + " was not found."},
         {"MessageArgs", {arg1}},
@@ -186,7 +160,7 @@ nlohmann::json actionParameterValueFormatError(const std::string& arg1,
                                                const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionParameterValueFormatError"},
         {"Message",
          "The value " + arg1 + " for the parameter " + arg2 +
@@ -219,7 +193,7 @@ void actionParameterValueFormatError(crow::Response& res,
 nlohmann::json internalError(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.InternalError"},
         {"Message", "The request failed due to an internal service error.  "
                     "The service is still operational."},
@@ -245,7 +219,7 @@ void internalError(crow::Response& res)
 nlohmann::json unrecognizedRequestBody(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.UnrecognizedRequestBody"},
         {"Message", "The service detected a malformed request body that it "
                     "was unable to interpret."},
@@ -272,7 +246,7 @@ nlohmann::json resourceAtUriUnauthorized(const std::string& arg1,
                                          const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceAtUriUnauthorized"},
         {"Message", "While accessing the resource at " + arg1 +
                         ", the service received an authorization error " +
@@ -301,7 +275,7 @@ nlohmann::json actionParameterUnknown(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionParameterUnknown"},
         {"Message", "The action " + arg1 +
                         " was submitted with the invalid parameter " + arg2 +
@@ -329,7 +303,7 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceCannotBeDeleted(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceCannotBeDeleted"},
         {"Message", "The delete request failed because the resource "
                     "requested cannot be deleted."},
@@ -354,7 +328,7 @@ void resourceCannotBeDeleted(crow::Response& res)
 nlohmann::json propertyDuplicate(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyDuplicate"},
         {"Message", "The property " + arg1 + " was duplicated in the request."},
         {"MessageArgs", {arg1}},
@@ -367,7 +341,7 @@ nlohmann::json propertyDuplicate(const std::string& arg1)
 void propertyDuplicate(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyDuplicate(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyDuplicate(arg1));
 }
 
 /**
@@ -380,7 +354,7 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
 nlohmann::json serviceTemporarilyUnavailable(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ServiceTemporarilyUnavailable"},
         {"Message", "The service is temporarily unavailable.  Retry in " +
                         arg1 + " seconds."},
@@ -409,7 +383,7 @@ nlohmann::json resourceAlreadyExists(const std::string& arg1,
                                      const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceAlreadyExists"},
         {"Message", "The requested resource of type " + arg1 +
                         " with the property " + arg2 + " with the value " +
@@ -424,8 +398,8 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
                            const std::string& arg2, const std::string& arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, resourceAlreadyExists(arg1, arg2, arg3),
-                     arg2);
+    addMessageToErrorJson(res.jsonValue,
+                          resourceAlreadyExists(arg1, arg2, arg3));
 }
 
 /**
@@ -438,7 +412,7 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
 nlohmann::json accountForSessionNoLongerExists(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.AccountForSessionNoLongerExists"},
         {"Message", "The account for the current session has been removed, "
                     "thus the current session has been removed as well."},
@@ -463,7 +437,7 @@ void accountForSessionNoLongerExists(crow::Response& res)
 nlohmann::json createFailedMissingReqProperties(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.CreateFailedMissingReqProperties"},
         {"Message",
          "The create operation failed because the required property " + arg1 +
@@ -479,8 +453,8 @@ void createFailedMissingReqProperties(crow::Response& res,
                                       const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, createFailedMissingReqProperties(arg1),
-                     arg1);
+    addMessageToErrorJson(res.jsonValue,
+                          createFailedMissingReqProperties(arg1));
 }
 
 /**
@@ -495,7 +469,7 @@ nlohmann::json propertyValueFormatError(const std::string& arg1,
                                         const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyValueFormatError"},
         {"Message",
          "The value " + arg1 + " for the property " + arg2 +
@@ -511,7 +485,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
                               const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueFormatError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueFormatError(arg1, arg2));
 }
 
 /**
@@ -526,7 +500,7 @@ nlohmann::json propertyValueNotInList(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyValueNotInList"},
         {"Message", "The value " + arg1 + " for the property " + arg2 +
                         " is not in the list of acceptable values."},
@@ -542,7 +516,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
                             const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueNotInList(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueNotInList(arg1, arg2));
 }
 
 /**
@@ -555,7 +529,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceAtUriInUnknownFormat(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceAtUriInUnknownFormat"},
         {"Message", "The resource at " + arg1 +
                         " is in a format not recognized by the service."},
@@ -581,7 +555,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
 nlohmann::json serviceInUnknownState(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ServiceInUnknownState"},
         {"Message",
          "The operation failed because the service is in an unknown state "
@@ -608,7 +582,7 @@ void serviceInUnknownState(crow::Response& res)
 nlohmann::json eventSubscriptionLimitExceeded(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.EventSubscriptionLimitExceeded"},
         {"Message",
          "The event subscription failed due to the number of simultaneous "
@@ -638,7 +612,7 @@ nlohmann::json actionParameterMissing(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionParameterMissing"},
         {"Message", "The action " + arg1 + " requires the parameter " + arg2 +
                         " to be present in the request body."},
@@ -666,7 +640,7 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
 nlohmann::json stringValueTooLong(const std::string& arg1, const int& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.StringValueTooLong"},
         {"Message", "The string " + arg1 + " exceeds the length limit " +
                         std::to_string(arg2) + "."},
@@ -693,7 +667,7 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
 nlohmann::json sessionTerminated(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.SessionTerminated"},
         {"Message", "The session was successfully terminated."},
         {"MessageArgs", nlohmann::json::array()},
@@ -717,7 +691,7 @@ void sessionTerminated(crow::Response& res)
 nlohmann::json subscriptionTerminated(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.SubscriptionTerminated"},
         {"Message", "The event subscription has been terminated."},
         {"MessageArgs", nlohmann::json::array()},
@@ -742,7 +716,7 @@ nlohmann::json resourceTypeIncompatible(const std::string& arg1,
                                         const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceTypeIncompatible"},
         {"Message", "The @odata.type of the request body " + arg1 +
                         " is incompatible with the @odata.type of the "
@@ -771,7 +745,7 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
 nlohmann::json resetRequired(const std::string& arg1, const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResetRequired"},
         {"Message", "In order to complete the operation, a component reset is "
                     "required with the Reset action URI '" +
@@ -799,7 +773,7 @@ void resetRequired(crow::Response& res, const std::string& arg1,
 nlohmann::json chassisPowerStateOnRequired(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ChassisPowerStateOnRequired"},
         {"Message", "The Chassis with Id '" + arg1 +
                         "' requires to be powered on to perform this request."},
@@ -825,7 +799,7 @@ void chassisPowerStateOnRequired(crow::Response& res, const std::string& arg1)
 nlohmann::json chassisPowerStateOffRequired(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ChassisPowerStateOffRequired"},
         {"Message",
          "The Chassis with Id '" + arg1 +
@@ -853,7 +827,7 @@ nlohmann::json propertyValueConflict(const std::string& arg1,
                                      const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyValueConflict"},
         {"Message", "The property '" + arg1 +
                         "' could not be written because its value would "
@@ -882,7 +856,7 @@ nlohmann::json propertyValueIncorrect(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyValueIncorrect"},
         {"Message", "The property '" + arg1 +
                         "' with the requested value of '" + arg2 +
@@ -910,7 +884,7 @@ void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceCreationConflict(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceCreationConflict"},
         {"Message", "The resource could not be created.  The service has a "
                     "resource at URI '" +
@@ -936,7 +910,7 @@ void resourceCreationConflict(crow::Response& res, const std::string& arg1)
 nlohmann::json maximumErrorsExceeded(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.MaximumErrorsExceeded"},
         {"Message", "Too many errors have occurred to report them all."},
         {"MessageArgs", nlohmann::json::array()},
@@ -961,7 +935,7 @@ void maximumErrorsExceeded(crow::Response& res)
 nlohmann::json preconditionFailed(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PreconditionFailed"},
         {"Message", "The ETag supplied did not match the ETag required to "
                     "change this resource."},
@@ -986,7 +960,7 @@ void preconditionFailed(crow::Response& res)
 nlohmann::json preconditionRequired(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PreconditionRequired"},
         {"Message", "A precondition header or annotation is required to change "
                     "this resource."},
@@ -1012,7 +986,7 @@ void preconditionRequired(crow::Response& res)
 nlohmann::json operationFailed(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.OperationFailed"},
         {"Message",
          "An error occurred internal to the service as part of the overall "
@@ -1039,7 +1013,7 @@ void operationFailed(crow::Response& res)
 nlohmann::json operationTimeout(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.OperationTimeout"},
         {"Message", "A timeout internal to the service occured as part of the "
                     "request.  Partial results may have been returned."},
@@ -1067,7 +1041,7 @@ nlohmann::json propertyValueTypeError(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyValueTypeError"},
         {"Message",
          "The value " + arg1 + " for the property " + arg2 +
@@ -1083,7 +1057,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
                             const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueTypeError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueTypeError(arg1, arg2));
 }
 
 /**
@@ -1097,7 +1071,7 @@ nlohmann::json resourceNotFound(const std::string& arg1,
                                 const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceNotFound"},
         {"Message", "The requested resource of type " + arg1 + " named " +
                         arg2 + " was not found."},
@@ -1124,7 +1098,7 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
 nlohmann::json couldNotEstablishConnection(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.CouldNotEstablishConnection"},
         {"Message",
          "The service failed to establish a connection with the URI " + arg1 +
@@ -1153,7 +1127,7 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
 nlohmann::json propertyNotWritable(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyNotWritable"},
         {"Message", "The property " + arg1 +
                         " is a read only property and cannot be "
@@ -1167,7 +1141,7 @@ nlohmann::json propertyNotWritable(const std::string& arg1)
 void propertyNotWritable(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::forbidden);
-    addMessageToJson(res.jsonValue, propertyNotWritable(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyNotWritable(arg1));
 }
 
 /**
@@ -1181,7 +1155,7 @@ nlohmann::json queryParameterValueTypeError(const std::string& arg1,
                                             const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryParameterValueTypeError"},
         {"Message",
          "The value " + arg1 + " for the query parameter " + arg2 +
@@ -1211,7 +1185,7 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
 nlohmann::json serviceShuttingDown(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ServiceShuttingDown"},
         {"Message", "The operation failed because the service is shutting "
                     "down and can no longer take incoming requests."},
@@ -1238,7 +1212,7 @@ nlohmann::json actionParameterDuplicate(const std::string& arg1,
                                         const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionParameterDuplicate"},
         {"Message",
          "The action " + arg1 +
@@ -1269,7 +1243,7 @@ nlohmann::json actionParameterNotSupported(const std::string& arg1,
                                            const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionParameterNotSupported"},
         {"Message", "The parameter " + arg1 + " for the action " + arg2 +
                         " is not supported on the target resource."},
@@ -1298,7 +1272,7 @@ nlohmann::json sourceDoesNotSupportProtocol(const std::string& arg1,
                                             const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.SourceDoesNotSupportProtocol"},
         {"Message", "The other end of the connection at " + arg1 +
                         " does not support the specified protocol " + arg2 +
@@ -1325,7 +1299,7 @@ void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json accountRemoved(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
                           {"MessageId", "Base.1.8.1.AccountRemoved"},
                           {"Message", "The account was successfully removed."},
                           {"MessageArgs", nlohmann::json::array()},
@@ -1349,7 +1323,7 @@ void accountRemoved(crow::Response& res)
 nlohmann::json accessDenied(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.AccessDenied"},
         {"Message", "While attempting to establish a connection to " + arg1 +
                         ", the service denied access."},
@@ -1375,7 +1349,7 @@ void accessDenied(crow::Response& res, const std::string& arg1)
 nlohmann::json queryNotSupported(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryNotSupported"},
         {"Message", "Querying is not supported by the implementation."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1400,7 +1374,7 @@ void queryNotSupported(crow::Response& res)
 nlohmann::json createLimitReachedForResource(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.CreateLimitReachedForResource"},
         {"Message", "The create operation failed because the resource has "
                     "reached the limit of possible resources."},
@@ -1426,7 +1400,7 @@ void createLimitReachedForResource(crow::Response& res)
  */
 nlohmann::json generalError(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
                           {"MessageId", "Base.1.8.1.GeneralError"},
                           {"Message",
                            "A general error has occurred. See Resolution for "
@@ -1451,7 +1425,7 @@ void generalError(crow::Response& res)
  */
 nlohmann::json success(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
                           {"MessageId", "Base.1.8.1.Success"},
                           {"Message", "Successfully Completed Request"},
                           {"MessageArgs", nlohmann::json::array()},
@@ -1476,7 +1450,7 @@ void success(crow::Response& res)
 nlohmann::json created(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.Created"},
         {"Message", "The resource has been created successfully"},
         {"MessageArgs", nlohmann::json::array()},
@@ -1500,7 +1474,7 @@ void created(crow::Response& res)
 nlohmann::json noOperation(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.NoOperation"},
         {"Message", "The request body submitted contain no data to act "
                     "upon and no changes to the resource took place."},
@@ -1527,7 +1501,7 @@ void noOperation(crow::Response& res)
 nlohmann::json propertyUnknown(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyUnknown"},
         {"Message", "The property " + arg1 +
                         " is not in the list of valid properties for "
@@ -1542,7 +1516,7 @@ nlohmann::json propertyUnknown(const std::string& arg1)
 void propertyUnknown(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyUnknown(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyUnknown(arg1));
 }
 
 /**
@@ -1555,7 +1529,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
 nlohmann::json noValidSession(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.NoValidSession"},
         {"Message",
          "There is no valid session established with the implementation."},
@@ -1581,7 +1555,7 @@ void noValidSession(crow::Response& res)
 nlohmann::json invalidObject(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.InvalidObject"},
         {"Message", "The object at " + arg1 + " is invalid."},
         {"MessageArgs", {arg1}},
@@ -1607,7 +1581,7 @@ void invalidObject(crow::Response& res, const std::string& arg1)
 nlohmann::json resourceInStandby(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceInStandby"},
         {"Message", "The request could not be performed because the "
                     "resource is in standby."},
@@ -1635,7 +1609,7 @@ nlohmann::json actionParameterValueTypeError(const std::string& arg1,
                                              const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionParameterValueTypeError"},
         {"Message",
          "The value " + arg1 + " for the parameter " + arg2 +
@@ -1667,7 +1641,7 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
 nlohmann::json sessionLimitExceeded(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.SessionLimitExceeded"},
         {"Message", "The session establishment failed due to the number of "
                     "simultaneous sessions exceeding the limit of the "
@@ -1695,7 +1669,7 @@ void sessionLimitExceeded(crow::Response& res)
 nlohmann::json actionNotSupported(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ActionNotSupported"},
         {"Message",
          "The action " + arg1 + " is not supported by the resource."},
@@ -1724,7 +1698,7 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
 nlohmann::json invalidIndex(const int& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.InvalidIndex"},
         {"Message", "The Index " + std::to_string(arg1) +
                         " is not a valid offset into the array."},
@@ -1750,7 +1724,7 @@ void invalidIndex(crow::Response& res, const int& arg1)
 nlohmann::json emptyJSON(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.EmptyJSON"},
         {"Message", "The request body submitted contained an empty JSON "
                     "object and the service is unable to process it."},
@@ -1776,7 +1750,7 @@ void emptyJSON(crow::Response& res)
 nlohmann::json queryNotSupportedOnResource(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryNotSupportedOnResource"},
         {"Message", "Querying is not supported on the requested resource."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1801,7 +1775,7 @@ void queryNotSupportedOnResource(crow::Response& res)
 nlohmann::json queryNotSupportedOnOperation(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryNotSupportedOnOperation"},
         {"Message", "Querying is not supported with the requested operation."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1826,7 +1800,7 @@ void queryNotSupportedOnOperation(crow::Response& res)
 nlohmann::json queryCombinationInvalid(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryCombinationInvalid"},
         {"Message", "Two or more query parameters in the request cannot be "
                     "used together."},
@@ -1852,7 +1826,7 @@ void queryCombinationInvalid(crow::Response& res)
 nlohmann::json insufficientPrivilege(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.InsufficientPrivilege"},
         {"Message", "There are insufficient privileges for the account or "
                     "credentials associated with the current session to "
@@ -1881,7 +1855,7 @@ nlohmann::json propertyValueModified(const std::string& arg1,
                                      const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyValueModified"},
         {"Message", "The property " + arg1 + " was assigned the value " + arg2 +
                         " due to modification by the service."},
@@ -1894,7 +1868,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
                            const std::string& arg2)
 {
     res.result(boost::beast::http::status::ok);
-    addMessageToJson(res.jsonValue, propertyValueModified(arg1, arg2), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyValueModified(arg1, arg2));
 }
 
 /**
@@ -1907,7 +1881,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
 nlohmann::json accountNotModified(void)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.AccountNotModified"},
         {"Message", "The account modification request failed."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1933,7 +1907,7 @@ nlohmann::json queryParameterValueFormatError(const std::string& arg1,
                                               const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryParameterValueFormatError"},
         {"Message",
          "The value " + arg1 + " for the parameter " + arg2 +
@@ -1965,7 +1939,7 @@ void queryParameterValueFormatError(crow::Response& res,
 nlohmann::json propertyMissing(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.PropertyMissing"},
         {"Message", "The property " + arg1 +
                         " is a required property and must be included in "
@@ -1981,7 +1955,7 @@ nlohmann::json propertyMissing(const std::string& arg1)
 void propertyMissing(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyMissing(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyMissing(arg1));
 }
 
 /**
@@ -1994,7 +1968,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
 nlohmann::json resourceExhaustion(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceExhaustion"},
         {"Message", "The resource " + arg1 +
                         " was unable to satisfy the request due to "
@@ -2020,7 +1994,7 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json accountModified(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
                           {"MessageId", "Base.1.8.1.AccountModified"},
                           {"Message", "The account was successfully modified."},
                           {"MessageArgs", nlohmann::json::array()},
@@ -2046,7 +2020,7 @@ nlohmann::json queryParameterOutOfRange(const std::string& arg1,
                                         const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.QueryParameterOutOfRange"},
         {"Message", "The value " + arg1 + " for the query parameter " + arg2 +
                         " is out of range " + arg3 + "."},
@@ -2110,7 +2084,7 @@ void invalidUpload(crow::Response& res, const std::string& arg1,
 nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "/redfish/v1/$metadata#Message.v1_1_1.Message"},
         {"MessageId", "OpenBMC.0.1.0.InvalidUpload"},
         {"Message", "Invalid file uploaded to " + arg1 + ": " + arg2 + "."},
         {"MessageArgs", {arg1, arg2}},
@@ -2129,7 +2103,7 @@ nlohmann::json mutualExclusiveProperties(const std::string& arg1,
                                          const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.5.0.MutualExclusiveProperties"},
         {"Message", "The properties " + arg1 + " and " + arg2 +
                         " are mutually exclusive."},
