@@ -25,6 +25,7 @@ namespace messages
 static void addMessageToErrorJson(nlohmann::json& target,
                                   const nlohmann::json& message)
 {
+    target["@odata.type"] = "#RedfishError.v1_0_1.RedfishError";
     auto& error = target["error"];
 
     // If this is the first error message, fill in the information from the
@@ -56,17 +57,6 @@ static void addMessageToErrorJson(nlohmann::json& target,
         error["message"] = "A general error has occurred. See Resolution for "
                            "information on how to resolve the error.";
     }
-
-    // This check could technically be done in in the default construction
-    // branch above, but because we need the pointer to the extended info field
-    // anyway, it's more efficient to do it here.
-    auto& extendedInfo = error[messages::messageAnnotation];
-    if (!extendedInfo.is_array())
-    {
-        extendedInfo = nlohmann::json::array();
-    }
-
-    extendedInfo.push_back(message);
 }
 
 static void addMessageToJsonRoot(nlohmann::json& target,
@@ -79,22 +69,6 @@ static void addMessageToJsonRoot(nlohmann::json& target,
     }
 
     target[messages::messageAnnotation].push_back(message);
-}
-
-static void addMessageToJson(nlohmann::json& target,
-                             const nlohmann::json& message,
-                             const std::string& fieldPath)
-{
-    std::string extendedInfo(fieldPath + messages::messageAnnotation);
-
-    if (!target[extendedInfo].is_array())
-    {
-        // Force object to be an array
-        target[extendedInfo] = nlohmann::json::array();
-    }
-
-    // Object exists and it is an array so we can just push in the message
-    target[extendedInfo].push_back(message);
 }
 
 /**
@@ -112,7 +86,7 @@ nlohmann::json resourceInUse(void)
         {"Message", "The change to the requested resource failed because "
                     "the resource is in use or in transition."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the condition and resubmit the request if "
                        "the operation failed."}};
 }
@@ -138,7 +112,7 @@ nlohmann::json malformedJSON(void)
         {"Message", "The request body submitted was malformed JSON and "
                     "could not be parsed by the receiving service."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Ensure that the request body is valid JSON and "
                        "resubmit the request."}};
 }
@@ -163,7 +137,7 @@ nlohmann::json resourceMissingAtURI(const std::string& arg1)
         {"MessageId", "Base.1.8.1.ResourceMissingAtURI"},
         {"Message", "The resource at the URI " + arg1 + " was not found."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Place a valid resource at the URI or correct the "
                        "URI and resubmit the request."}};
 }
@@ -193,7 +167,7 @@ nlohmann::json actionParameterValueFormatError(const std::string& arg1,
              " in the action " + arg3 +
              " is of a different format than the parameter can accept."},
         {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Correct the value for the parameter in the request body and "
          "resubmit the request if the operation failed."}};
@@ -224,7 +198,7 @@ nlohmann::json internalError(void)
         {"Message", "The request failed due to an internal service error.  "
                     "The service is still operational."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Resubmit the request.  If the problem persists, "
                        "consider resetting the service."}};
 }
@@ -250,7 +224,7 @@ nlohmann::json unrecognizedRequestBody(void)
         {"Message", "The service detected a malformed request body that it "
                     "was unable to interpret."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Correct the request body and resubmit the request "
                        "if it failed."}};
 }
@@ -278,7 +252,7 @@ nlohmann::json resourceAtUriUnauthorized(const std::string& arg1,
                         ", the service received an authorization error " +
                         arg2 + "."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Ensure that the appropriate access is provided for "
                        "the service in order for it to access the URI."}};
 }
@@ -307,7 +281,7 @@ nlohmann::json actionParameterUnknown(const std::string& arg1,
                         " was submitted with the invalid parameter " + arg2 +
                         "."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Correct the invalid parameter and resubmit the "
                        "request if the operation failed."}};
 }
@@ -334,7 +308,7 @@ nlohmann::json resourceCannotBeDeleted(void)
         {"Message", "The delete request failed because the resource "
                     "requested cannot be deleted."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Do not attempt to delete a non-deletable resource."}};
 }
 
@@ -358,7 +332,7 @@ nlohmann::json propertyDuplicate(const std::string& arg1)
         {"MessageId", "Base.1.8.1.PropertyDuplicate"},
         {"Message", "The property " + arg1 + " was duplicated in the request."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Remove the duplicate property from the request body and resubmit "
          "the request if the operation failed."}};
@@ -367,7 +341,7 @@ nlohmann::json propertyDuplicate(const std::string& arg1)
 void propertyDuplicate(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyDuplicate(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyDuplicate(arg1));
 }
 
 /**
@@ -385,7 +359,7 @@ nlohmann::json serviceTemporarilyUnavailable(const std::string& arg1)
         {"Message", "The service is temporarily unavailable.  Retry in " +
                         arg1 + " seconds."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Wait for the indicated retry duration and retry "
                        "the operation."}};
 }
@@ -415,7 +389,7 @@ nlohmann::json resourceAlreadyExists(const std::string& arg1,
                         " with the property " + arg2 + " with the value " +
                         arg3 + " already exists."},
         {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Do not repeat the create operation as the resource "
                        "has already been created."}};
 }
@@ -424,8 +398,8 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
                            const std::string& arg2, const std::string& arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, resourceAlreadyExists(arg1, arg2, arg3),
-                     arg2);
+    addMessageToErrorJson(res.jsonValue,
+		          resourceAlreadyExists(arg1, arg2, arg3));
 }
 
 /**
@@ -443,7 +417,7 @@ nlohmann::json accountForSessionNoLongerExists(void)
         {"Message", "The account for the current session has been removed, "
                     "thus the current session has been removed as well."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
+        {"Severity", "OK"},
         {"Resolution", "Attempt to connect with a valid account."}};
 }
 
@@ -469,7 +443,7 @@ nlohmann::json createFailedMissingReqProperties(const std::string& arg1)
          "The create operation failed because the required property " + arg1 +
              " was missing from the request."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Correct the body to include the required property with a valid "
          "value and resubmit the request if the operation failed."}};
@@ -479,8 +453,8 @@ void createFailedMissingReqProperties(crow::Response& res,
                                       const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, createFailedMissingReqProperties(arg1),
-                     arg1);
+    addMessageToErrorJson(res.jsonValue,
+		          createFailedMissingReqProperties(arg1));
 }
 
 /**
@@ -501,7 +475,7 @@ nlohmann::json propertyValueFormatError(const std::string& arg1,
          "The value " + arg1 + " for the property " + arg2 +
              " is of a different format than the property can accept."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Correct the value for the property in the request body and "
          "resubmit the request if the operation failed."}};
@@ -511,7 +485,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
                               const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueFormatError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueFormatError(arg1, arg2));
 }
 
 /**
@@ -531,7 +505,7 @@ nlohmann::json propertyValueNotInList(const std::string& arg1,
         {"Message", "The value " + arg1 + " for the property " + arg2 +
                         " is not in the list of acceptable values."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Choose a value from the enumeration list that "
                        "the implementation "
                        "can support and resubmit the request if the "
@@ -542,7 +516,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
                             const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueNotInList(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueNotInList(arg1, arg2));
 }
 
 /**
@@ -560,7 +534,7 @@ nlohmann::json resourceAtUriInUnknownFormat(const std::string& arg1)
         {"Message", "The resource at " + arg1 +
                         " is in a format not recognized by the service."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Place an image or resource or file that is "
                        "recognized by the service at the URI."}};
 }
@@ -587,7 +561,7 @@ nlohmann::json serviceInUnknownState(void)
          "The operation failed because the service is in an unknown state "
          "and can no longer take incoming requests."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Restart the service and resubmit the request if "
                        "the operation failed."}};
 }
@@ -614,7 +588,7 @@ nlohmann::json eventSubscriptionLimitExceeded(void)
          "The event subscription failed due to the number of simultaneous "
          "subscriptions exceeding the limit of the implementation."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Reduce the number of other subscriptions before trying to "
          "establish the event subscription or increase the limit of "
@@ -643,7 +617,7 @@ nlohmann::json actionParameterMissing(const std::string& arg1,
         {"Message", "The action " + arg1 + " requires the parameter " + arg2 +
                         " to be present in the request body."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Supply the action with the required parameter in the request "
          "body when the request is resubmitted."}};
@@ -671,7 +645,7 @@ nlohmann::json stringValueTooLong(const std::string& arg1, const int& arg2)
         {"Message", "The string " + arg1 + " exceeds the length limit " +
                         std::to_string(arg2) + "."},
         {"MessageArgs", {arg1, std::to_string(arg2)}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Resubmit the request with an appropriate string length."}};
 }
@@ -697,7 +671,7 @@ nlohmann::json sessionTerminated(void)
         {"MessageId", "Base.1.8.1.SessionTerminated"},
         {"Message", "The session was successfully terminated."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
+        {"Severity", "OK"},
         {"Resolution", "No resolution is required."}};
 }
 
@@ -721,7 +695,7 @@ nlohmann::json subscriptionTerminated(void)
         {"MessageId", "Base.1.8.1.SubscriptionTerminated"},
         {"Message", "The event subscription has been terminated."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
+        {"Severity", "OK"},
         {"Resolution", "No resolution is required."}};
 }
 
@@ -749,7 +723,7 @@ nlohmann::json resourceTypeIncompatible(const std::string& arg1,
                         "resource which is " +
                         arg2 + "."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Resubmit the request with a payload compatible "
                        "with the resource's schema."}};
 }
@@ -777,7 +751,7 @@ nlohmann::json resetRequired(const std::string& arg1, const std::string& arg2)
                     "required with the Reset action URI '" +
                         arg1 + "' and ResetType '" + arg2 + "'."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Perform the required Reset action on the specified component."}};
 }
@@ -804,7 +778,7 @@ nlohmann::json chassisPowerStateOnRequired(const std::string& arg1)
         {"Message", "The Chassis with Id '" + arg1 +
                         "' requires to be powered on to perform this request."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Power on the specified Chassis and resubmit the request."}};
 }
@@ -831,7 +805,7 @@ nlohmann::json chassisPowerStateOffRequired(const std::string& arg1)
          "The Chassis with Id '" + arg1 +
              "' requires to be powered off to perform this request."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Power off the specified Chassis and resubmit the request."}};
 }
@@ -860,7 +834,7 @@ nlohmann::json propertyValueConflict(const std::string& arg1,
                         "conflict with the value of the '" +
                         arg2 + "' property."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "No resolution is required."}};
 }
 
@@ -889,7 +863,7 @@ nlohmann::json propertyValueIncorrect(const std::string& arg1,
                         "' could not be written because the value does not "
                         "meet the constraints of the implementation."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "No resolution is required."}};
 }
 
@@ -916,7 +890,7 @@ nlohmann::json resourceCreationConflict(const std::string& arg1)
                     "resource at URI '" +
                         arg1 + "' that conflicts with the creation request."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "No resolution is required."}};
 }
 
@@ -940,7 +914,7 @@ nlohmann::json maximumErrorsExceeded(void)
         {"MessageId", "Base.1.8.1.MaximumErrorsExceeded"},
         {"Message", "Too many errors have occurred to report them all."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Resolve other reported errors and retry the current operation."}};
 }
@@ -966,7 +940,7 @@ nlohmann::json preconditionFailed(void)
         {"Message", "The ETag supplied did not match the ETag required to "
                     "change this resource."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Try the operation again using the appropriate ETag."}};
 }
 
@@ -991,7 +965,7 @@ nlohmann::json preconditionRequired(void)
         {"Message", "A precondition header or annotation is required to change "
                     "this resource."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Try the operation again using an If-Match or "
                        "If-None-Match header and appropriate ETag."}};
 }
@@ -1018,7 +992,7 @@ nlohmann::json operationFailed(void)
          "An error occurred internal to the service as part of the overall "
          "request.  Partial results may have been returned."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Resubmit the request.  If the problem persists, "
                        "consider resetting the service or provider."}};
 }
@@ -1044,7 +1018,7 @@ nlohmann::json operationTimeout(void)
         {"Message", "A timeout internal to the service occured as part of the "
                     "request.  Partial results may have been returned."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Resubmit the request.  If the problem persists, "
                        "consider resetting the service or provider."}};
 }
@@ -1073,7 +1047,7 @@ nlohmann::json propertyValueTypeError(const std::string& arg1,
          "The value " + arg1 + " for the property " + arg2 +
              " is of a different type than the property can accept."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Correct the value for the property in the request body and "
          "resubmit the request if the operation failed."}};
@@ -1083,7 +1057,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
                             const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueTypeError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueTypeError(arg1, arg2));
 }
 
 /**
@@ -1102,7 +1076,7 @@ nlohmann::json resourceNotFound(const std::string& arg1,
         {"Message", "The requested resource of type " + arg1 + " named " +
                         arg2 + " was not found."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Provide a valid resource identifier and resubmit the request."}};
 }
@@ -1130,7 +1104,7 @@ nlohmann::json couldNotEstablishConnection(const std::string& arg1)
          "The service failed to establish a connection with the URI " + arg1 +
              "."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Ensure that the URI contains a valid and reachable node name, "
          "protocol information and other URI components."}};
@@ -1159,7 +1133,7 @@ nlohmann::json propertyNotWritable(const std::string& arg1)
                         " is a read only property and cannot be "
                         "assigned a value."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the property from the request body and "
                        "resubmit the request if the operation failed."}};
 }
@@ -1167,7 +1141,7 @@ nlohmann::json propertyNotWritable(const std::string& arg1)
 void propertyNotWritable(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::forbidden);
-    addMessageToJson(res.jsonValue, propertyNotWritable(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyNotWritable(arg1));
 }
 
 /**
@@ -1187,7 +1161,7 @@ nlohmann::json queryParameterValueTypeError(const std::string& arg1,
          "The value " + arg1 + " for the query parameter " + arg2 +
              " is of a different type than the parameter can accept."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Correct the value for the query parameter in the request and "
          "resubmit the request if the operation failed."}};
@@ -1216,7 +1190,7 @@ nlohmann::json serviceShuttingDown(void)
         {"Message", "The operation failed because the service is shutting "
                     "down and can no longer take incoming requests."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "When the service becomes available, resubmit the "
                        "request if the operation failed."}};
 }
@@ -1245,7 +1219,7 @@ nlohmann::json actionParameterDuplicate(const std::string& arg1,
              " was submitted with more than one value for the parameter " +
              arg2 + "."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Resubmit the action with only one instance of the parameter in "
          "the request body if the operation failed."}};
@@ -1274,7 +1248,7 @@ nlohmann::json actionParameterNotSupported(const std::string& arg1,
         {"Message", "The parameter " + arg1 + " for the action " + arg2 +
                         " is not supported on the target resource."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the parameter supplied and resubmit the "
                        "request if the operation failed."}};
 }
@@ -1304,7 +1278,7 @@ nlohmann::json sourceDoesNotSupportProtocol(const std::string& arg1,
                         " does not support the specified protocol " + arg2 +
                         "."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Change protocols or URIs. "}};
 }
 
@@ -1329,7 +1303,7 @@ nlohmann::json accountRemoved(void)
                           {"MessageId", "Base.1.8.1.AccountRemoved"},
                           {"Message", "The account was successfully removed."},
                           {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "OK"},
+                          {"Severity", "OK"},
                           {"Resolution", "No resolution is required."}};
 }
 
@@ -1354,7 +1328,7 @@ nlohmann::json accessDenied(const std::string& arg1)
         {"Message", "While attempting to establish a connection to " + arg1 +
                         ", the service denied access."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Attempt to ensure that the URI is correct and that "
                        "the service has the appropriate credentials."}};
 }
@@ -1379,7 +1353,7 @@ nlohmann::json queryNotSupported(void)
         {"MessageId", "Base.1.8.1.QueryNotSupported"},
         {"Message", "Querying is not supported by the implementation."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the query parameters and resubmit the "
                        "request if the operation failed."}};
 }
@@ -1405,7 +1379,7 @@ nlohmann::json createLimitReachedForResource(void)
         {"Message", "The create operation failed because the resource has "
                     "reached the limit of possible resources."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Either delete resources and resubmit the request if the "
          "operation failed or do not resubmit the request."}};
@@ -1432,7 +1406,7 @@ nlohmann::json generalError(void)
                            "A general error has occurred. See Resolution for "
                            "information on how to resolve the error."},
                           {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "Critical"},
+                          {"Severity", "Critical"},
                           {"Resolution", "None."}};
 }
 
@@ -1455,7 +1429,7 @@ nlohmann::json success(void)
                           {"MessageId", "Base.1.8.1.Success"},
                           {"Message", "Successfully Completed Request"},
                           {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "OK"},
+                          {"Severity", "OK"},
                           {"Resolution", "None"}};
 }
 
@@ -1480,7 +1454,7 @@ nlohmann::json created(void)
         {"MessageId", "Base.1.8.1.Created"},
         {"Message", "The resource has been created successfully"},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
+        {"Severity", "OK"},
         {"Resolution", "None"}};
 }
 
@@ -1505,7 +1479,7 @@ nlohmann::json noOperation(void)
         {"Message", "The request body submitted contain no data to act "
                     "upon and no changes to the resource took place."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Add properties in the JSON object and resubmit the request."}};
 }
@@ -1533,7 +1507,7 @@ nlohmann::json propertyUnknown(const std::string& arg1)
                         " is not in the list of valid properties for "
                         "the resource."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the unknown property from the request "
                        "body and resubmit "
                        "the request if the operation failed."}};
@@ -1542,7 +1516,7 @@ nlohmann::json propertyUnknown(const std::string& arg1)
 void propertyUnknown(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyUnknown(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyUnknown(arg1));
 }
 
 /**
@@ -1560,7 +1534,7 @@ nlohmann::json noValidSession(void)
         {"Message",
          "There is no valid session established with the implementation."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Establish a session before attempting any operations."}};
 }
@@ -1585,7 +1559,7 @@ nlohmann::json invalidObject(const std::string& arg1)
         {"MessageId", "Base.1.8.1.InvalidObject"},
         {"Message", "The object at " + arg1 + " is invalid."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Either the object is malformed or the URI is not correct.  "
          "Correct the condition and resubmit the request if it failed."}};
@@ -1612,7 +1586,7 @@ nlohmann::json resourceInStandby(void)
         {"Message", "The request could not be performed because the "
                     "resource is in standby."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Ensure that the resource is in the correct power "
                        "state and resubmit the request."}};
 }
@@ -1642,7 +1616,7 @@ nlohmann::json actionParameterValueTypeError(const std::string& arg1,
              " in the action " + arg3 +
              " is of a different type than the parameter can accept."},
         {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Correct the value for the parameter in the request body and "
          "resubmit the request if the operation failed."}};
@@ -1673,7 +1647,7 @@ nlohmann::json sessionLimitExceeded(void)
                     "simultaneous sessions exceeding the limit of the "
                     "implementation."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Reduce the number of other sessions before trying "
                        "to establish the session or increase the limit of "
                        "simultaneous sessions (if supported)."}};
@@ -1700,7 +1674,7 @@ nlohmann::json actionNotSupported(const std::string& arg1)
         {"Message",
          "The action " + arg1 + " is not supported by the resource."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "The action supplied cannot be resubmitted to the implementation. "
          " Perhaps the action was invalid, the wrong resource was the "
@@ -1729,7 +1703,7 @@ nlohmann::json invalidIndex(const int& arg1)
         {"Message", "The Index " + std::to_string(arg1) +
                         " is not a valid offset into the array."},
         {"MessageArgs", {std::to_string(arg1)}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Verify the index value provided is within the "
                        "bounds of the array."}};
 }
@@ -1755,7 +1729,7 @@ nlohmann::json emptyJSON(void)
         {"Message", "The request body submitted contained an empty JSON "
                     "object and the service is unable to process it."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Add properties in the JSON object and resubmit the request."}};
 }
@@ -1780,7 +1754,7 @@ nlohmann::json queryNotSupportedOnResource(void)
         {"MessageId", "Base.1.8.1.QueryNotSupportedOnResource"},
         {"Message", "Querying is not supported on the requested resource."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the query parameters and resubmit the "
                        "request if the operation failed."}};
 }
@@ -1805,7 +1779,7 @@ nlohmann::json queryNotSupportedOnOperation(void)
         {"MessageId", "Base.1.8.1.QueryNotSupportedOnOperation"},
         {"Message", "Querying is not supported with the requested operation."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove the query parameters and resubmit the request "
                        "if the operation failed."}};
 }
@@ -1831,7 +1805,7 @@ nlohmann::json queryCombinationInvalid(void)
         {"Message", "Two or more query parameters in the request cannot be "
                     "used together."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "Remove one or more of the query parameters and "
                        "resubmit the request if the operation failed."}};
 }
@@ -1858,7 +1832,7 @@ nlohmann::json insufficientPrivilege(void)
                     "credentials associated with the current session to "
                     "perform the requested operation."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution",
          "Either abandon the operation or change the associated access "
          "rights and resubmit the request if the operation failed."}};
@@ -1886,7 +1860,7 @@ nlohmann::json propertyValueModified(const std::string& arg1,
         {"Message", "The property " + arg1 + " was assigned the value " + arg2 +
                         " due to modification by the service."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "No resolution is required."}};
 }
 
@@ -1894,7 +1868,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
                            const std::string& arg2)
 {
     res.result(boost::beast::http::status::ok);
-    addMessageToJson(res.jsonValue, propertyValueModified(arg1, arg2), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyValueModified(arg1, arg2));
 }
 
 /**
@@ -1911,7 +1885,7 @@ nlohmann::json accountNotModified(void)
         {"MessageId", "Base.1.8.1.AccountNotModified"},
         {"Message", "The account modification request failed."},
         {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "The modification may have failed due to permission "
                        "issues or issues with the request body."}};
 }
@@ -1939,7 +1913,7 @@ nlohmann::json queryParameterValueFormatError(const std::string& arg1,
          "The value " + arg1 + " for the parameter " + arg2 +
              " is of a different format than the parameter can accept."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Correct the value for the query parameter in the request and "
          "resubmit the request if the operation failed."}};
@@ -1971,7 +1945,7 @@ nlohmann::json propertyMissing(const std::string& arg1)
                         " is a required property and must be included in "
                         "the request."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Ensure that the property is in the request body and has a "
          "valid "
@@ -1981,7 +1955,7 @@ nlohmann::json propertyMissing(const std::string& arg1)
 void propertyMissing(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyMissing(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyMissing(arg1));
 }
 
 /**
@@ -2000,7 +1974,7 @@ nlohmann::json resourceExhaustion(const std::string& arg1)
                         " was unable to satisfy the request due to "
                         "unavailability of resources."},
         {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
+        {"Severity", "Critical"},
         {"Resolution", "Ensure that the resources are available and "
                        "resubmit the request."}};
 }
@@ -2024,7 +1998,7 @@ nlohmann::json accountModified(void)
                           {"MessageId", "Base.1.8.1.AccountModified"},
                           {"Message", "The account was successfully modified."},
                           {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "OK"},
+                          {"Severity", "OK"},
                           {"Resolution", "No resolution is required."}};
 }
 
@@ -2051,7 +2025,7 @@ nlohmann::json queryParameterOutOfRange(const std::string& arg1,
         {"Message", "The value " + arg1 + " for the query parameter " + arg2 +
                         " is out of range " + arg3 + "."},
         {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Reduce the value for the query parameter to a value that is "
          "within range, such as a start or count value that is within "
@@ -2087,7 +2061,7 @@ void passwordChangeRequired(crow::Response& res, const std::string& arg1)
                         "the target URI '" +
                             arg1 + "' to complete this process."},
             {"MessageArgs", {arg1}},
-            {"MessageSeverity", "Critical"},
+            {"Severity", "Critical"},
             {"Resolution", "Change the password for this account using "
                            "a PATCH to the 'Password' property at the URI "
                            "provided."}});
@@ -2114,7 +2088,7 @@ nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
         {"MessageId", "OpenBMC.0.1.0.InvalidUpload"},
         {"Message", "Invalid file uploaded to " + arg1 + ": " + arg2 + "."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution", "None."}};
 }
 
@@ -2134,7 +2108,7 @@ nlohmann::json mutualExclusiveProperties(const std::string& arg1,
         {"Message", "The properties " + arg1 + " and " + arg2 +
                         " are mutually exclusive."},
         {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
+        {"Severity", "Warning"},
         {"Resolution",
          "Ensure that the request body doesn't contain mutually exclusive "
          "properties and resubmit the request."}};
