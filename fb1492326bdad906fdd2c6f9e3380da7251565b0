@@ -2,6 +2,213 @@
   "comments": [
     {
       "key": {
+        "uuid": "60bcf916_3b824947",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Can you revisit this and make sure this is what you intended;  You are using the request payload type to determine if we need to switch to dynamic response mode?  That seems incorrect.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 17
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1316f69_c736dfaf",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Considering that nlohmann doesn\u0027t support streaming, this doesn\u0027t really make sense in a \"dynamic\" response type.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 29
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a43578c5_ee6edc7a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Considering the body isn\u0027t available, I wouldn\u0027t expect a dynamic response to have a body method at all.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 5
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0dd1ad_2e321d49",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "This seems odd.  Why is this here?",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 28
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02de1555_bc958b50",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Why does the connection at this level need to store the request?  Also, you should be storing the crow::Request type, not the underlying boost type.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d388de_382af2b1",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Delete",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 9
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2c3baec_c8450129",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "replace with boost::beast::lowest_layer.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 9
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "134fb77f_ffdda5b8",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Nit, this isn\u0027t really a StreamSocket.  can we call this \"StreamingResponseRule\"?",
+      "range": {
+        "startLine": 394,
+        "startChar": 6,
+        "endLine": 394,
+        "endChar": 22
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84bcb272_84b338aa",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used in your example?",
+      "range": {
+        "startLine": 477,
+        "startChar": 57,
+        "endLine": 477,
+        "endChar": 69
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b179d685_0cbf1755",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -42,6 +249,270 @@
         "endLine": 27,
         "endChar": 21
       },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4328a6cd_449308a3",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Considering this is a streaming socket, 1M seems like a really big buffer size.  Maybe 10KB would be more appropriate?",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557c5778_01e9a331",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Missing timeouts.",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6afecc5_cc9f139e",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Needs a mechanism for timing out if data is not sent in a reasonable amount of time.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 35
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279b4657_c058a77a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "In general, connections didn\u0027t have a write callback, they simply copied the data into it\u0027s internal buffers and returned immediately.  Changing this semantic means that this can possibly overflow.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 70
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b71aaf0_ff513edb",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used?",
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b2c940_d5fd3ed6",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "Why unique_ptr here?  Should this just be used as-is?",
+      "range": {
+        "startLine": 184,
+        "startChar": 9,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7870fa8d_475bb7c9",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "std::filesystem::path here please .",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 186,
+        "endChar": 15
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47510a6c_eba06123",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "?  The bmc should not be accepting a socket connection that it now has to maintain.  Reversing the acceptor, acceptee relationship (The dump service exposes a unix socket that bmcweb can connect to) would simplify this a lot, and keep the principal similar.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 40
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3555fa71_0fe707fc",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "This can be done without a global, and at a minimum, this global isn\u0027t reentrant safe.  See COMMON_ERRORS.md.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9cbac9_b42724c5",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "This should be using the params passed to it, not pulling the information out of target()",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e282d9_0a473b69",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "unique_ptr needed here.",
+      "range": {
+        "startLine": 225,
+        "startChar": 20,
+        "endLine": 225,
+        "endChar": 23
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7aedadd_b2bcdffd",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T19:08:45Z",
+      "side": 1,
+      "message": "See bmcweb exception policy in DEVELOPING.md.  This case is not exceptional.",
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
