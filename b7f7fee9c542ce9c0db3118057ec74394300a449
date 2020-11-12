@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f49eb197_932bf926",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T20:48:09Z",
+      "side": 1,
+      "message": "Good.  This is helpful.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "b7f7fee9c542ce9c0db3118057ec74394300a449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc25cebd_28d6d5b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-12T20:48:09Z",
+      "side": 1,
+      "message": "To my understanding of the Redfish specification, both of these formats are allowed, and are used in various circumstances.  If we\u0027re not obeying the spec, that\u0027s certainly a discussion to be had, but as is, you\u0027ve lost the property value from the ExtendedInfo section, which means that we can no longer match up which fields caused issues, so what you proposed is arguably worse than what we have now.\n\nI suspect the core of the issue here is that the management console didn\u0027t implement Redfish error handling properly, or to the specification.\n\nThe relevant sections you should be looking at are:\n8.4.3 modification error responses\n9.6 Error responses\n\n\nIt looks like in recent history, the \"RelatedProperties\" field has been added to convey which field caused the issue;  That would need to be included in your patch so we don\u0027t lose capability from what exists today.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "b7f7fee9c542ce9c0db3118057ec74394300a449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
