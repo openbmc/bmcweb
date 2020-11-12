@@ -22,9 +22,11 @@ namespace redfish
 namespace messages
 {
 
-static void addMessageToErrorJson(nlohmann::json& target,
-                                  const nlohmann::json& message)
+static void populateErrorJson(nlohmann::json& target,
+                              const nlohmann::json& message,
+                              std::string fieldName)
 {
+    target["@odata.type"] = "#RedfishError.v1_0_1.RedfishError";
     auto& error = target["error"];
 
     // If this is the first error message, fill in the information from the
@@ -60,13 +62,26 @@ static void addMessageToErrorJson(nlohmann::json& target,
     // This check could technically be done in in the default construction
     // branch above, but because we need the pointer to the extended info field
     // anyway, it's more efficient to do it here.
-    auto& extendedInfo = error[messages::messageAnnotation];
+    auto& extendedInfo = error[fieldName + messages::messageAnnotation];
     if (!extendedInfo.is_array())
     {
         extendedInfo = nlohmann::json::array();
     }
 
     extendedInfo.push_back(message);
+}
+
+static void addMessageToErrorJson(nlohmann::json& target,
+                                  const nlohmann::json& message)
+{
+    populateErrorJson(target, message, "");
+}
+
+static void addMessageToErrorJson(nlohmann::json& target,
+                                  const nlohmann::json& message,
+                                  std::string fieldName)
+{
+    populateErrorJson(target, message, fieldName);
 }
 
 static void addMessageToJsonRoot(nlohmann::json& target,
@@ -79,22 +94,6 @@ static void addMessageToJsonRoot(nlohmann::json& target,
     }
 
     target[messages::messageAnnotation].push_back(message);
-}
-
-static void addMessageToJson(nlohmann::json& target,
-                             const nlohmann::json& message,
-                             const std::string& fieldPath)
-{
-    std::string extendedInfo(fieldPath + messages::messageAnnotation);
-
-    if (!target[extendedInfo].is_array())
-    {
-        // Force object to be an array
-        target[extendedInfo] = nlohmann::json::array();
-    }
-
-    // Object exists and it is an array so we can just push in the message
-    target[extendedInfo].push_back(message);
 }
 
 /**
@@ -367,7 +366,7 @@ nlohmann::json propertyDuplicate(const std::string& arg1)
 void propertyDuplicate(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyDuplicate(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyDuplicate(arg1), arg1);
 }
 
 /**
@@ -424,8 +423,8 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
                            const std::string& arg2, const std::string& arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, resourceAlreadyExists(arg1, arg2, arg3),
-                     arg2);
+    addMessageToErrorJson(res.jsonValue,
+                          resourceAlreadyExists(arg1, arg2, arg3), arg2);
 }
 
 /**
@@ -479,8 +478,8 @@ void createFailedMissingReqProperties(crow::Response& res,
                                       const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, createFailedMissingReqProperties(arg1),
-                     arg1);
+    addMessageToErrorJson(res.jsonValue, createFailedMissingReqProperties(arg1),
+                          arg1);
 }
 
 /**
@@ -511,7 +510,8 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
                               const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueFormatError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueFormatError(arg1, arg2),
+                          arg2);
 }
 
 /**
@@ -542,7 +542,8 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
                             const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueNotInList(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueNotInList(arg1, arg2),
+                          arg2);
 }
 
 /**
@@ -1083,7 +1084,8 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
                             const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueTypeError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueTypeError(arg1, arg2),
+                          arg2);
 }
 
 /**
@@ -1167,7 +1169,7 @@ nlohmann::json propertyNotWritable(const std::string& arg1)
 void propertyNotWritable(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::forbidden);
-    addMessageToJson(res.jsonValue, propertyNotWritable(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyNotWritable(arg1), arg1);
 }
 
 /**
@@ -1542,7 +1544,7 @@ nlohmann::json propertyUnknown(const std::string& arg1)
 void propertyUnknown(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyUnknown(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyUnknown(arg1), arg1);
 }
 
 /**
@@ -1894,7 +1896,8 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
                            const std::string& arg2)
 {
     res.result(boost::beast::http::status::ok);
-    addMessageToJson(res.jsonValue, propertyValueModified(arg1, arg2), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyValueModified(arg1, arg2),
+                          arg1);
 }
 
 /**
@@ -1981,7 +1984,7 @@ nlohmann::json propertyMissing(const std::string& arg1)
 void propertyMissing(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyMissing(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyMissing(arg1), arg1);
 }
 
 /**
