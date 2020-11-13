@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2e7e7b8f_a553fc11",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-13T11:31:09Z",
+      "side": 1,
+      "message": "I think yes, its created on bmc",
+      "parentUuid": "2ade7200_8fef05e3",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 49
+      },
+      "revId": "89d21936c91330dde6ec065f35375119aa588133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed2726c_4e020a0e",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2020-11-12T18:28:27Z",
       "side": 1,
       "message": "It looks like phosphor-debug-collector needs to be modified a bit so that its offload function writes to a socket instead of an ofstream for this to work.",
+      "range": {
+        "startLine": 101,
+        "startChar": 46,
+        "endLine": 102,
+        "endChar": 26
+      },
+      "revId": "89d21936c91330dde6ec065f35375119aa588133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd6870b0_00b862c9",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-13T11:31:09Z",
+      "side": 1,
+      "message": "yeah. we need phosphor-debug-collector changes to write dump data on unix socket path.\nplease have a look at this commit\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-debug-collector/+/38226\nthis commit",
+      "parentUuid": "2ed2726c_4e020a0e",
       "range": {
         "startLine": 101,
         "startChar": 46,
