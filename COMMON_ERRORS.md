@@ -60,23 +60,24 @@ int myBadMethod(nlohmann::json& j){
 This method throws, and bad inputs will not be handled
 
 Commonly used methods that fall into this pattern:
-std::variant::get
-std::vector::at
-std::map::at
-std::set::at
-std::<generic container type>::at
-nlohmann::json::operator!=
-nlohmann::json::operator+=
-nlohmann::json::at
-nlohmann::json::get
-nlohmann::json::get\_ref
-nlohmann::json::get\_to
-std::filesystem::create\_directory
-std::filesystem::rename
-std::filesystem::file\_size
-std::stoi
-std::stol
-std::stoll
+
+- std::variant::get
+- std::vector::at
+- std::map::at
+- std::set::at
+- std::\<generic container type\>::at
+- nlohmann::json::operator!=
+- nlohmann::json::operator+=
+- nlohmann::json::at
+- nlohmann::json::get
+- nlohmann::json::get\_ref
+- nlohmann::json::get\_to
+- std::filesystem::create\_directory
+- std::filesystem::rename
+- std::filesystem::file\_size
+- std::stoi
+- std::stol
+- std::stoll
 
 #### special/strange case:
 
@@ -91,11 +92,11 @@ throws on failure, and a method that accepts and returns an error code.  This is
 not a complete list, but users should verify in the boost docs when calling into
 asio methods, and prefer the one that returns an error code instead of throwing.
 
-boost::asio::ip::tcp::acceptor::bind();
-boost::asio::ip::tcp::acceptor::cancel();
-boost::asio::ip::tcp::acceptor::close();
-boost::asio::ip::tcp::acceptor::listen();
-boost::asio::ip::address::make\_address();
+- boost::asio::ip::tcp::acceptor::bind();
+- boost::asio::ip::tcp::acceptor::cancel();
+- boost::asio::ip::tcp::acceptor::close();
+- boost::asio::ip::tcp::acceptor::listen();
+- boost::asio::ip::address::make\_address();
 
 ### Blocking functions
 
@@ -103,15 +104,15 @@ bmcweb uses a single reactor for all operations.  Blocking that reactor for any
 amount of time causes all other operations to stop.  The common blocking
 functions that tend to be called incorrectly are:
 
-sleep()
-boost::asio::ip::tcp::socket::read()
-boost::asio::ip::tcp::socket::read\_some()
-boost::asio::ip::tcp::socket::write()
-boost::asio::ip::tcp::socket::write\_some()
-boost::asio::ip::tcp::socket::connect()
-boost::asio::ip::tcp::socket::send()
-boost::asio::ip::tcp::socket::wait()
-boost::asio::steady\_timer::wait()
+- sleep()
+- boost::asio::ip::tcp::socket::read()
+- boost::asio::ip::tcp::socket::read\_some()
+- boost::asio::ip::tcp::socket::write()
+- boost::asio::ip::tcp::socket::write\_some()
+- boost::asio::ip::tcp::socket::connect()
+- boost::asio::ip::tcp::socket::send()
+- boost::asio::ip::tcp::socket::wait()
+- boost::asio::steady\_timer::wait()
 
 Note: an exception is made for filesystem/disk IO read and write.  This is
 mostly due to not having great abstractions for it that mate well with the async
