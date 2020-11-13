@@ -283,6 +283,23 @@
     },
     {
       "key": {
+        "uuid": "c224745d_7b253532",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-13T16:57:51Z",
+      "side": 1,
+      "message": "remove this commented out code",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c06834ac_fa1e0314",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -340,6 +357,23 @@
         "endLine": 137,
         "endChar": 19
       },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f903df91_aa1d82db",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-13T16:57:51Z",
+      "side": 1,
+      "message": "if you need this put some text in front of it \"BMCWEB_LOG_DEBUG \u003c\u003c \"Writing size",
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
