@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad5146ee_8133f2e3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-11-15T17:39:56Z",
+      "side": 1,
+      "message": "why user name is hardcoded ?",
+      "revId": "06d2e4d6330edd52421351e6df6d06129b3f7fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51d1b137_67e9534d",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-11-15T17:39:56Z",
+      "side": 1,
+      "message": "why we are not getting clientOriginIP for ipmi session ? Is ipmi session, remote IP is not available ?",
+      "revId": "06d2e4d6330edd52421351e6df6d06129b3f7fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
