@@ -22,10 +22,30 @@
 #include <utils/json_utils.hpp>
 // for GetObjectType and ManagedObjectType
 #include <account_service.hpp>
+#include <boost/url/url_view.hpp>
 
 namespace redfish
 
 {
+/**
+ * @brief Function extracts transfer protocol name from URI.
+ */
+static std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
+{
+    std::string_view scheme = boost::urls::url_view(imageUri).scheme();
+    if (scheme == "smb")
+    {
+        return "CIFS";
+    }
+    else if (scheme == "https")
+    {
+        return "HTTPS";
+    }
+    else
+    {
+        return "None";
+    }
+}
 
 /**
  * @brief Read all known properties from VM object interfaces
@@ -89,31 +109,46 @@ static void vmParseInterfaceObject(const DbusInterfaceType& interface,
         else
         {
             // Legacy mode
-            const auto imageUrlProperty =
-                mountPointIface->second.find("ImageURL");
-            if (imageUrlProperty != processIface->second.cend())
+            for (const auto& property : mountPointIface->second)
             {
-                const std::string* imageUrlValue =
-                    std::get_if<std::string>(&imageUrlProperty->second);
-                if (imageUrlValue && !imageUrlValue->empty())
+                if (property.first == "ImageURL")
                 {
-                    std::filesystem::path filePath = *imageUrlValue;
-                    if (!filePath.has_filename())
+                    const std::string* imageUrlValue =
+                        std::get_if<std::string>(&property.second);
+                    if (imageUrlValue && !imageUrlValue->empty())
                     {
-                        // this will handle https share, which not necessarily
-                        // has to have filename given.
-                        aResp->res.jsonValue["ImageName"] = "";
-                    }
-                    else
-                    {
-                        aResp->res.jsonValue["ImageName"] = filePath.filename();
-                    }
+                        std::filesystem::path filePath = *imageUrlValue;
+                        if (!filePath.has_filename())
+                        {
+                            // this will handle https share, which not
+                            // necessarily has to have filename given.
+                            aResp->res.jsonValue["ImageName"] = "";
+                        }
+                        else
+                        {
+                            aResp->res.jsonValue["ImageName"] =
+                                filePath.filename();
+                        }
 
-                    aResp->res.jsonValue["Image"] = *imageUrlValue;
-                    aResp->res.jsonValue["Inserted"] = *activeValue;
-                    if (*activeValue == true)
+                        aResp->res.jsonValue["Image"] = *imageUrlValue;
+                        aResp->res.jsonValue["Inserted"] = *activeValue;
+                        aResp->res.jsonValue["TransferProtocolType"] =
+                            getTransferProtocolTypeFromUri(*imageUrlValue);
+
+                        if (*activeValue == true)
+                        {
+                            aResp->res.jsonValue["ConnectedVia"] = "URI";
+                        }
+                    }
+                }
+                else if (property.first == "WriteProtected")
+                {
+                    const bool* writeProtectedValue =
+                        std::get_if<bool>(&property.second);
+                    if (writeProtectedValue)
                     {
-                        aResp->res.jsonValue["ConnectedVia"] = "URI";
+                        aResp->res.jsonValue["WriteProtected"] =
+                            *writeProtectedValue;
                     }
                 }
             }
@@ -288,15 +323,16 @@ class VirtualMediaActionInsertMedia : public Node
     std::optional<TransferProtocol>
         getTransferProtocolFromUri(const std::string& imageUri)
     {
-        if (imageUri.find("smb://") != std::string::npos)
+        std::string_view scheme = boost::urls::url_view(imageUri).scheme();
+        if (scheme == "smb")
         {
             return TransferProtocol::smb;
         }
-        else if (imageUri.find("https://") != std::string::npos)
+        else if (scheme == "https")
         {
             return TransferProtocol::https;
         }
-        else if (imageUri.find("://") != std::string::npos)
+        else if (!scheme.empty())
         {
             return TransferProtocol::invalid;
         }
