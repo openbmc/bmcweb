@@ -26,6 +26,25 @@
 namespace redfish
 
 {
+/**
+ * @brief Function extracts transfer protocol name from URI.
+ */
+static std::string
+    getTransferProtocolTypeFromUri(const std::string& imageUri)
+{
+    if (imageUri.find("smb://") != std::string::npos)
+    {
+        return "CIFS";
+    }
+    else if (imageUri.find("https://") != std::string::npos)
+    {
+        return "HTTPS";
+    }
+    else
+    {
+        return "None";
+    }
+}
 
 /**
  * @brief Read all known properties from VM object interfaces
@@ -91,7 +110,7 @@ static void vmParseInterfaceObject(const DbusInterfaceType& interface,
             // Legacy mode
             const auto imageUrlProperty =
                 mountPointIface->second.find("ImageURL");
-            if (imageUrlProperty != processIface->second.cend())
+            if (imageUrlProperty != mountPointIface->second.cend())
             {
                 const std::string* imageUrlValue =
                     std::get_if<std::string>(&imageUrlProperty->second);
@@ -111,10 +130,25 @@ static void vmParseInterfaceObject(const DbusInterfaceType& interface,
 
                     aResp->res.jsonValue["Image"] = *imageUrlValue;
                     aResp->res.jsonValue["Inserted"] = *activeValue;
+                    aResp->res.jsonValue["TransferProtocolType"] =
+                        getTransferProtocolTypeFromUri(*imageUrlValue);
+
                     if (*activeValue == true)
                     {
                         aResp->res.jsonValue["ConnectedVia"] = "URI";
                     }
+                }
+            }
+            const auto writeProtectedProperty =
+                mountPointIface->second.find("WriteProtected");
+            if (writeProtectedProperty != mountPointIface->second.cend())
+            {
+                const bool* writeProtectedValue =
+                    std::get_if<bool>(&writeProtectedProperty->second);
+                if (writeProtectedValue)
+                {
+                    aResp->res.jsonValue["WriteProtected"] =
+                        *writeProtectedValue;
                 }
             }
         }
