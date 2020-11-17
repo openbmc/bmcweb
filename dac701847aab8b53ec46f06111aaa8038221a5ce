@@ -180,6 +180,30 @@
     },
     {
       "key": {
+        "uuid": "5959bd21_a21693da",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "Basically this function is to keep connection open, otherwise connection is getting closed immediately.\nI did not understand your point \"leads to bugs if any single operation takes more than a second\"\ni have tested system dump offload which takes 2-3 mins to get entire dump.\ni did not notice any issue.\nbut i agree that its better to rely on DynamicResponse.end()\nhow does DynamicResponse.end() can hold connection?",
+      "parentUuid": "76f7c2b5_a34025ad",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6c3a650_4f780b1d",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -363,6 +387,30 @@
     },
     {
       "key": {
+        "uuid": "0318031e_09cc2046",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "we are already making sure that doWrite() will be called only after it writes given data using handler function.\nso i think no need to check",
+      "parentUuid": "2e209e5c_4d9b09b7",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -391,6 +439,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "errorHandler doesn\u0027t look used?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 50
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4813ed_8dfe69e6",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "yeah. did not use messageHandler and errorHanlder here, shall i remove?",
+      "parentUuid": "a40586fd_d1e67a22",
       "range": {
         "startLine": 168,
         "startChar": 0,
