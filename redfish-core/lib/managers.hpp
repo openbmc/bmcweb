@@ -1767,6 +1767,12 @@ class Manager : public Node
         res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
         res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {"IPMI",
                                                                    "SSH"};
+        // Fill in CommandShell info
+        res.jsonValue["CommandShell"]["ServiceEnabled"] = true;
+        res.jsonValue["CommandShell"]["MaxConcurrentSessions"] = 4;
+        res.jsonValue["CommandShell"]["ConnectTypesSupported"] = {"SSH",
+                                                                  "IPMI"};
+
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info
         res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
