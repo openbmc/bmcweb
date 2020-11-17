@@ -72,8 +72,9 @@ class Connection :
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        auto caAvailable = !std::filesystem::is_empty(
-            std::filesystem::path(ensuressl::trustStorePath));
+        std::filesystem::path trustStorePath = ensuressl::trustStorePath;
+        auto caAvailable = std::filesystem::is_directory(trustStorePath) &&
+                           !std::filesystem::is_empty(trustStorePath);
         if (caAvailable && persistent_data::SessionStore::getInstance()
                                .getAuthMethodsConfig()
                                .tls)
