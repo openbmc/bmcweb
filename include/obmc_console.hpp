@@ -36,6 +36,12 @@ inline void doWrite()
         return;
     }
 
+    if (!hostSocket)
+    {
+        BMCWEB_LOG_ERROR << "doWrite(): Socket closed.";
+        return;
+    }
+
     doingWrite = true;
     hostSocket->async_write_some(
         boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
@@ -62,6 +68,12 @@ inline void doWrite()
 
 inline void doRead()
 {
+    if (!hostSocket)
+    {
+        BMCWEB_LOG_ERROR << "doRead(): Socket closed.";
+        return;
+    }
+
     BMCWEB_LOG_DEBUG << "Reading from socket";
     hostSocket->async_read_some(
         boost::asio::buffer(outputBuffer.data(), outputBuffer.size()),
@@ -125,6 +137,8 @@ inline void requestRoutes(App& app)
         })
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
+            BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
+
             sessions.erase(&conn);
             if (sessions.empty())
             {
