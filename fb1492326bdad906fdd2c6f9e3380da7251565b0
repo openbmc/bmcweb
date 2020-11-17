@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1875aaf1_2aaf9855",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "I could not think of any other way, can you please suggest what\u0027s the right way to find out if is dynamic response.",
+      "parentUuid": "60bcf916_3b824947",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 17
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1316f69_c736dfaf",
         "filename": "http/http_response.hpp",
         "patchSetId": 5
@@ -278,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "b265a2ae_3a3940d3",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "I found that one unix socket read gets around 178k data in this case, so i kept max of 1M.",
+      "parentUuid": "4328a6cd_449308a3",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "557c5778_01e9a331",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -335,6 +383,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "In general, connections didn\u0027t have a write callback, they simply copied the data into it\u0027s internal buffers and returned immediately.  Changing this semantic means that this can possibly overflow.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 70
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15169ac_288820a3",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "in this case, i have passed a handler which will be run inside write complete handler.\nthat means further sendMessage calls will be called only after sending data given.\notherwise we need to buffer lot of data.",
+      "parentUuid": "279b4657_c058a77a",
       "range": {
         "startLine": 169,
         "startChar": 0,
@@ -421,6 +493,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "?  The bmc should not be accepting a socket connection that it now has to maintain.  Reversing the acceptor, acceptee relationship (The dump service exposes a unix socket that bmcweb can connect to) would simplify this a lot, and keep the principal similar.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 40
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbf90fcc_2f6f8977",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-17T09:00:31Z",
+      "side": 1,
+      "message": "right now we have used existing DUMP manager infrastructure to offload dump, there is dbus method \"InitiateOffload\" which takes  nbd device path or unix socket path as argument.\ndump manager/PLDM will be using this path to write dump data.\n\nbmcweb frames a unique UNIX domain socket path for each dump offload request, create listening socket and send this path as argument to IntiateOffload method.\n\n1.If its BMC dump then DUMP manager connects to that socket using socket path given, write bmc dump data on socket.\n2.If its system dump then PLDM does connects to that socket using socket path given, write system dump data on socket.\n\nyes,i agree that it would be better to Reverse the acceptor, acceptee relationship\n\nHere is the flow to reverse the model:\nbmcweb frames a unique UNIX domain socket path for each dump offload request and call \"InitiateOffload\" D-bus method with socket path.\n\n1.If its BMC dump then DUMP manager creates listening socket using the socket path given and bmcweb connects to socket(socket path known), dump manager accepts socket connection, start writing bmc dump data on socket. bmcweb reads system dump data from socket.\n2.If its system dump then PLDM manager creates listening socket using the socket path given and bmcweb connects to socket(socket path known), PLDM accepts socket connection and start writing system dump data on socket, bmcweb reads system dump data from socket\n\ndo you see any problem if bmcweb generates socket path(/var/lib/bmcweb/bmc_dump_1) and pass it to InitiateOffload method.\nso that dump manager and pldm can use this socket path to setup socket??",
+      "parentUuid": "47510a6c_eba06123",
       "range": {
         "startLine": 187,
         "startChar": 0,
