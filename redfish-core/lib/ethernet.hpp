@@ -123,6 +123,8 @@ struct DHCPParameters
     std::optional<std::string> dhcpv6OperatingMode;
 };
 
+static constexpr const char* v4v6Bridge = "sit0";
+
 // Helper function that changes bits netmask notation (i.e. /24)
 // into full dot notation
 inline std::string getNetmask(unsigned int bits)
@@ -205,7 +207,15 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
-    for (auto& objpath : dbus_data)
+    if (ethiface_id == v4v6Bridge)
+    {
+        // Don't interact with the v4 to v6 bridge. It is a virtual device that
+        // is not subject to the configuration rules of a physical network
+        // device.
+        return idFound;
+    }
+
+    for (const auto& objpath : dbus_data)
     {
         for (auto& ifacePair : objpath.second)
         {
@@ -949,32 +959,34 @@ void getEthernetIfaceList(CallbackFunc&& callback)
             // Callback requires vector<string> to retrieve all available
             // ethernet interfaces
             boost::container::flat_set<std::string> ifaceList;
-            ifaceList.reserve(resp.size());
             if (error_code)
             {
                 callback(false, ifaceList);
                 return;
             }
 
-            // Iterate over all retrieved ObjectPaths.
+            // Collect the NIC name from the managed network objects. The
+            // objpath containing a string that matches the
+            // xyz.openbmc_project.Network.EthernetInterface sub-element acts
+            // as the selection key. The NIC name trails the final '/' in the
+            // current objpath record. Store each NIC name, with the exception
+            // of the ipv4/ipv6 bridge virtual device.
             for (const auto& objpath : resp)
             {
-                // And all interfaces available for certain ObjectPath.
                 for (const auto& interface : objpath.second)
                 {
-                    // If interface is
-                    // xyz.openbmc_project.Network.EthernetInterface, this is
-                    // what we're looking for.
                     if (interface.first ==
                         "xyz.openbmc_project.Network.EthernetInterface")
                     {
-                        // Cut out everything until last "/", ...
                         const std::string& ifaceId = objpath.first.str;
-                        std::size_t lastPos = ifaceId.rfind('/');
-                        if (lastPos != std::string::npos)
+                        if (std::size_t lastPos = ifaceId.rfind("/");
+                            lastPos != std::string::npos)
                         {
-                            // and put it into output vector.
-                            ifaceList.emplace(ifaceId.substr(lastPos + 1));
+                            if (std::string intf{ifaceId.substr(lastPos + 1)};
+                                intf != v4v6Bridge)
+                            {
+                                ifaceList.emplace(intf);
+                            }
                         }
                     }
                 }
