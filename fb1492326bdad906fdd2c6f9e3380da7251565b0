@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "13a38d91_6fbee67a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "Should we upgrade the connection by looking at the specific URL? or upgrade the connection at the route handler but we don\u0027t have that infra.",
+      "parentUuid": "1875aaf1_2aaf9855",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 17
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1316f69_c736dfaf",
         "filename": "http/http_response.hpp",
         "patchSetId": 5
@@ -65,6 +89,29 @@
         "startChar": 0,
         "endLine": 162,
         "endChar": 29
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56404bc1_3b8a486c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "How we use the json value?",
+      "range": {
+        "startLine": 162,
+        "startChar": 19,
+        "endLine": 162,
+        "endChar": 28
       },
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -95,6 +142,53 @@
     },
     {
       "key": {
+        "uuid": "7662f06b_f58a8dd6",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "If the body is not available then body will not be sent.I didn\u0027t get this comment, can you please explain more?\nI expect the response in that case would be \nHttp return code /r/n  http headers /r/n /r/n \u003cbody which is of 0 size\u003e\n\nDo you mean to say that as the response is dynamic so we can not keep the whole reponse in memory so we shouldn\u0027t have the body method at all?",
+      "parentUuid": "a43578c5_ee6edc7a",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 5
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77acdf0d_44719373",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "Error or Debug??",
+      "range": {
+        "startLine": 249,
+        "startChar": 12,
+        "endLine": 249,
+        "endChar": 28
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c0dd1ad_2e321d49",
         "filename": "http/http_response.hpp",
         "patchSetId": 5
@@ -118,6 +212,53 @@
     },
     {
       "key": {
+        "uuid": "378f65db_1e65302d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "1c0dd1ad_2e321d49",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 28
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd7d3c1_3d4e0315",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "can we create class for this?\n\nWhy do we need this base class and the derived class at line no 35?\n\nAre we expecting that there could be more concrete differnt type of classes under name space crow:streamsocket?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 6
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02de1555_bc958b50",
         "filename": "http/http_stream.hpp",
         "patchSetId": 5
@@ -134,6 +275,76 @@
         "startChar": 4,
         "endLine": 30,
         "endChar": 69
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9203807_7c299272",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "If I am getting correctly, this infrastructure is taken from the http/wbsocket..where it is same..\nUpgraded connection have the req and response.",
+      "parentUuid": "02de1555_bc958b50",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd158b8f_feb4c599",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "can this go as part of res.end() which takes completerequesthandler?\nSeems you wnat to keep the connection alive, if the connection is having the response and the response can\u0027t be destructed then connection will not get destroyed.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0ad9526_72fa85f6",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "Ed has comment where you can not hardcode this header here, let the caller gives the header and its value.",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 72
       },
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -187,6 +398,29 @@
     },
     {
       "key": {
+        "uuid": "dc190a48_ed319eed",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "do we need this two if conditions if the action are the same except logging a error journal trace.\nCan we convert it into debug and print the error code and remove one of the condition?",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 17
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "134fb77f_ffdda5b8",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -203,6 +437,29 @@
         "startChar": 6,
         "endLine": 394,
         "endChar": 22
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3520d615_9d776b48",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "Do we need two handleUpgrade function if the SSL is enabled?\nSeems #ifdef should start from line no 410 and the function at line no 427 is required if SSL is enabled otherwise function at line no 410 is required.",
+      "range": {
+        "startLine": 411,
+        "startChar": 1,
+        "endLine": 441,
+        "endChar": 6
       },
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -342,6 +599,76 @@
         "startChar": 8,
         "endLine": 56,
         "endChar": 16
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac586eed_c5d4f8c6",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "As Ed suggested , seems we need to revert the server / client terminology.\nBmcweb should act as a unix client and the entity which is giving the data should act as a server.. so bmcweb will do a connect.",
+      "parentUuid": "557c5778_01e9a331",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70d393e_4b02b4b3",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "This is the path where the other end should start the server and bmcweb will connect on this path?",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00c44b85_f9faaa66",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-18T03:48:46Z",
+      "side": 1,
+      "message": "can we use std::string_view where we use the const std:string\u0026 for better performnace?",
+      "range": {
+        "startLine": 103,
+        "startChar": 21,
+        "endLine": 103,
+        "endChar": 39
       },
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
