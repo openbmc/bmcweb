@@ -45,6 +45,30 @@
       "revId": "b7f7fee9c542ce9c0db3118057ec74394300a449",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fe3aea_07ced234",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-18T17:40:12Z",
+      "side": 1,
+      "message": "\u003e To my understanding of the Redfish specification, both of these formats are allowed and are used in various circumstances.\nThe relevant sections you should be looking at are:\n8.4.3 modification error responses\n9.6 Error responses\n\nThanks for pointing out this, Ed. This helped me understand it better.\n\n\u003e but as is, you\u0027ve lost the property value from the ExtendedInfo section, which means that we can no longer match up which fields caused issues, so what you proposed is arguably worse than what we have now.\nI have a thought here. Since we are copying the \"Message\" field of \"@Message.ExtendedInfo\" to \"error\" property\u0027s \"message\", I hope we wouldn\u0027t miss out on the value format error message as well. The error looks like the below:\n\n{\n  \"@odata.type\": \"#RedfishError.v1_0_1.RedfishError\",\n  \"error\": {\n    \"code\": \"Base.1.8.1.PropertyValueFormatError\",\n    \"message\": \"The value 2020-11-09T10:07:21+0530 for the property DateTime is of a different format than the property can accept.\"\n  }\n}\n\nIn this case, do you think the RelatedProperties field here would be necessary?",
+      "parentUuid": "cc25cebd_28d6d5b2",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "b7f7fee9c542ce9c0db3118057ec74394300a449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
