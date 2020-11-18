@@ -2718,4 +2718,16 @@
         <edmx:Include Namespace="OemSession"/>
         <edmx:Include Namespace="OemSession.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/SegmentFlags_v1.xml">
+        <edmx:Include Namespace="SegmentFlags"/>
+        <edmx:Include Namespace="SegmentFlags.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/LockService_v1.xml">
+        <edmx:Include Namespace="LockService"/>
+        <edmx:Include Namespace="LockService.v1_0_0"/>
+    </edmx:Reference> 
+    <edmx:Reference Uri="/redfish/v1/schema/OemRedfish_v1.xml">
+        <edmx:Include Namespace="OemRedfish"/>
+        <edmx:Include Namespace="OemRedfish.v1_0_0"/>
+    </edmx:Reference> 
 </edmx:Edmx>

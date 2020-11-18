@@ -1,0 +1,21 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SegmentFlags.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SegmentFlags": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SegmentFlags.v1_0_0.json#/definitions/SegmentFlags"
+                }
+            ],
+            "description": "The SegmentFlag schema defines the properties of a Management Console SegmentFlags.",
+            "longDescription": "This resource shall be used to represent a Management Console SegmentFlag in the lock structure"
+        }
+    },
+    "owningEntity": "IBM",
+    "title": "#SegmentFlags"
+}

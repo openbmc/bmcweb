@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+   <!-- This section consists of references to standard Redfish Schema bits. -->
+   <!-- Do not modify these -->
+   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/ complete/vocabularies/Org.OData.Core.V1.xml">
+      <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/ complete/vocabularies/Org.OData.Capabilities.V1.xml">
+      <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://redfish.dmtf.org/Schemas/v1/Resource_v1.xml">
+      <edmx:Include Namespace="Resource" />
+      <edmx:Include Namespace="Resource.v1_0_0" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://redfish.dmtf.org/Schemas/v1/RedfishExtensions_v1.xml">
+      <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish" />
+      <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation" />
+   </edmx:Reference>
+   <edmx:DataServices>
+      <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SegmentFlags">
+         <Annotation Term="Redfish.OwningEntity" String="IBM" />
+         <EntityType Name="SegmentFlags" BaseType="SegmentFlags.v1_0_0.SegmentFlags" Abstract="true">
+            <Annotation Term="OData.Description" String="The SegmentFlag schema defines the properties of a Management Console SegmentFlags." />
+            <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a Management Console SegmentFlag in the lock structure" />
+            <Annotation Term="OData.AdditionalProperties" Bool="false" />
+         </EntityType>
+      </Schema>
+      <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SegmentFlags.v1_0_0">
+         <Annotation Term="Redfish.OwningEntity" String="IBM" />
+
+         <EntityType Name="SegmentFlags" BaseType=" SegmentFlags.SegmentFlags">
+            <Property Name="SegmentFlags" Type="Collection(SegmentFlags.v1_0_0.SegmentFlag)" Nullable="false">
+               <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
+               <Annotation Term="OData.Description" String="This entity type represents a set of segment flags" />
+               <Annotation Term="OData.LongDescription" String="This entity type represents a set of segment flags that are present in a sigle lock request." />
+            </Property>
+         </EntityType>
+
+            <ComplexType Name="SegmentFlag">
+               <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+               <Annotation Term="OData.Description" String="This type shall contain a single segment flag in a lock request"/>
+               <Annotation Term="OData.LongDescription" String="This type shall contain a single segment flag structure in a management console lock request"/>
+               <Property Name="LockFlag" Type="Edm.String" Nullable="false">
+                  <Annotation Term="OData.Description" String="This property represents the multilevel lockflag in the lock request"/>
+                  <Annotation Term="OData.LongDescription" String="This property help represent the multilevel locking mechanism, This can either be LockAll or LockSame or DontLock"/>
+                  <Annotation Term="Validation.Pattern" String="^(LockAll|LockSame|DontLock)"/>
+                  <Annotation Term="Redfish.Required"/>
+               </Property>
+               <Property Name="SegmentLength" Type="Edm.Int64" Nullable="false">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
+                  <Annotation Term="Validation.Minimum" Int="1"/>
+                  <Annotation Term="Validation.Maximum" Int="4"/>
+                  <Annotation Term="OData.Description" String="This property would represent the segment length in a single lock record" />
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the segment length which is used to interpret the resourceID with a specified byte length for conflict checking" />
+                  <Annotation Term="Redfish.Required"/>
+               </Property>
+            </ComplexType>
+      </Schema>
+   </edmx:DataServices>
+</edmx:Edmx>
+
+
