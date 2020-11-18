@@ -69,6 +69,30 @@
       "revId": "b7f7fee9c542ce9c0db3118057ec74394300a449",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e8ea1a_39944edf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T18:13:30Z",
+      "side": 1,
+      "message": "Any answer I\u0027d give would be based on quoting the Redfish spec.  You can look through it just as easily as I can.",
+      "parentUuid": "03fe3aea_07ced234",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "b7f7fee9c542ce9c0db3118057ec74394300a449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
