@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f883c775_c8d07a94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 46
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2020-11-18T21:27:49Z",
+      "side": 1,
+      "message": "typo: registry",
+      "range": {
+        "startLine": 10,
+        "startChar": 51,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16111ad6_bded4d4c",
         "filename": "redfish-core/include/registries/bios_registry.hpp",
         "patchSetId": 46
@@ -42,6 +65,23 @@
         "endLine": 32,
         "endChar": 4
       },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8744dc6e_3d312b8b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2020-11-18T21:27:49Z",
+      "side": 1,
+      "message": "Also lowerCamel case for enum variables.",
       "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
