@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16111ad6_bded4d4c",
+        "filename": "redfish-core/include/registries/bios_registry.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used?",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7639887_4bb14f31",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "Please use enum class for all of these.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c64d020_1c772b0d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "This return does nothing.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6bfb60e_14f78253",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "nit, just return directly in each call\n\nif (typeDbus \u003d\u003d ...){\n\n     return \"ScalarIncrement\"\n}\nreturn \"\";",
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3863a530_28b465fe",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "const std::string\u0026 or string_view here please.",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3abdc64b_d4543e6a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "This is going to return 404 for systems that don\u0027t have a bios, yet have it listed in the main result.  I suspect you want internal error here.",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 74
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008e0577_520d3296",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "Looks like you only covered the string and integer cases here.  are the rest missing?",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 53
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08bdbc02_56859cb7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "This code (and some of the above) looks duplicated with the system/Bios handler.  Please deduplicate.",
+      "range": {
+        "startLine": 324,
+        "startChar": 1,
+        "endLine": 340,
+        "endChar": 29
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63cdc3e9_277b6241",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "Is this correct that we have no supported systems?",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 58
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337a8c2a_78631a36",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "Please reorganize your code to avoid extraneous scopes.",
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777f46ac_2af7be68",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "Please build these arrays in place using operator[] on the json object.",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 78
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "415cfb88_bdd77c2c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "This shouldn\u0027t continue if it hit an error.",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 72
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559d763f_dd24fc73",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "else if",
+      "range": {
+        "startLine": 459,
+        "startChar": 28,
+        "endLine": 459,
+        "endChar": 30
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b806426b_b05fb6b8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "else... error?",
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d6fbc4_72ea2820",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "This shouldn\u0027t continue when an error is found.",
+      "range": {
+        "startLine": 485,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 76
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc4e1f1b_57fa20ac",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-18T16:23:00Z",
+      "side": 1,
+      "message": "How does this get disabled for systems that don\u0027t have bios?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 61
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
