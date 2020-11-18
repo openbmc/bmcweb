@@ -59,7 +59,10 @@ class ServiceRoot : public Node
         res.jsonValue["Managers"] = {{"@odata.id", "/redfish/v1/Managers"}};
         res.jsonValue["Systems"] = {{"@odata.id", "/redfish/v1/Systems"}};
         res.jsonValue["Registries"] = {{"@odata.id", "/redfish/v1/Registries"}};
-
+        res.jsonValue["Oem"]["IBM"]["@odata.type"] =
+            "#OemRedfish.v1_0_0.IBMServiceRoot";
+        res.jsonValue["Oem"]["IBM"]["LockService"] = {
+            {"@odata.id", "/redfish/v1/Oem/IBM/LockService"}};
         res.jsonValue["UpdateService"] = {
             {"@odata.id", "/redfish/v1/UpdateService"}};
         res.jsonValue["UUID"] = uuid;

@@ -199,16 +199,17 @@ inline void deleteConfigFiles(crow::Response& res)
 inline void getLockServiceData(crow::Response& res)
 {
     res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
-    res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
+    res.jsonValue["@odata.id"] = "/redfish/v1/Oem/IBM/LockService";
     res.jsonValue["Id"] = "LockService";
     res.jsonValue["Name"] = "LockService";
 
-    res.jsonValue["Actions"]["#LockService.AcquireLock"] = {
-        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock"}};
-    res.jsonValue["Actions"]["#LockService.ReleaseLock"] = {
-        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock"}};
-    res.jsonValue["Actions"]["#LockService.GetLockList"] = {
-        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList"}};
+    res.jsonValue["Actions"]["#LockService.AcquireLock"]["target"] =
+        "/redfish/v1/Oem/IBM/LockService/Actions/LockService.AcquireLock";
+    res.jsonValue["Actions"]["#LockService.ReleaseLock"]["target"] =
+        "/redfish/v1/Oem/IBM/LockService/Actions/LockService.ReleaseLock";
+    res.jsonValue["Actions"]["#LockService.GetLockList"]["target"] =
+        "/redfish/v1/Oem/IBM/LockService/Actions/LockService.GetLockList";
+    res.jsonValue["Actions"]["Oem"] = nlohmann::json::object();
     res.end();
 }
 
@@ -606,14 +607,15 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req, crow::Response& res,
                const std::string& path) { handleFileUrl(req, res, path); });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
+    BMCWEB_ROUTE(app, "/redfish/v1/Oem/IBM/LockService")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&, crow::Response& res) {
                 getLockServiceData(res);
             });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Oem/IBM/LockService/Actions/LockService.AcquireLock")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
@@ -627,7 +629,8 @@ inline void requestRoutes(App& app)
                 }
                 handleAcquireLockAPI(req, res, body);
             });
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Oem/IBM/Lockservice/Actions/LockService.ReleaseLock")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)([](const crow::Request& req,
                                                     crow::Response& res) {
@@ -657,7 +660,8 @@ inline void requestRoutes(App& app)
                 redfish::messages::propertyValueNotInList(res, type, "Type");
             }
         });
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Oem/IBM/LockService/Actions/LockService.GetLockList")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
