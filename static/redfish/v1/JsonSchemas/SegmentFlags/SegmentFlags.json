@@ -1,0 +1,78 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SegmentFlags.v1_0_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SegmentFlag": {
+            "additionalProperties": false,
+            "description": "This type shall contain a single segment flag in a lock request",
+            "longDescription": "This type shall contain a single segment flag structure in a management console lock request",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LockFlag": {
+                    "description": "This property represents the multilevel lockflag in the lock request",
+                    "longDescription": "This property help represent the multilevel locking mechanism, This can either be LockAll or LockSame or DontLock",
+                    "pattern": "^(LockAll|LockSame|DontLock)",
+                    "type": "string"
+                },
+                "SegmentLength": {
+                    "description": "This property would represent the segment length in a single lock record",
+                    "longDescription": "This property shall contain the segment length which is used to interpret the resourceID with a specified byte length for conflict checking",
+                    "maximum": 4,
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "LockFlag",
+                "SegmentLength"
+            ],
+            "type": "object"
+        },
+        "SegmentFlags": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SegmentFlags": {
+                    "description": "This entity type represents a set of segment flags",
+                    "items": {
+                        "$ref": "#/definitions/SegmentFlag"
+                    },
+                    "longDescription": "This entity type represents a set of segment flags that are present in a sigle lock request.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "IBM",
+    "title": "#SegmentFlags.v1_0_0"
+}
