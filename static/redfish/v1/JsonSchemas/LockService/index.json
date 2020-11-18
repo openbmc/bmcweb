@@ -1,0 +1,25 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/LockService.json",
+    "$ref": "#/definitions/LockService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "LockService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LockService.v1_0_0.json#/definitions/LockService"
+                }
+            ],
+            "description": "The LockService schema contains actions for handling the management console lock requests",
+            "longDescription": "This resource contains the Oem LockService Redfish implementation.",
+            "uris": [
+                "/redfish/v1/Oem/IBM/LockService"
+            ]
+        }
+    },
+    "owningEntity": "IBM",
+    "title": "#LockService.LockService"
+}

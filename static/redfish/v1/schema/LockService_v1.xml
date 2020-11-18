@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+      <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+      <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+      <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+      <edmx:Include Namespace="Resource"/>
+      <edmx:Include Namespace="Resource.v1_0_0" />
+   </edmx:Reference>
+   <edmx:Reference Uri="http://redfish.dmtf.org/Schemas/v1/SegmentFlags_v1.xml">
+      <edmx:Include Namespace="SegmentFlags" />
+      <edmx:Include Namespace="SegmentFlags.v1_0_0" />
+   </edmx:Reference>
+   <edmx:DataServices>
+      <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LockService">
+         <Annotation Term="Redfish.OwningEntity" String="IBM" />
+         <EntityType Name="LockService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+            <Annotation Term="OData.Description" String="The LockService schema contains actions for handling the management console lock requests" />
+            <Annotation Term="OData.LongDescription" String="This resource contains the Oem LockService Redfish implementation." />
+            <Annotation Term="Redfish.Uris">
+               <Collection>
+                  <String>/redfish/v1/Oem/IBM/LockService</String>
+               </Collection>
+            </Annotation>
+         </EntityType>
+         <Action Name="AcquireLock" IsBound="true">
+		 <Annotation Term="OData.Description" String="This action acquires a management console lock." />
+		 <Annotation Term="OData.LongDescription" String="This action shall acquire a single/multiple management console lock(s) on a specified hypervisor resource" />
+            <Parameter Name="AcquireLock" Type="LockService.v1_0_0.Actions" />
+            <Parameter Name="Request" Type="Collection(LockService.v1_0_0.LockRecord)">
+               <Annotation Term="OData.Description" String="This paramter shall contain the lock request" />
+	       <Annotation Term="OData.LongDescription" String="This parameter shall contain a single/multiple lock request(s)" />
+            </Parameter>
+         </Action>
+         <Action Name="ReleaseLock" IsBound="true">
+            <Annotation Term="OData.Description" String="This action releases a management console lock." />
+	    <Annotation Term="OData.LongDescription" String="This action shall release a single/multiple management console locks(s)" />
+            <Parameter Name="ReleaseLock" Type="LockService.v1_0_0.Actions" />
+            <Parameter Name="Type" Type="Edm.String">
+               <Annotation Term="OData.Description" String="The type of reset." />
+               <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of locks to be released. The Type can either be Transaction or Session" />
+               <Annotation Term="Validation.Pattern" String="^(Transaction|Session)" />
+               <Annotation Term="Redfish.Required" />
+            </Parameter>
+            <Parameter Name="TransactionIDs" Type="Collection(Edm.Int64)">
+               <Annotation Term="OData.Description" String="The parameter shall conatin the list of Transaction ID's." />
+               <Annotation Term="OData.LongDescription" String="This parameter shall contain the list of Transaction ID's" />
+               <Annotation Term="Validation.Minimum" Int="0" />
+	       <Annotation Term="Validation.Maximum" Int="4294967295" />
+	       <Annotation Term="Redfish.Required" />
+            </Parameter>
+         </Action>
+         <Action Name="GetLockList" IsBound="true">
+            <Annotation Term="OData.Description" String="This action gets the whole lock table from the bmcweb memory" />
+            <Annotation Term="OData.LongDescription" String="This action shall return the whole lock table from the bmcweb." />
+            <Parameter Name="GetLockList" Type="LockService.v1_0_0.Actions" />
+            <Parameter Name="SessionIDs" Type="Collection(Edm.String)">
+               <Annotation Term="OData.Description" String="This parameter holds the session ID's from the input" />
+               <Annotation Term="OData.LongDescription" String="This parameter shall contain all the Session ID's in the form of a list" />
+               <Annotation Term="Validation.Pattern" String="^[a-zA-Z0-9]*$" />
+               <Annotation Term="Redfish.Required" />
+            </Parameter>
+          </Action>
+      </Schema>
+      <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LockService.v1_0_0">
+         <Annotation Term="Redfish.OwningEntity" String="IBM" />
+         <Annotation Term="Redfish.Release" String="1.0" />
+         <EntityType Name="LockService" BaseType="LockService.LockService">
+            <Property Name="Actions" Type="LockService.v1_0_0.Actions" Nullable="false">
+               <Annotation Term="OData.Description" String="The available actions for LockService Resource." />
+               <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource." />
+            </Property>
+         </EntityType>
+         <ComplexType Name="Actions">                                                                                                                                                 
+            <Annotation Term="OData.AdditionalProperties" Bool="false" />                                                                                                              
+            <Annotation Term="OData.Description" String="The available actions for this resource." />                                                                                  
+            <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource." />                                                      
+            <Property Name="Oem" Type="LockService.v1_0_0.OemActions" Nullable="false">                                                                                                
+               <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource." />                                                                  
+               <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource." />                                  
+            </Property>                                                                                                                                                                
+         </ComplexType>                                                                                                                                                                
+         <ComplexType Name="OemActions">                                                                                                                                               
+            <Annotation Term="OData.AdditionalProperties" Bool="true" />                                                                                                               
+            <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource." />                                                                     
+            <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource." />                                         
+         </ComplexType> 
+           <ComplexType Name="LockRecord">
+              <Annotation Term="OData.AdditionalProperties" Bool="false" />
+              <Annotation Term="OData.Description" String="The type shall indicate a single lock record" />
+              <Annotation Term="OData.LongDescription" String="This type shall contain the a single management console lock record" />
+              <Property Name="LockType" Type="Edm.String" Nullable="false">
+                 <Annotation Term="OData.Description" String="The property indicates the lock type." />
+                 <Annotation Term="OData.LongDescription" String="This property shall contain the management console lock type. It can be either Read lock or Write Lock." />
+                 <Annotation Term="Validation.Pattern" String="^(Read|Write) " />
+                 <Annotation Term="Redfish.Required" />
+              </Property>
+              <Property Name="SegmentFlags" Type="SegmentFlags.v1_0_0.SegmentFlags" Nullable="false">
+                 <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
+                 <Annotation Term="OData.Description" String="This property contains the segment flags." />
+                 <Annotation Term="OData.LongDescription" String="This property shall contain the segment Flags. This helps in interpretting the Resource ID" />
+                 <Annotation Term="Redfish.Required" />
+              </Property>
+              <Property Name="ResourceID" Type="Edm.Int64" Nullable="false">
+                 <Annotation Term="OData.Description" String="The property holds the management console resource ID." />
+                 <Annotation Term="OData.LongDescription" String="This property shall contain the (uint64_t) resource ID, This is only understandable by HMC" />
+                 <Annotation Term="Validation.Minimum" Int="0" />
+                 <Annotation Term="Validation.Maximum" Int="18446744073709551615" />
+                 <Annotation Term="Redfish.Required" />
+              </Property>
+           </ComplexType>
+      </Schema>
+   </edmx:DataServices>
+</edmx:Edmx>
