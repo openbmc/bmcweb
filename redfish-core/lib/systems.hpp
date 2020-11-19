@@ -1769,9 +1769,9 @@ class SystemsCollection : public Node
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
                 auto& count = asyncResp->res.jsonValue["Members@odata.count"];
-                count = 0;
                 ifaceArray.push_back(
                     {{"@odata.id", "/redfish/v1/Systems/system"}});
+                count = ifaceArray.size();
                 if (!ec)
                 {
                     BMCWEB_LOG_DEBUG << "Hypervisor is available";
