@@ -780,6 +780,107 @@ inline int assignBootParameters(const std::shared_ptr<AsyncResp>& aResp,
     }
     return 0;
 }
+/**
+ * @brief Retrieves boot progress of the system
+ *
+ * @param[in] aResp  Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getBootProgress(const std::shared_ptr<AsyncResp>& aResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& bootProgress) {
+            if (ec)
+            {
+                // BootProgress is an optional object so just do nothing if
+                // not found
+                return;
+            }
+
+            const std::string* bootProgressStr =
+                std::get_if<std::string>(&bootProgress);
+
+            if (!bootProgressStr)
+            {
+                // Interface implemented but property not found, return error
+                // for that
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Boot Progress: " << *bootProgressStr;
+
+            // Now convert the D-Bus BootProgress to the appropriate Redfish
+            // enum
+            std::string rfBpLastState = "None";
+            if (*bootProgressStr == "xyz.openbmc_project.State.Boot.Progress."
+                                    "ProgressStages.Unspecified")
+            {
+                rfBpLastState = "None";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "PrimaryProcInit")
+            {
+                rfBpLastState = "PrimaryProcessorInitializationStarted";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "BusInit")
+            {
+                rfBpLastState = "BusInitializationStarted";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "MemoryInit")
+            {
+                rfBpLastState = "MemoryInitializationStarted";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "SecondaryProcInit")
+            {
+                rfBpLastState = "SecondaryProcessorInitializationStarted";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "PCIInit")
+            {
+                rfBpLastState = "PCIResourceConfigStarted";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "SystemInitComplete")
+            {
+                rfBpLastState = "SystemHardwareInitializationComplete";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "OSStart")
+            {
+                rfBpLastState = "OSBootStarted";
+            }
+            else if (*bootProgressStr ==
+                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+                     "OSRunning")
+            {
+                rfBpLastState = "OSRunning";
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "Unsupported D-Bus BootProgress "
+                                 << *bootProgressStr;
+                // Just return the default
+            }
+
+            aResp->res.jsonValue["BootProgress"]["LastState"] = rfBpLastState;
+        },
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Boot.Progress", "BootProgress");
+}
 
 /**
  * @brief Retrieves boot mode over DBUS and fills out the response
@@ -2047,6 +2148,7 @@ class Systems : public Node
         getComputerSystem(asyncResp, health);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
+        getBootProgress(asyncResp);
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
