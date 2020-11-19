@@ -1772,6 +1772,7 @@ class SystemsCollection : public Node
                 count = 0;
                 ifaceArray.push_back(
                     {{"@odata.id", "/redfish/v1/Systems/system"}});
+                    count = ifaceArray.size();
                 if (!ec)
                 {
                     BMCWEB_LOG_DEBUG << "Hypervisor is available";
