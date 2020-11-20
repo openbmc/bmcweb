@@ -1752,6 +1752,19 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
     // Get the Log Entry contents
     int ret = 0;
 
+    std::string message;
+    std::string_view syslogID;
+    ret = getJournalMetadata(journal, "SYSLOG_IDENTIFIER", syslogID);
+    if (ret < 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to read SYSLOG_IDENTIFIER field: "
+                         << strerror(-ret);
+    }
+    if (!syslogID.empty())
+    {
+        message += std::string(syslogID) + ": ";
+    }
+
     std::string_view msg;
     ret = getJournalMetadata(journal, "MESSAGE", msg);
     if (ret < 0)
@@ -1759,6 +1772,7 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
         BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-ret);
         return 1;
     }
+    message += std::string(msg);
 
     // Get the severity from the PRIORITY field
     long int severity = 8; // Default to an invalid priority
@@ -1782,7 +1796,7 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
                           bmcJournalLogEntryID},
         {"Name", "BMC Journal Entry"},
         {"Id", bmcJournalLogEntryID},
-        {"Message", msg},
+        {"Message", std::move(message)},
         {"EntryType", "Oem"},
         {"Severity",
          severity <= 2 ? "Critical" : severity <= 4 ? "Warning" : "OK"},
