@@ -34,6 +34,24 @@
       "revId": "d924562eca4e42a10d8d2d78f4f60f4f8630b37c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c758449_0baa5cc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-20T19:58:10Z",
+      "side": 1,
+      "message": "\u003e I\u0027m a little taken aback that this wasn\u0027t a rubber stamp Ed.\n\nSorry to disappoint :)\n\n\u003e 1. Redfish API clearly indicates this is RO. The current use is a violation of that API.\n\nCool.  bmcweb goes outside the Redfish specification in a lot of places.  Is your intent to fix all instances of that?  Maybe we need a \"strict redfish compliance\" mode where we disable sensor setting, the dbus api, and mutual TLS support as well as this thing?  If this change were behind an option flag like that, I\u0027d be fine with it, but as is, it\u0027s a breaking API change, deleting code that a client might use, with no documentation or discussion.  It should be noted, your reply above is an order of magnitude longer than your commit message, and a lot of what you just typed would be very useful to include in it.\n\n\u003e 2. Per the Redfish spec HostName is RW from:\n\u003e /redfish/v1/Managers/bmc/EthernetInterfaces/eth(x)\n\nCool, that should go in the commit message please.\n\n\u003e 3. The Redfish API is clear, HostName is Read Only from this node. It\u0027s documented clearly. IMO no work needs to be done.\n\n\u003e OBMC breaks things all the time.\n\nNot by policy or intentionally.  If you found something broken, point out the patch that broke it, and we\u0027ll get it reverted/fixed.\n\n\u003e An example is some recent sdbusplus changes that caused us some significant issues.\n\nDid you post the bug, and suggest reverting it?  That\u0027s the correct path if you identified code that broke you.\n\n\u003e The change was correct, our use was not. Functionality broke, and we had to figure out why. No one proactively sent out a message to all sdbusplus users saying \"I changed something that might break you.\".\n\nsdbusplus is an internal-to-openbmc interface.  I can\u0027t say I\u0027m happy with the way that change was done, but changes to external interfaces are a different animal entirely than changing an internal API that can be verified to be correct by looking at the openbmc codebase.  With that said, this patchset isn\u0027t about sdbusplus.\n\n\u003e 4. I disagree this is a mediocre reason. Why even have an agreed upon spec at all? This begins/continues a trend toward turning Redfish into multiple versions of IPMI, one for each IPMI vendor. The goal should be for any user of Redfish to read the schema and know what to expect. The goal should be for a computer to do the correct actions based on the schema. Permitting this to be RW breaks the \"rule\" of \"least surprise\".\n\nIf a client has read the specification, and is obeying it properly, they would never be able to hit this code, right?  Technically the client has broken the spec in your example, which somewhat defeats the purpose of this patch, and in the eyes of the Redfish spec, makes this unused code, which brings me back around to, why make this change at all if it\u0027s going to break (admittedly misbehaving) clients without warning?\n\n\u003e It is my opinion, when a dev finds a mismatch from the spec that a commit be made to follow the spec. OBMC isn\u0027t the only Redfish provider. What happens to a set of tests written to OBMC Redfish when they are applied to AMI Redfish? In theory they will all complete with the same results.\n\nAnd if the tests follow the standard, they will never hit this code, so it\u0027s not a problem?\n\n\u003e 5. Based on my statements in #4, I don\u0027t know that it much matters when the spec was violated. In any case, to answer your question, the commit that added this was done 1.75 years ago.\n\nSo, we\u0027ve had almost 2 years of clients being possibly coded against that interface.  That\u0027s not something to break lightly.  If we\u0027d just broken it a month ago, and hadn\u0027t had a formal release since then, that makes it a very different animal.\n\n\u003e 6. I did not check webui. I am willing to bet it will need to be changed should this commit move forward.\n\nCool, that\u0027s something I would recommend noting as a TODO in your commit message so I can track it as a dependency.\n\n\nAgain, sorry to be the stick in the mud about this;  If it\u0027s any consolation, I did the same thing to Gunnar recently (which resulted in his question to the mailing list about this exact topic).",
+      "parentUuid": "bf2fdf76_fa8f2a9f",
+      "revId": "d924562eca4e42a10d8d2d78f4f60f4f8630b37c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
