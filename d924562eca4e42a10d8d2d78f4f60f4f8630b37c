@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ad60a92_ed38f2d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-20T18:24:31Z",
+      "side": 1,
+      "message": "More details needed here:\n\n1. This is a breaking change to the API.  How do we plan on rolling it out?\n2. What supported resource/API do we expect clients to move to instead?\n3. How will we warn/document that we\u0027re breaking the API in this way?\n4. Why are we changing this at all?  \"the protocol says so\" is a mediocre reason IMO.  There\u0027s plenty of places we \"break\" the protocol in this way, do you plan on fixing all of them?\n5. What are the dates of the bmcweb instances that were broken?  Was this checked in recently?  Or long enough that we\u0027re going to break ancient clients.\n6. (you might have already done this, but just to document it) Does the webui use this functionality, and now needs fixed?\n\n\nYes, supporting PATCH on this is counter to the protocol, but it doesn\u0027t really effect our compatibility with well behaving clients.  If there\u0027s a specific validator/test we\u0027re trying to pass, that would significantly strengthen the argument for making this breaking change.",
+      "revId": "d924562eca4e42a10d8d2d78f4f60f4f8630b37c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
