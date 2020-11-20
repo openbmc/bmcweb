@@ -330,7 +330,7 @@ static void monitorForSoftwareAvailable(
                 return; // if this was our message, timeout will cover it
             }
             if (!boost::starts_with(*type,
-                                    "xyz.openbmc_project.Software.Image.Error"))
+                                    "xyz.openbmc_project.Software"))
             {
                 return;
             }
@@ -351,6 +351,12 @@ static void monitorForSoftwareAvailable(
             {
                 redfish::messages::invalidUpload(asyncResp->res, url,
                                                  "Invalid image format");
+            }
+            else if (*type == "xyz.openbmc_project.Software.Version.Error."
+                              "AlreadyExists")
+            {
+                redfish::messages::invalidUpload(
+                    asyncResp->res, url, "Image version already exists");
             }
             else if (*type ==
                      "xyz.openbmc_project.Software.Image.Error.BusyFailure")
