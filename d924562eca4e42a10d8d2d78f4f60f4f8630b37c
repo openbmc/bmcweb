@@ -16,6 +16,24 @@
       "revId": "d924562eca4e42a10d8d2d78f4f60f4f8630b37c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf2fdf76_fa8f2a9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2020-11-20T19:34:36Z",
+      "side": 1,
+      "message": "I\u0027m a little taken aback that this wasn\u0027t a rubber stamp Ed.\n1. Redfish API clearly indicates this is RO. The current use is a violation of that API.\n2. Per the Redfish spec HostName is RW from:\n/redfish/v1/Managers/bmc/EthernetInterfaces/eth(x)\n3. The Redfish API is clear, HostName is Read Only from this node. It\u0027s documented clearly. IMO no work needs to be done. OBMC breaks things all the time. An example is some recent sdbusplus changes that caused us some significant issues. The change was correct, our use was not. Functionality broke, and we had to figure out why. No one proactively sent out a message to all sdbusplus users saying \"I changed something that might break you.\".\n4. I disagree this is a mediocre reason. Why even have an agreed upon spec at all? This begins/continues a trend toward turning Redfish into multiple versions of IPMI, one for each IPMI vendor. The goal should be for any user of Redfish to read the schema and know what to expect. The goal should be for a computer to do the correct actions based on the schema. Permitting this to be RW breaks the \"rule\" of \"least surprise\". It is my opinion, when a dev finds a mismatch from the spec that a commit be made to follow the spec. OBMC isn\u0027t the only Redfish provider. What happens to a set of tests written to OBMC Redfish when they are applied to AMI Redfish? In theory they will all complete with the same results.\n5. Based on my statements in #4, I don\u0027t know that it much matters when the spec was violated. In any case, to answer your question, the commit that added this was done 1.75 years ago.\n6. I did not check webui. I am willing to bet it will need to be changed should this commit move forward.",
+      "parentUuid": "2ad60a92_ed38f2d3",
+      "revId": "d924562eca4e42a10d8d2d78f4f60f4f8630b37c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
