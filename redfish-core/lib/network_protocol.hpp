@@ -356,24 +356,6 @@ class NetworkProtocol : public Node
             "org.freedesktop.systemd1.Manager", "ListUnits");
     }
 
-    void handleHostnamePatch(const std::string& hostName,
-                             const std::shared_ptr<AsyncResp>& asyncResp)
-    {
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            },
-            "xyz.openbmc_project.Network",
-            "/xyz/openbmc_project/network/config",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-            std::variant<std::string>(hostName));
-    }
-
     void handleNTPProtocolEnabled(const bool& ntpEnabled,
                                   const std::shared_ptr<AsyncResp>& asyncResp)
     {
@@ -482,21 +464,15 @@ class NetworkProtocol : public Node
                  const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        std::optional<std::string> newHostName;
         std::optional<nlohmann::json> ntp;
         std::optional<nlohmann::json> ipmi;
 
-        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp,
-                                 "IPMI", ipmi))
+        if (!json_util::readJson(req, res, "NTP", ntp, "IPMI", ipmi))
         {
             return;
         }
 
         res.result(boost::beast::http::status::no_content);
-        if (newHostName)
-        {
-            handleHostnamePatch(*newHostName, asyncResp);
-        }
 
         if (ntp)
         {
