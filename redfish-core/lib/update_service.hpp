@@ -21,6 +21,7 @@
 #include <utils/fw_utils.hpp>
 
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -315,7 +316,9 @@ static void monitorForSoftwareAvailable(
         "arg0='xyz.openbmc_project.Logging.Entry'",
         [asyncResp, url](sdbusplus::message::message& m) {
             BMCWEB_LOG_DEBUG << "Error Match fired";
-            boost::container::flat_map<std::string, std::variant<std::string>>
+            boost::container::flat_map<
+                std::string,
+                std::variant<std::string, std::vector<std::string>>>
                 values;
             std::string objName;
             m.read(objName, values);
@@ -329,8 +332,7 @@ static void monitorForSoftwareAvailable(
             {
                 return; // if this was our message, timeout will cover it
             }
-            if (!boost::starts_with(*type,
-                                    "xyz.openbmc_project.Software.Image.Error"))
+            if (!boost::starts_with(*type, "xyz.openbmc_project.Software"))
             {
                 return;
             }
@@ -351,6 +353,17 @@ static void monitorForSoftwareAvailable(
             {
                 redfish::messages::invalidUpload(asyncResp->res, url,
                                                  "Invalid image format");
+            }
+            else if (*type == "xyz.openbmc_project.Software.Version.Error."
+                              "AlreadyExists")
+            {
+
+                redfish::messages::invalidUpload(
+                    asyncResp->res, url, "Image version already exists");
+
+                redfish::messages::resourceAlreadyExists(
+                    asyncResp->res, "UpdateService.v1_4_0.UpdateService",
+                    "Version", "uploaded version");
             }
             else if (*type ==
                      "xyz.openbmc_project.Software.Image.Error.BusyFailure")
