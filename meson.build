@@ -206,6 +206,16 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
               },section : 'Enabled Features')
     endif
 
+    if( get_option('redfish-allow-deprecated-hostname-patch').enabled())
+     add_project_arguments([
+       '-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
+       ],
+      language : 'cpp')
+
+      summary({'hostname-patch' :'-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
+              },section : 'Enabled Features')
+    endif
+
   endif
 endif
 
