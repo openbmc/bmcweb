@@ -354,6 +354,7 @@ class NetworkProtocol : public Node
             "org.freedesktop.systemd1.Manager", "ListUnits");
     }
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH
     void handleHostnamePatch(const std::string& hostName,
                              const std::shared_ptr<AsyncResp>& asyncResp)
     {
@@ -371,6 +372,7 @@ class NetworkProtocol : public Node
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
             std::variant<std::string>(hostName));
     }
+#endif
 
     void handleNTPProtocolEnabled(const bool& ntpEnabled,
                                   const std::shared_ptr<AsyncResp>& asyncResp)
@@ -484,7 +486,7 @@ class NetworkProtocol : public Node
         std::optional<nlohmann::json> ntp;
         std::optional<nlohmann::json> ipmi;
 
-        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp,
+        if (!json_util::readJson(req, res, "NTP", ntp, "HostName", newHostName,
                                  "IPMI", ipmi))
         {
             return;
@@ -493,7 +495,11 @@ class NetworkProtocol : public Node
         res.result(boost::beast::http::status::no_content);
         if (newHostName)
         {
+#ifdef BMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH
             handleHostnamePatch(*newHostName, asyncResp);
+#else
+            messages::propertyNotWritable(asyncResp->res, "HostName");
+#endif
         }
 
         if (ntp)
