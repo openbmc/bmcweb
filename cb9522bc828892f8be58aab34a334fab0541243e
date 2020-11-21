@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2d12a4b_870f11db",
+        "filename": "bmcweb_redirect.socket",
+        "patchSetId": 55
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "Does it need to set Service?\n\nService\u003dbmcweb.service",
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bfd784b_9f488d44",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "should be `allowRedirect`",
+      "range": {
+        "startLine": 362,
+        "startChar": 12,
+        "endLine": 362,
+        "endChar": 26
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3f4078e_49790030",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "afterDetectSsl?",
+      "range": {
+        "startLine": 380,
+        "startChar": 26,
+        "endLine": 380,
+        "endChar": 42
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b3945f1_9c2fb913",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "It used to be \n\n```\nres.completeRequestHandler \u003d [self(shared_from_this())] {\n    self-\u003ecompleteRequest();\n};```\n\nThe change seems to make the lambda to be invoked before handler returns response.",
+      "range": {
+        "startLine": 446,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 11
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44284ec0_e7074c07",
+        "filename": "meson.build",
+        "patchSetId": 55
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "Should it be\n\n```\nif get_option(\u0027https-redirect\u0027).enabled()\n```",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 34
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62b6656c_fef26107",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "listenFd?",
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205d8cf1_30e1c864",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000583
+      },
+      "writtenOn": "2020-11-21T06:15:49Z",
+      "side": 1,
+      "message": "listenFd?",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 45
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
