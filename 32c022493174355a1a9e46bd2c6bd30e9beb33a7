@@ -111,6 +111,30 @@
     },
     {
       "key": {
+        "uuid": "c5bf3bac_2811a3ab",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-11-22T19:04:08Z",
+      "side": 1,
+      "message": "Ed, I didn\u0027t get ur comments. Can you please explain. we are returning string based on tyeDbus. If no matches it will return UNKNOWN",
+      "parentUuid": "9c64d020_1c772b0d",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6bfb60e_14f78253",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 46
@@ -125,6 +149,24 @@
       "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf0aaba5_b0157c0e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-11-22T19:04:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e6bfb60e_14f78253",
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -148,6 +190,30 @@
       "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b1d972e_ac817fd8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-11-22T19:04:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3863a530_28b465fe",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
