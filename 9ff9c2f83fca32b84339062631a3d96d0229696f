@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "156bf471_5f2a808a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-23T18:25:07Z",
+      "side": 1,
+      "message": "Can we split this in another commit?  It seems very unrelated, and something that get merged pretty easily, so we can focus on the below as a smaller patchset.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90150341_530a6c73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-23T18:25:07Z",
+      "side": 1,
+      "message": "according to 10.8.2.2\n\n\"Services may use @Message.ExtendedInfo , prepended with the name of the property to annotate an individual\nproperty in a JSON object with extended information:\"\n\nCan you please clarify if you saw that section, and whether or not this statement you made is still true?  The example from that section of Redfish does exactly what you say \"does not meet the specification\" so I\u0027m struggling to see how we broke the spec here.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c142913_2c1a84c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-23T18:25:07Z",
+      "side": 1,
+      "message": "Clients should implement the Redfish specification for handling errors, which, while maybe not the most clear, would require implementing all types of error returns.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 16
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa58465_187427d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-23T18:25:07Z",
+      "side": 1,
+      "message": "This seems like a reasonable change to make, and something that the redfish examples do.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
