@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a52fbd2d_82aba58e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-23T14:31:46Z",
+      "side": 1,
+      "message": "Can we update this with what we know? Reference the meson issue? https://github.com/mesonbuild/meson/issues/7972",
+      "revId": "980e591784a8dab23732dba79e188ddbcb7ceee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
