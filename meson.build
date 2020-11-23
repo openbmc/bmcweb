@@ -253,17 +253,20 @@ language : 'cpp')
 
 # Find the dependency modules, if not found use meson wrap to get them
 # automatically during the configure step
+bmcweb_dependencies = []
 
 pam = cxx.find_library('pam', required: get_option('pam'))
 atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
-sdbusplus = dependency('sdbusplus',required : false)
+bmcweb_dependencies += [pam, atomic, openssl]
 
+sdbusplus = dependency('sdbusplus',required : false)
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
   sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
   sdbusplus = sdbusplus.as_system('system')
 endif
+bmcweb_dependencies += sdbusplus
 
 if get_option('rest').enabled()
   tinyxml = dependency('tinyxml2', required: false)
@@ -272,10 +275,12 @@ if get_option('rest').enabled()
     tinyxml = tinyxml_proj.get_variable('tinyxml2_dep')
     tinyxml = tinyxml.as_system('system')
   endif
+  bmcweb_dependencies += tinyxml
 endif
 
 systemd = dependency('systemd')
 zlib = dependency('zlib')
+bmcweb_dependencies += [systemd, zlib]
 
 if cxx.has_header('nlohmann/json.hpp')
     nlohmann_json = declare_dependency()
@@ -288,6 +293,7 @@ else
         ]
     )
 endif
+bmcweb_dependencies += nlohmann_json
 
 boost = dependency('boost',version : '>=1.73.0', required : false)
 if not boost.found()
@@ -295,6 +301,7 @@ if not boost.found()
   boost_inc = include_directories('subprojects/boost_1_73_0/', is_system:true)
   boost  = declare_dependency(include_directories : boost_inc)
 endif
+bmcweb_dependencies += boost
 
 if cxx.has_header('boost/url/url_view.hpp')
   boost_url = declare_dependency()
@@ -303,6 +310,7 @@ else
   boost_url_inc = include_directories('subprojects/boost-url/include', is_system:true)
   boost_url= declare_dependency(include_directories : boost_url_inc)
 endif
+bmcweb_dependencies += boost_url
 
 if get_option('tests').enabled()
   gtest = dependency('gtest', main: true,disabler: true, required : false)
@@ -369,10 +377,7 @@ install_subdir('static', install_dir : 'share/www', strip_directory : true)
 
 executable('bmcweb',srcfiles_bmcweb,
             include_directories : incdir,
-            dependencies: [
-                              boost, boost_url, pam, atomic, sdbusplus, openssl,
-                              tinyxml, systemd, zlib, nlohmann_json
-                          ],
+            dependencies: bmcweb_dependencies,
             install: true,
             install_dir:bindir)
 
