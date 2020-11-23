@@ -265,8 +265,8 @@ if not sdbusplus.found()
   sdbusplus = sdbusplus.as_system('system')
 endif
 
+tinyxml = dependency('tinyxml2', required: false)
 if get_option('rest').enabled()
-  tinyxml = dependency('tinyxml2', required: false)
   if not tinyxml.found()
     tinyxml_proj = subproject('tinyxml2', required: true)
     tinyxml = tinyxml_proj.get_variable('tinyxml2_dep')
