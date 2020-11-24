@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "896441e6_5b839cbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-24T15:01:24Z",
+      "side": 1,
+      "message": "\u003e I have missed this one.\n\u003e \n\u003e Added it in my new patchset.\n\u003e So the changes would be to add an \"error\" property for all sorts of error w.r.t the schema.\n\u003e \n\u003e It also contains the extended info with the name of the property prepended to it (as it is in the current bmcweb).\n\u003e \n\u003e So this way, nothing is lost w.r.t the current bmcweb error returns, but just added the above mentioned.\n\u003e \n\u003e Now, the error response will be in a common format and easy to parse.\n\nSo, to be more clear, what exists in master today is in line with the specification?",
+      "parentUuid": "46aebee9_b86ebe7d",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c142913_2c1a84c1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -187,6 +211,23 @@
       "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7723a323_5b036b64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-24T15:01:24Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
