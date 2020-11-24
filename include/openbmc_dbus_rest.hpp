@@ -2112,6 +2112,15 @@ inline void requestRoutes(App& app)
             handleDBusUrl(req, res, objectPath);
         });
 
+    BMCWEB_ROUTE(app, "/xyz/openbmc_project/state/<path>")
+        .privileges({"ConfigureComponents"})
+        .methods(boost::beast::http::verb::put)([](const crow::Request& req,
+                                                   crow::Response& res,
+                                                   const std::string& path) {
+            std::string objectPath = "/xyz/openbmc_project/state/" + path;
+            handleDBusUrl(req, res, objectPath);
+        });
+
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
