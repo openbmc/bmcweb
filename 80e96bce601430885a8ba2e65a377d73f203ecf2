@@ -470,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "eba25a11_fcb86b0b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-24T14:38:48Z",
+      "side": 1,
+      "message": "Using forward_as_tuple won\u0027t work here. I would have to create one vector\u003cMetricParam\u003e then create vector\u003cstd::tuple\u003c...\u003e\u003e from elements from previous vector and pass it to AddReport method.\nIf it is ok for you, than I am keen to implement it",
+      "parentUuid": "5fb229de_27ee6596",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 70
+      },
+      "revId": "80e96bce601430885a8ba2e65a377d73f203ecf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da02b93d_868ab52f",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 37
