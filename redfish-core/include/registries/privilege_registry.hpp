@@ -1004,6 +1004,12 @@ const static auto& putProcessor = privilegeSetConfigureComponents;
 const static auto& deleteProcessor = privilegeSetConfigureComponents;
 const static auto& postProcessor = privilegeSetConfigureComponents;
 
+// SubProcessor
+const static auto& getSubProcessor = privilegeSetLogin;
+
+// SubProcessorCore
+const static auto&   = privilegeSetLogin;
+
 // ProcessorCollection
 const static auto& getProcessorCollection = privilegeSetLogin;
 const static auto& headProcessorCollection = privilegeSetLogin;
