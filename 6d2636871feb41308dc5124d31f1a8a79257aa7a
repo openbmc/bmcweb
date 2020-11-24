@@ -34,6 +34,41 @@
       "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce983666_bf17e7cf",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-24T16:15:46Z",
+      "side": 1,
+      "message": "Sure. I would still think we might want to lock this down more?",
+      "parentUuid": "78727431_a5deeb9b",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3296dc4b_7a2f1c0f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-11-24T16:15:46Z",
+      "side": 1,
+      "message": "So /var/lib/bmcweb/ibm-management-console is created when this code or the createPersistentLockFilePath() code is run? \nshould we worry about its permissions?",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
