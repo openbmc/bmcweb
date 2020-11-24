@@ -16,6 +16,24 @@
       "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78727431_a5deeb9b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-11-24T16:02:32Z",
+      "side": 1,
+      "message": "Directory will have drwxr-xr-x similar to other directories \n# cd /var/lib/\n# ls -lrt\ndrwxr-xr-x    3 root     root          4096 Nov 24 05:23 bmcweb",
+      "parentUuid": "3aac327b_8a984b37",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
