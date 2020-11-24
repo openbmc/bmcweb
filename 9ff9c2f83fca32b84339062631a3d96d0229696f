@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a48962a4_08824e55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-24T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "156bf471_5f2a808a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90150341_530a6c73",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2020-11-23T18:25:07Z",
       "side": 1,
       "message": "according to 10.8.2.2\n\n\"Services may use @Message.ExtendedInfo , prepended with the name of the property to annotate an individual\nproperty in a JSON object with extended information:\"\n\nCan you please clarify if you saw that section, and whether or not this statement you made is still true?  The example from that section of Redfish does exactly what you say \"does not meet the specification\" so I\u0027m struggling to see how we broke the spec here.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46aebee9_b86ebe7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-24T09:23:48Z",
+      "side": 1,
+      "message": "I have missed this one.\n\nAdded it in my new patchset.\nSo the changes would be to add an \"error\" property for all sorts of error w.r.t the schema.\n\nIt also contains the extended info with the name of the property prepended to it (as it is in the current bmcweb).\n\nSo this way, nothing is lost w.r.t the current bmcweb error returns, but just added the above mentioned.\n\nNow, the error response will be in a common format and easy to parse.",
+      "parentUuid": "90150341_530a6c73",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "efa6813a_22948a5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-24T09:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aa58465_187427d8",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08d047f5_33a5f89e",
         "filename": "redfish-core/src/error_messages.cpp",
         "patchSetId": 8
@@ -105,6 +177,24 @@
       "writtenOn": "2020-11-23T21:17:37Z",
       "side": 1,
       "message": "Does this get set in the top-level object or in the error object?",
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f824e6_e83a2762",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-24T09:23:48Z",
+      "side": 1,
+      "message": "I hope this must be set here, in the error object.",
+      "parentUuid": "08d047f5_33a5f89e",
       "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
