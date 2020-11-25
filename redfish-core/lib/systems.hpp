@@ -2233,6 +2233,9 @@ class Systems : public Node
         if (indicatorLed)
         {
             setIndicatorLedState(asyncResp, *indicatorLed);
+            res.addHeader(boost::beast::http::field::warning,
+                          "299 - \"IndicatorLED is deprecated. Use "
+                          "LocationIndicatorActive instead.\"");
         }
 
         if (powerRestorePolicy)
