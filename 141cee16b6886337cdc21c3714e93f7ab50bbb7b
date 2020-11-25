@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "2264e7de_2450574b",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca59ee30_43f16c35",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef823da8_2aa545d0",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 31
@@ -131,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "fdf12eaa_b58ab13c",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "170f4c37_bae6a966",
+      "range": {
+        "startLine": 160,
+        "startChar": 16,
+        "endLine": 160,
+        "endChar": 22
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9312a69e_6117e47c",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 31
@@ -178,6 +220,30 @@
     },
     {
       "key": {
+        "uuid": "02691fc0_45993f52",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd85141a_72e1518b",
+      "range": {
+        "startLine": 282,
+        "startChar": 58,
+        "endLine": 282,
+        "endChar": 72
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fa1cdb3_c3140233",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 31
@@ -210,6 +276,24 @@
       "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6959ca31_caa038bc",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e3d8334_79e105b1",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +332,30 @@
       "side": 1,
       "message": "I will change std::find_if to for loop because we only need sensors array from this structure. It will simplify code.",
       "parentUuid": "2c7c67ad_7476d8d1",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048ed7cb_4e8b7e34",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "Temporary removed connection between MetricDefinition and MetricReport. I will provide MetricDefinition to MetricReport using metadata from Reading in next patchset or patch.",
+      "parentUuid": "cde893fd_4bc02d48",
       "range": {
         "startLine": 156,
         "startChar": 12,
@@ -307,6 +415,30 @@
     },
     {
       "key": {
+        "uuid": "1d4efe9c_cc494d07",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ce48396_dfffe5f7",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 24
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0d5f5ca_0b6cdc5a",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 31
@@ -336,6 +468,24 @@
       "side": 1,
       "message": "Ok, I will modify this code.\nRedfish requires in MetricDefinition schema to use Unified Code for Units of Measure. They are different from one that are used in sensors.hpp. To not deduplicate it I have to fix already implemented sensors.hpp with the latest Redfish Sensor schema. Sensor have new attribute called ReadingType and it demands suitable ReadingUnit that matches with Unified Code for Units of Measure. I will cover it in separate patch.",
       "parentUuid": "f0d5f5ca_0b6cdc5a",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d0019aa_f77c4f29",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-11-25T16:09:55Z",
+      "side": 1,
+      "message": "In the latest patchset I added \"toReadingUnits\" and \"toReadingTypes\". Both helps to match with the units from Sensor scheme. Before ReadingType attribute was missing and ReadingUnits had a wrong unit according to Sensor scheme.",
+      "parentUuid": "1612c97d_b8badb83",
       "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
