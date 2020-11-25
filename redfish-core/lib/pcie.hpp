@@ -186,6 +186,56 @@ class SystemPCIeDevice : public Node
         crow::connections::systemBus->async_method_call(
             std::move(getPCIeDeviceCallback), pcieService, escapedPath,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
+
+        auto getPcieDataCallback =
+            [asyncResp, device](
+                const boost::system::error_code ec,
+                const boost::container::flat_map<
+                    std::string, boost::container::flat_map<
+                                     std::string, std::vector<std::string>>>&
+                    subtree) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                for (const auto& object : subtree)
+                {
+                    if (boost::ends_with(object.first, device))
+                    {
+                        for (const auto& service : object.second)
+                        {
+                            for (const auto& inventory : service.second)
+                            {
+                                if (inventory == "xyz.openbmc_project."
+                                                 "Association.Definitions")
+                                {
+                                    // Find all the paths whose `rType` is equal
+                                    // to `identify_led_group` in the
+                                    // `endpoints` array by this interface, and
+                                    // then get the Asserted property value by
+                                    // this path.
+                                    getLocationIndicatorActive(
+                                        asyncResp, service.first, object.first);
+                                }
+                            }
+                        }
+                        return;
+                    }
+                }
+                // Object not found
+                messages::resourceNotFound(asyncResp->res, "device", device);
+                return;
+            };
+        crow::connections::systemBus->async_method_call(
+            getPcieDataCallback, "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0,
+            std::array<const char*, 2>{
+                "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+                "xyz.openbmc_project.Inventory.Item.Accelerator"});
     }
 };
 
