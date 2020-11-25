@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "78cb02ed_9fc9fa1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-25T16:59:02Z",
+      "side": 1,
+      "message": "Yes, added the odata type to it.",
+      "parentUuid": "896441e6_5b839cbe",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c142913_2c1a84c1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -228,6 +252,24 @@
       "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78d76b17_b8147093",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-11-25T16:59:02Z",
+      "side": 1,
+      "message": "Yes.\n\ncurl -k -H \"X-Auth-Token:$bmc_token\" -X PATCH https://${bmc}:5443/redfish/v1/Managers/bmc -d \u0027{\"DateTime\":\"2020-11-09T10:07:21+0530\"}\u0027\n\n{\n  \"@odata.type\": \"#RedfishError.v1_0_1.RedfishError\",\n  \"error\": {\n    \"DateTime@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The value 2020-11-09T10:07:21+0530 for the property DateTime is of a different format than the property can accept.\",\n        \"MessageArgs\": [\n          \"2020-11-09T10:07:21+0530\",\n          \"DateTime\"\n        ],\n        \"MessageId\": \"Base.1.8.1.PropertyValueFormatError\",\n        \"MessageSeverity\": \"Warning\",\n        \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.PropertyValueFormatError\",\n    \"message\": \"The value 2020-11-09T10:07:21+0530 for the property DateTime is of a different format than the property can accept.\"\n  }\n\n\ncurl -k -H \"X-Auth-Token:$bmc_token\" -X PATCH https://${bmc}:5443/redfish/v1/Managers/bmc -d \u0027{\"DateTime\":\"2020-11-09T10:07:21+00\"}\u0027\n\n{\n  \"@odata.type\": \"#RedfishError.v1_0_1.RedfishError\",\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The request failed due to an internal service error.  The service is still operational.\",\n        \"MessageArgs\": [],\n        \"MessageId\": \"Base.1.8.1.InternalError\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Resubmit the request.  If the problem persists, consider resetting the service.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.InternalError\",\n    \"message\": \"The request failed due to an internal service error.  The service is still operational.\"\n  }\n}",
+      "parentUuid": "7723a323_5b036b64",
+      "revId": "9ff9c2f83fca32b84339062631a3d96d0229696f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
