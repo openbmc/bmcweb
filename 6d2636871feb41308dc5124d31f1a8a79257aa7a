@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c005a2dc_a84b6b50",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-11-25T09:42:41Z",
+      "side": 1,
+      "message": "I dont see a reason to deviate from the other directory permissions which are set under /var/lib",
+      "parentUuid": "ce983666_bf17e7cf",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3296dc4b_7a2f1c0f",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 4
@@ -66,6 +84,24 @@
       "writtenOn": "2020-11-24T16:15:46Z",
       "side": 1,
       "message": "So /var/lib/bmcweb/ibm-management-console is created when this code or the createPersistentLockFilePath() code is run? \nshould we worry about its permissions?",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f50635_3bb5997d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-11-25T09:42:41Z",
+      "side": 1,
+      "message": "Yes. \nThe directory gets created with 755 permission, even if i dont set the permission here",
+      "parentUuid": "3296dc4b_7a2f1c0f",
       "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
