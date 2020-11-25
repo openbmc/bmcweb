@@ -2130,7 +2130,11 @@ class Systems : public Node
         // TODO (Gunnar): Remove IndicatorLED after enough time has passed
         if (indicatorLed)
         {
+            // res.result(boost::beast::http::status::accepted);
             setIndicatorLedState(asyncResp, *indicatorLed);
+            res.addHeader(boost::beast::http::field::warning,
+                          "IndicatorLED is deprecated. Use "
+                          "LocationIndicatorActive instead.");
         }
 
         if (powerRestorePolicy)

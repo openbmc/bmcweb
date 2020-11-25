@@ -416,6 +416,12 @@ class Chassis : public Node
         {
             return; // delete this when we support more patch properties
         }
+        if (indicatorLed)
+        {
+            res.addHeader(boost::beast::http::field::warning,
+                          "IndicatorLED is deprecated. Use "
+                          "LocationIndicatorActive instead.");
+        }
 
         const std::array<const char*, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
