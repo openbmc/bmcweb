@@ -396,6 +396,10 @@ class Subscription
         sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);
     }
 
+    Subscription(const std::string& inHost, const std::string& inPort) :
+        eventSeqNum(1), host(inHost), port(inPort)
+    {}
+
     ~Subscription() = default;
 
     void sendEvent(const std::string& msg)
