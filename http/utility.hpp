@@ -657,6 +657,10 @@ inline std::string setProtocolDefaults(const boost::urls::url_view& url)
         }
         return "";
     }
+    if (url.scheme() == "snmp")
+    {
+        return "snmp";
+    }
     return "";
 }
 
@@ -678,6 +682,10 @@ inline uint16_t setPortDefaults(const boost::urls::url_view& url)
     if (url.scheme() == "https")
     {
         return 443;
+    }
+    if (url.scheme() == "snmp")
+    {
+        return 162;
     }
     return 0;
 }
