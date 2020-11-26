@@ -590,6 +590,7 @@ class EventServiceManager
         initConfig();
     }
 
+    std::string snmpDbusId;
     std::string lastEventTStr;
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
@@ -877,12 +878,20 @@ class EventServiceManager
         int retry = 3;
         while (retry)
         {
-            id = std::to_string(dist(gen));
-            if (gen.error())
+            if (!snmpDbusId.empty())
             {
-                retry = 0;
-                break;
+                id = snmpDbusId;
             }
+            else
+            {
+                id = std::to_string(dist(gen));
+                if (gen.error())
+                {
+                    retry = 0;
+                    break;
+                }
+            }
+
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
@@ -957,6 +966,11 @@ class EventServiceManager
             updateNoOfSubscribersCount();
             updateSubscriptionData();
         }
+    }
+
+    void setSnmpDbusId(const std::string& snmpId)
+    {
+        snmpDbusId = snmpId;
     }
 
     size_t getNumberOfSubscriptions()
@@ -1418,20 +1432,20 @@ class EventServiceManager
                              std::string& host, std::string& port,
                              std::string& path)
     {
-        // Validate URL using regex expression
-        // Format: <protocol>://<host>:<port>/<path>
-        // protocol: http/https
-        const std::regex urlRegex(
-            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
-        std::cmatch match;
-        if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+        boost::urls::error_code ec;
+        boost::urls::url_view urlview =
+            boost::urls::parse_uri(boost::string_view(destUrl.c_str()), ec);
+        if (ec)
         {
             BMCWEB_LOG_INFO << "Dest. url did not match ";
             return false;
         }
 
-        urlProto = std::string(match[1].first, match[1].second);
+        urlProto = std::string(urlview.scheme());
+        host = std::string(urlview.host());
+        port = std::string(urlview.port());
+        path = std::string(urlview.encoded_path());
+
         if (urlProto == "http")
         {
 #ifndef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
@@ -1439,9 +1453,6 @@ class EventServiceManager
 #endif
         }
 
-        host = std::string(match[2].first, match[2].second);
-        port = std::string(match[3].first, match[3].second);
-        path = std::string(match[4].first, match[4].second);
         if (port.empty())
         {
             if (urlProto == "http")
