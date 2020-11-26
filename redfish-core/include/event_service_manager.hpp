@@ -369,6 +369,7 @@ class Subscription
     std::string customText;
     std::string eventFormatType;
     std::string subscriptionType;
+    std::string entityID;
     std::vector<std::string> registryMsgIds;
     std::vector<std::string> registryPrefixes;
     std::vector<std::string> resourceTypes;
