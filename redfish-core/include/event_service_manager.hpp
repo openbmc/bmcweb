@@ -379,6 +379,11 @@ class Subscription : public persistent_data::UserSubscription
 
     bool sendEvent(std::string&& msg)
     {
+        if (subscriptionType == "SNMPTrap")
+        {
+            return true; // Don't need send SNMPTrap event.
+        }
+
         persistent_data::EventServiceConfig eventServiceConfig =
             persistent_data::EventServiceStore::getInstance()
                 .getEventServiceConfig();
@@ -886,23 +891,25 @@ class EventServiceManager
         return subValue;
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription>& subValue,
-                                const bool updateFile = true)
+    void addSubscription(const std::shared_ptr<Subscription>& subValue,
+                         std::string& id, const bool updateFile = true)
     {
         std::uniform_int_distribution<uint32_t> dist(0);
         bmcweb::OpenSSLGenerator gen;
 
-        std::string id;
-
         int retry = 3;
         while (retry != 0)
         {
-            id = std::to_string(dist(gen));
-            if (gen.error())
+            if (id.empty())
             {
-                retry = 0;
-                break;
+                id = std::to_string(dist(gen));
+                if (gen.error())
+                {
+                    retry = 0;
+                    break;
+                }
             }
+
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
@@ -914,7 +921,7 @@ class EventServiceManager
         if (retry <= 0)
         {
             BMCWEB_LOG_ERROR << "Failed to generate random number";
-            return "";
+            return;
         }
 
         std::shared_ptr<persistent_data::UserSubscription> newSub =
@@ -949,10 +956,7 @@ class EventServiceManager
 #endif
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-
-        // Set Subscription ID for back trace
-        subValue->setSubscriptionId(id);
-        return id;
+        subValue->updateRetryPolicy();
     }
 
     bool isSubscriptionExist(const std::string& id)
@@ -1088,6 +1092,12 @@ class EventServiceManager
             {
                 isSubscribed = true;
             }
+
+            if (entry->subscriptionType == "SNMPTrap")
+            {
+                isSubscribed = false; // Don't need send SNMPTrap event.
+            }
+
             if (isSubscribed)
             {
                 nlohmann::json msgJson;
