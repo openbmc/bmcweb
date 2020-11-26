@@ -880,6 +880,7 @@ class EventServiceManager
     }
 
     std::string addSubscription(const std::shared_ptr<Subscription>& subValue,
+                                const std::string& subscriptionId,
                                 const bool updateFile = true)
     {
 
@@ -891,12 +892,21 @@ class EventServiceManager
         int retry = 3;
         while (retry != 0)
         {
-            id = std::to_string(dist(gen));
-            if (gen.error())
+            if (subscriptionId.empty())
             {
-                retry = 0;
-                break;
+                id = std::to_string(dist(gen));
+                if (gen.error())
+                {
+                    retry = 0;
+                    break;
+                }
             }
+            else
+            {
+
+                id = subscriptionId;
+            }
+
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
