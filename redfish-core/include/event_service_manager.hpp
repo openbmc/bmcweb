@@ -29,6 +29,7 @@
 #include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
 
+#include <charconv>
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
@@ -369,6 +370,7 @@ class Subscription
     std::string customText;
     std::string eventFormatType;
     std::string subscriptionType;
+    std::string entityID;
     std::vector<std::string> registryMsgIds;
     std::vector<std::string> registryPrefixes;
     std::vector<std::string> resourceTypes;
