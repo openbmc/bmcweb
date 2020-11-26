@@ -18,6 +18,7 @@
 namespace ensuressl
 {
 constexpr char const* trustStorePath = "/etc/ssl/certs/authority";
+constexpr char const* x509Comment = "Generated from OpenBMC service";
 static void initOpenssl();
 static EVP_PKEY* createEcKey();
 
@@ -170,7 +171,57 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
     return certValid;
 }
 
-inline void generateSslCertificate(const std::string& filepath)
+using X509_Ptr = std::unique_ptr<X509, decltype(&::X509_free)>;
+using BIO_MEM_Ptr = std::unique_ptr<BIO, decltype(&::BIO_free)>;
+
+inline X509_Ptr loadCert(const std::string& filePath)
+{
+    // Read Certificate file
+    X509_Ptr cert(X509_new(), ::X509_free);
+    if (!cert)
+    {
+        std::cerr << "Error occured during X509_new call, " << ERR_get_error()
+                  << std::endl;
+        return X509_Ptr{nullptr, X509_free};
+    }
+
+    BIO_MEM_Ptr bioCert(BIO_new_file(filePath.c_str(), "rb"), ::BIO_free);
+    if (!bioCert)
+    {
+        std::cerr << "Error occured during BIO_new_file call, "
+                  << "FILE= " << filePath.c_str() << std::endl;
+        return X509_Ptr{nullptr, X509_free};
+    }
+
+    X509* x509 = cert.get();
+    if (!PEM_read_bio_X509(bioCert.get(), &x509, nullptr, nullptr))
+    {
+        std::cerr << "Error occured during PEM_read_bio_X509 call, "
+                  << "FILE= " << filePath.c_str() << std::endl;
+        return X509_Ptr{nullptr, X509_free};
+    }
+    return cert;
+}
+
+inline int addExt(X509* cert, int nid, const char* value)
+{
+    X509_EXTENSION* ex = nullptr;
+    X509V3_CTX ctx;
+    X509V3_set_ctx_nodb(&ctx);
+    X509V3_set_ctx(&ctx, cert, cert, nullptr, nullptr, 0);
+    ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
+    if (!ex)
+    {
+        std::cerr << "Error: In X509V3_EXT_conf_nidn: " << value << std::endl;
+        return -1;
+    }
+    X509_add_ext(cert, ex, -1);
+    X509_EXTENSION_free(ex);
+    return 0;
+}
+
+inline void generateSslCertificate(const std::string& filepath,
+                                   const std::string& cn)
 {
     FILE* pFile = nullptr;
     std::cout << "Generating new keys\n";
@@ -190,7 +241,9 @@ inline void generateSslCertificate(const std::string& filepath)
             // number If this is not random, regenerating certs throws broswer
             // errors
             std::random_device rd;
-            int serial = static_cast<int>(rd());
+            std::default_random_engine gen = std::default_random_engine(rd());
+            std::uniform_int_distribution<int> dis(1, INT_MAX);
+            int serial = dis(gen);
 
             ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
 
@@ -215,9 +268,19 @@ inline void generateSslCertificate(const std::string& filepath)
                 reinterpret_cast<const unsigned char*>("OpenBMC"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "CN", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char*>("testhost"), -1, -1, 0);
+                reinterpret_cast<const unsigned char*>(cn.c_str()), -1, -1, 0);
             // set the CSR options
             X509_set_issuer_name(x509, name);
+
+            X509_set_version(x509, 2);
+            addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
+            addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
+            addExt(x509, NID_subject_key_identifier, ("hash"));
+            addExt(x509, NID_authority_key_identifier, ("keyid"));
+            addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
+            addExt(x509, NID_ext_key_usage, ("serverAuth"));
+            addExt(x509, NID_netscape_cert_type, ("server, sslCA, objCA"));
+            addExt(x509, NID_netscape_comment, (x509Comment));
 
             // Sign the certificate with our private key
             X509_sign(x509, pPrivKey, EVP_sha256());
@@ -289,7 +352,7 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     if (!pemFileValid)
     {
         std::cerr << "Error in verifying signature, regenerating\n";
-        generateSslCertificate(filepath);
+        generateSslCertificate(filepath, "testhost");
     }
 }
 
