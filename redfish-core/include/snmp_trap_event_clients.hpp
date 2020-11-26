@@ -1,0 +1,246 @@
+namespace redfish
+{
+
+inline void
+    doGetSnmpTrapClientdata(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& objectPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus response error on GetSubTree " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string* address = nullptr;
+        const uint16_t* port = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "Address",
+            address, "Port", port);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (address != nullptr && port != nullptr)
+        {
+            std::string destination = "snmp://";
+            destination.append(*address);
+            destination.append(":");
+            destination.append(std::to_string(*port));
+
+            asyncResp->res.jsonValue["Destination"] = std::move(destination);
+        }
+        },
+        "xyz.openbmc_project.Network.SNMP", objectPath,
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Network.Client");
+}
+
+inline void
+    getSnmpTrapClientdata(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& id, const std::string& objectPath)
+{
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#EventDestination.v1_7_0.EventDestination";
+    asyncResp->res.jsonValue["Protocol"] = "SNMPv2c";
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "EventService", "Subscriptions", id);
+
+    asyncResp->res.jsonValue["Id"] = id;
+    asyncResp->res.jsonValue["Name"] = "Event Destination " + id;
+
+    asyncResp->res.jsonValue["SubscriptionType"] = "SNMPTrap";
+    asyncResp->res.jsonValue["EventFormatType"] = "Event";
+
+    std::shared_ptr<Subscription> subValue =
+        EventServiceManager::getInstance().getSubscription(id);
+    if (subValue != nullptr)
+    {
+        asyncResp->res.jsonValue["Context"] = subValue->customText;
+    }
+    else
+    {
+        asyncResp->res.jsonValue["Context"] = "";
+    }
+
+    doGetSnmpTrapClientdata(asyncResp, objectPath);
+}
+
+inline void
+    getSnmpTrapClient(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& id)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, id](const boost::system::error_code ec,
+                        dbus::utility::ManagedObjectType& resp) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus response error on GetManagedObjects "
+                             << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& objpath : resp)
+        {
+            sdbusplus::message::object_path path(objpath.first);
+            const std::string snmpId = path.filename();
+            if (snmpId.empty())
+            {
+                BMCWEB_LOG_ERROR << "The SNMP client ID is wrong";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string subscriptionId = "snmp" + snmpId;
+            if (id != subscriptionId)
+            {
+                continue;
+            }
+
+            getSnmpTrapClientdata(asyncResp, id, objpath.first);
+            return;
+        }
+
+        messages::resourceNotFound(asyncResp->res, "Subscriptions", id);
+        EventServiceManager::getInstance().deleteSubscription(id);
+        },
+        "xyz.openbmc_project.Network.SNMP",
+        "/xyz/openbmc_project/network/snmp/manager",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+inline void
+    createSnmpTrapClient(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& host, const uint16_t& snmpTrapPort,
+                         const std::shared_ptr<Subscription>& subValue)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, subValue](const boost::system::error_code ec,
+                              const std::string& dbusSNMPid) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        sdbusplus::message::object_path path(dbusSNMPid);
+        const std::string snmpId = path.filename();
+        if (snmpId.empty())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string subscriptionId = "snmp" + snmpId;
+
+        std::string id = EventServiceManager::getInstance().addSubscription(
+            subValue, subscriptionId);
+
+        if (id.empty())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        asyncResp->res.addHeader("Location",
+                                 "/redfish/v1/EventService/Subscriptions/" +
+                                     subscriptionId);
+        messages::created(asyncResp->res);
+        },
+        "xyz.openbmc_project.Network.SNMP",
+        "/xyz/openbmc_project/network/snmp/manager",
+        "xyz.openbmc_project.Network.Client.Create", "Client", host,
+        snmpTrapPort);
+}
+inline void
+    checkSnmpTrapClient(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& host, const uint16_t& snmpTrapPort,
+                        const std::string& destUrl,
+                        const std::shared_ptr<Subscription>& subValue)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, host, snmpTrapPort, destUrl,
+         subValue](const boost::system::error_code ec,
+                   dbus::utility::ManagedObjectType& resp) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus response error on GetManagedObjects "
+                             << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& object : resp)
+        {
+            for (const auto& interface : object.second)
+            {
+                if (interface.first == "xyz.openbmc_project.Network.Client")
+                {
+                    std::string address;
+                    uint16_t portNum = 0;
+                    for (const auto& property : interface.second)
+                    {
+                        if (property.first == "Address")
+                        {
+                            const std::string* value =
+                                std::get_if<std::string>(&property.second);
+                            if (value == nullptr)
+                            {
+                                continue;
+                            }
+                            address = *value;
+                        }
+                        else if (property.first == "Port")
+                        {
+                            const uint16_t* value =
+                                std::get_if<uint16_t>(&property.second);
+                            if (value == nullptr)
+                            {
+                                continue;
+                            }
+                            portNum = *value;
+                        }
+                    }
+
+                    if (address == host && portNum == snmpTrapPort)
+                    {
+                        messages::resourceAlreadyExists(
+                            asyncResp->res,
+                            "EventDestination.v1_7_0.EventDestination",
+                            "Destination", destUrl);
+                        return;
+                    }
+                }
+            }
+        }
+        // Create the snmp client
+        createSnmpTrapClient(asyncResp, host, snmpTrapPort, subValue);
+        },
+        "xyz.openbmc_project.Network.SNMP",
+        "/xyz/openbmc_project/network/snmp/manager",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+inline void
+    getSnmpSubscriptionList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& snmpId,
+                            nlohmann::json& memberArray)
+{
+    const std::string subscriptionId = "snmp" + snmpId;
+
+    nlohmann::json::object_t member;
+    member["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "EventService", "Subscriptions", subscriptionId);
+    memberArray.push_back(std::move(member));
+
+    asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();
+}
+
+} // namespace redfish
