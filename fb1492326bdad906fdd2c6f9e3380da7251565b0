@@ -636,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "d0ab845b_16d1d324",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-26T04:25:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "134fb77f_ffdda5b8",
+      "range": {
+        "startLine": 394,
+        "startChar": 6,
+        "endLine": 394,
+        "endChar": 22
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3520d615_9d776b48",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -647,6 +671,30 @@
       "writtenOn": "2020-11-18T03:48:46Z",
       "side": 1,
       "message": "Do we need two handleUpgrade function if the SSL is enabled?\nSeems #ifdef should start from line no 410 and the function at line no 427 is required if SSL is enabled otherwise function at line no 410 is required.",
+      "range": {
+        "startLine": 411,
+        "startChar": 1,
+        "endLine": 441,
+        "endChar": 6
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a59080_1a41929a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-26T04:25:53Z",
+      "side": 1,
+      "message": "yes we need both, these are virtual functions in base class",
+      "parentUuid": "3520d615_9d776b48",
       "range": {
         "startLine": 411,
         "startChar": 1,
