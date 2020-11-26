@@ -194,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "64731255_1979f4da",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-11-26T06:25:41Z",
+      "side": 1,
+      "message": "it is not accepted by CI build as my pachset 44 did.\nhttps://jenkins.openbmc.org/job/ci-repository/7358/\nhttps://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/29670/44/redfish-core/lib/bios.hpp@60",
+      "parentUuid": "e6bfb60e_14f78253",
+      "revId": "32c022493174355a1a9e46bd2c6bd30e9beb33a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3863a530_28b465fe",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 46
