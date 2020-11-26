@@ -36,6 +36,8 @@ static constexpr const std::array<const char*, 1> supportedResourceTypes = {
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 
+std::map<std::string, std::string> snmpIDMap;
+
 class EventService : public Node
 {
   public:
@@ -258,6 +260,186 @@ class EventDestinationCollection : public Node
                     asyncResp->res, "RegistryPrefixes", "MessageIds");
                 return;
             }
+        }
+
+        if (protocol == "SNMPv2c")
+        {
+            // Validate the destination host IP address using regex expression
+            // Format: xx.xx.xx.xx
+            // Host IP: Exclude ' ', ':', '#', '?'
+            const std::regex urlRegex("((([^/ ?#:]+)))");
+            std::cmatch match;
+            if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+            {
+                messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                   "Destination");
+                return;
+            }
+
+            std::string host = std::string(match[1].first, match[1].second);
+
+            // Use the default SNMPTrap port 161
+            uint16_t snmpTrapPort = 161;
+
+            std::string strPort = std::to_string(snmpTrapPort);
+            std::shared_ptr<Subscription> subValue =
+                std::make_shared<Subscription>(host, strPort);
+
+            subValue->destinationUrl = destUrl;
+
+            if (subscriptionType)
+            {
+                if (*subscriptionType != "SNMPTrap")
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, *subscriptionType, "SubscriptionType");
+                    return;
+                }
+                subValue->subscriptionType = *subscriptionType;
+            }
+            else
+            {
+                subValue->subscriptionType = "SNMPTrap"; // Default
+            }
+
+            subValue->protocol = protocol;
+
+            if (eventFormatType2)
+            {
+                if (std::find(supportedEvtFormatTypes.begin(),
+                              supportedEvtFormatTypes.end(),
+                              *eventFormatType2) ==
+                    supportedEvtFormatTypes.end())
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, *eventFormatType2, "EventFormatType");
+                    return;
+                }
+                subValue->eventFormatType = *eventFormatType2;
+            }
+            else
+            {
+                // If not specified, use default "Event"
+                subValue->eventFormatType = "Event";
+            }
+
+            if (context)
+            {
+                subValue->customText = *context;
+            }
+
+            if (headers)
+            {
+                subValue->httpHeaders = *headers;
+            }
+
+            if (regPrefixes)
+            {
+                for (const std::string& it : *regPrefixes)
+                {
+                    if (std::find(supportedRegPrefixes.begin(),
+                                  supportedRegPrefixes.end(),
+                                  it) == supportedRegPrefixes.end())
+                    {
+                        messages::propertyValueNotInList(asyncResp->res, it,
+                                                         "RegistryPrefixes");
+                        return;
+                    }
+                }
+                subValue->registryPrefixes = *regPrefixes;
+            }
+
+            if (resTypes)
+            {
+                for (const std::string& it : *resTypes)
+                {
+                    if (std::find(supportedResourceTypes.begin(),
+                                  supportedResourceTypes.end(),
+                                  it) == supportedResourceTypes.end())
+                    {
+                        messages::propertyValueNotInList(asyncResp->res, it,
+                                                         "ResourceTypes");
+                        return;
+                    }
+                }
+                subValue->resourceTypes = *resTypes;
+            }
+
+            if (msgIds)
+            {
+                // Do we need to loop-up MessageRegistry and validate
+                // data for authenticity??? Not mandate, i believe.
+                subValue->registryMsgIds = *msgIds;
+            }
+
+            if (retryPolicy)
+            {
+                if (std::find(supportedRetryPolicies.begin(),
+                              supportedRetryPolicies.end(),
+                              *retryPolicy) == supportedRetryPolicies.end())
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, *retryPolicy, "DeliveryRetryPolicy");
+                    return;
+                }
+                subValue->retryPolicy = *retryPolicy;
+            }
+            else
+            {
+                // Default "TerminateAfterRetries"
+                subValue->retryPolicy = "TerminateAfterRetries";
+            }
+
+            if (mrdJsonArray)
+            {
+                for (nlohmann::json& mrdObj : *mrdJsonArray)
+                {
+                    std::string mrdUri;
+                    if (json_util::getValueFromJsonObject(mrdObj, "@odata.id",
+                                                          mrdUri))
+                    {
+                        subValue->metricReportDefinitions.emplace_back(mrdUri);
+                    }
+                    else
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, mrdObj.dump(),
+                            "MetricReportDefinitions");
+                        return;
+                    }
+                }
+            }
+
+            std::string id =
+                EventServiceManager::getInstance().addSubscription(subValue);
+            if (id.empty())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            messages::created(asyncResp->res);
+            asyncResp->res.addHeader(
+                "Location", "/redfish/v1/EventService/Subscriptions/" + id);
+
+            // Creat the snmp client
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, host, snmpTrapPort,
+                 id](const boost::system::error_code ec,
+                     std::string dbusSNMPid) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    snmpIDMap[id] = std::move(dbusSNMPid);
+                },
+                "xyz.openbmc_project.Network.SNMP",
+                "/xyz/openbmc_project/network/snmp/manager",
+                "xyz.openbmc_project.Network.Client.Create", "Client", host,
+                snmpTrapPort);
+            return;
         }
 
         // Validate the URL using regex expression
@@ -494,7 +676,7 @@ class EventDestination : public Node
 
         res.jsonValue = {
             {"@odata.type", "#EventDestination.v1_7_0.EventDestination"},
-            {"Protocol", "Redfish"}};
+            {"Protocol", subValue->protocol}};
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/EventService/Subscriptions/" + id;
         asyncResp->res.jsonValue["Id"] = id;
@@ -595,6 +777,23 @@ class EventDestination : public Node
             return;
         }
         EventServiceManager::getInstance().deleteSubscription(params[0]);
+
+        // Delete the snmp client
+        auto snmpPath = snmpIDMap.find(params[0]);
+        if (snmpPath != snmpIDMap.end())
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.Network.SNMP", snmpPath->second,
+                "xyz.openbmc_project.Object.Delete", "Delete");
+        }
     }
 };
 
