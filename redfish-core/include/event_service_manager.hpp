@@ -601,6 +601,7 @@ class EventServiceManager
         initConfig();
     }
 
+    std::string snmpDbusId;
     std::string lastEventTStr;
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
@@ -888,12 +889,20 @@ class EventServiceManager
         int retry = 3;
         while (retry)
         {
-            id = std::to_string(dist(gen));
-            if (gen.error())
+            if (!snmpDbusId.empty())
             {
-                retry = 0;
-                break;
+                id = snmpDbusId;
             }
+            else
+            {
+                id = std::to_string(dist(gen));
+                if (gen.error())
+                {
+                    retry = 0;
+                    break;
+                }
+            }
+
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
@@ -968,6 +977,11 @@ class EventServiceManager
             updateNoOfSubscribersCount();
             updateSubscriptionData();
         }
+    }
+
+    void setSnmpDbusId(const std::string& snmpId)
+    {
+        snmpDbusId = snmpId;
     }
 
     size_t getNumberOfSubscriptions()
