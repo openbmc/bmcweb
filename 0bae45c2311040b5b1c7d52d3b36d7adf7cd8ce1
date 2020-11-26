@@ -16,6 +16,24 @@
       "revId": "0bae45c2311040b5b1c7d52d3b36d7adf7cd8ce1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5490ed39_8c2777f4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-11-26T09:39:52Z",
+      "side": 1,
+      "message": "Yeah.\nSince we do not need to get processor data, I think we can remove it.",
+      "parentUuid": "f284ee9c_ee1b4764",
+      "revId": "0bae45c2311040b5b1c7d52d3b36d7adf7cd8ce1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
