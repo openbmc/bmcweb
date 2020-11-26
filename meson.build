@@ -62,6 +62,7 @@ feature_map = {
 'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
 'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
 'mutual-tls-auth'                 : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
+'strict-mutual-tls-auth'          : '-DBMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION',
 'pam'                             : '-DWEBSERVER_ENABLE_PAM',
 'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
 'redfish'                         : '-DBMCWEB_ENABLE_REDFISH',
@@ -85,10 +86,14 @@ feature_map = {
 
 foreach option_key,option_value : feature_map
   if(get_option(option_key).enabled())
-    if(option_key == 'mutual-tls-auth' or option_key == 'insecure-disable-ssl')
-      if(get_option('insecure-disable-ssl').disabled() or get_option('mutual-tls-auth').disabled())
+    if(option_key == 'mutual-tls-auth' or option_key == 'strict-mutual-tls-auth' or option_key == 'insecure-disable-ssl')
+      if(get_option('insecure-disable-ssl').disabled() or (get_option('mutual-tls-auth').disabled() and get_option('strict-mutual-tls-auth').disabled()))
         add_project_arguments(option_value,language:'cpp')
         summary(option_key,option_value, section : 'Enabled Features')
+          if(option_key == 'strict-mutual-tls-auth' and get_option('mutual-tls-auth').disabled())
+            add_project_arguments('-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION', language : 'cpp')
+            summary('mutual-tls-auth','-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION', section : 'Enabled Features')
+          endif
       endif
     else
       summary(option_key,option_value, section : 'Enabled Features')

@@ -34,6 +34,7 @@ static void cleanupTempSession(Request& req)
     }
 }
 
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(const boost::asio::ip::address& clientIp,
                      std::string_view auth_header)
@@ -81,7 +82,9 @@ static std::shared_ptr<persistent_data::UserSession>
         user, persistent_data::PersistenceType::SINGLE_REQUEST,
         isConfigureSelfOnly, clientIp.to_string());
 }
+#endif
 
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performTokenAuth(std::string_view auth_header)
 {
@@ -92,7 +95,9 @@ static std::shared_ptr<persistent_data::UserSession>
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return session;
 }
+#endif
 
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performXtokenAuth(const crow::Request& req)
 {
@@ -107,7 +112,9 @@ static std::shared_ptr<persistent_data::UserSession>
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return session;
 }
+#endif
 
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performCookieAuth(const crow::Request& req)
 {
@@ -164,6 +171,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
     return session;
 }
+#endif
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
@@ -250,6 +258,7 @@ static void authenticate(
         req.session = performTLSAuth(req, res, session);
     }
 #endif
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
     if (req.session == nullptr && authMethodsConfig.xtoken)
     {
         req.session = performXtokenAuth(req);
@@ -276,6 +285,7 @@ static void authenticate(
             }
         }
     }
+#endif
 
     if (req.session == nullptr)
     {

@@ -48,6 +48,8 @@ class ConfigFile
     {
         std::ifstream persistentFile(filename);
         uint64_t fileRevision = 0;
+        bool needWrite = false;
+
         if (persistentFile.is_open())
         {
             // call with exceptions disabled
@@ -90,6 +92,27 @@ class ConfigFile
                         SessionStore::getInstance()
                             .getAuthMethodsConfig()
                             .fromJson(item.value());
+
+#ifdef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
+                        AuthConfigMethods& authConfig =
+                            SessionStore::getInstance().getAuthMethodsConfig();
+                        if (authConfig.xtoken || authConfig.cookie ||
+                            authConfig.sessionToken || authConfig.basic ||
+                            !authConfig.tls)
+                        {
+                            BMCWEB_LOG_INFO
+                                << "Other authentication methods except for "
+                                   "tls are disabled when the strict mTLS "
+                                   "option is enabled.";
+
+                            authConfig.xtoken = false;
+                            authConfig.cookie = false;
+                            authConfig.sessionToken = false;
+                            authConfig.basic = false;
+                            authConfig.tls = true;
+                            needWrite = true;
+                        }
+#endif
                     }
                     else if (item.key() == "sessions")
                     {
@@ -140,7 +163,6 @@ class ConfigFile
                 }
             }
         }
-        bool needWrite = false;
 
         if (systemUuid.empty())
         {

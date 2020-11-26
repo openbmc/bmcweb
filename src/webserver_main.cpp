@@ -19,6 +19,7 @@
 #include <ssl_key_handler.hpp>
 #include <vm_websocket.hpp>
 #include <webassets.hpp>
+#include <hostname_monitor.hpp>
 
 #include <memory>
 #include <string>
@@ -122,6 +123,11 @@ int main(int /*argc*/, char** /*argv*/)
         BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
         return rc;
     }
+#endif
+
+#ifdef BMCWEB_ENABLE_SSL
+    BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
+    crow::hostname_monitor::register_hostname_signal();
 #endif
 
     app.run();
