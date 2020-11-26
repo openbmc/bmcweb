@@ -18,6 +18,7 @@
 namespace ensuressl
 {
 constexpr char const* trustStorePath = "/etc/ssl/certs/authority";
+constexpr char const* x509Comment = "Generated from OpenBMC service";
 static void initOpenssl();
 static EVP_PKEY* createEcKey();
 
@@ -170,7 +171,56 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
     return certValid;
 }
 
-inline void generateSslCertificate(const std::string& filepath)
+inline X509* loadCert(const std::string& filePath)
+{
+    BIO* certFileBio = BIO_new_file(filePath.c_str(), "rb");
+    if (!certFileBio)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during BIO_new_file call, "
+                         << "FILE= " << filePath;
+        return nullptr;
+    }
+
+    X509* cert = X509_new();
+    if (!cert)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during X509_new call, "
+                         << ERR_get_error();
+        BIO_free(certFileBio);
+        return nullptr;
+    }
+
+    if (!PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr))
+    {
+        BMCWEB_LOG_ERROR << "Error occured during PEM_read_bio_X509 call, "
+                         << "FILE= " << filePath;
+
+        BIO_free(certFileBio);
+        X509_free(cert);
+        return nullptr;
+    }
+    return cert;
+}
+
+inline int addExt(X509* cert, int nid, const char* value)
+{
+    X509_EXTENSION* ex = nullptr;
+    X509V3_CTX ctx;
+    X509V3_set_ctx_nodb(&ctx);
+    X509V3_set_ctx(&ctx, cert, cert, nullptr, nullptr, 0);
+    ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
+    if (!ex)
+    {
+        BMCWEB_LOG_ERROR << "Error: In X509V3_EXT_conf_nidn: " << value;
+        return -1;
+    }
+    X509_add_ext(cert, ex, -1);
+    X509_EXTENSION_free(ex);
+    return 0;
+}
+
+inline void generateSslCertificate(const std::string& filepath,
+                                   const std::string& cn)
 {
     FILE* pFile = nullptr;
     std::cout << "Generating new keys\n";
@@ -189,8 +239,10 @@ inline void generateSslCertificate(const std::string& filepath)
             // get a random number from the RNG for the certificate serial
             // number If this is not random, regenerating certs throws broswer
             // errors
-            std::random_device rd;
-            int serial = static_cast<int>(rd());
+            bmcweb::OpenSSLGenerator gen;
+            std::uniform_int_distribution<int> dis(
+                1, std::numeric_limits<int>::max());
+            int serial = dis(gen);
 
             ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
 
@@ -215,9 +267,18 @@ inline void generateSslCertificate(const std::string& filepath)
                 reinterpret_cast<const unsigned char*>("OpenBMC"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "CN", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char*>("testhost"), -1, -1, 0);
+                reinterpret_cast<const unsigned char*>(cn.c_str()), -1, -1, 0);
             // set the CSR options
             X509_set_issuer_name(x509, name);
+
+            X509_set_version(x509, 2);
+            addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
+            addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
+            addExt(x509, NID_subject_key_identifier, ("hash"));
+            addExt(x509, NID_authority_key_identifier, ("keyid"));
+            addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
+            addExt(x509, NID_ext_key_usage, ("serverAuth"));
+            addExt(x509, NID_netscape_comment, (x509Comment));
 
             // Sign the certificate with our private key
             X509_sign(x509, pPrivKey, EVP_sha256());
@@ -289,7 +350,7 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     if (!pemFileValid)
     {
         std::cerr << "Error in verifying signature, regenerating\n";
-        generateSslCertificate(filepath);
+        generateSslCertificate(filepath, "testhost");
     }
 }
 
