@@ -170,7 +170,25 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
     return certValid;
 }
 
-inline void generateSslCertificate(const std::string& filepath)
+inline int add_ext(X509* cert, int nid, char* value)
+{
+    X509_EXTENSION* ex = NULL;
+    X509V3_CTX ctx;
+    X509V3_set_ctx_nodb(&ctx);
+    X509V3_set_ctx(&ctx, cert, cert, NULL, NULL, 0);
+    ex = X509V3_EXT_conf_nid(NULL, &ctx, nid, value);
+    if (!ex)
+    {
+        std::cerr << "Error: In X509V3_EXT_conf_nidn: " << value << std::endl;
+        return -1;
+    }
+    X509_add_ext(cert, ex, -1);
+    X509_EXTENSION_free(ex);
+    return 0;
+}
+
+inline void generateSslCertificate(const std::string& filepath,
+                                   const std::string& cn)
 {
     FILE* pFile = nullptr;
     std::cout << "Generating new keys\n";
@@ -190,7 +208,7 @@ inline void generateSslCertificate(const std::string& filepath)
             // number If this is not random, regenerating certs throws broswer
             // errors
             std::random_device rd;
-            int serial = static_cast<int>(rd());
+            int serial = abs(static_cast<int>(rd()));
 
             ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
 
@@ -215,9 +233,26 @@ inline void generateSslCertificate(const std::string& filepath)
                 reinterpret_cast<const unsigned char*>("OpenBMC"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "CN", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char*>("testhost"), -1, -1, 0);
+                reinterpret_cast<const unsigned char*>(cn.c_str()), -1, -1, 0);
             // set the CSR options
             X509_set_issuer_name(x509, name);
+
+            X509_set_version(x509, 2);
+            add_ext(x509, NID_basic_constraints,
+                    const_cast<char*>("critical,CA:TRUE"));
+            add_ext(x509, NID_subject_alt_name,
+                    const_cast<char*>(("DNS:" + cn).c_str()));
+            add_ext(x509, NID_subject_key_identifier,
+                    const_cast<char*>("hash"));
+            add_ext(x509, NID_authority_key_identifier,
+                    const_cast<char*>("keyid"));
+            add_ext(x509, NID_key_usage,
+                    const_cast<char*>("digitalSignature, keyEncipherment,"
+                                      "keyAgreement, keyCertSign, cRLSign"));
+            add_ext(x509, NID_ext_key_usage,
+                    const_cast<char*>("serverAuth, clientAuth"));
+            add_ext(x509, NID_netscape_cert_type,
+                    const_cast<char*>("server, sslCA, emailCA, objCA"));
 
             // Sign the certificate with our private key
             X509_sign(x509, pPrivKey, EVP_sha256());
@@ -289,7 +324,7 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     if (!pemFileValid)
     {
         std::cerr << "Error in verifying signature, regenerating\n";
-        generateSslCertificate(filepath);
+        generateSslCertificate(filepath, "testhost");
     }
 }
 

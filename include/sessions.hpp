@@ -142,11 +142,19 @@ struct UserSession
 
 struct AuthConfigMethods
 {
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
     bool xtoken = true;
     bool cookie = true;
     bool sessionToken = true;
     bool basic = true;
     bool tls = false;
+#else
+    bool xtoken = false;
+    bool cookie = false;
+    bool sessionToken = false;
+    bool basic = false;
+    bool tls = true;
+#endif
 
     void fromJson(const nlohmann::json& j)
     {

@@ -938,7 +938,7 @@ class AccountService : public Node
         {
             authMethodsConfig.tls = *tls;
         }
-
+#ifndef BMCWEB_ENABLE_STRICT_MUTUAL_TLS_AUTHENTICATION
         if (!authMethodsConfig.basic && !authMethodsConfig.cookie &&
             !authMethodsConfig.sessionToken && !authMethodsConfig.xtoken &&
             !authMethodsConfig.tls)
@@ -948,6 +948,26 @@ class AccountService : public Node
                                          "of disabling all available methods");
             return;
         }
+#else
+        if (!authMethodsConfig.tls)
+        {
+            // Do not allow user to disable everything
+            messages::actionNotSupported(asyncResp->res,
+                                         "of disabling tls method");
+            return;
+        }
+
+        if (authMethodsConfig.basic || authMethodsConfig.cookie ||
+            authMethodsConfig.sessionToken || authMethodsConfig.xtoken)
+        {
+            // Do not allow users to enable other authentication methods
+            // except tls
+            messages::actionNotSupported(asyncResp->res,
+                                         "of enabling other authentication "
+                                         "methods except tls");
+            return;
+        }
+#endif
 
         persistent_data::SessionStore::getInstance().updateAuthMethodsConfig(
             authMethodsConfig);
