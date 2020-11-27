@@ -1833,6 +1833,41 @@ class Manager : public Node
                 "org.freedesktop.DBus.Properties", "Get",
                 "org.freedesktop.systemd1.Manager", "Progress");
         }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<
+                            std::pair<std::string, std::variant<std::string>>>&
+                            propertiesList) {
+                if (ec)
+                {
+                    return;
+                }
+                for (const std::pair<std::string, std::variant<std::string>>&
+                         property : propertiesList)
+                {
+                    const std::string& propertyName = property.first;
+
+                    if ((propertyName == "PartNumber") ||
+                        (propertyName == "SerialNumber") ||
+                        (propertyName == "Manufacturer"))
+                    {
+                        const std::string* value =
+                            std::get_if<std::string>(&property.second);
+                        if (value == nullptr)
+                        {
+                            // illegal property
+                            messages::internalError(asyncResp->res);
+                            continue;
+                        }
+                        asyncResp->res.jsonValue[propertyName] = *value;
+                    }
+                }
+            },
+            "xyz.openbmc_project.Inventory.Manager",
+            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc",
+            "org.freedesktop.DBus.Properties", "GetAll",
+            "xyz.openbmc_project.Inventory.Decorator.Asset");
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
