@@ -1833,6 +1833,86 @@ class Manager : public Node
                 "org.freedesktop.DBus.Properties", "Get",
                 "org.freedesktop.systemd1.Manager", "Progress");
         }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](
+                const boost::system::error_code ec,
+                const std::vector<std::pair<
+                    std::string, std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>>&
+                    subtree) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree "
+                                     << ec;
+                    return;
+                }
+                if (subtree.size() == 0)
+                {
+                    BMCWEB_LOG_DEBUG << "Can't find bmc D-Bus object!";
+                    return;
+                }
+                // Assume only 1 bmc D-Bus object
+                // Throw an error if there is more than 1
+                if (subtree.size() > 1)
+                {
+                    BMCWEB_LOG_DEBUG << "Found more than 1 bmc D-Bus object!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+                {
+                    BMCWEB_LOG_DEBUG << "Error getting bmc D-Bus object!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                const std::string& path = subtree[0].first;
+                const std::string& connectionName = subtree[0].second[0].first;
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const std::vector<
+                            std::pair<std::string, std::variant<std::string>>>&
+                            propertiesList) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "Can't get bmc asset!";
+                            return;
+                        }
+                        for (const std::pair<std::string,
+                                             std::variant<std::string>>&
+                                 property : propertiesList)
+                        {
+                            const std::string& propertyName = property.first;
+
+                            if ((propertyName == "PartNumber") ||
+                                (propertyName == "SerialNumber") ||
+                                (propertyName == "Manufacturer"))
+                            {
+                                const std::string* value =
+                                    std::get_if<std::string>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    // illegal property
+                                    messages::internalError(asyncResp->res);
+                                    continue;
+                                }
+                                asyncResp->res.jsonValue[propertyName] = *value;
+                            }
+                        }
+                    },
+                    connectionName, path, "org.freedesktop.DBus.Properties",
+                    "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", int32_t(0),
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Bmc"});
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
