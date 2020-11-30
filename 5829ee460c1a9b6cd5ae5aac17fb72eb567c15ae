@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "ca5c434a_b3dd9a65",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "Ed\ndo you agree with ratan\u0027s suggestion\n\"can this go as part of res.end() which takes completerequesthandler?\nSeems you wantt to keep the connection alive, if the connection is having the response and the response can\u0027t be destructed then connection will not get destroyed.\"\n\nany inputs?",
+      "parentUuid": "0fc7f96a_b725521c",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3ef8c62_1e8182dd",
         "filename": "http/http_stream.hpp",
         "patchSetId": 6
@@ -59,6 +83,30 @@
       "writtenOn": "2020-11-30T07:21:25Z",
       "side": 1,
       "message": "Comment not addressed from PS5.",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 9
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19aa22f4_2b5d0695",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "i did not understand why its better to use lower_layer",
+      "parentUuid": "d3ef8c62_1e8182dd",
       "range": {
         "startLine": 126,
         "startChar": 2,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "ce9896ba_f0b99640",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "i see compilation error using inline here",
+      "parentUuid": "425fbed5_40051d3b",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27872381_eee2e90b",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 6
@@ -105,6 +177,30 @@
       "writtenOn": "2020-11-30T07:21:25Z",
       "side": 1,
       "message": "How long you will be waiting it, some timeout???",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16d4644e_5d814afc",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "sure. will add timeout",
+      "parentUuid": "27872381_eee2e90b",
       "range": {
         "startLine": 54,
         "startChar": 1,
@@ -134,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "37d757a1_e9bf7a7f",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "3fbb939c_91d037ce",
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c232655c_898d34e3",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 6
@@ -145,6 +259,30 @@
       "writtenOn": "2020-11-30T07:21:25Z",
       "side": 1,
       "message": "Should the function name be doConnect() or some thing similar?",
+      "range": {
+        "startLine": 67,
+        "startChar": 9,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8af8a488_9e117022",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "c232655c_898d34e3",
       "range": {
         "startLine": 67,
         "startChar": 9,
@@ -180,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "fbbd60fb_8f9b75f6",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76e637b_2b733a0e",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2008a93f_e67d6577",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 6
@@ -203,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "e0ea821e_053de38a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "will address",
+      "parentUuid": "2008a93f_e67d6577",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 71
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2b3ba6e_7358fe02",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 6
@@ -214,6 +400,30 @@
       "writtenOn": "2020-11-30T07:21:25Z",
       "side": 1,
       "message": "Comment not addresed from PS5",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 13
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079b1c65_6318384f",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "will address",
+      "parentUuid": "e2b3ba6e_7358fe02",
       "range": {
         "startLine": 204,
         "startChar": 0,
