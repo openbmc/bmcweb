@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa60d0a8_d8597361",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-30T12:59:57Z",
+      "side": 1,
+      "message": "This is not right. There is no \"LocationCode\" property in any Redfish schema. We are expected to use the ServiceLabel property within the Location complex (See: https://github.com/DMTF/Redfish/pull/4289)",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 44
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99844332_e02b7ebb",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
