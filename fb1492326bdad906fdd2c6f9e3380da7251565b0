@@ -614,6 +614,30 @@
     },
     {
       "key": {
+        "uuid": "2978fa6e_43c0a814",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T15:50:11Z",
+      "side": 1,
+      "message": "1. It\u0027s less code.\n2. It allows any adapter to be injected, not just tcp_socket or ssl_stream\u003ctcp_socket\u003e so when we have unit/fuzz tests, this wont need to be fixed.",
+      "parentUuid": "21a6f373_2dbfbbef",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 9
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc190a48_ed319eed",
         "filename": "http/http_stream.hpp",
         "patchSetId": 5
@@ -1329,6 +1353,30 @@
     },
     {
       "key": {
+        "uuid": "18640c05_6a64c450",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T15:50:11Z",
+      "side": 1,
+      "message": "\u003e Ed\n\u003e can you please suggest how can we do without a global?\n\nusing lambda captures to capture the appropriate resources.\n\n\u003e Given the single threaded nature of bmcweb, they are not required to be explicitly threadsafe, but they must be always left in a valid state, and checked for other uses before occupying.\n\u003e do you want to me check if \"handlers\" variable is getting used before using?\n\nYou\u0027ve roughly described what common_errors.md suggests about this.",
+      "parentUuid": "7c28664c_9dd1a1a1",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9cbac9_b42724c5",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1364,6 +1412,30 @@
       "side": 1,
       "message": "do you mean parameters passed to BMCWEB_ROUTE or onopen() handler?",
       "parentUuid": "aa9cbac9_b42724c5",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba7d040_09a2eb9e",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T15:50:11Z",
+      "side": 1,
+      "message": "I mean the route handler already has mechanisms for routing params, \n\n.onopen([](crow::streamsocket::Connection\u0026 conn, std::string\u0026 dumpId)\n\nI believe should fix your issue.",
+      "parentUuid": "11387a14_8ead4ab4",
       "range": {
         "startLine": 204,
         "startChar": 0,
