@@ -355,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "ba18191c_7112d35f",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "\u003e yes.we can create class as well\nI said that it is easy to read that class is being extended, However struct is same as class but with different access rules for member variables/functions.\n\n\u003e but it will be useful to extend for different types in future.\nIf that is the case we can create this base class later but can you list out those possibilities?",
+      "parentUuid": "20b1cc64_26315f4c",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 6
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02de1555_bc958b50",
         "filename": "http/http_stream.hpp",
         "patchSetId": 5
