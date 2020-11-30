@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99844332_e02b7ebb",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-30T12:34:34Z",
+      "side": 1,
+      "message": "These need to use their respective xyz.openbmc_project.Inventory.* counterparts. We cannot have a com.ibm dependency here. If that means we need to publish new properties (like Model for CCIN ), we need to create those properties first.",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1708,
+        "endChar": 33
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b336c96_61e43caa",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-30T12:34:34Z",
+      "side": 1,
+      "message": "None of this can be hard-coded, they can change from system to system and implementation to implementation. Please look at how we get the current data, say for Dimms, using the ObjectMapper (Ex: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/memory.hpp#L829)",
+      "range": {
+        "startLine": 1764,
+        "startChar": 0,
+        "endLine": 1764,
+        "endChar": 127
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8637c43a_47bd22e3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-30T12:34:34Z",
+      "side": 1,
+      "message": "These need to go",
+      "range": {
+        "startLine": 1790,
+        "startChar": 8,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
