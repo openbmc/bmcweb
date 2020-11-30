@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "397e827c_72de6d0f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T15:50:11Z",
+      "side": 1,
+      "message": "I haven\u0027t looked at the problem in depth.  Feel free to propose something that\u0027s in line with the HTTP standard, and allows the dynamic upgrade only on the correct routes.",
+      "parentUuid": "e229bb5a_999ef7ed",
+      "range": {
+        "startLine": 352,
+        "startChar": 1,
+        "endLine": 354,
+        "endChar": 63
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fc7f96a_b725521c",
         "filename": "http/http_stream.hpp",
         "patchSetId": 6
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "i see compilation error using inline here",
       "parentUuid": "425fbed5_40051d3b",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a9e1ca7_ebdeda97",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T15:50:11Z",
+      "side": 1,
+      "message": "Please just inline this type.",
+      "parentUuid": "ce9896ba_f0b99640",
       "range": {
         "startLine": 18,
         "startChar": 0,
