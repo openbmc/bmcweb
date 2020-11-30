@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e229bb5a_999ef7ed",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Ed, need your suggestion how can we upgrade this connection, if we can not depend on the content_type header.",
+      "range": {
+        "startLine": 352,
+        "startChar": 1,
+        "endLine": 354,
+        "endChar": 63
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc7f96a_b725521c",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Comment not addressed from PS5.",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ef8c62_1e8182dd",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Comment not addressed from PS5.",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 9
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "425fbed5_40051d3b",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Comment not addressed from PS5",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27872381_eee2e90b",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "How long you will be waiting it, some timeout???",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbb939c_91d037ce",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Can you write some documentation here what this function does?",
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c232655c_898d34e3",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Should the function name be doConnect() or some thing similar?",
+      "range": {
+        "startLine": 67,
+        "startChar": 9,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d76e637b_2b733a0e",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Change the function name, there is no nbd now.",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2008a93f_e67d6577",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Comments not addressed from PS5",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 71
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b3ba6e_7358fe02",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-11-30T07:21:25Z",
+      "side": 1,
+      "message": "Comment not addresed from PS5",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 13
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
