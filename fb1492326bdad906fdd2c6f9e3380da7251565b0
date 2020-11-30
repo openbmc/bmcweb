@@ -590,6 +590,30 @@
     },
     {
       "key": {
+        "uuid": "21a6f373_2dbfbbef",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T08:56:15Z",
+      "side": 1,
+      "message": "any specific reason, why its better to use boost::beast::lowest_layer.",
+      "parentUuid": "a2c3baec_c8450129",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 9
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc190a48_ed319eed",
         "filename": "http/http_stream.hpp",
         "patchSetId": 5
