@@ -1305,6 +1305,30 @@
     },
     {
       "key": {
+        "uuid": "7c28664c_9dd1a1a1",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-11-30T11:46:05Z",
+      "side": 1,
+      "message": "Ed\ncan you please suggest how can we do without a global?\nGiven the single threaded nature of bmcweb, they are not required to be explicitly threadsafe, but they must be always left in a valid state, and checked for other uses before occupying.\ndo you want to me check if \"handlers\" variable is getting used before using?",
+      "parentUuid": "3555fa71_0fe707fc",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9cbac9_b42724c5",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
