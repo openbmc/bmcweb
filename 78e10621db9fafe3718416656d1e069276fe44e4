@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77229a57_46c905d7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "Please don\u0027t store state like this in a global variable.  It will be incorrect when bmcweb is restarted, which does happen.\n\nPlease use the existing dbus interfaces to maintain this state.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c7c6c3_3cebcdf8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "Host IP isn\u0027t the only way this can be defined.",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 34
+      },
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c43d8d9_e4276dc7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "Please don\u0027t use a regex for this.  Please use the same uri parser we use in http_connection.hpp.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 57
+      },
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459b7b1d_696b8f0a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "This should be grabbing the port from the URL if it\u0027s provided, otherwise it can use the default.",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 40
+      },
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36588193_b631c0fb",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "This, along with a number of other checks below need to be deduplicated from the below code.  For example, this check is done on line 527 below.  Please ensure that we have one path for validation.",
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2058eed_e97325a1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "This could possibly overwrite an existing id.  With that said, see above where bmcweb should not be maintaining this state in a global variable.",
+      "range": {
+        "startLine": 440,
+        "startChar": 20,
+        "endLine": 440,
+        "endChar": 33
+      },
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34a31b7_c66bd67c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-11-30T00:54:42Z",
+      "side": 1,
+      "message": "You shouldn\u0027t be attempting both kinds of delete at the same time.  I suspect you meant to check your ID map, but considering that\u0027s going away, I suspect you\u0027ll need to use the mapper going forward.",
+      "range": {
+        "startLine": 783,
+        "startChar": 0,
+        "endLine": 786,
+        "endChar": 50
+      },
+      "revId": "78e10621db9fafe3718416656d1e069276fe44e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
