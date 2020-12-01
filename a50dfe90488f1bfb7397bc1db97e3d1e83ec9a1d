@@ -22,6 +22,30 @@
       "revId": "a50dfe90488f1bfb7397bc1db97e3d1e83ec9a1d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ce4eb7_883415e4",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-12-01T19:02:16Z",
+      "side": 1,
+      "message": "This flag is already available via GET /redfish/v1/AccountService/Accounts/\u003cstr\u003e/.  I am adding it here to simplify the \"login password change dialog\" case, specifically to avoid an extra API call.\nThis flag is the OpenBMC counterpart to the Redfish PasswordChangeRequired requirements per DSP0266 version 1.11.0 section \"password change required handling\" which states in part (paraphrased):\n\n\u003e When a client accesses the service by using credentials from a ManagerAccount resource that has a PasswordChangeRequired value of true ...\n\u003e A session login [shall] include a @Message.ExtendedInfo object in the response containing the PasswordChangeRequired message from the Base Message Registry.\n\nWould it be okay to merge if the code was changed so the passwordChangeRequired property was present only when true?  That would simplify the 99.99% common case, and satisfy the corner case.",
+      "parentUuid": "69666360_d745bda9",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 80
+      },
+      "revId": "a50dfe90488f1bfb7397bc1db97e3d1e83ec9a1d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
