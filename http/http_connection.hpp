@@ -547,15 +547,16 @@ class Connection :
 
                 boost::beast::http::verb method = parser->get().method();
                 readClientIp();
-                try
+                if (!req)
                 {
-                    req->urlView =
-                        boost::urls::url_view(parser->get().target());
-                    req->url = req->urlView.encoded_path();
+                    close();
+                    return;
                 }
-                catch (std::exception& p)
+
+                if (!req->read_headers())
                 {
-                    BMCWEB_LOG_ERROR << p.what();
+                    close();
+                    return;
                 }
 
                 boost::asio::ip::address ip;
