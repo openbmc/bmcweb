@@ -145,7 +145,9 @@ class BiosService : public Node
   public:
     BiosService(App& app) : Node(app, "/redfish/v1/Systems/system/Bios/")
     {
-        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}}};
     }
 
   private:
@@ -250,6 +252,72 @@ class BiosService : public Node
             "xyz.openbmc_project.ObjectMapper", "GetObject",
             "/xyz/openbmc_project/bios_config/manager",
             std::array<const char*, 0>());
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::optional<std::string> attrName;
+        std::optional<std::string> attrType;
+        std::optional<std::string> attrValue;
+
+        if (!redfish::json_util::readJson(req, asyncResp->res, "AttributeName",
+                                          attrName, "AttributeType", attrType,
+                                          "AttributeValue", attrValue))
+        {
+            return;
+        }
+
+        if (!attrName || !attrType || !attrValue)
+        {
+            return;
+        }
+
+        std::string biosAttrType;
+        PendingAttributesType pendingAttributes;
+
+        if (*attrType == "string")
+        {
+            biosAttrType =
+                "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.String";
+        }
+        else if (*attrType == "int")
+        {
+            biosAttrType =
+                "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Integer";
+        }
+        else if (*attrType == "enum")
+        {
+            biosAttrType = "xyz.openbmc_project.BIOSConfig.Manager."
+                           "AttributeType.Enumeration";
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Invalid attribute type";
+            messages::invalidObject(asyncResp->res, "Attribute type");
+            return;
+        }
+
+        pendingAttributes.push_back(std::make_pair(
+            *attrName, std::make_tuple(biosAttrType, *attrValue)));
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "doPatch resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Attribute value is set";
+            },
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
+            std::variant<PendingAttributesType>(pendingAttributes));
     }
 };
 
