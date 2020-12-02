@@ -638,6 +638,30 @@
     },
     {
       "key": {
+        "uuid": "d1ab65c8_3c046f7f",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2978fa6e_43c0a814",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 9
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc190a48_ed319eed",
         "filename": "http/http_stream.hpp",
         "patchSetId": 5
@@ -1377,6 +1401,30 @@
     },
     {
       "key": {
+        "uuid": "b41568ac_3f27db69",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "yes. i have seen global variables used in different places in bmcweb.\ni am thinking how can we make this variable reentrant in this case",
+      "parentUuid": "18640c05_6a64c450",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9cbac9_b42724c5",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1436,6 +1484,30 @@
       "side": 1,
       "message": "I mean the route handler already has mechanisms for routing params, \n\n.onopen([](crow::streamsocket::Connection\u0026 conn, std::string\u0026 dumpId)\n\nI believe should fix your issue.",
       "parentUuid": "11387a14_8ead4ab4",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "273220bd_3adea297",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "yes we can add a parameter to open handler,\nbut openHandler is generic infrastructure which can be used for other use-cases other than dump\nright?",
+      "parentUuid": "cba7d040_09a2eb9e",
       "range": {
         "startLine": 204,
         "startChar": 0,
