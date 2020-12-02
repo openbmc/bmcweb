@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "07e5bd3a_b5ed45f5",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-12-02T05:27:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3a7b8c63_3ddec4d1",
+      "range": {
+        "startLine": 257,
+        "startChar": 9,
+        "endLine": 257,
+        "endChar": 16
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a04e41_14d78f26",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -53,6 +77,30 @@
       "writtenOn": "2020-12-02T05:16:02Z",
       "side": 1,
       "message": "redundant code ? can we use already existing functions ?",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 9
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3beb50ae_6eea315d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-12-02T05:27:56Z",
+      "side": 1,
+      "message": "Do we have these functions?\nI would suggest we should create a new function as line no 64.",
+      "parentUuid": "a6a04e41_14d78f26",
       "range": {
         "startLine": 281,
         "startChar": 8,
@@ -104,6 +152,29 @@
         "startChar": 26,
         "endLine": 304,
         "endChar": 64
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e79948_ee8349d9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-12-02T05:27:56Z",
+      "side": 1,
+      "message": "Do we need to use the setattribute function?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L8",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 68
       },
       "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
