@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "05fa28bb_fd1daff4",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:59:46Z",
+      "side": 1,
+      "message": "made changes as ratan suggested",
+      "parentUuid": "ca5c434a_b3dd9a65",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3ef8c62_1e8182dd",
         "filename": "http/http_stream.hpp",
         "patchSetId": 6
@@ -164,6 +188,30 @@
       "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6abedd79_099eefba",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:59:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19aa22f4_2b5d0695",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 9
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
