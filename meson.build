@@ -388,7 +388,7 @@ if(get_option('tests').enabled())
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock,nlohmann_json
+                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus
                               ]))
   endforeach
 endif
