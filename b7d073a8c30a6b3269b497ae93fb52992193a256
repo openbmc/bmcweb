@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50f8c6b9_101280ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-02T05:16:02Z",
+      "side": 1,
+      "message": "Did you test with patching multiple attributes in single shot ?\nDid this pass the Validator ?",
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a7b8c63_3ddec4d1",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-02T05:16:02Z",
+      "side": 1,
+      "message": "As far as i understood, patch should be supported on Setting object right ? should it not come under `/redfish/v1/Systems/system/Bios/Settings` ?\n\nCorrect me if i am wrong.",
+      "range": {
+        "startLine": 257,
+        "startChar": 9,
+        "endLine": 257,
+        "endChar": 16
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6a04e41_14d78f26",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-02T05:16:02Z",
+      "side": 1,
+      "message": "redundant code ? can we use already existing functions ?",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 9
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1081df5b_6452d145",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-02T05:16:02Z",
+      "side": 1,
+      "message": "Pending attributes is a vector that can hold mutiple attributes at a time..does the existing logic supports it ?",
+      "range": {
+        "startLine": 303,
+        "startChar": 7,
+        "endLine": 303,
+        "endChar": 25
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "087f8f01_4420773c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-02T05:16:02Z",
+      "side": 1,
+      "message": "emplace_back is better in this scenario.",
+      "range": {
+        "startLine": 303,
+        "startChar": 26,
+        "endLine": 304,
+        "endChar": 64
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
