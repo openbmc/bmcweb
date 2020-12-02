@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "22c7bd65_d91915f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-02T05:42:29Z",
+      "side": 1,
+      "message": "Same as https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38702/2/redfish-core/lib/bios.hpp#303",
+      "parentUuid": "50f8c6b9_101280ad",
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a7b8c63_3ddec4d1",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -63,6 +81,30 @@
       "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a4d1684_29346836",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-02T05:42:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07e5bd3a_b5ed45f5",
+      "range": {
+        "startLine": 257,
+        "startChar": 9,
+        "endLine": 257,
+        "endChar": 16
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +198,30 @@
       "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "697b93c5_18d63cbd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-02T05:42:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "087f8f01_4420773c",
+      "range": {
+        "startLine": 303,
+        "startChar": 26,
+        "endLine": 304,
+        "endChar": 64
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
