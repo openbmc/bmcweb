@@ -155,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "62fde0fd_4d908fdd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-02T05:42:29Z",
+      "side": 1,
+      "message": "\u003e redundant code ? can we use already existing functions ?\n\nWe have a method `mapAttrTypeToRedfish` line 64, that maps the attribute type (xyz.openbmc_project.BIOSConfig.Manager.AttributeType.*) to corresponding type but not vice versa.\n\n\u003e I would suggest we should create a new function as line no 64.\n\nSure, this can be taken to a method if this will be used in more than one place.\nBut now, it is used only here. Hence, I put it this way!",
+      "parentUuid": "a6a04e41_14d78f26",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 9
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1081df5b_6452d145",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -175,6 +199,30 @@
       "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b2a4423_ea7a3d8e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-02T05:42:29Z",
+      "side": 1,
+      "message": "the existing logic has no support for multiple attributes in one shot.\nBut this needs further testing.\n\nI will check on it.",
+      "parentUuid": "1081df5b_6452d145",
+      "range": {
+        "startLine": 303,
+        "startChar": 7,
+        "endLine": 303,
+        "endChar": 25
+      },
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
