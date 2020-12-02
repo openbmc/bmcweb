@@ -19,6 +19,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
@@ -806,6 +807,165 @@ inline void getOperatingConfigData(const std::shared_ptr<AsyncResp>& aResp,
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig");
 }
 
+/**
+ * Handle the D-Bus response from attempting to set the CPU's AppliedConfig
+ * property. Main task is to translate error messages into Redfish errors.
+ *
+ * @param[in,out]   resp    HTTP response.
+ * @param[in]       setPropVal  Value which we attempted to set.
+ * @param[in]       ec      D-Bus response error code.
+ * @param[in]       msg     D-Bus response message.
+ */
+inline void setAppliedConfigHandler(const std::shared_ptr<AsyncResp>& resp,
+                                    const std::string& setPropVal,
+                                    boost::system::error_code ec,
+                                    const sdbusplus::message::message& msg)
+{
+    if (!ec)
+    {
+        BMCWEB_LOG_DEBUG << "Set Property succeeded";
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG << "Set Property failed: " << ec;
+
+    const sd_bus_error* dbusError = msg.get_error();
+    if (dbusError == nullptr)
+    {
+        messages::internalError(resp->res);
+        return;
+    }
+
+    // The asio error code doesn't know about our custom errors, so we have to
+    // parse the error string. Some of these D-Bus -> Redfish translations are a
+    // stretch, but it's good to try to communicate something vaguely useful.
+    if (strcmp(dbusError->name,
+               "xyz.openbmc_project.Common.Error.InvalidArgument") == 0)
+    {
+        // Service did not like the object_path we tried to set.
+        messages::propertyValueIncorrect(resp->res, "AppliedOperatingConfig",
+                                         setPropVal);
+    }
+    else if (strcmp(dbusError->name,
+                    "xyz.openbmc_project.Common.Error.NotAllowed") == 0)
+    {
+        // Service indicates we can never change the config for this processor.
+        messages::propertyNotWritable(resp->res, "AppliedOperatingConfig");
+    }
+    else if (strcmp(dbusError->name,
+                    "xyz.openbmc_project.Common.Error.Unavailable") == 0)
+    {
+        // Service indicates the config cannot be changed right now, but maybe
+        // in a different system state.
+        messages::resourceInStandby(resp->res);
+    }
+    else if (strcmp(dbusError->name,
+                    "xyz.openbmc_project.Common.Device.Error.WriteFailure") ==
+             0)
+    {
+        // Service tried to change the config, but it failed.
+        messages::operationFailed(resp->res);
+    }
+    else
+    {
+        messages::internalError(resp->res);
+    }
+}
+
+/**
+ * Handle the PATCH operation of the AppliedOperatingConfig property. Do basic
+ * validation of the input data, find the correct interface on D-Bus and change
+ * the property on it.
+ *
+ * @param[in,out]   resp    Async HTTP response.
+ * @param[in]       cpuName Base name of URL (Name of Processor resource).
+ * @param[in]       appliedConfigUri    PATCHed property value.
+ */
+inline void patchAppliedOperatingConfig(const std::shared_ptr<AsyncResp>& resp,
+                                        const std::string& cpuName,
+                                        const std::string& appliedConfigUri)
+{
+    // Check that the URI is a child of the URI being patched.
+    std::string expectedPrefix("/redfish/v1/Systems/system/Processors/");
+    expectedPrefix += cpuName;
+    expectedPrefix += "/OperatingConfigs/";
+    if (!boost::starts_with(appliedConfigUri, expectedPrefix) ||
+        expectedPrefix.size() == appliedConfigUri.size())
+    {
+        messages::propertyValueIncorrect(resp->res, "@odata.id",
+                                         appliedConfigUri);
+        return;
+    }
+
+    // This assumes that the config object is a direct child of the cpu object
+    // on D-Bus. This is slightly more strict than the GET path, which assumes
+    // any descendant rather than child. But we need to ensure the value written
+    // to AppliedConfig is a valid path. Instead of escaping the last path
+    // component, we could use sd_bus_object_path_is_valid (or wrapper) to check
+    // it, and return an error response here if it's not valid.
+    std::string configBaseName = appliedConfigUri.substr(expectedPrefix.size());
+    dbus::utility::escapePathForDbus(configBaseName);
+
+    BMCWEB_LOG_INFO << "Setting config to " << configBaseName;
+
+    crow::connections::systemBus->async_method_call(
+        [resp, cpuName, configBaseName = std::move(configBaseName),
+         appliedConfigUri](boost::system::error_code ec,
+                           const MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "GetSubTree failed: " << ec;
+                messages::internalError(resp->res);
+                return;
+            }
+
+            for (const auto& [object, serviceMap] : subtree)
+            {
+                if (!boost::ends_with(object, cpuName) || serviceMap.empty())
+                {
+                    continue;
+                }
+
+                BMCWEB_LOG_INFO << "Found CPU object " << object;
+
+                std::string configPath(object);
+                configPath += '/';
+                configPath += configBaseName;
+
+                crow::connections::systemBus->async_method_call(
+                    [resp, appliedConfigUri = std::move(appliedConfigUri)](
+                        boost::system::error_code ec,
+                        sdbusplus::message::message& msg) {
+                        setAppliedConfigHandler(resp, appliedConfigUri, ec,
+                                                msg);
+                    },
+                    serviceMap.begin()->first, object,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Processor."
+                    "CurrentOperatingConfig",
+                    "AppliedConfig",
+                    std::variant<sdbusplus::message::object_path>(
+                        std::move(configPath)));
+
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Didn't find matching CPU object";
+
+            // This means the AppliedOperatingConfig property would not show up
+            // on a subsequent GET (either the service just crashed or client
+            // sent a bad request), so we'll treat it the same as a PATCH to an
+            // unknown property.
+            messages::propertyUnknown(resp->res, "AppliedOperatingConfig");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.Processor."
+                                   "CurrentOperatingConfig"});
+}
+
 class OperatingConfigCollection : public Node
 {
   public:
@@ -1051,6 +1211,30 @@ class Processor : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getProcessorData(asyncResp, processorId);
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::optional<nlohmann::json> appliedConfigJson;
+        if (!json_util::readJson(req, res, "AppliedOperatingConfig",
+                                 appliedConfigJson))
+        {
+            return;
+        }
+
+        if (appliedConfigJson)
+        {
+            std::string appliedConfigUri;
+            if (!json_util::readJson(*appliedConfigJson, res, "@odata.id",
+                                     appliedConfigUri))
+            {
+                return;
+            }
+            patchAppliedOperatingConfig(asyncResp, params[0], appliedConfigUri);
+        }
     }
 };
 
