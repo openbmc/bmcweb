@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "473e67a0_f738a118",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "for me it seems fine to upgrade based on header content-type, \nits aligned with http right?\ni am also thinking if we can do through rourtes as suggested\nbut i could not  find a way yet,\nplease provide your suggestions",
+      "parentUuid": "397e827c_72de6d0f",
+      "range": {
+        "startLine": 352,
+        "startChar": 1,
+        "endLine": 354,
+        "endChar": 63
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fc7f96a_b725521c",
         "filename": "http/http_stream.hpp",
         "patchSetId": 6
@@ -214,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "54ee46f2_08b88a9a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "cant use inline here",
+      "parentUuid": "6a9e1ca7_ebdeda97",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27872381_eee2e90b",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 6
@@ -261,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "a53bc3a6_644fa125",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "async_wait on socket does not provide a way to timeout, \nwe can\u0027t use deadline/steady_timer in this case, becoz we need to timeout async wait on socket when its not ready to read for few secs.\n\ni have opened defect in boost community on the same\nhttps://github.com/chriskohlhoff/asio/issues/577\ni am trying to figure out a way for timeout mechanism\nplease do let us know your suggestions",
+      "parentUuid": "16d4644e_5d814afc",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbb939c_91d037ce",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 6
@@ -293,6 +365,24 @@
       "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d1c6059_f0297bf6",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-02T14:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37d757a1_e9bf7a7f",
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
