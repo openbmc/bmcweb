@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d720ec2_e40e0410",
+        "filename": "include/multipart_parser.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-02T10:23:57Z",
+      "side": 1,
+      "message": "Hi, I tested it and found some questions:\nwhen i created a test.img(41953726) file, i print some msg in the parse method, as follows:\n```\nstd::cerr \u003c\u003c \"george len \u003d \" \u003c\u003c len \u003c\u003c std::endl;\n```\nThe output file size is correct\n\nBut, when I use the `phosphor-image.static.mtd.tar` file, the output file size is incorrect.\nEg: phosphor.static.mtd.tar size is 24432640, the output file size is 24436988\n\nI am not sure if there is a problem with the parse method, because I have been testing for a day and have not studied the code.",
+      "revId": "0f1170985a058f2cc75db4b7142297f2946c6805",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
