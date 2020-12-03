@@ -27,8 +27,9 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-static constexpr const std::array<const char*, 4> supportedResourceTypes = {
-    "IBMConfigFile", "Task", "ComputerSystem", "Manager"};
+static constexpr const std::array<const char*, 6> supportedResourceTypes = {
+    "IBMConfigFile", "Task",     "ComputerSystem",
+    "Manager",       "BMC Dump", "System Dump"};
 #else
 static constexpr const std::array<const char*, 3> supportedResourceTypes = {
     "Task", "ComputerSystem", "Manager"};
