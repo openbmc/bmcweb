@@ -200,6 +200,7 @@ class Chassis : public Node
   public:
     Chassis(App& app) : Node(app, "/redfish/v1/Chassis/<str>/", std::string())
     {
+        BMCWEB_LOG_DEBUG << "chassis constructor";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -218,7 +219,8 @@ class Chassis : public Node
     {
         const std::array<const char*, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis"};
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+        };
 
         // Check if there is required param, truly entering this shall be
         // impossible.
@@ -306,8 +308,16 @@ class Chassis : public Node
                     const std::string& connectionName =
                         connectionNames[0].first;
 
+                    BMCWEB_LOG_DEBUG << "Connection Name" << connectionName;
+
                     const std::vector<std::string>& interfaces2 =
                         connectionNames[0].second;
+
+                    for (auto item : interfaces2)
+                    {
+                        BMCWEB_LOG_DEBUG << "Interface Name" << item;
+                    }
+
                     const std::array<const char*, 2> hasIndicatorLed = {
                         "xyz.openbmc_project.Inventory.Item.Panel",
                         "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
@@ -323,6 +333,52 @@ class Chassis : public Node
                         }
                     }
 
+                    // TODO update with xyz interface for location
+                    const std::string LocationInterface =
+                        "com.ibm.ipzvpd.Location";
+                    if (std::find(interfaces2.begin(), interfaces2.end(),
+                                  LocationInterface) != interfaces2.end())
+                    {
+                        BMCWEB_LOG_DEBUG << "Location Code Found";
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, chassisId(std::string(chassisId))](
+                                const boost::system::error_code /*ec2*/,
+                                const std::vector<
+                                    std::pair<std::string, VariantType>>&
+                                    propertiesList) {
+                                for (const std::pair<std::string, VariantType>&
+                                         property : propertiesList)
+                                {
+                                    // Store DBus properties that are also
+                                    // Redfish properties with same name and a
+                                    // string value
+                                    const std::string& propertyName =
+                                        property.first;
+
+                                    BMCWEB_LOG_DEBUG << "PropertyName"
+                                                     << propertyName;
+
+                                    if (propertyName == "LocationCode")
+                                    {
+                                        const std::string* value =
+                                            std::get_if<std::string>(
+                                                &property.second);
+                                        if (value != nullptr)
+                                        {
+                                            asyncResp->res
+                                                .jsonValue["Location"]
+                                                          ["PartLocation"]
+                                                          ["ServiceLabel"] =
+                                                *value;
+                                        }
+                                    }
+                                }
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "GetAll",
+                            LocationInterface);
+                    }
+
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code /*ec2*/,
@@ -335,10 +391,15 @@ class Chassis : public Node
                                 // properties with same name and a string value
                                 const std::string& propertyName =
                                     property.first;
+
+                                BMCWEB_LOG_DEBUG << "PropertyName"
+                                                 << propertyName;
+
                                 if ((propertyName == "PartNumber") ||
                                     (propertyName == "SerialNumber") ||
                                     (propertyName == "Manufacturer") ||
-                                    (propertyName == "Model"))
+                                    (propertyName == "Model") ||
+                                    (propertyName == "FruPartNumber"))
                                 {
                                     const std::string* value =
                                         std::get_if<std::string>(
@@ -377,6 +438,7 @@ class Chassis : public Node
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
                         "xyz.openbmc_project.Inventory.Decorator.Asset");
+
                     return;
                 }
 
@@ -418,7 +480,7 @@ class Chassis : public Node
         }
 
         const std::array<const char*, 2> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.137.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
         const std::string& chassisId = params[0];
