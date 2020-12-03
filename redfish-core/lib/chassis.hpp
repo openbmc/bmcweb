@@ -323,6 +323,41 @@ class Chassis : public Node
                         }
                     }
 
+                    const std::string locationInterface =
+                        "xyz.openbmc_project.Inventory.Decorator.LocationCode";
+                    if (std::find(interfaces2.begin(), interfaces2.end(),
+                                  locationInterface) != interfaces2.end())
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, chassisId(std::string(chassisId))](
+                                const boost::system::error_code ec,
+                                const std::variant<std::string>& property) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBUS response error for Location";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                const std::string* value =
+                                    std::get_if<std::string>(&property);
+                                if (value == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG << "Null value returned "
+                                                        "for locaton code";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res
+                                    .jsonValue["Location"]["PartLocation"]
+                                              ["ServiceLabel"] = *value;
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "Get",
+                            locationInterface, "LocationCode");
+                    }
+
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code /*ec2*/,
