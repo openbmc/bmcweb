@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53edd3df_b27dc3f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-03T15:21:32Z",
+      "side": 1,
+      "message": "I still think this would be a warning..\nSomething exited unsuccessfully..",
+      "revId": "2c4ed0fbff6b9c6a5eadfedc9a73301c1d2a3f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
