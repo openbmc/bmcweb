@@ -2265,8 +2265,8 @@ constexpr std::array<MessageEntry, 187> registry = {
                  {
                      "Indicates that a service has exited unsuccessfully.",
                      "Service %1 has exited unsuccessfully.",
-                     "Warning",
-                     "Warning",
+                     "OK",
+                     "OK",
                      1,
                      {"string"},
                      "None.",
