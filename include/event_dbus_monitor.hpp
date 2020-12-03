@@ -9,9 +9,11 @@ namespace dbus_monitor
 
 static std::shared_ptr<sdbusplus::bus::match::match> matchHostStateChange;
 static std::shared_ptr<sdbusplus::bus::match::match> matchBMCStateChange;
+static std::shared_ptr<sdbusplus::bus::match::match> matchDumpCreatedSignal;
 
 void registerHostStateChangeSignal();
 void registerBMCStateChangeSignal();
+void registerDumpCreatedSignal();
 
 inline void BMCStatePropertyChange(sdbusplus::message::message& msg)
 {
@@ -106,6 +108,59 @@ void registerStateChangeSignal()
 {
     registerHostStateChangeSignal();
     registerBMCStateChangeSignal();
+}
+
+inline void DumpCreatedSignal(sdbusplus::message::message& msg)
+{
+    BMCWEB_LOG_DEBUG << "Dump Created - match fired";
+
+    if (msg.is_method_error())
+    {
+        BMCWEB_LOG_ERROR << "Dump Created signal error";
+        return;
+    }
+
+    std::vector<std::pair<
+        std::string,
+        std::vector<std::pair<std::string, std::variant<std::string>>>>>
+        interfacesList;
+
+    sdbusplus::message::object_path objPath;
+
+    msg.read(objPath, interfacesList);
+
+    std::string eventOrigin;
+    std::string dumpType;
+
+    for (auto& interface : interfacesList)
+    {
+        if (interface.first == "xyz.openbmc_project.Dump.Entry.BMC")
+        {
+            eventOrigin = "/redfish/v1/Managers/bmc/LogServices/Dump/";
+            dumpType = "BMC Dump";
+        }
+        else if (interface.first == "xyz.openbmc_project.Dump.Entry.System")
+        {
+            eventOrigin = "/redfish/v1/Systems/system/LogServices/Dump/";
+            dumpType = "System Dump";
+        }
+    }
+
+    redfish::EventServiceManager::getInstance().sendEvent(
+        redfish::messages::resourceCreated(), eventOrigin, dumpType);
+
+    registerDumpCreatedSignal();
+}
+
+void registerDumpCreatedSignal()
+{
+    BMCWEB_LOG_DEBUG << "Dump Created signal - Register";
+
+    matchDumpCreatedSignal = std::make_unique<sdbusplus::bus::match::match>(
+        *crow::connections::systemBus,
+        "type='signal',member='InterfacesAdded',interface='org.freedesktop."
+        "DBus.ObjectManager',path='/xyz/openbmc_project/dump',",
+        DumpCreatedSignal);
 }
 
 } // namespace dbus_monitor
