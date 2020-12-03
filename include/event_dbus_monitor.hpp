@@ -9,9 +9,13 @@ namespace dbus_monitor
 
 static std::shared_ptr<sdbusplus::bus::match::match> matchHostStateChange;
 static std::shared_ptr<sdbusplus::bus::match::match> matchBMCStateChange;
+static std::shared_ptr<sdbusplus::bus::match::match> matchDumpCreatedSignal;
+static std::shared_ptr<sdbusplus::bus::match::match> matchDumpDeletedSignal;
 
 void registerHostStateChangeSignal();
 void registerBMCStateChangeSignal();
+void registerDumpCreatedSignal();
+void registerDumpDeletedSignal();
 
 inline void BMCStatePropertyChange(sdbusplus::message::message& msg)
 {
@@ -40,7 +44,7 @@ inline void BMCStatePropertyChange(sdbusplus::message::message& msg)
         // Push an event
         std::string origin = "/redfish/v1/Managers/bmc";
         redfish::EventServiceManager::getInstance().sendEvent(
-            redfish::messages::ResourceChanged(), origin, "Manager");
+            redfish::messages::resourceChanged(), origin, "Manager");
     }
     registerBMCStateChangeSignal();
 }
@@ -72,7 +76,7 @@ inline void HostStatePropertyChange(sdbusplus::message::message& msg)
         // Push an event
         std::string origin = "/redfish/v1/Systems/system";
         redfish::EventServiceManager::getInstance().sendEvent(
-            redfish::messages::ResourceChanged(), origin, "ComputerSystem");
+            redfish::messages::resourceChanged(), origin, "ComputerSystem");
     }
     registerHostStateChangeSignal();
 }
@@ -106,6 +110,103 @@ void registerStateChangeSignal()
 {
     registerHostStateChangeSignal();
     registerBMCStateChangeSignal();
+}
+
+inline void dumpCreatedSignal(sdbusplus::message::message& msg)
+{
+    BMCWEB_LOG_DEBUG << "Dump Created - match fired";
+
+    if (msg.is_method_error())
+    {
+        BMCWEB_LOG_ERROR << "Dump Created signal error";
+        return;
+    }
+
+    std::vector<std::pair<
+        std::string,
+        std::vector<std::pair<std::string, std::variant<std::string>>>>>
+        interfacesList;
+
+    sdbusplus::message::object_path objPath;
+
+    msg.read(objPath, interfacesList);
+
+    std::string eventOrigin;
+
+    if ((objPath.str).find("/bmc/") != std::string::npos)
+    {
+        eventOrigin = "/redfish/v1/Managers/bmc/LogServices/Dump/";
+    }
+    else if ((objPath.str).find("/system/") != std::string::npos)
+    {
+        eventOrigin = "/redfish/v1/Systems/system/LogServices/Dump/";
+    }
+
+    redfish::EventServiceManager::getInstance().sendEvent(
+        redfish::messages::resourceCreated(), eventOrigin, "LogEntry");
+
+    registerDumpCreatedSignal();
+}
+
+inline void dumpDeletedSignal(sdbusplus::message::message& msg)
+{
+    BMCWEB_LOG_DEBUG << "Dump Deleted - match fired";
+
+    if (msg.is_method_error())
+    {
+        BMCWEB_LOG_ERROR << "Dump Deleted signal error";
+        return;
+    }
+
+    std::vector<std::string> interfacesList;
+
+    sdbusplus::message::object_path objPath;
+
+    msg.read(objPath, interfacesList);
+
+    std::string eventOrigin;
+
+    if ((objPath.str).find("/bmc/") != std::string::npos)
+    {
+        eventOrigin = "/redfish/v1/Managers/bmc/LogServices/Dump/";
+    }
+    else if ((objPath.str).find("/system/") != std::string::npos)
+    {
+        eventOrigin = "/redfish/v1/Systems/system/LogServices/Dump/";
+    }
+
+    redfish::EventServiceManager::getInstance().sendEvent(
+        redfish::messages::resourceRemoved(), eventOrigin, "LogEntry");
+
+    registerDumpDeletedSignal();
+}
+
+void registerDumpCreatedSignal()
+{
+    BMCWEB_LOG_DEBUG << "Dump Created signal - Register";
+
+    matchDumpCreatedSignal = std::make_unique<sdbusplus::bus::match::match>(
+        *crow::connections::systemBus,
+        "type='signal',member='InterfacesAdded',interface='org.freedesktop."
+        "DBus.ObjectManager',path='/xyz/openbmc_project/dump',",
+        dumpCreatedSignal);
+}
+
+void registerDumpDeletedSignal()
+{
+    BMCWEB_LOG_DEBUG << "Dump Deleted signal - Register";
+
+    matchDumpDeletedSignal = std::make_unique<sdbusplus::bus::match::match>(
+        *crow::connections::systemBus,
+        "type='signal',member='InterfacesRemoved',interface='org.freedesktop."
+        "DBus.ObjectManager',path='/xyz/openbmc_project/dump',",
+        dumpDeletedSignal);
+}
+
+void registerDumpUpdateSignal()
+{
+    registerDumpCreatedSignal();
+    registerDumpDeletedSignal();
 }
 
 } // namespace dbus_monitor
