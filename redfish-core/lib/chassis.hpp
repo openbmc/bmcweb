@@ -308,6 +308,7 @@ class Chassis : public Node
 
                     const std::vector<std::string>& interfaces2 =
                         connectionNames[0].second;
+
                     const std::array<const char*, 2> hasIndicatorLed = {
                         "xyz.openbmc_project.Inventory.Item.Panel",
                         "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
@@ -323,6 +324,43 @@ class Chassis : public Node
                         }
                     }
 
+                    const std::string locationInterface =
+                        "xyz.openbmc_project.Inventory.Decorator.LocationCode";
+                    if (std::find(interfaces2.begin(), interfaces2.end(),
+                                  locationInterface) != interfaces2.end())
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, chassisId(std::string(chassisId))](
+                                const boost::system::error_code ec,
+                                const std::variant<std::string>& property) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBUS response error for Location";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                const std::string* value =
+                                    std::get_if<std::string>(&property);
+                                if (value != nullptr)
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Location"]["PartLocation"]
+                                                  ["ServiceLabel"] = *value;
+                                }
+                                else
+                                {
+                                    BMCWEB_LOG_DEBUG << "Null value returned "
+                                                        "for locaton code";
+                                    messages::internalError(asyncResp->res);
+                                }
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "Get",
+                            locationInterface, "LocationCode");
+                    }
+
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code /*ec2*/,
@@ -335,10 +373,15 @@ class Chassis : public Node
                                 // properties with same name and a string value
                                 const std::string& propertyName =
                                     property.first;
+
+                                BMCWEB_LOG_DEBUG << "PropertyName"
+                                                 << propertyName;
+
                                 if ((propertyName == "PartNumber") ||
                                     (propertyName == "SerialNumber") ||
                                     (propertyName == "Manufacturer") ||
-                                    (propertyName == "Model"))
+                                    (propertyName == "Model") ||
+                                    (propertyName == "SparePartNumber"))
                                 {
                                     const std::string* value =
                                         std::get_if<std::string>(
@@ -377,6 +420,7 @@ class Chassis : public Node
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
                         "xyz.openbmc_project.Inventory.Decorator.Asset");
+
                     return;
                 }
 
