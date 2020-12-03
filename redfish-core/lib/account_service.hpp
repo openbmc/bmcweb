@@ -939,6 +939,52 @@ class AccountService : public Node
             authMethodsConfig.tls = *tls;
         }
 
+#ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
+        if (authMethodsConfig.basic)
+        {
+            // Do not allow user to enable
+            messages::actionNotSupported(asyncResp->res,
+                                         "of enabling BasicAuth method");
+            return;
+        }
+#endif
+#ifndef BMCWEB_ENABLE_SESSION_AUTHENTICATION
+        if (authMethodsConfig.sessionToken)
+        {
+            // Do not allow user to enable
+            messages::actionNotSupported(asyncResp->res,
+                                         "of enabling SessionToken method");
+            return;
+        }
+#endif
+#ifndef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
+        if (authMethodsConfig.xtoken)
+        {
+            // Do not allow user to enable
+            messages::actionNotSupported(asyncResp->res,
+                                         "of enabling XToken method");
+            return;
+        }
+#endif
+#ifndef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
+        if (authMethodsConfig.cookie)
+        {
+            // Do not allow user to enable
+            messages::actionNotSupported(asyncResp->res,
+                                         "of enabling Cookie method");
+            return;
+        }
+#endif
+#ifndef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        if (authMethodsConfig.tls)
+        {
+            // Do not allow user to enable
+            messages::actionNotSupported(asyncResp->res,
+                                         "of enabling TLS method");
+            return;
+        }
+#endif
+
         if (!authMethodsConfig.basic && !authMethodsConfig.cookie &&
             !authMethodsConfig.sessionToken && !authMethodsConfig.xtoken &&
             !authMethodsConfig.tls)

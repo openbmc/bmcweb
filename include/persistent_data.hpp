@@ -48,6 +48,8 @@ class ConfigFile
     {
         std::ifstream persistentFile(filename);
         uint64_t fileRevision = 0;
+        bool needWrite = false;
+
         if (persistentFile.is_open())
         {
             // call with exceptions disabled
@@ -90,6 +92,67 @@ class ConfigFile
                         SessionStore::getInstance()
                             .getAuthMethodsConfig()
                             .fromJson(item.value());
+
+                        AuthConfigMethods& authConfig =
+                            SessionStore::getInstance().getAuthMethodsConfig();
+
+#ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
+                        if (authConfig.basic)
+                        {
+                            authConfig.basic = false;
+                            needWrite = true;
+                        }
+#endif
+#ifndef BMCWEB_ENABLE_SESSION_AUTHENTICATION
+                        if (authConfig.sessionToken)
+                        {
+                            authConfig.sessionToken = false;
+                            needWrite = true;
+                        }
+#endif
+#ifndef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
+                        if (authConfig.xtoken)
+                        {
+                            authConfig.xtoken = false;
+                            needWrite = true;
+                        }
+#endif
+#ifndef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
+                        if (authConfig.cookie)
+                        {
+                            authConfig.cookie = false;
+                            needWrite = true;
+                        }
+#endif
+#ifndef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+                        if (authConfig.tls)
+                        {
+                            authConfig.tls = false;
+                            needWrite = true;
+                        }
+#endif
+                        if (!authConfig.xtoken && !authConfig.cookie &&
+                            !authConfig.sessionToken && !authConfig.basic &&
+                            !authConfig.tls)
+                        {
+                            needWrite = true;
+
+#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
+                            authConfig.basic = true;
+#endif
+#ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
+                            authConfig.sessionToken = true;
+#endif
+#ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
+                            authConfig.xtoken = true;
+#endif
+#ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
+                            authConfig.cookie = true;
+#endif
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+                            authConfig.tls = true;
+#endif
+                        }
                     }
                     else if (item.key() == "sessions")
                     {
@@ -140,7 +203,6 @@ class ConfigFile
                 }
             }
         }
-        bool needWrite = false;
 
         if (systemUuid.empty())
         {
