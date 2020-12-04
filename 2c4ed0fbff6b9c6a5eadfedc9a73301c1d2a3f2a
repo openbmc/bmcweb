@@ -52,6 +52,24 @@
       "revId": "2c4ed0fbff6b9c6a5eadfedc9a73301c1d2a3f2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f8766e1_4e10a032",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-04T22:09:07Z",
+      "side": 1,
+      "message": "\u003e Do I understand correctly there is additional information in the specific case of services failing during AC cycling such that the service failures are deemed harmess, but the fact of AC cycling is not modeled by the software?\n\nA service crashing is incorrect, and points to a bug in OpenBMC regardless of whether or not the system recovers.  In a very similar mechanism to a watchdog timer, the failure needs reported at a \"this is a hardware/software problem\" severity.\n\n\u003e \n\u003e It seems to me the solution could be one of:\n\u003e 1. Enhance the services to be aware of specific situations where an unexpected condition (such as impending power loss) is expected, and terminate \"normally\".\n\nThis.  Lots of sensors manage this without crashing today.\n\n\u003e 2. Model the interactions between the services better, so they don\u0027t behave erratically.\n\nAlso this.\n\n\u003e 3. Have some higher layer of software handle interactions between the various services.  For example, it knows when the AC is cycling and which services may behave erratically during this time, so it can adjust error codes, etc.\n\nNo.  Services should not crash in any circumstance when built properly.  I would be against any kind of masking to cover up software bugs on the public and inspectable interfaces.\n\n\u003e 4. Report each unexpected service termination as it happens, and task the agent reading the log to interpret what happened.\n\nThis is what we do today, this patchset is just attempting to change the report severity, which I disagree with.\n\n\u003e \n\u003e However, I don\u0027t understand the specifics here.",
+      "parentUuid": "be15787d_f14a3453",
+      "revId": "2c4ed0fbff6b9c6a5eadfedc9a73301c1d2a3f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
