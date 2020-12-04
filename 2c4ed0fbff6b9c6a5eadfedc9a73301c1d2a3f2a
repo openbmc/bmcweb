@@ -34,6 +34,24 @@
       "revId": "2c4ed0fbff6b9c6a5eadfedc9a73301c1d2a3f2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be15787d_f14a3453",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-12-04T21:46:57Z",
+      "side": 1,
+      "message": "Do I understand correctly there is additional information in the specific case of services failing during AC cycling such that the service failures are deemed harmess, but the fact of AC cycling is not modeled by the software?\n\nIt seems to me the solution could be one of:\n1. Enhance the services to be aware of specific situations where an unexpected condition (such as impending power loss) is expected, and terminate \"normally\".\n2. Model the interactions between the services better, so they don\u0027t behave erratically.\n3. Have some higher layer of software handle interactions between the various services.  For example, it knows when the AC is cycling and which services may behave erratically during this time, so it can adjust error codes, etc.\n4. Report each unexpected service termination as it happens, and task the agent reading the log to interpret what happened.\n\nHowever, I don\u0027t understand the specifics here.",
+      "parentUuid": "c910485a_cc997023",
+      "revId": "2c4ed0fbff6b9c6a5eadfedc9a73301c1d2a3f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
