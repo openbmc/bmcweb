@@ -52,6 +52,10 @@ class MetricReport : public Node
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
+    using Readings =
+        std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
+    using TimestampReadings = std::tuple<uint64_t, Readings>;
+
   private:
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>& params) override
@@ -92,7 +96,10 @@ class MetricReport : public Node
                             return;
                         }
 
-                        fillReport(asyncResp, id, ret);
+                        if (!fillReport(asyncResp->res.jsonValue, id, ret))
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
                     },
                     telemetry::service, reportPath,
                     "org.freedesktop.DBus.Properties", "Get",
@@ -101,10 +108,6 @@ class MetricReport : public Node
             telemetry::service, reportPath, telemetry::reportInterface,
             "Update");
     }
-
-    using Readings =
-        std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
-    using TimestampReadings = std::tuple<uint64_t, Readings>;
 
     static nlohmann::json toMetricValues(const Readings& readings)
     {
@@ -130,15 +133,15 @@ class MetricReport : public Node
         return metricValues;
     }
 
-    static void fillReport(const std::shared_ptr<AsyncResp>& asyncResp,
-                           const std::string& id,
+  public:
+    static bool fillReport(nlohmann::json& json, const std::string& id,
                            const std::variant<TimestampReadings>& var)
     {
-        asyncResp->res.jsonValue["@odata.type"] = schemaType;
-        asyncResp->res.jsonValue["@odata.id"] = telemetry::metricReportUri + id;
-        asyncResp->res.jsonValue["Id"] = id;
-        asyncResp->res.jsonValue["Name"] = id;
-        asyncResp->res.jsonValue["MetricReportDefinition"]["@odata.id"] =
+        json["@odata.type"] = schemaType;
+        json["@odata.id"] = telemetry::metricReportUri + id;
+        json["Id"] = id;
+        json["Name"] = id;
+        json["MetricReportDefinition"]["@odata.id"] =
             telemetry::metricReportDefinitionUri + id;
 
         const TimestampReadings* timestampReadings =
@@ -146,14 +149,14 @@ class MetricReport : public Node
         if (!timestampReadings)
         {
             BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
-            messages::internalError(asyncResp->res);
-            return;
+            return false;
         }
 
         const auto& [timestamp, readings] = *timestampReadings;
-        asyncResp->res.jsonValue["Timestamp"] =
+        json["Timestamp"] =
             crow::utility::getDateTime(static_cast<time_t>(timestamp));
-        asyncResp->res.jsonValue["MetricValues"] = toMetricValues(readings);
+        json["MetricValues"] = toMetricValues(readings);
+        return true;
     }
 
     static constexpr const char* schemaType =
