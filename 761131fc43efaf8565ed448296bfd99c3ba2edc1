@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30c8cea6_029487b8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-07T13:29:39Z",
+      "side": 1,
+      "message": "D-Bus :)",
+      "range": {
+        "startLine": 271,
+        "startChar": 55,
+        "endLine": 271,
+        "endChar": 59
+      },
+      "revId": "761131fc43efaf8565ed448296bfd99c3ba2edc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
