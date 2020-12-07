@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dc757a8_47b0c846",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-07T10:43:03Z",
+      "side": 1,
+      "message": "is this function call needed ?",
+      "range": {
+        "startLine": 400,
+        "startChar": 1,
+        "endLine": 400,
+        "endChar": 66
+      },
+      "revId": "0af5fe69d43d1b349a6ef9763f723e91be2b1046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aface60_39ef99e0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-07T10:43:03Z",
+      "side": 1,
+      "message": "better naming ?",
+      "range": {
+        "startLine": 411,
+        "startChar": 18,
+        "endLine": 411,
+        "endChar": 21
+      },
+      "revId": "0af5fe69d43d1b349a6ef9763f723e91be2b1046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
