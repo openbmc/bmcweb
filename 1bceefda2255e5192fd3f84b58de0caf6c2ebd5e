@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "52f8e29e_28538813",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-07T16:10:18Z",
+      "side": 1,
+      "message": "I am confused by this.. \nThe processor (/redfish/v1/Systems/system/Processors/cpu0) should just have a link to the SubProcessor collection: \nres.jsonValue[\"SubProcessors\"] \u003d {\n {\"@odata.id\", \"/redfish/v1/Systems/system/Processors/\" +\n  processorId + \"/SubProcessors\"}};\n\nIt is the SubProccesor collection (/redfish/v1/Systems/system/Processors/cpu0/SubProcessors) that has the members..\n\nThe processor schema has no members.. This would throw a validator error. I think the code is correct, this just needs to be updated.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f9ce97a_4b866ec8",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 6
@@ -30,6 +53,23 @@
       "writtenOn": "2020-12-07T16:03:49Z",
       "side": 1,
       "message": "Not sure why we need to bump, SubProcessors has been around for a long time. \nTypically I advise to not bump unless we need to. \nI think this processor schema should match the one below, so if you stick with 1_9, do so below as well. \n \n\n                \"SubProcessors\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection\",\n                    \"description\": \"The link to the collection of sub-processors associated with this system, such as cores or threads, that are part of a processor.\",\n                    \"longDescription\": \"This property shall contain a link to a resource collection of type ProcessorCollection.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_3_0\"\n                },",
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f246b03_819f2563",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-07T16:10:18Z",
+      "side": 1,
+      "message": "Could change to SubProcessor. Might be more clear",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
