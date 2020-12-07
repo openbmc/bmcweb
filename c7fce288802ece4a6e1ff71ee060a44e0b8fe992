@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f4e0da16_a5fcea90",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-07T13:37:01Z",
+      "side": 1,
+      "message": "converting string to path requires extra step, cutting string is easier and faster. Looking at the performance number using std::filesystem::path is almost 4 time slower than rfind() and substr() when running simple hand made benchmark",
+      "parentUuid": "be5c51e9_c373275f",
+      "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f16b2ec3_e266ed2c",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 54
@@ -30,6 +48,24 @@
       "writtenOn": "2020-12-07T08:25:31Z",
       "side": 1,
       "message": "internal error is quite generic and does not tell what happen\nIf there is more specific error connected with invalid parameters then use it here.",
+      "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37ae5a31_4923c5bb",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-07T13:37:01Z",
+      "side": 1,
+      "message": "I guess it is done as a double check for routing logic in bmcweb. I copied it from other redfish nodes to follow a pattern",
+      "parentUuid": "f16b2ec3_e266ed2c",
       "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7eed5cc0_8dc33501",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-07T13:37:01Z",
+      "side": 1,
+      "message": "Yes, it is done on purpose. In this case we can be sure that user receives single specific error so there is no need to check any additional information in journal. On line 80, bmcweb responses with internal error - it is required to be logged with error value for debug purpose",
+      "parentUuid": "c75dbdb0_58bda380",
+      "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f07b678c_35a948f7",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 54
@@ -64,6 +118,24 @@
       "writtenOn": "2020-12-07T08:25:31Z",
       "side": 1,
       "message": "does it have to be static?",
+      "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31571980_65c225e5",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-07T13:37:01Z",
+      "side": 1,
+      "message": "I would like to keep it as static because other components can access it without creating an object, e.g. eventService. It is possible to move function out of class but than it requires additional namespace.\nThere is no drawback of keeping it as static as far as I know",
+      "parentUuid": "f07b678c_35a948f7",
       "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
