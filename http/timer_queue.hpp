@@ -32,6 +32,11 @@ class TimerQueue
         {
             dq[index].second = nullptr;
         }
+        while (dq.begin() != dq.end() && dq.front().second == nullptr)
+        {
+            dq.pop_front();
+            step++;
+        }
     }
 
     std::optional<size_t> add(std::function<void()> f)
