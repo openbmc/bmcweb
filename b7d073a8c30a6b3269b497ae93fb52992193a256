@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ae2924f9_d498407f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-12-07T10:43:03Z",
+      "side": 1,
+      "message": "Still would like to see the validator in the tested section.",
+      "parentUuid": "22c7bd65_d91915f3",
+      "revId": "b7d073a8c30a6b3269b497ae93fb52992193a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a7b8c63_3ddec4d1",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
