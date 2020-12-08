@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "39199944_3c39498d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T18:49:55Z",
+      "side": 1,
+      "message": "Ed\nEven i had same thought initially but observation is \nEvery read on unix socket gets around 178k (when data \u003e 178kB)and calls sendMessage() with this ~178k chunk which will be filled into bufferResponse.\nso we need larger bufferResponse size(\u003e178k) so I used 1M",
+      "parentUuid": "f5e2cd92_3329c2e2",
+      "range": {
+        "startLine": 169,
+        "startChar": 26,
+        "endLine": 169,
+        "endChar": 44
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9680b1f_3439c1be",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
@@ -513,6 +537,30 @@
       "side": 1,
       "message": "\" i am sure there wont be any data populated in body.\"\nI\u0027d prefer we don\u0027t rely on that.\n\n\n\"we need to use a serializer\"\n\nYes, you do anyway to handle dynamic responses properly.",
       "parentUuid": "e961c2ad_fdd516db",
+      "range": {
+        "startLine": 88,
+        "startChar": 28,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fcb2d50_fe5eb56c",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T18:49:55Z",
+      "side": 1,
+      "message": "ok sure. i will use async_write_headers",
+      "parentUuid": "43221104_0ca3b4b3",
       "range": {
         "startLine": 88,
         "startChar": 28,
