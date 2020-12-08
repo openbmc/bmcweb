@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ef9a270_05315021",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T06:26:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30c8cea6_029487b8",
+      "range": {
+        "startLine": 271,
+        "startChar": 55,
+        "endLine": 271,
+        "endChar": 59
+      },
+      "revId": "761131fc43efaf8565ed448296bfd99c3ba2edc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ae7c12b_61e463a3",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 15
@@ -36,6 +60,24 @@
       "writtenOn": "2020-12-07T13:31:51Z",
       "side": 1,
       "message": "I\u0027m just curious : in dimm.cpp , it does a std::find.. However, it does this here.. why 2 different methods ?",
+      "revId": "761131fc43efaf8565ed448296bfd99c3ba2edc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36f7d9fc_33ece2ac",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T06:26:45Z",
+      "side": 1,
+      "message": "The current method is looped once(if...else if), and `std::find` needs to be looped multiple times.",
+      "parentUuid": "5ae7c12b_61e463a3",
       "revId": "761131fc43efaf8565ed448296bfd99c3ba2edc1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
