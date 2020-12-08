@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "13ee7341_6b60c283",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T17:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a4cddbc_05bb2320",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7fd41c6_f168b2ff",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "unadressed",
       "parentUuid": "b7fd41c6_f168b2ff",
+      "range": {
+        "startLine": 169,
+        "startChar": 26,
+        "endLine": 169,
+        "endChar": 44
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3491b4_b548b7bb",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T17:22:41Z",
+      "side": 1,
+      "message": "please provide suggestions here, what kind of buffer will be better here?\nmulti_buffer?",
+      "parentUuid": "ad452940_e6fda432",
       "range": {
         "startLine": 169,
         "startChar": 26,
@@ -405,6 +453,30 @@
     },
     {
       "key": {
+        "uuid": "e961c2ad_fdd516db",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T17:22:41Z",
+      "side": 1,
+      "message": "by the time we write header, i am sure there wont be any data populated in body.\nwith async_write_headers, we need to use a serializer.",
+      "parentUuid": "bdb5932c_4ba95f79",
+      "range": {
+        "startLine": 88,
+        "startChar": 28,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3315b8a_7a45a58d",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -434,6 +506,24 @@
       "side": 1,
       "message": "unaddressed?",
       "parentUuid": "b3315b8a_7a45a58d",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0953d9d7_356bd090",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T17:22:41Z",
+      "side": 1,
+      "message": "this function used to send headers. once headers sent successfully, sendMessage function will be used to send further data",
+      "parentUuid": "78875a3a_d4ca9cd1",
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -889,6 +979,30 @@
       "side": 1,
       "message": "unaddressed",
       "parentUuid": "b5178107_503e01aa",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 23
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374a5e96_9aa495b8",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T17:22:41Z",
+      "side": 1,
+      "message": "will address",
+      "parentUuid": "910a4e1a_d78687b0",
       "range": {
         "startLine": 203,
         "startChar": 12,
