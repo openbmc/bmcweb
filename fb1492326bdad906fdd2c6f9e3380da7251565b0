@@ -379,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "5c3ef489_7c209149",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-08T07:05:09Z",
+      "side": 1,
+      "message": "same way followed in other places under bmcweb.\nso i thought its right way to do. i dont see any possibilities of extending this class right now",
+      "parentUuid": "ba18191c_7112d35f",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 6
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02de1555_bc958b50",
         "filename": "http/http_stream.hpp",
         "patchSetId": 5
