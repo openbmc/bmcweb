@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b3b9127_3899e042",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T17:14:50Z",
+      "side": 1,
+      "message": "nitpick: if (tmpPort \u003c\u003d maxPortNumber)\n\nin https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md\n\nWe reference \n\nhttps://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#es45-avoid-magic-constants-use-symbolic-constants",
+      "range": {
+        "startLine": 460,
+        "startChar": 27,
+        "endLine": 460,
+        "endChar": 32
+      },
+      "revId": "537ebcc806bb424c05ba7e916d0b8b51acca8203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
