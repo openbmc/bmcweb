@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "361c0d02_2ad9f853",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T02:13:30Z",
+      "side": 1,
+      "message": "sorry, I forgot to update these when I update the code.\nDone",
+      "parentUuid": "52f8e29e_28538813",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f9ce97a_4b866ec8",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 6
@@ -36,6 +60,24 @@
       "writtenOn": "2020-12-07T16:03:49Z",
       "side": 1,
       "message": "I think I am fine with this but we haven\u0027t been using PrettyName in bmcweb",
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3fae84_ca1b5bf2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T02:13:30Z",
+      "side": 1,
+      "message": "Yes.\nWhen bmcweb has the PrettyName property, I think I can fix it again.",
+      "parentUuid": "6f9ce97a_4b866ec8",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "d16471e1_af94f67a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T02:13:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e2a0e4fc_9ff3006c",
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f246b03_819f2563",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 6
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "e140d578_659f337c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T02:13:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f246b03_819f2563",
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faa7cde0_7a0fb005",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 6
@@ -90,6 +168,24 @@
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3893b3a8_8a530782",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-08T02:13:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "faa7cde0_7a0fb005",
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
