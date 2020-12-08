@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94ee7c5e_6419e518",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-08T18:00:51Z",
+      "side": 1,
+      "message": "I\u0027d like to see this be a \"strict compliance\" option, which is much more maintainable in the long run, and gives us a place to put all these compliance breaking things.\n\nAt this point, we\u0027ve identified at least 4 things that need to go within this option:\n1. Mutual TLS auth\n2. PATCH on sensor value interface\n3. Cookie auth support (and therefore the webui)\n4. PATCH on bmc/NetworkProtocol hostname\n\nI\u0027m fairly certain there\u0027s more.\n\nMost of the above are already options to be able to build in, so this new option would just check to see if those are enabled.\n\nAlso, for the moment we need strict compatibility to be disabled by default as we want to give a path forward, and not break all the existing functionality.",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "4004828ed70cd8461a6fe891ace56b3b45fa9405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
