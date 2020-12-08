@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f96a62e_0eb0251f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T02:59:06Z",
+      "side": 1,
+      "message": "I think this would default to true like it does on https://github.com/openbmc/bmcweb/blob/dba0c291b5bbd8d256387ba43bb48bda82a191dc/redfish-core/lib/processor.hpp#L362",
+      "revId": "fb1d5a18dfa6605073e5e2b42efc6d1787439f39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
