@@ -34,6 +34,7 @@ static void cleanupTempSession(Request& req)
     }
 }
 
+#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(const boost::asio::ip::address& clientIp,
                      std::string_view auth_header)
@@ -81,7 +82,9 @@ static std::shared_ptr<persistent_data::UserSession>
         user, persistent_data::PersistenceType::SINGLE_REQUEST,
         isConfigureSelfOnly, clientIp.to_string());
 }
+#endif
 
+#ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performTokenAuth(std::string_view auth_header)
 {
@@ -92,7 +95,9 @@ static std::shared_ptr<persistent_data::UserSession>
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return session;
 }
+#endif
 
+#ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performXtokenAuth(const crow::Request& req)
 {
@@ -107,7 +112,9 @@ static std::shared_ptr<persistent_data::UserSession>
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return session;
 }
+#endif
 
+#ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performCookieAuth(const crow::Request& req)
 {
@@ -164,6 +171,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
     return session;
 }
+#endif
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
@@ -250,14 +258,18 @@ static void authenticate(
         req.session = performTLSAuth(req, res, session);
     }
 #endif
+#ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
     if (req.session == nullptr && authMethodsConfig.xtoken)
     {
         req.session = performXtokenAuth(req);
     }
+#endif
+#ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
     if (req.session == nullptr && authMethodsConfig.cookie)
     {
         req.session = performCookieAuth(req);
     }
+#endif
     if (req.session == nullptr)
     {
         std::string_view authHeader = req.getHeaderValue("Authorization");
@@ -267,12 +279,16 @@ static void authenticate(
             if (boost::starts_with(authHeader, "Token ") &&
                 authMethodsConfig.sessionToken)
             {
+#ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
                 req.session = performTokenAuth(authHeader);
+#endif
             }
             else if (boost::starts_with(authHeader, "Basic ") &&
                      authMethodsConfig.basic)
             {
+#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
                 req.session = performBasicAuth(req.ipAddress, authHeader);
+#endif
             }
         }
     }

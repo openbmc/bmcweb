@@ -916,26 +916,57 @@ class AccountService : public Node
 
         if (basicAuth)
         {
+#ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
+            messages::actionNotSupported(
+                asyncResp->res, "Setting BasicAuth when basic-auth feature "
+                                "is disabled");
+            return;
+#endif
             authMethodsConfig.basic = *basicAuth;
         }
 
         if (cookie)
         {
+#ifndef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
+            messages::actionNotSupported(
+                asyncResp->res, "Setting Cookie when cookie-auth feature "
+                                "is disabled");
+            return;
+#endif
             authMethodsConfig.cookie = *cookie;
         }
 
         if (sessionToken)
         {
+#ifndef BMCWEB_ENABLE_SESSION_AUTHENTICATION
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Setting SessionToken when session-auth feature "
+                "is disabled");
+            return;
+#endif
             authMethodsConfig.sessionToken = *sessionToken;
         }
 
         if (xToken)
         {
+#ifndef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
+            messages::actionNotSupported(
+                asyncResp->res, "Setting XToken when xtoken-auth feature "
+                                "is disabled");
+            return;
+#endif
             authMethodsConfig.xtoken = *xToken;
         }
 
         if (tls)
         {
+#ifndef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+            messages::actionNotSupported(
+                asyncResp->res, "Setting TLS when mutual-tls-auth feature "
+                                "is disabled");
+            return;
+#endif
             authMethodsConfig.tls = *tls;
         }
 
