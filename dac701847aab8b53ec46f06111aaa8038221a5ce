@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "8a4cddbc_05bb2320",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "Removed. Done.",
+      "parentUuid": "d677c6e3_05fa478e",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7fd41c6_f168b2ff",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "This seems like an odd combination:  A flat static buffer of 1M, combined with a dynamic body;  Wouldn\u0027t you use some sort of dynamic type?",
+      "range": {
+        "startLine": 169,
+        "startChar": 26,
+        "endLine": 169,
+        "endChar": 44
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad452940_e6fda432",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "unadressed",
+      "parentUuid": "b7fd41c6_f168b2ff",
       "range": {
         "startLine": 169,
         "startChar": 26,
@@ -105,6 +153,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 28
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc56b772_1b70e2f5",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "Removed. Done.",
+      "parentUuid": "311dd7e2_7e72dca4",
       "range": {
         "startLine": 291,
         "startChar": 0,
@@ -309,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "bdb5932c_4ba95f79",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "unaddressed?",
+      "parentUuid": "c4647852_a3327098",
+      "range": {
+        "startLine": 88,
+        "startChar": 28,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3315b8a_7a45a58d",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -320,6 +416,24 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "Once this has succeeded, we.... do nothing?  That doesn\u0027t seem right.",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78875a3a_d4ca9cd1",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "unaddressed?",
+      "parentUuid": "b3315b8a_7a45a58d",
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -682,6 +796,24 @@
     },
     {
       "key": {
+        "uuid": "ad702a3b_a9e27d9a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26ebd0db_5f5aa497",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1817dc3f_f7ec13fb",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 2
@@ -733,6 +865,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "String copy.  Use the existing string_view directly.",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 23
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "910a4e1a_d78687b0",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-08T16:51:21Z",
+      "side": 1,
+      "message": "unaddressed",
+      "parentUuid": "b5178107_503e01aa",
       "range": {
         "startLine": 203,
         "startChar": 12,
