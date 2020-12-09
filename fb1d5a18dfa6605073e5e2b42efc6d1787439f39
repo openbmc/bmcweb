@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "4cea1f9d_4750c6b1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-09T18:32:55Z",
+      "side": 1,
+      "message": "Don\u0027t worry about it, I see https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045 which moves us to 10 anyway",
+      "parentUuid": "712c862a_2fba8a64",
+      "range": {
+        "startLine": 1306,
+        "startChar": 54,
+        "endLine": 1306,
+        "endChar": 56
+      },
+      "revId": "fb1d5a18dfa6605073e5e2b42efc6d1787439f39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b08b28bc_36ea110b",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 7
