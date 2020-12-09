@@ -302,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "86f21d2b_878da99c",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-09T04:21:47Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "f20eb206_92d13e34",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b59896d7_3108ddaf",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -360,6 +378,30 @@
       "side": 1,
       "message": "Basically this function is to keep connection open, otherwise connection is getting closed immediately.\nI did not understand your point \"leads to bugs if any single operation takes more than a second\"\ni have tested system dump offload which takes 2-3 mins to get entire dump.\ni did not notice any issue.\nbut i agree that its better to rely on DynamicResponse.end()\nhow does DynamicResponse.end() can hold connection?",
       "parentUuid": "76f7c2b5_a34025ad",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "581510b4_f876544c",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-09T04:21:47Z",
+      "side": 1,
+      "message": "done, modified to rely on DynamicResponse.end() call to single completion.",
+      "parentUuid": "5959bd21_a21693da",
       "range": {
         "startLine": 63,
         "startChar": 0,
@@ -784,6 +826,24 @@
       "side": 1,
       "message": "i am trying what\u0027s the problem constexpr?",
       "parentUuid": "c23840c9_10240f27",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17a08f4_dbd3c042",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-09T04:21:47Z",
+      "side": 1,
+      "message": "addressed in latest patch set",
+      "parentUuid": "dcd45b8b_77efee5e",
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
