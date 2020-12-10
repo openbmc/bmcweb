@@ -963,6 +963,30 @@
     },
     {
       "key": {
+        "uuid": "28d7df2d_f04d3242",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T18:55:23Z",
+      "side": 1,
+      "message": "as i mentioned, next doWrite() will be called only after this doWrite() successfully writes",
+      "parentUuid": "556e3ace_c0864161",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
