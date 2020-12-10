@@ -30,6 +30,7 @@ option('mutual-tls-auth', type : 'feature', value : 'enabled', description : '''
 option('ibm-management-console', type : 'feature', value : 'disabled', description : 'Enable the IBM management console specific functionality. Paths are under \'/ibm/v1/\'')
 option('http-body-limit', type: 'integer', min : 0, max : 512, value : 30, description : 'Specifies the http request body length limit')
 option('redfish-allow-deprecated-hostname-patch', type : 'feature', value : 'disabled', description : 'Enable/disable Managers/bmc/NetworkProtocol HostName PATCH commands. The default condition is to prevent HostName changes from this URI, following the Redfish schema. Enabling this switch permits the HostName to be PATCHed at this URI. In Q4 2021 this feature will be removed, and the Redfish schema enforced, making the HostName read-only.')
+option('ibm-lamp-test', type : 'feature', value : 'disabled', description : 'Enable the IBM lamp test functionality')
 
 # Insecure options. Every option that starts with a `insecure` flag should
 # not be enabled by default for any platform, unless the author fully comprehends
