@@ -945,6 +945,30 @@
     },
     {
       "key": {
+        "uuid": "36532d87_ad99e27a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "could not use inline, i see compilation error.",
+      "parentUuid": "b179d685_0cbf1755",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e50e521_1e5cecef",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1036,6 +1060,30 @@
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "387f8b1a_5746b236",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "any suggestions?",
+      "parentUuid": "b265a2ae_3a3940d3",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
@@ -1227,6 +1275,30 @@
     },
     {
       "key": {
+        "uuid": "29ef1bd4_48f7605b",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "i have tried to use deadline or steady timer but seems these wont work in this case\nwe can\u0027t set timeout, if data size is large then read operation can go till 2-3 mins.\nwe just need to timeout when there is no data available on socket for 1-2 second\nhow do we achieve this? do we need to explore socket options?",
+      "parentUuid": "598b54bc_fb7b33a3",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 35
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "279b4657_c058a77a",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1332,6 +1404,30 @@
     },
     {
       "key": {
+        "uuid": "f41aa752_82a95408",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29b2c940_d5fd3ed6",
+      "range": {
+        "startLine": 184,
+        "startChar": 9,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7870fa8d_475bb7c9",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1423,6 +1519,30 @@
       "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc592e2d_fbc2226a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf90fcc_2f6f8977",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 40
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1521,6 +1641,30 @@
     },
     {
       "key": {
+        "uuid": "7f378339_08a2fd6e",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "looking for your inputs",
+      "parentUuid": "b41568ac_3f27db69",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9cbac9_b42724c5",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1604,6 +1748,30 @@
       "side": 1,
       "message": "yes we can add a parameter to open handler,\nbut openHandler is generic infrastructure which can be used for other use-cases other than dump\nright?",
       "parentUuid": "cba7d040_09a2eb9e",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ad8767a_d0ce5f7a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "looking for inputs",
+      "parentUuid": "273220bd_3adea297",
       "range": {
         "startLine": 204,
         "startChar": 0,
