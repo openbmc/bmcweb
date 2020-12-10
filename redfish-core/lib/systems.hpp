@@ -24,6 +24,7 @@
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <variant>
 
@@ -1854,7 +1855,7 @@ class SystemsCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1864,8 +1865,8 @@ class SystemsCollection : public Node
         res.jsonValue["Name"] = "Computer System Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string>& /*hostName*/) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
@@ -1879,6 +1880,16 @@ class SystemsCollection : public Node
                     ifaceArray.push_back(
                         {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                     count = ifaceArray.size();
+                    return;
+                }
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
                     return;
                 }
             },

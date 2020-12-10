@@ -21,6 +21,7 @@
 #include <boost/asio/steady_timer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <task_messages.hpp>
+#include <utils/query_param.hpp>
 
 #include <chrono>
 #include <variant>
@@ -465,7 +466,7 @@ class TaskCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -486,6 +487,15 @@ class TaskCollection : public Node
             members.emplace_back(
                 nlohmann::json{{"@odata.id", "/redfish/v1/TaskService/Tasks/" +
                                                  std::to_string(task->index)}});
+        }
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, asyncResp->res);
+            return;
         }
     }
 };

@@ -16,6 +16,8 @@
 #pragma once
 #include "event_service_manager.hpp"
 
+#include <utils/query_param.hpp>
+
 namespace redfish
 {
 
@@ -190,7 +192,7 @@ class EventDestinationCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -213,6 +215,16 @@ class EventDestinationCollection : public Node
             memberArray.push_back(
                 {{"@odata.id",
                   "/redfish/v1/EventService/Subscriptions/" + id}});
+        }
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            res.end();
+            return;
         }
     }
 

@@ -19,6 +19,7 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <node.hpp>
+#include <utils/query_param.hpp>
 
 namespace redfish
 {
@@ -38,7 +39,7 @@ class StorageCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#StorageCollection.StorageCollection";
@@ -47,6 +48,16 @@ class StorageCollection : public Node
         res.jsonValue["Members"] = {
             {{"@odata.id", "/redfish/v1/Systems/system/Storage/1"}}};
         res.jsonValue["Members@odata.count"] = 1;
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            res.end();
+            return;
+        }
         res.end();
     }
 };

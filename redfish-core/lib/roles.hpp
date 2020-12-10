@@ -17,6 +17,8 @@
 
 #include "node.hpp"
 
+#include <utils/query_param.hpp>
+
 #include <variant>
 
 namespace redfish
@@ -133,7 +135,7 @@ class RoleCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -143,8 +145,9 @@ class RoleCollection : public Node
                          {"Description", "BMC User Roles"}};
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::vector<std::string>>& resp) {
+            [asyncResp,
+             &req](const boost::system::error_code ec,
+                   const std::variant<std::vector<std::string>>& resp) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -172,6 +175,16 @@ class RoleCollection : public Node
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     memberArray.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.Properties", "Get",

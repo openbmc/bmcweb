@@ -23,6 +23,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 namespace redfish
 {
@@ -775,8 +776,9 @@ class OperatingConfigCollection : public Node
         // First find the matching CPU object so we know how to constrain our
         // search for related Config objects.
         crow::connections::systemBus->async_method_call(
-            [asyncResp, cpuName](const boost::system::error_code ec,
-                                 const std::vector<std::string>& objects) {
+            [asyncResp, cpuName,
+             &req](const boost::system::error_code ec,
+                   const std::vector<std::string>& objects) {
                 if (ec)
                 {
                     BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
@@ -804,6 +806,18 @@ class OperatingConfigCollection : public Node
                         {"xyz.openbmc_project.Inventory.Item.Cpu."
                          "OperatingConfig"},
                         object.c_str());
+
+                    redfish::query_param::QueryParamType queryParam =
+                        redfish::query_param::getQueryParam(req);
+
+                    if (queryParam !=
+                        redfish::query_param::QueryParamType::NOPARAM)
+                    {
+                        redfish::query_param::executeQueryParam(queryParam,
+                                                                asyncResp->res);
+                        return;
+                    }
+
                     return;
                 }
             },
@@ -921,7 +935,7 @@ class ProcessorCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
@@ -935,6 +949,15 @@ class ProcessorCollection : public Node
             asyncResp, "/redfish/v1/Systems/system/Processors",
             {"xyz.openbmc_project.Inventory.Item.Cpu",
              "xyz.openbmc_project.Inventory.Item.Accelerator"});
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            return;
+        }
     }
 };
 

@@ -19,6 +19,8 @@
 #include "node.hpp"
 #include "persistent_data.hpp"
 
+#include <utils/query_param.hpp>
+
 namespace redfish
 {
 
@@ -145,7 +147,7 @@ class SessionCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::vector<const std::string*> sessionIds =
@@ -164,6 +166,17 @@ class SessionCollection : public Node
         res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
         res.jsonValue["Name"] = "Session Collection";
         res.jsonValue["Description"] = "Session Collection";
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            res.end();
+            return;
+        }
+
         res.end();
     }
 
