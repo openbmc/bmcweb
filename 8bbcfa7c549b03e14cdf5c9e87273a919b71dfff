@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "bb217418_4a2aa370",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-10T13:27:59Z",
+      "side": 1,
+      "message": "we would need to make a mapper call that implements groups/lamp_test as opposed to hard coding GroupManager",
+      "range": {
+        "startLine": 1263,
+        "startChar": 3,
+        "endLine": 1263,
+        "endChar": 47
+      },
+      "revId": "8bbcfa7c549b03e14cdf5c9e87273a919b71dfff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1664aa27_7ae493f3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1629,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-10T13:27:59Z",
+      "side": 1,
+      "message": "same comment as above one",
+      "range": {
+        "startLine": 1629,
+        "startChar": 8,
+        "endLine": 1629,
+        "endChar": 47
+      },
+      "revId": "8bbcfa7c549b03e14cdf5c9e87273a919b71dfff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f91c358_ad5b99b3",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
