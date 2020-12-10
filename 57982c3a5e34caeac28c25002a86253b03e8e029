@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c493dfdf_1c68e4da",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "Still would like to see this in an ibm specific root",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "229dbf82_cb907a6b",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -13,6 +36,30 @@
       "writtenOn": "2020-12-10T11:40:35Z",
       "side": 1,
       "message": "You should pass shared_ptr instead creating a new one here. Now there are two seperate shared_ptrs that call delete on res, it can cause segfault",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 49
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bfec52_85840f86",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "229dbf82_cb907a6b",
       "range": {
         "startLine": 571,
         "startChar": 0,
@@ -59,6 +106,167 @@
       "writtenOn": "2020-12-10T11:40:35Z",
       "side": 1,
       "message": "No response on success. Is it ok?",
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66af947_30e64eee",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem like a condition that bmcweb should be checking.  If the service requires a specific host state, it should be in charge of returning the appropriate error code, not bmcweb.",
+      "range": {
+        "startLine": 654,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 48
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523b5c5a_19386aaa",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "you use internal_server_error a lot in this code.  Most of the things you\u0027ve used it for (like this one) are not appropriate, and should instead be using something like bad_request.",
+      "range": {
+        "startLine": 660,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 71
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f941c188_490fb3da",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "Isn\u0027t this redundant?",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 59
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4c5d2b3_d73f4622",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "nit, pass error_codes by value.",
+      "range": {
+        "startLine": 671,
+        "startChar": 34,
+        "endLine": 671,
+        "endChar": 63
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f04b8c_1a08daef",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "This is not an appropriate way to match an ackMatch with its counterpart.",
+      "range": {
+        "startLine": 672,
+        "startChar": 20,
+        "endLine": 672,
+        "endChar": 38
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a453832_6862c03f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "Don\u0027t use res.end() in new code.",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 41
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb898fe5_c3b73ed4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T17:15:17Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md.  This specific error is called out.",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 72
+      },
       "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
