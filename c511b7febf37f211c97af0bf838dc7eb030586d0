@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e558e38_9920cd69",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:40:35Z",
+      "side": 0,
+      "message": "I guess you still need it because you did not initialize asyncResp",
+      "range": {
+        "startLine": 584,
+        "startChar": 16,
+        "endLine": 584,
+        "endChar": 26
+      },
+      "revId": "c511b7febf37f211c97af0bf838dc7eb030586d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
