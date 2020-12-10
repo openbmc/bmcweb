@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96971168_45da25af",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:31:32Z",
+      "side": 1,
+      "message": "This doesn\u0027t work for anything other than only.  I\u0027m all for making a generic query param grabber, but I\u0027d like to see the existing query params moved to it first before it\u0027s used for new code.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "a8722969e639065650597b3ee98f5737d83fe21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fdd61ad_a837d4d0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:31:32Z",
+      "side": 1,
+      "message": "This is incorrect.  Use find instead of operator[].",
+      "range": {
+        "startLine": 45,
+        "startChar": 26,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "a8722969e639065650597b3ee98f5737d83fe21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6449b7a9_469725d2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:31:32Z",
+      "side": 1,
+      "message": "Same here, find is required over operator[]\n\nAlso, this needs to check for the existence of a single element, and return the appropriate return code if it\u0027s not there.",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 71
+      },
+      "revId": "a8722969e639065650597b3ee98f5737d83fe21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a304f49e_d50fc5a3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:31:32Z",
+      "side": 1,
+      "message": "To my understanding, this isn\u0027t the correct way to implement the only param.  We should be returning the single resource, not a redirect to be queried later.  This largely defeats the purpose of the only param.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "a8722969e639065650597b3ee98f5737d83fe21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4ac8428_05851d46",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:31:32Z",
+      "side": 1,
+      "message": "Please don\u0027t capture request by reference.  Do whatever things you need to do in the primary scope, then pass down the smaller variables to the lower scopes.",
+      "range": {
+        "startLine": 709,
+        "startChar": 25,
+        "endLine": 709,
+        "endChar": 28
+      },
+      "revId": "a8722969e639065650597b3ee98f5737d83fe21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
