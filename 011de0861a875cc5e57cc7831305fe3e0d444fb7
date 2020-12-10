@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b492c494_9ad4cfd4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "?????  This is not a redfish error code, nor does this look like a valid message.  Use the existing messages to convey what you want to return to the user using the helper functions.",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 46
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c42f6a_fba46520",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "Res.end() should not be used in new code.",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 705,
+        "endChar": 18
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09c011de_32b03c9f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "Make this return std::optional\u003cstring\u003e.  Headers can be set to \"\", so its not a good thing to use as an error code.\n\nOn second thought, this doesn\u0027t implement list parsing.  Please look into the boot rfc7230 extension that can parse these keys and values properly.\n\nhttps://www.boost.org/doc/libs/master/boost/beast/http/rfc7230.hpp",
+      "range": {
+        "startLine": 708,
+        "startChar": 4,
+        "endLine": 708,
+        "endChar": 15
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f78dd90_07298d5e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "Can this code be de-duplicated with the other update service code.  I seem to recall we already have a helper to do this, or at the very least we have code that does this.  We should avoid duplicating it.",
+      "range": {
+        "startLine": 726,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 5
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2675aa12_3bd37619",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "This isn\u0027t really neccesary, just check for req.mime_fields.empty().",
+      "range": {
+        "startLine": 775,
+        "startChar": 13,
+        "endLine": 775,
+        "endChar": 31
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ffc64ee_5d1723ef",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "Should we stop here if we\u0027ve found an error, and not continue?",
+      "range": {
+        "startLine": 791,
+        "startChar": 16,
+        "endLine": 791,
+        "endChar": 24
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6757e22f_d8f7da63",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "OEM should never be required for spec driven features.  make this std::optional.\n\nSame thing with applyTime.  It shoudn\u0027t be required, and should have reasonable defaults, like apply time immediate.",
+      "range": {
+        "startLine": 800,
+        "startChar": 31,
+        "endLine": 800,
+        "endChar": 34
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7243e688_a2eae156",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "This isn\u0027t required.  readJson will set appropriate errors in the response for you.",
+      "range": {
+        "startLine": 805,
+        "startChar": 0,
+        "endLine": 805,
+        "endChar": 63
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db898121_d2f2a7d7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "I suspect this needs to be exact match, not starts with.",
+      "range": {
+        "startLine": 811,
+        "startChar": 28,
+        "endLine": 811,
+        "endChar": 39
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f73afd_e36ea1d2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "This is making a full copy of the data.  Use a pointer.",
+      "range": {
+        "startLine": 814,
+        "startChar": 16,
+        "endLine": 814,
+        "endChar": 26
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf58b851_c9fb0c9c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "Needs to set an error and return if unexpected keys are given.",
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3e1c21c_b33dcfcd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "If this is removed, we can delete the setApplyTime call on line 809, right?",
+      "range": {
+        "startLine": 818,
+        "startChar": 0,
+        "endLine": 818,
+        "endChar": 30
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01c00b4c_98c0a939",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "If we weren\u0027t given data, this needs to result in an error.  Please use the existing redfish message defines.",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 32
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "260da344_da74b07e",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:57:09Z",
+      "side": 1,
+      "message": "Considering this is essentially a copy of processJsonFromRequest, please make processJsonFromRequest simply call this method with req.body as the argument.",
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
