@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1427cdc0_6fa6d12d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:08:10Z",
+      "side": 1,
+      "message": "Consider to use string_view instead of casual string to omit extra allocations",
+      "range": {
+        "startLine": 310,
+        "startChar": 12,
+        "endLine": 310,
+        "endChar": 23
+      },
+      "revId": "5a77969837d1504e8b5daadf31ac30dec5dae787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d080efe2_a140f8ac",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:08:10Z",
+      "side": 1,
+      "message": "Missing const qualifier?\nMaybe use here a structured binding declaration? e.g.\nfor (const auto\u0026 [type, ignore, path] : *associations)",
+      "range": {
+        "startLine": 311,
+        "startChar": 17,
+        "endLine": 311,
+        "endChar": 27
+      },
+      "revId": "5a77969837d1504e8b5daadf31ac30dec5dae787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409e4738_002628b9",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:08:10Z",
+      "side": 1,
+      "message": "You can compare strings using equal operator, same you can drop ledType string that is not required:\nif (std::get\u003c0\u003e(item) \u003d\u003d \"identify_led_group\")",
+      "range": {
+        "startLine": 313,
+        "startChar": 20,
+        "endLine": 313,
+        "endChar": 59
+      },
+      "revId": "5a77969837d1504e8b5daadf31ac30dec5dae787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e97252e_c0a80929",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:08:10Z",
+      "side": 1,
+      "message": "nit Adding debug message with ec value would be helpful in future\nBMCWEB_LOG_ERROR \u003c\u003c \"async_method_call failed with ec \" \u003c\u003c ec.value();",
+      "revId": "5a77969837d1504e8b5daadf31ac30dec5dae787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e9d5491_b915def2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:08:10Z",
+      "side": 1,
+      "message": "You don\u0027t need to pass c_str here because async_method_call function signature has this parameter as const std::string\u0026",
+      "range": {
+        "startLine": 352,
+        "startChar": 66,
+        "endLine": 352,
+        "endChar": 71
+      },
+      "revId": "5a77969837d1504e8b5daadf31ac30dec5dae787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "933aa518_0ae02801",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:08:10Z",
+      "side": 1,
+      "message": "Set internal_error here. Now bmcweb responses with empty message here",
+      "range": {
+        "startLine": 1004,
+        "startChar": 12,
+        "endLine": 1004,
+        "endChar": 19
+      },
+      "revId": "5a77969837d1504e8b5daadf31ac30dec5dae787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
