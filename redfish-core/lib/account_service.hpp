@@ -21,6 +21,7 @@
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <variant>
 
@@ -1393,6 +1394,16 @@ class AccountsCollection : public Node
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     memberArray.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");

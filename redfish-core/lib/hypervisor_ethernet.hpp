@@ -6,6 +6,7 @@
 #include <error_messages.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <optional>
 #include <utility>
@@ -91,7 +92,7 @@ class HypervisorInterfaceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -99,8 +100,8 @@ class HypervisorInterfaceCollection : public Node
             "xyz.openbmc_project.Network.EthernetInterface"};
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code error,
-                        const std::vector<std::string>& ifaceList) {
+            [asyncResp, &req](const boost::system::error_code error,
+                              const std::vector<std::string>& ifaceList) {
                 if (error)
                 {
                     messages::resourceNotFound(asyncResp->res, "System",
@@ -134,6 +135,16 @@ class HypervisorInterfaceCollection : public Node
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     ifaceArray.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",

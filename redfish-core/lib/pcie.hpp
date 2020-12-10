@@ -19,6 +19,7 @@
 #include "node.hpp"
 
 #include <boost/system/linux_error.hpp>
+#include <utils/query_param.hpp>
 
 namespace redfish
 {
@@ -89,7 +90,7 @@ class SystemPCIeDeviceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -101,6 +102,15 @@ class SystemPCIeDeviceCollection : public Node
             {"Members", nlohmann::json::array()},
             {"Members@odata.count", 0}};
         getPCIeDeviceList(asyncResp, "Members");
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            return;
+        }
     }
 };
 
