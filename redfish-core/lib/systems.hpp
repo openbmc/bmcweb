@@ -1230,6 +1230,85 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
         "PowerRestorePolicy");
 }
 
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+/**
+ * @brief Retrieves lamp test state.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getLampTestState(const std::shared_ptr<AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get lamp test state";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                getObjectType) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
+                                 << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            if (getObjectType.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find led D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            if (getObjectType[0].first.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Error getting led D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string service = getObjectType[0].first;
+            BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        std::variant<bool>& asserted) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    const bool* assertedPtr = std::get_if<bool>(&asserted);
+
+                    if (!assertedPtr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Can't get lamp test status!";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["Oem"]["@odata.type"] =
+                        "#OemComputerSystem.Oem";
+                    aResp->res.jsonValue["Oem"]["IBMOem"]["@odata.type"] =
+                        "#OemComputerSystem.IBMOem";
+                    aResp->res.jsonValue["Oem"]["IBMOem"]["LampTest"] =
+                        *assertedPtr;
+                },
+                service, "/xyz/openbmc_project/led/groups/lamp_test",
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Led.Group", "Asserted");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/led/groups/lamp_test",
+        std::array<const char*, 1>{"xyz.openbmc_project.Led.Group"});
+}
+#endif
+
 /**
  * @brief Sets boot properties into DBUS object(s).
  *
@@ -1568,6 +1647,73 @@ inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
         std::variant<std::string>(powerRestorPolicy));
 }
+
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+/**
+ * @brief Sets lamp test state.
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] state   Lamp test state from request.
+ *
+ * @return None.
+ */
+inline void setLampTestState(const std::shared_ptr<AsyncResp>& aResp,
+                             const bool state)
+{
+    BMCWEB_LOG_DEBUG << "Set lamp test status.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, state](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                getObjectType) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
+                                 << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            if (getObjectType.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find led D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            if (getObjectType[0].first.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Error getting led D-Bus object!!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string service = getObjectType[0].first;
+            BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Can't set lamp test status. Error: " << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                },
+                service, "/xyz/openbmc_project/led/groups/lamp_test",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                std::variant<bool>(state));
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/led/groups/lamp_test",
+        std::array<const char*, 1>{"xyz.openbmc_project.Led.Group"});
+}
+#endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
 /**
@@ -2154,6 +2300,9 @@ class Systems : public Node
         getPowerRestorePolicy(asyncResp);
         getAutomaticRetry(asyncResp);
         getLastResetTime(asyncResp);
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+        getLampTestState(asyncResp);
+#endif
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
@@ -2168,13 +2317,14 @@ class Systems : public Node
         std::optional<nlohmann::json> wdtTimerProps;
         std::optional<std::string> assetTag;
         std::optional<std::string> powerRestorePolicy;
+        std::optional<nlohmann::json> oem;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(
                 req, res, "IndicatorLED", indicatorLed,
                 "LocationIndicatorActive", locationIndicatorActive, "Boot",
                 bootProps, "WatchdogTimer", wdtTimerProps, "PowerRestorePolicy",
-                powerRestorePolicy, "AssetTag", assetTag))
+                powerRestorePolicy, "AssetTag", assetTag, "Oem", oem))
         {
             return;
         }
@@ -2238,6 +2388,33 @@ class Systems : public Node
         if (powerRestorePolicy)
         {
             setPowerRestorePolicy(asyncResp, std::move(*powerRestorePolicy));
+        }
+
+        if (oem)
+        {
+            std::optional<nlohmann::json> ibmOem;
+            if (!redfish::json_util::readJson(*oem, asyncResp->res, "IBMOem",
+                                              ibmOem))
+            {
+                return;
+            }
+
+            if (ibmOem)
+            {
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+                std::optional<bool> lampTest;
+                if (!json_util::readJson(*ibmOem, asyncResp->res, "LampTest",
+                                         lampTest))
+                {
+                    return;
+                }
+
+                if (lampTest)
+                {
+                    setLampTestState(asyncResp, *lampTest);
+                }
+#endif
+            }
         }
     }
 };
