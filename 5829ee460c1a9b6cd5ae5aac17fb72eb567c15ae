@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "3d063da1_69603720",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "I still haven\u0027t looked at the problem in depth.  Feel free to propose a solution that\u0027s in line with the HTTP specification, and doesn\u0027t rely on a specific content type to decide to upgrade the connection.\n\nKeep in mind, you\u0027re doing something that I didn\u0027t really architect in or conceive of when I first built bmcweb, so you\u0027ll likely need to innovate more than you\u0027d expect.",
+      "parentUuid": "caf78248_27e67f23",
+      "range": {
+        "startLine": 352,
+        "startChar": 1,
+        "endLine": 354,
+        "endChar": 63
+      },
+      "revId": "5829ee460c1a9b6cd5ae5aac17fb72eb567c15ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fc7f96a_b725521c",
         "filename": "http/http_stream.hpp",
         "patchSetId": 6
