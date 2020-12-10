@@ -993,6 +993,30 @@
     },
     {
       "key": {
+        "uuid": "6e8f5d19_c50ff987",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T18:55:23Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1a86546b_1152aaa7",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e50e521_1e5cecef",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1123,6 +1147,30 @@
       "side": 1,
       "message": "It doesn\u0027t matter how much the socket can read at a time.  bmcweb should only buffer slightly more than the minimum SSL frame size, otherwise flow control semantics get difficult, and we waste a lot of time with copies.",
       "parentUuid": "387f8b1a_5746b236",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfe6d1b_8713a75a",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T18:55:23Z",
+      "side": 1,
+      "message": "i did not understand why its waste of time with copies?\n\ncan we keep 64k?",
+      "parentUuid": "c3c6bb74_6e2426ca",
       "range": {
         "startLine": 27,
         "startChar": 41,
