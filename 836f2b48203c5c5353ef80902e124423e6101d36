@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54c308e6_0e4fbf63",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:21:52Z",
+      "side": 1,
+      "message": "Why optional? Now if request does not contain \"LocationIndicatorActive\", readJson() does not return error about missing property",
+      "range": {
+        "startLine": 925,
+        "startChar": 13,
+        "endLine": 925,
+        "endChar": 21
+      },
+      "revId": "836f2b48203c5c5353ef80902e124423e6101d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe987daa_a3cce2ba",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T11:21:52Z",
+      "side": 1,
+      "message": "Set internal_error here. Now bmcweb responses with empty message here",
+      "range": {
+        "startLine": 930,
+        "startChar": 12,
+        "endLine": 930,
+        "endChar": 18
+      },
+      "revId": "836f2b48203c5c5353ef80902e124423e6101d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
