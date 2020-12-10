@@ -23,6 +23,7 @@
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <cmath>
 #include <utility>
@@ -3012,7 +3013,7 @@ class SensorCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
@@ -3031,7 +3032,7 @@ class SensorCollection : public Node
                 sensors::node::sensors);
 
         auto getChassisCb =
-            [asyncResp](
+            [asyncResp, &req](
                 const std::shared_ptr<boost::container::flat_set<std::string>>&
                     sensorNames) {
                 BMCWEB_LOG_DEBUG << "getChassisCb enter";
@@ -3060,6 +3061,16 @@ class SensorCollection : public Node
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     entriesArray.size();
                 BMCWEB_LOG_DEBUG << "getChassisCb exit";
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             };
 
         // Get set of sensors in chassis

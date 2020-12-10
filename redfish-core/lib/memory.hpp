@@ -22,6 +22,7 @@
 #include <node.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 namespace redfish
 {
@@ -851,7 +852,7 @@ class MemoryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
@@ -862,6 +863,15 @@ class MemoryCollection : public Node
         collection_util::getCollectionMembers(
             asyncResp, "/redfish/v1/Systems/system/Memory",
             {"xyz.openbmc_project.Inventory.Item.Dimm"});
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, asyncResp->res);
+            return;
+        }
     }
 };
 

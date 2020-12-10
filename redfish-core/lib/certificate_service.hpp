@@ -19,6 +19,7 @@
 
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
+#include <utils/query_param.hpp>
 
 #include <variant>
 namespace redfish
@@ -868,7 +869,7 @@ class HTTPSCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue = {
@@ -879,8 +880,8 @@ class HTTPSCertificateCollection : public Node
             {"Description", "A Collection of HTTPS certificate instances"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType& certs) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -903,6 +904,16 @@ class HTTPSCertificateCollection : public Node
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     members.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             certs::httpsServiceName, certs::httpsObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");
@@ -1068,7 +1079,7 @@ class LDAPCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue = {
@@ -1078,8 +1089,8 @@ class LDAPCertificateCollection : public Node
             {"Description", "A Collection of LDAP certificate instances"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType& certs) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -1101,6 +1112,16 @@ class LDAPCertificateCollection : public Node
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     members.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             certs::ldapServiceName, certs::ldapObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");
@@ -1211,7 +1232,7 @@ class TrustStoreCertificateCollection : public Node
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue = {
@@ -1222,8 +1243,8 @@ class TrustStoreCertificateCollection : public Node
              "A Collection of TrustStore certificate instances"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType& certs) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const ManagedObjectType& certs) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -1245,6 +1266,16 @@ class TrustStoreCertificateCollection : public Node
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     members.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             certs::authorityServiceName, certs::authorityObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");

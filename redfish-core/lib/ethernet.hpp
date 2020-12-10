@@ -21,6 +21,7 @@
 #include <error_messages.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <optional>
 #include <regex>
@@ -1008,7 +1009,7 @@ class EthernetCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] =
@@ -1022,9 +1023,9 @@ class EthernetCollection : public Node
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
-            [asyncResp](
-                const bool& success,
-                const boost::container::flat_set<std::string>& iface_list) {
+            [asyncResp,
+             &req](const bool& success,
+                   const boost::container::flat_set<std::string>& iface_list) {
                 if (!success)
                 {
                     messages::internalError(asyncResp->res);
@@ -1051,6 +1052,16 @@ class EthernetCollection : public Node
                     ifaceArray.size();
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Managers/bmc/EthernetInterfaces";
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             });
     }
 };
@@ -2293,7 +2304,7 @@ class VlanNetworkInterfaceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2309,7 +2320,8 @@ class VlanNetworkInterfaceCollection : public Node
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
-            [asyncResp, rootInterfaceName{std::string(rootInterfaceName)}](
+            [asyncResp, &req,
+             rootInterfaceName{std::string(rootInterfaceName)}](
                 const bool& success,
                 const boost::container::flat_set<std::string>& iface_list) {
                 if (!success)
@@ -2353,6 +2365,16 @@ class VlanNetworkInterfaceCollection : public Node
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
                     rootInterfaceName + "/VLANs";
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             });
     }
 

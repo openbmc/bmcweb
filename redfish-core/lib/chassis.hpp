@@ -21,6 +21,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <utils/collection.hpp>
+#include <utils/query_param.hpp>
 
 #include <variant>
 
@@ -176,7 +177,7 @@ class ChassisCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
@@ -189,6 +190,16 @@ class ChassisCollection : public Node
             asyncResp, "/redfish/v1/Chassis",
             {"xyz.openbmc_project.Inventory.Item.Board",
              "xyz.openbmc_project.Inventory.Item.Chassis"});
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            res.end();
+            return;
+        }
     }
 };
 

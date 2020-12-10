@@ -23,6 +23,7 @@
 // for GetObjectType and ManagedObjectType
 #include <account_service.hpp>
 #include <boost/url/url_view.hpp>
+#include <utils/query_param.hpp>
 
 namespace redfish
 
@@ -1062,7 +1063,7 @@ class VirtualMediaCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -1092,8 +1093,8 @@ class VirtualMediaCollection : public Node
             "/redfish/v1/Managers/" + name + "/VirtualMedia";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, name](const boost::system::error_code ec,
-                              const GetObjectType& getObjectType) {
+            [asyncResp, name, &req](const boost::system::error_code ec,
+                                    const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
@@ -1106,6 +1107,16 @@ class VirtualMediaCollection : public Node
                 BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
                 getVmResourceList(asyncResp, service, name);
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",

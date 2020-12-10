@@ -28,6 +28,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
 #include <error_messages.hpp>
+#include <utils/query_param.hpp>
 
 #include <filesystem>
 #include <string_view>
@@ -914,7 +915,7 @@ class SystemLogServiceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -945,8 +946,8 @@ class SystemLogServiceCollection : public Node
             logServiceArray.size();
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string>& subtreePath) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const std::vector<std::string>& subtreePath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << ec;
@@ -966,6 +967,15 @@ class SystemLogServiceCollection : public Node
                             logServiceArrayLocal.size();
                         return;
                     }
+                }
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
                 }
             },
             "xyz.openbmc_project.ObjectMapper",
@@ -1260,6 +1270,15 @@ class JournalEventLogEntryCollection : public Node
                 "Entries?$skip=" +
                 std::to_string(skip + top);
         }
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, asyncResp->res);
+            return;
+        }
     }
 };
 
@@ -1356,7 +1375,7 @@ class DBusEventLogEntryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1374,8 +1393,8 @@ class DBusEventLogEntryCollection : public Node
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        GetManagedObjectsType& resp) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              GetManagedObjectsType& resp) {
                 if (ec)
                 {
                     // TODO Handle for specific error code
@@ -1489,6 +1508,16 @@ class DBusEventLogEntryCollection : public Node
                           });
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     entriesArray.size();
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
+                }
             },
             "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -1683,7 +1712,7 @@ class BMCLogServiceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1708,6 +1737,15 @@ class BMCLogServiceCollection : public Node
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, asyncResp->res);
+            return;
+        }
     }
 };
 
@@ -1905,6 +1943,15 @@ class BMCJournalLogEntryCollection : public Node
                 "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
                 std::to_string(skip + top);
         }
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, asyncResp->res);
+            return;
+        }
     }
 };
 
@@ -2055,7 +2102,7 @@ class BMCDumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2069,6 +2116,15 @@ class BMCDumpEntryCollection : public Node
             "Collection of BMC Dump Entries";
 
         getDumpEntryCollection(asyncResp, "BMC");
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            return;
+        }
     }
 };
 
@@ -2225,7 +2281,7 @@ class SystemDumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -2239,6 +2295,15 @@ class SystemDumpEntryCollection : public Node
             "Collection of System Dump Entries";
 
         getDumpEntryCollection(asyncResp, "System");
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            return;
+        }
     }
 };
 
@@ -2507,13 +2572,13 @@ class CrashdumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
-        auto getLogEntriesCallback = [asyncResp](
+        auto getLogEntriesCallback = [asyncResp, &req](
                                          const boost::system::error_code ec,
                                          const std::vector<std::string>& resp) {
             if (ec)
@@ -2561,6 +2626,16 @@ class CrashdumpEntryCollection : public Node
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
                 logEntryArray.size();
+
+            redfish::query_param::QueryParamType queryParam =
+                redfish::query_param::getQueryParam(req);
+
+            if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+            {
+                redfish::query_param::executeQueryParam(queryParam,
+                                                        asyncResp->res);
+                return;
+            }
         };
         crow::connections::systemBus->async_method_call(
             std::move(getLogEntriesCallback),
@@ -3339,6 +3414,15 @@ class PostCodesEntryCollection : public Node
             return;
         }
         getCurrentBootNumber(asyncResp, skip, top);
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, asyncResp->res);
+            return;
+        }
     }
 };
 

@@ -19,6 +19,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <variant>
 
@@ -694,7 +695,7 @@ class SoftwareInventoryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -705,7 +706,7 @@ class SoftwareInventoryCollection : public Node
         res.jsonValue["Name"] = "Software Inventory Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](
+            [asyncResp, &req](
                 const boost::system::error_code ec,
                 const std::vector<std::pair<
                     std::string, std::vector<std::pair<
@@ -739,6 +740,16 @@ class SoftwareInventoryCollection : public Node
                                            swId}});
                     asyncResp->res.jsonValue["Members@odata.count"] =
                         members.size();
+                }
+
+                redfish::query_param::QueryParamType queryParam =
+                    redfish::query_param::getQueryParam(req);
+
+                if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+                {
+                    redfish::query_param::executeQueryParam(queryParam,
+                                                            asyncResp->res);
+                    return;
                 }
             },
             // Note that only firmware levels associated with a device are

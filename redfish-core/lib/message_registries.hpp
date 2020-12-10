@@ -22,6 +22,8 @@
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 
+#include <utils/query_param.hpp>
+
 namespace redfish
 {
 
@@ -44,7 +46,7 @@ class MessageRegistryFileCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute because
@@ -63,6 +65,15 @@ class MessageRegistryFileCollection : public Node
               {{"@odata.id", "/redfish/v1/Registries/ResourceEvent"}},
               {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
 
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            res.end();
+            return;
+        }
         res.end();
     }
 };

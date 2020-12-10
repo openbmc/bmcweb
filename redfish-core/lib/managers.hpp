@@ -23,6 +23,7 @@
 #include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
 #include <utils/fw_utils.hpp>
+#include <utils/query_param.hpp>
 #include <utils/systemd_utils.hpp>
 
 #include <cstdint>
@@ -2195,7 +2196,7 @@ class ManagerCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute
@@ -2206,6 +2207,16 @@ class ManagerCollection : public Node
         res.jsonValue["Members@odata.count"] = 1;
         res.jsonValue["Members"] = {
             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+
+        redfish::query_param::QueryParamType queryParam =
+            redfish::query_param::getQueryParam(req);
+
+        if (queryParam != redfish::query_param::QueryParamType::NOPARAM)
+        {
+            redfish::query_param::executeQueryParam(queryParam, res);
+            res.end();
+            return;
+        }
         res.end();
     }
 };
