@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9e29033_fcb36ab8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2020-12-10T09:07:17Z",
+      "side": 1,
+      "message": "The \"only\" parameter specification requires:\nWhen the incoming parameter contains more than \"only\",should return the HTTP 400 Bad Reques.\nI want to add this to the next task code.\nI have already received another query parameter (skip) story.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "50717a20cc51feec7c651682d77ea442fd3b6d0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
