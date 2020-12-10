@@ -19,7 +19,9 @@
 #include "led.hpp"
 #include "pcie.hpp"
 #include "redfish_util.hpp"
-
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+#include "oem/ibm/lamp_test.hpp"
+#endif
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
@@ -2176,6 +2178,9 @@ class Systems : public Node
         getPowerRestorePolicy(asyncResp);
         getAutomaticRetry(asyncResp);
         getLastResetTime(asyncResp);
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+        getLampTestState(asyncResp);
+#endif
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
@@ -2191,12 +2196,13 @@ class Systems : public Node
         std::optional<nlohmann::json> wdtTimerProps;
         std::optional<std::string> assetTag;
         std::optional<std::string> powerRestorePolicy;
+        std::optional<nlohmann::json> oem;
 
         if (!json_util::readJson(
                 req, asyncResp->res, "IndicatorLED", indicatorLed,
                 "LocationIndicatorActive", locationIndicatorActive, "Boot",
                 bootProps, "WatchdogTimer", wdtTimerProps, "PowerRestorePolicy",
-                powerRestorePolicy, "AssetTag", assetTag))
+                powerRestorePolicy, "AssetTag", assetTag, "Oem", oem))
         {
             return;
         }
@@ -2263,6 +2269,33 @@ class Systems : public Node
         if (powerRestorePolicy)
         {
             setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+        }
+
+        if (oem)
+        {
+            std::optional<nlohmann::json> ibmOem;
+            if (!redfish::json_util::readJson(*oem, asyncResp->res, "IBM",
+                                              ibmOem))
+            {
+                return;
+            }
+
+            if (ibmOem)
+            {
+                std::optional<bool> lampTest;
+                if (!json_util::readJson(*ibmOem, asyncResp->res, "LampTest",
+                                         lampTest))
+                {
+                    return;
+                }
+
+                if (lampTest)
+                {
+#ifdef BMCWEB_ENABLE_IBM_LAMP_TEST
+                    setLampTestState(asyncResp, *lampTest);
+#endif
+                }
+            }
         }
     }
 };
