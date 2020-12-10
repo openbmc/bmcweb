@@ -26,6 +26,7 @@ option('session-auth', type : 'feature', value : 'enabled', description : '''Ena
 option('xtoken-auth', type : 'feature', value : 'enabled', description : '''Enable xtoken authentication''')
 option('cookie-auth', type : 'feature', value : 'enabled', description : '''Enable cookie authentication''')
 option('mutual-tls-auth', type : 'feature', value : 'enabled', description : '''Enables authenticating users through TLS client certificates. The insecure-disable-ssl must be disabled for this option to take effect.''')
+option('ibm-lamp-test', type : 'feature', value : 'disabled', description : 'Enable the IBM lamp test functionality')
 option('ibm-management-console', type : 'feature', value : 'disabled', description : 'Enable the IBM management console specific functionality. Paths are under \'/ibm/v1/\'')
 option('google-api', type : 'feature', value : 'disabled', description : 'Enable the Google specific functionality. Paths are under \'/google/v1/\'')
 option('http-body-limit', type: 'integer', min : 0, max : 512, value : 30, description : 'Specifies the http request body length limit')
