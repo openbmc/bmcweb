@@ -681,53 +681,58 @@ inline void deleteDumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void createDumpTaskCallback(const crow::Request& req,
-                                   const std::shared_ptr<AsyncResp>& asyncResp,
-                                   const uint32_t& dumpId,
-                                   const std::string& dumpPath,
-                                   const std::string& dumpType)
+inline void createDumpTaskCallback(
+    const crow::Request& req, const std::shared_ptr<AsyncResp>& asyncResp,
+    const sdbusplus::message::object_path& createdObjPath)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        [dumpId, dumpPath, dumpType](
-            boost::system::error_code err, sdbusplus::message::message& m,
-            const std::shared_ptr<task::TaskData>& taskData) {
+        [createdObjPath](boost::system::error_code err,
+                         sdbusplus::message::message& m,
+                         const std::shared_ptr<task::TaskData>& taskData) {
             if (err)
             {
                 BMCWEB_LOG_ERROR << "Error in creating a dump";
                 taskData->state = "Cancelled";
                 return task::completed;
             }
-            std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::variant<std::string>>>>>
-                interfacesList;
+            boost::container::flat_map<std::string,
+                                       std::variant<std::string, uint8_t>>
+                values;
+            std::string iface;
+            m.read(iface, values);
 
-            sdbusplus::message::object_path objPath;
-
-            m.read(objPath, interfacesList);
-
-            if (objPath.str ==
-                "/xyz/openbmc_project/dump/" +
-                    std::string(boost::algorithm::to_lower_copy(dumpType)) +
-                    "/entry/" + std::to_string(dumpId))
+            if (iface == "xyz.openbmc_project.Common.Progress")
             {
+                auto findStatus = values.find("Status");
+                if (findStatus == values.end())
+                {
+                    return !task::completed;
+                }
+                std::string* status =
+                    std::get_if<std::string>(&(findStatus->second));
+
+                if (!boost::ends_with(*status, "Completed"))
+                {
+                    taskData->extendTimer(std::chrono::minutes(3));
+                    return !task::completed;
+                }
                 nlohmann::json retMessage = messages::success();
                 taskData->messages.emplace_back(retMessage);
 
-                std::string headerLoc =
-                    "Location: " + dumpPath + std::to_string(dumpId);
+                std::string headerLoc = "Location: " + createdObjPath.str;
                 taskData->payload->httpHeaders.emplace_back(
                     std::move(headerLoc));
 
                 taskData->state = "Completed";
                 return task::completed;
             }
+
             return task::completed;
         },
-        "type='signal',interface='org.freedesktop.DBus."
-        "ObjectManager',"
-        "member='InterfacesAdded', "
-        "path='/xyz/openbmc_project/dump'");
+        "type='signal',interface='org.freedesktop.DBus.Properties',"
+        "member='PropertiesChanged',path='" +
+            createdObjPath.str +
+            "',arg0='xyz.openbmc_project.Common.Progress'");
 
     task->startTimer(std::chrono::minutes(3));
     task->populateResp(asyncResp->res);
@@ -738,22 +743,6 @@ inline void createDump(crow::Response& res, const crow::Request& req,
                        const std::string& dumpType)
 {
     std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
-    std::string dumpPath;
-    if (dumpType == "BMC")
-    {
-        dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
-    }
-    else if (dumpType == "System")
-    {
-        dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
-    }
-    else
-    {
-        BMCWEB_LOG_ERROR << "Invalid dump type: " << dumpType;
-        messages::internalError(asyncResp->res);
-        return;
-    }
 
     std::optional<std::string> diagnosticDataType;
     std::optional<std::string> oemDiagnosticDataType;
@@ -806,23 +795,27 @@ inline void createDump(crow::Response& res, const crow::Request& req,
         }
     }
 
+    // Currently, for bmc dump and system dump creation, this additional
+    // params are not required.
+    std::vector<std::pair<std::string, std::string>> createDumpParams;
+
     crow::connections::systemBus->async_method_call(
-        [asyncResp, req, dumpPath, dumpType](const boost::system::error_code ec,
-                                             const uint32_t& dumpId) {
+        [asyncResp, req](const boost::system::error_code ec,
+                         sdbusplus::message::object_path& objPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
                 messages::internalError(asyncResp->res);
                 return;
             }
-            BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
-
-            createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
+            BMCWEB_LOG_DEBUG << "Dump Created. Path: " << objPath.str;
+            createDumpTaskCallback(req, asyncResp, objPath);
         },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)),
-        "xyz.openbmc_project.Dump.Create", "CreateDump");
+        "xyz.openbmc_project.Dump.Create", "CreateDump",
+        std::vector<std::pair<std::string, std::string>>(createDumpParams));
 }
 
 inline void clearDump(crow::Response& res, const std::string& dumpType)
