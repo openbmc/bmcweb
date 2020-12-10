@@ -80,6 +80,7 @@ feature_map = {
 'insecure-tftp-update'            : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
 #'vm-nbdproxy'                     : '-DBMCWEB_ENABLE_VM_NBDPROXY',
 'vm-websocket'                    : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
+'ibm-lamp-test'                   : '-DBMCWEB_ENABLE_IBM_LAMP_TEST',
 }
 
 # Get the options status and build a project summary to show which flags are
