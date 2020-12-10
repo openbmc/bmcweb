@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d7def1d_f6c20bc3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-10T15:09:54Z",
+      "side": 1,
+      "message": "Don\u0027t need the res.end() here",
+      "revId": "537cdbf4c768dade697f0b3aeff03159d96e06e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1041a5c_d2243d74",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-10T15:09:54Z",
+      "side": 1,
+      "message": "Don\u0027t need the res.end() here",
+      "revId": "537cdbf4c768dade697f0b3aeff03159d96e06e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
