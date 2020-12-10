@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06277043_95154ea7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-10T02:13:01Z",
+      "side": 1,
+      "message": "I don\u0027t think it can be an else if,uriProto and protocol are different. But I can modify it to look like this:\nif (protocol \u003d\u003d \"SNMPv2c\")\n{\n    port \u003d \"161\";\n}\nelse\n{\n    if (uriProto \u003d\u003d \"http\")\n    {\n        port \u003d \"80\";\n    }\n    else\n    {\n        port \u003d \"443\";\n    }\n}",
+      "parentUuid": "3ab125ba_033f20bc",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 13
+      },
+      "revId": "7bcb762047e69eb101209f67dec5e89f1dc3110f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "646c2446_a442dbf8",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 9
@@ -36,6 +60,24 @@
       "writtenOn": "2020-12-09T18:28:49Z",
       "side": 1,
       "message": "Don\u0027t think we need the res.end()\nAlso isn\u0027t this a messages::internalError ? \nIf we made it this far we would have a subscription ?",
+      "revId": "7bcb762047e69eb101209f67dec5e89f1dc3110f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83c2300_66eea419",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-10T02:13:01Z",
+      "side": 1,
+      "message": "Yes,I will remove the res.end() and add a messages::internalError.\nIf we made it this far we can\u0027t get the subValue, but the subscription is exist(see line 662). Although I think it\u0027s almost impossible.",
+      "parentUuid": "646c2446_a442dbf8",
       "revId": "7bcb762047e69eb101209f67dec5e89f1dc3110f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
