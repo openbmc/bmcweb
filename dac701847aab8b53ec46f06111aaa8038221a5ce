@@ -615,6 +615,30 @@
     },
     {
       "key": {
+        "uuid": "4a457917_bc0c7ea3",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "right now facing some issues using serializer, i am working on this",
+      "parentUuid": "4fcb2d50_fe5eb56c",
+      "range": {
+        "startLine": 88,
+        "startChar": 28,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3315b8a_7a45a58d",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -847,6 +871,24 @@
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4cd340f_a0028952",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b17a08f4_dbd3c042",
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1240,6 +1282,30 @@
     },
     {
       "key": {
+        "uuid": "0bd93ae7_84a5fbde",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "b35da25d_3f66854b",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 45
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "086aed90_193b9807",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 2
@@ -1251,6 +1317,30 @@
       "writtenOn": "2020-11-12T19:08:45Z",
       "side": 1,
       "message": "If this isn\u0027t called, then what?  I suspect that you need a rearrange your response objects a bit.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b58b3e8d_cd1307e9",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "086aed90_193b9807",
       "range": {
         "startLine": 224,
         "startChar": 0,
@@ -1306,6 +1396,30 @@
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94bb1213_58fa2fea",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70082cee_607ad6b7",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 58
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1378,6 +1492,30 @@
     },
     {
       "key": {
+        "uuid": "e373b4bd_ec6b8dc2",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "yes.but after reversing model back-end will cleanup",
+      "parentUuid": "b0401fcc_3583fe6d",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 57
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04f1b8d9_6b12f64d",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 2
@@ -1421,6 +1559,30 @@
       "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64337792_c70adb60",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-10T03:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2dd442_6b9c698f",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 30
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
