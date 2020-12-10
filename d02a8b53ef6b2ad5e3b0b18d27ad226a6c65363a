@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04b541fe_da6f815b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "Sorry, missed this the first time around.  This is identical to the readJson call above it.  Please make the above readJson call into this one similar to how you did below.",
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df980f5e_ccf7e7ab",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "Please use a redfish error code for this.",
+      "range": {
+        "startLine": 717,
+        "startChar": 16,
+        "endLine": 717,
+        "endChar": 68
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9cb86b_308c657a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "I just realized, we don\u0027t actually use oem anywhere.  Is there a reason we\u0027ve added it?  I suspect it can be removed.",
+      "range": {
+        "startLine": 726,
+        "startChar": 0,
+        "endLine": 726,
+        "endChar": 65
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e656c0_ef8e01ac",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "Remove this log statement.  The lower level functions have similar log statements.",
+      "range": {
+        "startLine": 731,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 61
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69dcfb1_4f6393af",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "Still making a complete copy of the data.",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 738,
+        "endChar": 46
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f48ad7_3039faa1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "Use a redfish error code please.",
+      "range": {
+        "startLine": 743,
+        "startChar": 0,
+        "endLine": 743,
+        "endChar": 68
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fe6ec7_197e65f1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:41:50Z",
+      "side": 1,
+      "message": "Use a redfish error code.\n\nAlso, please invert this check and put it above line 752, such that we don\u0027t need an else statement.",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 64
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
