@@ -969,6 +969,30 @@
     },
     {
       "key": {
+        "uuid": "1a86546b_1152aaa7",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "by \"inline\" I mean don\u0027t use a using at the top.  Everywhere you write stream_protocol, replace it with boost::asio::local::stream_protocol and delete this line.",
+      "parentUuid": "36532d87_ad99e27a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e50e521_1e5cecef",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1075,6 +1099,30 @@
       "side": 1,
       "message": "any suggestions?",
       "parentUuid": "b265a2ae_3a3940d3",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c6bb74_6e2426ca",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "It doesn\u0027t matter how much the socket can read at a time.  bmcweb should only buffer slightly more than the minimum SSL frame size, otherwise flow control semantics get difficult, and we waste a lot of time with copies.",
+      "parentUuid": "387f8b1a_5746b236",
       "range": {
         "startLine": 27,
         "startChar": 41,
@@ -1665,6 +1713,47 @@
     },
     {
       "key": {
+        "uuid": "b4346a47_32e3e94c",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "I have not looked at this too in depth, but I really would like to be able to get away from using globals for this if it\u0027s possible.",
+      "parentUuid": "7f378339_08a2fd6e",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e65d919f_35c061d1",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "Routes should end in /",
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9cbac9_b42724c5",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
@@ -1772,6 +1861,30 @@
       "side": 1,
       "message": "looking for inputs",
       "parentUuid": "273220bd_3adea297",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75884e4a_ea244afd",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "openHandler is generic infrastructure just like the other routes, which do handle pulling parameters out of the end.",
+      "parentUuid": "0ad8767a_d0ce5f7a",
       "range": {
         "startLine": 204,
         "startChar": 0,
