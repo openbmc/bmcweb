@@ -23,6 +23,13 @@
                 <Annotation Term="OData.Description" String="OemComputerSystem Oem properties." />
                 <Annotation Term="OData.AutoExpand"/>
                 <Property Name="OpenBmc" Type="OemComputerSystem.OpenBmc"/>
+                <Property Name="IBM" Type="OemComputerSystem.IBM"/>
+            </ComplexType>
+
+            <ComplexType Name="IBM" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="Oem properties for IBM." />
+                <Annotation Term="OData.AutoExpand"/>
             </ComplexType>
 
             <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
