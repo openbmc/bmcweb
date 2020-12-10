@@ -1183,6 +1183,30 @@
     },
     {
       "key": {
+        "uuid": "6dffd35a_80865765",
+        "filename": "include/dump_offload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T19:37:09Z",
+      "side": 1,
+      "message": "64k would be much more reasonable, although I my intuition says it\u0027s still a little higher than is required.  Ideally we would test performance vs buffer size, and pick something just before the performance degredation takes over, but I get that kind of performance testing takes time and effort.  My gut says that the optimal is close to 10k, but 64k would probably be be fine too?  See the math in the next paragraph.  1M is certainly too large.\n\nIt\u0027s not about wasting time copying really, it\u0027s more about limiting the maximum amount of memory bmcweb can take at any given time to a well defined (and low) value.  Limiting this buffer to 10k means that this would only ever have an overhead of 10k per connection, if we support 100 connections, the upper bound for our memory usage here is 10k, therefore 10k * 100 \u003d 1M maximum memory usage.  If this buffer is 1M, we have a maximum memory usage of 100M, which wouldn\u0027t fit on a lot of BMCs.",
+      "parentUuid": "2cfe6d1b_8713a75a",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fb1492326bdad906fdd2c6f9e3380da7251565b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "557c5778_01e9a331",
         "filename": "include/dump_offload.hpp",
         "patchSetId": 5
