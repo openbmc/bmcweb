@@ -939,6 +939,30 @@
     },
     {
       "key": {
+        "uuid": "556e3ace_c0864161",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "doWrite is called on line 111, and does not check if a write is in progress before it does.",
+      "parentUuid": "0318031e_09cc2046",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
@@ -1009,6 +1033,30 @@
       "side": 1,
       "message": "yeah. did not use messageHandler and errorHanlder here, shall i remove?",
       "parentUuid": "a40586fd_d1e67a22",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 50
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88004393_74bdc387",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T04:20:40Z",
+      "side": 1,
+      "message": "Do we need to handle errors?",
+      "parentUuid": "db4813ed_8dfe69e6",
       "range": {
         "startLine": 168,
         "startChar": 0,
