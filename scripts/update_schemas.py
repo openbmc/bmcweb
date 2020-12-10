@@ -139,6 +139,11 @@ with open(metadata_index_path, 'w') as metadata_index:
     metadata_index.write("        <edmx:Include Namespace=\"OemSession.v1_0_0\"/>\n")
     metadata_index.write("    </edmx:Reference>\n")
 
+    metadata_index.write(
+        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemComputerSystem_v1.xml\">\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemComputerSystem\"/>\n")
+    metadata_index.write("    </edmx:Reference>\n")
+
     metadata_index.write("</edmx:Edmx>\n")
 
 schema_files = {}

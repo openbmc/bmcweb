@@ -1231,6 +1231,42 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
 }
 
 /**
+ * @brief Retrieves lamp test state.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getLampTestState(const std::shared_ptr<AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get lamp test state";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec, std::variant<bool>& state) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const bool* statePtr = std::get_if<bool>(&state);
+
+            if (!statePtr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            aResp->res.jsonValue["Oem"]["LampTest"] = *statePtr;
+        },
+        "xyz.openbmc_project.LED.GroupManager",
+        "/xyz/openbmc_project/led/groups/lamp_test",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Led.Group", "Asserted");
+}
+
+/**
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] aResp           Shared pointer for generating response message.
@@ -1567,6 +1603,33 @@ inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
         std::variant<std::string>(powerRestorPolicy));
+}
+
+/**
+ * @brief Sets lamp test state.
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] state   Lamp test state from request.
+ *
+ * @return None.
+ */
+inline void setLampTestState(const std::shared_ptr<AsyncResp>& aResp,
+                             const bool state)
+{
+    BMCWEB_LOG_DEBUG << "Set lamp test status.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.LED.GroupManager",
+        "/xyz/openbmc_project/led/groups/lamp_test",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Led.Group", "Asserted", std::variant<bool>(state));
 }
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -2082,6 +2145,7 @@ class Systems : public Node
         res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = uint64_t(0);
         res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
+        res.jsonValue["Oem"]["@odata.type"] = "#OemComputerSystem.Oem";
 
         res.jsonValue["Processors"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
@@ -2154,6 +2218,7 @@ class Systems : public Node
         getPowerRestorePolicy(asyncResp);
         getAutomaticRetry(asyncResp);
         getLastResetTime(asyncResp);
+        getLampTestState(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
@@ -2168,13 +2233,14 @@ class Systems : public Node
         std::optional<nlohmann::json> wdtTimerProps;
         std::optional<std::string> assetTag;
         std::optional<std::string> powerRestorePolicy;
+        std::optional<nlohmann::json> oem;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(
                 req, res, "IndicatorLED", indicatorLed,
                 "LocationIndicatorActive", locationIndicatorActive, "Boot",
                 bootProps, "WatchdogTimer", wdtTimerProps, "PowerRestorePolicy",
-                powerRestorePolicy, "AssetTag", assetTag))
+                powerRestorePolicy, "AssetTag", assetTag, "Oem", oem))
         {
             return;
         }
@@ -2238,6 +2304,22 @@ class Systems : public Node
         if (powerRestorePolicy)
         {
             setPowerRestorePolicy(asyncResp, std::move(*powerRestorePolicy));
+        }
+
+        if (oem)
+        {
+            std::optional<bool> lampTest;
+
+            if (!json_util::readJson(*oem, asyncResp->res, "LampTest",
+                                     lampTest))
+            {
+                return;
+            }
+
+            if (lampTest)
+            {
+                setLampTestState(asyncResp, *lampTest);
+            }
         }
     }
 };
