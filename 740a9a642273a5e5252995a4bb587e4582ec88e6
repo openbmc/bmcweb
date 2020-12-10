@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9b4abfb_4eebc557",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T10:49:51Z",
+      "side": 1,
+      "message": "consider to use structured binding declaration -\u003e \nfor (const auto\u0026 [path, interfaces] : dbusData)",
+      "range": {
+        "startLine": 645,
+        "startChar": 29,
+        "endLine": 645,
+        "endChar": 36
+      },
+      "revId": "740a9a642273a5e5252995a4bb587e4582ec88e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e3d7ece_71470eb1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T10:49:51Z",
+      "side": 1,
+      "message": "Consider to move it out of the loop in case if dbusData is empty or path does not match",
+      "range": {
+        "startLine": 700,
+        "startChar": 19,
+        "endLine": 717,
+        "endChar": 21
+      },
+      "revId": "740a9a642273a5e5252995a4bb587e4582ec88e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18251851_9b017cc8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T10:49:51Z",
+      "side": 1,
+      "message": "nit not required",
+      "range": {
+        "startLine": 721,
+        "startChar": 12,
+        "endLine": 721,
+        "endChar": 18
+      },
+      "revId": "740a9a642273a5e5252995a4bb587e4582ec88e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd185e9_270bc153",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-10T10:49:51Z",
+      "side": 1,
+      "message": "Right now getSubProcessorMembers() is only used in one place. Consider adding array from line 1263 as a local constant array to scope of a function instead creating additional vector of strings",
+      "range": {
+        "startLine": 775,
+        "startChar": 27,
+        "endLine": 775,
+        "endChar": 73
+      },
+      "revId": "740a9a642273a5e5252995a4bb587e4582ec88e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
