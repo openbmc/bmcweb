@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4814e48c_ea52aeb7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:58:44Z",
+      "side": 1,
+      "message": "?  3 minutes is a very long timer for a restful API, and is going to extend every time we get an update.  Lets move the actual timer change to another patchset and discuss how long we should allow for dump timeouts.",
+      "range": {
+        "startLine": 716,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 67
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a972e623_cb308050",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:58:44Z",
+      "side": 1,
+      "message": "????  This is the dbus object path.  You\u0027re putting it into somethign that needs to be a redfish object path.",
+      "range": {
+        "startLine": 722,
+        "startChar": 55,
+        "endLine": 722,
+        "endChar": 74
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e800eb2b_ec70311a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-10T16:58:44Z",
+      "side": 1,
+      "message": "You\u0027re declaring this twice, once here and once where you pass it on line 818.  Please construct it in one place.",
+      "range": {
+        "startLine": 800,
+        "startChar": 4,
+        "endLine": 800,
+        "endChar": 52
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
