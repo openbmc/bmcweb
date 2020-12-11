@@ -45,6 +45,29 @@
       "revId": "da50f023c65463798a64cc092073352cfd7bda48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "605618a5_65cf3d80",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2403,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T07:08:58Z",
+      "side": 1,
+      "message": "I think we need to make this a OEM of type IBM .. How and where are we making that ?",
+      "range": {
+        "startLine": 2403,
+        "startChar": 4,
+        "endLine": 2403,
+        "endChar": 16
+      },
+      "revId": "da50f023c65463798a64cc092073352cfd7bda48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
