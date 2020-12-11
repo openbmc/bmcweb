@@ -404,7 +404,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
-    else if (dumpType == "System")
+    else if (dumpType == "System" || dumpType == "Resource")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
     }
@@ -500,26 +500,34 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Created"] = crow::utility::getDateTime(timestamp);
-                thisEntry["Name"] = dumpType + " Dump Entry";
 
                 thisEntry["AdditionalDataSizeBytes"] = size;
 
                 if (dumpType == "BMC")
                 {
+                    thisEntry["Name"] = dumpType + " Dump Entry";
                     thisEntry["DiagnosticDataType"] = "Manager";
                     thisEntry["AdditionalDataURI"] =
                         "/redfish/v1/Managers/bmc/LogServices/Dump/"
                         "attachment/" +
                         entryID;
                 }
-                else if (dumpType == "System")
+                else if (dumpType == "System" || dumpType == "Resource")
                 {
+                    thisEntry["Name"] = "System/Resource Dump Entry";
                     thisEntry["DiagnosticDataType"] = "OEM";
-                    thisEntry["OEMDiagnosticDataType"] = "System";
                     thisEntry["AdditionalDataURI"] =
                         "/redfish/v1/Systems/system/LogServices/Dump/"
                         "attachment/" +
                         entryID;
+                    if (dumpType == "System")
+                    {
+                        thisEntry["OEMDiagnosticDataType"] = "System";
+                    }
+                    else if (dumpType == "Resource")
+                    {
+                        thisEntry["OEMDiagnosticDataType"] = "Resource";
+                    }
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -700,12 +708,13 @@ inline void createDumpTaskCallback(const crow::Request& req,
     }
 
     std::string dumpEntryPath;
-    if (createdObjPath.find("bmc") != std::string::npos)
+    if (createdObjPath.find("/bmc/") != std::string::npos)
     {
         dumpEntryPath =
             "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" + dumpId;
     }
-    else if (createdObjPath.find("system") != std::string::npos)
+    else if (createdObjPath.find("/system/") != std::string::npos ||
+             createdObjPath.find("/resource/") != std::string::npos)
     {
         dumpEntryPath =
             "/redfish/v1/Systems/system/LogServices/Dump/Entries/" + dumpId;
@@ -784,6 +793,8 @@ inline void createDump(crow::Response& res, const crow::Request& req,
         return;
     }
 
+    std::string dumpPath;
+    std::vector<std::pair<std::string, std::string>> createDumpParams;
     if (dumpType == "System")
     {
         if (!oemDiagnosticDataType || !diagnosticDataType)
@@ -796,12 +807,52 @@ inline void createDump(crow::Response& res, const crow::Request& req,
                 "DiagnosticDataType & OEMDiagnosticDataType");
             return;
         }
-        if ((*oemDiagnosticDataType != "System") ||
-            (*diagnosticDataType != "OEM"))
+        if (*oemDiagnosticDataType == "System")
+        {
+            if (*diagnosticDataType != "OEM")
+            {
+                BMCWEB_LOG_ERROR << "Wrong parameter values passed";
+                messages::invalidObject(asyncResp->res,
+                                        "System Dump creation parameters");
+                return;
+            }
+            dumpPath = "/xyz/openbmc_project/dump/system";
+        }
+        else if (boost::starts_with(*oemDiagnosticDataType, "Resource"))
+        {
+            std::string resourceDumpType = *oemDiagnosticDataType;
+            std::vector<std::string> resourceDumpParams;
+
+            size_t pos = 0;
+            while ((pos = resourceDumpType.find("_")) != std::string::npos)
+            {
+                resourceDumpParams.emplace_back(
+                    resourceDumpType.substr(0, pos));
+                if (resourceDumpParams.size() > 3)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Invalid value for OEMDiagnosticDataType";
+                    messages::invalidObject(asyncResp->res,
+                                            "OEMDiagnosticDataType");
+                    return;
+                }
+                resourceDumpType.erase(0, pos + 1);
+            }
+            resourceDumpParams.emplace_back(resourceDumpType);
+
+            dumpPath = "/xyz/openbmc_project/dump/resource";
+
+            createDumpParams.emplace_back(
+                std::make_pair("com.ibm.Dump.Create.CreateParameters.VSPString",
+                               resourceDumpParams[1]));
+            createDumpParams.emplace_back(
+                std::make_pair("com.ibm.Dump.Create.CreateParameters.Password",
+                               resourceDumpParams[2]));
+        }
+        else
         {
             BMCWEB_LOG_ERROR << "Wrong parameter values passed";
-            messages::invalidObject(asyncResp->res,
-                                    "System Dump creation parameters");
+            messages::invalidObject(asyncResp->res, "Dump creation parameters");
             return;
         }
     }
@@ -823,6 +874,7 @@ inline void createDump(crow::Response& res, const crow::Request& req,
                                     "BMC Dump creation parameters");
             return;
         }
+        dumpPath = "/xyz/openbmc_project/dump/bmc";
     }
 
     crow::connections::systemBus->async_method_call(
@@ -837,11 +889,9 @@ inline void createDump(crow::Response& res, const crow::Request& req,
             BMCWEB_LOG_DEBUG << "Dump Created. Path: " << objPath.str;
             createDumpTaskCallback(req, asyncResp, objPath);
         },
-        "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)),
+        "xyz.openbmc_project.Dump.Manager", dumpPath,
         "xyz.openbmc_project.Dump.Create", "CreateDump",
-        std::vector<std::pair<std::string, std::string>>());
+        std::vector<std::pair<std::string, std::string>>(createDumpParams));
 }
 
 inline void clearDump(crow::Response& res, const std::string& dumpType)
@@ -2258,6 +2308,7 @@ class SystemDumpEntryCollection : public Node
             "Collection of System Dump Entries";
 
         getDumpEntryCollection(asyncResp, "System");
+        getDumpEntryCollection(asyncResp, "Resource");
     }
 };
 
