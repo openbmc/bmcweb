@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "078aab1d_51b54ed1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "sorry. what is BMC D-Bus object ?",
+      "range": {
+        "startLine": 1259,
+        "startChar": 42,
+        "endLine": 1259,
+        "endChar": 51
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4cd1ad08_d0aa3bb8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 1266,
+        "startChar": 50,
+        "endLine": 1266,
+        "endChar": 61
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fbe7ef_bfc8c317",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "can this be const ?",
+      "range": {
+        "startLine": 1271,
+        "startChar": 12,
+        "endLine": 1271,
+        "endChar": 33
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6a31436_5a502719",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "and this begin",
+      "range": {
+        "startLine": 1271,
+        "startChar": 48,
+        "endLine": 1271,
+        "endChar": 55
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a58feb5e_174210eb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "I would call it `asserted` since that is what the property is",
+      "range": {
+        "startLine": 1276,
+        "startChar": 44,
+        "endLine": 1276,
+        "endChar": 49
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15b63a71_cdee8ec8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "const ?",
+      "range": {
+        "startLine": 1686,
+        "startChar": 12,
+        "endLine": 1686,
+        "endChar": 23
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44cc5bc0_35aa8b97",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "begin",
+      "range": {
+        "startLine": 1686,
+        "startChar": 48,
+        "endLine": 1686,
+        "endChar": 55
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03d03b50_dabb9a3d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2384,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "It was a previous question .. where do we say it\u0027s OEM type IBM ?",
+      "range": {
+        "startLine": 2384,
+        "startChar": 0,
+        "endLine": 2384,
+        "endChar": 16
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94e253e1_f56ffda2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2386,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-11T08:19:23Z",
+      "side": 1,
+      "message": "I think it is not optional and variant\u003cbool\u003e",
+      "range": {
+        "startLine": 2386,
+        "startChar": 12,
+        "endLine": 2386,
+        "endChar": 31
+      },
+      "revId": "627268335f47216029c5ecdf3ab0158fe0c67b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
