@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5f46368_074425c2",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-11T13:26:36Z",
+      "side": 1,
+      "message": "Consider to changing a logic in a scope of a for loop. Right now on every cycle std::find is called three times on interfaces collection. I guess you can remove std::find and create a new for loop with all required logic, e.g.\nfor (const auto\u0026 intf : interfaces)\n{\n if (intf \u003d\u003d \"intf1\")\n   do_sth();\n if (intf \u003d\u003d \"intf2\")\n   do_sth();\n}",
+      "range": {
+        "startLine": 815,
+        "startChar": 33,
+        "endLine": 815,
+        "endChar": 37
+      },
+      "revId": "0c2de7be7bcec687387b6f9b66bfc1f87cb522f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c51be71_1c0dedb6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-11T13:26:36Z",
+      "side": 1,
+      "message": "nit for future debugging purpose add BMCWEB_LOG_ERROR \u003c\u003c \"DBus method call failed with error \" \u003c\u003c ec.value();",
+      "revId": "0c2de7be7bcec687387b6f9b66bfc1f87cb522f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
