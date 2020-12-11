@@ -449,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "5ec91581_5d11c18a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-11T06:30:16Z",
+      "side": 1,
+      "message": "Ok\nI added string_utils.hpp to parse the string.",
+      "parentUuid": "ad6df983_37185cb8",
+      "range": {
+        "startLine": 811,
+        "startChar": 28,
+        "endLine": 811,
+        "endChar": 39
+      },
+      "revId": "011de0861a875cc5e57cc7831305fe3e0d444fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2f73afd_e36ea1d2",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 31
