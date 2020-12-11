@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "deb641a0_778c5658",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-12-11T14:46:59Z",
+      "side": 1,
+      "message": "This looks quite complicated. Is it same as pseudo code below?\n\nstd::string sensorType, tmp;\ndbus::utility::getNthStringFromPath(uris[0].second, 3, sensorType);\n\nbool invalidType \u003d ! std::all_of(std::begin(uris[1], uris[uris.size()-1],\n  [\u0026sensorType, \u0026tmp](const auto\u0026 uri) {\n    dbus::utility::getNthStringFromPath(uris[0].second, 3, tmp);\n    return sensorType \u003d\u003d tmp;\n  }\n);\n\nIf so, it might be better to refactor it so it will clearly show the intend what is happening here.",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 21
+      },
+      "revId": "8a540e4aa025193e92ff3c3f9dba3264d5090d82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
