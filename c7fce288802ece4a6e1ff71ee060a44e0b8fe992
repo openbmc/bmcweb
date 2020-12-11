@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "a3ccf963_b748efd6",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2020-12-11T11:46:11Z",
+      "side": 1,
+      "message": "My 2 cents. \nI was asked to make a similar change for VM, and the rationale is that we should use specialized tools to do specific tasks. And std::filesystem::path IS more readable.\n\nBTW. Even if std::string is sometimes heavier than char* we prefer the use of std::string :)",
+      "parentUuid": "ee68a3e9_8a01a9d5",
+      "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16b2ec3_e266ed2c",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 54
