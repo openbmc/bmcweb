@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d928bda5_85d27c7e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-11T05:16:52Z",
+      "side": 1,
+      "message": "Ack!\n\nSince this takes not more than a minute, I will remove this extended timer for now, as the task already waits for some time before it times out!",
+      "parentUuid": "4814e48c_ea52aeb7",
+      "range": {
+        "startLine": 716,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 67
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a972e623_cb308050",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "be6aaf55_45053724",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-11T05:16:52Z",
+      "side": 1,
+      "message": "Missed it. Ack!",
+      "parentUuid": "a972e623_cb308050",
+      "range": {
+        "startLine": 722,
+        "startChar": 55,
+        "endLine": 722,
+        "endChar": 74
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e800eb2b_ec70311a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012f3eed_0c7cd5a7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-12-11T05:16:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e800eb2b_ec70311a",
+      "range": {
+        "startLine": 800,
+        "startChar": 4,
+        "endLine": 800,
+        "endChar": 52
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
