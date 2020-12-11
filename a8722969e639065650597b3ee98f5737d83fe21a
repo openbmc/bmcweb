@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "cef4d9e0_6ca88444",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-11T16:44:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a304f49e_d50fc5a3",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "a8722969e639065650597b3ee98f5737d83fe21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4ac8428_05851d46",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 3
