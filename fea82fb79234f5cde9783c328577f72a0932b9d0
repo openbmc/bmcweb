@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f14ab25f_2f76b4d5",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-11T13:20:10Z",
+      "side": 1,
+      "message": "nit add ec value to debug message, same on 381 line",
+      "range": {
+        "startLine": 293,
+        "startChar": 57,
+        "endLine": 293,
+        "endChar": 58
+      },
+      "revId": "fea82fb79234f5cde9783c328577f72a0932b9d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb231a5_5aaa68f0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-11T13:20:10Z",
+      "side": 1,
+      "message": "Using optional bmcweb does not response in case if \"LocationIndicatorActive\" is missing in request. Is it ok?",
+      "range": {
+        "startLine": 999,
+        "startChar": 13,
+        "endLine": 999,
+        "endChar": 21
+      },
+      "revId": "fea82fb79234f5cde9783c328577f72a0932b9d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
