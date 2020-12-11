@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "292da720_54720c0b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-11T07:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9107dfdd_dca2c81a",
+      "range": {
+        "startLine": 1312,
+        "startChar": 43,
+        "endLine": 1312,
+        "endChar": 57
+      },
+      "revId": "da50f023c65463798a64cc092073352cfd7bda48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9436db95_54a47368",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2020-12-11T05:09:22Z",
       "side": 1,
       "message": "same comment as previous",
+      "range": {
+        "startLine": 1725,
+        "startChar": 6,
+        "endLine": 1725,
+        "endChar": 57
+      },
+      "revId": "da50f023c65463798a64cc092073352cfd7bda48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e2d32e_88b7e500",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-11T07:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9436db95_54a47368",
       "range": {
         "startLine": 1725,
         "startChar": 6,
@@ -68,6 +116,30 @@
       "revId": "da50f023c65463798a64cc092073352cfd7bda48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99fc1ced_45aad8f2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2403,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-11T07:51:40Z",
+      "side": 1,
+      "message": "If necessary, we can add it here:\nhttps://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/JsonSchemas/OemComputerSystem/index.json#L58\n\n@GunnarMills what\u0027s your opinion?",
+      "parentUuid": "605618a5_65cf3d80",
+      "range": {
+        "startLine": 2403,
+        "startChar": 4,
+        "endLine": 2403,
+        "endChar": 16
+      },
+      "revId": "da50f023c65463798a64cc092073352cfd7bda48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
