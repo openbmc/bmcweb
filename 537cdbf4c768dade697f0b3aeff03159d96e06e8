@@ -69,6 +69,24 @@
       "revId": "537cdbf4c768dade697f0b3aeff03159d96e06e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2669439_4f1e6f97",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-11T13:40:27Z",
+      "side": 1,
+      "message": "You still need to call res.end() unless you move \nauto asyncResp \u003d std::make_shared\u003cAsyncResp\u003e(res);\nfrom line 1306 to the begging of this function.\nIf nobody calls res.end() then bmcweb does not response to a client. Client gets a timeout in this case.",
+      "parentUuid": "c8e7427f_ae02bb25",
+      "revId": "537cdbf4c768dade697f0b3aeff03159d96e06e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
