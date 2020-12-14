@@ -22,6 +22,30 @@
       "revId": "4004828ed70cd8461a6fe891ace56b3b45fa9405",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "353acf27_4d725153",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-14T18:42:51Z",
+      "side": 1,
+      "message": "\u003e Most of the above are already options to be able to build in, so this new option would just check to see if those are enabled.\n\nso if webui is enabled, and this strict compliance is set to true? Do we allow the webui?\n\nHow do things get removed from the code and dropped from this list? \n\nI\u0027m not sure I agree with the \"strict compliance\" option. With this, \"redfish-allow-deprecated-hostname-patch\" is an option and then later at some point dropped all together.",
+      "parentUuid": "94ee7c5e_6419e518",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "4004828ed70cd8461a6fe891ace56b3b45fa9405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
