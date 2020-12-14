@@ -1011,6 +1011,30 @@
     },
     {
       "key": {
+        "uuid": "33d2e174_4709737b",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-14T12:36:27Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38051/8/include/dump_offload.hpp#216\nplease take a look here, calling sendMessage with a handler, which will be called on completion of write, have a look at sendMessage() function implementation in latest patchsets",
+      "parentUuid": "d0fe32c0_d96ec919",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
