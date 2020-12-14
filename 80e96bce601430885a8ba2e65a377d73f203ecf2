@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "49fa2e0a_0ddcc88a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b2fd3f2_2344433d",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "80e96bce601430885a8ba2e65a377d73f203ecf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "890fd3ce_534411dd",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 37
@@ -533,6 +557,30 @@
       "revId": "80e96bce601430885a8ba2e65a377d73f203ecf2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b379cd_36d19819",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Removed it in the latest patchset, now metrics are stores as vector\u003cpair\u003cstring, string\u003e\u003e. AddReport creates ReadingParameters from it",
+      "parentUuid": "3a189539_19e89b6f",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 70
+      },
+      "revId": "80e96bce601430885a8ba2e65a377d73f203ecf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
