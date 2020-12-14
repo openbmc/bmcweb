@@ -46,6 +46,30 @@
       "revId": "4004828ed70cd8461a6fe891ace56b3b45fa9405",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ddb69c5_839762ae",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2020-12-14T20:16:10Z",
+      "side": 1,
+      "message": "Gunnar, I prefer the per item enable/disable, despite the possibility of a sea of such compile switches. Creating this as a single enable/disable implies, to me, that all of these features need to be made compliant to the schemas all in one multi-part, nearly contemporary, commit. This would be necessary to have a single expiry time. I don\u0027t think tightening all of the other three (or more) items in the list within a short timeframe to this commit is really practical. OBMC maintainers can\u0027t really assign cross-corporate resources to make such a commit set possible.\n\nAs I stated earlier replies I wasn\u0027t expecting this to evolve into such an involved issue. I didn\u0027t push this because I received a defect. I pushed this because I noticed a deviation from the DMTF spec. The commit was small, and it matched the schema, and my expectation was I\u0027d get a +2 and merge. I didn\u0027t sign up to correct everything out of spec in the bmcweb implementation. I only committed to fixing a variance that needed correcting.\n\nAt this point my takeaway for bmcweb as a whole is that I have to ignore any existing code that is non-compliant to the schemas, and to not attempt to make any changes to what is now canon.\nContribution will now only be for items that don\u0027t exist in bmcweb, and don\u0027t have a built-in conflict due to a pre-existing feature implementation.",
+      "parentUuid": "353acf27_4d725153",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "4004828ed70cd8461a6fe891ace56b3b45fa9405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
