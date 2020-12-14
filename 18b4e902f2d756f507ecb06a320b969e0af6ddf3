@@ -213,6 +213,30 @@
       "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b6259b_2eb03a7d",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:58:25Z",
+      "side": 1,
+      "message": "Done, the latest patch response with internal error if one of the path is invalid",
+      "parentUuid": "519e4b6a_342a5091",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9
+      },
+      "revId": "18b4e902f2d756f507ecb06a320b969e0af6ddf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
