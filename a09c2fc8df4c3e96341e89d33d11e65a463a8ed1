@@ -238,6 +238,24 @@
     },
     {
       "key": {
+        "uuid": "7af8a63d_8d61e26e",
+        "filename": "redfish-core/include/utils/validate_params_length.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "773bbb86_6bdde321",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e51761e_d788a121",
         "filename": "redfish-core/include/utils/validate_params_length.hpp",
         "patchSetId": 26
@@ -552,6 +570,24 @@
       "side": 1,
       "message": "This is only used inside this class. Is there any better argument to move it outside?",
       "parentUuid": "f64d09db_d4b93f29",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed969d38_a5d59982",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "@Ed Tanous, any comment?",
+      "parentUuid": "23a42d7f_9d6f89d0",
       "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -1101,6 +1137,30 @@
       "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67fb02b8_0e4d65b9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67286429_a5910d2e",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 23
+      },
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
