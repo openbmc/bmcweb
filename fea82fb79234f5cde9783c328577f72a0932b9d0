@@ -93,6 +93,30 @@
       "revId": "fea82fb79234f5cde9783c328577f72a0932b9d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8299196f_74fd23bd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T07:54:50Z",
+      "side": 1,
+      "message": "If you plan to stay with optional\u003cbool\u003e than you always pass false as an argument on line 1048. PATCH should change attributes that are in request. Now it is a little against this rule, because it changes \"LocationIndicatorActive\" to false when request is empty.\nRedfish specification: \"The PATCH request does not change any properties that are not in the request body\".",
+      "parentUuid": "0b557354_e50874e7",
+      "range": {
+        "startLine": 999,
+        "startChar": 13,
+        "endLine": 999,
+        "endChar": 21
+      },
+      "revId": "fea82fb79234f5cde9783c328577f72a0932b9d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
