@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73b9a43b_d1543050",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-14T15:12:14Z",
+      "side": 1,
+      "message": "hm. this works.. but I think all over, we are used to using \".cbegin.first\" ? \n\nI leave it to maintainers",
+      "range": {
+        "startLine": 1271,
+        "startChar": 52,
+        "endLine": 1271,
+        "endChar": 56
+      },
+      "revId": "c88274b8c1939825f4ded77fbdc143fb13b38838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8511368_02b1c435",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-14T15:12:14Z",
+      "side": 1,
+      "message": "because these are IBM_OEM, should we have any #ifdef around these ?",
+      "revId": "c88274b8c1939825f4ded77fbdc143fb13b38838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e9ed5f7_a0a82e58",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1677,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-14T15:12:14Z",
+      "side": 1,
+      "message": "looks like the change was done only for \"Get\" method ?. \n\nThese are \"led\" D-Bus object",
+      "range": {
+        "startLine": 1677,
+        "startChar": 48,
+        "endLine": 1677,
+        "endChar": 51
+      },
+      "revId": "c88274b8c1939825f4ded77fbdc143fb13b38838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "642a7182_0b8275bd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1682,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-14T15:12:14Z",
+      "side": 1,
+      "message": "same comment as before",
+      "range": {
+        "startLine": 1682,
+        "startChar": 29,
+        "endLine": 1682,
+        "endChar": 33
+      },
+      "revId": "c88274b8c1939825f4ded77fbdc143fb13b38838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
