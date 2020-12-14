@@ -22,6 +22,30 @@
       "revId": "8a540e4aa025193e92ff3c3f9dba3264d5090d82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24854cee_6aaa21ee",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:30:49Z",
+      "side": 1,
+      "message": "Ok, I will try to refactor it. Thanks for code",
+      "parentUuid": "deb641a0_778c5658",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 21
+      },
+      "revId": "8a540e4aa025193e92ff3c3f9dba3264d5090d82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
