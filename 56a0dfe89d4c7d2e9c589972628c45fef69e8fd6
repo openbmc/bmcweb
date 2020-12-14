@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "c7759ea0_1fdbd20f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "The latest patchset allows to pass negative number, it requires a change: \"Parse with success PT-9H with result -32400000\"",
+      "parentUuid": "51c408cc_07248b46",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "861d339c_14413ec9",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -666,6 +690,30 @@
     },
     {
       "key": {
+        "uuid": "4d8eaefe_81320c89",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c0fb047_f497638f",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee0f209_0c654e69",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -832,6 +880,30 @@
     },
     {
       "key": {
+        "uuid": "77d1c1b3_7ff6129b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89d041c2_3a0b6b4f",
+      "range": {
+        "startLine": 127,
+        "startChar": 52,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7e71fa0_39c514d5",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 34
@@ -900,6 +972,24 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b5d4031_8bd08dc0",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2643fad6_b68e1e6d",
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -1432,6 +1522,30 @@
       "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "984c101a_04cf6972",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:21:38Z",
+      "side": 1,
+      "message": "Done, changed it to propertyValueIncorrect",
+      "parentUuid": "ef369cff_7f080d96",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "56a0dfe89d4c7d2e9c589972628c45fef69e8fd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
