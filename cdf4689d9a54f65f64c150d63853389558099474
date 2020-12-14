@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cfd02b3_87d571b4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:30:39Z",
+      "side": 1,
+      "message": "If you response with internalError msg it is nice to have debug message with ec value",
+      "revId": "cdf4689d9a54f65f64c150d63853389558099474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
