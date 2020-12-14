@@ -102,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "8fe3d208_5a5c8eb5",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b4764be_d79afaca",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "310bf1d4_dd43c90b",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 31
@@ -368,6 +392,30 @@
     },
     {
       "key": {
+        "uuid": "b102875e_07c43150",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "048ed7cb_4e8b7e34",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d950eb01_b99d8f2a",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -489,6 +537,24 @@
       "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04705dc9_7b3452d0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:27:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d0019aa_f77c4f29",
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
