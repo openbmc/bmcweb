@@ -1018,6 +1018,30 @@
     },
     {
       "key": {
+        "uuid": "8e39858b_74858bbf",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:58:25Z",
+      "side": 1,
+      "message": "getReport does not exist in the latest patch, closing a comment",
+      "parentUuid": "eab3cdca_bda5ddf8",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f1076f7_657cd929",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 31
@@ -2069,6 +2093,30 @@
     },
     {
       "key": {
+        "uuid": "91d4bc2e_dc6eea08",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:58:25Z",
+      "side": 1,
+      "message": "@Ed Tanous, any comment on it?",
+      "parentUuid": "e4b57fab_a7efb8aa",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "914045dc_f53d2dce",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -2175,6 +2223,30 @@
       "side": 1,
       "message": "I understand that this is something new, but it\u0027s not some new pattern which needs to be followed and changed everywhere, of course it would be nice if all strings that repeat in few places had consts like this.\n\nEven making const for something that is used once can be still good practice. Someone looking at this who is new to bmcweb will see that this string is schemaType.\n\nIn my opinion we should keep it. Defining a constant or variable is one of the basing things, we are not introducing new pattern here.",
       "parentUuid": "bb615b2a_f7f8e971",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f581966_3715de69",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:58:25Z",
+      "side": 1,
+      "message": "@Ed Tanous, any comment on it?",
+      "parentUuid": "03a0220d_6923a844",
       "range": {
         "startLine": 132,
         "startChar": 0,
@@ -2724,6 +2796,30 @@
       "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2db91b21_9c6f00de",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:58:25Z",
+      "side": 1,
+      "message": "The latest patch adds all possible attributes to response",
+      "parentUuid": "e49fd5f0_3bcc80dd",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
