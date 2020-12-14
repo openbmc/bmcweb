@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bba10034_129afbb1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T10:37:00Z",
+      "side": 1,
+      "message": "If you plan to follow the same pattern that is in your other patch (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/20/redfish-core/lib/processor.hpp#996), than please, change it to optional",
+      "range": {
+        "startLine": 926,
+        "startChar": 8,
+        "endLine": 926,
+        "endChar": 36
+      },
+      "revId": "ab3965e4b0a82a852368ecfd75f79d055cad1be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
