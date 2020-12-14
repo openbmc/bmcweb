@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22e626e1_39fd0104",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-14T09:54:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 2
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72fe652a_f9df678f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-14T09:54:34Z",
+      "side": 1,
+      "message": "if the data is irrelevant to this commit, I think you can use `...`",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfc892ba_13ef0ca8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-14T09:54:34Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 3
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f73fd0_ca1998ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-14T09:54:34Z",
+      "side": 1,
+      "message": "D-Bus",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 4
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71e9f43b_11b1419e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-14T09:54:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
