@@ -478,6 +478,66 @@ class NetworkProtocol : public Node
                 "xyz.openbmc_project.Control.Service.Attributes"});
     }
 
+    void handleHttpsProtocolEnabled(const bool httpsProtocolEnabled,
+                                    const std::shared_ptr<AsyncResp>& asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [httpsProtocolEnabled,
+             asyncResp](const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                constexpr char const* nethttpsdBasePath =
+                    "/xyz/openbmc_project/control/service/"
+                    "bmcweb";
+
+                for (const auto& entry : subtree)
+                {
+                    if (boost::algorithm::starts_with(entry.first,
+                                                      nethttpsdBasePath))
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](const boost::system::error_code ec2) {
+                                if (ec2)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            },
+                            entry.second.begin()->first, entry.first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Running",
+                            std::variant<bool>{httpsProtocolEnabled});
+
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](const boost::system::error_code ec2) {
+                                if (ec2)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            },
+                            entry.second.begin()->first, entry.first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Enabled",
+                            std::variant<bool>{httpsProtocolEnabled});
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/control/service", 0,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Control.Service.Attributes"});
+    }
+
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>&) override
     {
@@ -485,9 +545,10 @@ class NetworkProtocol : public Node
         std::optional<std::string> newHostName;
         std::optional<nlohmann::json> ntp;
         std::optional<nlohmann::json> ipmi;
+        std::optional<nlohmann::json> https;
 
         if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp,
-                                 "IPMI", ipmi))
+                                 "IPMI", ipmi, "HTTPS", https))
         {
             return;
         }
@@ -536,6 +597,21 @@ class NetworkProtocol : public Node
             if (ipmiProtocolEnabled)
             {
                 handleIpmiProtocolEnabled(*ipmiProtocolEnabled, asyncResp);
+            }
+        }
+
+        if (https)
+        {
+            std::optional<bool> httpsProtocolEnabled;
+            if (!json_util::readJson(*https, res, "ProtocolEnabled",
+                                     httpsProtocolEnabled))
+            {
+                return;
+            }
+
+            if (httpsProtocolEnabled)
+            {
+                handleHttpsProtocolEnabled(*httpsProtocolEnabled, asyncResp);
             }
         }
     }
