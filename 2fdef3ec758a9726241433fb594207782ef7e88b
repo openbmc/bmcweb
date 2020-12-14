@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66ea0d3b_aa94f7bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-14T17:39:33Z",
+      "side": 1,
+      "message": "More needs to change than just the URLs to be a well defined OEM resource.  Please see my comments about making your resources actual resources.\n\n\nhttps://github.com/openbmc/bmcweb/blob/83cf8189e5f9d414efb5c5fa73227e977cf5f84d/include/sessions.hpp#L361\n\nThat line of code needs removed, as it imposes between-resource constraints between both the code files, and the redfish resources themselves.  Implement the delete handler on your new collection to implement that functionality.",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15e7adb3_832eb525",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-14T17:39:33Z",
+      "side": 1,
+      "message": "You\u0027re already in an OEM resource...  Why do you need a secondary OEM within the oem?",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 63
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4128a515_d7ba5628",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-14T17:39:33Z",
+      "side": 1,
+      "message": "Redfish would generally implement these as a collection, not as an Action, as they\u0027re a specific resource you\u0027re acquiring, not a latent action being imposed.",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 79
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8def7f1_1f5e275a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-14T17:39:33Z",
+      "side": 1,
+      "message": "GetLockList is deffinitely not a redfish action.",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 664,
+        "endChar": 79
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
