@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "61bfe0c7_0ccb48b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-14T17:26:19Z",
+      "side": 1,
+      "message": "I\u0027m not really following why you would want to disable HTTPS from an HTTPS interface.\n\nAlso, bmcweb is not designed to host multiple copies of the service on a single bmc.  If you\u0027re doing that, be prepared for bugs.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22e626e1_39fd0104",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -110,6 +133,29 @@
         "startChar": 0,
         "endLine": 49,
         "endChar": 17
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56517543_5fe81dbb",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-14T17:26:19Z",
+      "side": 1,
+      "message": "This code is 2 lines different than the IPMI code.  Please deduplicate.",
+      "range": {
+        "startLine": 481,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 5
       },
       "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
