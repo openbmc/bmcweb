@@ -761,6 +761,30 @@
     },
     {
       "key": {
+        "uuid": "d4170b0a_d3f1191c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ebfd0cd_b6586880",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6c61f10_ba4b05ae",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -1199,6 +1223,24 @@
     },
     {
       "key": {
+        "uuid": "8664491f_9d00990b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13728165_7fbb27b3",
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed846e00_a42bc68f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 17
@@ -1243,6 +1285,30 @@
       "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a01402a7_26fcd98b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-14T11:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e9e7602_223468c0",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 48
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
