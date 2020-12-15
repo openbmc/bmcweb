@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "455f77e5_6a7ffa07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T20:13:09Z",
+      "side": 1,
+      "message": "More details needed here.\n\nWhat is a \"lamp test\".  What does it do?  How does it work?  How is it started, and how is it canceled?  Why were the existing LocationIndicator interfaces not suitable to this task?",
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4e3537_c6ae3bfd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T20:13:09Z",
+      "side": 1,
+      "message": "Generally redfish would model this as an Action, that returns a reference to task service.  \"canceling\" the action would involve issuing a state change to task service.",
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6d7c28c_ca951fa7",
         "filename": "meson_options.txt",
         "patchSetId": 5
@@ -22,6 +56,29 @@
       "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b378788f_af2b3a7c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T20:13:09Z",
+      "side": 1,
+      "message": "Please encapsulate this in its own resource, then once that is done, please put this in its own IBM specific file, so we can track maintenance of it properly.",
+      "range": {
+        "startLine": 1233,
+        "startChar": 0,
+        "endLine": 1233,
+        "endChar": 34
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
@@ -91,6 +148,52 @@
       "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db6bb2cb_dc006566",
+        "filename": "static/redfish/v1/schema/OemComputerSystem_v1.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T20:13:09Z",
+      "side": 1,
+      "message": "You seem to be missing schema definitions for the properties within this oem resource.",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 29,
+        "endChar": 67
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be91a62c_ad407d20",
+        "filename": "static/redfish/v1/schema/OemComputerSystem_v1.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T20:13:09Z",
+      "side": 1,
+      "message": "This file is generic to all openBMC systems, it cannot contain IBM-specific features.\n\nalso, generally the Oem would be omitted from the \"IBMOem\" name.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
