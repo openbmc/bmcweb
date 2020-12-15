@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "3b785070_6ba9aaf7",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-12-15T16:46:09Z",
+      "side": 1,
+      "message": "will fix.",
+      "parentUuid": "d6e73707_d36f5fd4",
+      "range": {
+        "startLine": 126,
+        "startChar": 30,
+        "endLine": 126,
+        "endChar": 39
+      },
+      "revId": "a6b8caad4703c714ca5e3aa938342e054035f0a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2864af9_c41bcf98",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-12-15T16:46:09Z",
+      "side": 1,
+      "message": "This has been working good. Thus i did not make any changes.",
+      "parentUuid": "37ebec01_0aa779f8",
+      "range": {
+        "startLine": 126,
+        "startChar": 52,
+        "endLine": 126,
+        "endChar": 60
+      },
+      "revId": "a6b8caad4703c714ca5e3aa938342e054035f0a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d46b84e_b7a8189b",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b37ba41f_bbec1c85",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-12-15T16:46:09Z",
+      "side": 1,
+      "message": "I am checking the delta change in the total size of the directory when the same file is being uploaded. The size can increase or decrease based on the incoming data.\n\nhttps://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/31030/ is the commit where there was some part of the code to calculate the directory size while uploading multiple save area files in a single request. This code is not copied from there. The use-case and scenario is different here.",
+      "parentUuid": "0d46b84e_b7a8189b",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 155,
+        "endChar": 76
+      },
+      "revId": "a6b8caad4703c714ca5e3aa938342e054035f0a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b7c60d2_f0d4b3ea",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2020-12-15T16:11:35Z",
       "side": 1,
       "message": "The BMCWEB_LOG message is not provided as part of the HTTP response, so the requester has no way to determine why the request was bad.  They need to know so that can correct their problem.\nCan we add a res.jsonValue[\"Description\"] as is done elsewhere in this code?",
+      "range": {
+        "startLine": 671,
+        "startChar": 59,
+        "endLine": 671,
+        "endChar": 70
+      },
+      "revId": "a6b8caad4703c714ca5e3aa938342e054035f0a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "676c905e_a6dff0f5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-12-15T16:46:09Z",
+      "side": 1,
+      "message": "I will try this and update accordingly",
+      "parentUuid": "2b7c60d2_f0d4b3ea",
       "range": {
         "startLine": 671,
         "startChar": 59,
