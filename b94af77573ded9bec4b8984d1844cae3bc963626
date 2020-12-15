@@ -2117,6 +2117,30 @@
     },
     {
       "key": {
+        "uuid": "71fcd7d9_0d067074",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T04:54:16Z",
+      "side": 1,
+      "message": "Long term, I\u0027d like to see the node class go away, and start replacing the node handler with simpler, per-route handlers.  To facilitate that in the future, I\u0027d prefer it if the inherited node classes avoid implementing anything other than the overridden values their base classes do.  Because this is a static API, the namespace change is relatively straightforward to accomplish.",
+      "parentUuid": "91d4bc2e_dc6eea08",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "914045dc_f53d2dce",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 31
@@ -2247,6 +2271,30 @@
       "side": 1,
       "message": "@Ed Tanous, any comment on it?",
       "parentUuid": "03a0220d_6923a844",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "b94af77573ded9bec4b8984d1844cae3bc963626",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25bcd462_9540b719",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T04:54:16Z",
+      "side": 1,
+      "message": "\"it\u0027s not some new pattern which needs to be followed and changed everywhere\"  Disagree, I\u0027d like to see redfish handlers be consistent, and it helps review faster.\n\n\"Even making const for something that is used once can be still good practice\"\n\nSee above about the Node classes being simple, to facilitate the change later.  That\u0027s the intent behind this request.",
+      "parentUuid": "1f581966_3715de69",
       "range": {
         "startLine": 132,
         "startChar": 0,
