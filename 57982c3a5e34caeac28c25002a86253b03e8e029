@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c1a6a31b_63d12733",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "anyways it will be used in ibm only case right\nare looking for something like this \"/var/lib/ibm/bmcweb/RootCert\"",
+      "parentUuid": "c493dfdf_1c68e4da",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "229dbf82_cb907a6b",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e7d2af68_5d56d37a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "f4bfec52_85840f86",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 49
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af5060fd_c7f71af6",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -83,6 +131,30 @@
       "writtenOn": "2020-12-10T11:40:35Z",
       "side": 1,
       "message": "nit consider to move it instead of copy",
+      "range": {
+        "startLine": 574,
+        "startChar": 24,
+        "endLine": 574,
+        "endChar": 33
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93456af9_0af7651b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "af5060fd_c7f71af6",
       "range": {
         "startLine": 574,
         "startChar": 24,
@@ -135,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "9c894a91_aa0e3c15",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "Ed\n\nI understand your point.right, we don\u0027t get appropriate error code from backend,\nso i thought better to add check here",
+      "parentUuid": "c66af947_30e64eee",
+      "range": {
+        "startLine": 654,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 48
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "523b5c5a_19386aaa",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -146,6 +242,30 @@
       "writtenOn": "2020-12-10T17:15:17Z",
       "side": 1,
       "message": "you use internal_server_error a lot in this code.  Most of the things you\u0027ve used it for (like this one) are not appropriate, and should instead be using something like bad_request.",
+      "range": {
+        "startLine": 660,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 71
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40bc3a25_b999022b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "in this case server is not in right state to serve this request.",
+      "parentUuid": "523b5c5a_19386aaa",
       "range": {
         "startLine": 660,
         "startChar": 0,
@@ -227,6 +347,30 @@
     },
     {
       "key": {
+        "uuid": "f3dec9ab_384dd692",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "Ed\ni dont think this will be an issue.\nsay if there are two request almost at same time, the match first appended to vector needs to be removed first( fixed timeout of 5ec)",
+      "parentUuid": "76f04b8c_1a08daef",
+      "range": {
+        "startLine": 672,
+        "startChar": 20,
+        "endLine": 672,
+        "endChar": 38
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a453832_6862c03f",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -238,6 +382,30 @@
       "writtenOn": "2020-12-10T17:15:17Z",
       "side": 1,
       "message": "Don\u0027t use res.end() in new code.",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 41
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5616c733_758b5354",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "Ed\nfor some reason, connection is not getting close without this.\ni will debug",
+      "parentUuid": "6a453832_6862c03f",
       "range": {
         "startLine": 688,
         "startChar": 0,
@@ -273,6 +441,30 @@
     },
     {
       "key": {
+        "uuid": "287e1ac6_fbe11692",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "eb898fe5_c3b73ed4",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 72
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b60616e_554192b2",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -284,6 +476,30 @@
       "writtenOn": "2020-12-07T18:06:49Z",
       "side": 1,
       "message": "Don\u0027t you need to a check for if this is empty?",
+      "range": {
+        "startLine": 842,
+        "startChar": 69,
+        "endLine": 842,
+        "endChar": 78
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a728a842_3fed9e1b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-15T04:02:59Z",
+      "side": 1,
+      "message": "i think we can add empty check",
+      "parentUuid": "5b60616e_554192b2",
       "range": {
         "startLine": 842,
         "startChar": 69,
