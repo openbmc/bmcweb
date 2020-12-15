@@ -115,6 +115,143 @@
       "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b7d160c_b8129427",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "update https://github.com/openbmc/bmcweb/blob/master/scripts/update_schemas.py#L141 ?",
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "282ceaa0_04d694b3",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2722,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "All the other Oems schemas have the word \"Oem\" in them. Should this have ibm as well?",
+      "range": {
+        "startLine": 2722,
+        "startChar": 33,
+        "endLine": 2722,
+        "endChar": 45
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd22d9f_1eda21b4",
+        "filename": "static/redfish/v1/JsonSchemas/LockService/LockService.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "I see this in other Oem schemas (like https://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/JsonSchemas/OemVirtualMedia/index.json#L2) but this isn\u0027t correct.\nI would vote add a link to bmcweb. e.g. ...static/redfish/v1/JsonSchemas/LockService/LockService.json\nThe other choice would be to just remove?",
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b43633f_aca52b9c",
+        "filename": "static/redfish/v1/JsonSchemas/LockService/LockService.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 50
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72381a30_42d3cc92",
+        "filename": "static/redfish/v1/JsonSchemas/LockService/LockService.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 161,
+        "startChar": 101,
+        "endLine": 161,
+        "endChar": 115
+      },
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bb7a583_0ba70d6b",
+        "filename": "static/redfish/v1/JsonSchemas/SegmentFlags/SegmentFlags.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "This isn\u0027t correct",
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d54c67_cdd098b5",
+        "filename": "static/redfish/v1/JsonSchemas/SegmentFlags/SegmentFlags.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T17:47:37Z",
+      "side": 1,
+      "message": "spelling single",
+      "revId": "2fdef3ec758a9726241433fb594207782ef7e88b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
