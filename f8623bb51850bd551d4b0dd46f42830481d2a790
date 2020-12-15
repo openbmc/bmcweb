@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6d7c28c_ca951fa7",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-15T14:28:06Z",
+      "side": 1,
+      "message": "no need to mention \"specific\".  [Enable IBM Lamp Test functionality] is good enough",
+      "range": {
+        "startLine": 21,
+        "startChar": 102,
+        "endLine": 21,
+        "endChar": 111
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7890e1e_1e52769b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2405,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-15T14:28:06Z",
+      "side": 1,
+      "message": "guess I don\u0027t understand why it\u0027s optional ?",
+      "range": {
+        "startLine": 2405,
+        "startChar": 14,
+        "endLine": 2405,
+        "endChar": 35
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
