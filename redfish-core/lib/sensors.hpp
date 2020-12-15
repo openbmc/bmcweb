@@ -405,11 +405,11 @@ inline void reduceSensorList(
         return;
     }
 
-    for (const char* type : sensorsAsyncResp->types)
+    for (const char* path : sensorsAsyncResp->types)
     {
         for (const std::string& sensor : *allSensors)
         {
-            if (boost::starts_with(sensor, type))
+            if (boost::starts_with(sensor, path))
             {
                 activeSensors->emplace(sensor);
             }
@@ -3028,8 +3028,8 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
                                  const std::string& node,
                                  SensorsAsyncResp::DataCompleteCb&& mapComplete)
 {
-    auto pathIt = sensors::dbus::paths.find(node);
-    if (pathIt == sensors::dbus::paths.end())
+    auto typesIt = sensors::dbus::paths.find(node);
+    if (typesIt == sensors::dbus::paths.end())
     {
         BMCWEB_LOG_ERROR << "Wrong node provided : " << node;
         mapComplete(boost::beast::http::status::bad_request, {});
