@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include "metric_report.hpp"
 #include "node.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
@@ -510,48 +511,29 @@ class Subscription
     }
 #endif
 
-    void filterAndSendReports(const std::string& id2,
-                              const std::string& readingsTs,
-                              const ReadingsObjType& readings)
+    void filterAndSendReports(
+        const std::string& id,
+        const std::variant<telemetry::TimestampReadings>& var)
     {
-        std::string metricReportDef =
-            "/redfish/v1/TelemetryService/MetricReportDefinitions/" + id2;
+        std::string mrdUri = telemetry::metricReportDefinitionUri + id;
 
         // Empty list means no filter. Send everything.
         if (metricReportDefinitions.size())
         {
             if (std::find(metricReportDefinitions.begin(),
                           metricReportDefinitions.end(),
-                          metricReportDef) == metricReportDefinitions.end())
+                          mrdUri) == metricReportDefinitions.end())
             {
                 return;
             }
         }
 
-        nlohmann::json metricValuesArray = nlohmann::json::array();
-        for (const auto& it : readings)
+        nlohmann::json json;
+        if (!telemetry::fillReport(json, id, var))
         {
-            metricValuesArray.push_back({});
-            nlohmann::json& entry = metricValuesArray.back();
-
-            auto& [id, property, value, timestamp] = it;
-
-            entry = {{"MetricId", id},
-                     {"MetricProperty", property},
-                     {"MetricValue", std::to_string(value)},
-                     {"Timestamp", crow::utility::getDateTime(timestamp)}};
+            return;
         }
-
-        nlohmann::json msg = {
-            {"@odata.id", "/redfish/v1/TelemetryService/MetricReports/" + id},
-            {"@odata.type", "#MetricReport.v1_3_0.MetricReport"},
-            {"Id", id2},
-            {"Name", id2},
-            {"Timestamp", readingsTs},
-            {"MetricReportDefinition", {{"@odata.id", metricReportDef}}},
-            {"MetricValues", metricValuesArray}};
-
-        this->sendEvent(msg.dump());
+        this->sendEvent(json.dump());
     }
 
     void updateRetryConfig(const uint32_t retryAttempts,
@@ -1342,75 +1324,6 @@ class EventServiceManager
     }
 
 #endif
-
-    void getMetricReading(const std::string& service,
-                          const std::string& objPath, const std::string& intf)
-    {
-        std::size_t found = objPath.find_last_of('/');
-        if (found == std::string::npos)
-        {
-            BMCWEB_LOG_DEBUG << "Invalid objPath received";
-            return;
-        }
-
-        std::string idStr = objPath.substr(found + 1);
-        if (idStr.empty())
-        {
-            BMCWEB_LOG_DEBUG << "Invalid ID in objPath";
-            return;
-        }
-
-        crow::connections::systemBus->async_method_call(
-            [idStr{std::move(idStr)}](
-                const boost::system::error_code ec,
-                boost::container::flat_map<
-                    std::string, std::variant<int32_t, ReadingsObjType>>&
-                    resp) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG
-                        << "D-Bus call failed to GetAll metric readings.";
-                    return;
-                }
-
-                const int32_t* timestampPtr =
-                    std::get_if<int32_t>(&resp["Timestamp"]);
-                if (!timestampPtr)
-                {
-                    BMCWEB_LOG_DEBUG << "Failed to Get timestamp.";
-                    return;
-                }
-
-                ReadingsObjType* readingsPtr =
-                    std::get_if<ReadingsObjType>(&resp["Readings"]);
-                if (!readingsPtr)
-                {
-                    BMCWEB_LOG_DEBUG << "Failed to Get Readings property.";
-                    return;
-                }
-
-                if (!readingsPtr->size())
-                {
-                    BMCWEB_LOG_DEBUG << "No metrics report to be transferred";
-                    return;
-                }
-
-                for (const auto& it :
-                     EventServiceManager::getInstance().subscriptionsMap)
-                {
-                    std::shared_ptr<Subscription> entry = it.second;
-                    if (entry->eventFormatType == metricReportFormatType)
-                    {
-                        entry->filterAndSendReports(
-                            idStr, crow::utility::getDateTime(*timestampPtr),
-                            *readingsPtr);
-                    }
-                }
-            },
-            service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
-            intf);
-    }
-
     void unregisterMetricReportSignal()
     {
         if (matchTelemetryMonitor)
@@ -1430,9 +1343,11 @@ class EventServiceManager
         }
 
         BMCWEB_LOG_DEBUG << "Metrics report signal - Register";
-        std::string matchStr(
-            "type='signal',member='ReportUpdate', "
-            "interface='xyz.openbmc_project.MonitoringService.Report'");
+        std::string matchStr = "type='signal',member='PropertiesChanged',"
+                               "interface='org.freedesktop.DBus.Properties',"
+                               "path_namespace=/xyz/openbmc_project/Telemetry/"
+                               "Reports/TelemetryService,"
+                               "arg0=xyz.openbmc_project.Telemetry.Report";
 
         matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match::match>(
             *crow::connections::systemBus, matchStr,
@@ -1443,10 +1358,49 @@ class EventServiceManager
                     return;
                 }
 
-                std::string service = msg.get_sender();
-                std::string objPath = msg.get_path();
-                std::string intf = msg.get_interface();
-                getMetricReading(service, objPath, intf);
+                std::string intf;
+                std::vector<std::pair<
+                    std::string, std::variant<telemetry::TimestampReadings>>>
+                    props;
+                std::vector<std::string> invalidProp;
+
+                msg.read(intf, props, invalidProp);
+                if (intf != "xyz.openbmc_project.Telemetry.Report")
+                {
+                    return;
+                }
+
+                const std::variant<telemetry::TimestampReadings>* varPtr =
+                    nullptr;
+                for (const auto& [key, var] : props)
+                {
+                    if (key == "Readings")
+                    {
+                        varPtr = &var;
+                        break;
+                    }
+                }
+                if (!varPtr)
+                {
+                    return;
+                }
+
+                std::string id;
+                if (!dbus::utility::getNthStringFromPath(msg.get_path(), 5, id))
+                {
+                    BMCWEB_LOG_ERROR << "Failed to get Id from path";
+                    return;
+                }
+
+                for (const auto& it :
+                     EventServiceManager::getInstance().subscriptionsMap)
+                {
+                    std::shared_ptr<Subscription> entry = it.second;
+                    if (entry->eventFormatType == metricReportFormatType)
+                    {
+                        entry->filterAndSendReports(id, *varPtr);
+                    }
+                }
             });
     }
 
