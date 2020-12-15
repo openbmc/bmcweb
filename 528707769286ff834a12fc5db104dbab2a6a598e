@@ -22,6 +22,30 @@
       "revId": "528707769286ff834a12fc5db104dbab2a6a598e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e19ae46_6ee09211",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-15T00:55:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dd61fe0_b6e3fc0d",
+      "range": {
+        "startLine": 839,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 19
+      },
+      "revId": "528707769286ff834a12fc5db104dbab2a6a598e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
