@@ -285,33 +285,36 @@ class AddReport
                 {
                     BMCWEB_LOG_ERROR << "Failed to find DBus sensor "
                                         "corresponding to URI "
-                                     << uri;
+                                     << uri << " for MetricId " << id;
                     messages::propertyValueNotInList(asyncResp->res, uri,
                                                      "MetricProperties/" +
                                                          std::to_string(i));
                     return;
                 }
+                dbusPaths.emplace_back(el->second);
+            }
 
+            for (const auto& path : dbusPaths)
+            {
                 std::string newType;
-                if ((i == 0 || !sensorType.empty()) &&
-                    !dbus::utility::getNthStringFromPath(el->second, 3,
-                                                         newType))
+                if (!dbus::utility::getNthStringFromPath(path.str, 3, newType))
                 {
                     BMCWEB_LOG_ERROR
                         << "Failed to get sensor type from DBus path";
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                if (i == 0)
+                if (sensorType.empty())
                 {
                     sensorType = std::move(newType);
                 }
-                else if (newType != sensorType)
+                else if (sensorType != newType)
                 {
-                    BMCWEB_LOG_WARNING << "Different type of sensors in metric";
+                    BMCWEB_LOG_WARNING << "Different type of sensors in metric "
+                                          "with Id " << id;
                     sensorType.clear();
+                    break;
                 }
-                dbusPaths.emplace_back(el->second);
             }
 
             nlohmann::json metadata;
