@@ -31,16 +31,14 @@ inline nlohmann::json toMetricValues(const Readings& readings)
     return metricValues;
 }
 
-inline void fillReport(const std::shared_ptr<AsyncResp>& asyncResp,
-                       const std::string& id,
+inline bool fillReport(nlohmann::json& json, const std::string& id,
                        const std::variant<TimestampReadings>& var)
 {
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MetricReport.v1_3_0.MetricReport";
-    asyncResp->res.jsonValue["@odata.id"] = telemetry::metricReportUri + id;
-    asyncResp->res.jsonValue["Id"] = id;
-    asyncResp->res.jsonValue["Name"] = id;
-    asyncResp->res.jsonValue["MetricReportDefinition"]["@odata.id"] =
+    json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
+    json["@odata.id"] = telemetry::metricReportUri + id;
+    json["Id"] = id;
+    json["Name"] = id;
+    json["MetricReportDefinition"]["@odata.id"] =
         telemetry::metricReportDefinitionUri + id;
 
     const TimestampReadings* timestampReadings =
@@ -48,14 +46,14 @@ inline void fillReport(const std::shared_ptr<AsyncResp>& asyncResp,
     if (!timestampReadings)
     {
         BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
-        messages::internalError(asyncResp->res);
-        return;
+        return false;
     }
 
     const auto& [timestamp, readings] = *timestampReadings;
-    asyncResp->res.jsonValue["Timestamp"] =
+    json["Timestamp"] =
         crow::utility::getDateTime(static_cast<time_t>(timestamp));
-    asyncResp->res.jsonValue["MetricValues"] = toMetricValues(readings);
+    json["MetricValues"] = toMetricValues(readings);
+    return true;
 }
 } // namespace telemetry
 
@@ -146,7 +144,11 @@ class MetricReport : public Node
                             return;
                         }
 
-                        telemetry::fillReport(asyncResp, id, ret);
+                        if (!telemetry::fillReport(asyncResp->res.jsonValue, id,
+                                                   ret))
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
                     },
                     telemetry::service, reportPath,
                     "org.freedesktop.DBus.Properties", "Get",
