@@ -36,6 +36,9 @@ class AsyncResp
     AsyncResp(crow::Response& response) : res(response)
     {}
 
+    AsyncResp(const AsyncResp&) = delete;
+    AsyncResp(AsyncResp&&) = delete;
+
     ~AsyncResp()
     {
         res.end();
