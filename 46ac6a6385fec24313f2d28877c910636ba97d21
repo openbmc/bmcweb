@@ -16,6 +16,24 @@
       "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bba39fa_5f94ee7e",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T19:57:58Z",
+      "side": 1,
+      "message": "\u003e We lost a little from DEVELOPING.md. \n\u003e Which I am fine with but if you wanted to clarify a bit more.. \n\u003e \n\u003e Present the new feature and use case to the DMTF\u0027s Redfish working group. The [Redfish Specification Forum](https://redfishforum.com/) is a public Redfish forum to ask questions and request features. Redfish \"Supporter\" and \"Promoter\" companies, which many companies working on OpenBMC are, can request features via the Redfish code repository or Redfish meetings.\n\nIs there a DMTF doc that we can just point to instead?  I intentionally don\u0027t want to go into the details of how the DTFM process works, as it\u0027s not our responsibility to define how they operate, so I don\u0027t really want us documenting their the process here in a place where we have no say in it, and it isn\u0027t binding.\n\nSaid another way, I want the discussion about the DMTF process to happen on DMTF forums, not OpenBMC forums.  This doc is meant to provide context to how OpenBMC interfaces with their process.\n\n\u003e If possible, message the new feature through the normal OpenBMC communications channels to ensure OpenBMC is properly represented in the meeting/forum.",
+      "parentUuid": "df928284_9b349172",
+      "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
