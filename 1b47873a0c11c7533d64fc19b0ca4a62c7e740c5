@@ -365,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "3a3cfb9e_f009e57e",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T19:57:58Z",
+      "side": 1,
+      "message": "\u003e can we say:\n\u003e \n\u003e specific to a single platform or single OEM/ODM?\n\nSounds reasonable.  Will Change.\n\n\u003e \n\u003e The latter case doesn\u0027t seem to be covered and I wouldn\u0027t think IBM only interfaces that are common to all of our platforms for example belong in the OpenBMC OEM namespace.",
+      "parentUuid": "df7f5769_9a0e156e",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 76
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "981e0f75_5ceab0dc",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -388,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "1defb7bf_c44fe97d",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T19:57:58Z",
+      "side": 1,
+      "message": "In my mind, if we\u0027re not ensuring quality correct implementations, it opens the door for \"This code does it this wrong way, why can\u0027t I do that?\" type discussions, and it provides a path for \"I don\u0027t have time to do it right, just do it as OEM because that won\u0027t get reviewed as hard\" type thinking.  I wasn\u0027t not sure how to best capture that in this doc.",
+      "parentUuid": "981e0f75_5ceab0dc",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f98d307a_d7758c57",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -399,6 +447,30 @@
       "writtenOn": "2020-12-15T18:56:00Z",
       "side": 1,
       "message": "There are ~70 people in the all-maintainers group.  Do you mean the bmcweb maintainers?  If so, lets just say that.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833e0f25_aa6182b2",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T19:57:58Z",
+      "side": 1,
+      "message": "Fair point.  Will fix.",
+      "parentUuid": "f98d307a_d7758c57",
       "range": {
         "startLine": 67,
         "startChar": 0,
