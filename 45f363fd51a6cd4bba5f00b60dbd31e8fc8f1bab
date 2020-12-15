@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "66099540_d4a6b860",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:55:51Z",
+      "side": 1,
+      "message": "Please update your tests to actually set up an SNMP server, and catch the messages going through it.  I suspect there\u0027s more work to do here to be able to properlly subscribe to SNMP events the way redfish intends, but lets get documented how you expect it to work, and go from there.\n\n\nAlso, please add a BMC reboot to your testing.  the SNMP objects should persist.",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f20a711_08ca141f",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
