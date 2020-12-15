@@ -54,9 +54,10 @@ static constexpr std::string_view thermal = "Thermal";
 
 namespace dbus
 {
+
 static const boost::container::flat_map<std::string_view,
                                         std::vector<const char*>>
-    types = {{node::power,
+    paths = {{node::power,
               {"/xyz/openbmc_project/sensors/voltage",
                "/xyz/openbmc_project/sensors/power"}},
              {node::sensors,
@@ -67,6 +68,64 @@ static const boost::container::flat_map<std::string_view,
               {"/xyz/openbmc_project/sensors/fan_tach",
                "/xyz/openbmc_project/sensors/temperature",
                "/xyz/openbmc_project/sensors/fan_pwm"}}};
+} // namespace dbus
+
+inline const char* toReadingType(const std::string& sensorType)
+{
+    if (sensorType == "voltage")
+    {
+        return "Voltage";
+    }
+    if (sensorType == "power")
+    {
+        return "Power";
+    }
+    if (sensorType == "current")
+    {
+        return "Current";
+    }
+    if (sensorType == "fan_tach")
+    {
+        return "Rotational";
+    }
+    if (sensorType == "temperature")
+    {
+        return "Temperature";
+    }
+    if (sensorType == "fan_pwm" || sensorType == "utilization")
+    {
+        return "Percent";
+    }
+    return "";
+}
+
+inline const char* toReadingUnits(const std::string& sensorType)
+{
+    if (sensorType == "voltage")
+    {
+        return "V";
+    }
+    if (sensorType == "power")
+    {
+        return "W";
+    }
+    if (sensorType == "current")
+    {
+        return "A";
+    }
+    if (sensorType == "fan_tach")
+    {
+        return "RPM";
+    }
+    if (sensorType == "temperature")
+    {
+        return "Cel";
+    }
+    if (sensorType == "fan_pwm" || sensorType == "utilization")
+    {
+        return "%";
+    }
+    return "";
 }
 } // namespace sensors
 
@@ -93,7 +152,8 @@ class SensorsAsyncResp
                      const std::vector<const char*>& typesIn,
                      const std::string_view& subNode) :
         res(response),
-        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
+        chassisId(chassisIdIn), types(typesIn),
+        chassisSubNode(subNode)
     {}
 
     // Store extra data about sensor mapping and return it in callback
@@ -345,11 +405,11 @@ inline void reduceSensorList(
         return;
     }
 
-    for (const char* type : sensorsAsyncResp->types)
+    for (const char* path : sensorsAsyncResp->types)
     {
         for (const std::string& sensor : *allSensors)
         {
-            if (boost::starts_with(sensor, type))
+            if (boost::starts_with(sensor, path))
             {
                 activeSensors->emplace(sensor);
             }
@@ -853,18 +913,8 @@ inline void objectInterfacesToJson(
     if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
         sensorJson["@odata.type"] = "#Sensor.v1_0_0.Sensor";
-        if (sensorType == "power")
-        {
-            sensorJson["ReadingUnits"] = "Watts";
-        }
-        else if (sensorType == "current")
-        {
-            sensorJson["ReadingUnits"] = "Amperes";
-        }
-        else if (sensorType == "utilization")
-        {
-            sensorJson["ReadingUnits"] = "Percent";
-        }
+        sensorJson["ReadingType"] = sensors::toReadingType(sensorType);
+        sensorJson["ReadingUnits"] = sensors::toReadingUnits(sensorType);
     }
     else if (sensorType == "temperature")
     {
@@ -2976,8 +3026,8 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
                                  const std::string& node,
                                  SensorsAsyncResp::DataCompleteCb&& mapComplete)
 {
-    auto typesIt = sensors::dbus::types.find(node);
-    if (typesIt == sensors::dbus::types.end())
+    auto typesIt = sensors::dbus::paths.find(node);
+    if (typesIt == sensors::dbus::paths.end())
     {
         BMCWEB_LOG_ERROR << "Wrong node provided : " << node;
         mapComplete(boost::beast::http::status::bad_request, {});
@@ -3027,7 +3077,7 @@ class SensorCollection : public Node
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
             std::make_shared<SensorsAsyncResp>(
-                res, chassisId, sensors::dbus::types.at(sensors::node::sensors),
+                res, chassisId, sensors::dbus::paths.at(sensors::node::sensors),
                 sensors::node::sensors);
 
         auto getChassisCb =
