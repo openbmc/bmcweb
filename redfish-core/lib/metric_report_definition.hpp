@@ -275,6 +275,7 @@ class AddReport
         {
             std::vector<sdbusplus::message::object_path> dbusPaths;
             dbusPaths.reserve(uris.size());
+            std::string sensorType;
 
             for (size_t i = 0; i < uris.size(); i++)
             {
@@ -291,6 +292,25 @@ class AddReport
                     return;
                 }
 
+                std::string newType;
+                if ((i == 0 || !sensorType.empty()) &&
+                    !dbus::utility::getNthStringFromPath(el->second, 3,
+                                                         newType))
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Failed to get sensor type from DBus path";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (i == 0)
+                {
+                    sensorType = std::move(newType);
+                }
+                else if (newType != sensorType)
+                {
+                    BMCWEB_LOG_WARNING << "Different type of sensors in metric";
+                    sensorType.clear();
+                }
                 dbusPaths.emplace_back(el->second);
             }
 
@@ -299,6 +319,11 @@ class AddReport
             if (uris.size() == 1)
             {
                 metadata["MetricProperty"] = uris[0];
+            }
+            if (!sensorType.empty())
+            {
+                metadata["MetricDefinition"]["@odata.id"] =
+                    telemetry::metricDefinitionUri + sensorType;
             }
             readingParams.emplace_back(std::move(dbusPaths), "SINGLE", id,
                                        metadata.dump());
