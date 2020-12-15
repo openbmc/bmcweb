@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f20a711_08ca141f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "Please declare and use this as a uint16.  There\u0027s no reason to store it as a string.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 25
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39318079_552009df",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "Please keep these as string_views, as it will avoid several string copies.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 42
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89d07d23_142da74a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "I\u0027d like to see this code block be made internally consistent.  In some cases, we use protocol to determine the default port, in others we use uriProto.  I would like to see us slowly fall back, and do it consistently for all protocols, not just for SNMP.  This most likely means you just need an \"if Protocol \u003d\u003d \"redfish\")\" in the above.\n\nfor example:\nDestination: snmp://myuri\nshould be a legal way to specify the same thing as\n\nProtocol: SNMPv2c\nDestination: myUri",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 9
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e058743_d0714d94",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "Please use from_chars for this as documented in COMMON_ERRORS.md.  It\u0027s more consistent and has better overflow behaviors.",
+      "range": {
+        "startLine": 462,
+        "startChar": 31,
+        "endLine": 462,
+        "endChar": 37
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e09d6192_99747db2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "I suspect in this case we need to return the full input value, not just the port.",
+      "range": {
+        "startLine": 469,
+        "startChar": 65,
+        "endLine": 469,
+        "endChar": 69
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80e28ef4_03adab94",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "This is still maintaining state that isn\u0027t persisted across a reboot.  I suspect you need to come up with a scheme for the redfish uri IDs to be different dependent on the protocol, so you can know how to steer a delete verb without storing state in bmcweb.",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 52
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a5c69e_5778d0a3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "You\u0027ve created an SNMP client here, but I see no code for transferring the subscription information, or the redfish event model over to it.  Can you talk to how you\u0027re intending on doing that?",
+      "range": {
+        "startLine": 511,
+        "startChar": 17,
+        "endLine": 511,
+        "endChar": 58
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c39cef6_c5dc8ff5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "Several of these fields are non-nonsensical for an SNMP client.  Please filter them appropriately.",
+      "range": {
+        "startLine": 573,
+        "startChar": 0,
+        "endLine": 587,
+        "endChar": 0
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703f64db_d291cf84",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-15T01:53:09Z",
+      "side": 1,
+      "message": "Pretty sure you want a return here.  You don\u0027t want to delete the SNMP thing and also try to delete the eventservice instance.",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
