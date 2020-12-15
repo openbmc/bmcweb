@@ -291,7 +291,6 @@ class AddReport
                                                          std::to_string(i));
                     return;
                 }
-
                 dbusPaths.emplace_back(el->second);
             }
 
