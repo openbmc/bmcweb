@@ -48,7 +48,7 @@ class Thermal : public Node
         }
         const std::string& chassisName = params[0];
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::types.at(sensors::node::thermal),
+            res, chassisName, sensors::dbus::paths.at(sensors::node::thermal),
             sensors::node::thermal);
 
         // TODO Need to get Chassis Redundancy information.
@@ -71,7 +71,7 @@ class Thermal : public Node
             allCollections;
 
         auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::types.at(sensors::node::thermal),
+            res, chassisName, sensors::dbus::paths.at(sensors::node::thermal),
             sensors::node::thermal);
 
         if (!json_util::readJson(req, asyncResp->res, "Temperatures",

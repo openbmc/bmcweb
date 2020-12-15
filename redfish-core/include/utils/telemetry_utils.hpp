@@ -8,12 +8,37 @@ namespace telemetry
 
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
+constexpr const char* metricDefinitionUri =
+    "/redfish/v1/TelemetryService/MetricDefinitions/";
 constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
 constexpr const char* reportDir =
     "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/";
+
+inline void dbusReportsToMembers(
+    const std::shared_ptr<AsyncResp>& asyncResp,
+    const std::vector<sdbusplus::message::object_path>& reports,
+    const std::string& uri)
+{
+    nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    members = nlohmann::json::array();
+
+    for (const sdbusplus::message::object_path& report : reports)
+    {
+        std::string path = report.filename();
+        if (path.empty())
+        {
+            BMCWEB_LOG_ERROR << "Received invalid path: " << report.str;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        members.push_back({{"@odata.id", uri + path}});
+    }
+
+    asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+}
 
 inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
                                 const std::string& uri)
@@ -31,22 +56,7 @@ inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
                 return;
             }
 
-            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
-
-            for (const sdbusplus::message::object_path& report : reports)
-            {
-                std::string path = report.filename();
-                if (path.empty())
-                {
-                    BMCWEB_LOG_ERROR << "Received invalid path: " << report.str;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                members.push_back({{"@odata.id", uri + path}});
-            }
-
-            asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+            dbusReportsToMembers(asyncResp, reports, uri);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
