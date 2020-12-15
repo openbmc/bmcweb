@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df928284_9b349172",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T18:17:01Z",
+      "side": 1,
+      "message": "We lost a little from DEVELOPING.md. \nWhich I am fine with but if you wanted to clarify a bit more.. \n\nPresent the new feature and use case to the DMTF\u0027s Redfish working group. The [Redfish Specification Forum](https://redfishforum.com/) is a public Redfish forum to ask questions and request features. Redfish \"Supporter\" and \"Promoter\" companies, which many companies working on OpenBMC are, can request features via the Redfish code repository or Redfish meetings. If possible, message the new feature through the normal OpenBMC communications channels to ensure OpenBMC is properly represented in the meeting/forum.",
+      "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
