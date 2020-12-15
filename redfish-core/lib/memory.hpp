@@ -672,6 +672,41 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                     aResp->res.jsonValue["MemoryLocation"][property.first] =
                         *value;
                 }
+                else if (property.first == "SparePartNumber")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
+                    aResp->res.jsonValue["SparePartNumber"] = *value;
+                }
+                else if (property.first == "Model")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
+                    aResp->res.jsonValue["Model"] = *value;
+                }
+                else if (property.first == "LocationCode")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        continue;
+                    }
+                    aResp->res
+                        .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+                        *value;
+                }
                 else
                 {
                     getPersistentMemoryProperties(aResp, properties);
