@@ -396,7 +396,7 @@ inline void dumpfloat(std::string& out, double number,
     // get number of digits for a float -> text -> float round-trip
     static constexpr auto d = std::numeric_limits<double>::max_digits10;
 
-    // the actual conversion
+    // the actual conversion - clang formatter fix
     std::ptrdiff_t len = (std::snprintf)(
         numberbuffer.data(), numberbuffer.size(), "%.*g", d, number);
 
