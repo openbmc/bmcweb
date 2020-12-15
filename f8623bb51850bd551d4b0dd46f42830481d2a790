@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "c712ea3d_9d304ac9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T20:17:49Z",
+      "side": 1,
+      "message": "I think they followed the LocationIndicator interface and if you had an action you would need an additional property to know the status.",
+      "parentUuid": "9e4e3537_c6ae3bfd",
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6d7c28c_ca951fa7",
         "filename": "meson_options.txt",
         "patchSetId": 5
