@@ -34,6 +34,24 @@
       "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57074eb0_8b748290",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T20:24:31Z",
+      "side": 1,
+      "message": "You can point at https://www.dmtf.org/standards/spmf if you wanted. \n\nAlthough I\u0027m not sure an additional sentence (the 3rd sentence is really the only new one) is documenting their process. That sentence is really unlikely to change. I made it slightly more generic. \n\nThat said I am fine with it as is. Uf you want to just add the link, I am also fine. \n\n\n\nPresent the new feature and use case to the DMTF\u0027s Redfish working group. The [Redfish Specification Forum](https://redfishforum.com/) is a public Redfish forum to ask questions and request features. Redfish member companies, which many companies working on OpenBMC are, can request features via the Redfish code repository or Redfish meetings. If possible, message the new feature through the normal OpenBMC communications channels to ensure OpenBMC is properly represented in the meeting/forum.",
+      "parentUuid": "0bba39fa_5f94ee7e",
+      "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
