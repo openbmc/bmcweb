@@ -672,6 +672,36 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                     aResp->res.jsonValue["MemoryLocation"][property.first] =
                         *value;
                 }
+                else if (property.first == "SparePartNumber")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["SparePartNumber"] = *value;
+                }
+                else if (property.first == "Model")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["Model"] = *value;
+                }
+                else if (property.first == "LocationCode")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    aResp->res.jsonValue["Location"]["info"] = *value;
+                }
                 else
                 {
                     getPersistentMemoryProperties(aResp, properties);
@@ -826,6 +856,7 @@ inline void getDimmData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
         std::array<const char*, 2>{
+            /*code here*/
             "xyz.openbmc_project.Inventory.Item.Dimm",
             "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
 }
