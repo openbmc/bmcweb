@@ -20,6 +20,9 @@ class AsyncResp
         res(response), func(std::move(function))
     {}
 
+    AsyncResp(const AsyncResp&) = delete;
+    AsyncResp(AsyncResp&&) = delete;
+
     ~AsyncResp()
     {
         if (func && res.result() == boost::beast::http::status::ok)
