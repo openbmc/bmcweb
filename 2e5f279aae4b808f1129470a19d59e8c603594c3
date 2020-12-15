@@ -22,6 +22,30 @@
       "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30085f7_ea549454",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-15T21:33:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure. ResourceAlreadyExists isn\u0027t exactly right either. \n\n\"Indicates that a resource change or creation was attempted but that the operation cannot proceed because the resource already exists.\" \n\nResourceAlreadyExists is really targeted for a property, what property is this?\n\n\"The requested resource of type \" + arg1   \" with the property \" + arg2 + \" with the value \" + arg3 + \" already exists.\"\n\nThis has \n \"Invalid file uploaded to /redfish/v1/UpdateService...\"\nI think I prefer it.",
+      "parentUuid": "7c898383_e231bfef",
+      "range": {
+        "startLine": 357,
+        "startChar": 35,
+        "endLine": 357,
+        "endChar": 48
+      },
+      "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
