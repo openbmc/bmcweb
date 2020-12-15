@@ -46,6 +46,30 @@
       "revId": "8a540e4aa025193e92ff3c3f9dba3264d5090d82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a6bc69_fd5ee63a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-15T13:28:06Z",
+      "side": 1,
+      "message": "Simplify a little, hope it is enough. If not I am able to add all_of algorithm",
+      "parentUuid": "24854cee_6aaa21ee",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 21
+      },
+      "revId": "8a540e4aa025193e92ff3c3f9dba3264d5090d82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
