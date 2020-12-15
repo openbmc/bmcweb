@@ -45,6 +45,52 @@
       "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a4468ee_fe790b82",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-15T14:43:36Z",
+      "side": 1,
+      "message": "I think it\u0027s an error if we don\u0027t see anything ..",
+      "range": {
+        "startLine": 2409,
+        "startChar": 19,
+        "endLine": 2409,
+        "endChar": 27
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9940928_1285f7a3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2414,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-12-15T14:43:36Z",
+      "side": 1,
+      "message": "it\u0027s not a pointer to bool .. why are we de-referencing it ?..",
+      "range": {
+        "startLine": 2414,
+        "startChar": 48,
+        "endLine": 2414,
+        "endChar": 57
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
