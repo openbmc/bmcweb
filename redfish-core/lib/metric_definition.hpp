@@ -1,7 +1,6 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "node.hpp"
 #include "sensors.hpp"
 #include "utils/get_chassis_names.hpp"
 #include "utils/telemetry_utils.hpp"
