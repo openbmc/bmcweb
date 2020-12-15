@@ -288,6 +288,30 @@
       "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e22bc8f_4a8f6a6d",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-15T10:30:32Z",
+      "side": 1,
+      "message": "Yes, but there was a request to fill all supported attributes. What if \"MaxReports\" is not in dictionary? What if there is an extra key in dictionary? I can create \"MaxReports\" and \"MinCollectionInterval\" before the loop with null values. If I remove intermediate variables then I am not able to handle errors. Are you ok with it?",
+      "parentUuid": "8b975b9b_c30b0ec0",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 60
+      },
+      "revId": "c7fce288802ece4a6e1ff71ee060a44e0b8fe992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
