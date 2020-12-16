@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d20ecda6_f7c71b67",
+        "filename": "redfish-core/include/utils/string_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-16T05:57:17Z",
+      "side": 1,
+      "message": "Yeah.\nI used the boost library and removed this.",
+      "parentUuid": "d7eed587_f46545ff",
+      "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bad4ae89_9ae10347",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 35
@@ -39,6 +57,30 @@
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30eedef0_5fd2960a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-16T05:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad4ae89_9ae10347",
+      "range": {
+        "startLine": 748,
+        "startChar": 32,
+        "endLine": 748,
+        "endChar": 56
+      },
+      "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "910a8508_b7498815",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-16T05:57:17Z",
+      "side": 1,
+      "message": "Sorry, `std::move` can not be used here, so I don\u0027t know which method should be used.",
+      "parentUuid": "22757b3d_9dc36a5b",
+      "range": {
+        "startLine": 762,
+        "startChar": 0,
+        "endLine": 762,
+        "endChar": 46
+      },
+      "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16adfd63_937eddd7",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 35
@@ -102,6 +168,30 @@
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74113ef4_13a636ab",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-16T05:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16adfd63_937eddd7",
+      "range": {
+        "startLine": 772,
+        "startChar": 0,
+        "endLine": 772,
+        "endChar": 44
+      },
+      "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
