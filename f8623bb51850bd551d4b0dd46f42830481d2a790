@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4048beaf_b38be10d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-16T01:05:39Z",
+      "side": 1,
+      "message": "You\u0027d use Task service to determine the status in what I proposed.\n\nI guess, let me ask it this way;  Is \"lamp test\" a procedure that runs and eventually completes, or is it a \"state\" that the system can be in?\n\nI guess I had imagined lamp test was something like \"walk through each led and turn it on for a second\" but I realized I assumed that.",
+      "parentUuid": "c712ea3d_9d304ac9",
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6d7c28c_ca951fa7",
         "filename": "meson_options.txt",
         "patchSetId": 5
