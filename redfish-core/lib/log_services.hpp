@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "gzfile.hpp"
 #include "node.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
@@ -32,7 +33,6 @@
 #include <filesystem>
 #include <string_view>
 #include <variant>
-
 namespace redfish
 {
 
@@ -936,6 +936,12 @@ class SystemLogServiceCollection : public Node
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/Dump"}});
 #endif
 
+#ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
+        logServiceArray.push_back(
+            {{"@odata.id",
+              "/redfish/v1/Systems/system/LogServices/HostLogger"}});
+#endif
+
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
             {{"@odata.id",
@@ -1661,6 +1667,318 @@ class DBusEventLogEntry : public Node
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
+    }
+};
+
+constexpr const char* hostLoggerFolderPath = "/var/lib/obmc/hostlogs";
+
+static bool
+    getHostLoggerFiles(const std::string& hostLoggerFilePath,
+                       std::vector<std::filesystem::path>& hostLoggerFiles)
+{
+    std::string filename;
+    try
+    {
+        for (const std::filesystem::directory_entry& it :
+             std::filesystem::directory_iterator(hostLoggerFilePath))
+        {
+            filename = it.path().filename();
+            // Prefix of each files created by phosphor-hostlogger is "host_"
+            // If we find a HostLogger file, save the path
+            if (boost::starts_with(filename, "host_"))
+            {
+                BMCWEB_LOG_DEBUG << "Get file:" << filename;
+                hostLoggerFiles.emplace_back(it.path());
+            }
+        }
+    }
+    catch (const std::filesystem::filesystem_error& e)
+    {
+        BMCWEB_LOG_ERROR << e.what();
+        return false;
+    }
+    std::sort(hostLoggerFiles.begin(), hostLoggerFiles.end());
+
+    return true;
+}
+
+bool getTimestampAndMsg(const std::string& logEntry, std::string& msg,
+                        std::string& timestamp)
+{
+    // Get the Timestamp. Here is an example for one entry:
+    // "[ 1970-01-01T00:00:31+00:00 ] >>> Log collection started at
+    // 1970-01-01 00:00:31".
+    const char* buf_cp = logEntry.c_str();
+    boost::iterator_range<const char*> beginOfTimestamp =
+        boost::algorithm::find_first(buf_cp, "[ ");
+    boost::iterator_range<const char*> endOfTimestamp =
+        boost::algorithm::find_first(buf_cp, " ] ");
+    if (beginOfTimestamp.empty() || endOfTimestamp.empty())
+    {
+        BMCWEB_LOG_ERROR << "Get timestamp error, log entry: " << logEntry;
+        return false;
+    }
+    std::string_view strEndOfTimestamp(endOfTimestamp.begin());
+    std::string_view tmpTimestamp(beginOfTimestamp.end());
+    tmpTimestamp.remove_suffix(strEndOfTimestamp.size());
+
+    // Check timestamp format
+    std::tm timeStruct = {};
+    std::istringstream timestampChecker(tmpTimestamp.data());
+    timestampChecker >> std::get_time(&timeStruct, "%Y-%m-%dT%H:%M:%S");
+    if (timestampChecker.fail())
+    {
+        BMCWEB_LOG_ERROR << "Parsing timestamp failed. ";
+        return false;
+    }
+    timestamp.assign(tmpTimestamp);
+    msg.assign(endOfTimestamp.end());
+
+    return true;
+}
+
+static void fillHostLoggerEntryJson(const std::string& logEntryID,
+                                    const std::string& msg,
+                                    const std::string& timestamp,
+                                    nlohmann::json& logEntryJson)
+{
+    // Fill in the log entry with the gathered data.
+    logEntryJson = {
+        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        {"@odata.id",
+         "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/" +
+             logEntryID},
+        {"Name", "HostLogger Entries"},
+        {"Id", logEntryID},
+        {"Message", msg},
+        {"MessageId", "OpenBMC.0.1.HostLogger"},
+        {"MessageArgs", {"None"}},
+        {"EntryType", "Event"},
+        {"Severity", "OK"}, // This is always information, so always print OK.
+        {"Created", timestamp}};
+}
+
+class SystemHostLogger : public Node
+{
+  public:
+    SystemHostLogger(App& app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/HostLogger/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/HostLogger";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["Name"] = "Host Logger Service";
+        asyncResp->res.jsonValue["Description"] = "Host Logger Service";
+        asyncResp->res.jsonValue["Id"] = "HostLogger";
+        asyncResp->res.jsonValue["Entries"] = {
+            {"@odata.id",
+             "/redfish/v1/Systems/system/LogServices/HostLogger/Entries"}};
+
+        return;
+    }
+};
+
+class SystemHostLoggerCollection : public Node
+{
+  public:
+    SystemHostLoggerCollection(App& app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>&) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/HostLogger/Entries";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["Name"] = "HostLogger Entries";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of HostLogger Entries";
+        nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
+        logEntryArray = nlohmann::json::array();
+
+        std::vector<std::filesystem::path> hostLoggerFiles;
+        if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+#ifdef BMCWEB_ENABLE_DEBUG
+        for (const auto& it : hostLoggerFiles)
+        {
+            BMCWEB_LOG_DEBUG << "Check what we found: " << it.c_str();
+        }
+#endif
+
+        uint64_t skip = 0;
+        uint64_t top = maxEntriesPerPage;
+
+        if (!getSkipParam(asyncResp->res, req, skip))
+        {
+            return;
+        }
+        if (!getTopParam(asyncResp->res, req, top))
+        {
+            return;
+        }
+
+        std::string logEntry;
+        uint64_t entryCount = 0;
+        for (auto it = hostLoggerFiles.rbegin(); it < hostLoggerFiles.rend();
+             it++)
+        {
+            BMCWEB_LOG_DEBUG << "File: " << it->c_str();
+
+            GzFile logFile(it->c_str());
+
+            // Reset the unique ID on the first entry
+            bool firstEntry = true;
+            while (logFile.gzGetLine(logEntry))
+            {
+                entryCount++;
+                if (entryCount <= skip || entryCount > skip + top)
+                {
+                    continue;
+                }
+
+                std::string msg, timestamp;
+                if (!getTimestampAndMsg(logEntry, msg, timestamp))
+                {
+                    continue;
+                }
+
+                std::string idStr;
+                if (!getUniqueEntryID(timestamp, idStr, firstEntry))
+                {
+                    continue;
+                }
+                if (firstEntry)
+                {
+                    firstEntry = false;
+                }
+
+                logEntryArray.push_back({});
+                nlohmann::json& bmcLogEntry = logEntryArray.back();
+                fillHostLoggerEntryJson(idStr, msg, timestamp, bmcLogEntry);
+            }
+        }
+        asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
+        if (skip + top < entryCount)
+        {
+            asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                "/redfish/v1/Systems/system/LogServices/HostLogger/"
+                "Entries?skip=" +
+                std::to_string(skip + top);
+        }
+    }
+};
+
+class SystemHostLoggerLogEntry : public Node
+{
+  public:
+    SystemHostLoggerLogEntry(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string& targetID = params[0];
+
+        std::vector<std::filesystem::path> hostLoggerFiles;
+        if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::string logEntry;
+
+        // Oldest logs are in the last file, so start there and loop backwards
+        for (auto it = hostLoggerFiles.rbegin(); it < hostLoggerFiles.rend();
+             it++)
+        {
+            GzFile logFile(it->c_str());
+
+            // Reset the unique ID on the first entry
+            bool firstEntry = true;
+            while (logFile.gzGetLine(logEntry))
+            {
+                std::string msg;
+                std::string timestamp;
+                if (!getTimestampAndMsg(logEntry, msg, timestamp))
+                {
+                    continue;
+                }
+
+                std::string idStr;
+                if (!getUniqueEntryID(timestamp, idStr, firstEntry))
+                {
+                    continue;
+                }
+
+                if (firstEntry)
+                {
+                    firstEntry = false;
+                }
+
+                if (idStr == targetID)
+                {
+                    fillHostLoggerEntryJson(idStr, msg, timestamp,
+                                            asyncResp->res.jsonValue);
+                    return;
+                }
+            }
+        }
+        // Requested ID was not found
+        messages::resourceMissingAtURI(asyncResp->res, targetID);
     }
 };
 
