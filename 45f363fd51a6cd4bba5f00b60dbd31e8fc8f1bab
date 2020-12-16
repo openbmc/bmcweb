@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "326440b2_4de63e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-16T01:09:09Z",
+      "side": 1,
+      "message": "Hi @Ed Tanous, I feel that we think differently. \nWhat I want to do is use the Redfish to set/get/delete the IP and port of SNMP trap. So I need creat/delete the client by call Dbus.\n \nWhat do you think of this? Thanks",
+      "parentUuid": "66099540_d4a6b860",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f20a711_08ca141f",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
