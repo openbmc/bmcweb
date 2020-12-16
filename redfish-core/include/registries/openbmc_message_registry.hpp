@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 188> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -526,6 +526,16 @@ constexpr std::array<MessageEntry, 187> registry = {
                      "OK",
                      2,
                      {"string", "string"},
+                     "None.",
+                 }},
+    MessageEntry{"HostLogger",
+                 {
+                     "Indicates logs of host's console output data.",
+                     "Host console log : %1 ",
+                     "OK",
+                     "OK",
+                     1,
+                     {"string"},
                      "None.",
                  }},
     MessageEntry{
