@@ -75,6 +75,7 @@ feature_map = {
 'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
 'redfish-raw-peci'                : '-DBMCWEB_ENABLE_REDFISH_RAW_PECI',
 'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
+'redfish-host-logger'             : '-DBMCWEB_ENABLE_REDFISH_HOST_LOGGER',
 'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
 'insecure-sensor-override'        : '-DBMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE',
 'static-hosting'                  : '-DBMCWEB_ENABLE_STATIC_HOSTING',
