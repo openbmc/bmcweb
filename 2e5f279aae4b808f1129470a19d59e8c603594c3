@@ -46,6 +46,30 @@
       "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37b8c3da_6f68e5cd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-16T00:52:06Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not sure. ResourceAlreadyExists isn\u0027t exactly right either. \n\u003e \n\u003e \"Indicates that a resource change or creation was attempted but that the operation cannot proceed because the resource already exists.\" \n\u003e \n\u003e ResourceAlreadyExists is really targeted for a property, what property is this?\n\nID, that\u0027s the reason we already have the version and can\u0027t expose a new Firmware with the same ID.\n\n\u003e \n\u003e \"The requested resource of type \" + arg1   \" with the property \" + arg2 + \" with the value \" + arg3 + \" already exists.\"\n\u003e \n\u003e This has \n\u003e  \"Invalid file uploaded to /redfish/v1/UpdateService...\"\n\u003e I think I prefer it.\n\nTechnically the ID is a property, so we\u0027d write the message as \"The requested resource of type SoftwareVersion with property Id with the value \"this_version\" already exists\"\n\nThat seems more descriptive than just \"the file was invalid\".  We could do both?",
+      "parentUuid": "c30085f7_ea549454",
+      "range": {
+        "startLine": 357,
+        "startChar": 35,
+        "endLine": 357,
+        "endChar": 48
+      },
+      "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
