@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "010aea1e_da3d8376",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-17T18:30:56Z",
+      "side": 1,
+      "message": "aren\u0027t some of these already done in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38606 ?\nCan you rebase ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 62,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "4a379906591dae04b32afdbd473b972be5c7490b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b98d9c0e_c793a2cd",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 10
