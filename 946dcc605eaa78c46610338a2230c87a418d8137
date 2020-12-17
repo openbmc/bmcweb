@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1cbf839_511555ec",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2020-12-17T03:33:35Z",
+      "side": 1,
+      "message": "Blank line",
+      "revId": "946dcc605eaa78c46610338a2230c87a418d8137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
