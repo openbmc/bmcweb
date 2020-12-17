@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "eccde6f7_9c86c0f0",
+        "filename": "redfish-core/include/utils/string_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-17T16:10:36Z",
+      "side": 1,
+      "message": "I don\u0027t think you understand..... #include rfc7230 and use the utility functions within it, don\u0027t write your own.",
+      "parentUuid": "c2f8493a_91830726",
+      "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bad4ae89_9ae10347",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 35
