@@ -60,10 +60,10 @@ class Connection :
 {
   public:
     Connection(Handler* handlerIn,
-               std::function<std::string()>& get_cached_date_str_f,
+               std::function<std::string()>& getCachedDateStrF,
                detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
-        handler(handlerIn), getCachedDateStr(get_cached_date_str_f),
+        handler(handlerIn), getCachedDateStr(getCachedDateStrF),
         timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
@@ -498,9 +498,9 @@ class Connection :
             adaptor, buffer, *parser,
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytes_transferred) {
+                                       std::size_t bytesTransferred) {
                 BMCWEB_LOG_ERROR << this << " async_read_header "
-                                 << bytes_transferred << " Bytes";
+                                 << bytesTransferred << " Bytes";
                 bool errorWhileReading = false;
                 if (ec)
                 {
@@ -599,8 +599,8 @@ class Connection :
             adaptor, buffer, *parser,
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytes_transferred) {
-                BMCWEB_LOG_DEBUG << this << " async_read " << bytes_transferred
+                                       std::size_t bytesTransferred) {
+                BMCWEB_LOG_DEBUG << this << " async_read " << bytesTransferred
                                  << " Bytes";
 
                 bool errorWhileReading = false;
@@ -659,8 +659,8 @@ class Connection :
             adaptor, *serializer,
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytes_transferred) {
-                BMCWEB_LOG_DEBUG << this << " async_write " << bytes_transferred
+                                       std::size_t bytesTransferred) {
+                BMCWEB_LOG_DEBUG << this << " async_write " << bytesTransferred
                                  << " bytes";
 
                 cancelDeadlineTimer();

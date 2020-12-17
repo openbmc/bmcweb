@@ -44,11 +44,11 @@ static void activateImage(const std::string& objPath,
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
     crow::connections::systemBus->async_method_call(
-        [](const boost::system::error_code error_code) {
-            if (error_code)
+        [](const boost::system::error_code errorCode) {
+            if (errorCode)
             {
-                BMCWEB_LOG_DEBUG << "error_code = " << error_code;
-                BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
+                BMCWEB_LOG_DEBUG << "error_code = " << errorCode;
+                BMCWEB_LOG_DEBUG << "error msg = " << errorCode.message();
             }
         },
         service, objPath, "org.freedesktop.DBus.Properties", "Set",
@@ -83,14 +83,14 @@ static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
             // Retrieve service and activate
             crow::connections::systemBus->async_method_call(
                 [objPath, asyncResp,
-                 req](const boost::system::error_code error_code,
+                 req](const boost::system::error_code errorCode,
                       const std::vector<std::pair<
                           std::string, std::vector<std::string>>>& objInfo) {
-                    if (error_code)
+                    if (errorCode)
                     {
-                        BMCWEB_LOG_DEBUG << "error_code = " << error_code;
+                        BMCWEB_LOG_DEBUG << "error_code = " << errorCode;
                         BMCWEB_LOG_DEBUG << "error msg = "
-                                         << error_code.message();
+                                         << errorCode.message();
                         if (asyncResp)
                         {
                             messages::internalError(asyncResp->res);
@@ -848,10 +848,10 @@ class SoftwareInventory : public Node
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp,
-                         swId](const boost::system::error_code error_code,
+                         swId](const boost::system::error_code errorCode,
                                const boost::container::flat_map<
                                    std::string, VariantType>& propertiesList) {
-                            if (error_code)
+                            if (errorCode)
                             {
                                 messages::internalError(asyncResp->res);
                                 return;

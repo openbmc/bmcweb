@@ -83,7 +83,7 @@ inline void
         [transaction, processName{std::string(processName)},
          objectPath{std::string(objectPath)}](
             const boost::system::error_code ec,
-            const std::string& introspect_xml) {
+            const std::string& introspectXml) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR
@@ -97,7 +97,7 @@ inline void
 
             tinyxml2::XMLDocument doc;
 
-            doc.Parse(introspect_xml.c_str());
+            doc.Parse(introspectXml.c_str());
             tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
             if (pRoot == nullptr)
             {
@@ -222,21 +222,21 @@ struct InProgressEnumerateData
 };
 
 inline void getManagedObjectsForEnumerate(
-    const std::string& object_name, const std::string& object_manager_path,
-    const std::string& connection_name,
+    const std::string& objectName, const std::string& objectManagerPath,
+    const std::string& connectionName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << object_name
-                     << " object_manager_path " << object_manager_path
-                     << " connection_name " << connection_name;
+    BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << objectName
+                     << " object_manager_path " << objectManagerPath
+                     << " connection_name " << connectionName;
     crow::connections::systemBus->async_method_call(
-        [transaction, object_name,
-         connection_name](const boost::system::error_code ec,
-                          const dbus::utility::ManagedObjectType& objects) {
+        [transaction, objectName,
+         connectionName](const boost::system::error_code ec,
+                         const dbus::utility::ManagedObjectType& objects) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "GetManagedObjects on path " << object_name
-                                 << " on connection " << connection_name
+                BMCWEB_LOG_ERROR << "GetManagedObjects on path " << objectName
+                                 << " on connection " << connectionName
                                  << " failed with code " << ec;
                 return;
             }
@@ -246,7 +246,7 @@ inline void getManagedObjectsForEnumerate(
 
             for (const auto& objectPath : objects)
             {
-                if (boost::starts_with(objectPath.first.str, object_name))
+                if (boost::starts_with(objectPath.first.str, objectName))
                 {
                     BMCWEB_LOG_DEBUG << "Reading object "
                                      << objectPath.first.str;
@@ -273,23 +273,23 @@ inline void getManagedObjectsForEnumerate(
                     {
                         getManagedObjectsForEnumerate(
                             objectPath.first.str, objectPath.first.str,
-                            connection_name, transaction);
+                            connectionName, transaction);
                     }
                 }
             }
         },
-        connection_name, object_manager_path,
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        connectionName, objectManagerPath, "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
 }
 
 inline void findObjectManagerPathForEnumerate(
-    const std::string& object_name, const std::string& connection_name,
+    const std::string& objectName, const std::string& connectionName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << object_name
-                     << " on connection:" << connection_name;
+    BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << objectName
+                     << " on connection:" << connectionName;
     crow::connections::systemBus->async_method_call(
-        [transaction, object_name, connection_name](
+        [transaction, objectName, connectionName](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -297,7 +297,7 @@ inline void findObjectManagerPathForEnumerate(
                 objects) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "GetAncestors on path " << object_name
+                BMCWEB_LOG_ERROR << "GetAncestors on path " << objectName
                                  << " failed with code " << ec;
                 return;
             }
@@ -306,11 +306,11 @@ inline void findObjectManagerPathForEnumerate(
             {
                 for (const auto& connectionGroup : pathGroup.second)
                 {
-                    if (connectionGroup.first == connection_name)
+                    if (connectionGroup.first == connectionName)
                     {
                         // Found the object manager path for this resource.
                         getManagedObjectsForEnumerate(
-                            object_name, pathGroup.first, connection_name,
+                            objectName, pathGroup.first, connectionName,
                             transaction);
                         return;
                     }
@@ -319,7 +319,7 @@ inline void findObjectManagerPathForEnumerate(
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetAncestors", object_name,
+        "xyz.openbmc_project.ObjectMapper", "GetAncestors", objectName,
         std::array<const char*, 1>{"org.freedesktop.DBus.ObjectManager"});
 }
 
@@ -515,17 +515,17 @@ inline std::vector<std::string> dbusArgSplit(const std::string& string)
     return ret;
 }
 
-inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
-                             const nlohmann::json& input_json)
+inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
+                             const nlohmann::json& inputJson)
 {
     int r = 0;
-    BMCWEB_LOG_DEBUG << "Converting " << input_json.dump()
-                     << " to type: " << arg_type;
-    const std::vector<std::string> argTypes = dbusArgSplit(arg_type);
+    BMCWEB_LOG_DEBUG << "Converting " << inputJson.dump()
+                     << " to type: " << argType;
+    const std::vector<std::string> argTypes = dbusArgSplit(argType);
 
     // Assume a single object for now.
-    const nlohmann::json* j = &input_json;
-    nlohmann::json::const_iterator jIt = input_json.begin();
+    const nlohmann::json* j = &inputJson;
+    nlohmann::json::const_iterator jIt = inputJson.begin();
 
     for (const std::string& argCode : argTypes)
     {
@@ -533,7 +533,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
         // iterator, and increment it for the next loop
         if (argTypes.size() > 1)
         {
-            if (jIt == input_json.end())
+            if (jIt == inputJson.end())
             {
                 return -2;
             }
@@ -770,7 +770,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
                 return r;
             }
 
-            r = convertJsonToDbus(m, containedType, input_json);
+            r = convertJsonToDbus(m, containedType, inputJson);
             if (r < 0)
             {
                 return r;
@@ -794,7 +794,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
             }
 
             nlohmann::json::const_iterator it = j->begin();
-            for (const std::string& argCode2 : dbusArgSplit(arg_type))
+            for (const std::string& argCode2 : dbusArgSplit(argType))
             {
                 if (it == j->end())
                 {
@@ -1314,8 +1314,8 @@ inline void findActionOnInterface(
     crow::connections::systemBus->async_method_call(
         [transaction, connectionName{std::string(connectionName)}](
             const boost::system::error_code ec,
-            const std::string& introspect_xml) {
-            BMCWEB_LOG_DEBUG << "got xml:\n " << introspect_xml;
+            const std::string& introspectXml) {
+            BMCWEB_LOG_DEBUG << "got xml:\n " << introspectXml;
             if (ec)
             {
                 BMCWEB_LOG_ERROR
@@ -1325,7 +1325,7 @@ inline void findActionOnInterface(
             }
             tinyxml2::XMLDocument doc;
 
-            doc.Parse(introspect_xml.data(), introspect_xml.size());
+            doc.Parse(introspectXml.data(), introspectXml.size());
             tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
             if (pRoot == nullptr)
             {
@@ -1611,12 +1611,12 @@ inline void handleEnumerate(crow::Response& res, const std::string& objectPath)
 
     crow::connections::systemBus->async_method_call(
         [objectPath, asyncResp](const boost::system::error_code ec,
-                                GetSubTreeType& object_names) {
+                                GetSubTreeType& objectNames) {
             auto transaction = std::make_shared<InProgressEnumerateData>(
                 objectPath, asyncResp);
 
             transaction->subtree =
-                std::make_shared<GetSubTreeType>(std::move(object_names));
+                std::make_shared<GetSubTreeType>(std::move(objectNames));
 
             if (ec)
             {
@@ -1652,8 +1652,8 @@ inline void handleGet(crow::Response& res, std::string& objectPath,
         std::vector<std::pair<std::string, std::vector<std::string>>>;
     crow::connections::systemBus->async_method_call(
         [&res, path, propertyName](const boost::system::error_code ec,
-                                   const GetObjectType& object_names) {
-            if (ec || object_names.size() <= 0)
+                                   const GetObjectType& objectNames) {
+            if (ec || objectNames.size() <= 0)
             {
                 setErrorResponse(res, boost::beast::http::status::not_found,
                                  notFoundDesc, notFoundMsg);
@@ -1665,7 +1665,7 @@ inline void handleGet(crow::Response& res, std::string& objectPath,
             // The mapper should never give us an empty interface names
             // list, but check anyway
             for (const std::pair<std::string, std::vector<std::string>>&
-                     connection : object_names)
+                     connection : objectNames)
             {
                 const std::vector<std::string>& interfaceNames =
                     connection.second;
@@ -1820,8 +1820,8 @@ inline void handlePut(const crow::Request& req, crow::Response& res,
 
     crow::connections::systemBus->async_method_call(
         [transaction](const boost::system::error_code ec2,
-                      const GetObjectType& object_names) {
-            if (!ec2 && object_names.size() <= 0)
+                      const GetObjectType& objectNames) {
+            if (!ec2 && objectNames.size() <= 0)
             {
                 setErrorResponse(transaction->res,
                                  boost::beast::http::status::not_found,
@@ -1830,7 +1830,7 @@ inline void handlePut(const crow::Request& req, crow::Response& res,
             }
 
             for (const std::pair<std::string, std::vector<std::string>>&
-                     connection : object_names)
+                     connection : objectNames)
             {
                 const std::string& connectionName = connection.first;
 
@@ -2214,8 +2214,8 @@ inline void requestRoutes(App& app)
 
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&, crow::Response& res,
-               const std::string& Connection) {
-                introspectObjects(Connection, "/",
+               const std::string& connection) {
+                introspectObjects(connection, "/",
                                   std::make_shared<bmcweb::AsyncResp>(res));
             });
 
@@ -2284,7 +2284,7 @@ inline void requestRoutes(App& app)
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, processName,
                      objectPath](const boost::system::error_code ec,
-                                 const std::string& introspect_xml) {
+                                 const std::string& introspectXml) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -2296,7 +2296,7 @@ inline void requestRoutes(App& app)
                         }
                         tinyxml2::XMLDocument doc;
 
-                        doc.Parse(introspect_xml.c_str());
+                        doc.Parse(introspectXml.c_str());
                         tinyxml2::XMLNode* pRoot =
                             doc.FirstChildElement("node");
                         if (pRoot == nullptr)
@@ -2311,7 +2311,7 @@ inline void requestRoutes(App& app)
                             return;
                         }
 
-                        BMCWEB_LOG_DEBUG << introspect_xml;
+                        BMCWEB_LOG_DEBUG << introspectXml;
                         asyncResp->res.jsonValue = {
                             {"status", "ok"},
                             {"bus_name", processName},
@@ -2347,7 +2347,7 @@ inline void requestRoutes(App& app)
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, processName, objectPath,
                      interfaceName](const boost::system::error_code ec,
-                                    const std::string& introspect_xml) {
+                                    const std::string& introspectXml) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -2359,7 +2359,7 @@ inline void requestRoutes(App& app)
                         }
                         tinyxml2::XMLDocument doc;
 
-                        doc.Parse(introspect_xml.data(), introspect_xml.size());
+                        doc.Parse(introspectXml.data(), introspectXml.size());
                         tinyxml2::XMLNode* pRoot =
                             doc.FirstChildElement("node");
                         if (pRoot == nullptr)

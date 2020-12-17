@@ -344,11 +344,11 @@ inline void getFwStatus(const std::shared_ptr<AsyncResp>& asyncResp,
 
     crow::connections::systemBus->async_method_call(
         [asyncResp,
-         swId](const boost::system::error_code error_code,
+         swId](const boost::system::error_code errorCode,
                const boost::container::flat_map<
                    std::string, std::variant<bool, std::string, uint64_t,
                                              uint32_t>>& propertiesList) {
-            if (error_code)
+            if (errorCode)
             {
                 // not all fwtypes are updateable, this is ok
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
