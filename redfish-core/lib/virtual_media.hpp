@@ -55,7 +55,7 @@ static std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
  * @brief Read all known properties from VM object interfaces
  */
 static void vmParseInterfaceObject(const DbusInterfaceType& interface,
-                                   std::shared_ptr<AsyncResp> aResp)
+                                   const std::shared_ptr<AsyncResp>& aResp)
 {
     const auto mountPointIface =
         interface.find("xyz.openbmc_project.VirtualMedia.MountPoint");
@@ -227,7 +227,7 @@ static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
 /**
  *  @brief Fills data for specific resource
  */
-static void getVmData(std::shared_ptr<AsyncResp> aResp,
+static void getVmData(const std::shared_ptr<AsyncResp>& aResp,
                       const std::string& service, const std::string& name,
                       const std::string& resName)
 {
@@ -334,7 +334,7 @@ class VirtualMediaActionInsertMedia : public Node
             {
                 return TransferProtocol::smb;
             }
-            else if (scheme == "https")
+            if (scheme == "https")
             {
                 return TransferProtocol::https;
             }
@@ -380,7 +380,7 @@ class VirtualMediaActionInsertMedia : public Node
      * @brief Function extends URI with transfer protocol type.
      *
      */
-    const std::string
+    std::string
         getUriWithTransferProtocol(const std::string& imageUri,
                                    const TransferProtocol& transferProtocol)
     {
@@ -557,9 +557,9 @@ class VirtualMediaActionInsertMedia : public Node
                 BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
                 crow::connections::systemBus->async_method_call(
-                    [this, service, resName, req, aResp{std::move(aResp)}](
-                        const boost::system::error_code ec,
-                        ManagedObjectType& subtree) {
+                    [this, service, resName, req,
+                     aResp{aResp}](const boost::system::error_code ec,
+                                   ManagedObjectType& subtree) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -635,10 +635,10 @@ class VirtualMediaActionInsertMedia : public Node
 
                                 // manager is irrelevant for VirtualMedia dbus
                                 // calls
-                                doMountVmLegacy(
-                                    std::move(aResp), service, resName,
-                                    imageUrl, !(*writeProtected),
-                                    std::move(*userName), std::move(*password));
+                                doMountVmLegacy(aResp, service, resName,
+                                                imageUrl, !(*writeProtected),
+                                                std::move(*userName),
+                                                std::move(*password));
 
                                 return;
                             }
@@ -732,7 +732,7 @@ class VirtualMediaActionInsertMedia : public Node
             return credentials.password();
         }
 
-        SecureBuffer pack(const FormatterFunc formatter)
+        SecureBuffer pack(FormatterFunc formatter)
         {
             SecureBuffer packed{new Buffer{}};
             if (formatter)
@@ -770,7 +770,7 @@ class VirtualMediaActionInsertMedia : public Node
         }
 
         template <typename WriteHandler>
-        void async_write(WriteHandler&& handler)
+        void asyncWrite(WriteHandler&& handler)
         {
             impl.async_write_some(data(), std::forward<WriteHandler>(handler));
         }
@@ -803,7 +803,7 @@ class VirtualMediaActionInsertMedia : public Node
      *
      * All BMC state properties will be retrieved before sending reset request.
      */
-    void doMountVmLegacy(std::shared_ptr<AsyncResp> asyncResp,
+    void doMountVmLegacy(const std::shared_ptr<AsyncResp>& asyncResp,
                          const std::string& service, const std::string& name,
                          const std::string& imageUrl, const bool rw,
                          std::string&& userName, std::string&& password)
@@ -845,7 +845,7 @@ class VirtualMediaActionInsertMedia : public Node
             unixFd = secretPipe->fd();
 
             // Pass secret over pipe
-            secretPipe->async_write(
+            secretPipe->asyncWrite(
                 [asyncResp](const boost::system::error_code& ec, std::size_t) {
                     if (ec)
                     {
@@ -939,9 +939,9 @@ class VirtualMediaActionEjectMedia : public Node
                 BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
                 crow::connections::systemBus->async_method_call(
-                    [this, resName, service, req, aResp{std::move(aResp)}](
-                        const boost::system::error_code ec,
-                        ManagedObjectType& subtree) {
+                    [this, resName, service, req,
+                     aResp{aResp}](const boost::system::error_code ec,
+                                   ManagedObjectType& subtree) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -968,16 +968,14 @@ class VirtualMediaActionEjectMedia : public Node
                                 if (lastIndex != std::string::npos)
                                 {
                                     // Proxy mode
-                                    doVmAction(std::move(aResp), service,
-                                               resName, false);
+                                    doVmAction(aResp, service, resName, false);
                                 }
 
                                 lastIndex = path.rfind("Legacy");
                                 if (lastIndex != std::string::npos)
                                 {
                                     // Legacy mode
-                                    doVmAction(std::move(aResp), service,
-                                               resName, true);
+                                    doVmAction(aResp, service, resName, true);
                                 }
 
                                 return;
@@ -1001,7 +999,7 @@ class VirtualMediaActionEjectMedia : public Node
      *
      * All BMC state properties will be retrieved before sending reset request.
      */
-    void doVmAction(std::shared_ptr<AsyncResp> asyncResp,
+    void doVmAction(const std::shared_ptr<AsyncResp>& asyncResp,
                     const std::string& service, const std::string& name,
                     bool legacy)
     {

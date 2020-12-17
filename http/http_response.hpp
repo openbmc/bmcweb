@@ -102,9 +102,9 @@ struct Response
         completed = false;
     }
 
-    void write(std::string_view body_part)
+    void write(std::string_view bodyPart)
     {
-        stringResponse->body() += std::string(body_part);
+        stringResponse->body() += std::string(bodyPart);
     }
 
     void end()
@@ -123,9 +123,9 @@ struct Response
         }
     }
 
-    void end(std::string_view body_part)
+    void end(std::string_view bodyPart)
     {
-        write(body_part);
+        write(bodyPart);
         end();
     }
 

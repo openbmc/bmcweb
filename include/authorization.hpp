@@ -37,12 +37,12 @@ static void cleanupTempSession(Request& req)
 #ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(const boost::asio::ip::address& clientIp,
-                     std::string_view auth_header)
+                     std::string_view authHeader)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
     std::string authData;
-    std::string_view param = auth_header.substr(strlen("Basic "));
+    std::string_view param = authHeader.substr(strlen("Basic "));
     if (!crow::utility::base64Decode(param, authData))
     {
         return nullptr;
@@ -86,11 +86,11 @@ static std::shared_ptr<persistent_data::UserSession>
 
 #ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
-    performTokenAuth(std::string_view auth_header)
+    performTokenAuth(std::string_view authHeader)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
 
-    std::string_view token = auth_header.substr(strlen("Token "));
+    std::string_view token = authHeader.substr(strlen("Token "));
     auto session =
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return session;
@@ -132,7 +132,7 @@ static std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
     startIndex += sizeof("SESSION=") - 1;
-    auto endIndex = cookieValue.find(";", startIndex);
+    auto endIndex = cookieValue.find(';', startIndex);
     if (endIndex == std::string::npos)
     {
         endIndex = cookieValue.size();

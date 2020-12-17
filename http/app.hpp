@@ -65,9 +65,9 @@ class App
         return router.newRuleTagged<Tag>(std::move(rule));
     }
 
-    App& socket(int existing_socket)
+    App& socket(int existingSocket)
     {
-        socketFd = existing_socket;
+        socketFd = existingSocket;
         return *this;
     }
 
@@ -143,14 +143,13 @@ class App
     }
 
 #ifdef BMCWEB_ENABLE_SSL
-    App& sslFile(const std::string& crt_filename,
-                 const std::string& key_filename)
+    App& sslFile(const std::string& crtFilename, const std::string& keyFilename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
         sslContext->set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext->use_certificate_file(crt_filename, ssl_context_t::pem);
-        sslContext->use_private_key_file(key_filename, ssl_context_t::pem);
+        sslContext->use_certificate_file(crtFilename, ssl_context_t::pem);
+        sslContext->use_private_key_file(keyFilename, ssl_context_t::pem);
         sslContext->set_options(boost::asio::ssl::context::default_workarounds |
                                 boost::asio::ssl::context::no_sslv2 |
                                 boost::asio::ssl::context::no_sslv3 |
@@ -159,12 +158,12 @@ class App
         return *this;
     }
 
-    App& sslFile(const std::string& pem_filename)
+    App& sslFile(const std::string& pemFilename)
     {
         sslContext = std::make_shared<ssl_context_t>(
             boost::asio::ssl::context::tls_server);
         sslContext->set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext->load_verify_file(pem_filename);
+        sslContext->load_verify_file(pemFilename);
         sslContext->set_options(boost::asio::ssl::context::default_workarounds |
                                 boost::asio::ssl::context::no_sslv2 |
                                 boost::asio::ssl::context::no_sslv3 |

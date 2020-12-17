@@ -417,10 +417,10 @@ struct RuleParameterTraits
     }
 
     template <typename... MethodArgs>
-    self_t& methods(boost::beast::http::verb method, MethodArgs... args_method)
+    self_t& methods(boost::beast::http::verb method, MethodArgs... argsMethod)
     {
         self_t* self = static_cast<self_t*>(this);
-        methods(args_method...);
+        methods(argsMethod...);
         self->methodsBitfield |= 1U << static_cast<size_t>(method);
         return *self;
     }
@@ -722,8 +722,8 @@ class Trie
         optimize();
     }
 
-    void findRouteIndexes(const std::string& req_url,
-                          std::vector<unsigned>& route_indexes,
+    void findRouteIndexes(const std::string& reqUrl,
+                          std::vector<unsigned>& routeIndexes,
                           const Node* node = nullptr, unsigned pos = 0) const
     {
         if (node == nullptr)
@@ -734,21 +734,21 @@ class Trie
         {
             const std::string& fragment = kv.first;
             const Node* child = &nodes[kv.second];
-            if (pos >= req_url.size())
+            if (pos >= reqUrl.size())
             {
                 if (child->ruleIndex != 0 && fragment != "/")
                 {
-                    route_indexes.push_back(child->ruleIndex);
+                    routeIndexes.push_back(child->ruleIndex);
                 }
-                findRouteIndexes(req_url, route_indexes, child,
+                findRouteIndexes(reqUrl, routeIndexes, child,
                                  static_cast<unsigned>(pos + fragment.size()));
             }
             else
             {
-                if (req_url.compare(pos, fragment.size(), fragment) == 0)
+                if (reqUrl.compare(pos, fragment.size(), fragment) == 0)
                 {
                     findRouteIndexes(
-                        req_url, route_indexes, child,
+                        reqUrl, routeIndexes, child,
                         static_cast<unsigned>(pos + fragment.size()));
                 }
             }
@@ -756,7 +756,7 @@ class Trie
     }
 
     std::pair<unsigned, RoutingParams>
-        find(const std::string_view req_url, const Node* node = nullptr,
+        find(const std::string_view reqUrl, const Node* node = nullptr,
              size_t pos = 0, RoutingParams* params = nullptr) const
     {
         RoutingParams empty;
@@ -772,7 +772,7 @@ class Trie
         {
             node = head();
         }
-        if (pos == req_url.size())
+        if (pos == reqUrl.size())
         {
             return {node->ruleIndex, *params};
         }
@@ -788,21 +788,21 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::INT)])
         {
-            char c = req_url[pos];
+            char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-')
             {
                 char* eptr;
                 errno = 0;
                 long long int value =
-                    std::strtoll(req_url.data() + pos, &eptr, 10);
-                if (errno != ERANGE && eptr != req_url.data() + pos)
+                    std::strtoll(reqUrl.data() + pos, &eptr, 10);
+                if (errno != ERANGE && eptr != reqUrl.data() + pos)
                 {
                     params->intParams.push_back(value);
-                    std::pair<unsigned, RoutingParams> ret = find(
-                        req_url,
-                        &nodes[node->paramChildrens[static_cast<size_t>(
-                            ParamType::INT)]],
-                        static_cast<size_t>(eptr - req_url.data()), params);
+                    std::pair<unsigned, RoutingParams> ret =
+                        find(reqUrl,
+                             &nodes[node->paramChildrens[static_cast<size_t>(
+                                 ParamType::INT)]],
+                             static_cast<size_t>(eptr - reqUrl.data()), params);
                     updateFound(ret);
                     params->intParams.pop_back();
                 }
@@ -811,21 +811,21 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)])
         {
-            char c = req_url[pos];
+            char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+')
             {
                 char* eptr;
                 errno = 0;
                 unsigned long long int value =
-                    std::strtoull(req_url.data() + pos, &eptr, 10);
-                if (errno != ERANGE && eptr != req_url.data() + pos)
+                    std::strtoull(reqUrl.data() + pos, &eptr, 10);
+                if (errno != ERANGE && eptr != reqUrl.data() + pos)
                 {
                     params->uintParams.push_back(value);
-                    std::pair<unsigned, RoutingParams> ret = find(
-                        req_url,
-                        &nodes[node->paramChildrens[static_cast<size_t>(
-                            ParamType::UINT)]],
-                        static_cast<size_t>(eptr - req_url.data()), params);
+                    std::pair<unsigned, RoutingParams> ret =
+                        find(reqUrl,
+                             &nodes[node->paramChildrens[static_cast<size_t>(
+                                 ParamType::UINT)]],
+                             static_cast<size_t>(eptr - reqUrl.data()), params);
                     updateFound(ret);
                     params->uintParams.pop_back();
                 }
@@ -834,20 +834,20 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)])
         {
-            char c = req_url[pos];
+            char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
             {
                 char* eptr;
                 errno = 0;
-                double value = std::strtod(req_url.data() + pos, &eptr);
-                if (errno != ERANGE && eptr != req_url.data() + pos)
+                double value = std::strtod(reqUrl.data() + pos, &eptr);
+                if (errno != ERANGE && eptr != reqUrl.data() + pos)
                 {
                     params->doubleParams.push_back(value);
-                    std::pair<unsigned, RoutingParams> ret = find(
-                        req_url,
-                        &nodes[node->paramChildrens[static_cast<size_t>(
-                            ParamType::DOUBLE)]],
-                        static_cast<size_t>(eptr - req_url.data()), params);
+                    std::pair<unsigned, RoutingParams> ret =
+                        find(reqUrl,
+                             &nodes[node->paramChildrens[static_cast<size_t>(
+                                 ParamType::DOUBLE)]],
+                             static_cast<size_t>(eptr - reqUrl.data()), params);
                     updateFound(ret);
                     params->doubleParams.pop_back();
                 }
@@ -857,9 +857,9 @@ class Trie
         if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)])
         {
             size_t epos = pos;
-            for (; epos < req_url.size(); epos++)
+            for (; epos < reqUrl.size(); epos++)
             {
-                if (req_url[epos] == '/')
+                if (reqUrl[epos] == '/')
                 {
                     break;
                 }
@@ -868,9 +868,9 @@ class Trie
             if (epos != pos)
             {
                 params->stringParams.emplace_back(
-                    req_url.substr(pos, epos - pos));
+                    reqUrl.substr(pos, epos - pos));
                 std::pair<unsigned, RoutingParams> ret =
-                    find(req_url,
+                    find(reqUrl,
                          &nodes[node->paramChildrens[static_cast<size_t>(
                              ParamType::STRING)]],
                          epos, params);
@@ -881,14 +881,14 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)])
         {
-            size_t epos = req_url.size();
+            size_t epos = reqUrl.size();
 
             if (epos != pos)
             {
                 params->stringParams.emplace_back(
-                    req_url.substr(pos, epos - pos));
+                    reqUrl.substr(pos, epos - pos));
                 std::pair<unsigned, RoutingParams> ret =
-                    find(req_url,
+                    find(reqUrl,
                          &nodes[node->paramChildrens[static_cast<size_t>(
                              ParamType::PATH)]],
                          epos, params);
@@ -902,10 +902,10 @@ class Trie
             const std::string& fragment = kv.first;
             const Node* child = &nodes[kv.second];
 
-            if (req_url.compare(pos, fragment.size(), fragment) == 0)
+            if (reqUrl.compare(pos, fragment.size(), fragment) == 0)
             {
                 std::pair<unsigned, RoutingParams> ret =
-                    find(req_url, child, pos + fragment.size(), params);
+                    find(reqUrl, child, pos + fragment.size(), params);
                 updateFound(ret);
             }
         }

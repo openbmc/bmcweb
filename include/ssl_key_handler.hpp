@@ -355,7 +355,7 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
 }
 
 inline std::shared_ptr<boost::asio::ssl::context>
-    getSslContext(const std::string& ssl_pem_file)
+    getSslContext(const std::string& sslPemFile)
 {
     std::shared_ptr<boost::asio::ssl::context> mSslContext =
         std::make_shared<boost::asio::ssl::context>(
@@ -376,9 +376,9 @@ inline std::shared_ptr<boost::asio::ssl::context>
     BMCWEB_LOG_DEBUG << "Using default TrustStore location: " << trustStorePath;
     mSslContext->add_verify_path(trustStorePath);
 
-    mSslContext->use_certificate_file(ssl_pem_file,
+    mSslContext->use_certificate_file(sslPemFile,
                                       boost::asio::ssl::context::pem);
-    mSslContext->use_private_key_file(ssl_pem_file,
+    mSslContext->use_private_key_file(sslPemFile,
                                       boost::asio::ssl::context::pem);
 
     // Set up EC curves to auto (boost asio doesn't have a method for this)
