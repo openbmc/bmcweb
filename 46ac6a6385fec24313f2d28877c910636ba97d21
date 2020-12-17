@@ -70,6 +70,24 @@
       "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "130020d8_3292e45a",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-17T15:35:31Z",
+      "side": 1,
+      "message": "\u003e I can add the link if that works for you.\n\nI guess I would just prefer the paragraph but fine with either or leaving alone.",
+      "parentUuid": "176ac10f_b98c3e30",
+      "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
