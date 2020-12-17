@@ -31,34 +31,34 @@ class Server
   public:
     Server(Handler* handlerIn,
            std::unique_ptr<boost::asio::ip::tcp::acceptor>&& acceptorIn,
-           std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
+           std::shared_ptr<boost::asio::ssl::context> adaptorCtx,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptorIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), timer(*ioService),
-        handler(handlerIn), adaptorCtx(std::move(adaptor_ctx))
+        handler(handlerIn), adaptorCtx(std::move(adaptorCtx))
     {}
 
     Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
+           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtx,
            const std::shared_ptr<boost::asio::io_context>& io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
                    *io, boost::asio::ip::tcp::endpoint(
                             boost::asio::ip::make_address(bindaddr), port)),
-               adaptor_ctx, io)
+               adaptorCtx, io)
     {}
 
-    Server(Handler* handlerIn, int existing_socket,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
+    Server(Handler* handlerIn, int existingSocket,
+           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtx,
            const std::shared_ptr<boost::asio::io_context>& io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::v6(), existing_socket),
-               adaptor_ctx, io)
+                   *io, boost::asio::ip::tcp::v6(), existingSocket),
+               adaptorCtx, io)
     {}
 
     void updateDateStr()

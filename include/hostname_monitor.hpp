@@ -32,9 +32,9 @@ inline void installCertificate(const std::filesystem::path& certPath)
 }
 
 inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
-                            sd_bus_error* ret_error)
+                            sd_bus_error* retError)
 {
-    if (ret_error == nullptr || sd_bus_error_is_set(ret_error))
+    if (retError == nullptr || sd_bus_error_is_set(retError))
     {
         BMCWEB_LOG_ERROR << "Got sdbus error on match";
         return 0;
