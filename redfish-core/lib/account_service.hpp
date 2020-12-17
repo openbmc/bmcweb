@@ -164,7 +164,7 @@ inline void userErrorMessageHandler(const sd_bus_error* e,
     return;
 }
 
-inline void parseLDAPConfigData(nlohmann::json& json_response,
+inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
                                 const LDAPConfigData& confData,
                                 const std::string& ldapType)
 {
@@ -185,9 +185,9 @@ inline void parseLDAPConfigData(nlohmann::json& json_response,
             {"GroupsAttribute", confData.groupAttribute}}}}},
     };
 
-    json_response[ldapType].update(ldap);
+    jsonResponse[ldapType].update(ldap);
 
-    nlohmann::json& roleMapArray = json_response[ldapType]["RemoteRoleMapping"];
+    nlohmann::json& roleMapArray = jsonResponse[ldapType]["RemoteRoleMapping"];
     roleMapArray = nlohmann::json::array();
     for (auto& obj : confData.groupRoleList)
     {
@@ -402,14 +402,14 @@ inline void getLDAPConfigData(const std::string& ldapType,
             }
             std::string service = resp.begin()->first;
             crow::connections::systemBus->async_method_call(
-                [callback, ldapType](const boost::system::error_code error_code,
+                [callback, ldapType](const boost::system::error_code errorCode,
                                      const ManagedObjectType& ldapObjects) {
                     LDAPConfigData confData{};
-                    if (error_code)
+                    if (errorCode)
                     {
                         callback(false, confData, ldapType);
                         BMCWEB_LOG_ERROR << "D-Bus responses error: "
-                                         << error_code;
+                                         << errorCode;
                         return;
                     }
 

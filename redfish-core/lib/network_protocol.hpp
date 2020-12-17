@@ -60,11 +60,11 @@ const static boost::container::flat_map<const char*, std::string>
                    {"IPMI", "phosphor-ipmi-net"}};
 
 inline void
-    extractNTPServersAndDomainNamesData(const GetManagedObjects& dbus_data,
+    extractNTPServersAndDomainNamesData(const GetManagedObjects& dbusData,
                                         std::vector<std::string>& ntpData,
                                         std::vector<std::string>& dnData)
 {
-    for (const auto& obj : dbus_data)
+    for (const auto& obj : dbusData)
     {
         for (const auto& ifacePair : obj.second)
         {
@@ -107,18 +107,18 @@ void getEthernetIfaceData(CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
-            const boost::system::error_code error_code,
-            const GetManagedObjects& dbus_data) {
+            const boost::system::error_code errorCode,
+            const GetManagedObjects& dbusData) {
             std::vector<std::string> ntpServers;
             std::vector<std::string> domainNames;
 
-            if (error_code)
+            if (errorCode)
             {
                 callback(false, ntpServers, domainNames);
                 return;
             }
 
-            extractNTPServersAndDomainNamesData(dbus_data, ntpServers,
+            extractNTPServersAndDomainNamesData(dbusData, ntpServers,
                                                 domainNames);
 
             callback(true, ntpServers, domainNames);
@@ -166,9 +166,9 @@ class NetworkProtocol : public Node
     void getNTPProtocolEnabled(const std::shared_ptr<AsyncResp>& asyncResp)
     {
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code error_code,
+            [asyncResp](const boost::system::error_code errorCode,
                         const std::variant<std::string>& timeSyncMethod) {
-                if (error_code)
+                if (errorCode)
                 {
                     return;
                 }
@@ -390,8 +390,8 @@ class NetworkProtocol : public Node
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code error_code) {
-                if (error_code)
+            [asyncResp](const boost::system::error_code errorCode) {
+                if (errorCode)
                 {
                     messages::internalError(asyncResp->res);
                 }

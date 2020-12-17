@@ -143,7 +143,7 @@ static int getJournalMetadata(sd_journal* journal,
     }
     contents = std::string_view(data, length);
     // Only use the content after the "=" character.
-    contents.remove_prefix(std::min(contents.find("=") + 1, contents.size()));
+    contents.remove_prefix(std::min(contents.find('=') + 1, contents.size()));
     return ret;
 }
 
@@ -319,7 +319,7 @@ static bool getTimestampFromID(crow::Response& res, const std::string& entryID,
     // Convert the unique ID back to a timestamp to find the entry
     std::string_view tsStr(entryID);
 
-    auto underscorePos = tsStr.find("_");
+    auto underscorePos = tsStr.find('_');
     if (underscorePos != tsStr.npos)
     {
         // Timestamp has an index

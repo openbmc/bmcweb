@@ -66,17 +66,17 @@ class ConnectionImpl : public Connection
     ConnectionImpl(
         const crow::Request& reqIn, Adaptor adaptorIn,
         std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
-            open_handler,
+            openHandler,
         std::function<void(Connection&, const std::string&, bool)>
-            message_handler,
-        std::function<void(Connection&, const std::string&)> close_handler,
-        std::function<void(Connection&)> error_handler) :
+            messageHandler,
+        std::function<void(Connection&, const std::string&)> closeHandler,
+        std::function<void(Connection&)> errorHandler) :
         Connection(reqIn, reqIn.session->username),
         ws(std::move(adaptorIn)), inString(), inBuffer(inString, 131088),
-        openHandler(std::move(open_handler)),
-        messageHandler(std::move(message_handler)),
-        closeHandler(std::move(close_handler)),
-        errorHandler(std::move(error_handler)), session(reqIn.session)
+        openHandler(std::move(openHandler)),
+        messageHandler(std::move(messageHandler)),
+        closeHandler(std::move(closeHandler)),
+        errorHandler(std::move(errorHandler)), session(reqIn.session)
     {
         BMCWEB_LOG_DEBUG << "Creating new connection " << this;
     }
@@ -202,7 +202,7 @@ class ConnectionImpl : public Connection
     {
         ws.async_read(inBuffer,
                       [this, self(shared_from_this())](
-                          boost::beast::error_code ec, std::size_t bytes_read) {
+                          boost::beast::error_code ec, std::size_t bytesRead) {
                           if (ec)
                           {
                               if (ec != boost::beast::websocket::error::closed)
@@ -220,7 +220,7 @@ class ConnectionImpl : public Connection
                           {
                               messageHandler(*this, inString, ws.got_text());
                           }
-                          inBuffer.consume(bytes_read);
+                          inBuffer.consume(bytesRead);
                           inString.clear();
                           doRead();
                       });

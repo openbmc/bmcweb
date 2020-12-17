@@ -45,9 +45,9 @@ inline void doWrite()
     doingWrite = true;
     hostSocket->async_write_some(
         boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
-        [](boost::beast::error_code ec, std::size_t bytes_written) {
+        [](boost::beast::error_code ec, std::size_t bytesWritten) {
             doingWrite = false;
-            inputBuffer.erase(0, bytes_written);
+            inputBuffer.erase(0, bytesWritten);
 
             if (ec == boost::asio::error::eof)
             {
@@ -148,8 +148,7 @@ inline void requestRoutes(App& app)
             }
         })
         .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
-                      const std::string& data,
-                      [[maybe_unused]] bool is_binary) {
+                      const std::string& data, [[maybe_unused]] bool isBinary) {
             inputBuffer += data;
             doWrite();
         });

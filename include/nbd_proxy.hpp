@@ -248,12 +248,12 @@ static boost::container::flat_map<crow::websocket::Connection*,
                                   std::shared_ptr<NbdProxyServer>>
     sessions;
 
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/nbd/<str>")
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
-                   std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
             auto getUserInfoHandler =
@@ -399,9 +399,8 @@ void requestRoutes(App& app)
                         std::remove((*socketValue).c_str());
 
                         sessions[&conn] = std::make_shared<NbdProxyServer>(
-                            conn, std::move(*socketValue),
-                            std::move(*endpointValue),
-                            std::move(*endpointObjectPath));
+                            conn, *socketValue, *endpointValue,
+                            *endpointObjectPath);
 
                         sessions[&conn]->run();
                     };

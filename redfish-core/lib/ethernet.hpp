@@ -200,16 +200,16 @@ inline std::string
     return "";
 }
 
-inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
-                                         GetManagedObjects& dbus_data,
+inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
+                                         GetManagedObjects& dbusData,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
-    for (auto& objpath : dbus_data)
+    for (auto& objpath : dbusData)
     {
         for (auto& ifacePair : objpath.second)
         {
-            if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
+            if (objpath.first == "/xyz/openbmc_project/network/" + ethifaceId)
             {
                 idFound = true;
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
@@ -416,16 +416,16 @@ inline bool extractEthernetInterfaceData(const std::string& ethiface_id,
 
 // Helper function that extracts data for single ethernet ipv6 address
 inline void
-    extractIPV6Data(const std::string& ethiface_id,
-                    const GetManagedObjects& dbus_data,
-                    boost::container::flat_set<IPv6AddressData>& ipv6_config)
+    extractIPV6Data(const std::string& ethifaceId,
+                    const GetManagedObjects& dbusData,
+                    boost::container::flat_set<IPv6AddressData>& ipv6Config)
 {
     const std::string ipv6PathStart =
-        "/xyz/openbmc_project/network/" + ethiface_id + "/ipv6/";
+        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv6/";
 
     // Since there might be several IPv6 configurations aligned with
     // single ethernet interface, loop over all of them
-    for (const auto& objpath : dbus_data)
+    for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
         if (boost::starts_with(objpath.first.str, ipv6PathStart))
@@ -439,7 +439,7 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv6AddressData>::iterator,
                         bool>
-                        it = ipv6_config.insert(IPv6AddressData{});
+                        it = ipv6Config.insert(IPv6AddressData{});
                     IPv6AddressData& ipv6Address = *it.first;
                     ipv6Address.id =
                         objpath.first.str.substr(ipv6PathStart.size());
@@ -489,16 +489,16 @@ inline void
 
 // Helper function that extracts data for single ethernet ipv4 address
 inline void
-    extractIPData(const std::string& ethiface_id,
-                  const GetManagedObjects& dbus_data,
-                  boost::container::flat_set<IPv4AddressData>& ipv4_config)
+    extractIPData(const std::string& ethifaceId,
+                  const GetManagedObjects& dbusData,
+                  boost::container::flat_set<IPv4AddressData>& ipv4Config)
 {
     const std::string ipv4PathStart =
-        "/xyz/openbmc_project/network/" + ethiface_id + "/ipv4/";
+        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv4/";
 
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
-    for (const auto& objpath : dbus_data)
+    for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
         if (boost::starts_with(objpath.first.str, ipv4PathStart))
@@ -512,7 +512,7 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv4AddressData>::iterator,
                         bool>
-                        it = ipv4_config.insert(IPv4AddressData{});
+                        it = ipv4Config.insert(IPv4AddressData{});
                     IPv4AddressData& ipv4Address = *it.first;
                     ipv4Address.id =
                         objpath.first.str.substr(ipv4PathStart.size());
@@ -888,18 +888,18 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
  * into JSON
  */
 template <typename CallbackFunc>
-void getEthernetIfaceData(const std::string& ethiface_id,
+void getEthernetIfaceData(const std::string& ethifaceId,
                           CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [ethifaceId{std::string{ethiface_id}}, callback{std::move(callback)}](
-            const boost::system::error_code error_code,
+        [ethifaceId{std::string{ethifaceId}}, callback{std::move(callback)}](
+            const boost::system::error_code errorCode,
             GetManagedObjects& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             boost::container::flat_set<IPv6AddressData> ipv6Data;
 
-            if (error_code)
+            if (errorCode)
             {
                 callback(false, ethData, ipv4Data, ipv6Data);
                 return;
@@ -944,13 +944,13 @@ void getEthernetIfaceList(CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
-            const boost::system::error_code error_code,
+            const boost::system::error_code errorCode,
             GetManagedObjects& resp) {
             // Callback requires vector<string> to retrieve all available
             // ethernet interfaces
             boost::container::flat_set<std::string> ifaceList;
             ifaceList.reserve(resp.size());
-            if (error_code)
+            if (errorCode)
             {
                 callback(false, ifaceList);
                 return;
@@ -1024,7 +1024,7 @@ class EthernetCollection : public Node
         getEthernetIfaceList(
             [asyncResp](
                 const bool& success,
-                const boost::container::flat_set<std::string>& iface_list) {
+                const boost::container::flat_set<std::string>& ifaceList) {
                 if (!success)
                 {
                     messages::internalError(asyncResp->res);
@@ -1035,7 +1035,7 @@ class EthernetCollection : public Node
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
                 std::string tag = "_";
-                for (const std::string& ifaceItem : iface_list)
+                for (const std::string& ifaceItem : ifaceList)
                 {
                     std::size_t found = ifaceItem.find(tag);
                     if (found == std::string::npos)
@@ -1707,8 +1707,8 @@ class EthernetInterface : public Node
     }
 
     void parseInterfaceData(
-        const std::shared_ptr<AsyncResp>& asyncResp,
-        const std::string& iface_id, const EthernetInterfaceData& ethData,
+        const std::shared_ptr<AsyncResp>& asyncResp, const std::string& ifaceId,
+        const EthernetInterfaceData& ethData,
         const boost::container::flat_set<IPv4AddressData>& ipv4Data,
         const boost::container::flat_set<IPv6AddressData>& ipv6Data)
     {
@@ -1716,9 +1716,9 @@ class EthernetInterface : public Node
             "xyz.openbmc_project.Inventory.Item.Ethernet"};
 
         nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
-        jsonResponse["Id"] = iface_id;
+        jsonResponse["Id"] = ifaceId;
         jsonResponse["@odata.id"] =
-            "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id;
+            "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceId;
         jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
@@ -1784,7 +1784,7 @@ class EthernetInterface : public Node
 
         jsonResponse["VLANs"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                              iface_id + "/VLANs"}};
+                              ifaceId + "/VLANs"}};
 
         jsonResponse["NameServers"] = ethData.nameServers;
         jsonResponse["StaticNameServers"] = ethData.staticNameServers;
@@ -2054,21 +2054,21 @@ class VlanNetworkInterface : public Node
     }
 
   private:
-    void parseInterfaceData(nlohmann::json& json_response,
-                            const std::string& parent_iface_id,
-                            const std::string& iface_id,
+    void parseInterfaceData(nlohmann::json& jsonResponse,
+                            const std::string& parentIfaceId,
+                            const std::string& ifaceId,
                             const EthernetInterfaceData& ethData)
     {
         // Fill out obvious data...
-        json_response["Id"] = iface_id;
-        json_response["@odata.id"] =
-            "/redfish/v1/Managers/bmc/EthernetInterfaces/" + parent_iface_id +
-            "/VLANs/" + iface_id;
+        jsonResponse["Id"] = ifaceId;
+        jsonResponse["@odata.id"] =
+            "/redfish/v1/Managers/bmc/EthernetInterfaces/" + parentIfaceId +
+            "/VLANs/" + ifaceId;
 
-        json_response["VLANEnable"] = true;
+        jsonResponse["VLANEnable"] = true;
         if (!ethData.vlan_id.empty())
         {
-            json_response["VLANId"] = ethData.vlan_id.back();
+            jsonResponse["VLANId"] = ethData.vlan_id.back();
         }
     }
 
@@ -2311,14 +2311,14 @@ class VlanNetworkInterfaceCollection : public Node
         getEthernetIfaceList(
             [asyncResp, rootInterfaceName{std::string(rootInterfaceName)}](
                 const bool& success,
-                const boost::container::flat_set<std::string>& iface_list) {
+                const boost::container::flat_set<std::string>& ifaceList) {
                 if (!success)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
 
-                if (iface_list.find(rootInterfaceName) == iface_list.end())
+                if (ifaceList.find(rootInterfaceName) == ifaceList.end())
                 {
                     messages::resourceNotFound(asyncResp->res,
                                                "VLanNetworkInterfaceCollection",
@@ -2334,7 +2334,7 @@ class VlanNetworkInterfaceCollection : public Node
 
                 nlohmann::json ifaceArray = nlohmann::json::array();
 
-                for (const std::string& ifaceItem : iface_list)
+                for (const std::string& ifaceItem : ifaceList)
                 {
                     if (boost::starts_with(ifaceItem, rootInterfaceName + "_"))
                     {
