@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a89ac311_e8d92c93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-17T17:33:20Z",
+      "side": 1,
+      "message": "This has been modified in code though.\nWill paste the one with correct output once we are done with the interface required to publish location code.",
+      "parentUuid": "fa60d0a8_d8597361",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 44
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99844332_e02b7ebb",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-11-30T12:34:34Z",
       "side": 1,
       "message": "These need to use their respective xyz.openbmc_project.Inventory.* counterparts. We cannot have a com.ibm dependency here. If that means we need to publish new properties (like Model for CCIN ), we need to create those properties first.",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1708,
+        "endChar": 33
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690b12fa_0ac96b94",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-17T17:33:20Z",
+      "side": 1,
+      "message": "OK, so we need to have interfaces to publish these properties.",
+      "parentUuid": "99844332_e02b7ebb",
       "range": {
         "startLine": 1707,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f135da07_f8232b8c",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-17T17:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b336c96_61e43caa",
+      "range": {
+        "startLine": 1764,
+        "startChar": 0,
+        "endLine": 1764,
+        "endChar": 127
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8637c43a_47bd22e3",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f1bb753_1ec34abf",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-17T17:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8637c43a_47bd22e3",
+      "range": {
+        "startLine": 1790,
+        "startChar": 8,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "771e7a42a8d5fe6f64fe77ed010af826c85e9102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
