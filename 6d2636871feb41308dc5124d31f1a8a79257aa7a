@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d60d2474_128b392a",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-17T16:39:02Z",
+      "side": 1,
+      "message": "This isn\u0027t needed;  If the paths already exist, you will get an appropriate return code on line 204 that you can ignore.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 5
+      },
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3aac327b_8a984b37",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 4
@@ -73,6 +96,24 @@
     },
     {
       "key": {
+        "uuid": "ec83da24_ea0108ea",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-17T16:39:02Z",
+      "side": 1,
+      "message": "Agree with Gunnar.  This is a private file, it should have private permissions.",
+      "parentUuid": "c005a2dc_a84b6b50",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3296dc4b_7a2f1c0f",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 4
@@ -102,6 +143,41 @@
       "side": 1,
       "message": "Yes. \nThe directory gets created with 755 permission, even if i dont set the permission here",
       "parentUuid": "3296dc4b_7a2f1c0f",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "373b096a_ca55294d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-17T16:39:02Z",
+      "side": 1,
+      "message": "755 is too permissive for an internal-only file.",
+      "parentUuid": "05f50635_3bb5997d",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c80556d1_9f80da58",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-17T16:39:02Z",
+      "side": 1,
+      "message": "You\u0027re moving all these directories without providing a migration path.  Any specific reason why?",
       "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
