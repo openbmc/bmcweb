@@ -96,6 +96,30 @@ static std::string mapAttrTypeToRedfish(const std::string_view typeDbus)
 
     return ret;
 }
+static std::string mapRedfishToResetFlag(const std::string_view resetFlag)
+{
+    std::string ret;
+    if (resetFlag == "Factory")
+    {
+        ret =
+            "xyz.openbmc_project.BIOSConfig.Manager.ResetFlag.FactoryDefaults";
+    }
+    else if (resetFlag == "NoAction")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.NoAction";
+    }
+    else if (resetFlag == "FailSafe")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType."
+              "FailSafeDefaults";
+    }
+    else
+    {
+        ret = "UNKNOWN";
+    }
+
+    return ret;
+}
 static std::string mapBoundTypeToRedfish(const std::string_view typeDbus)
 {
     std::string ret;
@@ -163,7 +187,9 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
-
+        asyncResp->res.jsonValue["Actions"]["#Bios.ChangePassword"] = {
+            {"target",
+             "/redfish/v1/Systems/system/Bios/Actions/Bios.ChangePassword"}};
         // Get the ActiveSoftwareImage and SoftwareImages
         fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose,
                                              "", true);
@@ -559,23 +585,103 @@ class BiosReset : public Node
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    void doPost(crow::Response& res, const crow::Request&,
+    void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::optional<std::string> resetFlag;
+
+        if (!json_util::readJson(req, res, "ResetFlag", resetFlag))
+        {
+            BMCWEB_LOG_ERROR << "doPost resetFlag got error ";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string resetFlagProperty = mapRedfishToResetFlag(*resetFlag);
+        if (resetFlagProperty == "UNKNOWN")
+        {
+            BMCWEB_LOG_ERROR << "doPost resetFlag UNKNOWN ";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "doPost resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "reset action is done";
+            },
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.BIOSConfig.Manager", "ResetBIOSSettings",
+            std::variant<std::string>(resetFlagProperty));
+    }
+};
+
+/**
+ * BiosPassword class supports handle POST method for change bios password.
+ * The class retrieves and sends data directly to D-Bus.
+ */
+class BiosPassword : public Node
+{
+  public:
+    BiosPassword(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/Bios/Actions/Bios.ChangePassword/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Function handles POST method request.
+     * Analyzes POST body message before sends Reset request data to D-Bus.
+     */
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::optional<std::string> currentPassword = "";
+        std::optional<std::string> newPassword = "";
+        std::optional<std::string> userName = "";
+        if (!json_util::readJson(req, res, "NewPassword", newPassword,
+                                 "OldPassword", currentPassword, "PasswordName",
+                                 userName))
+        {
+            BMCWEB_LOG_ERROR << "doPost change password error";
+            messages::resourceNotFound(asyncResp->res, "Double check input",
+                                       "NewPassword/OldPassword/PasswordName");
+            return;
+        }
+        if (*currentPassword == "" || *newPassword == "" || *userName == "")
+        {
+            messages::propertyValueIncorrect(
+                asyncResp->res, "Double check input ",
+                "NewPassword/OldPassword/PasswordName");
+            return;
+        }
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;
-                    messages::internalError(asyncResp->res);
+                    BMCWEB_LOG_CRITICAL << "doPost change password got error "
+                                        << ec;
+                    messages::propertyValueTypeError(
+                        asyncResp->res, "ChangePassword", "Dbus call error");
                     return;
                 }
             },
-            "org.open_power.Software.Host.Updater",
-            "/xyz/openbmc_project/software",
-            "xyz.openbmc_project.Common.FactoryReset", "Reset");
+            "xyz.openbmc_project.BIOSConfigPassword",
+            "/xyz/openbmc_project/bios_config/password",
+            "xyz.openbmc_project.BIOSConfig.Password", "ChangePassword",
+            *userName, *currentPassword, *newPassword);
     }
 };
+
 } // namespace redfish
