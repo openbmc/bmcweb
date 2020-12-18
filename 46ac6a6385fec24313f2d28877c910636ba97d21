@@ -111,6 +111,30 @@
       "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddb6245_1dc0d995",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-18T16:18:35Z",
+      "side": 1,
+      "message": "\u003e Thanks Ed to putting this in the gerrit, In some of our cases which is specific to IBM specific platforms.\n\nWhat this doc is getting at is: Is it specific to IBM platforms because DMTF just hasn\u0027t standardized it yet, is it specific because there\u0027s a lack of initiative to get a consensus on how to do it, or is it specific because IBM systems are truly the only things in the world that implement that functionality?  If it\u0027s one of the first two, the hope is that we would go to the relevant communities and get consensus on a standard.  If it\u0027s the 3rd, then an OEM resource is completely reasonable.\n\n\u003e Do you want to say that this is up to the maintainer to decide how the API is going to be written under OEM : Vendor?\n\nI\u0027m not sure I\u0027m following the question, so if I\u0027m answering the wrong question, I apologize.\n\nKeeping Redfish resources in line with the specification, as well as keeping them within the bounds of what looks like a normal redfish and hypermedia resource is the job of the maintainers, regardless of whether they\u0027re an OEM resource or not.  Gunnar is a bmcweb maintainer and has a very good handle on both the DMTF community, as well as what Redfish resources are supposed to look like, so I don\u0027t expect IBM to have any problem navigating the waters here.\n\nFor some concrete examples.  If an OEM writer wanted to check in a resource that;\n1. Didn\u0027t have CSDL or json specifications.\n2. Decided to use snake_case instead of CamelCase for property names.\n3. Didn\u0027t model things as a hypermedia API\n4. Made changes to non-OEM resources from within their OEM resources.\n5. Didn\u0027t pass the redfish validator.\n\nIt would be up to the maintainers to prevent that.  Hopefully that answers your question.\n\nAs an aside, I\u0027m much more worried about a perception that individuals that don\u0027t have a company standing are getting shut out by this policy, hence trying to write this down and apply the same standards to everyone.",
+      "parentUuid": "d3e43b37_75dc5b3e",
+      "range": {
+        "startLine": 60,
+        "startChar": 3,
+        "endLine": 62,
+        "endChar": 77
+      },
+      "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
