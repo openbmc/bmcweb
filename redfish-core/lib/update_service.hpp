@@ -733,15 +733,14 @@ class SoftwareInventoryCollection : public Node
 
                 for (auto& obj : subtree)
                 {
-                    // if can't parse fw id then return
-                    std::size_t idPos;
-                    if ((idPos = obj.first.rfind('/')) == std::string::npos)
+                    sdbusplus::message::object_path path(obj.first);
+                    std::string swId = path.filename();
+                    if (swId.empty())
                     {
                         messages::internalError(asyncResp->res);
                         BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
                         return;
                     }
-                    std::string swId = obj.first.substr(idPos + 1);
 
                     nlohmann::json& members =
                         asyncResp->res.jsonValue["Members"];
