@@ -88,6 +88,29 @@
       "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e43b37_75dc5b3e",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-12-18T12:37:42Z",
+      "side": 1,
+      "message": "Thanks Ed to putting this in the gerrit, In some of our cases which is specific to IBM specific platforms.\nDo you want to say that this is up to the maintainer to decide how the API is going to be written under OEM : Vendor?",
+      "range": {
+        "startLine": 60,
+        "startChar": 3,
+        "endLine": 62,
+        "endChar": 77
+      },
+      "revId": "46ac6a6385fec24313f2d28877c910636ba97d21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
