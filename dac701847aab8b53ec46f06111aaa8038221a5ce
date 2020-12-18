@@ -1059,6 +1059,30 @@
     },
     {
       "key": {
+        "uuid": "31748e82_a8b7b3b1",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-12-18T14:46:38Z",
+      "side": 1,
+      "message": "Ed \nI understand your point, but here we need to do this way to achieve data streaming flow control, otherwise it wont work.\nit may work for smaller dump data like BMC dump, for a complete system dump use cases where dump data is in Gbs, we see flow control issues.\n\nin case of websocket, this is achieved via boost::beast::websocket::stream, write returns immediately(not sure if its because of websocket stream socket)\nin this case write on http socket takes few milliseconds, by the time write completes, we need to buffer some data which is pending for write on socket,\ndata needs to be buffered increases based on dump data size and hit buffer max limit.\nso implemented this way to achieve flow control and to avoid data buffer.",
+      "parentUuid": "dff07fca_7ceb1bdd",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
