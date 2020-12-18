@@ -68,20 +68,14 @@ inline void
             //        "/xyz/openbmc_project/software/230fb078"
             for (auto& fw : *functionalFw)
             {
+                sdbusplus::message::object_path path(fw);
+                std::optional<std::string> leaf = path.leaf();
+                if (!leaf)
+                {
+                    continue;
+                }
 
-                std::string::size_type idPos = fw.rfind('/');
-                if (idPos == std::string::npos)
-                {
-                    BMCWEB_LOG_DEBUG << "Can't parse firmware ID!";
-                    continue;
-                }
-                idPos++;
-                if (idPos >= fw.size())
-                {
-                    BMCWEB_LOG_DEBUG << "Invalid firmware ID";
-                    continue;
-                }
-                functionalFwIds.push_back(fw.substr(idPos));
+                functionalFwIds.push_back(*leaf);
             }
 
             crow::connections::systemBus->async_method_call(
@@ -109,22 +103,16 @@ inline void
                                  std::string, std::vector<std::string>>>>& obj :
                          subtree)
                     {
-                        // if can't parse fw id then return
-                        std::string::size_type idPos = obj.first.rfind('/');
-                        if (idPos == std::string::npos)
-                        {
-                            messages::internalError(aResp->res);
-                            BMCWEB_LOG_ERROR << "Can't parse firmware ID!!";
-                            return;
-                        }
-                        idPos++;
-                        if (idPos >= obj.first.size())
+
+                        sdbusplus::message::object_path path(obj.first);
+                        std::optional<std::string> swId = path.leaf();
+                        if (!swId)
                         {
                             messages::internalError(aResp->res);
                             BMCWEB_LOG_ERROR << "Invalid firmware ID";
+
                             return;
                         }
-                        std::string swId = obj.first.substr(idPos);
 
                         bool runningImage = false;
                         // Look at Ids from
@@ -132,15 +120,16 @@ inline void
                         // to determine if this is a running image
                         if (std::find(functionalFwIds.begin(),
                                       functionalFwIds.end(),
-                                      swId) != functionalFwIds.end())
+                                      *swId) != functionalFwIds.end())
                         {
                             runningImage = true;
                         }
 
                         // Now grab its version info
                         crow::connections::systemBus->async_method_call(
-                            [aResp, swId, runningImage, fwVersionPurpose,
-                             activeVersionPropName, populateLinkToImages](
+                            [aResp, swId{std::string(*swId)}, runningImage,
+                             fwVersionPurpose, activeVersionPropName,
+                             populateLinkToImages](
                                 const boost::system::error_code ec3,
                                 const boost::container::flat_map<
                                     std::string,

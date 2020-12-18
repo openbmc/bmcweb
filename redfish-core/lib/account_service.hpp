@@ -1395,31 +1395,27 @@ class AccountsCollection : public Node
                     asyncResp->res.jsonValue["Members"];
                 memberArray = nlohmann::json::array();
 
-                for (auto& user : users)
+                for (auto& userpath : users)
                 {
-                    const std::string& path =
-                        static_cast<const std::string&>(user.first);
-                    std::size_t lastIndex = path.rfind('/');
-                    if (lastIndex == std::string::npos)
+                    std::optional<std::string> user = userpath.first.leaf();
+                    if (!user)
                     {
-                        lastIndex = 0;
-                    }
-                    else
-                    {
-                        lastIndex += 1;
+                        messages::internalError(asyncResp->res);
+                        BMCWEB_LOG_ERROR << "Invalid firmware ID";
+
+                        return;
                     }
 
                     // As clarified by Redfish here:
                     // https://redfishforum.com/thread/281/manageraccountcollection-change-allows-account-enumeration
                     // Users without ConfigureUsers, only see their own account.
                     // Users with ConfigureUsers, see all accounts.
-                    if (req.session->username == path.substr(lastIndex) ||
+                    if (req.session->username == *user ||
                         isAllowedWithoutConfigureSelf(req))
                     {
                         memberArray.push_back(
                             {{"@odata.id",
-                              "/redfish/v1/AccountService/Accounts/" +
-                                  path.substr(lastIndex)}});
+                              "/redfish/v1/AccountService/Accounts/" + *user}});
                     }
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =

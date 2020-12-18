@@ -123,14 +123,17 @@ class HypervisorInterfaceCollection : public Node
                 ifaceArray = nlohmann::json::array();
                 for (const std::string& iface : ifaceList)
                 {
-                    std::size_t lastPos = iface.rfind('/');
-                    if (lastPos != std::string::npos)
+                    sdbusplus::message::object_path path(iface);
+                    std::optional<std::string> name = path.leaf();
+                    if (!name)
                     {
-                        ifaceArray.push_back(
-                            {{"@odata.id", "/redfish/v1/Systems/hypervisor/"
-                                           "EthernetInterfaces/" +
-                                               iface.substr(lastPos + 1)}});
+                        continue;
                     }
+
+                    ifaceArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Systems/hypervisor/"
+                                       "EthernetInterfaces/" +
+                                           *name}});
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     ifaceArray.size();

@@ -442,14 +442,12 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                 uint64_t size = 0;
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-                std::size_t lastPos = path.rfind('/');
-                if (lastPos == std::string::npos)
+
+                std::optional<std::string> entryID = object.first.leaf();
+                if (!entryID)
                 {
                     continue;
                 }
-                std::string entryID = path.substr(lastPos + 1);
 
                 for (auto& interfaceMap : object.second)
                 {
@@ -496,8 +494,8 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                 }
 
                 thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
-                thisEntry["@odata.id"] = dumpPath + entryID;
-                thisEntry["Id"] = entryID;
+                thisEntry["@odata.id"] = dumpPath + *entryID;
+                thisEntry["Id"] = *entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Created"] = crow::utility::getDateTime(timestamp);
                 thisEntry["Name"] = dumpType + " Dump Entry";
@@ -510,7 +508,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                     thisEntry["AdditionalDataURI"] =
                         "/redfish/v1/Managers/bmc/LogServices/Dump/"
                         "attachment/" +
-                        entryID;
+                        *entryID;
                 }
                 else if (dumpType == "System")
                 {
@@ -519,7 +517,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                     thisEntry["AdditionalDataURI"] =
                         "/redfish/v1/Systems/system/LogServices/Dump/"
                         "attachment/" +
-                        entryID;
+                        *entryID;
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -842,12 +840,13 @@ inline void clearDump(crow::Response& res, const std::string& dumpType)
 
             for (const std::string& path : subTreePaths)
             {
-                std::size_t pos = path.rfind('/');
-                if (pos != std::string::npos)
+                sdbusplus::message::object_path objPath(path);
+                std::optional<std::string> logID = objPath.leaf();
+                if (!logID)
                 {
-                    std::string logID = path.substr(pos + 1);
-                    deleteDumpEntry(asyncResp, logID, dumpType);
+                    continue;
                 }
+                deleteDumpEntry(asyncResp, *logID, dumpType);
             }
         },
         "xyz.openbmc_project.ObjectMapper",

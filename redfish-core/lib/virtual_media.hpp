@@ -203,18 +203,14 @@ static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
             for (const auto& object : subtree)
             {
                 nlohmann::json item;
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
+                std::optional<std::string> path = object.first.leaf();
+                if (!path)
                 {
                     continue;
                 }
 
-                lastIndex += 1;
-
-                item["@odata.id"] = "/redfish/v1/Managers/" + name +
-                                    "/VirtualMedia/" + path.substr(lastIndex);
+                item["@odata.id"] =
+                    "/redfish/v1/Managers/" + name + "/VirtualMedia/" + *path;
 
                 members.emplace_back(std::move(item));
             }
@@ -245,16 +241,12 @@ static void getVmData(const std::shared_ptr<AsyncResp>& aResp,
 
             for (auto& item : subtree)
             {
-                const std::string& path =
-                    static_cast<const std::string&>(item.first);
-
-                std::size_t lastItem = path.rfind('/');
-                if (lastItem == std::string::npos)
-                {
+                std::optional<std::string> thispath = item.first.leaf();
+                if (!thispath){
                     continue;
                 }
 
-                if (path.substr(lastItem + 1) != resName)
+                if (*thispath != resName)
                 {
                     continue;
                 }
@@ -262,7 +254,7 @@ static void getVmData(const std::shared_ptr<AsyncResp>& aResp,
                 aResp->res.jsonValue = vmItemTemplate(name, resName);
 
                 // Check if dbus path is Legacy type
-                if (path.find("VirtualMedia/Legacy") != std::string::npos)
+                if (thispath->find("VirtualMedia/Legacy") != std::string::npos)
                 {
                     aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                         ["target"] =

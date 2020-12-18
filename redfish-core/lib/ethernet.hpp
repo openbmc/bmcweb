@@ -968,14 +968,14 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                     if (interface.first ==
                         "xyz.openbmc_project.Network.EthernetInterface")
                     {
-                        // Cut out everything until last "/", ...
-                        const std::string& ifaceId = objpath.first.str;
-                        std::size_t lastPos = ifaceId.rfind('/');
-                        if (lastPos != std::string::npos)
+                        std::optional<std::string> ifaceId =
+                            objpath.first.leaf();
+                        if (!ifaceId)
                         {
-                            // and put it into output vector.
-                            ifaceList.emplace(ifaceId.substr(lastPos + 1));
+                            continue;
                         }
+                        // and put it into output vector.
+                        ifaceList.emplace(*ifaceId);
                     }
                 }
             }
