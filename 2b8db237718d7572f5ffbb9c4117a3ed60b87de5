@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a12dbdb1_969b960f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-18T15:14:42Z",
+      "side": 1,
+      "message": "Model ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 14,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d787603c_5feb97ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-18T15:14:42Z",
+      "side": 1,
+      "message": "The latest published Manager schema is 1_10.. \nhttps://redfish.dmtf.org/redfish/schema_index\n\n\n1_11 will be part of 2020.4 due out early Jan.",
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af6b4495_8bc781c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-18T15:14:42Z",
+      "side": 1,
+      "message": "part of manager 1_11 which isn\u0027t out for a few more weeks.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 4
+      },
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a29f1a21_9111d5fb",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-18T15:14:42Z",
+      "side": 1,
+      "message": "Manager is set to 1_9 here.. in your commit it is 1_11 ..? You will need 1_11 for SparePartNumber and Location but it isn\u0027t out yet.",
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
