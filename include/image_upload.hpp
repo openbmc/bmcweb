@@ -76,15 +76,14 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
                              }) != interfaces.end())
             {
                 timeout.cancel();
-
-                std::size_t index = path.str.rfind('/');
-                if (index != std::string::npos)
+                std::string leaf = path.filename();
+                if (leaf.empty())
                 {
-                    path.str.erase(0, index + 1);
+                    leaf = path.str;
                 }
-                res.jsonValue = {{"data", std::move(path.str)},
-                                 {"message", "200 OK"},
-                                 {"status", "ok"}};
+
+                res.jsonValue = {
+                    {"data", leaf}, {"message", "200 OK"}, {"status", "ok"}};
                 BMCWEB_LOG_DEBUG << "ending response";
                 res.end();
                 fwUpdateMatcher = nullptr;

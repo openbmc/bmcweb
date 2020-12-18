@@ -442,14 +442,12 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                 uint64_t size = 0;
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-                std::size_t lastPos = path.rfind('/');
-                if (lastPos == std::string::npos)
+
+                std::string entryID = object.first.filename();
+                if (entryID.empty())
                 {
                     continue;
                 }
-                std::string entryID = path.substr(lastPos + 1);
 
                 for (auto& interfaceMap : object.second)
                 {
@@ -842,12 +840,13 @@ inline void clearDump(crow::Response& res, const std::string& dumpType)
 
             for (const std::string& path : subTreePaths)
             {
-                std::size_t pos = path.rfind('/');
-                if (pos != std::string::npos)
+                sdbusplus::message::object_path objPath(path);
+                std::string logID = objPath.filename();
+                if (logID.empty())
                 {
-                    std::string logID = path.substr(pos + 1);
-                    deleteDumpEntry(asyncResp, logID, dumpType);
+                    continue;
                 }
+                deleteDumpEntry(asyncResp, logID, dumpType);
             }
         },
         "xyz.openbmc_project.ObjectMapper",

@@ -44,13 +44,16 @@ inline void
 
             for (const auto& object : objects)
             {
-                auto pos = object.rfind('/');
-                if ((pos != std::string::npos) && (pos < (object.size() - 1)))
+                sdbusplus::message::object_path path(object);
+                std::string leaf = path.filename();
+                if (leaf.empty())
                 {
-                    members.push_back(
-                        {{"@odata.id",
-                          collectionPath + "/" + object.substr(pos + 1)}});
+                    continue;
                 }
+                std::string newPath = collectionPath;
+                newPath += '/';
+                newPath += leaf;
+                members.push_back({{"@odata.id", std::move(newPath)}});
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
         },
