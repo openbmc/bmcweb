@@ -1083,6 +1083,30 @@
     },
     {
       "key": {
+        "uuid": "452dfa95_777362b6",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-18T16:40:38Z",
+      "side": 1,
+      "message": "\u003e Ed \n\u003e I understand your point, but here we need to do this way to achieve data streaming flow control, otherwise it wont work.\n\nTo be clear, I don\u0027t think this is necessarily bad, I just want to understand the consequences.\nPart of me wonders if we should do this for websockets too.\n\n\u003e it may work for smaller dump data like BMC dump, for a complete system dump use cases where dump data is in Gbs, we see flow control issues.\n\nAgreed.  I wonder if there\u0027s a better way to model flow control.  \"SendMessage\" as an API makes a ton of sense for websockets, as they actually encapsulate payloads into messages, and handlers want control over how that encapsulation is done, but for a generic streaming thing, I wonder if we need the framework to provide a \"get bytes\" style API, where you register a \"here\u0027s where to get the bytes from\" callback, and the framework will pace the bytes for you.\n\nI\u0027m thinking out loud a little bit, but just trying to convey where my head is at with this stuff.\n\n\u003e \n\u003e in case of websocket, this is achieved via boost::beast::websocket::stream, write returns immediately(not sure if its because of websocket stream socket)\n\nThat\u0027s not my understanding of how that works.  Async_write here:\nhttps://github.com/openbmc/bmcweb/blob/f16f62633a64f386fd0382703ff0949ea177f457/http/websocket.hpp#L244\n\nDoes not return immediately, the websocket buffers bytes within the implementations.  Websockets do have flow control problems today, so I\u0027ll fully admit, there are probably improvements we can make when we design this API.  The websockets API we inherited from crow.\n\n\u003e in this case write on http socket takes few milliseconds, by the time write completes, we need to buffer some data which is pending for write on socket,\n\u003e data needs to be buffered increases based on dump data size and hit buffer max limit.\n\u003e so implemented this way to achieve flow control and to avoid data buffer.\n\nI get the intent, we just need to make sure we design the API around what we\u0027re going to need for more than just dump, although dump seems to be doing a pretty good job of figuring things out.",
+      "parentUuid": "31748e82_a8b7b3b1",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
