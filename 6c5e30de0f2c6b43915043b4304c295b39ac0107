@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdf73c19_225b840e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-18T09:30:21Z",
+      "side": 1,
+      "message": "nit add ec to message",
+      "range": {
+        "startLine": 800,
+        "startChar": 72,
+        "endLine": 800,
+        "endChar": 73
+      },
+      "revId": "6c5e30de0f2c6b43915043b4304c295b39ac0107",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1916220c_06dd1257",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-18T09:30:21Z",
+      "side": 1,
+      "message": "nit please check if pos is in size of a string\nif (index + 1 \u003c object.first.str.size())",
+      "range": {
+        "startLine": 828,
+        "startChar": 66,
+        "endLine": 828,
+        "endChar": 75
+      },
+      "revId": "6c5e30de0f2c6b43915043b4304c295b39ac0107",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
