@@ -118,18 +118,18 @@ struct UserRoleMap
         }
         BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
 
-        std::optional<std::string> name = dbus::utility::getLeaf(objPath.str);
-        if (!name)
+        std::string name = objPath.filename();
+        if (name.empty())
         {
             return;
         }
         std::string role = extractUserRole(interfacesProperties);
 
         // Insert the newly added user name and the role
-        auto res = roleMap.emplace(*name, role);
+        auto res = roleMap.emplace(name, role);
         if (res.second == false)
         {
-            BMCWEB_LOG_ERROR << "Insertion of the user=\"" << *name
+            BMCWEB_LOG_ERROR << "Insertion of the user=\"" << name
                              << "\" in the roleMap failed.";
             return;
         }
@@ -153,13 +153,13 @@ struct UserRoleMap
 
         BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
 
-        std::optional<std::string> name = dbus::utility::getLeaf(objPath.str);
-        if (!name)
+        std::string name = objPath.filename();
+        if (name.empty())
         {
             return;
         }
 
-        roleMap.erase(*name);
+        roleMap.erase(name);
     }
 
     void userPropertiesChanged(sdbusplus::message::message& m)
@@ -171,13 +171,13 @@ struct UserRoleMap
 
         BMCWEB_LOG_DEBUG << "Object Path = \"" << path << "\"";
 
-        std::optional<std::string> user = dbus::utility::getLeaf(path);
-        if (!user)
+        std::string user = sdbusplus::message::object_path(path).filename();
+        if (user.empty())
         {
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "User Name = \"" << *user << "\"";
+        BMCWEB_LOG_DEBUG << "User Name = \"" << user << "\"";
 
         auto index = changedProperties.find("UserPrivilege");
         if (index == changedProperties.end())
@@ -192,10 +192,10 @@ struct UserRoleMap
         }
         BMCWEB_LOG_DEBUG << "Role = \"" << *role << "\"";
 
-        auto it = roleMap.find(*user);
+        auto it = roleMap.find(user);
         if (it == roleMap.end())
         {
-            BMCWEB_LOG_ERROR << "User Name = \"" << *user
+            BMCWEB_LOG_ERROR << "User Name = \"" << user
                              << "\" is not found. But, received "
                                 "propertiesChanged signal";
             return;
