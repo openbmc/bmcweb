@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26f2b1fc_fbc2e459",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-12-19T04:17:59Z",
+      "side": 1,
+      "message": "I prefer you use string::length() here.  The capacity() function may give the same same result as length() in this situation, but is not strictly correct.  Is there a problem why you cannot use length() to get the length of the string?",
+      "range": {
+        "startLine": 126,
+        "startChar": 51,
+        "endLine": 126,
+        "endChar": 59
+      },
+      "revId": "f5b7ca463c05aa4e15897ec13e7e1e2c1a30c772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8219aa8_68ac4d1f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2020-12-19T04:17:59Z",
+      "side": 1,
+      "message": "This computation seems incorrect.  When the code gets here, the new file has a smaller size than the existing file, yet the code on line 171 below ((saveAreaDirSize + newSizeToWrite) \u003e maxSaveareaDirSize) ADDS this difference to the saveAreaDirSize.  It should subtract it.\nThis test case illustrates the bug:\n1. Use the API to write several files to the savearea that use the full maxSaveareaDirSize.\n2. Use the API to attempt to overwrite one of the files to a smaller size.\n3. Observe the error \"File size does not fit in the savearea directory maximum allowed size[10MB]\".",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 155,
+        "endChar": 26
+      },
+      "revId": "f5b7ca463c05aa4e15897ec13e7e1e2c1a30c772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
