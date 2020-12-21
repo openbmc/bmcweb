@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fbc7247_21a207df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "Can you run the validator?",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef158691_3da49743",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "This doesn\u0027t have a parameter..\n        \"ResetBios\": {\n            \"additionalProperties\": false,\n            \"description\": \"This action resets the BIOS attributes to default.\",\n            \"longDescription\": \"This action shall reset the BIOS attributes to their default values.  To apply the default values, a system reset might be required.  This action might impact other resources.\",\n            \"parameters\": {},",
+      "range": {
+        "startLine": 577,
+        "startChar": 1,
+        "endLine": 588,
+        "endChar": 62
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea452ae_f7a4b945",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "This wouldn\u0027t be an internalError. actionParameterMissing ?",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccadd08b_c19df6b7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "This wouldn\u0027t be an internalError..\nactionParameterNotSupported ?",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96135d7f_03556edb",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "According to the PrivilegeRegistry this should be ConfigureComponents\nhttps://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json\n\n        {\n            \"Entity\": \"Bios\",\n            \"OperationMap\": {\n                \"GET\": [\n\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"HEAD\": [\n\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"PATCH\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureComponents\"\n                        ]\n                    }\n                ],\n                \"POST\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureComponents\"\n                        ]\n                    }\n                ],\n\nAnd ResetBios does not match the PrivilegeRegistry: https://github.com/openbmc/bmcweb/blob/dba0c291b5bbd8d256387ba43bb48bda82a191dc/redfish-core/lib/bios.hpp#L51 :/",
+      "range": {
+        "startLine": 636,
+        "startChar": 1,
+        "endLine": 637,
+        "endChar": 70
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228467c0_0ee12f9b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6257a35c_8c0ebc9e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T18:29:37Z",
+      "side": 1,
+      "message": "actionParameterMissing ?",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
