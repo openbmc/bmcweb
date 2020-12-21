@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b9861f2_c954b691",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "nit return?",
+      "range": {
+        "startLine": 603,
+        "startChar": 13,
+        "endLine": 604,
+        "endChar": 13
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb505a1_6e764ef8",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "Best would be to move it out of this method to avoid any mistake in future. Follow the pattern that every time that AsyncResp is required you create it at the begging of the request method, e.g. line 810",
+      "range": {
+        "startLine": 636,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 49
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8076408_e05a520a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "Why it is static? Using static you are using single timer for all requests. So any new request can cancel already used timer. Please, fix it. If you need to prolong life of steady_timer, you can use shared_ptr.",
+      "range": {
+        "startLine": 639,
+        "startChar": 4,
+        "endLine": 639,
+        "endChar": 11
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93eeb43a_34241ee0",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "You can get it from crow::connections::systemBus-\u003eget_io_context(), you don\u0027t have to pass req.",
+      "range": {
+        "startLine": 639,
+        "startChar": 45,
+        "endLine": 639,
+        "endChar": 59
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ff2fac_972ac54b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "Any reason to copy a req to callback?",
+      "range": {
+        "startLine": 643,
+        "startChar": 20,
+        "endLine": 643,
+        "endChar": 23
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2817a14b_0eae8c83",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "You can omit it, csrString is only used as argument to async_method_call",
+      "range": {
+        "startLine": 643,
+        "startChar": 25,
+        "endLine": 643,
+        "endChar": 34
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f78354_ff34b93a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "nit You should check if (found + 1) is less than size()",
+      "range": {
+        "startLine": 664,
+        "startChar": 53,
+        "endLine": 664,
+        "endChar": 62
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3f682a8_a22830e4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-12-21T09:28:29Z",
+      "side": 1,
+      "message": "You still need res.end() or make an AsyncResp so .end() will be called in destructor of AsyncResp. Same for other routes. If you omit it you don\u0027t get the response",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 63
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
