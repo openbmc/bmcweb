@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29d23159_2f3e1894",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T19:53:25Z",
+      "side": 1,
+      "message": "related ? \n\nIs something like \"Add Resource Dump\" better?",
+      "revId": "fbb87d717a5f556d8f75ed8a616088fbacd683b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df3e00a4_573ada9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T19:53:25Z",
+      "side": 1,
+      "message": "Is there a design doc for Resource dump ? \nCan you explain what it is and how it differs from System Dump?",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "fbb87d717a5f556d8f75ed8a616088fbacd683b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "795932f7_9f22650f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-21T19:53:25Z",
+      "side": 1,
+      "message": "I know unlikely to break but can you run the validator ?",
+      "revId": "fbb87d717a5f556d8f75ed8a616088fbacd683b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
