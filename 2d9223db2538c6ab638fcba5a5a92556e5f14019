@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2224cfb4_a828a6e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-22T18:58:06Z",
+      "side": 1,
+      "message": "You want to disable HTTPS through HTTPS, thereby disabling your interface to the BMC?\n\nThat seems like a possible DOS vector.  I wonder if we should limit disabling of interfaces to not be allowed on the interface they came in on.\n\nDisabling HTTP redirect seems reasonable, as does disabling SSH",
+      "parentUuid": "7a42a35c_c7bbec65",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22e626e1_39fd0104",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
