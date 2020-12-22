@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0340ccb0_9dc97653",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-22T16:36:39Z",
+      "side": 1,
+      "message": "This is the function we had on the phosphor-webui.\nhttps://github.com/openbmc/phosphor-snmp is the repo. \nIt is only SNMP traps.\n\nAfter setting IP address and Port on a Witherspoon running the phoshor-webui, https://github.com/openbmc/phosphor-webui/blob/0c4aceb775cbb461d10e03888f0ab90e5a619dc7/app/common/services/api-utils.js#L238\n\n busctl introspect xyz.openbmc_project.Network.SNMP /xyz/openbmc_project/network/snmp/manager/1 xyz.openbmc_project.Network.Client | cat\nNAME                               TYPE      SIGNATURE RESULT/VALUE    FLAGS\n.Address                           property  s         \"192.168.31.31\" emits-change writable\n.Port                              property  q         161             emits-change writable\n\nThis has been tested so as long as Address and Port are being set on D-Bus, this will work.",
+      "parentUuid": "326440b2_4de63e94",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f20a711_08ca141f",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
