@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d5931f4_32a2a063",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T12:49:19Z",
+      "side": 1,
+      "message": "Run redfish validator.\n\nSet will not have direct impact on validator but subsequent get will have. So set some attributes and run redfish validator.",
+      "revId": "cdbb8a8872cf2cb37d8f1089638657b55d1f14f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "662d1460_e48f546d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T12:49:19Z",
+      "side": 1,
+      "message": "This should be \"ConfigureComponents\" as per Privilege Registry. https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json",
+      "range": {
+        "startLine": 291,
+        "startChar": 49,
+        "endLine": 291,
+        "endChar": 65
+      },
+      "revId": "cdbb8a8872cf2cb37d8f1089638657b55d1f14f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "745328e0_96e2578f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T12:49:19Z",
+      "side": 1,
+      "message": "-1: This logic is wrong.  You should not use \"else if\" here.",
+      "range": {
+        "startLine": 418,
+        "startChar": 12,
+        "endLine": 418,
+        "endChar": 17
+      },
+      "revId": "cdbb8a8872cf2cb37d8f1089638657b55d1f14f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa735b9c_3841f874",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T12:49:19Z",
+      "side": 1,
+      "message": "No need of else.\n\n1) Read all 3 attributes( Name, Type, Value) - No else if\n2) Create tuple and Call d-bus(Line: 453)",
+      "range": {
+        "startLine": 428,
+        "startChar": 12,
+        "endLine": 429,
+        "endChar": 13
+      },
+      "revId": "cdbb8a8872cf2cb37d8f1089638657b55d1f14f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b796c398_d3375693",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T12:49:19Z",
+      "side": 1,
+      "message": "No point in looping through other array objects during failure  case. Return as soon as its fails Line no: 416, 421, 426.",
+      "range": {
+        "startLine": 431,
+        "startChar": 16,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "cdbb8a8872cf2cb37d8f1089638657b55d1f14f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd798506_a94a2658",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T12:49:19Z",
+      "side": 1,
+      "message": "Its requires its own message entry to convey the actual failure.\n\nThat message registry entry can take Attribute Name and Type. So that user should know which array element is wrong.",
+      "range": {
+        "startLine": 449,
+        "startChar": 20,
+        "endLine": 449,
+        "endChar": 78
+      },
+      "revId": "cdbb8a8872cf2cb37d8f1089638657b55d1f14f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
