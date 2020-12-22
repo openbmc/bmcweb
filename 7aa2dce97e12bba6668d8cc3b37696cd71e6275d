@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4111c42a_49394cbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "I would recommend have separate patches for each functionality. These can be detachable. \n1) Bios Reset action.\n2) Bios ChangePassword action.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fbc7247_21a207df",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -19,6 +42,98 @@
     },
     {
       "key": {
+        "uuid": "ad835e34_ea6e7838",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "As per current Bios schema, This action won\u0027t accept the Parameter. If there is need for parameter, Its should be recommended to DMTF and get it added to schema( I see a use of it).\n\nFor now, We can add them as OEM adhere to schema.",
+      "range": {
+        "startLine": 11,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 74
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8bdfee8_cc250364",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "Not clear? You mean to do get D-Bus to confirm previous reset action?",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 70
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b7bbf79_acac288c",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "Its not Representing as action type.\nHow about making is as \"BiosChangePassword\"?",
+      "range": {
+        "startLine": 161,
+        "startChar": 44,
+        "endLine": 161,
+        "endChar": 56
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5f53f81_dcf3511e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "referrence",
+      "range": {
+        "startLine": 99,
+        "startChar": 47,
+        "endLine": 99,
+        "endChar": 64
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef158691_3da49743",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -30,6 +145,30 @@
       "writtenOn": "2020-12-21T18:29:37Z",
       "side": 1,
       "message": "This doesn\u0027t have a parameter..\n        \"ResetBios\": {\n            \"additionalProperties\": false,\n            \"description\": \"This action resets the BIOS attributes to default.\",\n            \"longDescription\": \"This action shall reset the BIOS attributes to their default values.  To apply the default values, a system reset might be required.  This action might impact other resources.\",\n            \"parameters\": {},",
+      "range": {
+        "startLine": 577,
+        "startChar": 1,
+        "endLine": 588,
+        "endChar": 62
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b69d956_ce53f0e7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ef158691_3da49743",
       "range": {
         "startLine": 577,
         "startChar": 1,
@@ -59,6 +198,24 @@
     },
     {
       "key": {
+        "uuid": "0a98311a_8f5dc808",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "remove this message, Already readJson will fill for you. \n\nMake resetFlag as manadatory in line no: 592.\n\nNote: Above comment. This BiosReset doesn\u0027t have supported parameter.",
+      "parentUuid": "eea452ae_f7a4b945",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccadd08b_c19df6b7",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -70,6 +227,24 @@
       "writtenOn": "2020-12-21T18:29:37Z",
       "side": 1,
       "message": "This wouldn\u0027t be an internalError..\nactionParameterNotSupported ?",
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87fb4313_fade8671",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "actionParameterUnknown",
+      "parentUuid": "ccadd08b_c19df6b7",
       "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -99,6 +274,76 @@
     },
     {
       "key": {
+        "uuid": "82b18b7e_8e5a78a2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "96135d7f_03556edb",
+      "range": {
+        "startLine": 636,
+        "startChar": 1,
+        "endLine": 637,
+        "endChar": 70
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f01f601f_b520c146",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "optional type. so not needed.",
+      "range": {
+        "startLine": 649,
+        "startChar": 51,
+        "endLine": 649,
+        "endChar": 55
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34525001_cef462b7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "All these 3 parameters are mandatory, not optional.",
+      "range": {
+        "startLine": 649,
+        "startChar": 8,
+        "endLine": 651,
+        "endChar": 49
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "228467c0_0ee12f9b",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -116,6 +361,29 @@
     },
     {
       "key": {
+        "uuid": "bb84804b_49f75b71",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "This is against the Message Registry rules. Don\u0027t pass the message as arguments. Define new base message registry, if you want to have specific messages,",
+      "range": {
+        "startLine": 657,
+        "startChar": 56,
+        "endLine": 658,
+        "endChar": 76
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6257a35c_8c0ebc9e",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -130,6 +398,52 @@
       "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7573a74_16eae3ca",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "Same as above. Don\u0027t pass message as arguments which is against message registry guideline.",
+      "range": {
+        "startLine": 664,
+        "startChar": 33,
+        "endLine": 665,
+        "endChar": 54
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e59f834_c324765d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-12-22T13:35:42Z",
+      "side": 1,
+      "message": "Not correct message. operationFailed?",
+      "range": {
+        "startLine": 675,
+        "startChar": 30,
+        "endLine": 675,
+        "endChar": 52
+      },
+      "revId": "7aa2dce97e12bba6668d8cc3b37696cd71e6275d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
