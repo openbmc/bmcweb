@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df113e46_5ea77631",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-22T21:16:45Z",
+      "side": 1,
+      "message": "what requirement ? If it is one to a specific company can you just drop this?",
+      "range": {
+        "startLine": 11,
+        "startChar": 36,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51f8b38_3fdd96f7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-22T21:16:45Z",
+      "side": 1,
+      "message": "where does 4 come from? I didn\u0027t know we had a limit.",
+      "range": {
+        "startLine": 1772,
+        "startChar": 65,
+        "endLine": 1772,
+        "endChar": 66
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e413c51e_97cc19a6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-22T21:16:45Z",
+      "side": 1,
+      "message": "why IMPI ? I would think this would be SSH only.",
+      "range": {
+        "startLine": 1774,
+        "startChar": 67,
+        "endLine": 1774,
+        "endChar": 71
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
