@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a42a35c_c7bbec65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2020-12-22T01:54:19Z",
+      "side": 1,
+      "message": "Redfish: Allow disabling SSH and HTTP (the redirect) #1763 mentioned, so I want to disable HTTPS through the redfish interface",
+      "parentUuid": "61bfe0c7_0ccb48b3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22e626e1_39fd0104",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
