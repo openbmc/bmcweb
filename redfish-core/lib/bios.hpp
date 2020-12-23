@@ -187,6 +187,9 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+        asyncResp->res.jsonValue["Actions"]["#Bios.ChangePassword"] = {
+            {"target",
+             "/redfish/v1/Systems/system/Bios/Actions/Bios.ChangePassword"}};
 
         // Get the ActiveSoftwareImage and SoftwareImages
         fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose,
@@ -606,4 +609,67 @@ class BiosReset : public Node
             std::variant<std::string>(resetFlagProperty));
     }
 };
+
+/**
+ * BiosChangePassword class supports handle POST method for change bios
+ * password. The class retrieves and sends data directly to D-Bus.
+ */
+class BiosChangePassword : public Node
+{
+  public:
+    BiosChangePassword(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/Bios/Actions/Bios.ChangePassword/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Function handles POST method request.
+     * Analyzes POST body message before sends Reset request data to D-Bus.
+     */
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string currentPassword = "";
+        std::string newPassword = "";
+        std::string userName = "";
+        if (!json_util::readJson(req, res, "NewPassword", newPassword,
+                                 "OldPassword", currentPassword, "PasswordName",
+                                 userName))
+        {
+            BMCWEB_LOG_ERROR << "doPost change password error";
+            messages::actionParameterMissing(
+                asyncResp->res, "Change password",
+                "NewPassword/OldPassword/PasswordName");
+            return;
+        }
+        if (currentPassword == "" || newPassword == "" || userName == "")
+        {
+            messages::actionParameterMissing(
+                asyncResp->res, "Change password",
+                "NewPassword/OldPassword/PasswordName");
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_CRITICAL << "doPost change password got error "
+                                        << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.BIOSConfigPassword",
+            "/xyz/openbmc_project/bios_config/password",
+            "xyz.openbmc_project.BIOSConfig.Password", "ChangePassword",
+            userName, currentPassword, newPassword);
+    }
+};
+
 } // namespace redfish
