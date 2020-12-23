@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "55ccbd35_6a8da370",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T03:50:04Z",
+      "side": 1,
+      "message": "Can you please write this in a more prose-like manner?  Agree with Gunnar, OpenBMC doesn\u0027t have \"requirements\" like this.  If you\u0027re basing this on an open source profile, like OCP, please say that.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0a8d2c_2f4cb54e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T03:50:04Z",
+      "side": 1,
+      "message": "Do we actually limit this to 4?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a51f8b38_3fdd96f7",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
