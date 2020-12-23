@@ -1107,6 +1107,30 @@
     },
     {
       "key": {
+        "uuid": "2f7e2bd5_d5f94a9e",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-12-23T10:18:07Z",
+      "side": 1,
+      "message": "\u003e Ed \nI understand your point, but here we need to do this way to achieve data streaming flow control, otherwise it wont work.\n\nTo be clear, I don\u0027t think this is necessarily bad, I just want to understand the consequences.\nPart of me wonders if we should do this for websockets too.\n\n How does the client knows that they need to fire the websocket request instead of http.\nSay as part of http://\u003chostname\u003e/redfish/v1/Systems/system/dump/\u003c1\u003e  \ngets the response which is having the data as \"offloadURI \u003d \u003csome uri\u003e\", Now how does the client knows that they need to fire the websocket request rather then HTTP.",
+      "parentUuid": "452dfa95_777362b6",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "dac701847aab8b53ec46f06111aaa8038221a5ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f903df91_aa1d82db",
         "filename": "http/http_stream.hpp",
         "patchSetId": 2
