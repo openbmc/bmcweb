@@ -262,7 +262,9 @@ class BiosSettings : public Node
     BiosSettings(App& app) :
         Node(app, "/redfish/v1/Systems/system/Bios/Settings")
     {
-        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}}};
     }
 
   private:
@@ -358,6 +360,104 @@ class BiosSettings : public Node
             "xyz.openbmc_project.ObjectMapper", "GetObject",
             "/xyz/openbmc_project/bios_config/manager",
             std::array<const char*, 0>());
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        nlohmann::json attrsJson;
+
+        if (!redfish::json_util::readJson(req, asyncResp->res, "Attributes",
+                                          attrsJson))
+        {
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp,
+             attrsJson](const boost::system::error_code ec,
+                        const std::variant<BiosBaseTableType>& retBiosTable) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "getBiosAttributes DBUS error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                boost::container::flat_map<std::string, std::string>
+                    biosAttrsType;
+                const BiosBaseTableType* baseBiosTable =
+                    std::get_if<BiosBaseTableType>(&retBiosTable);
+
+                if (baseBiosTable == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "baseBiosTable == nullptr ";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                for (const BiosBaseTableItemType& item : *baseBiosTable)
+                {
+                    biosAttrsType.try_emplace(
+                        item.first, std::get<biosBaseAttrType>(item.second));
+                }
+
+                PendingAttributesType pendingAttributes;
+                for (auto& attrItr : attrsJson.items())
+                {
+                    std::string attrName = attrItr.key();
+                    std::string attrValue = attrItr.value();
+
+                    if (attrName == "")
+                    {
+                        BMCWEB_LOG_ERROR << "Attribute Name cannot be null";
+                        messages::invalidObject(asyncResp->res,
+                                                "Attribute Name field");
+                        return;
+                    }
+                    auto it = biosAttrsType.find(attrName);
+                    if (it == biosAttrsType.end())
+                    {
+                        messages::propertyUnknown(asyncResp->res, attrName);
+                        return;
+                    }
+
+                    std::string biosAttrType = (*it).second;
+                    if (biosAttrType == "")
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Attribute type not found in BIOS Table";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    pendingAttributes.emplace_back(std::make_pair(
+                        attrName, std::make_tuple(biosAttrType, attrValue)));
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "doPatch resp_handler got error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.BIOSConfigManager",
+                    "/xyz/openbmc_project/bios_config/manager",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.BIOSConfig.Manager",
+                    "PendingAttributes",
+                    std::variant<PendingAttributesType>(pendingAttributes));
+            },
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable");
     }
 };
 /**
