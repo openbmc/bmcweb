@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "73c77c34_618eff76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-23T23:25:11Z",
+      "side": 1,
+      "message": "I guess I assumed it was a \"state\" like lamp test on / lamp test off. haha. \nI pictured a toggle on the GUI.",
+      "parentUuid": "4048beaf_b38be10d",
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6d7c28c_ca951fa7",
         "filename": "meson_options.txt",
         "patchSetId": 5
