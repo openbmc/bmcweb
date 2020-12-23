@@ -96,6 +96,29 @@ static std::string mapAttrTypeToRedfish(const std::string_view typeDbus)
 
     return ret;
 }
+static std::string mapRedfishToAttrType(const std::string_view type)
+{
+    std::string ret;
+    if (type == "string")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.String";
+    }
+    else if (type == "int")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Integer";
+    }
+    else if (type == "enum")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType."
+              "Enumeration";
+    }
+    else
+    {
+        ret = "UNKNOWN";
+    }
+
+    return ret;
+}
 static std::string mapBoundTypeToRedfish(const std::string_view typeDbus)
 {
     std::string ret;
@@ -262,7 +285,9 @@ class BiosSettings : public Node
     BiosSettings(App& app) :
         Node(app, "/redfish/v1/Systems/system/Bios/Settings")
     {
-        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}}};
     }
 
   private:
@@ -358,6 +383,73 @@ class BiosSettings : public Node
             "xyz.openbmc_project.ObjectMapper", "GetObject",
             "/xyz/openbmc_project/bios_config/manager",
             std::array<const char*, 0>());
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        nlohmann::json inpJson;
+
+        if (!redfish::json_util::readJson(req, asyncResp->res, "data", inpJson))
+        {
+            return;
+        }
+
+        for (auto& attrInfo : inpJson)
+        {
+            std::optional<std::string> attrName;
+            std::optional<std::string> attrType;
+            std::optional<std::string> attrValue;
+            if (!json_util::getValueFromJsonObject(attrInfo, "AttributeName",
+                                                   attrName))
+            {
+                messages::propertyMissing(asyncResp->res, "AttributeName");
+                return;
+            }
+            if (!json_util::getValueFromJsonObject(attrInfo, "AttributeType",
+                                                   attrType))
+            {
+                messages::propertyMissing(asyncResp->res, "AttributeType");
+                return;
+            }
+            if (!json_util::getValueFromJsonObject(attrInfo, "AttributeValue",
+                                                   attrValue))
+            {
+                messages::propertyMissing(asyncResp->res, "AttributeValue");
+                return;
+            }
+            std::string biosAttrType = mapRedfishToAttrType(*attrType);
+
+            if (biosAttrType == "UNKNOWN")
+            {
+                BMCWEB_LOG_ERROR << "Invalid attribute type";
+                messages::propertyValueNotInList(asyncResp->res,
+                                                 "AttributeType", *attrType);
+                return;
+            }
+
+            PendingAttributesType pendingAttributes;
+            pendingAttributes.emplace_back(std::make_pair(
+                *attrName, std::make_tuple(biosAttrType, *attrValue)));
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "doPatch resp_handler got error "
+                                         << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.BIOSConfigManager",
+                "/xyz/openbmc_project/bios_config/manager",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
+                std::variant<PendingAttributesType>(pendingAttributes));
+        }
     }
 };
 /**
