@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "212c458d_a5d46704",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f7973b_4a78bef9",
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8237fbc8_a7fb1387",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -154,6 +172,54 @@
     },
     {
       "key": {
+        "uuid": "c0492316_51d4a073",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3958f7dd_0541579b",
+      "range": {
+        "startLine": 1,
+        "startChar": 23,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c172f69_6a228c29",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f9e9d87_ccd63ae3",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d375a7f_52c248a0",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -201,6 +267,30 @@
     },
     {
       "key": {
+        "uuid": "091c3153_afaf5c48",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e32511f_138d6c52",
+      "range": {
+        "startLine": 3,
+        "startChar": 8,
+        "endLine": 3,
+        "endChar": 26
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd1617bc_c5a93ede",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -236,6 +326,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "fd1617bc_c5a93ede",
+      "range": {
+        "startLine": 14,
+        "startChar": 40,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8c225dc_d1a77f4f",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87cfa6c7_ecb13892",
       "range": {
         "startLine": 14,
         "startChar": 40,
@@ -295,6 +409,30 @@
     },
     {
       "key": {
+        "uuid": "cde9d081_276a991d",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5131fa2c_7975e4b9",
+      "range": {
+        "startLine": 25,
+        "startChar": 19,
+        "endLine": 25,
+        "endChar": 22
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ff76a08_5deceff2",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -330,6 +468,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "2ff76a08_5deceff2",
+      "range": {
+        "startLine": 46,
+        "startChar": 67,
+        "endLine": 47,
+        "endChar": 8
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "604a933d_75cf439b",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d58c2c1_41eabdeb",
       "range": {
         "startLine": 46,
         "startChar": 67,
@@ -386,6 +548,30 @@
       "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4fb0c69_54fe7b40",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a3cfb9e_f009e57e",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 76
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -484,6 +670,30 @@
     },
     {
       "key": {
+        "uuid": "c6158644_7339f79b",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a8b08e3_fcf7ea70",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f98d307a_d7758c57",
         "filename": "OEM_SCHEMAS.md",
         "patchSetId": 1
@@ -528,6 +738,30 @@
       "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11fea601_87caa48f",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T16:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "833e0f25_aa6182b2",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "1b47873a0c11c7533d64fc19b0ca4a62c7e740c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
