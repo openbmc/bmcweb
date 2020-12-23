@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0becc7b_107bb649",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T04:20:21Z",
+      "side": 1,
+      "message": "How do we ensure that systems that don\u0027t have BIOS don\u0027t implement this registry?",
+      "range": {
+        "startLine": 9,
+        "startChar": 51,
+        "endLine": 9,
+        "endChar": 74
+      },
+      "revId": "1daea4fa6699090b2f03f715c9892e5f99fab235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd99ef1_32c0fc8e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-23T04:20:21Z",
+      "side": 1,
+      "message": "Are the interfaces for this daemon defined in phosphor-dbus-interfaces?  Can you link the review?",
+      "revId": "1daea4fa6699090b2f03f715c9892e5f99fab235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
