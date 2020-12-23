@@ -96,6 +96,30 @@ static std::string mapAttrTypeToRedfish(const std::string_view typeDbus)
 
     return ret;
 }
+static std::string mapRedfishToResetFlag(const std::string_view resetFlag)
+{
+    std::string ret;
+    if (resetFlag == "Factory")
+    {
+        ret =
+            "xyz.openbmc_project.BIOSConfig.Manager.ResetFlag.FactoryDefaults";
+    }
+    else if (resetFlag == "NoAction")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.NoAction";
+    }
+    else if (resetFlag == "FailSafe")
+    {
+        ret = "xyz.openbmc_project.BIOSConfig.Manager.AttributeType."
+              "FailSafeDefaults";
+    }
+    else
+    {
+        ret = "UNKNOWN";
+    }
+
+    return ret;
+}
 static std::string mapBoundTypeToRedfish(const std::string_view typeDbus)
 {
     std::string ret;
@@ -551,7 +575,7 @@ class BiosReset : public Node
         Node(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
   private:
@@ -563,19 +587,23 @@ class BiosReset : public Node
                 const std::vector<std::string>&) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
-
+        std::string resetFlag = "Factory";
+        std::string resetFlagProperty = mapRedfishToResetFlag(resetFlag);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;
+                    BMCWEB_LOG_ERROR << "doPost bios reset got error " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
+                BMCWEB_LOG_DEBUG << "bios reset action is done";
             },
-            "org.open_power.Software.Host.Updater",
-            "/xyz/openbmc_project/software",
-            "xyz.openbmc_project.Common.FactoryReset", "Reset");
+            "xyz.openbmc_project.BIOSConfigManager",
+            "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.BIOSConfig.Manager", "ResetBIOSSettings",
+            std::variant<std::string>(resetFlagProperty));
     }
 };
 } // namespace redfish
