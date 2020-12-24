@@ -96,6 +96,54 @@
     },
     {
       "key": {
+        "uuid": "2117f6a7_5fc229d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-24T06:12:15Z",
+      "side": 1,
+      "message": "That\u0027s not a \"requirement\", as the spec makes it optional.",
+      "parentUuid": "f423738a_197b5a30",
+      "range": {
+        "startLine": 11,
+        "startChar": 36,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81cb4ffb_a89dc4b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-24T06:12:15Z",
+      "side": 1,
+      "message": "Please write prose.  Why are you implementing this?  How would a user use it?  What changes occur as the result of this change?\n\nAll of the above should be answered by your commit message.",
+      "parentUuid": "8bc65dfc_455fc3d6",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c0a8d2c_2f4cb54e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "From this dmtf spec i got this number.\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2017.0a.pdf. If it is wrong please suggest me.",
       "parentUuid": "1c0a8d2c_2f4cb54e",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62448de8_6dafc2d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-24T06:12:15Z",
+      "side": 1,
+      "message": "You\u0027re looking at the schema guide, not the spec.  It is incorrect, please go look into how many sessions are supported on the various interfaces, and update to be the correct number.",
+      "parentUuid": "23fc507a_c5a90bc4",
       "range": {
         "startLine": 30,
         "startChar": 0,
