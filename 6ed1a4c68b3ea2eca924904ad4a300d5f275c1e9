@@ -22,6 +22,30 @@
       "revId": "6ed1a4c68b3ea2eca924904ad4a300d5f275c1e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d168ac0_0384bf78",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-12-24T06:55:30Z",
+      "side": 1,
+      "message": "currently it is just support string and int.",
+      "parentUuid": "460e81f0_82e7fef3",
+      "range": {
+        "startLine": 219,
+        "startChar": 3,
+        "endLine": 235,
+        "endChar": 29
+      },
+      "revId": "6ed1a4c68b3ea2eca924904ad4a300d5f275c1e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
