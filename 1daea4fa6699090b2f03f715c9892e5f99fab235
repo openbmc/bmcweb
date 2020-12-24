@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "54e1b6bb_4d972f4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-12-24T06:27:17Z",
+      "side": 1,
+      "message": "co-tested with bios throw oem-command.\nhttps://gerrit.openbmc-project.xyz/#/c/openbmc/intel-ipmi-oem/+/30827/",
+      "parentUuid": "d0becc7b_107bb649",
+      "range": {
+        "startLine": 9,
+        "startChar": 51,
+        "endLine": 9,
+        "endChar": 74
+      },
+      "revId": "1daea4fa6699090b2f03f715c9892e5f99fab235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1dd99ef1_32c0fc8e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 47
@@ -36,6 +60,24 @@
       "writtenOn": "2020-12-23T04:20:21Z",
       "side": 1,
       "message": "Are the interfaces for this daemon defined in phosphor-dbus-interfaces?  Can you link the review?",
+      "revId": "1daea4fa6699090b2f03f715c9892e5f99fab235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e7aa44c_06b587d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-12-24T06:27:17Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/BIOSConfig",
+      "parentUuid": "1dd99ef1_32c0fc8e",
       "revId": "1daea4fa6699090b2f03f715c9892e5f99fab235",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
