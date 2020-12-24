@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "f51f72a9_023ad516",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-24T00:18:35Z",
+      "side": 1,
+      "message": "I guess this goes back to my question above.  What is a \"lamp test\"?  Does it involve turning on all the LEDs on the board to verify they work?  If so, I would expect the existing indicator LED interfaces to be sufficient.\n\nIf it really is a state with on and off, why not just use the existing redfish APIs?",
+      "parentUuid": "73c77c34_618eff76",
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6d7c28c_ca951fa7",
         "filename": "meson_options.txt",
         "patchSetId": 5
