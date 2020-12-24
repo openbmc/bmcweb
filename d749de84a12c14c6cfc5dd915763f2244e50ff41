@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "f423738a_197b5a30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2020-12-24T06:09:08Z",
+      "side": 1,
+      "message": "As for this dmtf document, implemented this.\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2017.0a.pdf\nAnd schema is https://redfish.dmtf.org/schemas/v1/Manager.v1_5_2.json",
+      "parentUuid": "df113e46_5ea77631",
+      "range": {
+        "startLine": 11,
+        "startChar": 36,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bc65dfc_455fc3d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2020-12-24T06:09:08Z",
+      "side": 1,
+      "message": "This is the one\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2017.0a.pdf. Do i need to update in commit message.",
+      "parentUuid": "55ccbd35_6a8da370",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c0a8d2c_2f4cb54e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-12-23T03:50:04Z",
       "side": 1,
       "message": "Do we actually limit this to 4?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23fc507a_c5a90bc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2020-12-24T06:09:08Z",
+      "side": 1,
+      "message": "From this dmtf spec i got this number.\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2017.0a.pdf. If it is wrong please suggest me.",
+      "parentUuid": "1c0a8d2c_2f4cb54e",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "07d8c495_8b07b07f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2020-12-24T06:09:08Z",
+      "side": 1,
+      "message": "Based this https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2017.0a.pdf document I have implemented this.",
+      "parentUuid": "a51f8b38_3fdd96f7",
+      "range": {
+        "startLine": 1772,
+        "startChar": 65,
+        "endLine": 1772,
+        "endChar": 66
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e413c51e_97cc19a6",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2020-12-22T21:16:45Z",
       "side": 1,
       "message": "why IMPI ? I would think this would be SSH only.",
+      "range": {
+        "startLine": 1774,
+        "startChar": 67,
+        "endLine": 1774,
+        "endChar": 71
+      },
+      "revId": "d749de84a12c14c6cfc5dd915763f2244e50ff41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c6476cf_ddaa1005",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2020-12-24T06:09:08Z",
+      "side": 1,
+      "message": "Base on this dmtf document updated  https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2017.0a.pdf",
+      "parentUuid": "e413c51e_97cc19a6",
       "range": {
         "startLine": 1774,
         "startChar": 67,
