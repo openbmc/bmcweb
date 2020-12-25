@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b94f39a_089fe383",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-25T02:58:57Z",
+      "side": 1,
+      "message": "Can we remove? See comment below",
+      "revId": "a6d1ee04bfbaca27ac864812c184d73712cf6cf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48088b54_796d9b75",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-25T02:58:57Z",
+      "side": 1,
+      "message": "Why do you need this?",
+      "range": {
+        "startLine": 590,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 73
+      },
+      "revId": "a6d1ee04bfbaca27ac864812c184d73712cf6cf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653beed8_91b9d729",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-25T02:58:57Z",
+      "side": 1,
+      "message": "why is this a better error?",
+      "range": {
+        "startLine": 596,
+        "startChar": 41,
+        "endLine": 596,
+        "endChar": 68
+      },
+      "revId": "a6d1ee04bfbaca27ac864812c184d73712cf6cf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8afcde71_6bbea13a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-25T02:58:57Z",
+      "side": 1,
+      "message": "why if we are always setting to Factory, don\u0027t we do it here?",
+      "range": {
+        "startLine": 606,
+        "startChar": 38,
+        "endLine": 606,
+        "endChar": 55
+      },
+      "revId": "a6d1ee04bfbaca27ac864812c184d73712cf6cf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
