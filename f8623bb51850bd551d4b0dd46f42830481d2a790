@@ -426,6 +426,30 @@
     },
     {
       "key": {
+        "uuid": "082118b9_5f543b94",
+        "filename": "static/redfish/v1/schema/OemComputerSystem_v1.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:15:40Z",
+      "side": 1,
+      "message": "\u003e Yes, I don\u0027t know how to write this schema, I have tried many ways to write it but failed.\n\nThis is generally why writing OEM schemas isn\u0027t recommended, and it\u0027s significantly easier to use existing resources, or have spec additions added when you need help, as they get a much better review..  Schemas are not easy to write properly.  Feel free to reach out to the redfish DMTF committee for help, although if you catch me on discord, I can help you with the knowledge I do have.  Gunnar is also a good resource for this kind of thing.\n\n\u003e Could you give me some help? thank you very much. What I want to achieve is:\n\u003e \n\u003e    \"Oem\": {\n\u003e      \"@odata.type\": \"#OemComputerSystem.Oem\",\n\u003e      \"IBM\": {\n\u003e        \"@odata.type\": \"#OemComputerSystem.IBM\",\n\u003e        \"LampTest\": false\n\u003e      }\n\nUnderstood.  Your best bet would be to start reading through the redfish/odata documentation on how all these things work.",
+      "parentUuid": "8d0ab152_6505e829",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 29,
+        "endChar": 67
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be91a62c_ad407d20",
         "filename": "static/redfish/v1/schema/OemComputerSystem_v1.xml",
         "patchSetId": 5
@@ -461,6 +485,30 @@
       "side": 1,
       "message": "Sorry,but which file should I put it in?",
       "parentUuid": "be91a62c_ad407d20",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "f8623bb51850bd551d4b0dd46f42830481d2a790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71042d9_74fc0bcd",
+        "filename": "static/redfish/v1/schema/OemComputerSystem_v1.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:15:40Z",
+      "side": 1,
+      "message": "You\u0027ll need to sort that out and propose something.  I suspect the file you need doesn\u0027t exist yet.",
+      "parentUuid": "9870701c_8647b19d",
       "range": {
         "startLine": 26,
         "startChar": 0,
