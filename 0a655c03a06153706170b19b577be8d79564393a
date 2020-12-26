@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc2e083c_94d9fa25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:26:16Z",
+      "side": 1,
+      "message": "Please add a much larger commit message.  One line is not enough for this size patchset.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3e025b_2c86393d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:26:16Z",
+      "side": 1,
+      "message": "Please mention this in your commit message.",
+      "range": {
+        "startLine": 554,
+        "startChar": 48,
+        "endLine": 554,
+        "endChar": 67
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eadb3b15_063c7279",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:26:16Z",
+      "side": 1,
+      "message": "How and why does this interface differ from the existing Common.FactoryReset interface?  I suspect the old code is more correct.",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 74
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
