@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a0380d7_6b4b3e5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:15:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t track for me.  There isn\u0027t a single LocationIndicator instance, as this statement seems to imply, there is one per component.   They provide direct access to the LEDs, and a simple looping over all indicator properties on all resources, and turning them all on from the client seems like a much better fit for the redfish API way of doing things, as it would also allow the client to verify that all components where the LEDs are expected exist.  The only thing that\u0027s missing then is the timeout, but that seems relatively easy to implement with Job service, as a stand alone item that would be started before the routine was done.  Unless I\u0027m mistaken, that seems to fit well within the non-OEM redfish schemas.\n\nCan you add more details about why the existing redfish APIs wont\u0027 work as I\u0027ve described?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1fdee5d_5c5ffe11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-26T22:15:40Z",
+      "side": 1,
+      "message": "This seems like an odd use of the led groups API.  \"lamp test\" isn\u0027t really a group.  Maybe it should be \"all\" or something similar?",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 78
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4a0cb74_adb18cc0",
         "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
         "patchSetId": 8
