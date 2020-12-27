@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "061a3e0e_8e3f031c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-27T16:45:11Z",
+      "side": 1,
+      "message": ": and a space like the old error had?",
+      "range": {
+        "startLine": 572,
+        "startChar": 68,
+        "endLine": 572,
+        "endChar": 69
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eadb3b15_063c7279",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 4
@@ -59,6 +82,30 @@
       "writtenOn": "2020-12-26T22:26:16Z",
       "side": 1,
       "message": "How and why does this interface differ from the existing Common.FactoryReset interface?  I suspect the old code is more correct.",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 74
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71953ab7_fc282bd0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-27T16:45:11Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "eadb3b15_063c7279",
       "range": {
         "startLine": 581,
         "startChar": 0,
