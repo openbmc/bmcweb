@@ -78,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "3e9d2a10_4181ee79",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "Some functions require the string type, such as line 316.",
+      "parentUuid": "4f20a711_08ca141f",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 25
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39318079_552009df",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
@@ -89,6 +113,30 @@
       "writtenOn": "2020-12-15T01:53:09Z",
       "side": 1,
       "message": "Please keep these as string_views, as it will avoid several string copies.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 42
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea38059_9ce47560",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "The type needs to be the same as Subscription（line 317）, unless we change the class Subscription. And the port not a read-only parameter, if port is empty, we need to change its value(line 293).",
+      "parentUuid": "39318079_552009df",
       "range": {
         "startLine": 272,
         "startChar": 0,
@@ -124,6 +172,30 @@
     },
     {
       "key": {
+        "uuid": "0f8ba9f7_e3e37941",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89d07d23_142da74a",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 9
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e058743_d0714d94",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
@@ -144,6 +216,30 @@
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13dfe43_2a9f9086",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e058743_d0714d94",
+      "range": {
+        "startLine": 462,
+        "startChar": 31,
+        "endLine": 462,
+        "endChar": 37
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -170,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "527c8038_30e26e9d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e09d6192_99747db2",
+      "range": {
+        "startLine": 469,
+        "startChar": 65,
+        "endLine": 469,
+        "endChar": 69
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80e28ef4_03adab94",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
@@ -181,6 +301,30 @@
       "writtenOn": "2020-12-15T01:53:09Z",
       "side": 1,
       "message": "This is still maintaining state that isn\u0027t persisted across a reboot.  I suspect you need to come up with a scheme for the redfish uri IDs to be different dependent on the protocol, so you can know how to steer a delete verb without storing state in bmcweb.",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 52
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c749e5_c1758986",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "The snmp trap destination address and port will be saved in dbus: /xyz/openbmc_project/network/snmp/manager/1",
+      "parentUuid": "80e28ef4_03adab94",
       "range": {
         "startLine": 493,
         "startChar": 0,
@@ -216,6 +360,30 @@
     },
     {
       "key": {
+        "uuid": "f98dce0f_4e92d025",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "All we want to do is create the SNMP Client using the address and port, and phospho-SNMP will send the trap(this is already done).",
+      "parentUuid": "10a5c69e_5778d0a3",
+      "range": {
+        "startLine": 511,
+        "startChar": 17,
+        "endLine": 511,
+        "endChar": 58
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c39cef6_c5dc8ff5",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
@@ -239,6 +407,30 @@
     },
     {
       "key": {
+        "uuid": "ce935f23_bd4de0d1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c39cef6_c5dc8ff5",
+      "range": {
+        "startLine": 573,
+        "startChar": 0,
+        "endLine": 587,
+        "endChar": 0
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "703f64db_d291cf84",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
@@ -250,6 +442,24 @@
       "writtenOn": "2020-12-15T01:53:09Z",
       "side": 1,
       "message": "Pretty sure you want a return here.  You don\u0027t want to delete the SNMP thing and also try to delete the eventservice instance.",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9d18c4_4545c27d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2020-12-28T10:56:24Z",
+      "side": 1,
+      "message": "Here is to delete the SNMP Client on DBUS: /xyz/openbmc_project/network/snmp/manager. When we delete it, phosphor-snmp can not use this address to send traps",
+      "parentUuid": "703f64db_d291cf84",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
