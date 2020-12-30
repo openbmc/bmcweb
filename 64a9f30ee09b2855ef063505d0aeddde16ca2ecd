@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce20a092_1688fb58",
+        "filename": "meson_options.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Any reason we don\u0027t enable this by default?",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb6102c_b1590e51",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please declare this within GZFile::gzGetLine.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 31
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac6fd9e_423b1256",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please pass by std::filesystem::path or std::string\u0026",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda29d59_717147cc",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "This can be build directly within the string with something like:\n\nbuf.resize(lineLimit);\n\nlogStream, buf.data(), buf.size())\n\nbuf.resize(strlen(buf.data()));\n\nThat avoids having to copy the string twice.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a25f90ba_3e4c235e",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please use line.size() here for consistency.",
+      "range": {
+        "startLine": 40,
+        "startChar": 43,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f470403_b4db6f35",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Is this check required?  Can\u0027t lines be empty?",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 37
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c90272e_bb8f8f49",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1675,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "This should be inline, not static.",
+      "range": {
+        "startLine": 1675,
+        "startChar": 0,
+        "endLine": 1675,
+        "endChar": 7
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58e0a0f_eed1b6e7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please use the overload of this that accepts an error_code object.\n\nAlso, please read DEVELOPING.md for the bmcweb exception policy.",
+      "range": {
+        "startLine": 1683,
+        "startChar": 0,
+        "endLine": 1683,
+        "endChar": 69
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "324a1045_531b1407",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1705,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "missing inline",
+      "range": {
+        "startLine": 1705,
+        "startChar": 0,
+        "endLine": 1705,
+        "endChar": 5
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9339514b_0384e033",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1722,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please simply construct this with the correct size, rather than constructing, then immediately modifying.",
+      "range": {
+        "startLine": 1722,
+        "startChar": 0,
+        "endLine": 1722,
+        "endChar": 58
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1193fa7_23e59587",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "This object gets constructed and filled, then doesn\u0027t get used?  I feel like I\u0027m missing something here.",
+      "range": {
+        "startLine": 1728,
+        "startChar": 39,
+        "endLine": 1728,
+        "endChar": 49
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b037798f_27f2b3c9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Unless I\u0027m mistaken, tmpTimestamp can be completely deleted, and timestamp can just be filled on line 1721 instead of assigned to the string_view.",
+      "range": {
+        "startLine": 1734,
+        "startChar": 0,
+        "endLine": 1734,
+        "endChar": 35
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "610002fe_07f10162",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "this should be inline, not static.",
+      "range": {
+        "startLine": 1740,
+        "startChar": 0,
+        "endLine": 1740,
+        "endChar": 7
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1472b349_b096bc1a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1751,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "We should probably talk about naming.  HostLogger doesn\u0027t really seem in line with what OpenBMC/Redfish tends to use for naming.  Console Log seems more consistent, but I\u0027d have to think about it.",
+      "range": {
+        "startLine": 1751,
+        "startChar": 18,
+        "endLine": 1751,
+        "endChar": 29
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbda1eb9_8ba9fa8f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "This message ID doesn\u0027t exist.  You\u0027ll need to add a registry for it.",
+      "range": {
+        "startLine": 1754,
+        "startChar": 35,
+        "endLine": 1754,
+        "endChar": 45
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307e43df_357c71ba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please state in your commit message how you landed on these privilege levels.  They still look incorrect to me when I compare to the Redfish registry.",
+      "range": {
+        "startLine": 1770,
+        "startChar": 0,
+        "endLine": 1773,
+        "endChar": 70
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e117d1_d9bbbbbb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "Please remove.\n\nBMCWEB_ENABLE_DEBUG is the same a enabling logging.",
+      "range": {
+        "startLine": 1835,
+        "startChar": 0,
+        "endLine": 1835,
+        "endChar": 26
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec8eef55_c1e4df2b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T18:17:01Z",
+      "side": 1,
+      "message": "nit:  If you need these files in reverse order, could we just sort them that way up front?",
+      "range": {
+        "startLine": 1856,
+        "startChar": 0,
+        "endLine": 1857,
+        "endChar": 18
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
