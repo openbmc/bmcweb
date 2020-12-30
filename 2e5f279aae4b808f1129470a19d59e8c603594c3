@@ -94,6 +94,30 @@
       "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8075d5e0_28deab7c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2020-12-30T17:46:42Z",
+      "side": 1,
+      "message": "That\u0027s a good point.  Agreed, it\u0027s not really worth the complexity for an error code.",
+      "parentUuid": "bea6778c_3e3d22d1",
+      "range": {
+        "startLine": 357,
+        "startChar": 35,
+        "endLine": 357,
+        "endChar": 48
+      },
+      "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
