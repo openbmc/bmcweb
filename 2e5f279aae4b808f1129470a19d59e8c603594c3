@@ -70,6 +70,30 @@
       "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bea6778c_3e3d22d1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-12-30T02:23:00Z",
+      "side": 1,
+      "message": "Done but I having a hard time getting the actual id or version and not sure it is worth the complexity / code. \n \nThis uses the \"PropertiesChanged\" so it is a separate Match for the AdditionalData property and that can happen before or after this \"Message\" PropertyChanged. \nIdeally this would use the InterfaceAdded but then might need another call to get the AdditionalData value.",
+      "parentUuid": "37b8c3da_6f68e5cd",
+      "range": {
+        "startLine": 357,
+        "startChar": 35,
+        "endLine": 357,
+        "endChar": 48
+      },
+      "revId": "2e5f279aae4b808f1129470a19d59e8c603594c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
