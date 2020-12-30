@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d44a3f83_aa02403f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Fixed in patch 4",
+      "parentUuid": "d8568257_bee5c48b",
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63a5fb33_312dbc42",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 2
@@ -57,6 +75,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1823a452_2c8b4907",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63a5fb33_312dbc42",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "99b48849_735496c5",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "check gzopen on above line 16~23",
+      "parentUuid": "2cd5677d_19969cc7",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bee91184_73c26744",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 2
@@ -103,6 +169,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bec8318c_9baf36a1",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bee91184_73c26744",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -129,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "d2f694cb_c9a63322",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45840d66_36ed1e3a",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1c962b1_2d4e88d3",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 2
@@ -152,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "db5d6755_6b0a995f",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1c962b1_2d4e88d3",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f4d0382_9748ae4e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -166,6 +304,24 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ea33c6_51a7fcdb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Remove the include.",
+      "parentUuid": "3f4d0382_9748ae4e",
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "8fd52a70_51f42d37",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3de438bb_94c7c78b",
+      "range": {
+        "startLine": 1684,
+        "startChar": 4,
+        "endLine": 1684,
+        "endChar": 11
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "798e7074_244f1f83",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -212,6 +392,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0118812b_bb97768e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "replace logging method to BMCWEB_LOG_ERROR and return false.",
+      "parentUuid": "798e7074_244f1f83",
+      "range": {
+        "startLine": 1702,
+        "startChar": 0,
+        "endLine": 1702,
+        "endChar": 43
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -238,6 +442,30 @@
     },
     {
       "key": {
+        "uuid": "cebcbe17_73d73ddc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "using filesystem as the new constructor.",
+      "parentUuid": "dc8542be_e095cdef",
+      "range": {
+        "startLine": 1686,
+        "startChar": 0,
+        "endLine": 1703,
+        "endChar": 5
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "710ac2ff_098112b6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -258,6 +486,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e46815f_e632c037",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1717,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Using another method to get timestamp and message string without using magic number.",
+      "parentUuid": "710ac2ff_098112b6",
+      "range": {
+        "startLine": 1717,
+        "startChar": 0,
+        "endLine": 1717,
+        "endChar": 53
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +560,30 @@
     },
     {
       "key": {
+        "uuid": "efe53307_2d97f023",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1719,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Got it, we remove the regex and use get_time to check the timestamp format.",
+      "parentUuid": "b9a87d70_1b6b0699",
+      "range": {
+        "startLine": 1719,
+        "startChar": 0,
+        "endLine": 1719,
+        "endChar": 67
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89ecf63b_cbefc046",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -328,6 +604,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a25d0c75_818b8d46",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "modify bool to void.",
+      "parentUuid": "89ecf63b_cbefc046",
+      "range": {
+        "startLine": 1731,
+        "startChar": 0,
+        "endLine": 1731,
+        "endChar": 6
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -354,6 +654,30 @@
     },
     {
       "key": {
+        "uuid": "c2af9131_fe302243",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cee0d9d_4d4d0501",
+      "range": {
+        "startLine": 1736,
+        "startChar": 0,
+        "endLine": 1738,
+        "endChar": 35
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db116c5f_2e617141",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -374,6 +698,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ae9c624_f215cfa2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "modify bool to void and remove the return.",
+      "parentUuid": "db116c5f_2e617141",
+      "range": {
+        "startLine": 1755,
+        "startChar": 0,
+        "endLine": 1755,
+        "endChar": 16
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -400,6 +748,30 @@
     },
     {
       "key": {
+        "uuid": "d832c857_3908c545",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Thank you for the comment, modify the entity privileges.",
+      "parentUuid": "f009b9b2_38d13af3",
+      "range": {
+        "startLine": 1764,
+        "startChar": 63,
+        "endLine": 1764,
+        "endChar": 68
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cc51f03_fd4926ee",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -423,6 +795,30 @@
     },
     {
       "key": {
+        "uuid": "98d9ef60_167ad54a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1831,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc51f03_fd4926ee",
+      "range": {
+        "startLine": 1827,
+        "startChar": 0,
+        "endLine": 1831,
+        "endChar": 41
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1589aabf_82085613",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -443,6 +839,30 @@
       "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9af79b3e_472c111c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1878,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2020-12-30T02:49:10Z",
+      "side": 1,
+      "message": "The \"fillHostLoggerEntryJson\" function has been modified to void.",
+      "parentUuid": "1589aabf_82085613",
+      "range": {
+        "startLine": 1878,
+        "startChar": 0,
+        "endLine": 1878,
+        "endChar": 60
+      },
+      "revId": "1de9cdca80a6c11e3a7cde6101bdadb253be84ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
