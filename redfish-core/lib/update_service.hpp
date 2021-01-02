@@ -215,6 +215,8 @@ static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
                                                 messages::internalError());
                                             return task::completed;
                                         }
+                                        taskData->percentComplete =
+                                            static_cast<int>(*progress);
                                         taskData->messages.emplace_back(
                                             messages::taskProgressChanged(
                                                 index, static_cast<size_t>(
