@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99376e94_e96e772b",
+        "filename": "redfish-core/include/task_messages.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-02T19:38:38Z",
+      "side": 1,
+      "message": "Considering that at API level, we know this is a size_t, I\u0027d like to keep the API as is, and simply fix line 86 to pass the string version instead of the size_t version.",
+      "range": {
+        "startLine": 79,
+        "startChar": 42,
+        "endLine": 79,
+        "endChar": 66
+      },
+      "revId": "7a42980aa56c91e5d08cb74a88a26b8e40be8fe6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
