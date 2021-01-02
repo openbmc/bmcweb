@@ -76,16 +76,16 @@ inline nlohmann::json taskPaused(const std::string& arg1)
 }
 
 inline nlohmann::json taskProgressChanged(const std::string& arg1,
-                                          const size_t arg2)
+                                          const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskProgressChanged"},
-        {"Message", "The task with id " + arg1 + " has changed to progress " +
-                        std::to_string(arg2) + " percent complete."},
-        {"MessageArgs", {arg1, arg2}},
-        {"Severity", "OK"},
-        {"Resolution", "None."}};
+    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+                          {"MessageId", "TaskEvent.1.0.1.TaskProgressChanged"},
+                          {"Message", "The task with id " + arg1 +
+                                          " has changed to progress " + arg2 +
+                                          " percent complete."},
+                          {"MessageArgs", {arg1, arg2}},
+                          {"Severity", "OK"},
+                          {"Resolution", "None."}};
 }
 
 inline nlohmann::json taskRemoved(const std::string& arg1)

@@ -217,8 +217,8 @@ static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
                                         }
                                         taskData->messages.emplace_back(
                                             messages::taskProgressChanged(
-                                                index, static_cast<size_t>(
-                                                           *progress)));
+                                                index,
+                                                std::to_string(*progress)));
 
                                         // if we're getting status updates it's
                                         // still alive, update timer
