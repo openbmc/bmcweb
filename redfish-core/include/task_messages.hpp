@@ -83,7 +83,7 @@ inline nlohmann::json taskProgressChanged(const std::string& arg1,
         {"MessageId", "TaskEvent.1.0.1.TaskProgressChanged"},
         {"Message", "The task with id " + arg1 + " has changed to progress " +
                         std::to_string(arg2) + " percent complete."},
-        {"MessageArgs", {arg1, arg2}},
+        {"MessageArgs", {arg1, std::to_string(arg2)}},
         {"Severity", "OK"},
         {"Resolution", "None."}};
 }
