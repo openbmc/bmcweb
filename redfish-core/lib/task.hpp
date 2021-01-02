@@ -309,6 +309,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::optional<time_t> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;
+    int percentComplete = 0;
 };
 
 } // namespace task
@@ -447,6 +448,8 @@ class Task : public Node
                 {"HttpHeaders", p.httpHeaders},
                 {"JsonBody", p.jsonBody.dump()}};
         }
+        asyncResp->res.jsonValue["PercentComplete"] =
+            ptr->state == "Completed" ? 100 : ptr->percentComplete;
     }
 };
 
