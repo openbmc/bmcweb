@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f134731_203d6b08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-04T06:02:13Z",
+      "side": 1,
+      "message": "What is a DDIMM? Perhaps: \"Add FRU Properties for DIMMs\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "b0223b368bd42454691a3200190ecd386f164db0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6014d329_0b73b256",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-04T06:02:13Z",
+      "side": 1,
+      "message": "DIMM**",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "b0223b368bd42454691a3200190ecd386f164db0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26af67cc_53edda8c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-04T06:02:13Z",
+      "side": 1,
+      "message": "Should all of these be marked internalErrors ?",
+      "range": {
+        "startLine": 681,
+        "startChar": 24,
+        "endLine": 681,
+        "endChar": 33
+      },
+      "revId": "b0223b368bd42454691a3200190ecd386f164db0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163b8ead_12ef8083",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-04T06:02:13Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 861,
+        "startChar": 12,
+        "endLine": 861,
+        "endChar": 25
+      },
+      "revId": "b0223b368bd42454691a3200190ecd386f164db0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
