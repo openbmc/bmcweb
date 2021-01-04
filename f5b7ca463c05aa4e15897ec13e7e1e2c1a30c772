@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc13bfc8_88c2409d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-04T05:33:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26f2b1fc_fbc2e459",
+      "range": {
+        "startLine": 126,
+        "startChar": 51,
+        "endLine": 126,
+        "endChar": 59
+      },
+      "revId": "f5b7ca463c05aa4e15897ec13e7e1e2c1a30c772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8219aa8_68ac4d1f",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "f5b7ca463c05aa4e15897ec13e7e1e2c1a30c772",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d224e2c_b5f06dd3",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-04T05:33:54Z",
+      "side": 1,
+      "message": "Done\nThe saveAreaDirSize is not static data. Every time this API is invoked, the current size is calculated fresh. So it will not keep incrementing.\nI have modified the code to address the bug which you were mentioning. Thanks for pointing it out.\nWhen the file size reduces, i am just accepting the file, since there will be obviously space for the same. The code to subtract the delta size is not needed.",
+      "parentUuid": "d8219aa8_68ac4d1f",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 155,
+        "endChar": 26
+      },
+      "revId": "f5b7ca463c05aa4e15897ec13e7e1e2c1a30c772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
