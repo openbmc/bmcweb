@@ -36,7 +36,7 @@ using GetSubTreeType = std::vector<
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 using SensorVariant =
-    std::variant<int64_t, double, uint32_t, bool, std::string>;
+    std::variant<std::monostate, int64_t, double, uint32_t, bool, std::string>;
 
 using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
@@ -520,10 +520,10 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                         sensorsAsyncResp->chassisSubNode ==
                                 sensors::node::thermal
                             ? "Temperatures"
-                            : sensorsAsyncResp->chassisSubNode ==
-                                      sensors::node::power
-                                  ? "Voltages"
-                                  : "Sensors");
+                        : sensorsAsyncResp->chassisSubNode ==
+                                sensors::node::power
+                            ? "Voltages"
+                            : "Sensors");
                     return;
                 }
                 const std::shared_ptr<boost::container::flat_set<std::string>>
