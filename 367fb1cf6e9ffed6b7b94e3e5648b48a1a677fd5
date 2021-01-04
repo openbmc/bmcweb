@@ -16,6 +16,24 @@
       "revId": "367fb1cf6e9ffed6b7b94e3e5648b48a1a677fd5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdf6e44_efd61844",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-04T15:07:51Z",
+      "side": 1,
+      "message": "We require running the Redfish Validator, verifying it passes, and adding the output to the tested tag.",
+      "parentUuid": "643106a7_8424bfcb",
+      "revId": "367fb1cf6e9ffed6b7b94e3e5648b48a1a677fd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
