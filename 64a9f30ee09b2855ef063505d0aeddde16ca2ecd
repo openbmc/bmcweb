@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6f84408_ff950910",
+        "filename": "meson_options.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-04T19:17:54Z",
+      "side": 1,
+      "message": "is phosphor-hostlogger used widely by the community? \nI know we aren\u0027t using but have talked about using it.",
+      "parentUuid": "ce20a092_1688fb58",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebb6102c_b1590e51",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 4
