@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "99461fda_ec0f9f7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000084
+      },
+      "writtenOn": "2021-01-04T14:28:59Z",
+      "side": 1,
+      "message": "The resource dump is a non-disruptive dump created by HOST, the BMC just initiate or offload when it is ready. Where as a system dump is disruptive dump involving a server reboot. the reboot is orchestrated by the BMC and the content is collected by the host.",
+      "parentUuid": "deafea80_2a786bfd",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "fbb87d717a5f556d8f75ed8a616088fbacd683b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "795932f7_9f22650f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
