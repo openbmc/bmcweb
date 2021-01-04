@@ -174,6 +174,24 @@
     },
     {
       "key": {
+        "uuid": "cad3f2fe_229bbe37",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-04T06:32:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b66ee0d9_6d10e39c",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3296dc4b_7a2f1c0f",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 4
@@ -242,6 +260,24 @@
       "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db37f782_64906133",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-04T06:32:23Z",
+      "side": 1,
+      "message": "Changed the directory permission to 700 and file permission to 600",
+      "parentUuid": "e93564e6_3b1615de",
+      "revId": "6d2636871feb41308dc5124d31f1a8a79257aa7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
