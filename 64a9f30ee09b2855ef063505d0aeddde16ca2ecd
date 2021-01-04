@@ -255,6 +255,30 @@
     },
     {
       "key": {
+        "uuid": "ca42e362_83d1b5cc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-04T08:55:40Z",
+      "side": 1,
+      "message": "Here we just use this to check is the timestamp format correct, then pass timestamp to  \"getUniqueEntryID\" and \"fillHostLoggerEntryJson\" to get ID and fill \"Created\" level.",
+      "parentUuid": "f1193fa7_23e59587",
+      "range": {
+        "startLine": 1728,
+        "startChar": 39,
+        "endLine": 1728,
+        "endChar": 49
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b037798f_27f2b3c9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -266,6 +290,30 @@
       "writtenOn": "2020-12-30T18:17:01Z",
       "side": 1,
       "message": "Unless I\u0027m mistaken, tmpTimestamp can be completely deleted, and timestamp can just be filled on line 1721 instead of assigned to the string_view.",
+      "range": {
+        "startLine": 1734,
+        "startChar": 0,
+        "endLine": 1734,
+        "endChar": 35
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "556e6bf1_1ce077ca",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-04T08:55:40Z",
+      "side": 1,
+      "message": "The original idea here is that we want to check timestamp format first, then assign the value to it. But yes, we can filled it on line 1721 directly.",
+      "parentUuid": "b037798f_27f2b3c9",
       "range": {
         "startLine": 1734,
         "startChar": 0,
@@ -358,6 +406,30 @@
       "writtenOn": "2020-12-30T18:17:01Z",
       "side": 1,
       "message": "Please state in your commit message how you landed on these privilege levels.  They still look incorrect to me when I compare to the Redfish registry.",
+      "range": {
+        "startLine": 1770,
+        "startChar": 0,
+        "endLine": 1773,
+        "endChar": 70
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6444052c_8a92077e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1773,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-04T08:55:40Z",
+      "side": 1,
+      "message": "The setting here is referenced to LogServices/EventLog. I will check the privilege more detail if it is incorrect.",
+      "parentUuid": "307e43df_357c71ba",
       "range": {
         "startLine": 1770,
         "startChar": 0,
