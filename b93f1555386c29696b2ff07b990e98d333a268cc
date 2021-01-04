@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "192cf6e9_7bb6f47a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-04T15:11:09Z",
+      "side": 1,
+      "message": "Tested: Validator passes ?",
+      "revId": "b93f1555386c29696b2ff07b990e98d333a268cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
