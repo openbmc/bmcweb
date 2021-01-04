@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2031f10_5260cd73",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-04T06:21:23Z",
+      "side": 1,
+      "message": "This can easily be condensed down to a single case if you use int to do your math.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 9
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d83c3bc_5609cbd5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-04T06:21:23Z",
+      "side": 1,
+      "message": "Don\u0027t use res.end in new code.",
+      "range": {
+        "startLine": 673,
+        "startChar": 0,
+        "endLine": 673,
+        "endChar": 30
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a50a3036_81faeda5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-04T06:21:23Z",
+      "side": 1,
+      "message": "Please don\u0027t use regex for this.  We\u0027re trying to avoid it, and there are patches out to remove the existing uses.",
+      "range": {
+        "startLine": 687,
+        "startChar": 27,
+        "endLine": 687,
+        "endChar": 33
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55290dc9_9d138e22",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-04T06:21:23Z",
+      "side": 1,
+      "message": "don\u0027t use res.end in new code.",
+      "range": {
+        "startLine": 695,
+        "startChar": 0,
+        "endLine": 695,
+        "endChar": 30
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
