@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "129f6ba0_5c17ae46",
+        "filename": "meson_options.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-05T18:00:23Z",
+      "side": 1,
+      "message": "I didn\u0027t realize IBM systems didn\u0027t have that turned on yet.  In general, my preference is to have everything enabled by default, then disable what we don\u0027t use for the systems that don\u0027t support it.  We should really get better at recipe packageconfig options for these things.",
+      "parentUuid": "a6f84408_ff950910",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebb6102c_b1590e51",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 4
