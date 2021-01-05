@@ -45,6 +45,29 @@
       "revId": "1176bbb0dba363c3ae1a182dc73fea414ee93bec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7848dc8a_ed884119",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-01-05T11:00:02Z",
+      "side": 1,
+      "message": "It is not there in the schema.If I look at the commit https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29670/50 \nWe return the attributes as eg:\n   \"Attributes\": {\n        \"attr0\": \"current value\"\n    },\nHence AttributeName,AttributeType,AttributeValue will not be there as keys..\n\nRequest should look like as \nPATCH https://${bmc}/redfish/v1/Systems/system/Bios/Settings -d\n\u0027{\"Attributes\":[{\"attr0\":\"value0\"},{\"attr1\":\"value1\"}]}\u0027",
+      "range": {
+        "startLine": 405,
+        "startChar": 1,
+        "endLine": 422,
+        "endChar": 13
+      },
+      "revId": "1176bbb0dba363c3ae1a182dc73fea414ee93bec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
