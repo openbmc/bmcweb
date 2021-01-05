@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "59b77bca_5455c03c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-05T17:51:46Z",
+      "side": 1,
+      "message": "\u003e I agree with disabling HTTP redirect seems reasonable, as does disabling SSH.. which I believe is what the issue is talking about.\n\nBut that\u0027s not what the code does.  It disables the main https port.",
+      "parentUuid": "b45cf5b3_5968925e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "2d9223db2538c6ab638fcba5a5a92556e5f14019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22e626e1_39fd0104",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
