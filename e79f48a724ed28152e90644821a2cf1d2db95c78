@@ -22,6 +22,30 @@
       "revId": "e79f48a724ed28152e90644821a2cf1d2db95c78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6098263_a8dc2fd2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-05T17:57:00Z",
+      "side": 1,
+      "message": "Please don\u0027t add specific URLs in the core.  This file (and really everything in http/) should have no knowledge of specific routes or handlers.",
+      "parentUuid": "8e0d2b27_44069132",
+      "range": {
+        "startLine": 359,
+        "startChar": 7,
+        "endLine": 360,
+        "endChar": 63
+      },
+      "revId": "e79f48a724ed28152e90644821a2cf1d2db95c78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
