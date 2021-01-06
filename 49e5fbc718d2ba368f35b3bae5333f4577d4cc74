@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f379133a_951ba5b4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-01-06T16:05:49Z",
+      "side": 1,
+      "message": "If we get here, are we sure policy has something?\nFrom https://en.cppreference.com/w/cpp/utility/optional/operator*:\n  \"The behavior is undefined if *this does not contain a value.\"",
+      "range": {
+        "startLine": 1551,
+        "startChar": 53,
+        "endLine": 1551,
+        "endChar": 60
+      },
+      "revId": "49e5fbc718d2ba368f35b3bae5333f4577d4cc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
