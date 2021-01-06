@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a2cd83_8ed0e279",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-06T02:29:35Z",
+      "side": 1,
+      "message": "Considering this is well defined redfish features, have you tested with anything redfish specific?  redfishtool I believe has the ability to implement this type of upload, and would verify that these kinds of firmware updates are implemented correctly per the spec.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b02cac_e0884a8f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-06T02:29:35Z",
+      "side": 1,
+      "message": "Why is this required?  Doesn\u0027t the parser already take this into account?  Adding this assumes that name\u003d\"X\" is the first key, which isn\u0027t always the case.\n\nalso, the output of find cannot be directly pipeed into substr.  it needs checked against npos first.",
+      "range": {
+        "startLine": 757,
+        "startChar": 51,
+        "endLine": 757,
+        "endChar": 61
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671c0971_a1107456",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-06T02:29:35Z",
+      "side": 1,
+      "message": "still a complete copy of the data here.",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 50
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
