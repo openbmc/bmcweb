@@ -648,6 +648,18 @@ inline void getHostState(const std::shared_ptr<AsyncResp>& aResp)
                     aResp->res.jsonValue["PowerState"] = "On";
                     aResp->res.jsonValue["Status"]["State"] = "InTest";
                 }
+                else if (*s == "xyz.openbmc_project.State.Host.HostState."
+                               "TransitioningToRunning")
+                {
+                    aResp->res.jsonValue["PowerState"] = "PoweringOn";
+                    aResp->res.jsonValue["Status"]["State"] = "Disabled";
+                }
+                else if (*s == "xyz.openbmc_project.State.Host.HostState."
+                               "TransitioningToOff")
+                {
+                    aResp->res.jsonValue["PowerState"] = "PoweringOff";
+                    aResp->res.jsonValue["Status"]["State"] = "Disabled";
+                }
                 else
                 {
                     aResp->res.jsonValue["PowerState"] = "Off";
