@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec9ab4f5_b441a751",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-06T01:59:19Z",
+      "side": 1,
+      "message": "Can you please remove this.  It\u0027s not correct so far as I\u0027m aware.",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "3f5a7e44cc0e07961b58d2acd888fd282fd0c579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e993ad_5b7e722c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-06T01:59:19Z",
+      "side": 1,
+      "message": "Please add more details around WHY you would want to do this.  Disabling the interface you\u0027re currently using isn\u0027t a very common operation, and can lead to the possibility of the user locking themselves out of the system, hence why it\u0027s not implemented today.  So lets get your use case understood, then hopefully we can give you some advice about how to proceed.",
+      "revId": "3f5a7e44cc0e07961b58d2acd888fd282fd0c579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
