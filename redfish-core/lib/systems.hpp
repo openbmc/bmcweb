@@ -1543,7 +1543,7 @@ inline void setAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp,
  * @return None.
  */
 inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
-                                  std::optional<std::string> policy)
+                                  const std::string& policy)
 {
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
 
@@ -1557,10 +1557,11 @@ inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
 
     std::string powerRestorPolicy;
 
-    auto policyMapsIt = policyMaps.find(*policy);
+    auto policyMapsIt = policyMaps.find(policy);
     if (policyMapsIt == policyMaps.end())
     {
-        messages::internalError(aResp->res);
+        messages::propertyValueNotInList(aResp->res, policy,
+                                         "PowerRestorePolicy");
         return;
     }
 
@@ -2252,7 +2253,7 @@ class Systems : public Node
 
         if (powerRestorePolicy)
         {
-            setPowerRestorePolicy(asyncResp, std::move(*powerRestorePolicy));
+            setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
         }
     }
 };
