@@ -1548,7 +1548,8 @@ inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
     auto policyMapsIt = policyMaps.find(*policy);
     if (policyMapsIt == policyMaps.end())
     {
-        messages::internalError(aResp->res);
+        messages::propertyValueNotInList(aResp->res, *policy,
+                                         "PowerRestorePolicy");
         return;
     }
 
