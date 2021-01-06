@@ -1203,7 +1203,7 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
                      "AlwaysOff",
                      "AlwaysOff"},
                     {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                     "LastState",
+                     "Restore",
                      "LastState"}};
 
             const std::string* policyPtr = std::get_if<std::string>(&policy);
@@ -1541,7 +1541,7 @@ inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
         {"AlwaysOff", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
                       "AlwaysOff"},
         {"LastState", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                      "LastState"}};
+                      "Restore"}};
 
     std::string powerRestorPolicy;
 
