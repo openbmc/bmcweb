@@ -46,6 +46,30 @@
       "revId": "e79f48a724ed28152e90644821a2cf1d2db95c78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e5d98a_c081f113",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-06T06:12:39Z",
+      "side": 1,
+      "message": "Ed\nThis specific URI needs connection upgrade to stream connection, so upgrading based on URI.\nif we can\u0027t use URI check to upgrade connection, then i don\u0027t see any other way\ncan you please suggest how can we upgrade connection in this case?",
+      "parentUuid": "e6098263_a8dc2fd2",
+      "range": {
+        "startLine": 359,
+        "startChar": 7,
+        "endLine": 360,
+        "endChar": 63
+      },
+      "revId": "e79f48a724ed28152e90644821a2cf1d2db95c78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
