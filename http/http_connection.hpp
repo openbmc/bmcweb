@@ -477,6 +477,8 @@ class Connection :
             self->completeRequest();
         };
 
+        res.writeHandler = [self(shared_from_this())] { return self->write(); };
+
         handler->handle(*req, res);
     }
 
@@ -498,31 +500,6 @@ class Connection :
         socket().close();
     }
 
-    void sendHeaders()
-    {
-        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << req->keepAlive();
-
-        crow::authorization::cleanupTempSession(*req);
-        if (!isAlive())
-        {
-            return;
-        }
-
-        res.addHeader(boost::beast::http::field::date, getCachedDateStr());
-
-        // Allow keepalive for secure connections only
-        if (std::holds_alternative<Adaptor>(adaptor))
-        {
-            res.keepAlive(false);
-        }
-        else
-        {
-            res.keepAlive(req->keepAlive());
-        }
-        doWrite();
-    }
-
     void completeRequest()
     {
         // invalidate the write handlers to ensure proper destruction;  We're
@@ -532,6 +509,16 @@ class Connection :
         if (req)
         {
             crow::authorization::cleanupTempSession(*req);
+        }
+
+        // Allow keepalive for secure connections only
+        if (std::holds_alternative<Adaptor>(adaptor))
+        {
+            res.keepAlive(false);
+        }
+        else
+        {
+            res.keepAlive(req->keepAlive());
         }
 
         if (!isAlive())
@@ -746,12 +733,12 @@ class Connection :
         }
 
         BMCWEB_LOG_DEBUG << this << " doWrite";
-        res.preparePayload();
+
         auto callback =
             [this, self(shared_from_this())](const boost::system::error_code ec,
                                              std::size_t bytes_transferred) {
                 BMCWEB_LOG_DEBUG << this << " async_write " << bytes_transferred
-		 << " bytes";
+                                 << " bytes";
 
                 cancelDeadlineTimer();
 
@@ -801,6 +788,17 @@ class Connection :
                     adaptor);
             },
             res.response);
+    }
+
+    bool write()
+    {
+        if (!isAlive())
+        {
+            return false;
+        }
+        res.preparePayload();
+        doWrite();
+        return true;
     }
 
     void cancelDeadlineTimer()

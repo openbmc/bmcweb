@@ -1,6 +1,7 @@
 #pragma once
 #include "http_request.hpp"
 #include "logging.hpp"
+
 #include "nlohmann/json.hpp"
 
 #include <boost/beast/http/buffer_body.hpp>
@@ -32,7 +33,6 @@ struct Response
 
     void addHeader(const std::string_view key, const std::string_view value)
     {
-
         headers.set(key, value);
     }
 
@@ -105,12 +105,7 @@ struct Response
 
     void preparePayload()
     {
-        std::visit(
-            [this](auto& val) {
-                val.base() = std::move(headers);
-                val.prepare_payload();
-            },
-            response);
+        std::visit([this](auto& val) { val.prepare_payload(); }, response);
     }
 
     void clear()
@@ -146,6 +141,37 @@ struct Response
         return isAliveHelper && isAliveHelper();
     }
 
+    bool write(char* data, size_t size)
+    {
+        if (!writeHandler)
+        {
+            return false;
+        }
+
+        boost::beast::http::response<boost::beast::http::buffer_body>*
+            bufferBody = std::get_if<
+                boost::beast::http::response<boost::beast::http::buffer_body>>(
+                &response);
+
+        if (bufferBody == nullptr)
+        {
+            // store the headers on stack temporarily so we can reconstruct the
+            // new base with the old headers copied in.
+            boost::beast::http::header headTemp = std::visit(
+                [this](auto& val) { return std::move(val.base()); }, response);
+
+            bufferBody = &response.emplace<
+                boost::beast::http::response<boost::beast::http::buffer_body>>(
+                std::move(headTemp));
+        }
+
+        bufferBody->body().data = data;
+        bufferBody->body().size = size;
+        bufferBody->body().more = true;
+
+        return writeHandler();
+    }
+
     bool openFile(const std::filesystem::path& path)
     {
         boost::beast::http::file_body::value_type file;
@@ -172,7 +198,7 @@ struct Response
     bool completed{};
     bool keepAliveValue{};
     std::function<void()> completeRequestHandler;
-    std::function<bool(const std::string_view)> writeHandler;
+    std::function<bool()> writeHandler;
     std::function<bool()> isAliveHelper;
-}; // namespace crow
+};
 } // namespace crow
