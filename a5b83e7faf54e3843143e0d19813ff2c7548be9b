@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9114632c_25924d99",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-07T14:46:32Z",
+      "side": 1,
+      "message": "Since we are just reading the attributes json and not modyfying, do we really need to capture it by ref?",
+      "parentUuid": "ce94d55f_c868ef63",
+      "range": {
+        "startLine": 381,
+        "startChar": 12,
+        "endLine": 381,
+        "endChar": 22
+      },
+      "revId": "a5b83e7faf54e3843143e0d19813ff2c7548be9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80fe55bb_d2aaa1c6",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7f6ed40d_ed42c50b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-07T14:46:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80fe55bb_d2aaa1c6",
+      "range": {
+        "startLine": 419,
+        "startChar": 33,
+        "endLine": 419,
+        "endChar": 49
+      },
+      "revId": "a5b83e7faf54e3843143e0d19813ff2c7548be9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee8893b6_3e86ff3a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2021-01-07T09:05:33Z",
       "side": 1,
       "message": "Invalid value..Do we have some other redfish error which can specify which value in the array?",
+      "range": {
+        "startLine": 426,
+        "startChar": 23,
+        "endLine": 426,
+        "endChar": 49
+      },
+      "revId": "a5b83e7faf54e3843143e0d19813ff2c7548be9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d050085_de702beb",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-07T14:46:32Z",
+      "side": 1,
+      "message": "you mean to say, \"value at this position is invalid\"?\n\nIf so, i hope there\u0027s no redfish error message for the same.\nI think we can have invalidObject(\"Attributes\").\n\nYour thoughts, Ratan?",
+      "parentUuid": "ee8893b6_3e86ff3a",
       "range": {
         "startLine": 426,
         "startChar": 23,
