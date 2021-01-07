@@ -281,6 +281,30 @@ inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
                         }
                     }
                 }
+                else if (property.first == "PartNumber")
+                {
+                    const std::string* partNumber =
+                        std::get_if<std::string>(&property.second);
+
+                    if (partNumber == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["PartNumber"] = *partNumber;
+                }
+                else if (property.first == "SparePartNumber")
+                {
+                    const std::string* sparePartNumber =
+                        std::get_if<std::string>(&property.second);
+
+                    if (sparePartNumber == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+                }
             }
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
@@ -544,6 +568,47 @@ inline void getCpuConfigData(const std::shared_ptr<AsyncResp>& aResp,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig");
 }
 
+/**
+ * @brief Fill out location info of a processor by
+ * requesting data from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getCpuLocationCode(std::shared_ptr<AsyncResp> aResp,
+                               const std::string& service,
+                               const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
+    crow::connections::systemBus->async_method_call(
+        [objPath,
+         aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::variant<std::string>& property) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string* value = std::get_if<std::string>(&property);
+
+            if (value == nullptr)
+            {
+                // illegal value
+                BMCWEB_LOG_DEBUG << "Location code value error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+                *value;
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
+}
+
 inline void getProcessorData(std::shared_ptr<AsyncResp> aResp,
                              const std::string& processorId)
 {
@@ -605,6 +670,11 @@ inline void getProcessorData(std::shared_ptr<AsyncResp> aResp,
                             getCpuConfigData(aResp, processorId, serviceName,
                                              objectPath);
                         }
+                        else if (interface == "xyz.openbmc_project.Inventory."
+                                              "Decorator.LocationCode")
+                        {
+                            getCpuLocationCode(aResp, serviceName, objectPath);
+                        }
                     }
                 }
                 return;
@@ -617,10 +687,11 @@ inline void getProcessorData(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 5>{
+        std::array<const char*, 6>{
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Decorator.Revision",
             "xyz.openbmc_project.Inventory.Item.Cpu",
+            "xyz.openbmc_project.Inventory.Decorator.LocationCode",
             "xyz.openbmc_project.Inventory.Item.Accelerator",
             "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
 }
@@ -973,7 +1044,7 @@ class Processor : public Node
             return;
         }
         const std::string& processorId = params[0];
-        res.jsonValue["@odata.type"] = "#Processor.v1_9_0.Processor";
+        res.jsonValue["@odata.type"] = "#Processor.v1_11_0.Processor";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
 
