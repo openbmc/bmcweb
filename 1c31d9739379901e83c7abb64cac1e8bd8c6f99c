@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb666b5d_2dd4931d",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "small_vector is probably a bad choice for this, as it\u0027ll bloat the size of Request.  Probably best to just use vector for the moment.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ac4b1fa_7a34ecbc",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "considering this class is standalone, and sits outside the login security boundary, I\u0027d like to see at least basic unit tests on this.",
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4dbb159_d6ac4bbb",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "All these should be constexpr, and use backslash syntax, \u0027 \u0027 for space, \u0027:\u0027 for colon, \u0027\\n\u0027 for lf ect.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a24bc2a_9c40bbbf",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "This should be enum class..",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f357d6_0b005e49",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "this should be enum class too.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c7a2b5_0d285564",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "This should probably be moved to std::error_code.",
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcaa588_ac8bcc27",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "This string needs deduplicated with line 247.",
+      "range": {
+        "startLine": 241,
+        "startChar": 46,
+        "endLine": 241,
+        "endChar": 76
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe346ba2_c03f5ca7",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "This needs to return an error code.\n\nOverall, I\u0027m thinking we should combine the constructor, and parse() in to a single entity that accepts a std::error_code, so we can return appropriate errosr when we\u0027re done.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 19
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "235ede4c_80ee9340",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:16:05Z",
+      "side": 1,
+      "message": "This reset api isn\u0027t used (except for the constructor), and can be removed, and its logic simply moved into the construction of the object members.",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 0
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
