@@ -831,6 +831,14 @@ class HypervisorInterface : public Node
                 if (ipv4StaticAddresses)
                 {
                     const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
+                    if ((!ipv4Static.is_array()) || ipv4Static.empty())
+                    {
+                        messages::propertyValueTypeError(asyncResp->res,
+                                                         ipv4Static.dump(),
+                                                         "IPv4StaticAddresses");
+                        return;
+                    }
+
                     const nlohmann::json& ipv4Json = ipv4Static[0];
                     // Check if the param is 'null'. If its null, it means that
                     // user wants to delete the IP address. Deleting the IP
