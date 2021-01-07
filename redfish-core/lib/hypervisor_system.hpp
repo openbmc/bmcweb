@@ -929,7 +929,7 @@ class HypervisorInterface : public Node
 
         const std::string& ifaceId = params[0];
         std::optional<std::string> hostName;
-        std::optional<nlohmann::json> ipv4StaticAddresses;
+        std::optional<std::vector<nlohmann::json>> ipv4StaticAddresses;
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> dhcpv4;
         std::optional<bool> ipv4DHCPEnabled;
@@ -973,6 +973,24 @@ class HypervisorInterface : public Node
                 if (ipv4StaticAddresses)
                 {
                     const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
+                    if (ipv4Static.begin() == ipv4Static.end())
+                    {
+                        messages::propertyValueTypeError(
+                            asyncResp->res,
+                            ipv4Static.dump(
+                                2, ' ', true,
+                                nlohmann::json::error_handler_t::replace),
+                            "IPv4StaticAddresses");
+                        return;
+                    }
+
+                    // One and only one hypervisor instance supported
+                    if (ipv4Static.size() != 1)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
                     const nlohmann::json& ipv4Json = ipv4Static[0];
                     // Check if the param is 'null'. If its null, it means that
                     // user wants to delete the IP address. Deleting the IP
