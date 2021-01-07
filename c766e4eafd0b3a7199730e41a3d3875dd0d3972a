@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "fb6f5663_98a053b8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T20:18:23Z",
+      "side": 1,
+      "message": "According to the BNF it looks like it shouldn\u0027t, but I\u0027ll take your word for it.\n\nIn that case lets just append a ; on the front of the string, rather than trying to use find.  it seems cleaner, and meas that we\u0027ll be able to check the form-data; value as well (which we should be checking anyway);",
+      "parentUuid": "d3e1dab3_c09815b4",
+      "range": {
+        "startLine": 757,
+        "startChar": 51,
+        "endLine": 757,
+        "endChar": 61
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "671c0971_a1107456",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 38
