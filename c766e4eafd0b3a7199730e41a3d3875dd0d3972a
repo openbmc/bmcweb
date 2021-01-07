@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec67ec58_c5c2b910",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-07T12:39:54Z",
+      "side": 1,
+      "message": "Sorry, I checked `redfishtool`(https://github.com/DMTF/Redfishtool/), but I do not know how to use `redfishtool`.\nCould you point me an example with `POST code upload`? thanks.",
+      "parentUuid": "92a2cd83_8ed0e279",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2636756_65f93939",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 38
