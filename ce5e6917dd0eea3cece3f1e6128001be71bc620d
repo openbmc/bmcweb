@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "37564110_b3cc8907",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:40:21Z",
+      "side": 1,
+      "message": "This type is only used in one place.  Please inline into the scope it\u0027s used.",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44024bae_49960b85",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:40:21Z",
+      "side": 1,
+      "message": "flat-map is not requried here, as the key lookup is never used.  Please use std::vector\u003cstd::pair\u003c instead.",
+      "range": {
+        "startLine": 31,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d19fc8d_575eb28f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:40:21Z",
+      "side": 1,
+      "message": "string copy.  Please avoid.",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 50
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30021c6_736cca6e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:40:21Z",
+      "side": 1,
+      "message": "String copy, please avoid.",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 64
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcdf720c_058a213b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:40:21Z",
+      "side": 1,
+      "message": "Please use emplace here here, and construct in place.  Example of constructing a std::pair in place here:\nhttps://stackoverflow.com/questions/55831362/construct-stdpair-in-place-in-vectoremplace-back",
+      "range": {
+        "startLine": 405,
+        "startChar": 20,
+        "endLine": 407,
+        "endChar": 78
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d71dee_522f9533",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-07T19:40:21Z",
+      "side": 1,
+      "message": "attrName not being allowed to be empty makes sense, but that validation should be handled in the bios daemon.  attrValue can be empty though, right?",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 21
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "89d9d56a_b8816862",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 10
