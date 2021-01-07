@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "622f2db7_ad680ecb",
+        "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-07T15:26:23Z",
+      "side": 1,
+      "message": "Gunnar\nthis comment makes sense. no need to fix\nbasically i have just added check if given data is of array type or empty data.\nif user provides null in array then particular entry will be deleted. ex: [null]",
+      "parentUuid": "c9e341fe_a812aa30",
+      "range": {
+        "startLine": 843,
+        "startChar": 0,
+        "endLine": 846,
+        "endChar": 80
+      },
+      "revId": "166bce466ad1e23007efe3219065fc291842ef8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b7b5c84_a276cf9f",
         "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2021-01-07T15:01:54Z",
       "side": 1,
       "message": "and clean this up since we can\u0027t hit this any longer?",
+      "range": {
+        "startLine": 850,
+        "startChar": 0,
+        "endLine": 852,
+        "endChar": 66
+      },
+      "revId": "166bce466ad1e23007efe3219065fc291842ef8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5af9f6_70fac449",
+        "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-07T15:26:23Z",
+      "side": 1,
+      "message": "we can hit this, and we need this",
+      "parentUuid": "7b7b5c84_a276cf9f",
       "range": {
         "startLine": 850,
         "startChar": 0,
