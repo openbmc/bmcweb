@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f64ce20e_231526d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-01-07T13:46:31Z",
+      "side": 1,
+      "message": "Lamp_Test is a IBM only requirement at this moment. The expectation is that the client calls \"Do The Lamp test\" and the BMC implementation will do what it means. Currently, what it means is that we :\n- Light up all the Indicator LEDs that are on the enclosure\n- Also, light-up some of the Green Power LEDs that have the software control\n- Send a command over to the LCD display daemon to exercise LCD\n- Send a PLDM command over to the Host so that Host can light-up the LEDs for all the external attached drawers.\n\n- Wait for configured time\n- Revert to old states\n\nWe can not offload this onto redfish clients and do LocationIndicatorActive one by one since we would then spread the logic into different redfish clients. Also, we can not achieve the above 4 functionalities if we offloaded that onto clients. This becomes challenging when we have more than 1 redfish clients.",
+      "parentUuid": "0a0380d7_6b4b3e5d",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1fdee5d_5c5ffe11",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2020-12-26T22:15:40Z",
       "side": 1,
       "message": "This seems like an odd use of the led groups API.  \"lamp test\" isn\u0027t really a group.  Maybe it should be \"all\" or something similar?",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 78
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b7293f_4330b982",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-01-07T13:46:31Z",
+      "side": 1,
+      "message": "We are adding the D-Bus object \"led/groups/lamp_test\" as part of one of the commit in led-manager repo",
+      "parentUuid": "e1fdee5d_5c5ffe11",
       "range": {
         "startLine": 19,
         "startChar": 37,
