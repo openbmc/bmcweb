@@ -3031,8 +3031,8 @@ class PostCodesClear : public Node
                     return;
                 }
             },
-            "xyz.openbmc_project.State.Boot.PostCode",
-            "/xyz/openbmc_project/State/Boot/PostCode",
+            "xyz.openbmc_project.State.Boot.PostCode0",
+            "/xyz/openbmc_project/State/Boot/PostCode0",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
     }
 };
@@ -3180,8 +3180,8 @@ static void getPostCodeForEntry(const std::shared_ptr<AsyncResp>& aResp,
             aResp->res.jsonValue["Members@odata.count"] =
                 aResp->res.jsonValue["Members"].size();
         },
-        "xyz.openbmc_project.State.Boot.PostCode",
-        "/xyz/openbmc_project/State/Boot/PostCode",
+        "xyz.openbmc_project.State.Boot.PostCode0",
+        "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesWithTimeStamp",
         bootIndex);
 }
@@ -3235,8 +3235,8 @@ static void getPostCodeForBoot(const std::shared_ptr<AsyncResp>& aResp,
                     std::to_string(skip + top);
             }
         },
-        "xyz.openbmc_project.State.Boot.PostCode",
-        "/xyz/openbmc_project/State/Boot/PostCode",
+        "xyz.openbmc_project.State.Boot.PostCode0",
+        "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesWithTimeStamp",
         bootIndex);
 }
@@ -3265,8 +3265,8 @@ static void getCurrentBootNumber(const std::shared_ptr<AsyncResp>& aResp,
                 BMCWEB_LOG_DEBUG << "Post code boot index failed.";
             }
         },
-        "xyz.openbmc_project.State.Boot.PostCode",
-        "/xyz/openbmc_project/State/Boot/PostCode",
+        "xyz.openbmc_project.State.Boot.PostCode0",
+        "/xyz/openbmc_project/State/Boot/PostCode0",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount");
 }
