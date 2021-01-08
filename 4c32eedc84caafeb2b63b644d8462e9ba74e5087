@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "d3817f44_72aeb0f3",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-08T22:14:24Z",
+      "side": 1,
+      "message": "lack of associations is not an internal error, it just means this board doesn\u0027t support LED indicators on this part.",
+      "range": {
+        "startLine": 303,
+        "startChar": 45,
+        "endLine": 303,
+        "endChar": 71
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da31418_f67eff8b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-08T22:14:24Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be a branch.  Just load *ledOn into the json directly.",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 29
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dfae326_89df1dba",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-08T22:14:24Z",
+      "side": 1,
+      "message": "This should be using the mapper created objects to determine the association, not going to the implementing daemon and grabbing the associations directly.  The associations might no be on the same connection as the LED interface.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f6ad3f7_12d6a059",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 21
