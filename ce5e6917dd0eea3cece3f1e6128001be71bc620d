@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "270dcc6a_d71df72b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "The key look up is being used in line no. 423",
+      "parentUuid": "44024bae_49960b85",
+      "range": {
+        "startLine": 31,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9a7590c_9008050e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "37564110_b3cc8907",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d19fc8d_575eb28f",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 10
@@ -68,6 +116,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16b9b31_f4fe12e2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d19fc8d_575eb28f",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 50
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9fd9a691_e046235a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f30021c6_736cca6e",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 64
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcdf720c_058a213b",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 10
@@ -114,6 +210,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a583ea1_b5bc863d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bcdf720c_058a213b",
+      "range": {
+        "startLine": 405,
+        "startChar": 20,
+        "endLine": 407,
+        "endChar": 78
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "44b36ef5_e2203a5f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "(Only attribute name check can be done here and the validation should be left to the backend) - Ack",
+      "parentUuid": "14d71dee_522f9533",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 21
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89d9d56a_b8816862",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 10
@@ -160,6 +304,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aabc14c4_76eccf3c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-08T10:39:18Z",
+      "side": 1,
+      "message": "Sorry, Ed. Am not getting it here.\n\nWe have the first lambda - to get the base bios table, where we populate the map with attributes name and their types.\n\nOnce done, keys in the attrsJson would be looked up in the map to get their corresponding types which would then be emplaced back to pendingAttributes obj. So, this requires attrsJson to be captured in this lambda. Do you see that I am missing something here?",
+      "parentUuid": "89d9d56a_b8816862",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
