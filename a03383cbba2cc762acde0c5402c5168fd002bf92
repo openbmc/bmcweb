@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f3fb25e_9aac6e99",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-08T17:13:48Z",
+      "side": 1,
+      "message": "Does this folder need permissions?",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 64
+      },
+      "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
