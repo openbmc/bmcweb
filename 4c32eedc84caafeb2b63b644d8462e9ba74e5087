@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d0b1486d_79521e4d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-09T03:39:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d3817f44_72aeb0f3",
+      "range": {
+        "startLine": 303,
+        "startChar": 45,
+        "endLine": 303,
+        "endChar": 71
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7da31418_f67eff8b",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 21
@@ -45,6 +69,30 @@
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b73e28a_ead24cc9",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-09T03:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7da31418_f67eff8b",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 29
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dcb4197f_21469df7",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-09T03:39:41Z",
+      "side": 1,
+      "message": "we have used the mapper to create object when we calling the getLocationIndicatorActive method.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/21/redfish-core/lib/processor.hpp#1065\n\nDo you mean we need to use the mapper to create the object again in this method?",
+      "parentUuid": "4dfae326_89df1dba",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f6ad3f7_12d6a059",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 21
@@ -85,6 +157,24 @@
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d953ecc3_f1fa9e5f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-09T03:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f6ad3f7_12d6a059",
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
