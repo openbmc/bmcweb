@@ -22,6 +22,30 @@
       "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814a2cec_4159c4ec",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-09T06:40:22Z",
+      "side": 1,
+      "message": "This path is used for the lock data. Not a file upload use-case. So i believe the regular permissions as other directories in the BMC is good here.",
+      "parentUuid": "2f3fb25e_9aac6e99",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 64
+      },
+      "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
