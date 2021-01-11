@@ -1466,7 +1466,7 @@ class DBusEventLogEntryCollection : public Node
                             }
                         }
                         thisEntry = {
-                            {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
+                            {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
                             {"@odata.id",
                              "/redfish/v1/Systems/system/LogServices/EventLog/"
                              "Entries/" +
@@ -1479,7 +1479,11 @@ class DBusEventLogEntryCollection : public Node
                              translateSeverityDbusToRedfish(*severity)},
                             {"Created", crow::utility::getDateTime(timestamp)},
                             {"Modified",
-                             crow::utility::getDateTime(updateTimestamp)}};
+                             crow::utility::getDateTime(updateTimestamp)},
+                            {"AdditionalDataURI",
+                             "/redfish/v1/Systems/system/LogServices/EventLog/"
+                             "attachment/" +
+                                 std::to_string(*id)}};
                     }
                 }
                 std::sort(entriesArray.begin(), entriesArray.end(),
@@ -1603,7 +1607,7 @@ class DBusEventLogEntry : public Node
                     return;
                 }
                 asyncResp->res.jsonValue = {
-                    {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
+                    {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
                     {"@odata.id",
                      "/redfish/v1/Systems/system/LogServices/EventLog/"
                      "Entries/" +
@@ -1614,7 +1618,10 @@ class DBusEventLogEntry : public Node
                     {"EntryType", "Event"},
                     {"Severity", translateSeverityDbusToRedfish(*severity)},
                     {"Created", crow::utility::getDateTime(timestamp)},
-                    {"Modified", crow::utility::getDateTime(updateTimestamp)}};
+                    {"Modified", crow::utility::getDateTime(updateTimestamp)},
+                    {"AdditionalDataURI", "/redfish/v1/Systems/system/"
+                                          "LogServices/EventLog/attachment/" +
+                                              std::to_string(*id)}};
             },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
@@ -1661,6 +1668,80 @@ class DBusEventLogEntry : public Node
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
+    }
+};
+
+class DBusEventLogEntryDownload : public Node
+{
+  public:
+    DBusEventLogEntryDownload(App& app) :
+        Node(
+            app,
+            "/redfish/v1/Systems/system/LogServices/EventLog/attachment/<str>/",
+            std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string& entryID = params[0];
+
+        auto objectPath = "/xyz/openbmc_project/logging/entry/" + entryID;
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::string>& filePath) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                const std::string* value = std::get_if<std::string>(&filePath);
+                if (value == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                std::string entryPath = *value;
+                std::ifstream readFile(entryPath);
+                if (!readFile)
+                {
+                    BMCWEB_LOG_DEBUG << "Could not read: " << entryPath;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.addHeader("Content-Type",
+                                         "application/octet-stream");
+                std::string contentDispositionParam =
+                    "attachment; filename=\"" + entryPath + "\"";
+                asyncResp->res.addHeader("Content-Disposition",
+                                         contentDispositionParam);
+                asyncResp->res.body() = {
+                    std::istreambuf_iterator<char>(readFile),
+                    std::istreambuf_iterator<char>()};
+            },
+            "xyz.openbmc_project.Logging", objectPath,
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Common.FilePath", "Path");
     }
 };
 
