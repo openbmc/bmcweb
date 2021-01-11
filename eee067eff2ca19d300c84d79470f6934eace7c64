@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6af52e4_bd34d80c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-11T15:07:57Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "eee067eff2ca19d300c84d79470f6934eace7c64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e685906e_31c73e97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-11T15:07:57Z",
+      "side": 1,
+      "message": "Nitpick: not forsure what this is trying to say, Postman is an API client for API development, it is not specific to Redfish.",
+      "range": {
+        "startLine": 25,
+        "startChar": 16,
+        "endLine": 25,
+        "endChar": 28
+      },
+      "revId": "eee067eff2ca19d300c84d79470f6934eace7c64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c21522ad_93c3d100",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-11T15:07:57Z",
+      "side": 1,
+      "message": "this is different, why versions on the name/id ?",
+      "range": {
+        "startLine": 276,
+        "startChar": 57,
+        "endLine": 276,
+        "endChar": 67
+      },
+      "revId": "eee067eff2ca19d300c84d79470f6934eace7c64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773850d7_3211f050",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-11T15:07:57Z",
+      "side": 1,
+      "message": "here too",
+      "range": {
+        "startLine": 277,
+        "startChar": 54,
+        "endLine": 277,
+        "endChar": 56
+      },
+      "revId": "eee067eff2ca19d300c84d79470f6934eace7c64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
