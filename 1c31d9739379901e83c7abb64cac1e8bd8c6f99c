@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9af7e71e_2b84ed8e",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb666b5d_2dd4931d",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ac4b1fa_7a34ecbc",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 32
@@ -36,6 +60,24 @@
       "writtenOn": "2021-01-07T19:16:05Z",
       "side": 1,
       "message": "considering this class is standalone, and sits outside the login security boundary, I\u0027d like to see at least basic unit tests on this.",
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77de5243_0d7ec790",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Sorry, I do not know how to add ut yet, I have no good ideas.",
+      "parentUuid": "6ac4b1fa_7a34ecbc",
       "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "21ceffa0_446953b2",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a24bc2a_9c40bbbf",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89f357d6_0b005e49",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 32
@@ -111,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "b6521394_6a3836da",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "changed to use constexpr.",
+      "parentUuid": "89f357d6_0b005e49",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2c7a2b5_0d285564",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 32
@@ -125,6 +215,24 @@
       "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2606ec_14e697cb",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f2c7a2b5_0d285564",
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "fe3b7639_1cc60972",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afcaa588_ac8bcc27",
+      "range": {
+        "startLine": 241,
+        "startChar": 46,
+        "endLine": 241,
+        "endChar": 76
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe346ba2_c03f5ca7",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 32
@@ -162,6 +294,30 @@
       "writtenOn": "2021-01-07T19:16:05Z",
       "side": 1,
       "message": "This needs to return an error code.\n\nOverall, I\u0027m thinking we should combine the constructor, and parse() in to a single entity that accepts a std::error_code, so we can return appropriate errosr when we\u0027re done.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 19
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "225102e3_df9a0b27",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Sure.\nI added `enum class ParserError`.\nBut it can not be use `make_error_code` in c++ code(.clang-format error), and CI built failed.",
+      "parentUuid": "fe346ba2_c03f5ca7",
       "range": {
         "startLine": 243,
         "startChar": 0,
@@ -194,6 +350,30 @@
       "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cafe0263_b0716b4f",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-11T08:42:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "235ede4c_80ee9340",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 0
+      },
+      "revId": "1c31d9739379901e83c7abb64cac1e8bd8c6f99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
