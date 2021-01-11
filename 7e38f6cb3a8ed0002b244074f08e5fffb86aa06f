@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e78da9de_db96cea1",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-11T18:12:45Z",
+      "side": 1,
+      "message": "Why 500 here?",
+      "range": {
+        "startLine": 12,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "7e38f6cb3a8ed0002b244074f08e5fffb86aa06f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39041dd8_8209fc7b",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-11T18:12:45Z",
+      "side": 1,
+      "message": "Considering the definition of this function is 3 lines up, just define the function there there.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "7e38f6cb3a8ed0002b244074f08e5fffb86aa06f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44436095_729b2761",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-11T18:12:45Z",
+      "side": 1,
+      "message": "Now that ec is an error code, you can just call parse() directly in the constructor, as well as make the parse method private.",
+      "revId": "7e38f6cb3a8ed0002b244074f08e5fffb86aa06f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8637bd5a_f9fd2a4c",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-11T18:12:45Z",
+      "side": 1,
+      "message": "We don\u0027t need these anymore, right?  Any errors will be returned in the error code.",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 527,
+        "endChar": 5
+      },
+      "revId": "7e38f6cb3a8ed0002b244074f08e5fffb86aa06f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
