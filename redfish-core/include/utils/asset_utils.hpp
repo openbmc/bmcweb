@@ -28,7 +28,7 @@ inline void extractAssetInfo(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const nlohmann::json::json_pointer& jsonKeyName,
     const dbus::utility::DBusPropertiesMap& assetList,
-    bool includeSparePartNumber = false)
+    bool includeSparePartNumber = false, bool includeManufacturer = true)
 {
     const std::string* manufacturer = nullptr;
     const std::string* model = nullptr;
@@ -48,7 +48,7 @@ inline void extractAssetInfo(
 
     nlohmann::json& assetData = asyncResp->res.jsonValue[jsonKeyName];
 
-    if (manufacturer != nullptr)
+    if (includeManufacturer && manufacturer != nullptr)
     {
         assetData["Manufacturer"] = *manufacturer;
     }
@@ -72,15 +72,15 @@ inline void extractAssetInfo(
     }
 }
 
-inline void getAssetInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& serviceName,
-                         const std::string& dbusPath,
-                         const nlohmann::json::json_pointer& jsonKeyName,
-                         bool includeSparePartNumber = false)
+inline void getAssetInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& dbusPath,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    bool includeSparePartNumber = false, bool includeManufacturer = true)
 {
     dbus::utility::getAllProperties(
         serviceName, dbusPath, "xyz.openbmc_project.Inventory.Decorator.Asset",
-        [asyncResp, jsonKeyName, includeSparePartNumber](
+        [asyncResp, jsonKeyName, includeSparePartNumber, includeManufacturer](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& assetList) {
             if (ec)
@@ -94,7 +94,7 @@ inline void getAssetInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             extractAssetInfo(asyncResp, jsonKeyName, assetList,
-                             includeSparePartNumber);
+                             includeSparePartNumber, includeManufacturer);
         });
 }
 
