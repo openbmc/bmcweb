@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
-#include "redfish.hpp"
-
 #include "bmcweb_config.h"
 
 #include "account_service.hpp"
 #include "aggregation_service.hpp"
 #include "app.hpp"
+#include "assembly.hpp"
 #include "bios.hpp"
 #include "cable.hpp"
 #include "certificate_service.hpp"
@@ -34,6 +33,7 @@
 #include "power_subsystem.hpp"
 #include "power_supply.hpp"
 #include "processor.hpp"
+#include "redfish.hpp"
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
 #include "roles.hpp"
@@ -109,6 +109,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesDrive(app);
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
+    requestRoutesAssembly(app);
 
     requestRoutesSystemLogServiceCollection(app);
     requestRoutesEventLogService(app);
