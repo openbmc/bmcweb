@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/assembly.hpp"
 #include "../lib/bios.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
@@ -86,6 +87,8 @@ class RedfishService
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
+        requestRoutesAssembly(app);
+
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
