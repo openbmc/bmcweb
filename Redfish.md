@@ -388,6 +388,17 @@ Fields common to all schemas
 - SparePartNumber
 - Status
 
+#### /redfish/v1/Chassis/{ChassisId}/Assembly/Assemblies/{AssemblyId}
+
+##### Assembly
+
+- MemberId
+- Model
+- Name
+- PartNumber
+- SerialNumber
+- SparePartNumber
+
 ### /redfish/v1/EventService/
 
 #### EventService
