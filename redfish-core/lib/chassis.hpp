@@ -403,6 +403,10 @@ class Chassis : public Node
                                 {"@odata.id", "/redfish/v1/Chassis/" +
                                                   chassisId + "/PCIeSlots"}};
 
+                            asyncResp->res.jsonValue["Assembly"] = {
+                                {"@odata.id", "/redfish/v1/Chassis/" +
+                                                  chassisId + "/Assembly"}};
+
                             asyncResp->res
                                 .jsonValue["Links"]["ComputerSystems"] = {
                                 {{"@odata.id", "/redfish/v1/Systems/system"}}};
