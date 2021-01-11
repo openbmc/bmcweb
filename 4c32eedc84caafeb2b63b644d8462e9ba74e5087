@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "7a1526b8_5e5b809b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-01-11T13:57:14Z",
+      "side": 1,
+      "message": "Ed, An example one looks like this. It is the association that is hosted by the Inventory manager itself. So, we can not use object-mapper and hence need to use the service. Please let me know if I answered.\n\n\ndbus-send --system --print-reply --dest\u003dxyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/system/chassis/motherboard/fan0 org.freedesktop.DBus.Properties.Get string:\"xyz.openbmc_project.Association.Definitions\" string:\"Associations\"\nmethod return time\u003d1602266163.689146 sender\u003d:1.34 -\u003e destination\u003d:1.222 serial\u003d1029 reply_serial\u003d2\n   variant       array [\n         struct {\n            string \"identify_led_group\"\n            string \"identify_inventory_object\"\n            string \"/xyz/openbmc_project/led/groups/fan0_identify\"\n         }\n      ]",
+      "parentUuid": "dcb4197f_21469df7",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f6ad3f7_12d6a059",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 21
@@ -172,6 +196,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "3f6ad3f7_12d6a059",
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46ee1ae4_b410ccab",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-01-11T13:57:14Z",
+      "side": 1,
+      "message": "By [Done], are you planning on making the change or leaving it as-is ?",
+      "parentUuid": "d953ecc3_f1fa9e5f",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
