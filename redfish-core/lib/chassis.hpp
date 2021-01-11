@@ -392,6 +392,10 @@ inline void requestRoutesChassis(App& app)
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
                                 getChassisState(asyncResp);
+
+                                asyncResp->res.jsonValue["Assembly"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId + "/Assembly"}};
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
@@ -431,7 +435,6 @@ inline void requestRoutesChassis(App& app)
                                 "org.freedesktop.DBus.Properties", "Get",
                                 uuidInterface, "UUID");
                         }
-
                         return;
                     }
 
