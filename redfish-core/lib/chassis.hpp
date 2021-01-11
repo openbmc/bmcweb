@@ -303,6 +303,10 @@ class Chassis : public Node
                         {"@odata.id",
                          "/redfish/v1/Systems/system/PCIeDevices"}};
 
+                    asyncResp->res.jsonValue["Assembly"] = {
+                        {"@odata.id",
+                         "/redfish/v1/Chassis/" + chassisId + "/Assembly"}};
+
                     const std::string& connectionName =
                         connectionNames[0].first;
 
