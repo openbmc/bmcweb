@@ -7,6 +7,7 @@
 #include "account_service.hpp"
 #include "aggregation_service.hpp"
 #include "app.hpp"
+#include "assembly.hpp"
 #include "bios.hpp"
 #include "cable.hpp"
 #include "certificate_service.hpp"
@@ -162,6 +163,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesMemory(app);
 
     requestRoutesSystems(app);
+    requestRoutesAssembly(app);
 
     requestRoutesBiosService(app);
     requestRoutesBiosReset(app);
