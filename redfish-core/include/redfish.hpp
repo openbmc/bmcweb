@@ -17,6 +17,7 @@
 
 #include "account_service.hpp"
 #include "aggregation_service.hpp"
+#include "assembly.hpp"
 #include "bios.hpp"
 #include "cable.hpp"
 #include "certificate_service.hpp"
@@ -112,6 +113,8 @@ class RedfishService
         requestRoutesDrive(app);
         requestRoutesCable(app);
         requestRoutesCableCollection(app);
+        requestRoutesAssembly(app);
+
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
