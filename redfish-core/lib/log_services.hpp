@@ -1390,96 +1390,133 @@ class DBusEventLogEntryCollection : public Node
                 entriesArray = nlohmann::json::array();
                 for (auto& objectPath : resp)
                 {
+                    uint32_t* id = nullptr;
+                    std::time_t timestamp{};
+                    std::time_t updateTimestamp{};
+                    std::string* severity = nullptr;
+                    std::string* message = nullptr;
+                    std::string* filePath = nullptr;
                     for (auto& interfaceMap : objectPath.second)
                     {
-                        if (interfaceMap.first !=
-                            "xyz.openbmc_project.Logging.Entry")
+                        if ((interfaceMap.first !=
+                             "xyz.openbmc_project.Logging.Entry") &&
+                            (interfaceMap.first !=
+                             "xyz.openbmc_project.Common.FilePath"))
                         {
                             BMCWEB_LOG_DEBUG << "Bailing early on "
                                              << interfaceMap.first;
                             continue;
                         }
-                        entriesArray.push_back({});
-                        nlohmann::json& thisEntry = entriesArray.back();
-                        uint32_t* id = nullptr;
-                        std::time_t timestamp{};
-                        std::time_t updateTimestamp{};
-                        std::string* severity = nullptr;
-                        std::string* message = nullptr;
 
-                        for (auto& propertyMap : interfaceMap.second)
+                        if (interfaceMap.first ==
+                            "xyz.openbmc_project.Logging.Entry")
                         {
-                            if (propertyMap.first == "Id")
+                            for (auto& propertyMap : interfaceMap.second)
                             {
-                                id = std::get_if<uint32_t>(&propertyMap.second);
-                                if (id == nullptr)
+                                if (propertyMap.first == "Id")
                                 {
-                                    messages::internalError(asyncResp->res);
+                                    id = std::get_if<uint32_t>(
+                                        &propertyMap.second);
+                                    if (id == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                    }
                                 }
-                            }
-                            else if (propertyMap.first == "Timestamp")
-                            {
-                                const uint64_t* millisTimeStamp =
-                                    std::get_if<uint64_t>(&propertyMap.second);
-                                if (millisTimeStamp == nullptr)
+                                else if (propertyMap.first == "Timestamp")
                                 {
-                                    messages::internalError(asyncResp->res);
-                                }
-                                else
-                                {
-                                    timestamp = crow::utility::getTimestamp(
-                                        *millisTimeStamp);
-                                }
-                            }
-                            else if (propertyMap.first == "UpdateTimestamp")
-                            {
-                                const uint64_t* millisTimeStamp =
-                                    std::get_if<uint64_t>(&propertyMap.second);
-                                if (millisTimeStamp == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
-                                else
-                                {
-                                    updateTimestamp =
-                                        crow::utility::getTimestamp(
+                                    const uint64_t* millisTimeStamp =
+                                        std::get_if<uint64_t>(
+                                            &propertyMap.second);
+                                    if (millisTimeStamp == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                    }
+                                    else
+                                    {
+                                        timestamp = crow::utility::getTimestamp(
                                             *millisTimeStamp);
+                                    }
                                 }
-                            }
-                            else if (propertyMap.first == "Severity")
-                            {
-                                severity = std::get_if<std::string>(
-                                    &propertyMap.second);
-                                if (severity == nullptr)
+                                else if (propertyMap.first == "UpdateTimestamp")
                                 {
-                                    messages::internalError(asyncResp->res);
+                                    const uint64_t* millisTimeStamp =
+                                        std::get_if<uint64_t>(
+                                            &propertyMap.second);
+                                    if (millisTimeStamp == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                    }
+                                    else
+                                    {
+                                        updateTimestamp =
+                                            crow::utility::getTimestamp(
+                                                *millisTimeStamp);
+                                    }
                                 }
-                            }
-                            else if (propertyMap.first == "Message")
-                            {
-                                message = std::get_if<std::string>(
-                                    &propertyMap.second);
-                                if (message == nullptr)
+                                else if (propertyMap.first == "Severity")
                                 {
-                                    messages::internalError(asyncResp->res);
+                                    severity = std::get_if<std::string>(
+                                        &propertyMap.second);
+                                    if (severity == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                    }
+                                }
+                                else if (propertyMap.first == "Message")
+                                {
+                                    message = std::get_if<std::string>(
+                                        &propertyMap.second);
+                                    if (message == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                    }
                                 }
                             }
                         }
-                        thisEntry = {
-                            {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/LogServices/EventLog/"
-                             "Entries/" +
-                                 std::to_string(*id)},
-                            {"Name", "System Event Log Entry"},
-                            {"Id", std::to_string(*id)},
-                            {"Message", *message},
-                            {"EntryType", "Event"},
-                            {"Severity",
-                             translateSeverityDbusToRedfish(*severity)},
-                            {"Created", crow::utility::getDateTime(timestamp)},
-                            {"Modified",
-                             crow::utility::getDateTime(updateTimestamp)}};
+                        else if (interfaceMap.first ==
+                                 "xyz.openbmc_project.Common.FilePath")
+                        {
+                            for (auto& propertyMap : interfaceMap.second)
+                            {
+                                if (propertyMap.first == "Path")
+                                {
+                                    filePath = std::get_if<std::string>(
+                                        &propertyMap.second);
+                                    if (filePath == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (id == nullptr || message == nullptr ||
+                        severity == nullptr)
+                    {
+                        continue;
+                    }
+                    entriesArray.push_back({});
+                    nlohmann::json& thisEntry = entriesArray.back();
+                    thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
+                    thisEntry["@odata.id"] = "/redfish/v1/Systems/system/"
+                                             "LogServices/EventLog/Entries/" +
+                                             std::to_string(*id);
+                    thisEntry["Name"] = "System Event Log Entry";
+                    thisEntry["Id"] = std::to_string(*id);
+                    thisEntry["Message"] = *message;
+                    thisEntry["EntryType"] = "Event";
+                    thisEntry["Severity"] =
+                        translateSeverityDbusToRedfish(*severity);
+                    thisEntry["Created"] =
+                        crow::utility::getDateTime(timestamp);
+                    thisEntry["Modified"] =
+                        crow::utility::getDateTime(updateTimestamp);
+                    if (filePath != nullptr)
+                    {
+                        thisEntry["AdditionalDataURI"] =
+                            "/redfish/v1/Systems/system/LogServices/EventLog/"
+                            "attachment/" +
+                            std::to_string(*id);
                     }
                 }
                 std::sort(entriesArray.begin(), entriesArray.end(),
@@ -1541,6 +1578,7 @@ class DBusEventLogEntry : public Node
                 std::time_t updateTimestamp{};
                 std::string* severity = nullptr;
                 std::string* message = nullptr;
+                std::string* filePath = nullptr;
 
                 for (auto& propertyMap : resp)
                 {
@@ -1597,29 +1635,46 @@ class DBusEventLogEntry : public Node
                             messages::internalError(asyncResp->res);
                         }
                     }
+                    else if (propertyMap.first == "Path")
+                    {
+                        filePath =
+                            std::get_if<std::string>(&propertyMap.second);
+                        if (filePath == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                    }
                 }
                 if (id == nullptr || message == nullptr || severity == nullptr)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
-                    {"@odata.id",
-                     "/redfish/v1/Systems/system/LogServices/EventLog/"
-                     "Entries/" +
-                         std::to_string(*id)},
-                    {"Name", "System Event Log Entry"},
-                    {"Id", std::to_string(*id)},
-                    {"Message", *message},
-                    {"EntryType", "Event"},
-                    {"Severity", translateSeverityDbusToRedfish(*severity)},
-                    {"Created", crow::utility::getDateTime(timestamp)},
-                    {"Modified", crow::utility::getDateTime(updateTimestamp)}};
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogEntry.v1_7_0.LogEntry";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
+                    std::to_string(*id);
+                asyncResp->res.jsonValue["Name"] = "System Event Log Entry";
+                asyncResp->res.jsonValue["Id"] = std::to_string(*id);
+                asyncResp->res.jsonValue["Message"] = *message;
+                asyncResp->res.jsonValue["EntryType"] = "Event";
+                asyncResp->res.jsonValue["Severity"] =
+                    translateSeverityDbusToRedfish(*severity);
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTime(timestamp);
+                asyncResp->res.jsonValue["Modified"] =
+                    crow::utility::getDateTime(updateTimestamp);
+                if (filePath != nullptr)
+                {
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/EventLog/"
+                        "attachment/" +
+                        std::to_string(*id);
+                }
             },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
-            "org.freedesktop.DBus.Properties", "GetAll",
-            "xyz.openbmc_project.Logging.Entry");
+            "org.freedesktop.DBus.Properties", "GetAll", "");
     }
 
     void doDelete(crow::Response& res, const crow::Request&,
@@ -1661,6 +1716,83 @@ class DBusEventLogEntry : public Node
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
+    }
+};
+
+class DBusEventLogEntryDownload : public Node
+{
+  public:
+    DBusEventLogEntryDownload(App& app) :
+        Node(
+            app,
+            "/redfish/v1/Systems/system/LogServices/EventLog/attachment/<str>/",
+            std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string& entryID = params[0];
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::string>& filePath) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                const std::string* value = std::get_if<std::string>(&filePath);
+                if (value == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                std::string entryPath = *value;
+                std::ifstream readFile(entryPath);
+                if (!readFile)
+                {
+                    BMCWEB_LOG_DEBUG << "Could not read: " << entryPath;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                std::vector<char> data{std::istreambuf_iterator<char>(readFile),
+                                       std::istreambuf_iterator<char>()};
+                auto size = std::filesystem::file_size(entryPath);
+                auto output = crow::utility::base64encode(
+                    data.data(), static_cast<size_t>(size));
+
+                asyncResp->res.addHeader("Content-Type", "text/plain");
+                asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+                std::string contentDispositionParam =
+                    "attachment; filename=\"" + entryPath + "\"";
+                asyncResp->res.addHeader("Content-Disposition",
+                                         contentDispositionParam);
+                asyncResp->res.body() = output;
+            },
+            "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Common.FilePath", "Path");
     }
 };
 
