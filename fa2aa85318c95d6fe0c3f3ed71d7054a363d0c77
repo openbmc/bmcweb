@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "375f4832_02f79abe",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-11T15:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b9861f2_c954b691",
+      "range": {
+        "startLine": 603,
+        "startChar": 13,
+        "endLine": 604,
+        "endChar": 13
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbb505a1_6e764ef8",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2020-12-21T09:28:29Z",
       "side": 1,
       "message": "Best would be to move it out of this method to avoid any mistake in future. Follow the pattern that every time that AsyncResp is required you create it at the begging of the request method, e.g. line 810",
+      "range": {
+        "startLine": 636,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 49
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef44c06_7f8e512b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-11T15:36:44Z",
+      "side": 1,
+      "message": "i got your point, most of handlers follow same approach in this file..\ni dont see any harm doing this way..",
+      "parentUuid": "fbb505a1_6e764ef8",
       "range": {
         "startLine": 636,
         "startChar": 0,
@@ -140,6 +188,54 @@
     },
     {
       "key": {
+        "uuid": "50d58e79_e4cfe051",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-11T15:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2817a14b_0eae8c83",
+      "range": {
+        "startLine": 643,
+        "startChar": 25,
+        "endLine": 643,
+        "endChar": 34
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7487f8bc_cc29fb3f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-11T15:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97ff2fac_972ac54b",
+      "range": {
+        "startLine": 643,
+        "startChar": 20,
+        "endLine": 643,
+        "endChar": 23
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75f78354_ff34b93a",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 11
@@ -183,6 +279,30 @@
       "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b06bac_8a213fad",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-11T15:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3f682a8_a22830e4",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 63
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
