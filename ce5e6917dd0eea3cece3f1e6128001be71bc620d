@@ -308,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "ed163e2c_c1ddf4ee",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-11T11:25:19Z",
+      "side": 1,
+      "message": "I missed this in PS10. Have updated it in the latest PS (11)",
+      "parentUuid": "8e9f4020_84608146",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 21
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89d9d56a_b8816862",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 10
@@ -367,6 +391,30 @@
       "side": 1,
       "message": "Ah, I missed part of that in my reading.  Why does the BIOS API require two calls to set an attribute and lookup the type?  Shouldn\u0027t we already know the type from the json, and can\u0027t the API itself be typeless?  Can it be simplified to only require one?\n\nThis kind of API (check some attribute to build request) is somewhat an anti-pattern, and complicates the API.",
       "parentUuid": "aabc14c4_76eccf3c",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c2685a_8adb1bc8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-11T11:25:19Z",
+      "side": 1,
+      "message": "\u003e Why does the BIOS API require two calls to set an attribute and lookup the type?\n\u003eand can\u0027t the API itself be typeless?\nI think the patchset 10 has created a confusion. The API now is typeless. (My latest PS 11 changes) So I am having two calls i) to populate the map of attr names to their types; ii) set the pending attributes",
+      "parentUuid": "1be1aca3_1ce14970",
       "range": {
         "startLine": 409,
         "startChar": 0,
