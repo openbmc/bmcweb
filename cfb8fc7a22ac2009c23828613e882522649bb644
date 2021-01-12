@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b4f45932_34899ed0",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-12T04:28:22Z",
+      "side": 1,
+      "message": "There\u0027s lots of code (a vast majority in fact) that manage to return responses without using res.end().   I\u0027d recommend starting by looking at those.",
+      "parentUuid": "c98fb377_82b06cdb",
+      "range": {
+        "startLine": 673,
+        "startChar": 0,
+        "endLine": 673,
+        "endChar": 30
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a50a3036_81faeda5",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "What is the reason behind removing the regex ? Can you please suggest what is the substitute for this ?",
       "parentUuid": "a50a3036_81faeda5",
+      "range": {
+        "startLine": 687,
+        "startChar": 27,
+        "endLine": 687,
+        "endChar": 33
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb0c7e6d_69214cdd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-12T04:28:22Z",
+      "side": 1,
+      "message": "Std::regex is slow, takes a lot of memory, and complicates things that should be simple.  In most cases, there are much more performant alternatives that are more clear in code.  I\u0027d recommend looking at and reviewing the existing patchset for ideas on how yours could be done.",
+      "parentUuid": "bddd21db_b16bb241",
       "range": {
         "startLine": 687,
         "startChar": 27,
