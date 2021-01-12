@@ -227,6 +227,30 @@
     },
     {
       "key": {
+        "uuid": "5161ba57_ae9043fc",
+        "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-01-12T04:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "385f7daf_c7cf3f05",
+      "range": {
+        "startLine": 842,
+        "startChar": 53,
+        "endLine": 842,
+        "endChar": 66
+      },
+      "revId": "166bce466ad1e23007efe3219065fc291842ef8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9e341fe_a812aa30",
         "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
         "patchSetId": 2
