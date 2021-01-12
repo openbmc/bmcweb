@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "967671e8_96a5bfab",
+        "filename": "meson_options.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "The reason i set the value to disable here is that this feature is depend on phosphor-hostlogger and the package doesn\u0027t use widely. Should i set the value to enable by default?",
+      "parentUuid": "129f6ba0_5c17ae46",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebb6102c_b1590e51",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af0f337_32f5920c",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebb6102c_b1590e51",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 31
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "4a2fe487_8bcb7d34",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ac6fd9e_423b1256",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bda29d59_717147cc",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 4
@@ -139,6 +211,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f2b0323_47ff49f1",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Thank you for the feedback, we choose to use buf.resize(lineLimit) to build it.",
+      "parentUuid": "bda29d59_717147cc",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "b126e4f1_64b1d05b",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a25f90ba_3e4c235e",
+      "range": {
+        "startLine": 40,
+        "startChar": 43,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f470403_b4db6f35",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 4
@@ -185,6 +305,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f8304c5_9ffa7889",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Yes, i think it can be the empty line here, the check is not correct. And since we use buf.resize(lineLimit) to replace line array, we remove the code here.",
+      "parentUuid": "9f470403_b4db6f35",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 37
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -211,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "d2b31c83_389353b2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1675,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c90272e_bb8f8f49",
+      "range": {
+        "startLine": 1675,
+        "startChar": 0,
+        "endLine": 1675,
+        "endChar": 7
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f58e0a0f_eed1b6e7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -231,6 +399,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b2018d7_fd620319",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "i think i misunderstanding here before, thank you for the suggestion.",
+      "parentUuid": "f58e0a0f_eed1b6e7",
+      "range": {
+        "startLine": 1683,
+        "startChar": 0,
+        "endLine": 1683,
+        "endChar": 69
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "7e85c1b2_3c49da39",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1705,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "324a1045_531b1407",
+      "range": {
+        "startLine": 1705,
+        "startChar": 0,
+        "endLine": 1705,
+        "endChar": 5
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9339514b_0384e033",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -277,6 +493,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18354961_0bb4042a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1722,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9339514b_0384e033",
+      "range": {
+        "startLine": 1722,
+        "startChar": 0,
+        "endLine": 1722,
+        "endChar": 58
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -397,6 +637,30 @@
     },
     {
       "key": {
+        "uuid": "3a88297e_4d3e3ee1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "610002fe_07f10162",
+      "range": {
+        "startLine": 1740,
+        "startChar": 0,
+        "endLine": 1740,
+        "endChar": 7
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1472b349_b096bc1a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -431,6 +695,30 @@
       "writtenOn": "2020-12-30T18:17:01Z",
       "side": 1,
       "message": "This message ID doesn\u0027t exist.  You\u0027ll need to add a registry for it.",
+      "range": {
+        "startLine": 1754,
+        "startChar": 35,
+        "endLine": 1754,
+        "endChar": 45
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "696be331_9433fadb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "I am working on it and will be pushed in next patch.",
+      "parentUuid": "fbda1eb9_8ba9fa8f",
       "range": {
         "startLine": 1754,
         "startChar": 35,
@@ -513,6 +801,30 @@
     },
     {
       "key": {
+        "uuid": "668eed7e_3c911241",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Remove \"BMCWEB_ENABLE_DEBUG\" here",
+      "parentUuid": "b6e117d1_d9bbbbbb",
+      "range": {
+        "startLine": 1835,
+        "startChar": 0,
+        "endLine": 1835,
+        "endChar": 26
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec8eef55_c1e4df2b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -533,6 +845,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421938d5_a6d95be3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-01-12T11:32:43Z",
+      "side": 1,
+      "message": "Modify the sorting function here",
+      "parentUuid": "ec8eef55_c1e4df2b",
+      "range": {
+        "startLine": 1856,
+        "startChar": 0,
+        "endLine": 1857,
+        "endChar": 18
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
