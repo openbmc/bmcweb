@@ -41,7 +41,7 @@
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
-#include "../lib/hypervisor_ethernet.hpp"
+#include "../lib/hypervisor_system.hpp"
 
 namespace redfish
 {
