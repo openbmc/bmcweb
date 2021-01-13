@@ -7,6 +7,7 @@
 #include <hostname_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
 #include <image_upload.hpp>
+#include <include/sessions.hpp>
 #include <kvm_websocket.hpp>
 #include <login_routes.hpp>
 #include <obmc_console.hpp>
@@ -152,6 +153,9 @@ int main(int /*argc*/, char** /*argv*/)
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
 #endif
+
+    // Initialize the role storage
+    persistent_data::UserRoleMap::getInstance();
 
     app.run();
     io->run();
