@@ -1195,6 +1195,26 @@ class Router
         BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rules[ruleIndex]->rule
                          << "' " << static_cast<uint32_t>(req.method()) << " / "
                          << rules[ruleIndex]->getMethods();
+        redfish::Privileges userPrivileges;
+        if (req.session != nullptr)
+        {
+            // Get the user role from the session.
+            const std::string& userRole =
+                persistent_data::UserRoleMap::getInstance().getUserRole(
+                    req.session->username);
+
+            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
+
+            // Get the user privileges from the role
+            userPrivileges = redfish::getUserPrivileges(userRole);
+        }
+
+        if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
+        {
+            res.result(boost::beast::http::status::forbidden);
+            res.end();
+            return;
+        }
 
         // any uncaught exceptions become 500s
         try
@@ -1297,123 +1317,46 @@ class Router
         BMCWEB_LOG_DEBUG << "Matched rule '" << rules[ruleIndex]->rule << "' "
                          << static_cast<uint32_t>(req.method()) << " / "
                          << rules[ruleIndex]->getMethods();
-
-        if (req.session == nullptr)
+        redfish::Privileges userPrivileges;
+        if (req.session != nullptr)
         {
-            rules[ruleIndex]->handle(req, asyncResp, found.second);
+            const std::string& userRole =
+                persistent_data::UserRoleMap::getInstance().getUserRole(
+                    req.session->username);
+
+            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
+
+            // Get the user privileges from the role
+            userPrivileges = redfish::getUserPrivileges(userRole);
+        }
+
+        if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
+        {
+            asyncResp->res.result(boost::beast::http::status::forbidden);
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
-            [&req, asyncResp, &rules, ruleIndex, found](
-                const boost::system::error_code ec,
-                std::map<std::string, std::variant<bool, std::string,
-                                                   std::vector<std::string>>>
-                    userInfo) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    return;
-                }
-
-                const std::string* userRolePtr = nullptr;
-                auto userInfoIter = userInfo.find("UserPrivilege");
-                if (userInfoIter != userInfo.end())
-                {
-                    userRolePtr =
-                        std::get_if<std::string>(&userInfoIter->second);
-                }
-
-                std::string userRole{};
-                if (userRolePtr != nullptr)
-                {
-                    userRole = *userRolePtr;
-                    BMCWEB_LOG_DEBUG << "userName = " << req.session->username
-                                     << " userRole = " << *userRolePtr;
-                }
-
-                bool* remoteUserPtr = nullptr;
-                auto remoteUserIter = userInfo.find("RemoteUser");
-                if (remoteUserIter != userInfo.end())
-                {
-                    remoteUserPtr = std::get_if<bool>(&remoteUserIter->second);
-                }
-                if (remoteUserPtr == nullptr)
-                {
-                    BMCWEB_LOG_ERROR
-                        << "RemoteUser property missing or wrong type";
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    return;
-                }
-                bool remoteUser = *remoteUserPtr;
-
-                bool passwordExpired = false; // default for remote user
-                if (!remoteUser)
-                {
-                    bool* passwordExpiredPtr = nullptr;
-                    auto passwordExpiredIter =
-                        userInfo.find("UserPasswordExpired");
-                    if (passwordExpiredIter != userInfo.end())
-                    {
-                        passwordExpiredPtr =
-                            std::get_if<bool>(&passwordExpiredIter->second);
-                    }
-                    if (passwordExpiredPtr != nullptr)
-                    {
-                        passwordExpired = *passwordExpiredPtr;
-                    }
-                    else
-                    {
-                        BMCWEB_LOG_ERROR
-                            << "UserPasswordExpired property is expected for"
-                               " local user but is missing or wrong type";
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
-                        return;
-                    }
-                }
-
-                // Get the userprivileges from the role
-                redfish::Privileges userPrivileges =
-                    redfish::getUserPrivileges(userRole);
-
-                // Set isConfigureSelfOnly based on D-Bus results.  This
-                // ignores the results from both pamAuthenticateUser and the
-                // value from any previous use of this session.
-                req.session->isConfigureSelfOnly = passwordExpired;
-
-                // Modifyprivileges if isConfigureSelfOnly.
-                if (req.session->isConfigureSelfOnly)
-                {
-                    // Remove allprivileges except ConfigureSelf
-                    userPrivileges = userPrivileges.intersection(
-                        redfish::Privileges{"ConfigureSelf"});
-                    BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
-                }
-
-                if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
-                {
-                    asyncResp->res.result(
-                        boost::beast::http::status::forbidden);
-                    if (req.session->isConfigureSelfOnly)
-                    {
-                        redfish::messages::passwordChangeRequired(
-                            asyncResp->res,
-                            "/redfish/v1/AccountService/Accounts/" +
-                                req.session->username);
-                    }
-                    return;
-                }
-
-                req.userRole = userRole;
-                rules[ruleIndex]->handle(req, asyncResp, found.second);
-            },
-            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "GetUserInfo",
-            req.session->username);
+        // any uncaught exceptions become 500s
+        try
+        {
+            rules[ruleIndex]->handle(req, asyncResp, found.second);
+        }
+        catch (std::exception& e)
+        {
+            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+        catch (...)
+        {
+            BMCWEB_LOG_ERROR
+                << "An uncaught exception occurred. The type was unknown "
+                   "so no information was available.";
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
     }
 
     void debugPrint()
