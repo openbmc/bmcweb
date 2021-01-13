@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "341da8b3_78eac88e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1483,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-13T15:59:58Z",
+      "side": 1,
+      "message": "all of these have additionalData?",
+      "range": {
+        "startLine": 1483,
+        "startChar": 30,
+        "endLine": 1483,
+        "endChar": 47
+      },
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "827975a2_24017ca7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
