@@ -253,6 +253,24 @@
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71148e14_ee6e38fc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-13T07:22:26Z",
+      "side": 1,
+      "message": "Oh, Sorry, I see 😊\nDone",
+      "parentUuid": "a578191a_e04307b5",
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
