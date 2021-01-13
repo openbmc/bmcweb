@@ -36,7 +36,6 @@ namespace nbd_proxy
 using boost::asio::local::stream_protocol;
 
 static constexpr auto nbdBufferSize = 131088;
-static const char* requiredPrivilegeString = "ConfigureManager";
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {
@@ -252,171 +251,106 @@ inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/nbd/<str>")
         .websocket()
+        .privileges({"ConfigureManager"})
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
-            auto getUserInfoHandler =
-                [&conn, asyncResp](
-                    const boost::system::error_code ec,
-                    boost::container::flat_map<
-                        std::string, std::variant<bool, std::string,
-                                                  std::vector<std::string>>>
-                        userInfo) {
-                    if (ec)
+            auto openHandler = [&conn, asyncResp](
+                                   const boost::system::error_code ec,
+                                   const dbus::utility::ManagedObjectType&
+                                       objects) {
+                const std::string* socketValue = nullptr;
+                const std::string* endpointValue = nullptr;
+                const std::string* endpointObjectPath = nullptr;
+
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
+                    conn.close("Failed to create mount point");
+                    return;
+                }
+
+                for (const auto& objectPath : objects)
+                {
+                    const auto interfaceMap = objectPath.second.find(
+                        "xyz.openbmc_project.VirtualMedia.MountPoint");
+
+                    if (interfaceMap == objectPath.second.end())
                     {
-                        BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-                        conn.close("Failed to get user information");
+                        BMCWEB_LOG_DEBUG << "Cannot find MountPoint object";
+                        continue;
+                    }
+
+                    const auto endpoint =
+                        interfaceMap->second.find("EndpointId");
+                    if (endpoint == interfaceMap->second.end())
+                    {
+                        BMCWEB_LOG_DEBUG << "Cannot find EndpointId property";
+                        continue;
+                    }
+
+                    endpointValue = std::get_if<std::string>(&endpoint->second);
+
+                    if (endpointValue == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "EndpointId property value is null";
+                        continue;
+                    }
+
+                    if (*endpointValue == conn.req.target())
+                    {
+                        const auto socket = interfaceMap->second.find("Socket");
+                        if (socket == interfaceMap->second.end())
+                        {
+                            BMCWEB_LOG_DEBUG << "Cannot find Socket property";
+                            continue;
+                        }
+
+                        socketValue = std::get_if<std::string>(&socket->second);
+                        if (socketValue == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR << "Socket property value is null";
+                            continue;
+                        }
+
+                        endpointObjectPath = &objectPath.first.str;
+                        break;
+                    }
+                }
+
+                if (objects.empty() || endpointObjectPath == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Cannot find requested EndpointId";
+                    conn.close("Failed to match EndpointId");
+                    return;
+                }
+
+                for (const auto& session : sessions)
+                {
+                    if (session.second->getEndpointId() == conn.req.target())
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Cannot open new connection - socket is "
+                               "in use";
+                        conn.close("Slot is in use");
                         return;
                     }
+                }
 
-                    const std::string* userRolePtr = nullptr;
-                    auto userInfoIter = userInfo.find("UserPrivilege");
-                    if (userInfoIter != userInfo.end())
-                    {
-                        userRolePtr =
-                            std::get_if<std::string>(&userInfoIter->second);
-                    }
+                // If the socket file exists (i.e. after bmcweb crash),
+                // we cannot reuse it.
+                std::remove((*socketValue).c_str());
 
-                    std::string userRole{};
-                    if (userRolePtr != nullptr)
-                    {
-                        userRole = *userRolePtr;
-                        BMCWEB_LOG_DEBUG << "userName = " << conn.getUserName()
-                                         << " userRole = " << *userRolePtr;
-                    }
+                sessions[&conn] = std::make_shared<NbdProxyServer>(
+                    conn, *socketValue, *endpointValue, *endpointObjectPath);
 
-                    // Get the user privileges from the role
-                    ::redfish::Privileges userPrivileges =
-                        ::redfish::getUserPrivileges(userRole);
-
-                    const ::redfish::Privileges requiredPrivileges{
-                        requiredPrivilegeString};
-
-                    if (!userPrivileges.isSupersetOf(requiredPrivileges))
-                    {
-                        BMCWEB_LOG_DEBUG
-                            << "User " << conn.getUserName()
-                            << " not authorized for nbd connection";
-                        conn.close("Unathourized access");
-                        return;
-                    }
-
-                    auto openHandler = [&conn, asyncResp](
-                                           const boost::system::error_code ec,
-                                           const dbus::utility::
-                                               ManagedObjectType& objects) {
-                        const std::string* socketValue = nullptr;
-                        const std::string* endpointValue = nullptr;
-                        const std::string* endpointObjectPath = nullptr;
-
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
-                            conn.close("Failed to create mount point");
-                            return;
-                        }
-
-                        for (const auto& objectPath : objects)
-                        {
-                            const auto interfaceMap = objectPath.second.find(
-                                "xyz.openbmc_project.VirtualMedia.MountPoint");
-
-                            if (interfaceMap == objectPath.second.end())
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Cannot find MountPoint object";
-                                continue;
-                            }
-
-                            const auto endpoint =
-                                interfaceMap->second.find("EndpointId");
-                            if (endpoint == interfaceMap->second.end())
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Cannot find EndpointId property";
-                                continue;
-                            }
-
-                            endpointValue =
-                                std::get_if<std::string>(&endpoint->second);
-
-                            if (endpointValue == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "EndpointId property value is null";
-                                continue;
-                            }
-
-                            if (*endpointValue == conn.req.target())
-                            {
-                                const auto socket =
-                                    interfaceMap->second.find("Socket");
-                                if (socket == interfaceMap->second.end())
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Cannot find Socket property";
-                                    continue;
-                                }
-
-                                socketValue =
-                                    std::get_if<std::string>(&socket->second);
-                                if (socketValue == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "Socket property value is null";
-                                    continue;
-                                }
-
-                                endpointObjectPath = &objectPath.first.str;
-                                break;
-                            }
-                        }
-
-                        if (objects.empty() || endpointObjectPath == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR
-                                << "Cannot find requested EndpointId";
-                            conn.close("Failed to match EndpointId");
-                            return;
-                        }
-
-                        for (const auto& session : sessions)
-                        {
-                            if (session.second->getEndpointId() ==
-                                conn.req.target())
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "Cannot open new connection - socket is "
-                                       "in use";
-                                conn.close("Slot is in use");
-                                return;
-                            }
-                        }
-
-                        // If the socket file exists (i.e. after bmcweb crash),
-                        // we cannot reuse it.
-                        std::remove((*socketValue).c_str());
-
-                        sessions[&conn] = std::make_shared<NbdProxyServer>(
-                            conn, *socketValue, *endpointValue,
-                            *endpointObjectPath);
-
-                        sessions[&conn]->run();
-                    };
-                    crow::connections::systemBus->async_method_call(
-                        std::move(openHandler),
-                        "xyz.openbmc_project.VirtualMedia",
-                        "/xyz/openbmc_project/VirtualMedia",
-                        "org.freedesktop.DBus.ObjectManager",
-                        "GetManagedObjects");
-                };
-
+                sessions[&conn]->run();
+            };
             crow::connections::systemBus->async_method_call(
-                std::move(getUserInfoHandler),
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "xyz.openbmc_project.User.Manager", "GetUserInfo",
-                conn.getUserName());
+                std::move(openHandler), "xyz.openbmc_project.VirtualMedia",
+                "/xyz/openbmc_project/VirtualMedia",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         })
         .onclose(
             [](crow::websocket::Connection& conn, const std::string& reason) {

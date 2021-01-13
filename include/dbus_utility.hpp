@@ -82,6 +82,28 @@ inline bool getNthStringFromPath(const std::string& path, int index,
     return true;
 }
 
+inline std::optional<std::string> getLeaf(const std::string& path)
+{
+    size_t index = path.rfind('/');
+    if (index == std::string::npos)
+    {
+        return std::nullopt;
+    }
+    index++;
+    if (index >= path.size())
+    {
+        return std::nullopt;
+    }
+
+    return path.substr(index);
+}
+
+inline std::optional<std::string>
+    getLeaf(const sdbusplus::message::object_path& path)
+{
+    return getLeaf(static_cast<std::string>(path));
+}
+
 template <typename Callback>
 inline void checkDbusPathExists(const std::string& path, Callback&& callback)
 {
