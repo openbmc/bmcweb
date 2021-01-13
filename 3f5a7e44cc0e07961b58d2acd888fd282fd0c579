@@ -63,6 +63,24 @@
       "revId": "3f5a7e44cc0e07961b58d2acd888fd282fd0c579",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9649f798_8d423a9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-01-13T17:39:48Z",
+      "side": 1,
+      "message": "I do not have a use case to disable HTTPS.  The Redfish spec allows it (ManagerNetworkProtocol.json) and some OpenBMC downstream users might want it (specifically, systems that manage their BMC via the host).  I would be okay with this function if I could remove it from my image.  Because (like Ed said) I don\u0027t want to give my users a way to disable HTTPS.\n\nI believe this review is associated with https://github.com/ibm-openbmc/dev/issues/1763 which calls for a way to disable SSH and HTTP and SSH.",
+      "parentUuid": "22e993ad_5b7e722c",
+      "revId": "3f5a7e44cc0e07961b58d2acd888fd282fd0c579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
