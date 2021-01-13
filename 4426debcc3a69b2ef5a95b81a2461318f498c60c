@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "827975a2_24017ca7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2021-01-13T14:39:24Z",
+      "side": 1,
+      "message": "do people usually check for nullptrs after calling this?",
+      "range": {
+        "startLine": 1716,
+        "startChar": 43,
+        "endLine": 1716,
+        "endChar": 54
+      },
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f01a25a1_7d901902",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2021-01-13T14:39:24Z",
+      "side": 1,
+      "message": "or need to check for file IO problems?",
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
