@@ -24,10 +24,6 @@ struct Connection : std::enable_shared_from_this<Connection>
         req(reqIn.req), userdataPtr(nullptr)
     {}
 
-    explicit Connection(const crow::Request& reqIn, std::string user) :
-        req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr)
-    {}
-
     Connection(const Connection&) = delete;
     Connection(Connection&&) = delete;
     Connection& operator=(const Connection&) = delete;
@@ -50,16 +46,10 @@ struct Connection : std::enable_shared_from_this<Connection>
         return userdataPtr;
     }
 
-    const std::string& getUserName() const
-    {
-        return userName;
-    }
-
     boost::beast::http::request<boost::beast::http::string_body> req;
     crow::Response res;
 
   private:
-    std::string userName{};
     void* userdataPtr;
 };
 
@@ -74,8 +64,7 @@ class ConnectionImpl : public Connection
             messageHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
         std::function<void(Connection&)> errorHandlerIn) :
-        Connection(reqIn, reqIn.session == nullptr ? std::string{}
-                                                   : reqIn.session->username),
+        Connection(reqIn),
         ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
