@@ -81,6 +81,24 @@
       "revId": "3f5a7e44cc0e07961b58d2acd888fd282fd0c579",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f65872_b949305f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-13T17:53:36Z",
+      "side": 1,
+      "message": "\u003e I do not have a use case to disable HTTPS.  The Redfish spec allows it (ManagerNetworkProtocol.json) and some OpenBMC downstream users might want it (specifically, systems that manage their BMC via the host).  I would be okay with this function if I could remove it from my image.  Because (like Ed said) I don\u0027t want to give my users a way to disable HTTPS.\n\u003e \n\u003e I believe this review is associated with https://github.com/ibm-openbmc/dev/issues/1763 which calls for a way to disable SSH and HTTP and SSH.\n\nMy worry here is that we\u0027re opening a DOS vector.  If users have a way to disable an interface from said interface, that leaves a user open to accidentally locking themselves out.  That\u0027s why this wasn\u0027t implemented before.  I\u0027d fully support disabling the HTTPS interface over a different API (ipmi, ect) or if we could differentiate enablement based on channels, so it wasn\u0027t possible for a user to lock themselves out of a system, but as written, this patchset seems really dangerous to have.",
+      "parentUuid": "9649f798_8d423a9e",
+      "revId": "3f5a7e44cc0e07961b58d2acd888fd282fd0c579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
