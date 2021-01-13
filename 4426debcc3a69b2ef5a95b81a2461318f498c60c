@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae9c81a2_5c6ef1c6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1483,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-13T18:49:52Z",
+      "side": 1,
+      "message": "Yeah, with the phosphor-logging change, by default all the logging entries have a File Path populated now. Even if the bmc is updated to a version that has the phosphor logging change, all d-bus entries will have a File Path property populated when the phosphor-logging app creates the d-bus objects after bmc reboot.\n\nI looked into reading the File Path property in order to determine if AdditionalDataURI should be populated or not, but it would require a complete overhaul of how we currently query all the entries (/redfish/v1/Systems/system/LogServices/EventLog/Entries/) because the Path property is in a different interface (xyz.openbmc_project.Common.FilePath ) and that didn\u0027t seem worth it because we don\u0027t need the value of the File Path, and because the File Path is populated by default, so in the case where an image has new bmcweb but old phosphor-logging, and the user tries to download the attachment file and the File Property doesn\u0027t exist, an error will be returned.",
+      "parentUuid": "341da8b3_78eac88e",
+      "range": {
+        "startLine": 1483,
+        "startChar": 30,
+        "endLine": 1483,
+        "endChar": 47
+      },
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "827975a2_24017ca7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "915297a5_497eca7b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-13T18:49:52Z",
+      "side": 1,
+      "message": "Done. Yeah, better to check than to try to open a null file path.",
+      "parentUuid": "827975a2_24017ca7",
+      "range": {
+        "startLine": 1716,
+        "startChar": 43,
+        "endLine": 1716,
+        "endChar": 54
+      },
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f01a25a1_7d901902",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -62,6 +110,24 @@
       "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11aedb0b_50e9898c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-13T18:49:52Z",
+      "side": 1,
+      "message": "Done. Yeah, that way we don\u0027t end up with an empty file offloaded.",
+      "parentUuid": "f01a25a1_7d901902",
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
