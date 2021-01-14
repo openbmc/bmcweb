@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7303443e_6f388126",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-14T20:39:20Z",
+      "side": 1,
+      "message": "Update to reflect the latest patch set?\n\n        if (subValue-\u003eprotocol !\u003d \"SNMPv2c\")\n        {\n            asyncResp-\u003eres.jsonValue[\"Context\"] \u003d subValue-\u003ecustomText;\n            asyncResp-\u003eres.jsonValue[\"HttpHeaders\"] \u003d subValue-\u003ehttpHeaders;\n            asyncResp-\u003eres.jsonValue[\"MessageIds\"] \u003d subValue-\u003eregistryMsgIds;\n            asyncResp-\u003eres.jsonValue[\"RegistryPrefixes\"] \u003d\n                subValue-\u003eregistryPrefixes;\n            asyncResp-\u003eres.jsonValue[\"ResourceTypes\"] \u003d subValue-\u003eresourceTypes;",
+      "revId": "31ac7fc3ae955ad1404bd85e7d00239271d2fa69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d88e37b_644e1815",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-14T20:39:20Z",
+      "side": 1,
+      "message": "why 162 here but port 58 above?",
+      "range": {
+        "startLine": 84,
+        "startChar": 41,
+        "endLine": 84,
+        "endChar": 57
+      },
+      "revId": "31ac7fc3ae955ad1404bd85e7d00239271d2fa69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
