@@ -100,6 +100,13 @@ class ConnectionImpl : public Connection
                 boost::beast::websocket::response_type& m) {
 
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
+                if (session == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Websocket had no session";
+                    m.result(boost::beast::http::status::unauthorized);
+                    return;
+                }
+
                 // use protocol for csrf checking
                 if (session->cookieAuth &&
                     !crow::utility::constantTimeStringCompare(
