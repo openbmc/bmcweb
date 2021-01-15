@@ -380,8 +380,7 @@ class WebSocketRule : public BaseRule
     }
 
   protected:
-    std::function<void(crow::websocket::Connection&,
-                       std::shared_ptr<bmcweb::AsyncResp>)>
+    std::function<void(crow::websocket::Connection&)>
         openHandler;
     std::function<void(crow::websocket::Connection&, const std::string&, bool)>
         messageHandler;

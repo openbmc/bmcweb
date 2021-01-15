@@ -457,10 +457,6 @@ class Connection :
         req->ioService = static_cast<boost::asio::io_context*>(
             &socket().get_executor().context());
 
-        res.completeRequestHandler = [self{shared_from_this()}] {
-            self->completeRequest();
-        };
-
         if (req->isUpgrade() &&
             boost::iequals(
                 req->getHeaderValue(boost::beast::http::field::upgrade),
@@ -469,17 +465,25 @@ class Connection :
             // only allow upgrade if request is SSL
             boost::beast::ssl_stream<Adaptor>* sslStream =
                 std::get_if<boost::beast::ssl_stream<Adaptor>>(&adaptor);
-            if (sslStream != nullptr)
+            if (sslStream == nullptr)
+            {
+                res.result(boost::beast::http::status::bad_request);
+                completeRequest();
+                return;
+            }
+            else
             {
                 handler
                     ->template handleUpgrade<boost::beast::ssl_stream<Adaptor>>(
                         *req, res, std::move(*sslStream));
+                return;
             }
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            res.completeRequestHandler = nullptr;
-            return;
         }
+
+        res.completeRequestHandler = [self{shared_from_this()}] {
+            self->completeRequest();
+        };
+
         handler->handle(*req, res);
     }
 
