@@ -22,6 +22,282 @@
       "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e970725_7889afa2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "A processor not having subprocessors is not an error, especially if you\u0027ve filled in the link in redfish.",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 52
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f701ae5_77424f5e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "ends_with is not a sufficient check\n\nprocessorId 11core will also match for 1core.\n\nLots of people make this mistake.  I\u0027m working on a helper method in sdbusplus so that this is much easier to get right.  Please help review if you have time.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/39158",
+      "range": {
+        "startLine": 787,
+        "startChar": 16,
+        "endLine": 787,
+        "endChar": 65
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9c50a03_1237638b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "Core cores have to be called \"core\" for this to work?  That doesn\u0027t seem right.",
+      "range": {
+        "startLine": 813,
+        "startChar": 62,
+        "endLine": 813,
+        "endChar": 67
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ae2723_91f2d53a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "please separate this out instead of doing it all in one check.\n\nAlso, do we need to return an internal error on some of these?\n\nAlso, should this continue, not return?",
+      "range": {
+        "startLine": 821,
+        "startChar": 0,
+        "endLine": 826,
+        "endChar": 33
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0173227_40ba7a67",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "remove.  no need to explicitly return for a method that returns void.",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 35
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb8fbdd_4e073d3c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "remove.  no need to explicitly return for a method that returns void.",
+      "range": {
+        "startLine": 841,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 23
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63bd794_38a55b92",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "see other comment.  This is going to return odata.id that was set in the node doGet method.",
+      "range": {
+        "startLine": 844,
+        "startChar": 22,
+        "endLine": 844,
+        "endChar": 38
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7dae609_63ed1747",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "remove.  no need to explicitly return for a method that returns void.",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 19
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92820774_042fb5c5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "Can we include processorid in this path, so we only search for the subcores we care about, and don\u0027t have to do a secondary search from bmcweb?  Or are the core locations not regular enough for that?",
+      "range": {
+        "startLine": 850,
+        "startChar": 9,
+        "endLine": 850,
+        "endChar": 39
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25592ff7_9e45ecde",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "Move the AsyncResp to line 1243 and delete this line.",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1248,
+        "endChar": 22
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50cff6b0_284e6b2d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "Don\u0027t you need to check that this processor exists before filling this in?\n\nPlease try a bad url like /redfish/v1/systems/Processors/foobar/SubProcessors\n\nand make sure the returned response is correct.  Given this, I suspect it wont be.",
+      "range": {
+        "startLine": 1254,
+        "startChar": 0,
+        "endLine": 1259,
+        "endChar": 0
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf7c7142_9e68a621",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T02:09:20Z",
+      "side": 1,
+      "message": "This has a similar problem to the route above in regards to 404.  Please add invalid paths to your test plan.",
+      "range": {
+        "startLine": 1302,
+        "startChar": 0,
+        "endLine": 1306,
+        "endChar": 37
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
