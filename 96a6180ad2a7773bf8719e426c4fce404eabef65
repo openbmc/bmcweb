@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "096c8c08_6e4ce482",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "\u003e A processor not having subprocessors is not an error\nSorry, I do not think so.\nWhen ec !\u003d 0, It is an error when running the `GetSubTree` method.",
+      "parentUuid": "7e970725_7889afa2",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 52
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f701ae5_77424f5e",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -59,6 +83,30 @@
       "writtenOn": "2021-01-15T02:09:20Z",
       "side": 1,
       "message": "ends_with is not a sufficient check\n\nprocessorId 11core will also match for 1core.\n\nLots of people make this mistake.  I\u0027m working on a helper method in sdbusplus so that this is much easier to get right.  Please help review if you have time.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/39158",
+      "range": {
+        "startLine": 787,
+        "startChar": 16,
+        "endLine": 787,
+        "endChar": 65
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f748c6d0_d14dd773",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "\u003e processorId 11core will also match for 1core.\nNo, processorId \u003d cpu0/cpu1, not core*. see L: 1224.\n\n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/39158\nGood point, will check.",
+      "parentUuid": "6f701ae5_77424f5e",
       "range": {
         "startLine": 787,
         "startChar": 16,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "5d33204e_606d4129",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "e.g:\n```\nobjPath \u003d /xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0\ncorPath \u003d /xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core\n```",
+      "parentUuid": "b9c50a03_1237638b",
+      "range": {
+        "startLine": 813,
+        "startChar": 62,
+        "endLine": 813,
+        "endChar": 67
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00ae2723_91f2d53a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -105,6 +177,30 @@
       "writtenOn": "2021-01-15T02:09:20Z",
       "side": 1,
       "message": "please separate this out instead of doing it all in one check.\n\nAlso, do we need to return an internal error on some of these?\n\nAlso, should this continue, not return?",
+      "range": {
+        "startLine": 821,
+        "startChar": 0,
+        "endLine": 826,
+        "endChar": 33
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74748b79_329fea90",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "\u003e please separate this out instead of doing it all in one check.\n\n`index \u003d\u003d std::string::npos`, This condition will never be true.\nI think we can remove these.\n\n\u003e Also, do we need to return an internal error on some of these?\n\nDone.\n\n\u003e Also, should this continue, not return?\n\nDone.",
+      "parentUuid": "00ae2723_91f2d53a",
       "range": {
         "startLine": 821,
         "startChar": 0,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "3a79fa8b_72945801",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "I do not think so.\nWhen we update res.json, it should return, else it will ran to L: 844",
+      "parentUuid": "a0173227_40ba7a67",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 35
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0eb8fbdd_4e073d3c",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "fa6c2704_ea14dc78",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eb8fbdd_4e073d3c",
+      "range": {
+        "startLine": 841,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 23
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d63bd794_38a55b92",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -174,6 +318,30 @@
       "writtenOn": "2021-01-15T02:09:20Z",
       "side": 1,
       "message": "see other comment.  This is going to return odata.id that was set in the node doGet method.",
+      "range": {
+        "startLine": 844,
+        "startChar": 22,
+        "endLine": 844,
+        "endChar": 38
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c7e81ce_89abb65d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "I think we need to return resourceNotFound.\nIf `processorId \u003d cpu2`, that means there is no such path: \n/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu3.",
+      "parentUuid": "d63bd794_38a55b92",
       "range": {
         "startLine": 844,
         "startChar": 22,
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "044c2da1_0e89a21b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7dae609_63ed1747",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 19
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92820774_042fb5c5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -220,6 +412,30 @@
       "writtenOn": "2021-01-15T02:09:20Z",
       "side": 1,
       "message": "Can we include processorid in this path, so we only search for the subcores we care about, and don\u0027t have to do a secondary search from bmcweb?  Or are the core locations not regular enough for that?",
+      "range": {
+        "startLine": 850,
+        "startChar": 9,
+        "endLine": 850,
+        "endChar": 39
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80e5fc28_43707fce",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "We need to get the object path of `cpu*` here by the `GetSubTree` method.",
+      "parentUuid": "92820774_042fb5c5",
       "range": {
         "startLine": 850,
         "startChar": 9,
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "55e8adc7_313963d6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25592ff7_9e45ecde",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1248,
+        "endChar": 22
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50cff6b0_284e6b2d",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -278,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "03f6b286_29e910fd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "I tested it, when I use a bad url ` /redfish/v1/systems/Processors/cpu3/SubProcessors`\n\n```\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/cpu3/SubProcessors\",\n\"@odata.type\": \"#ProcessorCollection.ProcessorCollection\",\n\"Name\": \"SubProcessor Collection\",\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type SubProcessor named cpu3 was not found.\",\n\"MessageArgs\": [\n\"SubProcessor\",\n\"cpu3\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type SubProcessor named cpu3 was not found.\"\n}\n}\n```",
+      "parentUuid": "50cff6b0_284e6b2d",
+      "range": {
+        "startLine": 1254,
+        "startChar": 0,
+        "endLine": 1259,
+        "endChar": 0
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf7c7142_9e68a621",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -289,6 +553,30 @@
       "writtenOn": "2021-01-15T02:09:20Z",
       "side": 1,
       "message": "This has a similar problem to the route above in regards to 404.  Please add invalid paths to your test plan.",
+      "range": {
+        "startLine": 1302,
+        "startChar": 0,
+        "endLine": 1306,
+        "endChar": 37
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85372db9_fe1ba6c6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-15T04:25:04Z",
+      "side": 1,
+      "message": "as above. return ResourceNotFound",
+      "parentUuid": "cf7c7142_9e68a621",
       "range": {
         "startLine": 1302,
         "startChar": 0,
