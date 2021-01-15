@@ -100,14 +100,17 @@ class ConnectionImpl : public Connection
                 boost::beast::websocket::response_type& m) {
 
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
-                // use protocol for csrf checking
-                if (session->cookieAuth &&
-                    !crow::utility::constantTimeStringCompare(
-                        protocol, session->csrfToken))
+                if (session != nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Websocket CSRF error";
-                    m.result(boost::beast::http::status::unauthorized);
-                    return;
+                    // use protocol for csrf checking
+                    if (session->cookieAuth &&
+                        !crow::utility::constantTimeStringCompare(
+                            protocol, session->csrfToken))
+                    {
+                        BMCWEB_LOG_ERROR << "Websocket CSRF error";
+                        m.result(boost::beast::http::status::unauthorized);
+                        return;
+                    }
                 }
 #endif
                 if (!protocol.empty())
