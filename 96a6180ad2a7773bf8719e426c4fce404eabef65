@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6bfb626b_1bef60cd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "Correct, and GetSubTree returns an error if it can\u0027t find any elements in the subtree command.",
+      "parentUuid": "096c8c08_6e4ce482",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 52
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f701ae5_77424f5e",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "\u003e processorId 11core will also match for 1core.\nNo, processorId \u003d cpu0/cpu1, not core*. see L: 1224.\n\n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/39158\nGood point, will check.",
       "parentUuid": "6f701ae5_77424f5e",
+      "range": {
+        "startLine": 787,
+        "startChar": 16,
+        "endLine": 787,
+        "endChar": 65
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d2354f8_eddd5147",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "\u003e \u003e processorId 11core will also match for 1core.\n\u003e No, processorId \u003d cpu0/cpu1, not core*. see L: 1224.\n\nThat\u0027s putting implicit naming requirements on the cores, which I don\u0027t want to do if we can avoid it.\n\n\u003e \n\u003e \u003e https://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/39158\n\u003e Good point, will check.",
+      "parentUuid": "f748c6d0_d14dd773",
       "range": {
         "startLine": 787,
         "startChar": 16,
@@ -166,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "03eee4bf_a48463de",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "This is implying that the cores for a CPU are on the same object path as the CPU.  This would likely be one of the few places within bmcweb where we do that.  Normally we would do this with an association.",
+      "parentUuid": "5d33204e_606d4129",
+      "range": {
+        "startLine": 813,
+        "startChar": 62,
+        "endLine": 813,
+        "endChar": 67
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00ae2723_91f2d53a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -213,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "0b73a8c9_c8999589",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "\u003e \u003e please separate this out instead of doing it all in one check.\n\u003e \n\u003e `index \u003d\u003d std::string::npos`, This condition will never be true.\n\nin terms of fuzzing the dbus interface, it can be true, so we will check for it, because it\u0027s easier to just write the code the same way, rather than implicitly require the mapper to return something sane, which it might not in all cases.\n\n\u003e I think we can remove these.\n\nPlease don\u0027t.  Just clean them up a little.  If my filename() patch lands before this, that would be a perfect thing to use in this case.\n\n\u003e \n\u003e \u003e Also, do we need to return an internal error on some of these?\n\u003e \n\u003e Done.\n\u003e \n\u003e \u003e Also, should this continue, not return?\n\u003e \n\u003e Done.",
+      "parentUuid": "74748b79_329fea90",
+      "range": {
+        "startLine": 821,
+        "startChar": 0,
+        "endLine": 826,
+        "endChar": 33
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0173227_40ba7a67",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -248,6 +344,30 @@
       "side": 1,
       "message": "I do not think so.\nWhen we update res.json, it should return, else it will ran to L: 844",
       "parentUuid": "a0173227_40ba7a67",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 35
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53fda603_200857be",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "You\u0027re in a lambda scope here, return simply returns from the scope you started on line 797.",
+      "parentUuid": "3a79fa8b_72945801",
       "range": {
         "startLine": 835,
         "startChar": 0,
@@ -354,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "48d4a495_17290f8c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "Correct, but returning a resource not found should not also return an odata.id property.",
+      "parentUuid": "3c7e81ce_89abb65d",
+      "range": {
+        "startLine": 844,
+        "startChar": 22,
+        "endLine": 844,
+        "endChar": 38
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7dae609_63ed1747",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -436,6 +580,30 @@
       "side": 1,
       "message": "We need to get the object path of `cpu*` here by the `GetSubTree` method.",
       "parentUuid": "92820774_042fb5c5",
+      "range": {
+        "startLine": 850,
+        "startChar": 9,
+        "endLine": 850,
+        "endChar": 39
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d85915e_db04129e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "Right, but because we know the name of the CPU, can we use that to construct an object path so we don\u0027t have to filter later?\n\nI will admit, I haven\u0027t looked at this in depth, but in general getting the mapper to filter for you is a better approach than trying to filter yourself.",
+      "parentUuid": "80e5fc28_43707fce",
       "range": {
         "startLine": 850,
         "startChar": 9,
@@ -542,6 +710,30 @@
     },
     {
       "key": {
+        "uuid": "d6044fe9_b7771ece",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "notice the @odata.id, @odata.type, and Name properties in the above response?  Those shouldn\u0027t be there for a well behaving redfish endpoint.",
+      "parentUuid": "03f6b286_29e910fd",
+      "range": {
+        "startLine": 1254,
+        "startChar": 0,
+        "endLine": 1259,
+        "endChar": 0
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf7c7142_9e68a621",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -577,6 +769,30 @@
       "side": 1,
       "message": "as above. return ResourceNotFound",
       "parentUuid": "cf7c7142_9e68a621",
+      "range": {
+        "startLine": 1302,
+        "startChar": 0,
+        "endLine": 1306,
+        "endChar": 37
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "471bbb38_9b1a5e2b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T17:53:32Z",
+      "side": 1,
+      "message": "and also returns properties it shouldn\u0027t  if a resource doesn\u0027t exist, it doesn\u0027t have a type, an id, or a name.",
+      "parentUuid": "85372db9_fe1ba6c6",
       "range": {
         "startLine": 1302,
         "startChar": 0,
