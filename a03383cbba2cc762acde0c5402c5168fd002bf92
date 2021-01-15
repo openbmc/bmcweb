@@ -118,6 +118,30 @@
       "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ee50e3_0445216e",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-15T07:25:19Z",
+      "side": 1,
+      "message": "The CI fails to access this directory after i change the permission to 700. Seems like to run the UT, it needs the 640 permission.",
+      "parentUuid": "78575db3_805df959",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 64
+      },
+      "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
