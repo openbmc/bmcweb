@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "ba1db2f4_5a195235",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-15T05:34:57Z",
+      "side": 1,
+      "message": "For redfish responses we dont need the res.end(). This is a REST based response. This needs res.end()",
+      "parentUuid": "b4f45932_34899ed0",
+      "range": {
+        "startLine": 673,
+        "startChar": 0,
+        "endLine": 673,
+        "endChar": 30
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a50a3036_81faeda5",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Std::regex is slow, takes a lot of memory, and complicates things that should be simple.  In most cases, there are much more performant alternatives that are more clear in code.  I\u0027d recommend looking at and reviewing the existing patchset for ideas on how yours could be done.",
       "parentUuid": "bddd21db_b16bb241",
+      "range": {
+        "startLine": 687,
+        "startChar": 27,
+        "endLine": 687,
+        "endChar": 33
+      },
+      "revId": "cfb8fc7a22ac2009c23828613e882522649bb644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70be986d_a3745161",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-15T05:34:57Z",
+      "side": 1,
+      "message": "Improving performance is fine. \nI could see many other places in bmcweb which uses regex. I think we need not hold this commit for that. This can be a new issue. I have opened https://github.com/openbmc/bmcweb/issues/176 for the same.",
+      "parentUuid": "cb0c7e6d_69214cdd",
       "range": {
         "startLine": 687,
         "startChar": 27,
