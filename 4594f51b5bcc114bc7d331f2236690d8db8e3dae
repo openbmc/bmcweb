@@ -70,6 +70,30 @@
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a966876_5e8cbb04",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-15T18:10:50Z",
+      "side": 1,
+      "message": "We\u0027re already modifying the code logic.  Lets just make it correct while we\u0027re here and have to test it anyway.",
+      "parentUuid": "426cd6d1_4bedf3c1",
+      "range": {
+        "startLine": 795,
+        "startChar": 32,
+        "endLine": 795,
+        "endChar": 41
+      },
+      "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
