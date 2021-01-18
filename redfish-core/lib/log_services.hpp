@@ -440,8 +440,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                 }
                 std::time_t timestamp;
                 uint64_t size = 0;
-                entriesArray.push_back({});
-                nlohmann::json& thisEntry = entriesArray.back();
+                std::string dumpStatus;
                 const std::string& path =
                     static_cast<const std::string&>(object.first);
                 std::size_t lastPos = path.rfind('/');
@@ -493,33 +492,62 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                             }
                         }
                     }
+                    else if (interfaceMap.first ==
+                             "xyz.openbmc_project.Common.Progress")
+                    {
+
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Status")
+                            {
+                                const std::string* status =
+                                    std::get_if<std::string>(
+                                        &propertyMap.second);
+                                if (status == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                dumpStatus = *status;
+                                break;
+                            }
+                        }
+                    }
                 }
 
-                thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
-                thisEntry["@odata.id"] = dumpPath + entryID;
-                thisEntry["Id"] = entryID;
-                thisEntry["EntryType"] = "Event";
-                thisEntry["Created"] = crow::utility::getDateTime(timestamp);
-                thisEntry["Name"] = dumpType + " Dump Entry";
-
-                thisEntry["AdditionalDataSizeBytes"] = size;
-
-                if (dumpType == "BMC")
+                if (dumpStatus == "xyz.openbmc_project.Common.Progress."
+                                  "OperationStatus.Completed")
                 {
-                    thisEntry["DiagnosticDataType"] = "Manager";
-                    thisEntry["AdditionalDataURI"] =
-                        "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                        "attachment/" +
-                        entryID;
-                }
-                else if (dumpType == "System")
-                {
-                    thisEntry["DiagnosticDataType"] = "OEM";
-                    thisEntry["OEMDiagnosticDataType"] = "System";
-                    thisEntry["AdditionalDataURI"] =
-                        "/redfish/v1/Systems/system/LogServices/Dump/"
-                        "attachment/" +
-                        entryID;
+                    entriesArray.push_back({});
+                    nlohmann::json& thisEntry = entriesArray.back();
+
+                    thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
+                    thisEntry["@odata.id"] = dumpPath + entryID;
+                    thisEntry["Id"] = entryID;
+                    thisEntry["EntryType"] = "Event";
+                    thisEntry["Created"] =
+                        crow::utility::getDateTime(timestamp);
+                    thisEntry["Name"] = dumpType + " Dump Entry";
+
+                    thisEntry["AdditionalDataSizeBytes"] = size;
+
+                    if (dumpType == "BMC")
+                    {
+                        thisEntry["DiagnosticDataType"] = "Manager";
+                        thisEntry["AdditionalDataURI"] =
+                            "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                            "attachment/" +
+                            entryID;
+                    }
+                    else if (dumpType == "System")
+                    {
+                        thisEntry["DiagnosticDataType"] = "OEM";
+                        thisEntry["OEMDiagnosticDataType"] = "System";
+                        thisEntry["AdditionalDataURI"] =
+                            "/redfish/v1/Systems/system/LogServices/Dump/"
+                            "attachment/" +
+                            entryID;
+                    }
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
