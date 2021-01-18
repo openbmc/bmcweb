@@ -94,6 +94,30 @@
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b158e1e_1df5d3e6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-01-18T05:30:54Z",
+      "side": 1,
+      "message": "okay... thanks",
+      "parentUuid": "5a966876_5e8cbb04",
+      "range": {
+        "startLine": 795,
+        "startChar": 32,
+        "endLine": 795,
+        "endChar": 41
+      },
+      "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
