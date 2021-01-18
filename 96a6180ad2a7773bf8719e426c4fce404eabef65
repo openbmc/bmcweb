@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8b44f147_945ec042",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6bfb626b_1bef60cd",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 52
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f701ae5_77424f5e",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -167,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "d7304e93_c0d3178a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d2354f8_eddd5147",
+      "range": {
+        "startLine": 787,
+        "startChar": 16,
+        "endLine": 787,
+        "endChar": 65
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9c50a03_1237638b",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "This is implying that the cores for a CPU are on the same object path as the CPU.  This would likely be one of the few places within bmcweb where we do that.  Normally we would do this with an association.",
       "parentUuid": "5d33204e_606d4129",
+      "range": {
+        "startLine": 813,
+        "startChar": 62,
+        "endLine": 813,
+        "endChar": 67
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e464ecfd_ba23eac4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "If that is the case, we need to update associations.json, added all cores association.\nDo we really need to do that?",
+      "parentUuid": "03eee4bf_a48463de",
       "range": {
         "startLine": 813,
         "startChar": 62,
@@ -309,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "74246379_a6e31c87",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b73a8c9_c8999589",
+      "range": {
+        "startLine": 821,
+        "startChar": 0,
+        "endLine": 826,
+        "endChar": 33
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0173227_40ba7a67",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -377,6 +473,30 @@
       "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7044c8_ff7d7dfa",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53fda603_200857be",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 35
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -498,6 +618,30 @@
     },
     {
       "key": {
+        "uuid": "b0e84fa9_8ceabee8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48d4a495_17290f8c",
+      "range": {
+        "startLine": 844,
+        "startChar": 22,
+        "endLine": 844,
+        "endChar": 38
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7dae609_63ed1747",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -604,6 +748,30 @@
       "side": 1,
       "message": "Right, but because we know the name of the CPU, can we use that to construct an object path so we don\u0027t have to filter later?\n\nI will admit, I haven\u0027t looked at this in depth, but in general getting the mapper to filter for you is a better approach than trying to filter yourself.",
       "parentUuid": "80e5fc28_43707fce",
+      "range": {
+        "startLine": 850,
+        "startChar": 9,
+        "endLine": 850,
+        "endChar": 39
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ec86689_1069435a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Sorry, You mean that we should use `/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0`, not `/xyz/openbmc_project/inventory`\n\nIf so, I think this is incorrect.\nBecause this goes against the way we use create object.\n\nWhat do you think? Please correct me if I am wrong. 😊",
+      "parentUuid": "4d85915e_db04129e",
       "range": {
         "startLine": 850,
         "startChar": 9,
@@ -734,6 +902,30 @@
     },
     {
       "key": {
+        "uuid": "0a974202_7f83648e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6044fe9_b7771ece",
+      "range": {
+        "startLine": 1254,
+        "startChar": 0,
+        "endLine": 1259,
+        "endChar": 0
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf7c7142_9e68a621",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -802,6 +994,30 @@
       "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf359ce_62118734",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-18T08:23:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "471bbb38_9b1a5e2b",
+      "range": {
+        "startLine": 1302,
+        "startChar": 0,
+        "endLine": 1306,
+        "endChar": 37
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
