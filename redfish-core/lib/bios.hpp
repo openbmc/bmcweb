@@ -215,7 +215,8 @@ class BiosService : public Node
                                 std::get<biosBaseAttrType>(item.second);
                             std::string attrType =
                                 mapAttrTypeToRedfish(itemType);
-                            if (attrType == "String")
+                            if (attrType == "String" ||
+                                attrType == "Enumeration")
                             {
                                 const std::string* currValue =
                                     std::get_if<std::string>(
@@ -323,7 +324,8 @@ class BiosSettings : public Node
                                 std::get<pendingAttrType>(item.second);
                             std::string attrType =
                                 mapAttrTypeToRedfish(itemType);
-                            if (attrType == "String")
+                            if (attrType == "String" ||
+                                attrType == "Enumeration")
                             {
                                 const std::string* currValue =
                                     std::get_if<std::string>(
@@ -454,7 +456,8 @@ class BiosAttributeRegistry : public Node
                             attributeItem["MenuPath"] =
                                 std::get<biosBaseMenuPath>(item.second);
 
-                            if (attrType == "String")
+                            if (attrType == "String" ||
+                                attrType == "Enumeration")
                             {
                                 const std::string* currValue =
                                     std::get_if<std::string>(
