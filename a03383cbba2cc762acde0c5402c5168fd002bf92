@@ -214,6 +214,30 @@
       "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "593cd186_4ebbfb3b",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-01-19T22:12:33Z",
+      "side": 1,
+      "message": "\u003e Andrew G is the repo CI environment doing anything weird that might cause this?\n\nNot that I know of. https://github.com/openbmc/openbmc-build-scripts/blob/master/build-unit-test-docker.sh#L512 is where we setup the user and such in the docker container.",
+      "parentUuid": "8908bd30_c33deb9f",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 64
+      },
+      "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
