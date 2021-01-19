@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "235c3968_06493d6a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-19T17:29:18Z",
+      "side": 1,
+      "message": "One thing I wonder is whether the framework should just pass the error on to the handler.  I imagine if this is a redfish uri, we want to return a redfish error.  If this is a phosphor-rest uri, we want to return a phosphor-rest error.\n\nI wonder how we can propogate that error into the response object without being too invasive.",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 42
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

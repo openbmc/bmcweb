@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3075b50a_ee09a77c",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-19T17:29:18Z",
+      "side": 1,
+      "message": "Why is it custom?  Can\u0027t we just rely on the enum itself?",
+      "parentUuid": "b8702e48_81092088",
+      "range": {
+        "startLine": 12,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "7e38f6cb3a8ed0002b244074f08e5fffb86aa06f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39041dd8_8209fc7b",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 34
