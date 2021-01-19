@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25fd8abd_0b2c3db2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-19T16:00:18Z",
+      "side": 1,
+      "message": "See https://github.com/openbmc/bmcweb/issues/168\n\nThe event service file really just needs rolled into the main file, which is on my list to do.  I\u0027d much rather see that done, as there\u0027s more broken in the event service file reading than just this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 126,
+        "endLine": 9,
+        "endChar": 168
+      },
+      "revId": "2a47dffec60927bb0864aeb1dececc10198eee62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
