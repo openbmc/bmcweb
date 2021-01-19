@@ -16,6 +16,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "278ba03e_5e4684ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-19T21:14:36Z",
+      "side": 1,
+      "message": "\u003e I think the goal of CI is to test as much as possible, so I\u0027d argue we should enable everything we can in CI. If it\u0027s not being built for CI, then I\u0027d agree, it should build the minimal amount and users can enable what they need.\n\nIMO, testing the default build is much more important than testing everything.  If we wanted to do both, we could, but in this file, we should not be enabling IBM-specific options.  That should be for IBM-specific systems, so that when that CI breaks, we know it\u0027s system-dependent, which helps a lot in triage time.\n\nIf someone wanted to put up a patchset to enable all options in CI, like you propose, I\u0027d be happy to have the discussion, but as-is, enabling one random option, based on the incorrect configure option (ie, whether we\u0027re in a yocto build) is not the way to do it.  This is simply going back to what we had before in cmake, and only changed when we moved to meson.  I missed it in one of the final patchsets on that review.",
+      "parentUuid": "d033a289_960e6e19",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
