@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "1399d31a_d82fd5cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000084
+      },
+      "writtenOn": "2021-01-19T10:24:00Z",
+      "side": 1,
+      "message": "The entries get created with InProgress as the status, I think you need to show dumps which has \u0027Completed\u0027 status",
+      "parentUuid": "9ef42f6d_57bb1142",
+      "revId": "439cffad84d43dca668a18bd6c3773b5a0dd7d7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83e33722_2d50f417",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
