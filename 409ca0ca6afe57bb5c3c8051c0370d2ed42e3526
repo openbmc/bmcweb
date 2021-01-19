@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5586dd65_a4dc35fa",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-19T16:58:27Z",
+      "side": 1,
+      "message": "So we handle enums as the same way we do String? \nA std::string?",
+      "revId": "409ca0ca6afe57bb5c3c8051c0370d2ed42e3526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
