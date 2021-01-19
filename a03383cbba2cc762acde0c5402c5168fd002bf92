@@ -142,6 +142,30 @@
       "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "724f1bf0_a81797ca",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-19T21:23:41Z",
+      "side": 1,
+      "message": "\u003e The CI fails to access this directory after i change the permission to 700. Seems like to run the UT, it needs the 640 permission.\n\nIt seems weird that the unit tests cannot read files that they themselves create.\n\nAndrew G is the repo CI environment doing anything weird that might cause this?",
+      "parentUuid": "78ee50e3_0445216e",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 64
+      },
+      "revId": "a03383cbba2cc762acde0c5402c5168fd002bf92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
