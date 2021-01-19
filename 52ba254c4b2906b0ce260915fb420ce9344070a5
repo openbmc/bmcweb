@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af48e7aa_eea65fc9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-01-19T03:38:00Z",
+      "side": 1,
+      "message": "Ed, I think we discussed the same in the discord, You suggested that we should use the GUID, Are you suggesting the backend should provide the GUID or the bmcweb should create the GUID and have the mapping in the bmcweb between the bmcweb generated GUID and the ID returns from the backend.",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 50
+      },
+      "revId": "52ba254c4b2906b0ce260915fb420ce9344070a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
