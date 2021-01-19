@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26b2aa22_a86061e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-19T16:55:17Z",
+      "side": 1,
+      "message": "Going to need more detail than this.",
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91443d86_5023a792",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-19T16:55:17Z",
+      "side": 1,
+      "message": "how are we linking the assembly to the chassis?\nI don\u0027t see a check here. \nDo we need a new association ? E.g. item.vrm -\u003e \"chassis\" -\u003e item.chassis ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 24,
+        "endLine": 16,
+        "endChar": 33
+      },
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1c0108d_e316d9eb",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-19T16:55:17Z",
+      "side": 1,
+      "message": "GetSubTree returns an error if it can\u0027t find any elements in the subtree command, not sure this should be an error.",
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "640db1f3_515a0f0e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-19T16:55:17Z",
+      "side": 1,
+      "message": "I\u0027m sure these got copied from somewhere else but do these mean anything ? \nCan you add some detail here about assemblies? \n\nE.g. \"The Assembly schema is the way to represent an inventory item in Redfish where there\u0027s not a more specific schema definition.\"",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 54
+      },
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
