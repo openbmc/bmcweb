@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69ef0145_a4b37602",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-01-20T16:32:46Z",
+      "side": 1,
+      "message": "If \u0027collectionPath\u0027 were a real std::filesystem::path you could use the \u0027/\u0027 operator on this and simplify it a little more.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf8a4ed_005677e1",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-01-20T16:32:46Z",
+      "side": 1,
+      "message": "Shouldn\u0027t the responses be a vector of object_path?  Might be an issue with our YAML/implementation here.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 65
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
