@@ -16,6 +16,24 @@
       "revId": "59ae848f28bda68437fbf1152c283d0320077fcf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a827ce_4790ea6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-20T16:15:48Z",
+      "side": 1,
+      "message": "I\u0027m waiting for the new systemd to land.  It adds some of the things we need as helper functions to verify paths, interfaces, and member names.\n\nhttps://github.com/systemd/systemd/blob/aac5fbff0b03e85ea156cf0bd821bd90c1b89096/src/systemd/sd-bus.h#L123\n\n\nAfter that, I was going to write some unit tests for the other ones.",
+      "parentUuid": "480bcc6f_b9706ced",
+      "revId": "59ae848f28bda68437fbf1152c283d0320077fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
