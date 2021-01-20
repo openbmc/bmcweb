@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3580ee6e_343eba08",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-20T17:56:35Z",
+      "side": 1,
+      "message": "Good point.  Will fix.",
+      "parentUuid": "69ef0145_a4b37602",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cf8a4ed_005677e1",
         "filename": "redfish-core/include/utils/fw_utils.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2021-01-20T16:32:46Z",
       "side": 1,
       "message": "Shouldn\u0027t the responses be a vector of object_path?  Might be an issue with our YAML/implementation here.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 65
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee7d284_c144cce8",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-20T17:56:35Z",
+      "side": 1,
+      "message": "There has never been an implementation of the mapper that followed the YAML spec.  The old python mapper published strings, so when I went to replace it with the new mapper, that used strings as well to keep the API the same.  We could certainly try to make it correct, and i agree that would be better.\n\nThere\u0027s probably not even that many places to fix, and it\u0027s probably easy to grep for.",
+      "parentUuid": "2cf8a4ed_005677e1",
       "range": {
         "startLine": 42,
         "startChar": 0,
