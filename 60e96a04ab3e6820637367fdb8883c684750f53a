@@ -52,6 +52,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b710dff_3c915a17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-20T16:22:04Z",
+      "side": 1,
+      "message": "\u003e \u003e \n\u003e \u003e If someone wanted to put up a patchset to enable all options in CI, like you propose, I\u0027d be happy to have the discussion, but as-is, enabling one random option, based on the incorrect configure option (ie, whether we\u0027re in a yocto build) is not the way to do it.  This is simply going back to what we had before in cmake, and only changed when we moved to meson.  I missed it in one of the final patchsets on that review.\n\u003e \n\u003e The earlier state of bmcweb before meson migration has the similar option enabled in the CMakelist.txt. This is not something that was added as part of the migration.\n\nAh, I didn\u0027t see that before.\n\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/65176d3908b27393d81b72284dbebc47055e517c/CMakeLists.txt#L327\n\u003e \n\u003e I don\u0027t recollect the right commit where we had this discussion , but earlier maintainer James stated that there is a flag(YOCTO_DEPENDENCIES) in bmcweb to distinguish between - whether we are doing a yocto build or an out of tree build \u0026 suggested us to enable the ibm flag under that to make sure it was compiled for CI.\n\nThis is not a good way to detect CI.  All unit tests should be compiled and run in all configurations, and should be reliable enough that it doesn\u0027t matter if they\u0027re enabled or disabled.  This is how all the other unit tests work.\n\n\u003e     option (YOCTO_DEPENDENCIES \"Use YOCTO dependencies system\" OFF)\n\nThis option is telling cmake/meson \"Should you rely on the dependencies already being installed\", not \"Are we running in CI\"\n\nOccasionally this build gets used by other projects that don\u0027t run within yocto, so we need to make sure that we\u0027re treating that option correctly.\n\n\u003e \n\u003e I don\u0027t have a strong preference here,but i would love to see the repo-CI catching most of the bugs rather than catching them at a much later stage(meta-CI).\n\nAgreed.  The way all other modules do this is the way I described above.",
+      "parentUuid": "be07ef12_b8c7c59a",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
