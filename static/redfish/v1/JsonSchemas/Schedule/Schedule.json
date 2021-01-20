@@ -1,7 +1,7 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Schedule.v1_2_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Schedule.v1_2_2.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "DayOfWeek": {
             "description": "Days of the week.",
@@ -126,7 +126,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "Each value shall be an ISO 8601 conformant interval specifying when occurences are enabled.",
+                    "longDescription": "Each value shall be an ISO 8601 conformant interval specifying when occurrences are enabled.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_1_0"
@@ -201,5 +201,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.2",
-    "title": "#Schedule.v1_2_1"
+    "title": "#Schedule.v1_2_2"
 }

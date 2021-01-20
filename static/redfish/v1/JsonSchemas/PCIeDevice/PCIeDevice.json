@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_6_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -274,6 +274,16 @@
                         "null"
                     ]
                 },
+                "SparePartNumber": {
+                    "description": "The spare part number of the PCIe device.",
+                    "longDescription": "This property shall contain the spare part number of the PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the Resource and its subordinate or dependent Resources.",
@@ -382,6 +392,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#PCIeDevice.v1_5_0.PCIeDevice"
+    "release": "2020.4",
+    "title": "#PCIeDevice.v1_6_0.PCIeDevice"
 }

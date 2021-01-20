@@ -69,6 +69,43 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates</String>
             <String>/redfish/v1/EventService/Subscriptions/{EventDestinationId}/Certificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Memory/{MemoryId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates</String>
+            <String>/redfish/v1/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Certificates</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Certificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Certificates</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Certificate.Certificate)">

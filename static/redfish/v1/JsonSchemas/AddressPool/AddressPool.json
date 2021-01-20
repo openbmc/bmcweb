@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AddressPool.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AddressPool.v1_1_1.json",
     "$ref": "#/definitions/AddressPool",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -232,7 +232,7 @@
                 },
                 "RequiredMinRxIntervalMilliseconds": {
                     "description": "Bidirectional Forwarding Detection (BFD) receive value.",
-                    "longDescription": "This property shall contain the Bidirectional Forwarding Detection (BFD) receive value.  The BFD recieve value determines how frequently (in milliseconds) BFD packets will be expected to be received from BFD peers.",
+                    "longDescription": "This property shall contain the Bidirectional Forwarding Detection (BFD) receive value.  The BFD receive value determines how frequently (in milliseconds) BFD packets will be expected to be received from BFD peers.",
                     "readonly": false,
                     "type": [
                         "integer",
@@ -285,8 +285,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "ARPSupressionEnabled": {
-                    "description": "Address Resolution Protocol (ARP) supression status.",
-                    "longDescription": "This property shall indicate whether Address Resolution Protocol (ARP) surpression is enabled.",
+                    "description": "Address Resolution Protocol (ARP) suppression status.",
+                    "longDescription": "This property shall indicate whether Address Resolution Protocol (ARP) suppression is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -364,8 +364,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "NDPSupressionEnabled": {
-                    "description": "Network Discovery Protocol (NDP) supression status.",
-                    "longDescription": "This property shall indicate whether Network Discovery Protocol (NDP) surpression is enabled.",
+                    "description": "Network Discovery Protocol (NDP) suppression status.",
+                    "longDescription": "This property shall indicate whether Network Discovery Protocol (NDP) suppression is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -467,7 +467,7 @@
                 },
                 "AllowOwnASEnabled": {
                     "description": "Allow own Autonomous System (AS) status.",
-                    "longDescription": "This property shall indicate whether the Autonomous System (AS) of the recieving router is permitted in a Border Gateway Protocol (BGP) update.  If `true`, routes should be received and processed even if the router detects its own ASN in the AS-Path.  If `false`, they should be dropped.",
+                    "longDescription": "This property shall indicate whether the Autonomous System (AS) of the receiving router is permitted in a Border Gateway Protocol (BGP) update.  If `true`, routes should be received and processed even if the router detects its own ASN in the AS-Path.  If `false`, they should be dropped.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -537,7 +537,7 @@
                         }
                     ],
                     "description": "Border Gateway Protocol (BGP) max prefix properties.",
-                    "longDescription": "These properties are appliable to configuring Border Gateway Protocol (BGP) max prefix related properties.",
+                    "longDescription": "These properties are applicable to configuring Border Gateway Protocol (BGP) max prefix related properties.",
                     "versionAdded": "v1_1_0"
                 },
                 "MinimumAdvertisementIntervalSeconds": {
@@ -646,7 +646,7 @@
                 },
                 "DistanceExternal": {
                     "description": "Route distance for external routes.",
-                    "longDescription": "This property shall modify the administrative distance for routes learned via External BGP (EBGP).",
+                    "longDescription": "This property shall modify the administrative distance for routes learned via External BGP (eBGP).",
                     "readonly": false,
                     "type": [
                         "integer",
@@ -656,7 +656,7 @@
                 },
                 "DistanceInternal": {
                     "description": "Route distance for internal routes.",
-                    "longDescription": "This property shall modify the administrative distance for routes learned via Internal BGP (IBGP).",
+                    "longDescription": "This property shall modify the administrative distance for routes learned via Internal BGP (iBGP).",
                     "readonly": false,
                     "type": [
                         "integer",
@@ -696,7 +696,7 @@
                 },
                 "SendDefaultRouteEnabled": {
                     "description": "Send default route status.",
-                    "longDescription": "This property shall indicate whether the default route should be advertized.  If `true`, the default route is advertised to all Border Gateway Protocol (BGP) neighbors unless specifically denied.  If `false`, the default route is not advertised.",
+                    "longDescription": "This property shall indicate whether the default route should be advertised.  If `true`, the default route is advertised to all Border Gateway Protocol (BGP) neighbors unless specifically denied.  If `false`, the default route is not advertised.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -762,7 +762,7 @@
                         }
                     ],
                     "description": "Border Gateway Protocol (BGP) route related properties.",
-                    "longDescription": "This property shall containBorder Gateway Protocol (BGP) route related properties.",
+                    "longDescription": "This property shall contain Border Gateway Protocol (BGP) route related properties.",
                     "versionAdded": "v1_1_0"
                 },
                 "GracefulRestart": {
@@ -824,7 +824,7 @@
             },
             "properties": {
                 "DHCPInterfaceMTUBytes": {
-                    "description": "Dynamic Host Configuration Protocl (DHCP) interface Maximum Transmission Unit (MTU).",
+                    "description": "Dynamic Host Configuration Protocol (DHCP) interface Maximum Transmission Unit (MTU).",
                     "longDescription": "This property shall contain the Maximum Transmission Unit (MTU) to use on this interface in bytes.",
                     "maximum": 9194,
                     "minimum": 68,
@@ -836,8 +836,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "DHCPRelayEnabled": {
-                    "description": "Dynamic Host Configuration Protocl (DHCP) relay status.",
-                    "longDescription": "This property shall indicate whether Dynamic Host Configuration Protocl (DHCP) Relay is enabled.",
+                    "description": "Dynamic Host Configuration Protocol (DHCP) relay status.",
+                    "longDescription": "This property shall indicate whether Dynamic Host Configuration Protocol (DHCP) Relay is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -863,8 +863,8 @@
         },
         "EBGP": {
             "additionalProperties": false,
-            "description": "External BGP (EBGP) related properties for an Ethernet fabric.",
-            "longDescription": "This type shall contain the External BGP (EBGP) related properties for an Ethernet fabric.",
+            "description": "External BGP (eBGP) related properties for an Ethernet fabric.",
+            "longDescription": "This type shall contain the External BGP (eBGP) related properties for an Ethernet fabric.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -895,7 +895,7 @@
                 },
                 "AllowDuplicateASEnabled": {
                     "description": "Allow duplicate Autonomous System (AS) path.",
-                    "longDescription": "This property shall indicate whether duplicate Autonomous System (AS) numbers are alllowed.  If `true`, routes with the same AS number as the recieving router should be allowed.  If `false`,routes should be dropped if the router recieves its own AS number in a Border Gateway Protocol (BGP) update.",
+                    "longDescription": "This property shall indicate whether duplicate Autonomous System (AS) numbers are allowed.  If `true`, routes with the same AS number as the receiving router should be allowed.  If `false`,routes should be dropped if the router receives its own AS number in a Border Gateway Protocol (BGP) update.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -956,7 +956,7 @@
                         }
                     ],
                     "description": "Border Gateway Protocol (BGP) route related properties.",
-                    "longDescription": "This property shall containBorder Gateway Protocol (BGP) route related properties.",
+                    "longDescription": "This property shall contain Border Gateway Protocol (BGP) route related properties.",
                     "versionAdded": "v1_1_0"
                 },
                 "BGPWeight": {
@@ -993,8 +993,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "MultihopEnabled": {
-                    "description": "External BGP (EBGP) multihop status.",
-                    "longDescription": "This property shall indicate whether External BGP (EBGP) multihop is enabled.",
+                    "description": "External BGP (eBGP) multihop status.",
+                    "longDescription": "This property shall indicate whether External BGP (eBGP) multihop is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -1003,8 +1003,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "MultihopTTL": {
-                    "description": "External BGP (EBGP) mutlihop Time to Live (TTL) value.",
-                    "longDescription": "This property shall contain the External BGP (EBGP) mutlihop Time to Live (TTL) value.",
+                    "description": "External BGP (eBGP) multihop Time to Live (TTL) value.",
+                    "longDescription": "This property shall contain the External BGP (eBGP) multihop Time to Live (TTL) value.",
                     "readonly": false,
                     "type": [
                         "integer",
@@ -1164,8 +1164,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "External BGP (EBGP) related properties for this Ethernet fabric.",
-                    "longDescription": "This property shall contain the External BGP (EBGP) related properties for this Ethernet fabric.",
+                    "description": "External BGP (eBGP) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the External BGP (eBGP) related properties for this Ethernet fabric.",
                     "versionAdded": "v1_1_0"
                 },
                 "IPv4": {
@@ -1190,8 +1190,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Multi Protocol EBGP (MP EBGP) related properties for this Ethernet fabric.",
-                    "longDescription": "This property shall contain the Multi Protocol EBGP (MP EBGP) related properties for this Ethernet fabric.",
+                    "description": "Multi Protocol eBGP (MP eBGP) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Multi Protocol eBGP (MP eBGP) related properties for this Ethernet fabric.",
                     "versionAdded": "v1_1_0"
                 },
                 "MultiProtocolIBGP": {
@@ -1203,8 +1203,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Multi Protocol IBGP (MP IBGP) related properties for this Ethernet fabric.",
-                    "longDescription": "This property shall contain the Multi Protocol IBGP (MP IBGP) related properties for this Ethernet fabric.",
+                    "description": "Multi Protocol iBGP (MP iBGP) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Multi Protocol iBGP (MP iBGP) related properties for this Ethernet fabric.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -1299,7 +1299,7 @@
             "properties": {
                 "GracefulRestartEnabled": {
                     "description": "Border Gateway Protocol (BGP) graceful restart status.",
-                    "longDescription": "This property shall indicate whethere to enable Border Gateway Protocol (BGP) graceful restart features.",
+                    "longDescription": "This property shall indicate whether to enable Border Gateway Protocol (BGP) graceful restart features.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -1437,8 +1437,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "External BGP (EBGP) related addressing for this Ethernet fabric.",
-                    "longDescription": "This property shall contain the range of IPv4 addresses assigned to External BGP (EBGP).",
+                    "description": "External BGP (eBGP) related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the range of IPv4 addresses assigned to External BGP (eBGP).",
                     "versionAdded": "v1_1_0"
                 },
                 "FabricLinkAddressRange": {
@@ -1487,8 +1487,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Internal BGP (IBGP) related addressing for this Ethernet fabric.",
-                    "longDescription": "This property shall contain the range of IPv4 addresses assigned to Internal BGP (IBGP).",
+                    "description": "Internal BGP (iBGP) related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the range of IPv4 addresses assigned to Internal BGP (iBGP).",
                     "versionAdded": "v1_1_0"
                 },
                 "LoopbackAddressRange": {
@@ -1714,7 +1714,7 @@
                 },
                 "ShutdownThresholdPercentage": {
                     "description": "Shutdown threshold status.",
-                    "longDescription": "This property shall contain the percentage of the maximum prefix recieved value at which the router starts to generate a warning message.",
+                    "longDescription": "This property shall contain the percentage of the maximum prefix received value at which the router starts to generate a warning message.",
                     "maximum": 100,
                     "minimum": 1,
                     "readonly": false,
@@ -1928,5 +1928,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.3",
-    "title": "#AddressPool.v1_1_0.AddressPool"
+    "title": "#AddressPool.v1_1_1.AddressPool"
 }

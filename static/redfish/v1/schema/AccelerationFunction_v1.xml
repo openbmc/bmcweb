@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccelerationFunction v1.0.2                                         -->
+<!--# Redfish Schema:  AccelerationFunction v1.0.3                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -191,6 +191,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.v1_0_1.AccelerationFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.v1_0_2.AccelerationFunction"/>
     </Schema>
 
   </edmx:DataServices>

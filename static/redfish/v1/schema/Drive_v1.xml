@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Drive v1.11.0                                                                   -->
+<!--# Redfish Schema:  Drive v1.12.0                                                                   -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -50,6 +50,15 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StoragePool_v1.xml">
     <edmx:Include Namespace="StoragePool"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics_v1.xml">
+    <edmx:Include Namespace="EnvironmentMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -457,6 +466,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_0_9.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_0_10.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -498,7 +513,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Task that represents the task associated with the operation."/>
         </NavigationProperty>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_1">
@@ -555,9 +569,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_1_8.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_1_9.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="Drive" BaseType="Drive.v1_1_2.Drive"/>
 
       <ComplexType Name="Links" BaseType="Drive.v1_1_0.Links">
@@ -612,9 +633,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_2_6.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_2_7.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
+
       <EntityType Name="Drive" BaseType="Drive.v1_2_1.Drive">
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -661,9 +689,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_3_5.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_3_6.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <EntityType Name="Drive" BaseType="Drive.v1_3_0.Drive">
         <Property Name="PhysicalLocation" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the drive."/>
@@ -708,9 +743,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_4_5.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_4_6.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
+
       <EntityType Name="Drive" BaseType="Drive.v1_4_1.Drive">
         <Property Name="HotspareReplacementMode" Type="Drive.v1_5_0.HotspareReplacementModeType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -759,6 +801,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_5_4.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_5_5.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -792,10 +840,17 @@
       <EntityType Name="Drive" BaseType="Drive.v1_6_2.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_6_3.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
       <Annotation Term="OData.Description" String="This version was created to add a WriteCacheEnabled property and reset action for Drive."/>
+
       <EntityType Name="Drive" BaseType="Drive.v1_6_0.Drive">
         <Property Name="WriteCacheEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -815,6 +870,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_1.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_7_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_0">
@@ -845,6 +906,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_8_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_8_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -871,6 +938,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_9_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_9_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -885,6 +958,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_10_0.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -895,6 +974,37 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_11_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add Certificates and Measurements to devices for attestation and identity management.  It was also created to add a link for EnvironmentMetrics."/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_11_1.Drive">
+        <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the environment metrics for this drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this drive."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of DSP0274-defined measurement blocks."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of DSP0274-defined measurement blocks."/>
         </Property>
       </EntityType>
     </Schema>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.9.0                                             -->
+<!--# Redfish Schema:  EventDestination v1.10.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -83,13 +83,14 @@
           </Collection>
         </Annotation>
         <Member Name="Event">
-          <Annotation Term="OData.Description" String="The subscription destination receives JSON bodies of the Resource of type Event."/>
+          <Annotation Term="OData.Description" String="The subscription destination receives an event payload."/>
+          <Annotation Term="OData.LongDescription" String="The subscription destination shall receive an event payload as defined by the value of the Protocol property."/>
         </Member>
         <Member Name="MetricReport">
-          <Annotation Term="OData.Description" String="The subscription destination receives JSON bodies of the Resource of type MetricReport."/>
+          <Annotation Term="OData.Description" String="The subscription destination receives a metric report."/>
+          <Annotation Term="OData.LongDescription" String="The subscription destination shall receive a metric report payload as defined by the value of the Protocol property."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_0_0">
@@ -139,6 +140,7 @@
       <EnumType Name="EventDestinationProtocol">
         <Member Name="Redfish">
           <Annotation Term="OData.Description" String="The destination follows the Redfish Specification for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the Redfish Specification for event notifications.  Destinations requesting EventFormatType of `Event` shall receive a Redfish resource of type Event.  Destinations requesting EventFormatType of `MetricReport` shall receive a Redfish resource of type MetricReport."/>
         </Member>
         <Member Name="SNMPv1">
           <Annotation Term="OData.Description" String="The destination follows the SNMPv1 protocol for event notifications."/>
@@ -308,6 +310,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_7.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_8.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -367,6 +375,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_6.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_7.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -422,6 +436,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_4.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_5.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_0">
@@ -512,6 +532,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_2.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_3.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -552,6 +578,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_1.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_2.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -565,6 +597,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_0.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_1.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -573,8 +611,8 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_0.EventDestination">
         <Property Name="DeliveryRetryPolicy" Type="EventDestination.v1_6_0.DeliveryRetryPolicy">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property shall contain the subscription delivery retry policy for events, where the subscription type is RedfishEvent."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the subscription delivery retry policy for events where the subscription type is RedfishEvent.  If this property is not present, the policy shall be assumed to be TerminateAfterRetries."/>
+          <Annotation Term="OData.Description" String="The subscription delivery retry policy for events, where the subscription type is RedfishEvent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the subscription delivery retry policy for events where the subscription type is RedfishEvent."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="This property shall contain the status of the subscription."/>
@@ -590,12 +628,27 @@
       <EnumType Name="DeliveryRetryPolicy">
         <Member Name="TerminateAfterRetries">
           <Annotation Term="OData.Description" String="The subscription is terminated after the maximum number of retries is reached."/>
+          <Annotation Term="OData.LongDescription" String="The subscription is terminated after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service."/>
         </Member>
         <Member Name="SuspendRetries">
           <Annotation Term="OData.Description" String="The subscription is suspended after the maximum number of retries is reached."/>
+          <Annotation Term="OData.LongDescription" String="The subscription is suspended after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service."/>
         </Member>
         <Member Name="RetryForever">
-          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the maximum number of retries is reached."/>
+          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries."/>
+          <Annotation Term="OData.LongDescription" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  The interval between retries remains constant and is specified by the DeliveryRetryIntervalSeconds property in the event service."/>
+        </Member>
+        <Member Name="RetryForeverWithBackoff">
+          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries, but issued over time according to a service-defined backoff algorithm."/>
+          <Annotation Term="OData.LongDescription" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  Retry attempts are issued over time according to a service-defined backoff algorithm.  The backoff algorithm might insert an increasing amount of delay between retry attempts and might reach a maximum."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -604,6 +657,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct typographic errors in DeliveryRetryPolicy."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_1.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_0">
@@ -630,8 +689,8 @@
         <Property Name="AuthenticationKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the key used for SNMPv3 authentication.  The value shall be `null` in responses."/>
-          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
+          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\*+$)"/>
         </Property>
         <Property Name="AuthenticationProtocol" Type="EventDestination.v1_7_0.SNMPAuthenticationProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -641,7 +700,7 @@
         <Property Name="EncryptionKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
           <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
         </Property>
         <Property Name="EncryptionProtocol" Type="EventDestination.v1_7_0.SNMPEncryptionProtocols">
@@ -668,6 +727,54 @@
           <Annotation Term="OData.Description" String="HMAC-SHA-96 authentication."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."/>
         </Member>
+        <Member Name="HMAC128_SHA224">
+          <Annotation Term="OData.Description" String="HMAC-128-SHA-224 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC192_SHA256">
+          <Annotation Term="OData.Description" String="HMAC-192-SHA-256 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC256_SHA384">
+          <Annotation Term="OData.Description" String="HMAC-256-SHA-384 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC384_SHA512">
+          <Annotation Term="OData.Description" String="HMAC-384-SHA-512 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="SNMPEncryptionProtocols">
@@ -692,6 +799,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_0.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_1.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -710,6 +823,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct typographic errors in DeliveryRetryPolicy."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_1.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_0">
@@ -866,6 +985,33 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The types of programs that can log messages."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the types of programs that can log messages.  If this property contains an empty array or is absent, all facilities shall be indicated."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols and to provide better description for the authentication and encryption keys.  It also added `RetryForeverWithBackoff` to DeliveryRetryPolicy and long description details to the DeliveryRetryPolicy values."/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_1.EventDestination"/>
+
+      <ComplexType Name="SNMPSettings" BaseType="EventDestination.v1_7_0.SNMPSettings">
+        <Property Name="AuthenticationKeySet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the AuthenticationKey property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the AuthenticationKey property.  Otherwise, the property shall contain `false`."/>
+        </Property>
+        <Property Name="EncryptionKeySet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the EncryptionKey property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`."/>
         </Property>
       </ComplexType>
     </Schema>

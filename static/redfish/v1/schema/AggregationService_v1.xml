@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationService v1.0.0                                           -->
+<!--# Redfish Schema:  AggregationService v1.0.1                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -162,6 +162,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AggregationService" BaseType="AggregationService.v1_0_0.AggregationService"/>
     </Schema>
 
   </edmx:DataServices>

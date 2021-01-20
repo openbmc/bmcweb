@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Message v1.1.1                                                      -->
+<!--# Redfish Schema:  Message v1.1.2                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -44,14 +44,14 @@
       <ComplexType Name="Message" BaseType="Message.Message">
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The key for this message used to find the message in a message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a key into message registry, as described in the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="The identifier for the message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a MessageId, as defined in the 'MessageId format' clause of the Redfish Specification."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
-        <Property Name="Message" Type="Edm.String">
+        <Property Name="Message" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The human-readable message, if provided."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an optional human-readable message."/>
+          <Annotation Term="OData.Description" String="The human-readable message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a human-readable message."/>
         </Property>
         <Property Name="RelatedProperties" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -60,13 +60,13 @@
         </Property>
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This array of message arguments are substituted for the arguments in the message when looked up in the message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message substitution arguments for the specific message to which this MessageId refers and shall be included only if the MessageId is present.  Any number and integer type arguments shall be converted to strings."/>
+          <Annotation Term="OData.Description" String="An array of message arguments that are substituted for the arguments in the message when looked up in the message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema."/>
         </Property>
-        <Property Name="Severity" Type="Edm.String">
+        <Property Name="Severity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The severity of the errors."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the error, as defined in the Status section of the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
+          <Annotation Term="OData.Description" String="The severity of the message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the message, as defined in the 'Status' clause of the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -77,9 +77,9 @@
             </Collection>
           </Annotation>
         </Property>
-        <Property Name="Resolution" Type="Edm.String">
+        <Property Name="Resolution" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Used to provide suggestions on how to resolve the situation that caused the error."/>
+          <Annotation Term="OData.Description" String="Used to provide suggestions on how to resolve the situation that caused the message."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the message.  Services can replace the resolution defined in the message registry with a more specific resolution in message payloads."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
@@ -137,13 +137,19 @@
       <ComplexType Name="Message" BaseType="Message.v1_0_8.Message"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_9.Message"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate the Severity property and replace it with the MessageSeverity property, in order to tie the values to those used for the Health property within Status."/>
 
       <ComplexType Name="Message" BaseType="Message.v1_0_8.Message">
-        <Property Name="MessageSeverity" Type="Resource.Health">
+        <Property Name="MessageSeverity" Type="Resource.Health" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the message."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the message.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
@@ -155,6 +161,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Resolution, MessageSeverity, and Severity can be overridden by the service."/>
       <ComplexType Name="Message" BaseType="Message.v1_1_0.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas."/>
+      <ComplexType Name="Message" BaseType="Message.v1_1_1.Message"/>
     </Schema>
 
   </edmx:DataServices>

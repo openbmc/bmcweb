@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_11_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -357,6 +357,19 @@
                 "Endpoints@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "Memory": {
+                    "description": "An array of links to the memory associated with this processor.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.json#/definitions/Memory"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Memory that are associated with this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
+                "Memory@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -381,6 +394,57 @@
                 },
                 "PCIeFunctions@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "MemorySummary": {
+            "additionalProperties": false,
+            "description": "The summary of all memory associated with a processor.",
+            "longDescription": "This type shall contain properties that describe the summary of all memory that are associated with a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json#/definitions/MemoryMetrics",
+                    "description": "The link to the memory metrics associated with all memory of this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type MemoryMetrics that contains the metrics associated with all memory of this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "TotalCacheSizeMiB": {
+                    "description": "Total size of cache memory of this processor.",
+                    "longDescription": "This property shall contain the total size of cache memory of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_11_0"
+                },
+                "TotalMemorySizeMiB": {
+                    "description": "Total size of volatile memory of this processor.",
+                    "longDescription": "This property shall contain the total size of non-cache, volatile memory of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_11_0"
                 }
             },
             "type": "object"
@@ -490,6 +554,13 @@
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -500,6 +571,13 @@
                         }
                     ],
                     "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
                 },
                 "FPGA": {
                     "$ref": "#/definitions/FPGA",
@@ -595,6 +673,21 @@
                     ],
                     "units": "W",
                     "versionAdded": "v1_4_0"
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
+                "MemorySummary": {
+                    "$ref": "#/definitions/MemorySummary",
+                    "description": "The summary of all memory associated with this processor.",
+                    "longDescription": "This property shall contain properties that describe the summary of all memory that are associated with this processor.",
+                    "versionAdded": "v1_11_0"
                 },
                 "Metrics": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.json#/definitions/ProcessorMetrics",
@@ -718,6 +811,16 @@
                         "string",
                         "null"
                     ]
+                },
+                "SparePartNumber": {
+                    "description": "The spare part number of the processor.",
+                    "longDescription": "This property shall contain the spare part number of the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
                 },
                 "SpeedLimitMHz": {
                     "description": "The clock limit of the processor in MHz.",
@@ -1110,8 +1213,8 @@
                 "GDDR3": "Double data rate type three synchronous graphics random-access memory.",
                 "GDDR4": "Double data rate type four synchronous graphics random-access memory.",
                 "GDDR5": "Double data rate type five synchronous graphics random-access memory.",
-                "GDDR5X": "Double data rate type five synchronous graphics random-access memory.",
-                "GDDR6": "Double data rate type five synchronous graphics random-access memory.",
+                "GDDR5X": "Double data rate type five X synchronous graphics random-access memory.",
+                "GDDR6": "Double data rate type six synchronous graphics random-access memory.",
                 "HBM1": "High Bandwidth Memory.",
                 "HBM2": "The second generation of High Bandwidth Memory.",
                 "HBM3": "The third generation of High Bandwidth Memory.",
@@ -1236,6 +1339,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Processor.v1_10_0.Processor"
+    "release": "2020.4",
+    "title": "#Processor.v1_11_0.Processor"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Redundancy v1.3.4                                                   -->
+<!--# Redfish Schema:  Redundancy v1.4.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -31,6 +31,12 @@
         <Annotation Term="OData.Description" String="The common redundancy definition and structure used in other Redfish schemas."/>
         <Annotation Term="OData.LongDescription" String="This object represents the redundancy element property."/>
       </EntityType>
+
+      <ComplexType Name="RedundantGroup" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The redundancy information for the devices in a redundancy group."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain redundancy information for the set of devices in this redundancy group."/>
+      </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_0">
@@ -165,6 +171,12 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_8.Redundancy"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_9.Redundancy"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -218,6 +230,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_6.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_7.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_0">
@@ -278,6 +296,12 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_4.Redundancy"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_5.Redundancy"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -314,6 +338,72 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_4.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_5.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add RedundancyGroup and RedundancyType."/>
+
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_6.Redundancy"/>
+
+      <ComplexType Name="RedundantGroup" BaseType="Redundancy.RedundantGroup">
+        <Property Name="RedundancyType" Type="Redundancy.v1_4_0.RedundancyType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The redundancy mode of the group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the redundancy mode of this redundancy group."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="MaxSupportedInGroup" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of devices supported in this redundancy group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of devices allowed in the redundancy group."/>
+        </Property>
+        <Property Name="MinNeededInGroup" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of devices needed for this group to be redundant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of functional devices needed in the redundancy group for the current redundancy mode to be fault tolerant."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <NavigationProperty Name="RedundancyGroup" Type="Collection(Resource.Resource)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the devices included in this redundancy group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the links to the resources that represent the devices that are part of this redundancy group."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="RedundancyType">
+        <Member Name="Failover">
+           <Annotation Term="OData.Description" String="Failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
+           <Annotation Term="OData.LongDescription" String="This value shall indicate that a failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
+        </Member>
+        <Member Name="NPlusM">
+           <Annotation Term="OData.Description" String="Multiple units are available and active such that normal operation will continue if one or more units fail."/>
+           <Annotation Term="OData.LongDescription" String="This value shall indicate that the capacity or services provided by the set of N+M devices can withstand failure of up to M units, with all units in the group normally providing capacity or service."/>
+        </Member>
+        <Member Name="Sharing">
+           <Annotation Term="OData.Description" String="Multiple units contribute or share such that operation will continue, but at a reduced capacity, if one or more units fail."/>
+        </Member>
+        <Member Name="Sparing">
+           <Annotation Term="OData.Description" String="One or more spare units are available to take over the function of a failed unit, but takeover is not automatic."/>
+        </Member>
+        <Member Name="NotRedundant">
+           <Annotation Term="OData.Description" String="The subsystem is not configured in a redundancy mode, either due to configuration or the functionality has been disabled by the user."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

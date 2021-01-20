@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/TaskService.v1_1_5.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/TaskService.v1_1_6.json",
     "$ref": "#/definitions/TaskService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -103,8 +103,8 @@
                 },
                 "CompletedTaskOverWritePolicy": {
                     "$ref": "#/definitions/OverWritePolicy",
-                    "description": "The overwrite policy for completed tasks.  This property indicates whether the task service overwrites completed task information.",
-                    "longDescription": "This property shall indicate how the task service shall handle completed tasks if the service must track more tasks.  This property indicates whether the task service overwrites completed task information.",
+                    "description": "The overwrite policy for completed tasks.  This property indicates if the task service overwrites completed task information.",
+                    "longDescription": "This property shall contain the overwrite policy for completed tasks.  This property shall indicate if the task service overwrites completed task information.",
                     "readonly": true
                 },
                 "DateTime": {
@@ -179,5 +179,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.1",
-    "title": "#TaskService.v1_1_5.TaskService"
+    "title": "#TaskService.v1_1_6.TaskService"
 }

@@ -60,6 +60,15 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkPorts</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="2020.4"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of the PortCollection schema."/>
+            </Record>
+          </Collection>
+        </Annotation>
         <NavigationProperty Name="Members" Type="Collection(NetworkPort.NetworkPort)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>

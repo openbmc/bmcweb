@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryMetrics v1.4.0                                                -->
+<!--# Redfish Schema:  MemoryMetrics v1.4.1                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -56,12 +56,17 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -82,7 +87,7 @@
         <Property Name="BlockSizeBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The block size, in bytes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the block size, in bytes, of all stucture elements.  When this resource is subordinate to the MemorySummary object, this property is not applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the block size, in bytes, of all structure elements.  When this resource is subordinate to the MemorySummary object, this property is not applicable."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="CurrentPeriod" Type="MemoryMetrics.v1_0_0.CurrentPeriod" Nullable="false">
@@ -229,7 +234,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version shows that AlarmTrips was modified to add semantics about AlarmTrip resets upon system reset."/>
+      <Annotation Term="OData.Description" String="This version shows that AlarmTrips was modified to add semantics about AlarmTrips resets upon system reset."/>
       <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_2.MemoryMetrics"/>
     </Schema>
 
@@ -255,6 +260,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update description HealthData to allow for usage when this resource is subordinate to the MemorySummary object."/>
       <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_6.MemoryMetrics"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_7.MemoryMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_0">
@@ -286,7 +297,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version shows that AlarmTrips was modified to add semantics about AlarmTrip resets upon system reset."/>
+      <Annotation Term="OData.Description" String="This version shows that AlarmTrips was modified to add semantics about AlarmTrips resets upon system reset."/>
       <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_2.MemoryMetrics"/>
     </Schema>
 
@@ -313,6 +324,12 @@
       <Annotation Term="OData.Description" String="This version was created to update description HealthData to allow for usage when this resource is subordinate to the MemorySummary object."/>
       <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_6.MemoryMetrics"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_7.MemoryMetrics"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -335,6 +352,12 @@
       <Annotation Term="OData.Description" String="This version was created to update description HealthData to allow for usage when this resource is subordinate to the MemorySummary object."/>
       <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_0.MemoryMetrics"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_1.MemoryMetrics"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -349,6 +372,12 @@
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_3_0.MemoryMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_0">
@@ -383,6 +412,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of the uncorrectable errors for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of UncorrectableECCErrorCount over all memory."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_4_0.MemoryMetrics"/>
     </Schema>
 
   </edmx:DataServices>

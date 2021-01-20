@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PortMetrics v1.0.0                                                  -->
+<!--# Redfish Schema:  PortMetrics v1.0.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -86,7 +86,7 @@
         <Property Name="PacketCRCErrors" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total number of PCRC transient errors detected."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCRC transient errors detected in received link-local and end-to-ent packets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCRC transient errors detected in received link-local and end-to-end packets."/>
         </Property>
         <Property Name="EndToEndCRCErrors" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -96,7 +96,7 @@
         <Property Name="RXStompedECRC" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total number of packets received with a stomped ECRC field."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of packets that thsi interface received with a stomped ECRC field."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of packets that this interface received with a stomped ECRC field."/>
         </Property>
         <Property Name="TXStompedECRC" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -155,6 +155,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_0_0.PortMetrics"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Fabric.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Fabric.v1_2_1.json",
     "$ref": "#/definitions/Fabric",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -222,5 +222,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.3",
-    "title": "#Fabric.v1_2_0.Fabric"
+    "title": "#Fabric.v1_2_1.Fabric"
 }

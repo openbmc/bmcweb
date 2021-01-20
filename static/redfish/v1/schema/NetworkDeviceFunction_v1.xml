@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunction v1.5.0                                        -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.5.1                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -125,7 +125,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AssignablePhysicalNetowrkPorts property."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AssignablePhysicalNetworkPorts property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -243,7 +243,7 @@
         </Property>
       </ComplexType>
 
-      <ComplexType Name="Links">
+      <ComplexType Name="Links" BaseType="Resource.Links">
         <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
         <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="PCIeFunction" Type="PCIeFunction.PCIeFunction" Nullable="false">
@@ -380,7 +380,7 @@
         <Property Name="CHAPUsername" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The user name for CHAP authentication."/>
-          <Annotation Term="OData.LongDescription" String="This property shall containhe user name for CHAP authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user name for CHAP authentication."/>
         </Property>
         <Property Name="CHAPSecret" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -484,16 +484,16 @@
           <Annotation Term="OData.Description" String="Do not indicate to UEFI/BIOS that this device is bootable."/>
         </Member>
         <Member Name="PXE">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded PXE support.  Only applicable if the NetworkDeviceFunctionType is `Ethernet` or `InfiniBand`."/>
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded PXE support.  Only applicable if the NetDevFuncType is `Ethernet` or `InfiniBand`."/>
         </Member>
         <Member Name="iSCSI">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded iSCSI boot support and configuration.  Only applicable if the NetworkDeviceFunctionType is `iSCSI`."/>
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded iSCSI boot support and configuration.  Only applicable if the NetDevFuncType is `iSCSI` or `Ethernet`."/>
         </Member>
         <Member Name="FibreChannel">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel support and configuration.  Only applicable if the NetworkDeviceFunctionType is `FibreChannel`."/>
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel support and configuration.  Only applicable if the NetDevFuncType is `FibreChannel`."/>
         </Member>
         <Member Name="FibreChannelOverEthernet">
-          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel over Ethernet (FCoE) boot support and configuration.  Only applicable if the NetworkDeviceFunctionType is `FibreChannelOverEthernet`."/>
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel over Ethernet (FCoE) boot support and configuration.  Only applicable if the NetDevFuncType is `FibreChannelOverEthernet`."/>
         </Member>
       </EnumType>
     </Schema>
@@ -538,6 +538,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_6.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_7.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_0">
@@ -604,6 +610,12 @@
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_5.NetworkDeviceFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_6.NetworkDeviceFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -654,6 +666,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_5.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_6.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_0">
@@ -726,6 +744,12 @@
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_3.NetworkDeviceFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_4.NetworkDeviceFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -746,6 +770,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_1.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_0">
@@ -789,8 +819,8 @@
 
       <ComplexType Name="InfiniBand">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This type describes InifiniBand capabilities, status, and configuration of a network device function."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the InifiniBand capabilities, status, and configuration values for a network device function."/>
+        <Annotation Term="OData.Description" String="This type describes InfiniBand capabilities, status, and configuration of a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the InfiniBand capabilities, status, and configuration values for a network device function."/>
         <Property Name="PermanentPortGUID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The permanent port GUID assigned to this network device function."/>
@@ -838,6 +868,12 @@
           <Annotation Term="OData.LongDescription" String="The maximum transmission unit (MTU) configured for this network device function."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_0.NetworkDeviceFunction"/>
     </Schema>
 
   </edmx:DataServices>

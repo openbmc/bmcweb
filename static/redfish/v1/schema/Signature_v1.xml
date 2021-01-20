@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Signature v1.0.1                                                    -->
+<!--# Redfish Schema:  Signature v1.0.2                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -79,13 +79,13 @@
         <Property Name="SignatureType" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The format of the signature."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the signature.  The format is qualified by the value of the SignatureTypeRegisty property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the signature.  The format is qualified by the value of the SignatureTypeRegistry property."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="SignatureString" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The string for the signature."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the string of the signature, and the format shall follow the requirements specified by the value of the SignatureType property.  If the signature contains any private keys, they shall be removed from the string in reponses.  If the private key for the signature is not known by the service and is needed to use the signature, the client shall provide the private key as part of the string in the POST request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string of the signature, and the format shall follow the requirements specified by the value of the SignatureType property.  If the signature contains any private keys, they shall be removed from the string in responses.  If the private key for the signature is not known by the service and is needed to use the signature, the client shall provide the private key as part of the string in the POST request."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="UefiSignatureOwner" Type="Edm.Guid">
@@ -120,6 +120,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Signature" BaseType="Signature.v1_0_0.Signature"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Signature" BaseType="Signature.v1_0_1.Signature"/>
     </Schema>
 
   </edmx:DataServices>

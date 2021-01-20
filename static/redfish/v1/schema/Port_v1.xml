@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.4.0                                                         -->
+<!--# Redfish Schema:  Port v1.3.1                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -72,13 +72,20 @@
           <Collection>
             <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports/{PortId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/{PortId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -248,6 +255,12 @@
       <EntityType Name="Port" BaseType="Port.v1_0_6.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Port" BaseType="Port.v1_0_7.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -282,6 +295,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Port" BaseType="Port.v1_1_3.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Port" BaseType="Port.v1_1_4.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_0">
@@ -436,6 +455,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for the values of LinkStatus."/>
       <EntityType Name="Port" BaseType="Port.v1_2_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Port" BaseType="Port.v1_2_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_0">
@@ -598,6 +623,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the network link width this port is configured to use for autonegotiation purposes."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Port" BaseType="Port.v1_3_0.Port"/>
     </Schema>
 
   </edmx:DataServices>

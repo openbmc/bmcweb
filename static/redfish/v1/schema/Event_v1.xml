@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Event v1.6.0                                                        -->
+<!--# Redfish Schema:  Event v1.6.1                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -136,7 +136,7 @@
         <Property Name="EventId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The unique instance identifier of an event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate a unique identifier for the event.  The value should be a string of a positive integer, and should be generated in a sequential manner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a service-defined unique identifier for the event."/>
         </Property>
         <Property Name="EventTimestamp" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -146,7 +146,7 @@
         <Property Name="Severity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the event, as defined by the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the event, as defined in the 'Status' clause of the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -164,8 +164,8 @@
         </Property>
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The key used to find the message in a message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a MessageId, as defined in the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="The identifier for the message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a MessageId, as defined in the 'MessageId format' clause of the Redfish Specification."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]+\.\d+\.\d+\.[A-Za-z0-9.]+$"/>
           <Annotation Term="Redfish.Required"/>
         </Property>
@@ -274,6 +274,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_0_11.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_0_12.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_0_12.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -357,6 +364,13 @@
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
       <EntityType Name="Event" BaseType="Event.v1_1_9.Event"/>
       <EntityType Name="EventRecord" BaseType="Event.v1_1_9.EventRecord"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_1_10.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_1_10.EventRecord"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_2_0">
@@ -459,6 +473,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_2_6.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_2_7.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_2_7.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -510,6 +531,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_3_4.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_3_5.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_3_5.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -541,6 +569,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_4_2.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_4_3.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_4_3.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -549,7 +584,7 @@
       <EntityType Name="Event" BaseType="Event.v1_4_2.Event"/>
 
       <EntityType Name="EventRecord" BaseType="Event.v1_4_2.EventRecord">
-        <Property Name="MessageSeverity" Type="Resource.Health">
+        <Property Name="MessageSeverity" Type="Resource.Health" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the message in this event."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the message in this event.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
@@ -562,6 +597,13 @@
       <Annotation Term="OData.Description" String="This version was created to clarify that MessageSeverity and Severity can be overridden by the service."/>
       <EntityType Name="Event" BaseType="Event.v1_5_0.Event"/>
       <EntityType Name="EventRecord" BaseType="Event.v1_5_0.EventRecord"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_5_1.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_5_1.EventRecord"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_6_0">
@@ -577,6 +619,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate that the event is equivalent to another event, with a more specific definition, within the same EventGroupId.  For example, the `DriveFailed` message from the Storage Device Message Registry is more specific than the `ResourceStatusChangedCritical` message from the Resource Event Message Registry, when both occur with the same EventGroupId.  This property shall contain `true` if a more specific event is available, and shall contain `false` if no equivalent event exists in the same EventGroupId.  If this property is absent, the value shall be assumed to be `false`."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
+      <EntityType Name="Event" BaseType="Event.v1_6_0.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_6_0.EventRecord"/>
     </Schema>
 
   </edmx:DataServices>

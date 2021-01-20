@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_4_0.json",
     "$ref": "#/definitions/SoftwareInventory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -27,6 +27,59 @@
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this Resource.",
                     "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "MeasurementBlock": {
+            "additionalProperties": false,
+            "description": "The DSP0274-defined measurement block information.",
+            "longDescription": "This type shall describe a DSP0274-defined measurement block.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Measurement": {
+                    "description": "The hexadecimal string representation of the numeric value of the DSP0274-defined Measurement field  of the measurement block.",
+                    "longDescription": "This property shall contain the value of the hexadecimal string representation of the numeric value of the DSP0274-defined Measurement field  of the measurement block.",
+                    "pattern": "^[0-9a-fA-F]+$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MeasurementSize": {
+                    "description": "The DSP0274-defined MeasurementSize field of the measurement block.",
+                    "longDescription": "This property shall contain the value of DSP0274-defined MeasurementSize field of the measurement block.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MeasurementSpecification": {
+                    "description": "The DSP0274-defined MeasurementSpecification field of the measurement block.",
+                    "longDescription": "This property shall contain the value of DSP0274-defined MeasurementSpecification field of the measurement block.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
                 }
             },
             "type": "object"
@@ -122,6 +175,12 @@
                         "null"
                     ],
                     "versionAdded": "v1_2_0"
+                },
+                "Measurement": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock",
+                    "description": "A DSP0274-defined measurement block.",
+                    "longDescription": "This property shall contain a DSP0274-defined measurement block.",
+                    "versionAdded": "v1_4_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -220,6 +279,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#SoftwareInventory.v1_3_0.SoftwareInventory"
+    "release": "2020.4",
+    "title": "#SoftwareInventory.v1_4_0.SoftwareInventory"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_13_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_14_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -253,7 +253,7 @@
                         }
                     ],
                     "description": "The current boot source to use at the next boot instead of the normal boot device, if BootSourceOverrideEnabled is `true`.",
-                    "longDescription": "This property shall contain the source to boot the system from, overriding the normal boot order.  The Redfish.AllowableValues annotation specifies the valid values for this property.  `Pxe` indicates to PXE boot from the primary NIC; `Floppy`, `Cd`, `Usb`, and `Hdd` indicate to boot from their devices respectively.  `BiosSetup` indicates to boot into the native BIOS screen setup.  `Utilities` and `Diags` indicate to boot from the local utilities or diags partitions.  `UefiTarget` indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride.  `UefiBootNext` indicates to boot from the UEFI BootOptionReference found in BootNext.  Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "longDescription": "This property shall contain the source to boot the system from, overriding the normal boot order.  The Redfish.AllowableValues annotation specifies the valid values for this property.  `Pxe` indicates to PXE boot from the primary NIC; `Floppy`, `Cd`, `Usb`, and `Hdd` indicate to boot from their devices respectively.  `BiosSetup` indicates to boot into the native BIOS screen setup.  `Utilities` and `Diags` indicate to boot from the local utilities or diagnostics partitions.  `UefiTarget` indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride.  `UefiBootNext` indicates to boot from the UEFI BootOptionReference found in BootNext.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false
                 },
                 "Certificates": {
@@ -284,6 +284,20 @@
                         "null"
                     ],
                     "versionAdded": "v1_11_0"
+                },
+                "TrustedModuleRequiredToBoot": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TrustedModuleRequiredToBoot"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Trusted Module boot requirement.",
+                    "longDescription": "This property shall contain the Trusted Module boot requirement.",
+                    "readonly": false,
+                    "versionAdded": "v1_14_0"
                 },
                 "UefiTargetBootSourceOverride": {
                     "description": "The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`.",
@@ -514,6 +528,13 @@
                     "longDescription": "This object shall contain the last boot progress state and time.",
                     "versionAdded": "v1_13_0"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_14_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -631,6 +652,15 @@
                         "string",
                         "null"
                     ]
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_14_0"
                 },
                 "Memory": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryCollection.json#/definitions/MemoryCollection",
@@ -837,7 +867,7 @@
                 },
                 "SubModel": {
                     "description": "The sub-model for this system.",
-                    "longDescription": "This property shall contain the information about the sub-model (or config) of the system.  This shall not include the model/product name or the manufacturer name.",
+                    "longDescription": "This property shall contain the information about the sub-model (or configuration) of the system.  This shall not include the model/product name or the manufacturer name.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1413,9 +1443,20 @@
                 }
             },
             "properties": {
+                "CoreCount": {
+                    "description": "The number of processor cores in the system.",
+                    "longDescription": "This property shall contain the total number of central processor cores in in the system.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_14_0"
+                },
                 "Count": {
                     "description": "The number of physical processors in the system.",
-                    "longDescription": "This property shall contain the number of physical central processors in the system.",
+                    "longDescription": "This property shall contain the total number of physical central processors in the system.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -1425,7 +1466,7 @@
                 },
                 "LogicalProcessorCount": {
                     "description": "The number of logical processors in the system.",
-                    "longDescription": "This property shall contain the number of logical central processors in the system.",
+                    "longDescription": "This property shall contain the total number of logical central processors in the system.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -1667,12 +1708,27 @@
                 "Composed": "A SystemType of Composed typically represents a single system constructed from disaggregated resources through the Redfish composition service.",
                 "OS": "A SystemType of OS typically represents an OS or hypervisor view of the system.",
                 "Physical": "A SystemType of Physical typically represents the hardware aspects of a system, such as a management controller.",
-                "PhysicallyPartitioned": "A SystemType of PhysicallyPartition typically represents a single system constructed from one or more physical systems through a firmware or hardware-based service.",
+                "PhysicallyPartitioned": "A SystemType of PhysicallyPartitioned typically represents a single system constructed from one or more physical systems through a firmware or hardware-based service.",
                 "Virtual": "A SystemType of Virtual typically represents a system that is actually a virtual machine instance.",
-                "VirtuallyPartitioned": "A SystemType of VirtuallyPartition typically represents a single system constructed from one or more virtual systems through a software-based service."
+                "VirtuallyPartitioned": "A SystemType of VirtuallyPartitioned typically represents a single system constructed from one or more virtual systems through a software-based service."
             },
             "enumVersionAdded": {
                 "Composed": "v1_4_0"
+            },
+            "type": "string"
+        },
+        "TrustedModuleRequiredToBoot": {
+            "enum": [
+                "Disabled",
+                "Required"
+            ],
+            "enumDescriptions": {
+                "Disabled": "No Trusted Module requirement to boot.",
+                "Required": "A functional Trusted Module is required to boot."
+            },
+            "enumLongDescriptions": {
+                "Disabled": "This value shall indicate a Trusted Module is not required to boot.",
+                "Required": "This value shall indicate a functioning Trusted Module is required to boot."
             },
             "type": "string"
         },
@@ -1697,7 +1753,7 @@
             "properties": {
                 "FirmwareVersion": {
                     "description": "The firmware version of this Trusted Module.",
-                    "longDescription": "This property shall contain the firwmare version as defined by the manufacturer for the Trusted Module.",
+                    "longDescription": "This property shall contain the firmware version as defined by the manufacturer for the Trusted Module.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1914,6 +1970,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#ComputerSystem.v1_13_0.ComputerSystem"
+    "release": "2020.4",
+    "title": "#ComputerSystem.v1_14_0.ComputerSystem"
 }

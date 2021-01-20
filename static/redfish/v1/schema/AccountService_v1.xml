@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.7.2                                               -->
+<!--# Redfish Schema:  AccountService v1.8.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,6 +42,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Privileges_v1.xml">
+    <edmx:Include Namespace="Privileges"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ManagerAccount_v1.xml">
+    <edmx:Include Namespace="ManagerAccount"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -118,7 +124,7 @@
         <Property Name="AccountLockoutDuration" Type="Edm.Int64" Nullable="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The period of time, in seconds, that an account is locked after the number of failed login attempts reaches the account lockout threshold, within the period between the last failed login attempt and the reset of the lockout threshold counter.  If this value is `0`, no lockout will occur.  If the AccountLockoutCounterResetEnabled value is `false`, this property is ignored."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the period of time, in seconds, that an account is locked after the number of failed login attempts reaches the AccountLockoutThreshold value, within the AccountLockoutCounterResetAfter window of time.  The value shall be greater than or equal to the AccountLockoutResetAfter value.  If this value is `0`, no lockout shall occur.  If AccountLockoutCounterResetEnabled value is `false`, this property shall be ignored."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the period of time, in seconds, that an account is locked after the number of failed login attempts reaches the AccountLockoutThreshold value, within the AccountLockoutCounterResetAfter window of time.  The value shall be greater than or equal to the AccountLockoutCounterResetAfter value.  If this value is `0`, no lockout shall occur.  If AccountLockoutCounterResetEnabled value is `false`, this property shall be ignored."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="s"/>
         </Property>
@@ -198,6 +204,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_0_9.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_0_10.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -252,6 +264,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_1_6.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_1_7.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_0">
@@ -322,6 +340,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_2_6.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_2_7.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_0">
@@ -420,11 +444,11 @@
       <EnumType Name="AccountProviderTypes">
         <Member Name="RedfishService">
           <Annotation Term="OData.Description" String="An external Redfish service."/>
-          <Annotation Term="OData.LongDescription" String="The external account provider shall be a DMTF Redfish Specification-comformant service.  The ServiceAddresses format shall contain a set of URIs that correspond to a Redfish account service."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be a DMTF Redfish Specification-conformant service.  The ServiceAddresses format shall contain a set of URIs that correspond to a Redfish account service."/>
         </Member>
         <Member Name="ActiveDirectoryService">
           <Annotation Term="OData.Description" String="An external Active Directory service."/>
-          <Annotation Term="OData.LongDescription" String="The external account provider shall be a Microsoft Active Directory Technical Specification-comformant service.  The ServiceAddresses format shall contain a set of fully qualified domain names (FQDN) or NetBIOS names that links to the set of domain servers for the Active Directory service."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be a Microsoft Active Directory Technical Specification-conformant service.  The ServiceAddresses format shall contain a set of fully qualified domain names (FQDN) or NetBIOS names that links to the set of domain servers for the Active Directory service."/>
         </Member>
         <Member Name="LDAPService">
           <Annotation Term="OData.Description" String="A generic external LDAP service."/>
@@ -432,6 +456,18 @@
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="An OEM-specific external authentication or directory service."/>
+        </Member>
+        <Member Name="TACACSplus">
+          <Annotation Term="OData.Description" String="An external TACACS+ service."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be an RFC8907-conformant service.  The ServiceAddresses format shall contain a set of host:port that correspond to a TACACS+ service and where the format for host and port are defined in RFC3986."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -577,6 +613,18 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_4.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_3_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_3_6.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -617,6 +665,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_3.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_4_4.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -649,10 +703,16 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_2.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_5_3.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add LocalFirst to the LocalAccountAuth enum."/>
+      <Annotation Term="OData.Description" String="This version was created to add LocalFirst to the LocalAccountAuth enumeration."/>
 
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_1.AccountService"/>
     </Schema>
@@ -667,6 +727,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_1.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_6_2.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_0">
@@ -694,6 +760,111 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_1.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_7_2.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_0">
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add TACACS+ support and SupportedAccountTypes."/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_7_3.AccountService">
+        <Property Name="TACACSplus" Type="AccountService.v1_8_0.ExternalAccountProvider">
+          <Annotation Term="OData.Description" String="The first TACACS+ external account provider that this account service supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the first TACACS+ external account provider that this account service supports.  If the account service supports one or more TACACS+ services as an external account provider, this entity shall be populated by default.  This entity shall not be present in the additional external account providers resource collection."/>
+        </Property>        
+        <Property Name="SupportedAccountTypes" Type="Collection(ManagerAccount.AccountTypes)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The account types supported by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the account types supported by the service."/>
+        </Property>
+        <Property Name="SupportedOEMAccountTypes" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM account types supported by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the OEM account types supported by the service."/>
+        </Property>
+        <Property Name="RestrictedPrivileges" Type="Collection(Privileges.PrivilegeType)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of restricted Redfish privileges."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of Redfish privileges that are restricted by the service."/>
+        </Property>
+        <Property Name="RestrictedOemPrivileges" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of restricted OEM privileges."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of OEM privileges that are restricted by the service."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ExternalAccountProvider" BaseType="AccountService.v1_7_0.ExternalAccountProvider">
+        <Property Name="TACACSplusService" Type="AccountService.v1_8_0.TACACSplusService">
+          <Annotation Term="OData.Description" String="The additional information needed to parse a TACACS+ services."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain additional information needed to parse a TACACS+ services. This property should only be present inside a TACACSplus property."/>
+        </Property>
+        <Property Name="Priority" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The authentication priority for the external account provider."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the assigned priority for the specified external account provider.  The value `0` value shall indicate the highest priority.  Increasing values shall represent decreasing priority.  If an external provider does not have a priority assignment or two or more external providers have the same priority, the behavior shall be determined by the Redfish service.  The priority is used to determine the order of authentication and authorization for each external account provider."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Authentication" BaseType="AccountService.v1_3_0.Authentication">
+        <Property Name="EncryptionKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Specifies the encryption key."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value of a symmetric encryption key for account services that support some form of encryption, obfuscation, or authentication such as TACACS+.  The value shall be `null` in responses.  The property shall accept a hexadecimal string whose length depends on the external account service, such as TACACS+.  A TACACS+ service shall use this property to specify the secret key as defined in RFC8907."/>
+          <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]+$"/>
+        </Property>
+       <Property Name="EncryptionKeySet" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the EncryptionKey property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`.  For a TACACS+ service, the value `false` shall indicate data obfuscation, as defined in section 4.5 of RFC8907, is disabled."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TACACSplusService">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Various settings to parse a TACACS+ service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain settings for parsing a TACACS+ service."/>
+        <Property Name="PrivilegeLevelArgument" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the name of the TACACS+ argument name in an authorization request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall specify the name of the argument in a TACACS+ Authorization REPLY packet body, as defined in RFC8907, that contains the user's privilege level."/>
+        </Property>
+        <Property Name="PasswordExchangeProtocols" Type="Collection(AccountService.v1_8_0.TACACSplusPasswordExchangeProtocol)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the allowed TACACS+ password exchange protocols."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate all the allowed TACACS+ password exchange protocol described under section 5.4.2 of RFC8907."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="TACACSplusPasswordExchangeProtocol">
+        <Member Name="ASCII">
+          <Annotation Term="OData.Description" String="The ASCII Login method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ASCII Login flow as described under section 5.4.2 of RFC8907."/>
+        </Member>
+        <Member Name="PAP">
+          <Annotation Term="OData.Description" String="The PAP Login method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the PAP Login flow as described under section 5.4.2 of RFC8907."/>
+        </Member>
+        <Member Name="CHAP">
+          <Annotation Term="OData.Description" String="The CHAP Login method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CHAP Login flow as described under section 5.4.2 of RFC8907."/>
+        </Member>
+        <Member Name="MSCHAPv1">
+          <Annotation Term="OData.Description" String="The MS-CHAP v1 Login method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the MS-CHAP v1 Login flow as described under section 5.4.2 of RFC8907."/>
+        </Member>
+        <Member Name="MSCHAPv2">
+          <Annotation Term="OData.Description" String="The MS-CHAP v2 Login method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the MS-CHAP v2 Login flow as described under section 5.4.2 of RFC8907."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

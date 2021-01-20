@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkInterface.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkInterface.v1_2_1.json",
     "$ref": "#/definitions/NetworkInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -68,7 +68,7 @@
         "NetworkInterface": {
             "additionalProperties": false,
             "description": "The NetworkInterface schema describes links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system.",
-            "longDescription": "This resource contains links to the network adapters, network porta, and network device functions, and represents the functionality available to the containing system.",
+            "longDescription": "This resource contains links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -190,5 +190,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.3",
-    "title": "#NetworkInterface.v1_2_0.NetworkInterface"
+    "title": "#NetworkInterface.v1_2_1.NetworkInterface"
 }

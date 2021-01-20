@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.1.1                                                       -->
+<!--# Redfish Schema:  Sensor v1.2.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -121,7 +121,7 @@
         </Member>
         <Member Name="Line1ToNeutral">
           <Annotation Term="OData.Description" String="The circuit formed by L1 and neutral current-carrying conductors."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a circuit formed by L1 and neutral current-carrying conductors, such as circuits with phase wiring types of Single-pase / 3-Wire, Two-phase / 3-Wire or 4-Wire, or Three-phase / 4-Wire or 5-Wire."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a circuit formed by L1 and neutral current-carrying conductors, such as circuits with phase wiring types of Single-phase / 3-Wire, Two-phase / 3-Wire or 4-Wire, or Three-phase / 4-Wire or 5-Wire."/>
         </Member>
         <Member Name="Line2ToNeutral">
           <Annotation Term="OData.Description" String="The circuit formed by L2 and neutral current-carrying conductors."/>
@@ -192,18 +192,18 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The area or device to which this sensor measurement applies."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a description of the affected component or region within the equipment to which this sensor measurement applies."/>
-          <Annotation Term="Redfish.Excerpt" String="Array"/>
+          <Annotation Term="Redfish.Excerpt" String="Array,FanArray,PowerArray"/>
         </Property>
         <Property Name="PhysicalSubContext" Type="PhysicalContext.PhysicalSubContext">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The usage or location within a device to which this sensor measurement applies."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a description of the usage or sub-region within the equipment to which this sensor measurement applies.  This property generally differentiates multiple sensors within the same PhysicalContext instance."/>
-          <Annotation Term="Redfish.Excerpt" String="Array"/>
+          <Annotation Term="Redfish.Excerpt" String="Array,FanArray,PowerArray"/>
         </Property>
         <Property Name="PeakReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The peak sensor value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the peak sensor value since the last ResetStatistics action was performed or the service last reset the time-based property values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the peak sensor value since the last ResetMetrics action was performed or the service last reset the time-based property values."/>
         </Property>
 
         <Property Name="MaxAllowableOperatingValue" Type="Edm.Decimal">
@@ -232,14 +232,14 @@
           <Annotation Term="OData.Description" String="The product of voltage and current for an AC circuit, in Volt-Ampere units."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Measures.Unit" String="V.A"/>
-          <Annotation Term="Redfish.Excerpt" String="Power"/>
+          <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
         </Property>
         <Property Name="ReactiveVAR" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Measures.Unit" String="V.A"/>
-          <Annotation Term="Redfish.Excerpt" String="Power"/>
+          <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
         </Property>
         <Property Name="PowerFactor" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -247,7 +247,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Validation.Maximum" Int="1"/>
-          <Annotation Term="Redfish.Excerpt" String="Power"/>
+          <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
         </Property>
         <Property Name="LoadPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -328,7 +328,7 @@
         <Property Name="SensorResetTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time when the time-based properties were last reset."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the ResetStatistics action was last performed or the service last reset the time-based property values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the ResetMetrics action was last performed or the service last reset the time-based property values."/>
           <Annotation Term="Redfish.Excerpt" String="EnergykWh"/>
         </Property>
 
@@ -385,7 +385,7 @@
         <Property Name="DwellTime" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The duration the sensor value must violate the threshold before the threshold is activated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value must violate the threshold before the threshold is activated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value violates the threshold before the threshold is activated."/>
         </Property>
       </ComplexType>
 
@@ -526,6 +526,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_4.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_5.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -547,7 +553,7 @@
         <Property Name="LifetimeReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total accumulation value for this sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetStatistics action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetMetrics action."/>
           <Annotation Term="Redfish.Excerpt" String="EnergykWh"/>
         </Property>
         <Property Name="SensingInterval" Type="Edm.Duration">
@@ -558,7 +564,7 @@
         <Property Name="ReadingTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time that the reading was acquired from the sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and timetime that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors, and does not represent the time at which the resource was accessed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors, and does not represent the time at which the resource was accessed."/>
         </Property>
         <Property Name="Implementation" Type="Sensor.v1_1_0.ImplementationType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -584,6 +590,60 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_1.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add SpeedRPM and DeviceName properties.  It was also created to add several ReadingType values."/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_1.Sensor">
+        <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects that this sensor services."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that this sensor services."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="SpeedRPM" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The rotational speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units."/>
+          <Annotation Term="Measures.Unit" String="RPM"/>
+          <Annotation Term="Redfish.Excerpt" String="Fan,FanArray"/>
+        </Property>
+        <Property Name="DeviceName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The name of the device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the device associated with this sensor.  If the device is represented by a resource, the value shall contain the value of the Name property of the associated resource."/>
+          <Annotation Term="Redfish.Excerpt" String="Array,FanArray"/>
+          <Annotation Term="Redfish.ExcerptCopyOnly"/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Thresholds" BaseType="Sensor.v1_0_0.Thresholds">
+        <Property Name="UpperCautionUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
+          <Annotation Term="OData.Description" String="The value at which the reading is above normal range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is above the normal range.  The value of the property shall use the same units as the Reading property."/>
+        </Property>
+        <Property Name="UpperCriticalUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
+          <Annotation Term="OData.Description" String="The value at which the reading is above normal range but not yet fatal."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property."/>
+        </Property>
+        <Property Name="LowerCautionUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
+          <Annotation Term="OData.Description" String="The value at which the reading is below normal range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is below normal range.  The value of the property shall use the same units as the Reading property."/>
+        </Property>
+        <Property Name="LowerCriticalUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
+          <Annotation Term="OData.Description" String="The value at which the reading is below normal range but not yet fatal."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
