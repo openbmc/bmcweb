@@ -33,7 +33,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="HostInterfaceCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The collection of hostInterface Resource instances."/>
+        <Annotation Term="OData.Description" String="The collection of HostInterface Resource instances."/>
         <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of HostInterface instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>

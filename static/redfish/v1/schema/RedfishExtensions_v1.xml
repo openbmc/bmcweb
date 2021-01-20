@@ -166,7 +166,7 @@
 
       <ComplexType Name="PropertyPattern">
         <Annotation Term="OData.Description" String="The pattern by which property names must adhere."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the pattern to which a dynamic property name must adhere."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the pattern to which a dynamic property name adheres."/>
         <Property Name="Pattern" Type="Edm.String">
           <Annotation Term="OData.Description" String="The pattern that the property name shall match."/>
           <Annotation Term="OData.LongDescription" String="This shall contain the pattern that the property name shall match."/>
@@ -215,7 +215,7 @@
       </Term>
 
       <ComplexType Name="EnumerationMember">
-        <Annotation Term="OData.Description" String="The member of an enumeration that contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules.  Used for compatability purposes for enumerations that do not comply with OData rules."/>
+        <Annotation Term="OData.Description" String="The member of an enumeration that contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules.  Used for compatibility purposes for enumerations that do not comply with OData rules."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a member of an enumeration that contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules."/>
         <Property Name="Member" Type="Edm.String">
           <Annotation Term="OData.Description" String="An allowable string member."/>

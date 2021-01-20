@@ -194,7 +194,7 @@
         </Member>
         <Member Name="UserIntervention">
           <Annotation Term="OData.Description" String="Job is waiting for user intervention."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is waiting for a user to intervene and must be manually continued, stopped, or cancelled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is waiting for a user to intervene and needs to be manually continued, stopped, or cancelled."/>
         </Member>
         <Member Name="Continue">
           <Annotation Term="OData.Description" String="Job is to resume operation."/>
@@ -274,6 +274,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that steps cannot have their own steps."/>
       <EntityType Name="Job" BaseType="Job.v1_0_4.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Job" BaseType="Job.v1_0_5.Job"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_1_0.json",
     "$ref": "#/definitions/AggregationSource",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -115,6 +115,19 @@
                         "null"
                     ]
                 },
+                "SNMP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPSettings"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "SNMP settings of the aggregation source.",
+                    "longDescription": "This property shall contain the SNMP settings of the aggregation source.",
+                    "versionAdded": "v1_1_0"
+                },
                 "UserName": {
                     "description": "The user name for accessing the aggregation source.",
                     "longDescription": "This property shall contain the user name for accessing the aggregation source.",
@@ -209,9 +222,146 @@
             },
             "properties": {},
             "type": "object"
+        },
+        "SNMPAuthenticationProtocols": {
+            "enum": [
+                "None",
+                "CommunityString",
+                "HMAC_MD5",
+                "HMAC_SHA96",
+                "HMAC128_SHA224",
+                "HMAC192_SHA256",
+                "HMAC256_SHA384",
+                "HMAC384_SHA512"
+            ],
+            "enumDescriptions": {
+                "CommunityString": "Trap community string authentication.",
+                "HMAC128_SHA224": "HMAC-128-SHA-224 authentication.",
+                "HMAC192_SHA256": "HMAC-192-SHA-256 authentication.",
+                "HMAC256_SHA384": "HMAC-256-SHA-384 authentication.",
+                "HMAC384_SHA512": "HMAC-384-SHA-512 authentication.",
+                "HMAC_MD5": "HMAC-MD5-96 authentication.",
+                "HMAC_SHA96": "HMAC-SHA-96 authentication.",
+                "None": "No authentication."
+            },
+            "enumLongDescriptions": {
+                "CommunityString": "This value shall indicate authentication using SNMP community strings and the value of TrapCommunity.",
+                "HMAC128_SHA224": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol.",
+                "HMAC192_SHA256": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol.",
+                "HMAC256_SHA384": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol.",
+                "HMAC384_SHA512": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol.",
+                "HMAC_MD5": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
+                "HMAC_SHA96": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol.",
+                "None": "This value shall indicate authentication is not required."
+            },
+            "type": "string"
+        },
+        "SNMPEncryptionProtocols": {
+            "enum": [
+                "None",
+                "CBC_DES",
+                "CFB128_AES128"
+            ],
+            "enumDescriptions": {
+                "CBC_DES": "CBC-DES encryption.",
+                "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "None": "No encryption."
+            },
+            "enumLongDescriptions": {
+                "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "None": "This value shall indicate there is no encryption."
+            },
+            "type": "string"
+        },
+        "SNMPSettings": {
+            "additionalProperties": false,
+            "description": "Settings for an SNMP aggregation source.",
+            "longDescription": "This type shall contain the settings for an SNMP aggregation source.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
+                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AuthenticationKeySet": {
+                    "description": "Indicates if the AuthenticationKey property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the AuthenticationKey property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_1_0"
+                },
+                "AuthenticationProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPAuthenticationProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 authentication protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_1_0"
+                },
+                "EncryptionKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
+                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "EncryptionKeySet": {
+                    "description": "Indicates if the EncryptionKey property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_1_0"
+                },
+                "EncryptionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPEncryptionProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The encryption protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 encryption protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.2",
-    "title": "#AggregationSource.v1_0_0.AggregationSource"
+    "release": "2020.4",
+    "title": "#AggregationSource.v1_1_0.AggregationSource"
 }

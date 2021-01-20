@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TaskService v1.1.5                                                  -->
+<!--# Redfish Schema:  TaskService v1.1.6                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -67,8 +67,8 @@
       <EntityType Name="TaskService" BaseType="TaskService.TaskService">
         <Property Name="CompletedTaskOverWritePolicy" Type="TaskService.v1_0_0.OverWritePolicy" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The overwrite policy for completed tasks.  This property indicates whether the task service overwrites completed task information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate how the task service shall handle completed tasks if the service must track more tasks.  This property indicates whether the task service overwrites completed task information."/>
+          <Annotation Term="OData.Description" String="The overwrite policy for completed tasks.  This property indicates if the task service overwrites completed task information."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the overwrite policy for completed tasks.  This property shall indicate if the task service overwrites completed task information."/>
         </Property>
         <Property Name="DateTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -149,6 +149,12 @@
       <EntityType Name="TaskService" BaseType="TaskService.v1_0_7.TaskService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="TaskService" BaseType="TaskService.v1_0_8.TaskService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -205,6 +211,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description of LifeCycleEventOnTaskStateChange."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_1_4.TaskService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="TaskService" BaseType="TaskService.v1_1_5.TaskService"/>
     </Schema>
 
   </edmx:DataServices>

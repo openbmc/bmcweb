@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_4.json",
     "$ref": "#/definitions/CertificateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -118,7 +118,7 @@
             },
             "additionalProperties": false,
             "description": "This action makes a certificate signing request.",
-            "longDescription": "This action shall make a certificate signing request.  The response shall contain a signing request that a certificate authority (CA) must sign.  The service should retain the private key that was generated during this request for installation of the certificate.  The private key should not be part of the response.",
+            "longDescription": "This action shall make a certificate signing request.  The response shall contain a signing request that a certificate authority (CA) will sign.  The service should retain the private key that was generated during this request for installation of the certificate.  The private key should not be part of the response.",
             "parameters": {
                 "AlternativeNames": {
                     "description": "The additional host names of the component to secure.",
@@ -369,5 +369,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#CertificateService.v1_0_3.CertificateService"
+    "title": "#CertificateService.v1_0_4.CertificateService"
 }

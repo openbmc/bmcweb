@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PortMetrics.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PortMetrics.v1_0_1.json",
     "$ref": "#/definitions/PortMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -106,7 +106,7 @@
                 },
                 "PacketCRCErrors": {
                     "description": "The total number of PCRC transient errors detected.",
-                    "longDescription": "This property shall contain the total number of PCRC transient errors detected in received link-local and end-to-ent packets.",
+                    "longDescription": "This property shall contain the total number of PCRC transient errors detected in received link-local and end-to-end packets.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -124,7 +124,7 @@
                 },
                 "RXStompedECRC": {
                     "description": "The total number of packets received with a stomped ECRC field.",
-                    "longDescription": "This property shall contain the total number of packets that thsi interface received with a stomped ECRC field.",
+                    "longDescription": "This property shall contain the total number of packets that this interface received with a stomped ECRC field.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -250,5 +250,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#PortMetrics.v1_0_0.PortMetrics"
+    "title": "#PortMetrics.v1_0_1.PortMetrics"
 }

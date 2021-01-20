@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EndpointGroup v1.3.0                                                -->
+<!--# Redfish Schema:  EndpointGroup v1.3.1                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -242,6 +242,12 @@
       <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_2.EndpointGroup"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_3.EndpointGroup"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
@@ -294,6 +300,12 @@
       <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_3.EndpointGroup"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_4.EndpointGroup"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
@@ -312,6 +324,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify descriptions for consistency."/>
       <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_1.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_2.EndpointGroup"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_3_0">
@@ -333,6 +351,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Connection that represent the connections to which this endpoint group belongs."/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_3_0.EndpointGroup"/>
     </Schema>
 
   </edmx:DataServices>

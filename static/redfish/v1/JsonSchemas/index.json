@@ -4,7 +4,7 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 111,
+  "Members@odata.count": 118,
   "Members": [
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction"
@@ -79,6 +79,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/EndpointGroup"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/EnvironmentMetrics"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/EthernetInterface"
     },
     {
@@ -101,6 +104,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Facility"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Fan"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/HostInterface"
@@ -220,6 +226,15 @@
       "@odata.id": "/redfish/v1/JsonSchemas/PowerEquipment"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerSubsystem"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerSupply"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerSupplyMetrics"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/PrivilegeRegistry"
     },
     {
@@ -305,6 +320,12 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Thermal"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/ThermalMetrics"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/ThermalSubsystem"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Triggers"

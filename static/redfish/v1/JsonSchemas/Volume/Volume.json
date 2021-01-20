@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.v1_6_1.json",
     "$ref": "#/definitions/Volume",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2016-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved. For the full SNIA copyright policy, see http://www.snia.org/about/corporate_info/copyright",
+    "copyright": "Copyright 2016-2020 Storage Networking Industry Association (SNIA), USA. All rights reserved. For the full SNIA copyright policy, see http://www.snia.org/about/corporate_info/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -293,8 +293,8 @@
         },
         "Initialize": {
             "additionalProperties": false,
-            "description": "This action is used to prepare the contents of the volume for use by the system. If InitializeMethod is not specified in the request body, the InitializeMethod should be Foreground.",
-            "longDescription": "This defines the name of the custom action supported on this resource. If InitializeMethod is not specified in the request body, the InitializeMethod should be Foreground.",
+            "description": "This action is used to prepare the contents of the volume for use by the system. If InitializeMethod is not specified in the request body, but the property InitializeMethod is specified, the property InitializeMethod value should be used. If neither is specified, the InitializeMethod should be Foreground.",
+            "longDescription": "This defines the name of the custom action supported on this resource. If InitializeMethod is not specified in the request body, but the property InitializeMethod is specified, the property InitializeMethod value should be used. If neither is specified, the InitializeMethod should be Foreground.",
             "parameters": {
                 "InitializeMethod": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/InitializeMethod",
@@ -354,6 +354,33 @@
                 }
             },
             "properties": {
+                "CacheDataVolumes": {
+                    "description": "A pointer to the data volumes this volume serves as a cache volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                    },
+                    "longDescription": "This shall be a pointer to the cache data volumes this volume serves as a cache volume.  The corresponding VolumeUsage property shall be set to CacheOnly when this property is used.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                },
+                "CacheDataVolumes@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "CacheVolumeSource": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A pointer to the cache volume source for this volume.",
+                    "longDescription": "This shall be a pointer to the cache volume source for this volume. The corresponding VolumeUsage property shall be set to Data when this property is used.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
                 "ClassOfService": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService.json#/definitions/ClassOfService",
                     "description": "The ClassOfService that this storage volume conforms to.",
@@ -372,7 +399,7 @@
                     "versionAdded": "v1_4_0"
                 },
                 "ClientEndpoints@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ConsistencyGroups": {
                     "description": "An array of references to the ConsistencyGroups associated with this volume.",
@@ -385,7 +412,7 @@
                     "versionAdded": "v1_4_0"
                 },
                 "ConsistencyGroups@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "DedicatedSpareDrives": {
                     "description": "An array of references to the drives which are dedicated spares for this volume.",
@@ -393,12 +420,12 @@
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
                     },
                     "longDescription": "The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently assigned as a dedicated spare and are able to support this Volume.",
-                    "readonly": true,
+                    "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "DedicatedSpareDrives@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Drives": {
                     "description": "An array of references to the drives which contain this volume. This will reference Drives that either wholly or only partly contain this volume.",
@@ -410,7 +437,7 @@
                     "type": "array"
                 },
                 "Drives@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "JournalingMedia": {
                     "anyOf": [
@@ -456,7 +483,7 @@
                     "versionAdded": "v1_4_0"
                 },
                 "ServerEndpoints@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "SpareResourceSets": {
                     "description": "An array of references to SpareResourceSets.",
@@ -469,7 +496,7 @@
                     "versionAdded": "v1_3_0"
                 },
                 "SpareResourceSets@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "StorageGroups": {
                     "description": "An array of references to the StorageGroups associated with this volume.",
@@ -482,7 +509,7 @@
                     "versionAdded": "v1_4_0"
                 },
                 "StorageGroups@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -623,8 +650,8 @@
                     "versionAdded": "v1_5_0"
                 },
                 "SupportsIOPerformanceHints": {
-                    "description": "Indicates that the Namepsace Atomic Write Unit Normal (NAWUN), Namespace Atomic Write Unit Power Fail (NAWUPF), and Namespace Atomic Compare and Write Unit (NACWU) fields are defined for this namespace and should be used by the host for this namespace instead of the controller-level properties AWUN, AWUPF, and ACWU.",
-                    "longDescription": "This property shall indicate that the Namepsace Atomic Write Unit Normal (NAWUN), Namespace Atomic Write Unit Power Fail (NAWUPF), and Namespace Atomic Compare and Write Unit (NACWU) fields are defined for this namespace and should be used by the host for this namespace instead of the controller-level properties AWUN, AWUPF, and ACWU.",
+                    "description": "Indicates that the Namespace Atomic Write Unit Normal (NAWUN), Namespace Atomic Write Unit Power Fail (NAWUPF), and Namespace Atomic Compare and Write Unit (NACWU) fields are defined for this namespace and should be used by the host for this namespace instead of the controller-level properties AWUN, AWUPF, and ACWU.",
+                    "longDescription": "This property shall indicate that the Namespace Atomic Write Unit Normal (NAWUN), Namespace Atomic Write Unit Power Fail (NAWUPF), and Namespace Atomic Compare and Write Unit (NACWU) fields are defined for this namespace and should be used by the host for this namespace instead of the controller-level properties AWUN, AWUPF, and ACWU.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -940,16 +967,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "AccessCapabilities": {
                     "description": "Supported IO access capabilities.",
@@ -1018,7 +1045,7 @@
                     "versionAdded": "v1_1_0"
                 },
                 "CapacitySources@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Compressed": {
                     "description": "Indicator of whether or not the Volume has compression enabled.",
@@ -1106,6 +1133,20 @@
                     },
                     "longDescription": "This property shall contain a list of all known durable names for the associated volume.",
                     "type": "array"
+                },
+                "InitializeMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/InitializeMethod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the Initialization Method used for this volume. If InitializeMethod is not specified, the InitializeMethod should be Foreground.",
+                    "longDescription": "This property shall indicate the initiatialization method used for this volume. If InitializeMethod is not specified, the InitializeMethod should be Foreground. This value reflects the most recently used Initialization Method, and may be changed using the Initialize Action.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
@@ -1288,7 +1329,7 @@
                 "ReplicaTargets": {
                     "description": "The resources that are target replicas of this source.",
                     "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef"
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
                     "longDescription": "The value shall reference the target replicas that are sourced by this replica.",
                     "readonly": true,
@@ -1296,7 +1337,7 @@
                     "versionAdded": "v1_3_0"
                 },
                 "ReplicaTargets@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
@@ -1395,6 +1436,6 @@
         }
     },
     "owningEntity": "SNIA",
-    "release": "WIP v1.2.0",
-    "title": "#Volume.v1_5_0.Volume"
+    "release": "TP v1.2.1",
+    "title": "#Volume.v1_6_1.Volume"
 }

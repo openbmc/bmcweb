@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_4_0.json",
     "$ref": "#/definitions/NetworkPort",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -157,6 +157,7 @@
         },
         "NetworkPort": {
             "additionalProperties": false,
+            "deprecated": "This schema has been deprecated in favor of the Port schema.",
             "description": "The NetworkPort schema describes a network port, which is a discrete physical port that can connect to a network.",
             "longDescription": "This resource shall represent a discrete physical port that can connect to a network in a Redfish implementation.",
             "patternProperties": {
@@ -443,7 +444,8 @@
                 "Id",
                 "Name"
             ],
-            "type": "object"
+            "type": "object",
+            "versionDeprecated": "v1_4_0"
         },
         "OemActions": {
             "additionalProperties": true,
@@ -500,7 +502,7 @@
         },
         "SupportedLinkCapabilities": {
             "additionalProperties": false,
-            "description": "The link capabilities of an assocaited port.",
+            "description": "The link capabilities of an associated port.",
             "longDescription": "This type shall describe the static capabilities of an associated port, irrespective of transient conditions such as cabling, interface module presence, or remote link partner status or configuration.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -570,6 +572,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#NetworkPort.v1_3_0.NetworkPort"
+    "release": "2020.4",
+    "title": "#NetworkPort.v1_4_0.NetworkPort"
 }

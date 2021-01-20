@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Settings v1.3.1                                                     -->
+<!--# Redfish Schema:  Settings v1.3.3                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -193,7 +193,7 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service can perform resets during this maintenance window."/>
         </Member>
         <Member Name="InMaintenanceWindowOnReset">
-          <Annotation Term="OData.Description" String="Apply after a reset but within maintenance window as specified by an adminstrator."/>
+          <Annotation Term="OData.Description" String="Apply after a reset but within maintenance window as specified by an administrator."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
         </Member>
       </EnumType>
@@ -225,6 +225,13 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the description of SupportedApplyTimes to state that having a single member is valid."/>
       <ComplexType Name="Settings" BaseType="Settings.v1_1_3.Settings"/>
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_3.PreferredApplyTime"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_1_4.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_4.PreferredApplyTime"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_0">
@@ -324,6 +331,15 @@
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_3.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_3.MaintenanceWindow"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_2_4.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_4.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_4.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_4.MaintenanceWindow"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -352,6 +368,15 @@
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_1.PreferredApplyTime"/>
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_1.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_1.MaintenanceWindow"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_3_2.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_2.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_2.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_2.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition v1.3.3                                       -->
+<!--# Redfish Schema:  MetricReportDefinition v1.4.0                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -161,7 +161,7 @@
 
         <Property Name="MetricId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The label for the metric definition that is derived by applying the collectionFunction to the metric property.  It matches the Id property of the corresponding metric definition."/>
+          <Annotation Term="OData.Description" String="The label for the metric definition that is derived by applying the CollectionFunction to the metric property.  It matches the Id property of the corresponding metric definition."/>
           <Annotation Term="OData.LongDescription" String="This property shall specify the label for the metric definition that is derived by applying the algorithm specified in the CollectionFunction property to the metric property.  This property shall match the Id property of the corresponding metric definition."/>
         </Property>
         <Property Name="MetricProperties" Type="Collection(Edm.String)">
@@ -304,7 +304,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct descriptions in the CalculationAlgorithmEnum enum.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to correct descriptions in the CalculationAlgorithmEnum enumeration.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_2.MetricReportDefinition"/>
     </Schema>
 
@@ -324,6 +324,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark ReportActions, ReportUpdates, MetricId, and properties in Wildcards as writable."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_5.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_6.MetricReportDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_0">
@@ -348,7 +354,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct descriptions in the CalculationAlgorithmEnum enum.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to correct descriptions in the CalculationAlgorithmEnum enumeration.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_1.MetricReportDefinition"/>
     </Schema>
 
@@ -368,6 +374,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark ReportActions, ReportUpdates, MetricId, and properties in Wildcards as writable."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_4.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_5.MetricReportDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_0">
@@ -410,7 +422,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct descriptions in the CalculationAlgorithmEnum enum.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to correct descriptions in the CalculationAlgorithmEnum enumeration.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_0.MetricReportDefinition"/>
     </Schema>
 
@@ -430,6 +442,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark ReportActions, ReportUpdates, MetricId, and properties in Wildcards as writable."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_3.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_4.MetricReportDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_0">
@@ -461,6 +479,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark ReportActions, ReportUpdates, MetricId, and properties in Wildcards as writable."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_2.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_3.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_4.MetricReportDefinition"/>
+
+      <ComplexType Name="Metric" BaseType="MetricReportDefinition.v1_0_0.Metric">
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

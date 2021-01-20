@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ResourceBlock v1.3.3                                                -->
+<!--# Redfish Schema:  ResourceBlock v1.3.4                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -318,6 +318,12 @@
       <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_4.ResourceBlock"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_5.ResourceBlock"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -380,10 +386,16 @@
       <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_4.ResourceBlock"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_5.ResourceBlock"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add Expansion to the ResourceBlockType enum.  It was also created to add Unavailable to the CompositionState enumeration."/>
+      <Annotation Term="OData.Description" String="This version was created to add Expansion to the ResourceBlockType enumeration.  It was also created to add Unavailable to the CompositionState enumeration."/>
 
       <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_1.ResourceBlock"/>
     </Schema>
@@ -410,6 +422,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_3.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_4.ResourceBlock"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_0">
@@ -531,6 +549,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_2.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_3.ResourceBlock"/>
     </Schema>
 
   </edmx:DataServices>

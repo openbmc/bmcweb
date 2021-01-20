@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_1_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_1_3.json",
     "$ref": "#/definitions/Triggers",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -65,7 +65,7 @@
             "properties": {
                 "DwellTime": {
                     "description": "The amount of time that a trigger event persists before the metric action is performed.",
-                    "longDescription": "This property shall contain the amount of time that a trigger event persists before the MetricAction is performed.",
+                    "longDescription": "This property shall contain the amount of time that a trigger event persists before the TriggerActions are performed.",
                     "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
                     "readonly": false,
                     "type": [
@@ -228,7 +228,7 @@
                 },
                 "DwellTime": {
                     "description": "The duration the sensor value must violate the threshold before the threshold is activated.",
-                    "longDescription": "This property shall indicate the duration the sensor value must violate the threshold before the threshold is activated.",
+                    "longDescription": "This property shall indicate the duration the sensor value violates the threshold before the threshold is activated.",
                     "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
                     "readonly": false,
                     "type": [
@@ -540,5 +540,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.1",
-    "title": "#Triggers.v1_1_2.Triggers"
+    "title": "#Triggers.v1_1_3.Triggers"
 }

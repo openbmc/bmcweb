@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_15_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -86,6 +86,13 @@
                         "null"
                     ]
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
+                },
                 "ChassisType": {
                     "$ref": "#/definitions/ChassisType",
                     "description": "The type of physical form factor of the chassis.",
@@ -120,6 +127,13 @@
                     "description": "The link to the collection of drives within this chassis.",
                     "longDescription": "This property shall contain a link to a resource collection of type DriveCollection.",
                     "versionAdded": "v1_14_0"
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this chassis.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this chassis.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
                 },
                 "EnvironmentalClass": {
                     "anyOf": [
@@ -213,6 +227,15 @@
                     "units": "W",
                     "versionAdded": "v1_12_0"
                 },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_15_0"
+                },
                 "MediaControllers": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MediaControllerCollection.json#/definitions/MediaControllerCollection",
                     "description": "The link to the collection of media controllers located in this chassis.",
@@ -301,9 +324,11 @@
                 },
                 "Power": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Power.json#/definitions/Power",
+                    "deprecated": "This link has been deprecated in favor of the PowerSubsystem link property.",
                     "description": "The link to the power properties, or power supplies, power policies, and sensors, for this chassis.",
                     "longDescription": "This property shall contain a link to a resource of type Power that represents the power characteristics of this chassis.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_15_0"
                 },
                 "PowerState": {
                     "anyOf": [
@@ -318,6 +343,13 @@
                     "longDescription": "This property shall contain the power state of the chassis.",
                     "readonly": true,
                     "versionAdded": "v1_0_1"
+                },
+                "PowerSubsystem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSubsystem.json#/definitions/PowerSubsystem",
+                    "description": "The link to the power subsystem properties for this chassis.",
+                    "longDescription": "This property shall contain a link to a resource of type PowerSubsystem that represents the power subsystem information for this chassis.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
                 },
                 "SKU": {
                     "description": "The SKU of the chassis.",
@@ -351,9 +383,18 @@
                 },
                 "Thermal": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Thermal.json#/definitions/Thermal",
+                    "deprecated": "This link has been deprecated in favor of the ThermalSubsystem link property.",
                     "description": "The link to the thermal properties, such as fans, cooling, and sensors, for this chassis.",
                     "longDescription": "This property shall contain a link to a resource of type Thermal that represents the thermal characteristics of this chassis.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_15_0"
+                },
+                "ThermalSubsystem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.json#/definitions/ThermalSubsystem",
+                    "description": "The link to the thermal subsystem properties for this chassis.",
+                    "longDescription": "This property shall contain a link to a resource of type ThermalSubsystem that represents the thermal subsystem information for this chassis.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
                 },
                 "UUID": {
                     "anyOf": [
@@ -852,6 +893,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Chassis.v1_14_0.Chassis"
+    "release": "2020.4",
+    "title": "#Chassis.v1_15_0.Chassis"
 }

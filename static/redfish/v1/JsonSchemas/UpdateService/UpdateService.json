@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_3.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -86,7 +86,7 @@
                 },
                 "MaintenanceWindowDurationInSeconds": {
                     "description": "The expiry time, in seconds, of the maintenance window.",
-                    "longDescription": "This property shall indicate the end of the maintenance window as the number of seconds after the time specified by the HttpPushUriMaintenanceWindowStartTime property.  This property shall contain required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`.",
+                    "longDescription": "This property shall indicate the end of the maintenance window as the number of seconds after the time specified by the MaintenanceWindowStartTime property.  This property shall be required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`.",
                     "minimum": 0,
                     "readonly": false,
                     "type": "integer",
@@ -96,7 +96,7 @@
                 "MaintenanceWindowStartTime": {
                     "description": "The start time of a maintenance window.",
                     "format": "date-time",
-                    "longDescription": "This property shall indicate the date and time when the service can start to apply the HttpPushUri-provided software as part of a maintenance window.  This property shall contain required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`.",
+                    "longDescription": "This property shall indicate the date and time when the service can start to apply the HttpPushUri-provided software as part of a maintenance window.  This property shall be required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`.",
                     "readonly": false,
                     "type": "string",
                     "versionAdded": "v1_4_0"
@@ -183,7 +183,7 @@
                 "TransferProtocol": {
                     "$ref": "#/definitions/TransferProtocolType",
                     "description": "The network protocol that the update service uses to retrieve the software image file located at the URI provided in ImageURI.  This parameter is ignored if the URI provided in ImageURI contains a scheme.",
-                    "longDescription": "This parameter shall contain the network protocol that the update service shall use to retreive the software image located at the ImageURI.  Services should ignore this parameter if the URI provided in ImageURI contains a scheme.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."
+                    "longDescription": "This parameter shall contain the network protocol that the update service shall use to retrieve the software image located at the ImageURI.  Services should ignore this parameter if the URI provided in ImageURI contains a scheme.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."
                 },
                 "Username": {
                     "description": "The user name to access the URI specified by the ImageURI parameter.",
@@ -496,5 +496,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#UpdateService.v1_8_2.UpdateService"
+    "title": "#UpdateService.v1_8_3.UpdateService"
 }

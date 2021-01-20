@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Outlet v1.1.0                                                       -->
+<!--# Redfish Schema:  Outlet v1.1.1                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -324,37 +324,37 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 1 to Line 2 voltage reading for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L1 and L2.  This property shall not be present if the outlet does not include an L1-L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L1 and L2.  This property shall not be present if the outlet does not include an L1-L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 2 to Line 3 voltage reading for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L2 and L3.  This property shall not be present if the outlet does not include an L2-L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L2 and L3.  This property shall not be present if the outlet does not include an L2-L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 3 to Line 1 voltage reading for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L3 and L1.  This property shall not be present if the outlet does not include an L3-L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L3 and L1.  This property shall not be present if the outlet does not include an L3-L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 1 to Neutral voltage reading for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L1 and Neutral.  This property shall not be present if the outlet does not include an L1-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L1 and Neutral.  This property shall not be present if the outlet does not include an L1-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 2 to Neutral voltage reading for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L2 and Neutral.  This property shall not be present if the outlet does not include an L2-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L2 and Neutral.  This property shall not be present if the outlet does not include an L2-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 3 to Neutral voltage reading for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L3 and Neutral.  This property shall not be present if the outlet does not include an L3-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L3 and Neutral.  This property shall not be present if the outlet does not include an L3-Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -366,25 +366,25 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 1 current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for L1.  This property shall not be present if the outlet does not include an L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for L1.  This property shall not be present if the outlet does not include an L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 2 current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for L2.  This property shall not be present if the outlet does not include an L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for L2.  This property shall not be present if the outlet does not include an L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 3 current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for L3.  This property shall not be present if the outlet does not include an L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for L3.  This property shall not be present if the outlet does not include an L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Neutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Neutral line current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for the Neutral line.  This property shall not be present if the outlet does not include a Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for the Neutral line.  This property shall not be present if the outlet does not include a Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -404,6 +404,12 @@
       <EntityType Name="Outlet" BaseType="Outlet.v1_0_0.Outlet"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_0_1.Outlet"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -417,6 +423,12 @@
         </Property>
       </EntityType>
 
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_1_0.Outlet"/>
     </Schema>
 
   </edmx:DataServices>

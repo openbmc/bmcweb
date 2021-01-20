@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_3_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_0.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -170,7 +170,7 @@
                     "readonly": false
                 },
                 "MetricId": {
-                    "description": "The label for the metric definition that is derived by applying the collectionFunction to the metric property.  It matches the Id property of the corresponding metric definition.",
+                    "description": "The label for the metric definition that is derived by applying the CollectionFunction to the metric property.  It matches the Id property of the corresponding metric definition.",
                     "longDescription": "This property shall specify the label for the metric definition that is derived by applying the algorithm specified in the CollectionFunction property to the metric property.  This property shall match the Id property of the corresponding metric definition.",
                     "readonly": false,
                     "type": [
@@ -190,6 +190,12 @@
                     "longDescription": "Each value can contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition.",
                     "readonly": false,
                     "type": "array"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_4_0"
                 }
             },
             "type": "object"
@@ -527,6 +533,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#MetricReportDefinition.v1_3_3.MetricReportDefinition"
+    "release": "2020.4",
+    "title": "#MetricReportDefinition.v1_4_0.MetricReportDefinition"
 }

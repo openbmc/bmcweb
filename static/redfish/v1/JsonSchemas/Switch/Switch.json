@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_5_0.json",
     "$ref": "#/definitions/Switch",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -210,6 +210,13 @@
                         "null"
                     ]
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
                 "CurrentBandwidthGbps": {
                     "description": "The current internal bandwidth of this switch.",
                     "longDescription": "This property shall contain the internal bandwidth of this switch currently negotiated and running.",
@@ -243,7 +250,7 @@
                 },
                 "FirmwareVersion": {
                     "description": "The firmware version of this switch.",
-                    "longDescription": "This property shall contain the firwmare version as defined by the manufacturer for the associated switch.",
+                    "longDescription": "This property shall contain the firmware version as defined by the manufacturer for the associated switch.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -325,6 +332,15 @@
                     ],
                     "units": "Gbit/s",
                     "versionAdded": "v1_4_0"
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
                 },
                 "Model": {
                     "description": "The product model number of this switch.",
@@ -465,5 +481,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.3",
-    "title": "#Switch.v1_4_0.Switch"
+    "title": "#Switch.v1_5_0.Switch"
 }

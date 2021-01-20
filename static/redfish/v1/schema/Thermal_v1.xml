@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Thermal v1.6.2                                                      -->
+<!--# Redfish Schema:  Thermal v1.7.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -63,6 +63,15 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Chassis/{ChassisId}/Thermal</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of the ThermalSubsystem schema."/>
+            </Record>
           </Collection>
         </Annotation>
       </EntityType>
@@ -900,6 +909,18 @@
       <EntityType Name="Thermal" BaseType="Thermal.v1_6_1.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_6_1.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_6_1.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the schema."/>
+
+      <EntityType Name="Thermal" BaseType="Thermal.v1_6_2.Thermal"/>
+
+      <EntityType Name="Temperature" BaseType="Thermal.v1_6_2.Temperature"/>
+
+      <EntityType Name="Fan" BaseType="Thermal.v1_6_2.Fan"/>
     </Schema>
 
   </edmx:DataServices>

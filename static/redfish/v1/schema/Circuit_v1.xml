@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Circuit v1.1.0                                                      -->
+<!--# Redfish Schema:  Circuit v1.2.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -200,6 +200,17 @@
         <Member Name="AC480V">
           <Annotation Term="OData.Description" String="AC 480V nominal."/>
         </Member>
+        <Member Name="DC48V">
+          <Annotation Term="OData.Description" String="DC 48V nominal."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="DC240V">
           <Annotation Term="OData.Description" String="DC 240V nominal."/>
         </Member>
@@ -359,7 +370,7 @@
         <Property Name="CriticalCircuit" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Designates if this is a critical circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the circuit is desginated as a critical circuit, and therefore is excluded from autonomous logic that could affect the state of the circuit.  The value shall be `true` if the circuit is deemed critical, and `false` if the circuit is not critical."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the circuit is designated as a critical circuit, and therefore is excluded from autonomous logic that could affect the state of the circuit.  The value shall be `true` if the circuit is deemed critical, and `false` if the circuit is not critical."/>
         </Property>
         <Property Name="ElectricalContext" Type="Sensor.ElectricalContext">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -544,37 +555,37 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 1 to Line 2 voltage reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L1 and L2.  This property shall not be present if the circuit does not include an L1-L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L1 and L2.  This property shall not be present if the circuit does not include an L1-L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 2 to Line 3 voltage reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L2 and L3.  This property shall not be present if the circuit does not include an L2-L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L2 and L3.  This property shall not be present if the circuit does not include an L2-L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 3 to Line 1 voltage reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L3 and L1.  This property shall not be present if the circuit does not include an L3-L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L3 and L1.  This property shall not be present if the circuit does not include an L3-L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 1 to Neutral voltage reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L1 and Neutral.  This property shall not be present if the circuit does not include an L1-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L1 and Neutral.  This property shall not be present if the circuit does not include an L1-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 2 to Neutral voltage reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L2 and Neutral.  This property shall not be present if the circuit does not include an L2-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L2 and Neutral.  This property shall not be present if the circuit does not include an L2-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 3 to Neutral voltage reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a VoltageSensor excerpt that measures voltage between L3 and Neutral.  This property shall not be present if the circuit does not include an L3-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Voltage that measures voltage between L3 and Neutral.  This property shall not be present if the circuit does not include an L3-Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -586,25 +597,25 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 1 current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for L1.  This property shall not be present if the circuit does not include an L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for L1.  This property shall not be present if the circuit does not include an L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 2 current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for L2.  This property shall not be present if the circuit does not include an L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for L2.  This property shall not be present if the circuit does not include an L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 3 current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for L3.  This property shall not be present if the circuit does not include an L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for L3.  This property shall not be present if the circuit does not include an L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Neutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Neutral line current sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a CurrentSensor excerpt that measures current for the Neutral line.  This property shall not be present if the circuit does not include a Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Current that measures current for the Neutral line.  This property shall not be present if the circuit does not include a Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -616,37 +627,37 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The Line 1 to Line 2 energy reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a EnergykWhSensor excerpt that measures energy between L1 and L2.  This property shall not be present if the circuit does not include an L1-L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type EnergykWh that measures energy between L1 and L2.  This property shall not be present if the circuit does not include an L1-L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The Line 2 to Line 3 energy reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a EnergykWhSensor excerpt that measures energy between L2 and L3.  This property shall not be present if the circuit does not include an L2-L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type EnergykWh that measures energy between L2 and L3.  This property shall not be present if the circuit does not include an L2-L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The Line 3 to Line 1 energy reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a EnergykWhSensor excerpt that measures energy between L3 and L1.  This property shall not be present if the circuit does not include an L3-L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type EnergykWh that measures energy between L3 and L1.  This property shall not be present if the circuit does not include an L3-L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The Line 1 to Neutral energy reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a EnergykWhSensor excerpt that measures energy between L1 and Neutral.  This property shall not be present if the circuit does not include an L1-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type EnergykWh that measures energy between L1 and Neutral.  This property shall not be present if the circuit does not include an L1-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The Line 2 to Neutral energy reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a EnergykWhSensor excerpt that measures energy between L2 and Neutral.  This property shall not be present if the circuit does not include an L2-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type EnergykWh that measures energy between L2 and Neutral.  This property shall not be present if the circuit does not include an L2-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The Line 3 to Neutral energy reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a EnergykWhSensor excerpt that measures energy between L3 and Neutral.  This property shall not be present if the circuit does not include an L3-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type EnergykWh that measures energy between L3 and Neutral.  This property shall not be present if the circuit does not include an L3-Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -658,37 +669,37 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The Line 1 to Line 2 power reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a PowerSensor excerpt that measures power between L1 and L2.  This property shall not be present if the circuit does not include an L1-L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Power that measures power between L1 and L2.  This property shall not be present if the circuit does not include an L1-L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The Line 2 to Line 3 power reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a PowerSensor excerpt that measures power between L2 and L3.  This property shall not be present if the circuit does not include an L2-L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a sensor excerpt of type Power that measures power between L2 and L3.  This property shall not be present if the circuit does not include an L2-L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The Line 3 to Line 1 power reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a PowerSensor excerpt that measures power between L3 and L1.  This property shall not be present if the circuit does not include an L3-L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Power that measures power between L3 and L1.  This property shall not be present if the circuit does not include an L3-L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The Line 1 to Neutral power reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a PowerSensor excerpt that measures power between L1 and Neutral.  This property shall not be present if the circuit does not include an L1-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Power that measures power between L1 and Neutral.  This property shall not be present if the circuit does not include an L1-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The Line 2 to Neutral power reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a PowerSensor excerpt that measures power between L2 and Neutral.  This property shall not be present if the circuit does not include an L2-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Power that measures power between L2 and Neutral.  This property shall not be present if the circuit does not include an L2-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The Line 3 to Neutral power reading for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a PowerSensor excerpt that measures power between L3 and Neutral.  This property shall not be present if the circuit does not include an L3-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Sensor excerpt of type Power that measures power between L3 and Neutral.  This property shall not be present if the circuit does not include an L3-Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -723,6 +734,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_0_0.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_0_1.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -735,6 +752,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_1_0.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add DC50V to NominalVoltageType."/>
+
+      <EntityType Name="Circuit" BaseType="Circuit.v1_1_1.Circuit"/>
     </Schema>
 
   </edmx:DataServices>

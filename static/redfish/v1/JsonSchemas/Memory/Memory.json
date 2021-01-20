@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_11_0.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -84,7 +84,7 @@
         "DisablePassphrase": {
             "additionalProperties": false,
             "description": "Disable passphrase for given regions.",
-            "longDescription": "This action shall disaple the need for passphrases on the supplied region provided the supplied passphrase matches that of the region.",
+            "longDescription": "This action shall disable the need for passphrases on the supplied region provided the supplied passphrase matches that of the region.",
             "parameters": {
                 "Passphrase": {
                     "description": "Passphrase for doing the operation.",
@@ -171,6 +171,19 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Processors": {
+                    "description": "An array of links to the processors associated with this memory device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Processor that are associated with this memory device.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
+                "Processors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -293,6 +306,13 @@
                     ],
                     "units": "MiBy"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
                 "ConfigurationLocked": {
                     "description": "An indication of whether the configuration of this memory device is locked and cannot be altered.",
                     "longDescription": "This property shall indicate whether the configuration of this memory device is locked and cannot be altered.",
@@ -344,6 +364,13 @@
                         "null"
                     ],
                     "versionDeprecated": "v1_9_0"
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this memory.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this memory.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
                 },
                 "ErrorCorrection": {
                     "anyOf": [
@@ -461,6 +488,15 @@
                     "type": "array",
                     "units": "mW"
                 },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
                 "MemoryDeviceType": {
                     "anyOf": [
                         {
@@ -528,6 +564,16 @@
                     "description": "The link to the metrics associated with this memory device.",
                     "longDescription": "The link to the metrics associated with this memory device.",
                     "readonly": true
+                },
+                "Model": {
+                    "description": "The product model number of this device.",
+                    "longDescription": "This property shall indicate the model information as provided by the manufacturer of this memory.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
                 },
                 "ModuleManufacturerID": {
                     "description": "The manufacturer ID of this memory device.",
@@ -689,6 +735,16 @@
                         "null"
                     ]
                 },
+                "SparePartNumber": {
+                    "description": "The spare part number of the memory.",
+                    "longDescription": "This property shall contain the spare part number of the memory.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
@@ -815,7 +871,17 @@
                 "PipelinedNibble",
                 "Logical",
                 "HBM",
-                "HBM2"
+                "HBM2",
+                "HBM3",
+                "GDDR",
+                "GDDR2",
+                "GDDR3",
+                "GDDR4",
+                "GDDR5",
+                "GDDR5X",
+                "GDDR6",
+                "DDR5",
+                "OEM"
             ],
             "enumDescriptions": {
                 "DDR": "DDR.",
@@ -828,23 +894,43 @@
                 "DDR4": "DDR4.",
                 "DDR4E_SDRAM": "DDR4E SDRAM.",
                 "DDR4_SDRAM": "DDR4 SDRAM.",
+                "DDR5": "Double data rate type five synchronous dynamic random-access memory.",
                 "DDR_SDRAM": "DDR SDRAM.",
                 "DDR_SGRAM": "DDR SGRAM.",
                 "EDO": "EDO.",
                 "FastPageMode": "Fast Page Mode.",
+                "GDDR": "Synchronous graphics random-access memory.",
+                "GDDR2": "Double data rate type two synchronous graphics random-access memory.",
+                "GDDR3": "Double data rate type three synchronous graphics random-access memory.",
+                "GDDR4": "Double data rate type four synchronous graphics random-access memory.",
+                "GDDR5": "Double data rate type five synchronous graphics random-access memory.",
+                "GDDR5X": "Double data rate type five X synchronous graphics random-access memory.",
+                "GDDR6": "Double data rate type six synchronous graphics random-access memory.",
                 "HBM": "High Bandwidth Memory.",
-                "HBM2": "High Bandwidth Memory 2.",
+                "HBM2": "The second generation of High Bandwidth Memory.",
+                "HBM3": "The third generation of High Bandwidth Memory.",
                 "LPDDR3_SDRAM": "LPDDR3 SDRAM.",
                 "LPDDR4_SDRAM": "LPDDR4 SDRAM.",
                 "Logical": "Logical Non-volatile device.",
+                "OEM": "OEM-defined.",
                 "PipelinedNibble": "Pipelined Nibble.",
                 "ROM": "ROM.",
                 "SDRAM": "SDRAM."
             },
             "enumVersionAdded": {
+                "DDR5": "v1_11_0",
+                "GDDR": "v1_11_0",
+                "GDDR2": "v1_11_0",
+                "GDDR3": "v1_11_0",
+                "GDDR4": "v1_11_0",
+                "GDDR5": "v1_11_0",
+                "GDDR5X": "v1_11_0",
+                "GDDR6": "v1_11_0",
                 "HBM": "v1_7_0",
                 "HBM2": "v1_7_0",
-                "Logical": "v1_4_0"
+                "HBM3": "v1_11_0",
+                "Logical": "v1_4_0",
+                "OEM": "v1_11_0"
             },
             "type": "string"
         },
@@ -934,14 +1020,14 @@
             ],
             "enumDescriptions": {
                 "DRAM": "The memory device is comprised of volatile memory.",
-                "IntelOptane": "The memory device is an Intel Optane DC Persistent Memory Module.",
+                "IntelOptane": "The memory device is an Intel Optane Persistent Memory Module.",
                 "NVDIMM_F": "The memory device is comprised of non-volatile memory.",
                 "NVDIMM_N": "The memory device is comprised of volatile memory backed by non-volatile memory.",
                 "NVDIMM_P": "The memory device is comprised of a combination of non-volatile and volatile memory."
             },
             "enumLongDescriptions": {
                 "DRAM": "This value shall represent a volatile DRAM memory device.",
-                "IntelOptane": "This value shall represent an Intel Optane DC Persistent Memory Module.",
+                "IntelOptane": "This value shall represent an Intel Optane Persistent Memory Module.",
                 "NVDIMM_F": "This value shall represent an NVDIMM_F memory device as defined by JEDEC.",
                 "NVDIMM_N": "This value shall represent an NVDIMM_N memory device as defined by JEDEC.",
                 "NVDIMM_P": "This value shall represent an NVDIMM_P memory device as defined by JEDEC."
@@ -1421,7 +1507,7 @@
             "parameters": {
                 "Passphrase": {
                     "description": "The passphrase required to complete the operation.",
-                    "longDescription": "This property shall contain the passphrase required to complete this actionn.",
+                    "longDescription": "This property shall contain the passphrase required to complete this action.",
                     "requiredParameter": true,
                     "type": "string"
                 },
@@ -1461,6 +1547,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Memory.v1_10_0.Memory"
+    "release": "2020.4",
+    "title": "#Memory.v1_11_0.Memory"
 }

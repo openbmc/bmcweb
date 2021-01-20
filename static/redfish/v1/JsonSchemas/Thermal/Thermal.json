@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_6_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_7_0.json",
     "$ref": "#/definitions/Thermal",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -665,6 +665,7 @@
         },
         "Thermal": {
             "additionalProperties": false,
+            "deprecated": "This schema has been deprecated in favor of the ThermalSubsystem schema.",
             "description": "The Thermal schema describes temperature monitoring and thermal management subsystems, such as cooling fans, for a computer system or similar devices contained within a chassis.",
             "longDescription": "This resource shall contain the thermal management properties for temperature monitoring and management of cooling fans for a Redfish implementation.",
             "patternProperties": {
@@ -774,7 +775,8 @@
                 "Id",
                 "Name"
             ],
-            "type": "object"
+            "type": "object",
+            "versionDeprecated": "v1_7_0"
         },
         "ThermalActions": {
             "additionalProperties": false,
@@ -827,6 +829,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Thermal.v1_6_2.Thermal"
+    "release": "2020.4",
+    "title": "#Thermal.v1_7_0.Thermal"
 }

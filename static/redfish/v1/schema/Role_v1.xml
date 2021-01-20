@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Role v1.2.5                                                         -->
+<!--# Redfish Schema:  Role v1.3.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -67,8 +67,8 @@
       <EntityType Name="Role" BaseType="Role.Role">
         <Property Name="IsPredefined" Type="Edm.Boolean" Nullable="false" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the role is a Redfish-predefined role rather than a custom Redfish role."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the role is a Redfish-predefined role rather than a custom Redfish role."/>
+          <Annotation Term="OData.Description" String="An indication of whether the role is predefined by Redfish or an OEM rather than a client-defined role."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the role is predefined by Redfish or an OEM as contrasted with a client-defined role."/>
         </Property>
         <Property Name="AssignedPrivileges" Type="Collection(Privileges.PrivilegeType)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -81,7 +81,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations might prevent writing to this property."/>
         </Property>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_2">
@@ -220,6 +219,24 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Role" BaseType="Role.v1_2_4.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+
+      <EntityType Name="Role" BaseType="Role.v1_2_5.Role">
+        <Property Name="Restricted" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether use of the role is restricted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether use of the role is restricted by a service as defined by the 'Restricted roles and restricted privileges' clause of the Redfish Specification.  If this property is not present, the value shall be assumed to be `false`."/>
+        </Property>
+        <Property Name="AlternateRoleId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An equivalent role to use when this role is restricted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a non-restricted `RoleId` intended to be used in its place when the Restricted property contains the value `true`."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

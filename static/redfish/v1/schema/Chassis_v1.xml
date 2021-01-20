@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.14.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.15.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -88,8 +88,23 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MediaControllerCollection_v1.xml">
     <edmx:Include Namespace="MediaControllerCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PowerSubsystem_v1.xml">
+    <edmx:Include Namespace="PowerSubsystem"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ThermalSubsystem_v1.xml">
+    <edmx:Include Namespace="ThermalSubsystem"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/DriveCollection_v1.xml">
     <edmx:Include Namespace="DriveCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics_v1.xml">
+    <edmx:Include Namespace="EnvironmentMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -213,12 +228,30 @@
           <Annotation Term="OData.Description" String="The link to the thermal properties, such as fans, cooling, and sensors, for this chassis."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Thermal that represents the thermal characteristics of this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_15_0"/>
+                <PropertyValue Property="Description" String="This link has been deprecated in favor of the ThermalSubsystem link property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="Power" Type="Power.Power" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the power properties, or power supplies, power policies, and sensors, for this chassis."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Power that represents the power characteristics of this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_15_0"/>
+                <PropertyValue Property="Description" String="This link has been deprecated in favor of the PowerSubsystem link property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </EntityType>
 
@@ -1378,6 +1411,43 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type DriveCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add Certificates and Measurements to devices for attestation and identity management.  It was also created to add links to the PowerSubsystem, ThermalSubsystem, and EnvironmentMetrics resources."/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_14_0.Chassis">
+        <NavigationProperty Name="PowerSubsystem" Type="PowerSubsystem.PowerSubsystem" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the power subsystem properties for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PowerSubsystem that represents the power subsystem information for this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ThermalSubsystem" Type="ThermalSubsystem.ThermalSubsystem" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the thermal subsystem properties for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ThermalSubsystem that represents the thermal subsystem information for this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the environment metrics for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of DSP0274-defined measurement blocks."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of DSP0274-defined measurement blocks."/>
+        </Property>
       </EntityType>
     </Schema>
 
