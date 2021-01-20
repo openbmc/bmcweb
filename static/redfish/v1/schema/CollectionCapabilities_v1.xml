@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CollectionCapabilities v1.2.1                                       -->
+<!--# Redfish Schema:  CollectionCapabilities v1.2.2                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -175,6 +175,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_2_0.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_2_1.CollectionCapabilities"/>
     </Schema>
 
   </edmx:DataServices>

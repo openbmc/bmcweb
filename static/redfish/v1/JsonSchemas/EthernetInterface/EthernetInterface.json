@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_3.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -814,5 +814,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.1",
-    "title": "#EthernetInterface.v1_6_2.EthernetInterface"
+    "title": "#EthernetInterface.v1_6_3.EthernetInterface"
 }

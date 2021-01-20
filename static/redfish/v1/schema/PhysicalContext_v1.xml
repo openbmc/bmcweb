@@ -327,6 +327,17 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="TrustedModule">
+          <Annotation Term="OData.Description" String="A trusted module."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2020.4"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="PhysicalSubContext">

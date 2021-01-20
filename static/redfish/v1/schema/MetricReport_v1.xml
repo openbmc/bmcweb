@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReport v1.4.0                                                 -->
+<!--# Redfish Schema:  MetricReport v1.4.1                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -37,8 +37,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="MetricReport" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The metric definitions that create a metric report."/>
-        <Annotation Term="OData.LongDescription" String="The definition for this metric report."/>
+        <Annotation Term="OData.Description" String="The MetricReport schema represents a set of collected metrics."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a metric report in a Redfish implementation.  When a metric report is deleted, the historic metric data used to generate the report shall be deleted as well unless other metric reports are consuming the data."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -178,6 +178,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_0_4.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify behavior for when a metric report is deleted."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_0_5.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -216,6 +222,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_1_3.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify behavior for when a metric report is deleted."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_1_4.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -242,6 +254,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_2_1.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify behavior for when a metric report is deleted."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_2_2.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -256,6 +274,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_3_0.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify behavior for when a metric report is deleted."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_3_1.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -267,6 +291,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a client supplied context for the event destination to which this event is being sent.  This property shall only be present when sent as a payload in an event."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify behavior for when a metric report is deleted."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_4_0.MetricReport"/>
     </Schema>
 
   </edmx:DataServices>

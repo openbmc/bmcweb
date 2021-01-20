@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_6_0.json",
     "$ref": "#/definitions/Zone",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -414,22 +414,28 @@
             "enum": [
                 "Default",
                 "ZoneOfEndpoints",
-                "ZoneOfZones"
+                "ZoneOfZones",
+                "ZoneOfResourceBlocks"
             ],
             "enumDescriptions": {
                 "Default": "The zone in which all endpoints are added by default when instantiated.",
                 "ZoneOfEndpoints": "A zone that contains endpoints.",
+                "ZoneOfResourceBlocks": "A zone that contains resource blocks.",
                 "ZoneOfZones": "A zone that contains zones."
             },
             "enumLongDescriptions": {
-                "Default": "This value shall indicate a zone in which all endpoints are added by default when instantiated.",
-                "ZoneOfEndpoints": "This value shall indicate a zone that contains resources of type Endpoint.",
-                "ZoneOfZones": "This value shall indicate a zone that contains resources of type Zone."
+                "Default": "This value shall indicate a zone in which all endpoints are added by default when instantiated.  This value shall only be used for zones subordinate to the fabric collection.",
+                "ZoneOfEndpoints": "This value shall indicate a zone that contains resources of type Endpoint.  This value shall only be used for zones subordinate to the fabric collection.",
+                "ZoneOfResourceBlocks": "This value shall indicate a zone that contains resources of type ResourceBlock.  This value shall only be used for zones subordinate to the composition service.",
+                "ZoneOfZones": "This value shall indicate a zone that contains resources of type Zone.  This value shall only be used for zones subordinate to the fabric collection."
+            },
+            "enumVersionAdded": {
+                "ZoneOfResourceBlocks": "v1_6_0"
             },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Zone.v1_5_0.Zone"
+    "release": "2020.4",
+    "title": "#Zone.v1_6_0.Zone"
 }

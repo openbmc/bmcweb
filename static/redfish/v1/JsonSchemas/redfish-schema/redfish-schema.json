@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_7_0",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_8_0",
     "type": "object",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Redfish Schema Extension",
@@ -130,6 +130,16 @@
         "license": {
             "type": "string",
             "description": "The term is applied to Redfish schema or registry in order to specify licensing information."
+        },
+        "releaseStatus": {
+            "enum": [
+                "Standard",
+                "Informational",
+                "WorkInProgress",
+                "InDevelopment"
+            ],
+            "type": "string",
+            "description": "The term specifies the public release status of a property or schema."
         }
     },
     "properties": {
@@ -221,12 +231,15 @@
         },
         "enumTranslations": {
             "$ref": "#/definitions/enumTranslations"
-        },
+        },  
         "actionResponse": {
             "$ref": "#/definitions/actionResponse"
         },
         "license": {
             "$ref": "#/definitions/license"
+        },
+        "releaseStatus": {
+            "$ref": "#/definitions/releaseStatus"
         }
     }
 }

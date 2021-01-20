@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Facility.v1_0_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Facility.v1_1_0.json",
     "$ref": "#/definitions/Facility",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -67,6 +67,13 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource."
                 },
+                "AmbientMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the ambient environment metrics for this facility.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the outdoor environment metrics for this facility.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -77,6 +84,13 @@
                         }
                     ],
                     "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this facility.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this facility.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 },
                 "FacilityType": {
                     "$ref": "#/definitions/FacilityType",
@@ -283,6 +297,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Facility.v1_0_1.Facility"
+    "release": "2020.4",
+    "title": "#Facility.v1_1_0.Facility"
 }

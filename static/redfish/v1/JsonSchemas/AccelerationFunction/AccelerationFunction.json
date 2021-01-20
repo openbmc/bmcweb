@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.v1_0_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.v1_0_3.json",
     "$ref": "#/definitions/AccelerationFunction",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "AccelerationFunction": {
             "additionalProperties": false,
@@ -262,5 +262,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#AccelerationFunction.v1_0_2.AccelerationFunction"
+    "title": "#AccelerationFunction.v1_0_3.AccelerationFunction"
 }

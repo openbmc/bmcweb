@@ -12,7 +12,7 @@ import glob
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2020.3"
+VERSION = "DSP8010_2020.4"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 

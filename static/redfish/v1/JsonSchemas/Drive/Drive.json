@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_11_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_12_0.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -119,6 +119,13 @@
                     ],
                     "units": "By"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_12_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -155,6 +162,13 @@
                     "description": "The status of the encryption of this drive.",
                     "longDescription": "This property shall contain the encryption status for the associated drive.",
                     "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this drive.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this drive.",
+                    "readonly": true,
+                    "versionAdded": "v1_12_0"
                 },
                 "FailurePredicted": {
                     "description": "An indication of whether this drive currently predicts a failure in the near future.",
@@ -252,6 +266,15 @@
                         "string",
                         "null"
                     ]
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
                 },
                 "MediaType": {
                     "anyOf": [
@@ -762,6 +785,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Drive.v1_11_0.Drive"
+    "release": "2020.4",
+    "title": "#Drive.v1_12_0.Drive"
 }

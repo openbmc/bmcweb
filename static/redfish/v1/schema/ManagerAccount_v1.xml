@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.6.2                                               -->
+<!--# Redfish Schema:  ManagerAccount v1.7.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -64,6 +64,101 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <EnumType Name="AccountTypes">
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Member Name="Redfish">
+          <Annotation Term="OData.Description" String="Allow access to the Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access Redfish services.  If the version of the ManagerAccount resource is lower than the schema version when another enumeration value in this list was added, the implementation might include that functionality as part of the `Redfish` value."/>
+        </Member>
+        <Member Name="SNMP">
+          <Annotation Term="OData.Description" String="Allow access to SNMP services."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access SNMP services."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM account type.  See the OEMAccountTypes property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the services listed in the OemAccountTypes property."/>
+        </Member> 
+        <Member Name="HostConsole">
+          <Annotation Term="OData.Description" String="Allow access to the host's console, which could be connected through Telnet, SSH, or other protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the host console."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ManagerConsole">
+          <Annotation Term="OData.Description" String="Allow access to the manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the manager console."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="IPMI">
+          <Annotation Term="OData.Description" String="Allow access to the Intelligent Platform Management Interface service."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the Intelligent Platform Management Interface service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="KVMIP">
+          <Annotation Term="OData.Description" String="Allow access to a Keyboard-Video-Mouse over IP session."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the Keyboard-Video-Mouse over IP session service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="VirtualMedia">
+          <Annotation Term="OData.Description" String="Allow access to control virtual media."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to control virtual media."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="WebUI">
+          <Annotation Term="OData.Description" String="Allow access to a web user interface session, such as a graphical interface or another web-based protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the web interface."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_0">
@@ -325,10 +420,10 @@
           <Annotation Term="OData.Description" String="The SNMP settings for this account."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP settings for this account when AccountTypes contains `SNMP`."/>
         </Property>
-        <Property Name="AccountTypes" Type="Collection(ManagerAccount.v1_4_0.AccountTypes)">
+        <Property Name="AccountTypes" Type="Collection(ManagerAccount.AccountTypes)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The account types."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array with the single value `Redfish`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service might add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OEMAccountTypes" Type="Collection(Edm.String)">
@@ -346,7 +441,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
-          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24})|(^\*+$)"/>
+          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\*+$)"/>
         </Property>
         <Property Name="AuthenticationProtocol" Type="ManagerAccount.v1_4_0.SNMPAuthenticationProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -366,18 +461,6 @@
         </Property>
       </ComplexType>
 
-      <EnumType Name="AccountTypes">
-        <Member Name="Redfish">
-          <Annotation Term="OData.Description" String="Allow access to the Redfish service."/>
-        </Member>
-        <Member Name="SNMP">
-          <Annotation Term="OData.Description" String="Allow access to SNMP services."/>
-        </Member>
-        <Member Name="OEM">
-          <Annotation Term="OData.Description" String="OEM account type."/>
-        </Member> 
-      </EnumType>
-
       <EnumType Name="SNMPAuthenticationProtocols">
         <Member Name="None">
           <Annotation Term="OData.Description" String="No authentication."/>
@@ -390,6 +473,54 @@
         <Member Name="HMAC_SHA96">
           <Annotation Term="OData.Description" String="HMAC-SHA-96 authentication."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."/>
+        </Member>
+        <Member Name="HMAC128_SHA224">
+          <Annotation Term="OData.Description" String="HMAC-128-SHA-224 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC192_SHA256">
+          <Annotation Term="OData.Description" String="HMAC-192-SHA-256 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC256_SHA384">
+          <Annotation Term="OData.Description" String="HMAC-256-SHA-384 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC384_SHA512">
+          <Annotation Term="OData.Description" String="HMAC-384-SHA-512 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -495,6 +626,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the description for EncryptionKey."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_1.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add additional SNMPv3 authentication protocols.  It was also created to extend the values for AccountTypes."/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_2.ManagerAccount">
+        <Property Name="StrictAccountTypes" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the service needs to use the account types exactly as specified when the account is created or updated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the service needs to use the value of AccountTypes and OEMAccountTypes values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service might add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service might cause account types to be added to or removed from the AccountTypes and OEMAccountTypes properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SimpleStorage v1.3.0                                                -->
+<!--# Redfish Schema:  SimpleStorage v1.3.1                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -68,7 +68,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_0_0">
@@ -120,7 +119,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate the model information as provided by the manufacturer of this storage device."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_0_2">
@@ -159,9 +157,16 @@
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_0_6.SimpleStorage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_0_7.SimpleStorage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
+
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_0_2.SimpleStorage"/>
 
       <ComplexType Name="Device" BaseType="SimpleStorage.v1_0_0.Device">
@@ -173,7 +178,6 @@
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_1_1">
@@ -206,9 +210,16 @@
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_1_4.SimpleStorage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_1_5.SimpleStorage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_1_2.SimpleStorage">
         <Property Name="Links" Type="SimpleStorage.v1_2_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
@@ -266,10 +277,18 @@
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_2_2.SimpleStorage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_2_3.SimpleStorage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
+
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_2_3.SimpleStorage"/>
+
       <ComplexType Name="Links" BaseType="SimpleStorage.v1_2_0.Links">
         <NavigationProperty Name="Storage" Type="Storage.Storage" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -278,6 +297,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_3_0.SimpleStorage"/>
     </Schema>
 
   </edmx:DataServices>

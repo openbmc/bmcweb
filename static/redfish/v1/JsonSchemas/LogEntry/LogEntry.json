@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_8_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -337,6 +337,16 @@
                     ],
                     "versionAdded": "v1_3_0"
                 },
+                "Resolved": {
+                    "description": "Indicates if the cause of the log entry has been resolved or repaired.",
+                    "longDescription": "This property shall contain an indication if the cause of the log entry has been resolved or repaired.  The value `true` shall indicate if the cause of the log entry has been resolved or repaired.  This property shall contain the value `false` if the log entry is still active.  The value `false` shall be the initial state.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
                 "SensorNumber": {
                     "description": "The IPMI-defined sensor number.",
                     "longDescription": "This property shall contain the IPMI sensor number if the value of the EntryType property is `SEL`.  This property should not appear in the resource for other values of EntryType.",
@@ -649,6 +659,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#LogEntry.v1_7_0.LogEntry"
+    "release": "2020.4",
+    "title": "#LogEntry.v1_8_0.LogEntry"
 }

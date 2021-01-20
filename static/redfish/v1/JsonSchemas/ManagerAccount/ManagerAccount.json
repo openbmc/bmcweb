@@ -1,22 +1,9 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_6_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_7_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
-        "AccountTypes": {
-            "enum": [
-                "Redfish",
-                "SNMP",
-                "OEM"
-            ],
-            "enumDescriptions": {
-                "OEM": "OEM account type.",
-                "Redfish": "Allow access to the Redfish service.",
-                "SNMP": "Allow access to SNMP services."
-            },
-            "type": "string"
-        },
         "Actions": {
             "additionalProperties": false,
             "description": "The available actions for this resource.",
@@ -114,14 +101,14 @@
                     "items": {
                         "anyOf": [
                             {
-                                "$ref": "#/definitions/AccountTypes"
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.json#/definitions/AccountTypes"
                             },
                             {
                                 "type": "null"
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array with the single value `Redfish`.",
+                    "longDescription": "This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service might add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -242,6 +229,16 @@
                     "longDescription": "This property shall contain the SNMP settings for this account when AccountTypes contains `SNMP`.",
                     "versionAdded": "v1_4_0"
                 },
+                "StrictAccountTypes": {
+                    "description": "Indicates if the service needs to use the account types exactly as specified when the account is created or updated.",
+                    "longDescription": "This property shall indicate if the service needs to use the value of AccountTypes and OEMAccountTypes values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service might add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service might cause account types to be added to or removed from the AccountTypes and OEMAccountTypes properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
                 "UserName": {
                     "description": "The user name for the account.",
                     "longDescription": "This property shall contain the user name for this account.",
@@ -288,17 +285,35 @@
             "enum": [
                 "None",
                 "HMAC_MD5",
-                "HMAC_SHA96"
+                "HMAC_SHA96",
+                "HMAC128_SHA224",
+                "HMAC192_SHA256",
+                "HMAC256_SHA384",
+                "HMAC384_SHA512"
             ],
             "enumDescriptions": {
+                "HMAC128_SHA224": "HMAC-128-SHA-224 authentication.",
+                "HMAC192_SHA256": "HMAC-192-SHA-256 authentication.",
+                "HMAC256_SHA384": "HMAC-256-SHA-384 authentication.",
+                "HMAC384_SHA512": "HMAC-384-SHA-512 authentication.",
                 "HMAC_MD5": "HMAC-MD5-96 authentication.",
                 "HMAC_SHA96": "HMAC-SHA-96 authentication.",
                 "None": "No authentication."
             },
             "enumLongDescriptions": {
+                "HMAC128_SHA224": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol.",
+                "HMAC192_SHA256": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol.",
+                "HMAC256_SHA384": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol.",
+                "HMAC384_SHA512": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol.",
                 "HMAC_MD5": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
                 "HMAC_SHA96": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol.",
                 "None": "This value shall indicate authentication is not required."
+            },
+            "enumVersionAdded": {
+                "HMAC128_SHA224": "v1_7_0",
+                "HMAC192_SHA256": "v1_7_0",
+                "HMAC256_SHA384": "v1_7_0",
+                "HMAC384_SHA512": "v1_7_0"
             },
             "type": "string"
         },
@@ -342,7 +357,7 @@
                 "AuthenticationKey": {
                     "description": "The secret authentication key for SNMPv3.",
                     "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24})|(^\\*+$)",
+                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -408,6 +423,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#ManagerAccount.v1_6_2.ManagerAccount"
+    "release": "2020.4",
+    "title": "#ManagerAccount.v1_7_0.ManagerAccount"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.2.1                                                  -->
+<!--# Redfish Schema:  Certificate v1.2.2                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -66,6 +66,43 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/EventService/Subscriptions/{EventDestinationId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Memory/{MemoryId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Certificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -133,7 +170,7 @@
 
       <Action Name="Rekey" IsBound="true">
         <Annotation Term="OData.Description" String="This action generates a new key-pair for a certificate and produces a certificate signing request."/>
-        <Annotation Term="OData.LongDescription" String="This action shall use the certificate data to generate a new key-pair for a certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The service should retain the private key that generated this request for installation of the certificate.  The private key should not be part of the response.  The private key should not be part of the response."/>
+        <Annotation Term="OData.LongDescription" String="This action shall use the certificate data to generate a new key-pair for a certificate.  The response shall contain a signing request that a certificate authority (CA) will sign.  The service should retain the private key that generated this request for installation of the certificate.  The private key should not be part of the response.  The private key should not be part of the response."/>
         <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
         <Parameter Name="KeyPairAlgorithm" Type="Edm.String">
           <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
@@ -164,7 +201,7 @@
 
       <Action Name="Renew" IsBound="true">
         <Annotation Term="OData.Description" String="This action generates a certificate signing request by using the existing information and key-pair of the certificate."/>
-        <Annotation Term="OData.LongDescription" String="This action shall generate a certificate signing request using the existing information and key-pair of the certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The service should retain the private key that this request generates for when the certificate is installed.  The private key should not be part of the response."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate a certificate signing request using the existing information and key-pair of the certificate.  The response shall contain a signing request that a certificate authority (CA) will sign.  The service should retain the private key that this request generates for when the certificate is installed.  The private key should not be part of the response."/>
         <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
         <Parameter Name="ChallengePassword" Type="Edm.String">
           <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
@@ -305,6 +342,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_0_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -360,6 +403,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_1_1.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_1_2.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -377,6 +426,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_2_0.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_1.Certificate"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricDefinition v1.1.0                                             -->
+<!--# Redfish Schema:  MetricDefinition v1.1.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -197,7 +197,7 @@
         <Property Name="DiscreteValues" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="This array property specifies possible values of a discrete metric."/>
-          <Annotation Term="OData.LongDescription" String="The values of the property shall specify the possible values of the discrete metic.  This property shall have values when the MetricType property is `Discrete`."/>
+          <Annotation Term="OData.LongDescription" String="The values of the property shall specify the possible values of the discrete metric.  This property shall have values when the MetricType property is `Discrete`."/>
         </Property>
 
         <Property Name="Precision" Type="Edm.Int64">
@@ -253,12 +253,12 @@
         <Property Name="SourceMetric" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The metric property used as the input into the calculation.  If the link has wildcards, the wildcards are substituted as specified in the Wildcards array property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a metric property used in a calcuation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a metric property used in a calculation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules."/>
         </Property>
         <Property Name="ResultMetric" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a metric property that stores the result of the calculation.  If the link has wildcards, the wildcards are substituted as specified in the Wildcards array property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a metric property that stores the result of the calcuation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a metric property that stores the result of the calculation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules."/>
         </Property>
       </ComplexType>
 
@@ -351,6 +351,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for CalculationParameters."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_4.MetricDefinition"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_5.MetricDefinition"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -364,6 +370,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined calculation performed to obtain the metric.  This property shall be present if CalculationAlgorithm is `OEM`."/>
         </Property>
       </EntityType>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_0.MetricDefinition"/>
     </Schema>
 
   </edmx:DataServices>

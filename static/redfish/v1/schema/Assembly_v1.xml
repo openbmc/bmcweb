@@ -82,12 +82,21 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/Assembly</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Assembly</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/Assembly</String>
-            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Assembly</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Assembly</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Assembly</String>
+            <String>/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Assembly</String>
             <String>/redfish/v1/Chassis/{ChassisId}/Thermal/Fans/{FanId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans/{FanId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Assembly</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -229,7 +238,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataURI property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_2.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_2.AssemblyData"/>
     </Schema>
@@ -271,7 +280,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataURI property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_2.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_2.AssemblyData"/>
     </Schema>
@@ -313,7 +322,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataURI property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_1.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_1.AssemblyData"/>
     </Schema>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  PowerSupplyMetrics v1.0.0                                           -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2018-2020 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="PowerSupplyMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The PowerSupplyMetrics schema contains definitions for the metrics of a power supply."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the metrics of a power supply unit for a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Metrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="ResetMetrics" IsBound="true">
+        <Parameter Name="PowerSupplyMetrics" Type="PowerSupplyMetrics.v1_0_0.Actions"/>
+        <Annotation Term="OData.Description" String="This action resets the summary metrics related to this equipment."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset any time intervals or counted values for this equipment."/>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+
+      <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.PowerSupplyMetrics">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <NavigationProperty Name="InputVoltage" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The input voltage reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor measuring the input voltage for this power supply."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+        </NavigationProperty>
+        <NavigationProperty Name="InputCurrentAmps" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The input current reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor measuring the input current for this power supply."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+        </NavigationProperty>
+        <NavigationProperty Name="InputPowerWatts" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The input power reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor measuring the input power for this power supply."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+        </NavigationProperty>
+        <NavigationProperty Name="EnergykWh" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The energy consumption of this unit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, measured in kilowatt-hours (kWh), for this unit, that represents the `Total` ElectricalContext sensor when multiple energy sensors exist."/>
+        </NavigationProperty>
+        <NavigationProperty Name="FrequencyHz" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The frequency reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the frequency sensor for this power supply."/>
+        </NavigationProperty>
+        <NavigationProperty Name="OutputPowerWatts" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total power output reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor measuring the total output power for this power supply."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+        </NavigationProperty>
+        <NavigationProperty Name="RailVoltage" Type="Collection(Sensor.Sensor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The voltage readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output voltage sensors for this power supply.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+        </NavigationProperty>
+        <NavigationProperty Name="RailCurrentAmps" Type="Collection(Sensor.Sensor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output current sensors for this power supply.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+        </NavigationProperty>
+        <NavigationProperty Name="RailPowerWatts" Type="Collection(Sensor.Sensor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The power readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output power sensors for this power supply.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+        </NavigationProperty>
+        <NavigationProperty Name="TemperatureCelsius" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The temperature reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature sensor for this power supply."/>
+        </NavigationProperty>
+        <NavigationProperty Name="FanSpeedPercent" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Fan"/>
+          <Annotation Term="OData.Description" String="The fan speed reading for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speed sensor for this power supply."/>
+        </NavigationProperty>
+
+        <Property Name="Actions" Type="PowerSupplyMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="VoltageSensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The voltage readings for a power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe voltage sensor readings for a power supply."/>
+        <NavigationProperty Name="Input" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The power supply input."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures voltage at the input to the power supply."/>
+        </NavigationProperty>
+        <NavigationProperty Name="InputSecondary" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The power supply secondary input."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures voltage at a secondary input to the power supply.  This property shall not be present if the power supply does not include a secondary input."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output3Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The 3V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures voltage on a 3 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 3V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output5Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The 5V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures voltage on a 3 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 3V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output12Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The 12V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures voltage on a 12 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 12V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output48Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The 48V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures voltage on a 48 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 48V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="OutputAux" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The auxiliary (AUX) output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensor that measures current on an auxiliary (AUX) output power rail.  This property shall not be present if the power supply does not include an auxiliary output."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="CurrentSensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The current sensors for this power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe current sensor readings for a power supply."/>
+        <NavigationProperty Name="Input" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The power supply input."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current at the input of the power supply."/>
+        </NavigationProperty>
+        <NavigationProperty Name="InputSecondary" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The power supply secondary input."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current at the secondary input of the power supply.  This property shall not be present if the power supply does not include a secondary input."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output3Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The 3V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current on a 3 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 3V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output5Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The 5V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current on a 5 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 5V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output12Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The 12V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current on a 12 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 12V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output48Volt" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The 48V nominal output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current on a 48 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 48V output."/>
+        </NavigationProperty>
+        <NavigationProperty Name="OutputAux" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The auxiliary (AUX) output."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensor that measures current on an auxiliary (AUX) output power rail.  This property shall not be present if the power supply does not include an auxiliary output."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="PowerSensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The power sensors for this power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe power sensor readings for a power supply."/>
+        <NavigationProperty Name="Input" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The input power reading for the power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, measured in Watts, for this power supply unit, as measured at the input of the power supply."/>
+        </NavigationProperty>
+        <NavigationProperty Name="InputSecondary" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The secondary input power reading for the power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, measured in Watts, for this power supply unit, as measured at the secondary input of the power supply.  This property shall not appear if the power supply does not contain a secondary input."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Output" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The output power reading for the power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, measured in Watts, for this power supply unit, as measured at the output of the power supply."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="PowerSupplyMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

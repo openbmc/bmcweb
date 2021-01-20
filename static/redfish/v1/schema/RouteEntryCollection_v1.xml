@@ -52,8 +52,8 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
-            <String>/redfish/v1/Fabrics/{FrabricId}/Switches/{SwitchId}/Ports/{PortId}/LPRT</String>
-            <String>/redfish/v1/Fabrics/{FrabricId}/Switches/{SwitchId}/Ports/{PortId}/MPRT</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/LPRT</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/MPRT</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/MSDT</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/SSDT</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/LPRT</String>

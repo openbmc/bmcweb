@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Role.v1_2_5.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Role.v1_3_0.json",
     "$ref": "#/definitions/Role",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -90,6 +90,13 @@
                     "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
+                "AlternateRoleId": {
+                    "description": "An equivalent role to use when this role is restricted.",
+                    "longDescription": "This property shall contain a non-restricted `RoleId` intended to be used in its place when the Restricted property contains the value `true`.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
                 "AssignedPrivileges": {
                     "description": "The Redfish privileges for this role.",
                     "items": {
@@ -115,8 +122,8 @@
                     "readonly": true
                 },
                 "IsPredefined": {
-                    "description": "An indication of whether the role is a Redfish-predefined role rather than a custom Redfish role.",
-                    "longDescription": "This property shall indicate whether the role is a Redfish-predefined role rather than a custom Redfish role.",
+                    "description": "An indication of whether the role is predefined by Redfish or an OEM rather than a client-defined role.",
+                    "longDescription": "This property shall indicate whether the role is predefined by Redfish or an OEM as contrasted with a client-defined role.",
                     "readonly": true,
                     "type": "boolean"
                 },
@@ -137,6 +144,13 @@
                     "longDescription": "This property shall contain the OEM privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations might prevent writing to this property.",
                     "readonly": false,
                     "type": "array"
+                },
+                "Restricted": {
+                    "description": "An indication of whether use of the role is restricted.",
+                    "longDescription": "This property shall indicate whether use of the role is restricted by a service as defined by the 'Restricted roles and restricted privileges' clause of the Redfish Specification.  If this property is not present, the value shall be assumed to be `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_3_0"
                 },
                 "RoleId": {
                     "description": "The name of the role.",
@@ -159,6 +173,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2017.2",
-    "title": "#Role.v1_2_5.Role"
+    "release": "2020.4",
+    "title": "#Role.v1_3_0.Role"
 }

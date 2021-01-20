@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.10.0                                                    -->
+<!--# Redfish Schema:  Resource v1.11.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -19,6 +19,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LogEntry_v1.xml">
+    <edmx:Include Namespace="LogEntry"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -108,10 +111,59 @@
           <Annotation Term="OData.Description" String="The health state of this resource in the absence of its dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the health state of the resource without considering its dependent resources.  The values shall conform to those defined in the Redfish Specification."/>
         </Property>
+        <Property Name="Conditions" Type="Collection(Resource.Condition)">
+          <Annotation Term="OData.Description" String="Conditions in this resource that require attention."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the Health or HealthRollup of this resource."/>
+        </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
+      </ComplexType>
+
+      <ComplexType Name="Condition">
+        <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A condition that requires attention."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the description and details of a condition that exists within this resource or a related resource that requires attention."/>
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time the condition occurred."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the time the condition occurred."/>
+        </Property>
+        <Property Name="MessageId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier for the message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a MessageId, as defined in the 'MessageId format' clause of the Redfish Specification."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of message arguments that are substituted for the arguments in the message when looked up in the message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema."/>
+        </Property>
+        <Property Name="Message" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The human-readable message for this condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a human-readable message describing this condition."/>
+        </Property>
+        <Property Name="Severity" Type="Resource.Health" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The severity of the condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the condition.  Services can replace the value defined in the message registry with a value more applicable to the implementation."/>
+        </Property>
+        <NavigationProperty Name="OriginOfCondition" Type="Resource.Item" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the resource or object that originated the condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource or object that originated the condition.  This property shall not be present if the condition was caused by this resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="LogEntry" Type="LogEntry.LogEntry" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the log entry created for this condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type LogEntry that represents the log entry created for this condition."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
 
       <EnumType Name="State">
@@ -220,11 +272,11 @@
         </Member>
         <Member Name="GracefulRestart">
           <Annotation Term="OData.Description" String="Shut down gracefully and restart the system."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transion will start after first performing tasks to safely shutdown the resource.  For example, when shutting down a computer system, the hosted operating system is allowed to safely shutting down processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start after first performing tasks to safely shutdown the resource.  For example, when shutting down a computer system, the hosted operating system is allowed to safely shutting down processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
         </Member>
         <Member Name="ForceRestart">
           <Annotation Term="OData.Description" String="Shut down immediately and non-gracefully and restart the system."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transion will start immediately.  Upon successful completion, the PowerState property, if supported, shall shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start immediately.  Upon successful completion, the PowerState property, if supported, shall shall contain the value `On`."/>
         </Member>
         <Member Name="Nmi">
           <Annotation Term="OData.Description" String="Generate a diagnostic interrupt, which is usually an NMI on x86 systems, to stop normal operations, complete diagnostic actions, and, typically, halt the system."/>
@@ -390,6 +442,11 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
@@ -560,6 +617,11 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -613,6 +675,11 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
@@ -900,6 +967,11 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -943,6 +1015,11 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
@@ -1107,6 +1184,11 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1161,6 +1243,11 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
@@ -1238,6 +1325,11 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1269,6 +1361,11 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1290,11 +1387,27 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add long descriptions to the ResetType enumeration values."/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add the `NGUID` enumeration to Identifers."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `NGUID` enumeration to Identifiers."/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the Conditions array property to Status."/>
     </Schema>
 
   </edmx:DataServices>

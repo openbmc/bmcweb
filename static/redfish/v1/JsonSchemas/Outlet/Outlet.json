@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_1_1.json",
     "$ref": "#/definitions/Outlet",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -67,7 +67,7 @@
                     ],
                     "description": "Line 1 current sensor.",
                     "excerptCopy": "SensorCurrentExcerpt",
-                    "longDescription": "This property shall contain a CurrentSensor excerpt that measures current for L1.  This property shall not be present if the outlet does not include an L1 measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Current that measures current for L1.  This property shall not be present if the outlet does not include an L1 measurement.",
                     "readonly": true
                 },
                 "Line2": {
@@ -81,7 +81,7 @@
                     ],
                     "description": "Line 2 current sensor.",
                     "excerptCopy": "SensorCurrentExcerpt",
-                    "longDescription": "This property shall contain a CurrentSensor excerpt that measures current for L2.  This property shall not be present if the outlet does not include an L2 measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Current that measures current for L2.  This property shall not be present if the outlet does not include an L2 measurement.",
                     "readonly": true
                 },
                 "Line3": {
@@ -95,7 +95,7 @@
                     ],
                     "description": "Line 3 current sensor.",
                     "excerptCopy": "SensorCurrentExcerpt",
-                    "longDescription": "This property shall contain a CurrentSensor excerpt that measures current for L3.  This property shall not be present if the outlet does not include an L3 measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Current that measures current for L3.  This property shall not be present if the outlet does not include an L3 measurement.",
                     "readonly": true
                 },
                 "Neutral": {
@@ -109,7 +109,7 @@
                     ],
                     "description": "Neutral line current sensor.",
                     "excerptCopy": "SensorCurrentExcerpt",
-                    "longDescription": "This property shall contain a CurrentSensor excerpt that measures current for the Neutral line.  This property shall not be present if the outlet does not include a Neutral measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Current that measures current for the Neutral line.  This property shall not be present if the outlet does not include a Neutral measurement.",
                     "readonly": true
                 }
             },
@@ -614,7 +614,7 @@
                     ],
                     "description": "The Line 1 to Line 2 voltage reading for this outlet.",
                     "excerptCopy": "SensorVoltageExcerpt",
-                    "longDescription": "This property shall contain a VoltageSensor excerpt that measures voltage between L1 and L2.  This property shall not be present if the outlet does not include an L1-L2 measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Voltage that measures voltage between L1 and L2.  This property shall not be present if the outlet does not include an L1-L2 measurement.",
                     "readonly": true
                 },
                 "Line1ToNeutral": {
@@ -628,7 +628,7 @@
                     ],
                     "description": "The Line 1 to Neutral voltage reading for this outlet.",
                     "excerptCopy": "SensorVoltageExcerpt",
-                    "longDescription": "This property shall contain a VoltageSensor excerpt that measures voltage between L1 and Neutral.  This property shall not be present if the outlet does not include an L1-Neutral measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Voltage that measures voltage between L1 and Neutral.  This property shall not be present if the outlet does not include an L1-Neutral measurement.",
                     "readonly": true
                 },
                 "Line2ToLine3": {
@@ -642,7 +642,7 @@
                     ],
                     "description": "The Line 2 to Line 3 voltage reading for this outlet.",
                     "excerptCopy": "SensorVoltageExcerpt",
-                    "longDescription": "This property shall contain a VoltageSensor excerpt that measures voltage between L2 and L3.  This property shall not be present if the outlet does not include an L2-L3 measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Voltage that measures voltage between L2 and L3.  This property shall not be present if the outlet does not include an L2-L3 measurement.",
                     "readonly": true
                 },
                 "Line2ToNeutral": {
@@ -656,7 +656,7 @@
                     ],
                     "description": "The Line 2 to Neutral voltage reading for this outlet.",
                     "excerptCopy": "SensorVoltageExcerpt",
-                    "longDescription": "This property shall contain a VoltageSensor excerpt that measures voltage between L2 and Neutral.  This property shall not be present if the outlet does not include an L2-Neutral measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Voltage that measures voltage between L2 and Neutral.  This property shall not be present if the outlet does not include an L2-Neutral measurement.",
                     "readonly": true
                 },
                 "Line3ToLine1": {
@@ -670,7 +670,7 @@
                     ],
                     "description": "The Line 3 to Line 1 voltage reading for this outlet.",
                     "excerptCopy": "SensorVoltageExcerpt",
-                    "longDescription": "This property shall contain a VoltageSensor excerpt that measures voltage between L3 and L1.  This property shall not be present if the outlet does not include an L3-L1 measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Voltage that measures voltage between L3 and L1.  This property shall not be present if the outlet does not include an L3-L1 measurement.",
                     "readonly": true
                 },
                 "Line3ToNeutral": {
@@ -684,7 +684,7 @@
                     ],
                     "description": "The Line 3 to Neutral voltage reading for this outlet.",
                     "excerptCopy": "SensorVoltageExcerpt",
-                    "longDescription": "This property shall contain a VoltageSensor excerpt that measures voltage between L3 and Neutral.  This property shall not be present if the outlet does not include an L3-Neutral measurement.",
+                    "longDescription": "This property shall contain a Sensor excerpt of type Voltage that measures voltage between L3 and Neutral.  This property shall not be present if the outlet does not include an L3-Neutral measurement.",
                     "readonly": true
                 }
             },
@@ -704,5 +704,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.3",
-    "title": "#Outlet.v1_1_0.Outlet"
+    "title": "#Outlet.v1_1_1.Outlet"
 }
