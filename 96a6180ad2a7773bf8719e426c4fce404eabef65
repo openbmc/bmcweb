@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "ff2a9dd4_1b98ed01",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-20T03:20:57Z",
+      "side": 1,
+      "message": "@Gunnar\nFrom @Ed reply.\n\u003e Correct, and GetSubTree returns an error if it can\u0027t find any elements in the subtree command.\n\nI do not think this is an error, we do not need to address any qeustion.",
+      "parentUuid": "fc015e84_4716cfba",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 52
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f701ae5_77424f5e",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -346,6 +370,30 @@
       "side": 1,
       "message": "I suspect so, or we need to come up with a better dbus interface for it.  In general, relying on named object paths is not good.",
       "parentUuid": "e464ecfd_ba23eac4",
+      "range": {
+        "startLine": 813,
+        "startChar": 62,
+        "endLine": 813,
+        "endChar": 67
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a881ddd_e8b4fe85",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-20T03:20:57Z",
+      "side": 1,
+      "message": "Okay, Do we need to wait for associations.json to update? Or we can push a new commit after the associations.json is updated?",
+      "parentUuid": "eab0c8fc_e14f0ddc",
       "range": {
         "startLine": 813,
         "startChar": 62,
@@ -927,6 +975,30 @@
     },
     {
       "key": {
+        "uuid": "8b6dfc77_f351cad3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-20T03:20:57Z",
+      "side": 1,
+      "message": "Sorry, Done.",
+      "parentUuid": "85c562e4_d0fbfdfd",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1248,
+        "endChar": 22
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50cff6b0_284e6b2d",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -1034,6 +1106,30 @@
       "side": 1,
       "message": "I don\u0027t see this addressed in the newest patch set",
       "parentUuid": "0a974202_7f83648e",
+      "range": {
+        "startLine": 1254,
+        "startChar": 0,
+        "endLine": 1259,
+        "endChar": 0
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80b8a51c_5561c6d2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-01-20T03:20:57Z",
+      "side": 1,
+      "message": "@Gunnar\nI have addressed it.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570/16/redfish-core/lib/processor.hpp#860\n\nwhen I use a bad url ` /redfish/v1/systems/Processors/cpu3/SubProcessors`\n{\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type SubProcessor named cpu3 was not found.\",\n\"MessageArgs\": [\n\"SubProcessor\",\n\"cpu3\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type SubProcessor named cpu3 was not found.\"\n}\n}",
+      "parentUuid": "c3739e94_7706bda6",
       "range": {
         "startLine": 1254,
         "startChar": 0,
