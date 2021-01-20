@@ -22,6 +22,30 @@
       "revId": "0af10534ae83d6ec0706d803123853a78304940e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41aabb1_63a0580f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-01-20T04:48:55Z",
+      "side": 1,
+      "message": "Hey Ed, the flow is like as below\n\n\u003d\u003e USER starts the user initiated dump through redfish API\n\u003d\u003e bmcweb starts the task, now it needs some object from the backend service which can be tied up with this task.\n\u003d\u003e backend service creates the Dbus object and sets the state to \"Incomplete\".\n\u003d\u003e on bmcweb either task will be timed out or success/completed(if the dbus object state property changed to \"complete\" ).\n\nDhruv, Can comment more on the same.",
+      "parentUuid": "1b8de6a4_e943ae28",
+      "range": {
+        "startLine": 518,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 17
+      },
+      "revId": "0af10534ae83d6ec0706d803123853a78304940e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
