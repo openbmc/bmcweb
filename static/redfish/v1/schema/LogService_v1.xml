@@ -217,7 +217,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add LogPurpose and EntryType properties."/>
+      <Annotation Term="OData.Description" String="This version was created to add LogEntryType property."/>
 
       <EntityType Name="LogService" BaseType="LogService.v1_0_5.LogService">
         <Property Name="LogEntryType" Type="LogService.v1_1_0.LogEntryTypes">

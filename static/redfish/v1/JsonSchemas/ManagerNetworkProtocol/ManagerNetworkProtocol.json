@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_6_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_7_0.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -292,7 +292,7 @@
                 "VirtualMedia": {
                     "$ref": "#/definitions/Protocol",
                     "description": "The settings for this manager's virtual media support that apply to all system instances controlled by this manager.",
-                    "longDescription": "This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage.  If multiple systems are supported by this manager, these properites, if present, apply to all instances of virtual media controlled by this manager."
+                    "longDescription": "This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of virtual media controlled by this manager."
                 }
             },
             "required": [
@@ -437,19 +437,37 @@
                 "Account",
                 "CommunityString",
                 "HMAC_MD5",
-                "HMAC_SHA96"
+                "HMAC_SHA96",
+                "HMAC128_SHA224",
+                "HMAC192_SHA256",
+                "HMAC256_SHA384",
+                "HMAC384_SHA512"
             ],
             "enumDescriptions": {
                 "Account": "Authentication is determined by account settings.",
                 "CommunityString": "SNMP community string authentication.",
+                "HMAC128_SHA224": "HMAC-128-SHA-224 authentication.",
+                "HMAC192_SHA256": "HMAC-192-SHA-256 authentication.",
+                "HMAC256_SHA384": "HMAC-256-SHA-384 authentication.",
+                "HMAC384_SHA512": "HMAC-384-SHA-512 authentication.",
                 "HMAC_MD5": "HMAC-MD5-96 authentication.",
                 "HMAC_SHA96": "HMAC-SHA-96 authentication."
             },
             "enumLongDescriptions": {
                 "Account": "This value shall indicate authentication for SNMPv3 access is determined based on the corresponding account settings.",
                 "CommunityString": "This value shall indicate authentication uses SNMP community strings.",
+                "HMAC128_SHA224": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol.",
+                "HMAC192_SHA256": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol.",
+                "HMAC256_SHA384": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol.",
+                "HMAC384_SHA512": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol.",
                 "HMAC_MD5": "This value shall indicate authentication for SNMPv3 access conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
                 "HMAC_SHA96": "This value shall indicate authentication for SNMPv3 access conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."
+            },
+            "enumVersionAdded": {
+                "HMAC128_SHA224": "v1_7_0",
+                "HMAC192_SHA256": "v1_7_0",
+                "HMAC256_SHA384": "v1_7_0",
+                "HMAC384_SHA512": "v1_7_0"
             },
             "type": "string"
         },
@@ -774,6 +792,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#ManagerNetworkProtocol.v1_6_1.ManagerNetworkProtocol"
+    "release": "2020.4",
+    "title": "#ManagerNetworkProtocol.v1_7_0.ManagerNetworkProtocol"
 }

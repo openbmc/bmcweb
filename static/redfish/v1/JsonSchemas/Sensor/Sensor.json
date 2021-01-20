@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -226,7 +226,7 @@
                 },
                 "ApparentVA": {
                     "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
-                    "excerpt": "SensorPower",
+                    "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
@@ -291,7 +291,7 @@
                 "LifetimeReading": {
                     "description": "The total accumulation value for this sensor.",
                     "excerpt": "SensorEnergykWh",
-                    "longDescription": "This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetStatistics action.",
+                    "longDescription": "This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetMetrics action.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -345,7 +345,7 @@
                 },
                 "PeakReading": {
                     "description": "The peak sensor value.",
-                    "longDescription": "This property shall contain the peak sensor value since the last ResetStatistics action was performed or the service last reset the time-based property values.",
+                    "longDescription": "This property shall contain the peak sensor value since the last ResetMetrics action was performed or the service last reset the time-based property values.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -372,7 +372,7 @@
                         }
                     ],
                     "description": "The area or device to which this sensor measurement applies.",
-                    "excerpt": "SensorArray",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
                     "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this sensor measurement applies.",
                     "readonly": true
                 },
@@ -386,13 +386,13 @@
                         }
                     ],
                     "description": "The usage or location within a device to which this sensor measurement applies.",
-                    "excerpt": "SensorArray",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
                     "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this sensor measurement applies.  This property generally differentiates multiple sensors within the same PhysicalContext instance.",
                     "readonly": true
                 },
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
-                    "excerpt": "SensorPower",
+                    "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
                     "minimum": 0,
@@ -413,7 +413,7 @@
                 },
                 "ReactiveVAR": {
                     "description": "The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units.",
-                    "excerpt": "SensorPower",
+                    "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
@@ -453,7 +453,7 @@
                 "ReadingTime": {
                     "description": "The date and time that the reading was acquired from the sensor.",
                     "format": "date-time",
-                    "longDescription": "This property shall contain the date and timetime that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors, and does not represent the time at which the resource was accessed.",
+                    "longDescription": "This property shall contain the date and time that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors, and does not represent the time at which the resource was accessed.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -483,6 +483,19 @@
                         "null"
                     ]
                 },
+                "RelatedItem": {
+                    "description": "An array of links to resources or objects that this sensor services.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources or objects that this sensor services.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "RelatedItem@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "SensingFrequency": {
                     "deprecated": "This property has been deprecated in favor of the SensingInterval property, which uses the duration time format for interoperability.",
                     "description": "The time interval between readings of the physical sensor.",
@@ -509,12 +522,24 @@
                     "description": "The date and time when the time-based properties were last reset.",
                     "excerpt": "SensorEnergykWh",
                     "format": "date-time",
-                    "longDescription": "This property shall contain the date and time when the ResetStatistics action was last performed or the service last reset the time-based property values.",
+                    "longDescription": "This property shall contain the date and time when the ResetMetrics action was last performed or the service last reset the time-based property values.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
                     ]
+                },
+                "SpeedRPM": {
+                    "description": "The rotational speed.",
+                    "excerpt": "SensorFan,SensorFanArray",
+                    "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "RPM",
+                    "versionAdded": "v1_2_0"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
@@ -590,6 +615,18 @@
                         "null"
                     ]
                 },
+                "DeviceName": {
+                    "description": "The name of the device.",
+                    "excerpt": "SensorArray,SensorFanArray",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the name of the device associated with this sensor.  If the device is represented by a resource, the value shall contain the value of the Name property of the associated resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
                 "PhysicalContext": {
                     "anyOf": [
                         {
@@ -600,7 +637,7 @@
                         }
                     ],
                     "description": "The area or device to which this sensor measurement applies.",
-                    "excerpt": "SensorArray",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
                     "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this sensor measurement applies.",
                     "readonly": true
                 },
@@ -614,7 +651,7 @@
                         }
                     ],
                     "description": "The usage or location within a device to which this sensor measurement applies.",
-                    "excerpt": "SensorArray",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
                     "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this sensor measurement applies.  This property generally differentiates multiple sensors within the same PhysicalContext instance.",
                     "readonly": true
                 },
@@ -731,7 +768,7 @@
                 "LifetimeReading": {
                     "description": "The total accumulation value for this sensor.",
                     "excerpt": "SensorEnergykWh",
-                    "longDescription": "This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetStatistics action.",
+                    "longDescription": "This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetMetrics action.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -753,7 +790,7 @@
                     "description": "The date and time when the time-based properties were last reset.",
                     "excerpt": "SensorEnergykWh",
                     "format": "date-time",
-                    "longDescription": "This property shall contain the date and time when the ResetStatistics action was last performed or the service last reset the time-based property values.",
+                    "longDescription": "This property shall contain the date and time when the ResetMetrics action was last performed or the service last reset the time-based property values.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -807,6 +844,264 @@
             },
             "type": "object"
         },
+        "SensorFanArrayExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorFanArray",
+            "longDescription": "This resource shall represent a sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DeviceName": {
+                    "description": "The name of the device.",
+                    "excerpt": "SensorArray,SensorFanArray",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the name of the device associated with this sensor.  If the device is represented by a resource, the value shall contain the value of the Name property of the associated resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "PhysicalContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The area or device to which this sensor measurement applies.",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
+                    "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this sensor measurement applies.",
+                    "readonly": true
+                },
+                "PhysicalSubContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalSubContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The usage or location within a device to which this sensor measurement applies.",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
+                    "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this sensor measurement applies.  This property generally differentiates multiple sensors within the same PhysicalContext instance.",
+                    "readonly": true
+                },
+                "Reading": {
+                    "description": "The sensor value.",
+                    "excerpt": "Sensor",
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SpeedRPM": {
+                    "description": "The rotational speed.",
+                    "excerpt": "SensorFan,SensorFanArray",
+                    "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "RPM",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "SensorFanExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorFan",
+            "longDescription": "This resource shall represent a sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Reading": {
+                    "description": "The sensor value.",
+                    "excerpt": "Sensor",
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SpeedRPM": {
+                    "description": "The rotational speed.",
+                    "excerpt": "SensorFan,SensorFanArray",
+                    "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "RPM",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "SensorPowerArrayExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorPowerArray",
+            "longDescription": "This resource shall represent a sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ApparentVA": {
+                    "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
+                    "excerpt": "SensorPower,SensorPowerArray",
+                    "longDescription": "This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "V.A"
+                },
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PhysicalContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The area or device to which this sensor measurement applies.",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
+                    "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this sensor measurement applies.",
+                    "readonly": true
+                },
+                "PhysicalSubContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalSubContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The usage or location within a device to which this sensor measurement applies.",
+                    "excerpt": "SensorArray,SensorFanArray,SensorPowerArray",
+                    "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this sensor measurement applies.  This property generally differentiates multiple sensors within the same PhysicalContext instance.",
+                    "readonly": true
+                },
+                "PowerFactor": {
+                    "description": "The power factor for this sensor.",
+                    "excerpt": "SensorPower,SensorPowerArray",
+                    "longDescription": "This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "maximum": 1,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ReactiveVAR": {
+                    "description": "The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units.",
+                    "excerpt": "SensorPower,SensorPowerArray",
+                    "longDescription": "This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "V.A"
+                },
+                "Reading": {
+                    "description": "The sensor value.",
+                    "excerpt": "Sensor",
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
         "SensorPowerExcerpt": {
             "additionalProperties": false,
             "description": "The Sensor schema describes a sensor and its properties.",
@@ -829,7 +1124,7 @@
             "properties": {
                 "ApparentVA": {
                     "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
-                    "excerpt": "SensorPower",
+                    "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
@@ -851,7 +1146,7 @@
                 },
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
-                    "excerpt": "SensorPower",
+                    "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
                     "minimum": 0,
@@ -863,7 +1158,7 @@
                 },
                 "ReactiveVAR": {
                     "description": "The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units.",
-                    "excerpt": "SensorPower",
+                    "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
@@ -985,7 +1280,7 @@
                 },
                 "DwellTime": {
                     "description": "The duration the sensor value must violate the threshold before the threshold is activated.",
-                    "longDescription": "This property shall indicate the duration the sensor value must violate the threshold before the threshold is activated.",
+                    "longDescription": "This property shall indicate the duration the sensor value violates the threshold before the threshold is activated.",
                     "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
                     "readonly": false,
                     "type": [
@@ -1047,10 +1342,22 @@
                     "description": "The value at which the reading is below normal range.",
                     "longDescription": "This property shall contain the value at which the Reading property is below normal range.  The value of the property shall use the same units as the Reading property."
                 },
+                "LowerCautionUser": {
+                    "$ref": "#/definitions/Threshold",
+                    "description": "The value at which the reading is below normal range.",
+                    "longDescription": "This property shall contain the value at which the Reading property is below normal range.  The value of the property shall use the same units as the Reading property.",
+                    "versionAdded": "v1_2_0"
+                },
                 "LowerCritical": {
                     "$ref": "#/definitions/Threshold",
                     "description": "The value at which the reading is below normal range but not yet fatal.",
                     "longDescription": "This property shall contain the value at which the Reading property is below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property."
+                },
+                "LowerCriticalUser": {
+                    "$ref": "#/definitions/Threshold",
+                    "description": "The value at which the reading is below normal range but not yet fatal.",
+                    "longDescription": "This property shall contain the value at which the Reading property is below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.",
+                    "versionAdded": "v1_2_0"
                 },
                 "LowerFatal": {
                     "$ref": "#/definitions/Threshold",
@@ -1062,10 +1369,22 @@
                     "description": "The value at which the reading is above normal range.",
                     "longDescription": "This property shall contain the value at which the Reading property is above the normal range.  The value of the property shall use the same units as the Reading property."
                 },
+                "UpperCautionUser": {
+                    "$ref": "#/definitions/Threshold",
+                    "description": "The value at which the reading is above normal range.",
+                    "longDescription": "This property shall contain the value at which the Reading property is above the normal range.  The value of the property shall use the same units as the Reading property.",
+                    "versionAdded": "v1_2_0"
+                },
                 "UpperCritical": {
                     "$ref": "#/definitions/Threshold",
                     "description": "The value at which the reading is above normal range but not yet fatal.",
                     "longDescription": "This property shall contain the value at which the Reading property is above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property."
+                },
+                "UpperCriticalUser": {
+                    "$ref": "#/definitions/Threshold",
+                    "description": "The value at which the reading is above normal range but not yet fatal.",
+                    "longDescription": "This property shall contain the value at which the Reading property is above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.",
+                    "versionAdded": "v1_2_0"
                 },
                 "UpperFatal": {
                     "$ref": "#/definitions/Threshold",
@@ -1077,6 +1396,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Sensor.v1_1_1.Sensor"
+    "release": "2020.4",
+    "title": "#Sensor.v1_2_0.Sensor"
 }

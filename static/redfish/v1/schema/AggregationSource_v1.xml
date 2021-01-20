@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationSource v1.0.0                                            -->
+<!--# Redfish Schema:  AggregationSource v1.1.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -23,6 +23,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ConnectionMethod_v1.xml">
     <edmx:Include Namespace="ConnectionMethod"/>
@@ -124,6 +125,107 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add SNMP settings to the AggregationSource."/>
+
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_0_0.AggregationSource">
+        <Property Name="SNMP" Type="AggregationSource.v1_1_0.SNMPSettings">
+          <Annotation Term="OData.Description" String="SNMP settings of the aggregation source."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP settings of the aggregation source."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SNMPSettings">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Settings for an SNMP aggregation source."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the settings for an SNMP aggregation source."/>
+        <Property Name="AuthenticationKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
+          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\*+$)"/>
+        </Property>
+        <Property Name="AuthenticationProtocol" Type="AggregationSource.v1_1_0.SNMPAuthenticationProtocols">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The authentication protocol for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 authentication protocol."/>
+        </Property>
+        <Property Name="EncryptionKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
+          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+        </Property>
+        <Property Name="EncryptionProtocol" Type="AggregationSource.v1_1_0.SNMPEncryptionProtocols">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The encryption protocol for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 encryption protocol."/>
+        </Property>
+        <Property Name="AuthenticationKeySet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the AuthenticationKey property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the AuthenticationKey property.  Otherwise, the property shall contain `false`."/>
+        </Property>
+        <Property Name="EncryptionKeySet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the EncryptionKey property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SNMPAuthenticationProtocols">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication is not required."/>
+        </Member>
+        <Member Name="CommunityString">
+          <Annotation Term="OData.Description" String="Trap community string authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication using SNMP community strings and the value of TrapCommunity."/>
+        </Member>
+        <Member Name="HMAC_MD5">
+          <Annotation Term="OData.Description" String="HMAC-MD5-96 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol."/>
+        </Member>
+        <Member Name="HMAC_SHA96">
+          <Annotation Term="OData.Description" String="HMAC-SHA-96 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."/>
+        </Member>
+        <Member Name="HMAC128_SHA224">
+          <Annotation Term="OData.Description" String="HMAC-128-SHA-224 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol."/>
+        </Member>
+        <Member Name="HMAC192_SHA256">
+          <Annotation Term="OData.Description" String="HMAC-192-SHA-256 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol."/>
+        </Member>
+        <Member Name="HMAC256_SHA384">
+          <Annotation Term="OData.Description" String="HMAC-256-SHA-384 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol."/>
+        </Member>
+        <Member Name="HMAC384_SHA512">
+          <Annotation Term="OData.Description" String="HMAC-384-SHA-512 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SNMPEncryptionProtocols">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate there is no encryption."/>
+        </Member>
+        <Member Name="CBC_DES">
+          <Annotation Term="OData.Description" String="CBC-DES encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol."/>
+        </Member>
+        <Member Name="CFB128_AES128">
+          <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

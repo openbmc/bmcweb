@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SessionService v1.1.7                                               -->
+<!--# Redfish Schema:  SessionService v1.1.8                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -109,7 +109,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated.  In this case, ServiceEnabled descrtiption was updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated.  In this case, ServiceEnabled description was updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_3.SessionService"/>
     </Schema>
 
@@ -135,6 +135,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_7.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="SessionService" BaseType="SessionService.v1_0_8.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_0">
@@ -179,7 +185,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated.  In this case, ServiceEnabled descrtiption was updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated.  In this case, ServiceEnabled description was updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_2.SessionService"/>
     </Schema>
 
@@ -205,6 +211,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_6.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="SessionService" BaseType="SessionService.v1_1_7.SessionService"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkInterface v1.2.0                                             -->
+<!--# Redfish Schema:  NetworkInterface v1.2.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -43,7 +43,7 @@
 
       <EntityType Name="NetworkInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The NetworkInterface schema describes links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system."/>
-        <Annotation Term="OData.LongDescription" String="This resource contains links to the network adapters, network porta, and network device functions, and represents the functionality available to the containing system."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -148,6 +148,12 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_4.NetworkInterface"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_5.NetworkInterface"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -200,6 +206,12 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_3.NetworkInterface"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_4.NetworkInterface"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -213,6 +225,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_2_0.NetworkInterface"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.10.0                                                   -->
+<!--# Redfish Schema:  Processor v1.11.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -60,6 +60,21 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/OperatingConfig_v1.xml">
     <edmx:Include Namespace="OperatingConfig"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics_v1.xml">
+    <edmx:Include Namespace="EnvironmentMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryMetrics_v1.xml">
+    <edmx:Include Namespace="MemoryMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Memory_v1.xml">
+    <edmx:Include Namespace="Memory"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -414,6 +429,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_0_10.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_11.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -499,6 +520,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_1_6.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_1_7.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -559,6 +586,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_2_6.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_2_7.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -613,6 +646,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_6.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_3_7.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_0">
@@ -763,10 +802,10 @@
           <Annotation Term="OData.Description" String="Double data rate type five synchronous graphics random-access memory."/>
         </Member>
         <Member Name="GDDR5X">
-          <Annotation Term="OData.Description" String="Double data rate type five synchronous graphics random-access memory."/>
+          <Annotation Term="OData.Description" String="Double data rate type five X synchronous graphics random-access memory."/>
         </Member>
         <Member Name="GDDR6">
-          <Annotation Term="OData.Description" String="Double data rate type five synchronous graphics random-access memory."/>
+          <Annotation Term="OData.Description" String="Double data rate type six synchronous graphics random-access memory."/>
         </Member>
         <Member Name="DDR">
           <Annotation Term="OData.Description" String="Double data rate synchronous dynamic random-access memory."/>
@@ -1034,6 +1073,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_4_5.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_4_6.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1078,6 +1123,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_5_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1102,6 +1153,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_6_2.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_6_3.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_0">
@@ -1145,6 +1202,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_7_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_7_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1174,6 +1237,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_8_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_8_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_0">
@@ -1230,6 +1299,12 @@
       </EnumType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_9_0.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1267,6 +1342,78 @@
           <Annotation Term="OData.Description" String="The Protected Processor Identification Number (PPIN) for this processor."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Protected Processor Identification Number (PPIN) for this processor."/>
         </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_10_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add Certificates, Measurements and processor memory summary and the links to the resource type Memory associated with the processor.  It was also created to add processor memory summary, the links to the resource type Memory associated with the processor, a link to EnvironmentMetrics, and SparePartNumber."/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_10_1.Processor">
+        <Property Name="MemorySummary" Type="Processor.v1_11_0.MemorySummary" Nullable="false">
+          <Annotation Term="OData.Description" String="The summary of all memory associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the summary of all memory that are associated with this processor."/>
+        </Property>
+        <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the environment metrics for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this processor."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the processor."/>
+        </Property>
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of DSP0274-defined measurement blocks."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of DSP0274-defined measurement blocks."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MemorySummary">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The summary of all memory associated with a processor."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the summary of all memory that are associated with a processor."/>
+        <Property Name="TotalCacheSizeMiB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Total size of cache memory of this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of cache memory of this processor."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="TotalMemorySizeMiB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Total size of volatile memory of this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of non-cache, volatile memory of this processor."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <NavigationProperty Name="Metrics" Type="MemoryMetrics.MemoryMetrics" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the memory metrics associated with all memory of this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MemoryMetrics that contains the metrics associated with all memory of this processor."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Processor.v1_4_0.Links">
+        <NavigationProperty Name="Memory" Type="Collection(Memory.Memory)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the memory associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Memory that are associated with this processor."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 

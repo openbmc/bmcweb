@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.6.1                                       -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.7.0                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -94,7 +94,7 @@
         </Property>
         <Property Name="VirtualMedia" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
           <Annotation Term="OData.Description" String="The settings for this manager's virtual media support that apply to all system instances controlled by this manager."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage.  If multiple systems are supported by this manager, these properites, if present, apply to all instances of virtual media controlled by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of virtual media controlled by this manager."/>
         </Property>
         <Property Name="Telnet" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
           <Annotation Term="OData.Description" String="The settings for this manager's Telnet protocol support."/>
@@ -219,6 +219,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_7.ManagerNetworkProtocol"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_8.ManagerNetworkProtocol"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -259,6 +265,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_4.ManagerNetworkProtocol"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_5.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_0">
@@ -324,6 +336,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_3.ManagerNetworkProtocol"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_4.ManagerNetworkProtocol"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -361,6 +379,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_2.ManagerNetworkProtocol"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_3.ManagerNetworkProtocol"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -393,6 +417,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_4_2.ManagerNetworkProtocol"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_4_3.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_5_0">
@@ -515,6 +545,54 @@
           <Annotation Term="OData.Description" String="HMAC-SHA-96 authentication."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."/>
         </Member>
+        <Member Name="HMAC128_SHA224">
+          <Annotation Term="OData.Description" String="HMAC-128-SHA-224 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC192_SHA256">
+          <Annotation Term="OData.Description" String="HMAC-192-SHA-256 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC256_SHA384">
+          <Annotation Term="OData.Description" String="HMAC-256-SHA-384 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HMAC384_SHA512">
+          <Annotation Term="OData.Description" String="HMAC-384-SHA-512 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="SNMPEncryptionProtocols">
@@ -548,6 +626,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for SNMP-related properties to clarify that they apply to the manager's SNMP support.  It was also created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_1.ManagerNetworkProtocol"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_2.ManagerNetworkProtocol"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -569,6 +653,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for SNMP-related properties to clarify that they apply to the manager's SNMP support.  It was also created to update the descriptions for the VirtualMedia and KVMIP properties."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_0.ManagerNetworkProtocol"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_1.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols."/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_2.ManagerNetworkProtocol"/>
     </Schema>
 
   </edmx:DataServices>

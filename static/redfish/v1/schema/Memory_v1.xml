@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.10.0                                                      -->
+<!--# Redfish Schema:  Memory v1.11.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -36,6 +36,18 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Assembly_v1.xml">
     <edmx:Include Namespace="Assembly"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics_v1.xml">
+    <edmx:Include Namespace="EnvironmentMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Processor_v1.xml">
+    <edmx:Include Namespace="Processor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -84,7 +96,7 @@
         </Parameter>
         <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The passphrase required to complete the operation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this actionn."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this action."/>
         </Parameter>
       </Action>
 
@@ -140,7 +152,7 @@
 
       <Action Name="DisablePassphrase" IsBound="true">
         <Annotation Term="OData.Description" String="Disable passphrase for given regions."/>
-        <Annotation Term="OData.LongDescription" String="This action shall disaple the need for passphrases on the supplied region provided the supplied passphrase matches that of the region."/>
+        <Annotation Term="OData.LongDescription" String="This action shall disable the need for passphrases on the supplied region provided the supplied passphrase matches that of the region."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The memory region ID to which to apply this action."/>
@@ -427,8 +439,8 @@
           <Annotation Term="OData.LongDescription" String="This value shall represent an NVDIMM_P memory device as defined by JEDEC."/>
         </Member>
         <Member Name="IntelOptane">
-          <Annotation Term="OData.Description" String="The memory device is an Intel Optane DC Persistent Memory Module."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent an Intel Optane DC Persistent Memory Module."/>
+          <Annotation Term="OData.Description" String="The memory device is an Intel Optane Persistent Memory Module."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent an Intel Optane Persistent Memory Module."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -521,12 +533,122 @@
           </Annotation>
         </Member>
         <Member Name="HBM2">
-          <Annotation Term="OData.Description" String="High Bandwidth Memory 2."/>
+          <Annotation Term="OData.Description" String="The second generation of High Bandwidth Memory."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HBM3">
+          <Annotation Term="OData.Description" String="The third generation of High Bandwidth Memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR">
+          <Annotation Term="OData.Description" String="Synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR2">
+          <Annotation Term="OData.Description" String="Double data rate type two synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR3">
+          <Annotation Term="OData.Description" String="Double data rate type three synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR4">
+          <Annotation Term="OData.Description" String="Double data rate type four synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR5">
+          <Annotation Term="OData.Description" String="Double data rate type five synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR5X">
+          <Annotation Term="OData.Description" String="Double data rate type five X synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GDDR6">
+          <Annotation Term="OData.Description" String="Double data rate type six synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="DDR5">
+          <Annotation Term="OData.Description" String="Double data rate type five synchronous dynamic random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM-defined."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -882,6 +1004,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_0_9.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_0_10.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -946,6 +1074,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify properties reflect the memory device as opposed to generic memory."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_8.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_1_9.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_0">
@@ -1053,6 +1187,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_2_7.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_2_8.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
@@ -1131,6 +1271,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify properties reflect the memory device as opposed to generic memory."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_7.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_3_8.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_0">
@@ -1223,6 +1369,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_4_7.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_4_8.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -1280,6 +1432,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_5_6.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_7.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1324,10 +1482,16 @@
       <EntityType Name="Memory" BaseType="Memory.v1_6_5.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `IntelOptane` value.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_6_6.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add 3DXPoint to the MediaType enum.  It was also created to add SecurityState, add ConfigurationLocked, add 3DXPoint to the MediaType enumerations, and to replace SecurityStates with individual capability properties."/>
+      <Annotation Term="OData.Description" String="This version was created to add 3DXPoint to the MemoryMedia enumeration.  It was also created to add SecurityState, add ConfigurationLocked, and to replace SecurityStates with individual capability properties."/>
 
       <EntityType Name="Memory" BaseType="Memory.v1_6_1.Memory">
         <Property Name="SecurityState" Type="Memory.v1_0_0.SecurityStates">
@@ -1391,6 +1555,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_7_4.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `IntelOptane` value.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_7_5.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1414,6 +1584,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify properties reflect the memory device as opposed to generic memory."/>
       <EntityType Name="Memory" BaseType="Memory.v1_8_2.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `IntelOptane` value.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_8_3.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_0">
@@ -1442,6 +1618,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_9_2.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `IntelOptane` value.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_9_3.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1453,6 +1635,56 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `IntelOptane` value.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_10_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to include the processor memory types to the enumerations of MemoryDeviceType, the links to the resource type Processor associated with the memory, and add Model and SparePartNumber.  It was also created to add a link for EnvironmentMetrics."/>
+
+      <EntityType Name="Memory" BaseType="Memory.v1_10_1.Memory">
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the memory."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The product model number of this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the model information as provided by the manufacturer of this memory."/>
+        </Property>
+        <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the environment metrics for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this memory."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of DSP0274-defined measurement blocks."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of DSP0274-defined measurement blocks."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Memory.v1_2_0.Links">
+        <NavigationProperty Name="Processors" Type="Collection(Processor.Processor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the processors associated with this memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor that are associated with this memory device."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

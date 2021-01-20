@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_5_1.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -287,7 +287,7 @@
             "enumLongDescriptions": {
                 "Cancelled": "This value shall represent that either a DELETE operation on a Task Monitor or Task Resource or by an internal process cancelled the task.",
                 "Cancelling": "This value shall represent that the task is in the process of being cancelled.",
-                "Completed": "This value shall represent that the task completed sucessfully or with warnings.",
+                "Completed": "This value shall represent that the task completed successfully or with warnings.",
                 "Exception": "This value shall represent that the task completed with errors.",
                 "Interrupted": "This value shall represent that the task has been interrupted but is expected to restart and is therefore not complete.",
                 "Killed": "This value shall represent that the task is complete because an operator killed it.",
@@ -311,5 +311,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.3",
-    "title": "#Task.v1_5_0.Task"
+    "title": "#Task.v1_5_1.Task"
 }

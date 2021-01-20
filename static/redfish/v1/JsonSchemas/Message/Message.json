@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_1_2.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -23,38 +23,28 @@
             },
             "properties": {
                 "Message": {
-                    "description": "The human-readable message, if provided.",
-                    "longDescription": "This property shall contain an optional human-readable message.",
+                    "description": "The human-readable message.",
+                    "longDescription": "This property shall contain a human-readable message.",
                     "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": "string"
                 },
                 "MessageArgs": {
-                    "description": "This array of message arguments are substituted for the arguments in the message when looked up in the message registry.",
+                    "description": "An array of message arguments that are substituted for the arguments in the message when looked up in the message registry.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain the message substitution arguments for the specific message to which this MessageId refers and shall be included only if the MessageId is present.  Any number and integer type arguments shall be converted to strings.",
+                    "longDescription": "This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.",
                     "readonly": true,
                     "type": "array"
                 },
                 "MessageId": {
-                    "description": "The key for this message used to find the message in a message registry.",
-                    "longDescription": "This property shall contain a key into message registry, as described in the Redfish Specification.",
+                    "description": "The identifier for the message.",
+                    "longDescription": "This property shall contain a MessageId, as defined in the 'MessageId format' clause of the Redfish Specification.",
                     "readonly": true,
                     "type": "string"
                 },
                 "MessageSeverity": {
-                    "anyOf": [
-                        {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health",
                     "description": "The severity of the message.",
                     "longDescription": "This property shall contain the severity of the message.  Services can replace the value defined in the message registry with a value more applicable to the implementation.",
                     "readonly": true,
@@ -75,23 +65,17 @@
                     "type": "array"
                 },
                 "Resolution": {
-                    "description": "Used to provide suggestions on how to resolve the situation that caused the error.",
+                    "description": "Used to provide suggestions on how to resolve the situation that caused the message.",
                     "longDescription": "This property shall contain the resolution of the message.  Services can replace the resolution defined in the message registry with a more specific resolution in message payloads.",
                     "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": "string"
                 },
                 "Severity": {
                     "deprecated": "This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.",
-                    "description": "The severity of the errors.",
-                    "longDescription": "This property shall contain the severity of the error, as defined in the Status section of the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation.",
+                    "description": "The severity of the message.",
+                    "longDescription": "This property shall contain the severity of the message, as defined in the 'Status' clause of the Redfish Specification.  Services can replace the value defined in the message registry with a value more applicable to the implementation.",
                     "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ],
+                    "type": "string",
                     "versionDeprecated": "v1_1_0"
                 }
             },
@@ -103,5 +87,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.1",
-    "title": "#Message.v1_1_1"
+    "title": "#Message.v1_1_2"
 }

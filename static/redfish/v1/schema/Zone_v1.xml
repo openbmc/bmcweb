@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Zone v1.5.0                                                         -->
+<!--# Redfish Schema:  Zone v1.6.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -363,15 +363,27 @@
       <EnumType Name="ZoneType">
         <Member Name="Default">
           <Annotation Term="OData.Description" String="The zone in which all endpoints are added by default when instantiated."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone in which all endpoints are added by default when instantiated."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone in which all endpoints are added by default when instantiated.  This value shall only be used for zones subordinate to the fabric collection."/>
         </Member>
         <Member Name="ZoneOfEndpoints">
           <Annotation Term="OData.Description" String="A zone that contains endpoints."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type Endpoint."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type Endpoint.  This value shall only be used for zones subordinate to the fabric collection."/>
         </Member>
         <Member Name="ZoneOfZones">
           <Annotation Term="OData.Description" String="A zone that contains zones."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type Zone."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type Zone.  This value shall only be used for zones subordinate to the fabric collection."/>
+        </Member>
+        <Member Name="ZoneOfResourceBlocks">
+          <Annotation Term="OData.Description" String="A zone that contains resource blocks."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type ResourceBlock.  This value shall only be used for zones subordinate to the composition service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -415,6 +427,14 @@
       <Annotation Term="OData.Description" String="This version was created to add AddEndpoint and RemoveEndpoint actions.  It was also created to add `NoInternalRouting` to ExternalAccessibility."/>
 
       <EntityType Name="Zone" BaseType="Zone.v1_4_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `ZoneOfResourceBlocks` to ZoneType."/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_5_0.Zone"/>
     </Schema>
 
   </edmx:DataServices>

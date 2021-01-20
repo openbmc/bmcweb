@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkPort v1.3.0                                                  -->
+<!--# Redfish Schema:  NetworkPort v1.4.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -58,6 +58,15 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkPorts/{NetworkPortId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of the Port schema."/>
+            </Record>
           </Collection>
         </Annotation>
       </EntityType>
@@ -142,7 +151,7 @@
       </EntityType>
 
       <ComplexType Name="SupportedLinkCapabilities">
-        <Annotation Term="OData.Description" String="The link capabilities of an assocaited port."/>
+        <Annotation Term="OData.Description" String="The link capabilities of an associated port."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe the static capabilities of an associated port, irrespective of transient conditions such as cabling, interface module presence, or remote link partner status or configuration."/>
         <Property Name="LinkNetworkTechnology" Type="NetworkPort.v1_0_0.LinkNetworkTechnology">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -309,6 +318,12 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_6.NetworkPort"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_7.NetworkPort"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -372,6 +387,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_1_5.NetworkPort"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_1_6.NetworkPort"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_2_0">
@@ -481,6 +502,12 @@
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_2_4.NetworkPort"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_2_5.NetworkPort"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -488,6 +515,20 @@
       <Annotation Term="OData.Description" String="This version was created to add `Starting` and `Training` to LinkStatus."/>
 
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_2_4.NetworkPort"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_3_0.NetworkPort"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the schema."/>
+
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_3_1.NetworkPort"/>
     </Schema>
 
   </edmx:DataServices>

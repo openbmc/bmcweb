@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_2.json",
     "$ref": "#/definitions/MessageRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -184,7 +184,7 @@
                         }
                     ],
                     "description": "The severity of the message.",
-                    "longDescription": "This property shall contain the severity of the message.",
+                    "longDescription": "This property shall contain the severity of the message.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
@@ -218,7 +218,7 @@
                 "Severity": {
                     "deprecated": "This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.",
                     "description": "The severity of the message.",
-                    "longDescription": "This property shall contain the severity of the condition resulting in the message, as defined in the Status clause of the Redfish Specification.",
+                    "longDescription": "This property shall contain the severity of the condition resulting in the message, as defined in the 'Status' clause of the Redfish Specification.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads.",
                     "readonly": true,
                     "type": "string",
                     "versionDeprecated": "v1_4_0"
@@ -388,5 +388,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.1",
-    "title": "#MessageRegistry.v1_4_1.MessageRegistry"
+    "title": "#MessageRegistry.v1_4_2.MessageRegistry"
 }

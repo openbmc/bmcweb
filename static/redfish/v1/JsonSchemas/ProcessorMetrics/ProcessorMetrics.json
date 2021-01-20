@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.v1_2_0.json",
     "$ref": "#/definitions/ProcessorMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -23,6 +23,9 @@
                 }
             },
             "properties": {
+                "#ProcessorMetrics.ClearCurrentPeriod": {
+                    "$ref": "#/definitions/ClearCurrentPeriod"
+                },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this resource.",
@@ -152,6 +155,73 @@
             },
             "type": "object"
         },
+        "CacheMetricsTotal": {
+            "additionalProperties": false,
+            "description": "The total cache metrics for a processor.",
+            "longDescription": "This property shall contain properties that describe the metrics for all of the cache memory for a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CurrentPeriod": {
+                    "$ref": "#/definitions/CurrentPeriod",
+                    "description": "The cache metrics since the last reset for this processor.",
+                    "longDescription": "This property shall contain properties that describe the metrics for the current period of cache memory for this processor.",
+                    "versionAdded": "v1_2_0"
+                },
+                "LifeTime": {
+                    "$ref": "#/definitions/LifeTime",
+                    "description": "The cache metrics for the lifetime of this processor.",
+                    "longDescription": "This property shall contain properties that describe the metrics for the lifetime of cache memory for this processor.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "ClearCurrentPeriod": {
+            "additionalProperties": false,
+            "description": "This action sets the CurrentPeriod property's values to 0.",
+            "longDescription": "This action shall set the CurrentPeriod property's values to 0.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
         "CoreMetrics": {
             "additionalProperties": false,
             "description": "The processor core metrics.",
@@ -231,6 +301,90 @@
                         "number",
                         "null"
                     ]
+                }
+            },
+            "type": "object"
+        },
+        "CurrentPeriod": {
+            "additionalProperties": false,
+            "description": "The cache memory metrics since the last system reset or ClearCurrentPeriod action for a processor.",
+            "longDescription": "This type shall describe the cache memory metrics since last system reset or ClearCurrentPeriod action for a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CorrectableECCErrorCount": {
+                    "description": "The number of the correctable errors of cache memory since reset.",
+                    "longDescription": "This property shall contain the number of correctable errors of cache memory since reset.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableECCErrorCount over all processors.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "UncorrectableECCErrorCount": {
+                    "description": "The number of the uncorrectable errors of cache memory since reset.",
+                    "longDescription": "This property shall contain the number of uncorrectable errors of cache memory since reset.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableECCErrorCount over all processors.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "LifeTime": {
+            "additionalProperties": false,
+            "description": "The cache memory metrics for the lifetime for a processor.",
+            "longDescription": "This type shall describe the cache memory metrics since manufacturing for a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CorrectableECCErrorCount": {
+                    "description": "The number of the correctable errors for the lifetime of the cache memory.",
+                    "longDescription": "This property shall contain the number of the correctable errors for the lifetime of cache memory.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableECCErrorCount over all processors.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "UncorrectableECCErrorCount": {
+                    "description": "The number of the uncorrectable errors for the lifetime of the cache memory.",
+                    "longDescription": "This property shall contain the number of the uncorrectable errors for the lifetime of cache memory.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableECCErrorCount over all processors.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
                 }
             },
             "type": "object"
@@ -323,7 +477,14 @@
                     "longDescription": "This property shall contain properties that describe this processor's cache.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "type": "array"
                 },
+                "CacheMetricsTotal": {
+                    "$ref": "#/definitions/CacheMetricsTotal",
+                    "description": "The total cache metrics for this processor.",
+                    "longDescription": "This property shall contain properties that describe the metrics for all of the cache memory of this processor.",
+                    "versionAdded": "v1_2_0"
+                },
                 "ConsumedPowerWatt": {
+                    "deprecated": "This property has been deprecated in favor of the properties in EnvironmentMetrics.",
                     "description": "The power, in watts, that the processor has consumed.",
                     "longDescription": "This property shall contain the power, in watts, that the processor has consumed.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of power, in watts, that all processors have consumed.",
                     "readonly": true,
@@ -331,7 +492,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "W"
+                    "units": "W",
+                    "versionDeprecated": "v1_2_0"
                 },
                 "CoreMetrics": {
                     "description": "The processor core metrics.",
@@ -417,14 +579,16 @@
                     "units": "By"
                 },
                 "TemperatureCelsius": {
+                    "deprecated": "This property has been deprecated in favor of the properties in EnvironmentMetrics.",
                     "description": "The temperature of the processor.",
-                    "longDescription": "This property shall contain the temperature, in Celsius, of the processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average temperature, in Celcius, over all processors.",
+                    "longDescription": "This property shall contain the temperature, in Celsius, of the processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average temperature, in Celsius, over all processors.",
                     "readonly": true,
                     "type": [
                         "number",
                         "null"
                     ],
-                    "units": "Cel"
+                    "units": "Cel",
+                    "versionDeprecated": "v1_2_0"
                 },
                 "ThrottlingCelsius": {
                     "description": "The CPU margin to throttle (temperature offset in degree Celsius).",
@@ -458,6 +622,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#ProcessorMetrics.v1_1_1.ProcessorMetrics"
+    "release": "2020.4",
+    "title": "#ProcessorMetrics.v1_2_0.ProcessorMetrics"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Task v1.5.0                                                         -->
+<!--# Redfish Schema:  Task v1.5.1                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -130,7 +130,7 @@
         </Member>
         <Member Name="Completed">
           <Annotation Term="OData.Description" String="Task was completed."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the task completed sucessfully or with warnings."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the task completed successfully or with warnings."/>
         </Member>
         <Member Name="Killed">
           <Annotation Term="OData.Description" String="Task was terminated."/>
@@ -221,6 +221,12 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the StartTime and EndTime properties.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="Task" BaseType="Task.v1_0_7.Task"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Task" BaseType="Task.v1_0_8.Task"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -278,6 +284,12 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the StartTime and EndTime properties.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="Task" BaseType="Task.v1_1_4.Task"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Task" BaseType="Task.v1_1_5.Task"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -315,6 +327,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions of the StartTime and EndTime properties.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="Task" BaseType="Task.v1_2_3.Task"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Task" BaseType="Task.v1_2_4.Task"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_0">
@@ -386,6 +404,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions of the HidePayload property."/>
       <EntityType Name="Task" BaseType="Task.v1_3_3.Task"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Task" BaseType="Task.v1_3_4.Task"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -419,6 +443,12 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions of the HidePayload property."/>
       <EntityType Name="Task" BaseType="Task.v1_4_2.Task"/>
     </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Task" BaseType="Task.v1_4_3.Task"/>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -432,6 +462,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Task" BaseType="Task.v1_5_0.Task"/>
     </Schema>
 
   </edmx:DataServices>
