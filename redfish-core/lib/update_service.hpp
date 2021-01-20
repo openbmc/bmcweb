@@ -478,7 +478,7 @@ class UpdateServiceActionsSimpleUpdate : public Node
         // Setup callback for when new software detected
         // Give TFTP 10 minutes to complete
         monitorForSoftwareAvailable(
-            nullptr, req,
+            asyncResp, req,
             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate",
             600);
 
