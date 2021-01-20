@@ -22,6 +22,30 @@
       "revId": "2a47dffec60927bb0864aeb1dececc10198eee62",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8095b6e1_ca7d570a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-01-20T03:09:15Z",
+      "side": 1,
+      "message": "It seems that it should merge the code which parse and store data for subscriptions and event service configs to persistent_data.hpp, and use the existing bmcweb_persistent.json instead. So it is not needed to focus on the /var/lib/bmcweb path.\nBy the way, can you tell more detail about that more broken in the event service file reading?",
+      "parentUuid": "25fd8abd_0b2c3db2",
+      "range": {
+        "startLine": 9,
+        "startChar": 126,
+        "endLine": 9,
+        "endChar": 168
+      },
+      "revId": "2a47dffec60927bb0864aeb1dececc10198eee62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
