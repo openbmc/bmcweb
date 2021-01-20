@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "69e14260_287e87c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-20T16:27:00Z",
+      "side": 1,
+      "message": "\u003e Lamp_Test is a IBM only requirement at this moment. The expectation is that the client calls \"Do The Lamp test\" and the BMC implementation will do what it means. Currently, what it means is that we :\n\u003e - Light up all the Indicator LEDs that are on the enclosure\n\u003e - Also, light-up some of the Green Power LEDs that have the software control\n\u003e - Send a command over to the LCD display daemon to exercise LCD\n\u003e - Send a PLDM command over to the Host so that Host can light-up the LEDs for all the external attached drawers.\n\u003e \n\u003e - Wait for configured time\n\u003e - Revert to old states\n\u003e \n\u003e We can not offload this onto redfish clients and do LocationIndicatorActive one by one since we would then spread the logic into different redfish clients.\n\nI\u0027m not following this comment.  Well behaved Redfish clients already need to know how to walk the tree, and the logic is minimal (if component has an LED, set to ON).  Having all your LEDs enumerated in Redfish would give you 90% of the above.  I could see having an OEM resource for the LCD test, as that\u0027s pretty specific, but otherwise, I feel like there are resources to do what you\u0027re trying to do, it just requires that all the LEDs be enumerated in the tree, which is a good thing to have anyway.\n\n\u003e Also, we can not achieve the above 4 functionalities if we offloaded that onto clients.\n\nYou can achieve 90% of the above, then have an OEM command for the last little part that\u0027s actually an OEM behavior.\n\nThe only other strange part is the timeout, but that seems easily modeled using task service.\n\n\u003e This becomes challenging when we have more than 1 redfish clients.\n\nHaving an OEM resource seems more challenging, as now all redfish clients need to implement the OEM IBM only parameter, as well as detect whether or not the system is an IBM system, and fall back to the redfish defined behavior.",
+      "parentUuid": "f64ce20e_231526d0",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1fdee5d_5c5ffe11",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
