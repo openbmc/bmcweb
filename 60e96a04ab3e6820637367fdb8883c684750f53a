@@ -34,6 +34,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be07ef12_b8c7c59a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-01-20T06:57:21Z",
+      "side": 1,
+      "message": "\u003e \n\u003e If someone wanted to put up a patchset to enable all options in CI, like you propose, I\u0027d be happy to have the discussion, but as-is, enabling one random option, based on the incorrect configure option (ie, whether we\u0027re in a yocto build) is not the way to do it.  This is simply going back to what we had before in cmake, and only changed when we moved to meson.  I missed it in one of the final patchsets on that review.\n\nThe earlier state of bmcweb before meson migration has the similar option enabled in the CMakelist.txt. This is not something that was added as part of the migration.\n\nhttps://github.com/openbmc/bmcweb/blob/65176d3908b27393d81b72284dbebc47055e517c/CMakeLists.txt#L327\n\nI don\u0027t recollect the right commit where we had this discussion , but earlier maintainer James stated that there is a flag(YOCTO_DEPENDENCIES) in bmcweb to distinguish between - whether we are doing a yocto build or an out of tree build \u0026 suggested us to enable the ibm flag under that to make sure it was compiled for CI.\n    option (YOCTO_DEPENDENCIES \"Use YOCTO dependencies system\" OFF)\n\nI don\u0027t have a strong preference here,but i would love to see the repo-CI catching most of the bugs rather than catching them at a much later stage(meta-CI).",
+      "parentUuid": "278ba03e_5e4684ac",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
