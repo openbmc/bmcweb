@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "216d1d56_7444e111",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T23:20:12Z",
+      "side": 1,
+      "message": "131kB of flash space saved.  Good work.",
+      "revId": "23135629b95ef4c7fe80ecbab45d2a8c5eb7273c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1722e4_22ac53c6",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T23:20:12Z",
+      "side": 1,
+      "message": "Does it make more sense to invert this into an \"include list\"  Then, when we add new schema packs, we wont have to update this at the same time.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 5
+      },
+      "revId": "23135629b95ef4c7fe80ecbab45d2a8c5eb7273c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
