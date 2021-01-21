@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82929c4b_6028e8c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T18:14:36Z",
+      "side": 1,
+      "message": "A 2 sentence commit message is rarely enough detail for a commit message adding a new feature.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db347aa_1087cda9",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T18:14:36Z",
+      "side": 1,
+      "message": "Why only for basic auth?\n\nAlso, Why didn\u0027t you check your return code here?",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 23
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "396d4dc8_ea213d13",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T18:14:36Z",
+      "side": 1,
+      "message": "This isn\u0027t the redfish login endpoint.  It\u0027s the endpoint for everything.",
+      "range": {
+        "startLine": 75,
+        "startChar": 67,
+        "endLine": 75,
+        "endChar": 74
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0358b005_e062f248",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T18:14:36Z",
+      "side": 1,
+      "message": "This isn\u0027t just for the webui.  Should we just make any failed login on any interface the same message?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 66
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
