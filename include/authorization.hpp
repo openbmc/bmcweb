@@ -2,6 +2,8 @@
 
 #include "webroutes.hpp"
 
+#include <systemd/sd-journal.h>
+
 #include <app.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
@@ -69,6 +71,12 @@ static std::shared_ptr<persistent_data::UserSession>
     bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
     if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
     {
+        sd_journal_send("MESSAGE= %s",
+                        "Invalid username or password attempted on Redfish",
+                        "PRIORITY=%i", LOG_ERR, "REDFISH_MESSAGE_ID=%s",
+                        "OpenBMC.0.1.InvalidLoginAttempted",
+                        "REDFISH_MESSAGE_ARGS=%s", "Redfish", NULL);
+
         return nullptr;
     }
 
