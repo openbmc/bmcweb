@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "142fe14c_5a6eb5fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-21T14:00:23Z",
+      "side": 1,
+      "message": "Sure, it was there just till the work was in progress. Will add details once it is review ready.",
+      "parentUuid": "26b2aa22_a86061e1",
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91443d86_5023a792",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 8
@@ -30,6 +48,30 @@
       "writtenOn": "2021-01-19T16:55:17Z",
       "side": 1,
       "message": "how are we linking the assembly to the chassis?\nI don\u0027t see a check here. \nDo we need a new association ? E.g. item.vrm -\u003e \"chassis\" -\u003e item.chassis ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 24,
+        "endLine": 16,
+        "endChar": 33
+      },
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b1c31f7_4ecd5dec",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-21T14:00:23Z",
+      "side": 1,
+      "message": "Pending implementation at that point of time.\nNow we are making DBus call to GetSubTree with object path of chassis as root path to check if these assemblies are linked to the given chassis.",
+      "parentUuid": "91443d86_5023a792",
       "range": {
         "startLine": 16,
         "startChar": 24,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "5456f48b_00adf5c8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-21T14:00:23Z",
+      "side": 1,
+      "message": "Did not get your concern here.",
+      "parentUuid": "b1c0108d_e316d9eb",
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "640db1f3_515a0f0e",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 8
@@ -79,6 +139,30 @@
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58472027_4522d6d7",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-21T14:00:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "640db1f3_515a0f0e",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 54
+      },
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
