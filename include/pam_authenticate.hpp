@@ -1,6 +1,7 @@
 #pragma once
 
 #include <security/pam_appl.h>
+#include <systemd/sd-journal.h>
 
 #include <boost/utility/string_view.hpp>
 
@@ -75,6 +76,11 @@ inline int pamAuthenticateUser(const std::string_view username,
                               PAM_SILENT | PAM_DISALLOW_NULL_AUTHTOK);
     if (retval != PAM_SUCCESS)
     {
+        sd_journal_send("MESSAGE=%s",
+                        "Invalid username or password attempted on HTTPS",
+                        "PRIORITY=%i", LOG_ERR, "REDFISH_MESSAGE_ID=%s",
+                        "OpenBMC.0.1.InvalidLoginAttempted",
+                        "REDFISH_MESSAGE_ARGS=%s", "HTTPS", NULL);
         pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
         return retval;
     }
