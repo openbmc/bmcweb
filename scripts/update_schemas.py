@@ -14,6 +14,68 @@ import xml.etree.ElementTree as ET
 
 VERSION = "DSP8010_2020.4"
 
+exclude_list = [
+    'AccelerationFunction',
+    'AccelerationFunctionCollection',
+    'AddressPool',
+    'AddressPoolCollection',
+    'Aggregate',
+    'AggregateCollection',
+    'AggregationService',
+    'AggregationSource',
+    'AggregationSourceCollection',
+    'Circuit',
+    'CircuitCollection',
+    'CompositionService',
+    'Endpoint',
+    'EndpointCollection',
+    'EndpointGroup',
+    'EnvironmentMetrics',
+    'ExternalAccountProvider',
+    'ExternalAccountProviderCollection',
+    'Fabric',
+    'FabricAdapter',
+    'FabricAdapterCollection',
+    'Facility',
+    'FacilityCollection',
+    'Job',
+    'JobCollection',
+    'JobService',
+    'MemoryChunks',
+    'MemoryChunksCollection',
+    'NetworkAdapter',
+    'NetworkAdapterCollection',
+    'NetworkDeviceFunction',
+    'NetworkDeviceFunctionCollection',
+    'NetworkInterface',
+    'NetworkInterfaceCollection',
+    'NetworkPort',
+    'NetworkPortCollection',
+    'Outlet',
+    'OutletCollection',
+    'PortMetrics',
+    'PowerDistribution',
+    'PowerDistributionCollection',
+    'PowerSupplyMetrics',
+    'ProcessorMetrics',
+    'ResourceBlock',
+    'ResourceBlockCollection',
+    'RouteEntry',
+    'RouteEntryCollection',
+    'RouteSetEntry',
+    'RouteSetEntryCollection',
+    'Schedule',
+    'Signature',
+    'SimpleStorage',
+    'SimpleStorageCollection',
+    'Triggers',
+    'TriggersCollection',
+    'VLanNetworkInterface',
+    'VLanNetworkInterfaceCollection',
+    'Zone',
+    'ZoneCollection',
+    ]
+
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 proxies = {
@@ -69,6 +131,13 @@ with open(metadata_index_path, 'w') as metadata_index:
                                                 "/csdl/") & (zip_filepath != VERSION +
                                                              "/csdl/"):
             filename = os.path.basename(zip_filepath)
+
+            # filename looks like Zone_v1.xml
+            filenamesplit = filename.split("_")
+            if filenamesplit[0] in exclude_list:
+                print("excluding schema: " + filename)
+                continue
+
             with open(os.path.join(schema_path, filename), 'wb') as schema_file:
 
                 metadata_index.write(
@@ -146,6 +215,11 @@ for zip_filepath in zip_ref.namelist():
     if zip_filepath.startswith(os.path.join(VERSION, 'json-schema/')):
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
+
+        # exclude schemas again to save flash space
+        if filenamesplit[0] in exclude_list:
+            continue
+
         if len(filenamesplit) == 3:
             thisSchemaVersion = schema_files.get(filenamesplit[0], None)
             if thisSchemaVersion is None:
