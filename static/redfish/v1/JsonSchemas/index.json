@@ -4,28 +4,13 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 118,
+  "Members@odata.count": 56,
   "Members": [
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction"
-    },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccountService"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/ActionInfo"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/AddressPool"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Aggregate"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/AggregationService"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/AggregationSource"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Assembly"
@@ -35,9 +20,6 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Bios"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/BootOption"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Certificate"
@@ -52,34 +34,10 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Chassis"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Circuit"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/CollectionCapabilities"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/CompositionService"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/ComputerSystem"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Connection"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/ConnectionMethod"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/Drive"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Endpoint"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/EndpointGroup"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/EnvironmentMetrics"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/EthernetInterface"
@@ -94,31 +52,7 @@
       "@odata.id": "/redfish/v1/JsonSchemas/EventService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ExternalAccountProvider"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Fabric"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/FabricAdapter"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Facility"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Fan"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/HostInterface"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/IPAddresses"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Job"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/JobService"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/JsonSchemaFile"
@@ -139,19 +73,7 @@
       "@odata.id": "/redfish/v1/JsonSchemas/ManagerNetworkProtocol"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MediaController"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/Memory"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/MemoryChunks"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/MemoryDomain"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/MemoryMetrics"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Message"
@@ -172,25 +94,7 @@
       "@odata.id": "/redfish/v1/JsonSchemas/MetricReportDefinition"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkAdapter"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkDeviceFunction"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkInterface"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkPort"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/OperatingConfig"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Outlet"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/OutletGroup"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/PCIeDevice"
@@ -199,52 +103,10 @@
       "@odata.id": "/redfish/v1/JsonSchemas/PCIeFunction"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PCIeSlots"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PhysicalContext"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Port"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PortMetrics"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/Power"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerDistribution"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerDistributionMetrics"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerDomain"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerEquipment"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerSubsystem"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerSupply"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PowerSupplyMetrics"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/PrivilegeRegistry"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Privileges"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/Processor"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/ProcessorMetrics"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Redundancy"
@@ -253,31 +115,10 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Resource"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ResourceBlock"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/Role"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/RouteEntry"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/RouteSetEntry"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Schedule"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/SecureBoot"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/SecureBootDatabase"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/Sensor"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/SerialInterface"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/ServiceRoot"
@@ -292,12 +133,6 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Settings"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Signature"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/SimpleStorage"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/SoftwareInventory"
     },
     {
@@ -305,9 +140,6 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/StorageController"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Switch"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Task"
@@ -322,31 +154,13 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Thermal"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ThermalMetrics"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/ThermalSubsystem"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Triggers"
-    },
-    {
       "@odata.id": "/redfish/v1/JsonSchemas/UpdateService"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/VCATEntry"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/VLanNetworkInterface"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/VirtualMedia"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Volume"
-    },
-    {
-      "@odata.id": "/redfish/v1/JsonSchemas/Zone"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/odata"
