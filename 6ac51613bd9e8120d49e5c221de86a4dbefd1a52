@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "332e67f9_362afd20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T17:47:53Z",
+      "side": 1,
+      "message": "Could you write some unit tests for these cases?  There\u0027s lots of things that we need to ensure stay correct in the long term.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 81
+      },
+      "revId": "6ac51613bd9e8120d49e5c221de86a4dbefd1a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e18455_37704ecc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T17:47:53Z",
+      "side": 1,
+      "message": "Considering isalnum is locale dependent, I\u0027d much prefer we use something like str.find_first_of to check against the character set.  That seems much simpler",
+      "range": {
+        "startLine": 623,
+        "startChar": 13,
+        "endLine": 623,
+        "endChar": 20
+      },
+      "revId": "6ac51613bd9e8120d49e5c221de86a4dbefd1a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "444597f8_2374affb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-21T17:47:53Z",
+      "side": 1,
+      "message": "Considering the new rules that this requires, this should be \u003cstr\u003e not \u003cpath\u003e",
+      "range": {
+        "startLine": 668,
+        "startChar": 49,
+        "endLine": 668,
+        "endChar": 53
+      },
+      "revId": "6ac51613bd9e8120d49e5c221de86a4dbefd1a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
