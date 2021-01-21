@@ -16,6 +16,9 @@ living document, and these schemas are subject to change.
 
 The latest Redfish schemas can be found [here](https://redfish.dmtf.org/schemas/)
 
+If using a previously unused schema, you will need to add it to the included
+schema list in scripts/update_schemas.py and run update_schemas.py.
+
 Fields common to all schemas
 
 - @odata.context
