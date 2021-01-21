@@ -30,6 +30,7 @@
 #include <error_messages.hpp>
 
 #include <filesystem>
+#include <optional>
 #include <string_view>
 #include <variant>
 
@@ -1405,6 +1406,7 @@ class DBusEventLogEntryCollection : public Node
                         std::time_t updateTimestamp{};
                         std::string* severity = nullptr;
                         std::string* message = nullptr;
+                        bool resolved = false;
 
                         for (auto& propertyMap : interfaceMap.second)
                         {
@@ -1443,6 +1445,17 @@ class DBusEventLogEntryCollection : public Node
                                 message = std::get_if<std::string>(
                                     &propertyMap.second);
                             }
+                            else if (propertyMap.first == "Resolved")
+                            {
+                                bool* resolveptr =
+                                    std::get_if<bool>(&propertyMap.second);
+                                if (resolveptr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                resolved = *resolveptr;
+                            }
                         }
                         if (id == nullptr || message == nullptr ||
                             severity == nullptr)
@@ -1451,7 +1464,7 @@ class DBusEventLogEntryCollection : public Node
                             return;
                         }
                         thisEntry = {
-                            {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
+                            {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
                             {"@odata.id",
                              "/redfish/v1/Systems/system/LogServices/EventLog/"
                              "Entries/" +
@@ -1459,6 +1472,7 @@ class DBusEventLogEntryCollection : public Node
                             {"Name", "System Event Log Entry"},
                             {"Id", std::to_string(*id)},
                             {"Message", *message},
+                            {"Resolved", resolved},
                             {"EntryType", "Event"},
                             {"Severity",
                              translateSeverityDbusToRedfish(*severity)},
@@ -1533,6 +1547,7 @@ class DBusEventLogEntry : public Node
                 std::time_t updateTimestamp{};
                 std::string* severity = nullptr;
                 std::string* message = nullptr;
+                bool resolved = false;
 
                 for (auto& propertyMap : resp)
                 {
@@ -1569,6 +1584,17 @@ class DBusEventLogEntry : public Node
                     {
                         message = std::get_if<std::string>(&propertyMap.second);
                     }
+                    else if (propertyMap.first == "Resolved")
+                    {
+                        bool* resolveptr =
+                            std::get_if<bool>(&propertyMap.second);
+                        if (resolveptr == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        resolved = *resolveptr;
+                    }
                 }
                 if (id == nullptr || message == nullptr || severity == nullptr)
                 {
@@ -1576,7 +1602,7 @@ class DBusEventLogEntry : public Node
                     return;
                 }
                 asyncResp->res.jsonValue = {
-                    {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
+                    {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
                     {"@odata.id",
                      "/redfish/v1/Systems/system/LogServices/EventLog/"
                      "Entries/" +
@@ -1584,6 +1610,7 @@ class DBusEventLogEntry : public Node
                     {"Name", "System Event Log Entry"},
                     {"Id", std::to_string(*id)},
                     {"Message", *message},
+                    {"Resolved", resolved},
                     {"EntryType", "Event"},
                     {"Severity", translateSeverityDbusToRedfish(*severity)},
                     {"Created", crow::utility::getDateTime(timestamp)},
@@ -1593,6 +1620,47 @@ class DBusEventLogEntry : public Node
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.Logging.Entry");
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string entryId = params[0];
+
+        std::optional<bool> resolved;
+
+        if (!json_util::readJson(req, res, "Resolved", resolved))
+        {
+            return;
+        }
+
+        if (resolved)
+        {
+            BMCWEB_LOG_DEBUG << "Set Resolved";
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, resolved,
+                 entryId](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.Logging",
+                "/xyz/openbmc_project/logging/entry/" + entryId,
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Logging.Entry", "Resolved",
+                std::variant<bool>(*resolved));
+        }
     }
 
     void doDelete(crow::Response& res, const crow::Request&,
