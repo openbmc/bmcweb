@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a407577a_5894e126",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-21T16:02:47Z",
+      "side": 1,
+      "message": "Can we add a comment here or below about what we consider a valid config filename ?",
+      "revId": "61e3418f7e4d5a94f4179139c326132b1918dc6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100f3ce3_1bfdc198",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-21T16:02:47Z",
+      "side": 1,
+      "message": "Doesn\u0027t this already catch - ?",
+      "range": {
+        "startLine": 621,
+        "startChar": 13,
+        "endLine": 621,
+        "endChar": 20
+      },
+      "revId": "61e3418f7e4d5a94f4179139c326132b1918dc6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
