@@ -80,7 +80,8 @@ inline bool createSaveAreaPath(crow::Response& res)
     return true;
 }
 
-inline void handleFilePut(const crow::Request& req, crow::Response& res,
+inline void handleFilePut(const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& fileID)
 {
     std::error_code ec;
@@ -91,18 +92,18 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         BMCWEB_LOG_DEBUG
             << "This is multipart/form-data. Invalid content for PUT";
 
-        res.result(boost::beast::http::status::not_acceptable);
-        res.jsonValue["Description"] = contentNotAcceptableMsg;
+        asyncResp->res.result(boost::beast::http::status::not_acceptable);
+        asyncResp->res.jsonValue["Description"] = contentNotAcceptableMsg;
         return;
     }
     BMCWEB_LOG_DEBUG << "Not a multipart/form-data. Continue..";
 
     BMCWEB_LOG_DEBUG
         << "handleIbmPut: Request to create/update the save-area file";
-    if (!createSaveAreaPath(res))
+    if (!createSaveAreaPath(asyncResp->res))
     {
-        res.result(boost::beast::http::status::not_found);
-        res.jsonValue["Description"] = resourceNotFoundMsg;
+        asyncResp->res.result(boost::beast::http::status::not_found);
+        asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
     }
 
@@ -113,8 +114,9 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     std::filesystem::recursive_directory_iterator iter(loc, ec);
     if (ec)
     {
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        asyncResp->res.jsonValue["Description"] = internalServerError;
         BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to prepare save-area "
                             "directory iterator. ec : "
                          << ec;
@@ -155,15 +157,15 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
 
     if (data.length() < minSaveareaFileSize)
     {
-        res.result(boost::beast::http::status::bad_request);
-        res.jsonValue["Description"] =
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.jsonValue["Description"] =
             "File size is less than minimum allowed size[100B]";
         return;
     }
     if (data.length() > maxSaveareaFileSize)
     {
-        res.result(boost::beast::http::status::bad_request);
-        res.jsonValue["Description"] =
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.jsonValue["Description"] =
             "File size exceeds maximum allowed size[500KB]";
         return;
     }
@@ -176,8 +178,9 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     bool fileExists = std::filesystem::exists(loc, ec);
     if (ec)
     {
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        asyncResp->res.jsonValue["Description"] = internalServerError;
         BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find if file exists. ec : "
                          << ec;
         return;
@@ -190,8 +193,9 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
         std::uintmax_t currentFileSize = std::filesystem::file_size(loc, ec);
         if (ec)
         {
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue["Description"] = internalServerError;
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
             BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find file size. ec : "
                              << ec;
             return;
@@ -219,9 +223,10 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
 
     if ((saveAreaDirSize + newSizeToWrite) > maxSaveareaDirSize)
     {
-        res.result(boost::beast::http::status::bad_request);
-        res.jsonValue["Description"] = "File size does not fit in the savearea "
-                                       "directory maximum allowed size[10MB]";
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.jsonValue["Description"] =
+            "File size does not fit in the savearea "
+            "directory maximum allowed size[10MB]";
         return;
     }
 
@@ -229,8 +234,10 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     if (file.fail())
     {
         BMCWEB_LOG_DEBUG << "Error while opening the file for writing";
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = "Error while creating the file";
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        asyncResp->res.jsonValue["Description"] =
+            "Error while creating the file";
         return;
     }
     file << data;
@@ -239,7 +246,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     if (fileExists)
     {
         BMCWEB_LOG_DEBUG << "config file is updated";
-        res.jsonValue["Description"] = "File Updated";
+        asyncResp->res.jsonValue["Description"] = "File Updated";
 
         redfish::EventServiceManager::getInstance().sendEvent(
             redfish::messages::resourceChanged(), origin, "IBMConfigFile");
@@ -247,7 +254,7 @@ inline void handleFilePut(const crow::Request& req, crow::Response& res,
     else
     {
         BMCWEB_LOG_DEBUG << "config file is created";
-        res.jsonValue["Description"] = "File Created";
+        asyncResp->res.jsonValue["Description"] = "File Created";
 
         redfish::EventServiceManager::getInstance().sendEvent(
             redfish::messages::resourceCreated(), origin, "IBMConfigFile");
@@ -258,6 +265,8 @@ inline void handleConfigFileList(crow::Response& res)
 {
     std::vector<std::string> pathObjList;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         for (const auto& file : std::filesystem::directory_iterator(loc))
@@ -267,16 +276,17 @@ inline void handleConfigFileList(crow::Response& res)
                                   pathObj.filename().string());
         }
     }
-    res.jsonValue["@odata.type"] = "#IBMConfigFile.v1_0_0.IBMConfigFile";
-    res.jsonValue["@odata.id"] = "/ibm/v1/Host/ConfigFiles/";
-    res.jsonValue["Id"] = "ConfigFiles";
-    res.jsonValue["Name"] = "ConfigFiles";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#IBMConfigFile.v1_0_0.IBMConfigFile";
+    asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/Host/ConfigFiles/";
+    asyncResp->res.jsonValue["Id"] = "ConfigFiles";
+    asyncResp->res.jsonValue["Name"] = "ConfigFiles";
 
-    res.jsonValue["Members"] = std::move(pathObjList);
-    res.jsonValue["Actions"]["#IBMConfigFiles.DeleteAll"] = {
+    asyncResp->res.jsonValue["Members"] = std::move(pathObjList);
+    asyncResp->res.jsonValue["Actions"]["#IBMConfigFiles.DeleteAll"] = {
         {"target",
          "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll"}};
-    res.end();
+    return;
 }
 
 inline void deleteConfigFiles(crow::Response& res)
@@ -284,38 +294,44 @@ inline void deleteConfigFiles(crow::Response& res)
     std::vector<std::string> pathObjList;
     std::error_code ec;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         std::filesystem::remove_all(loc, ec);
         if (ec)
         {
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue["Description"] = internalServerError;
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
             BMCWEB_LOG_DEBUG << "deleteConfigFiles: Failed to delete the "
                                 "config files directory. ec : "
                              << ec;
         }
     }
-    res.end();
+    return;
 }
 
 inline void getLockServiceData(crow::Response& res)
 {
-    res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
-    res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
-    res.jsonValue["Id"] = "LockService";
-    res.jsonValue["Name"] = "LockService";
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
+    asyncResp->res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
+    asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
+    asyncResp->res.jsonValue["Id"] = "LockService";
+    asyncResp->res.jsonValue["Name"] = "LockService";
 
-    res.jsonValue["Actions"]["#LockService.AcquireLock"] = {
+    asyncResp->res.jsonValue["Actions"]["#LockService.AcquireLock"] = {
         {"target", "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock"}};
-    res.jsonValue["Actions"]["#LockService.ReleaseLock"] = {
+    asyncResp->res.jsonValue["Actions"]["#LockService.ReleaseLock"] = {
         {"target", "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock"}};
-    res.jsonValue["Actions"]["#LockService.GetLockList"] = {
+    asyncResp->res.jsonValue["Actions"]["#LockService.GetLockList"] = {
         {"target", "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList"}};
-    res.end();
+    return;
 }
 
-inline void handleFileGet(crow::Response& res, const std::string& fileID)
+inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& fileID)
 {
     BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: " << fileID;
     std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/" +
@@ -323,8 +339,8 @@ inline void handleFileGet(crow::Response& res, const std::string& fileID)
     if (!std::filesystem::exists(loc))
     {
         BMCWEB_LOG_ERROR << loc << "Not found";
-        res.result(boost::beast::http::status::not_found);
-        res.jsonValue["Description"] = resourceNotFoundMsg;
+        asyncResp->res.result(boost::beast::http::status::not_found);
+        asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
     }
 
@@ -332,46 +348,48 @@ inline void handleFileGet(crow::Response& res, const std::string& fileID)
     if (!readfile)
     {
         BMCWEB_LOG_ERROR << loc.string() << "Not found";
-        res.result(boost::beast::http::status::not_found);
-        res.jsonValue["Description"] = resourceNotFoundMsg;
+        asyncResp->res.result(boost::beast::http::status::not_found);
+        asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
     }
 
     std::string contentDispositionParam =
         "attachment; filename=\"" + fileID + "\"";
-    res.addHeader("Content-Disposition", contentDispositionParam);
+    asyncResp->res.addHeader("Content-Disposition", contentDispositionParam);
     std::string fileData;
     fileData = {std::istreambuf_iterator<char>(readfile),
                 std::istreambuf_iterator<char>()};
-    res.jsonValue["Data"] = fileData;
+    asyncResp->res.jsonValue["Data"] = fileData;
     return;
 }
 
-inline void handleFileDelete(crow::Response& res, const std::string& fileID)
+inline void
+    handleFileDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& fileID)
 {
     std::string filePath("/var/lib/obmc/bmc-console-mgmt/save-area/" + fileID);
     BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
-
     std::ifstream fileOpen(filePath.c_str());
     if (static_cast<bool>(fileOpen))
     {
         if (remove(filePath.c_str()) == 0)
         {
             BMCWEB_LOG_DEBUG << "File removed!\n";
-            res.jsonValue["Description"] = "File Deleted";
+            asyncResp->res.jsonValue["Description"] = "File Deleted";
         }
         else
         {
             BMCWEB_LOG_ERROR << "File not removed!\n";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue["Description"] = internalServerError;
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
         }
     }
     else
     {
         BMCWEB_LOG_ERROR << "File not found!\n";
-        res.result(boost::beast::http::status::not_found);
-        res.jsonValue["Description"] = resourceNotFoundMsg;
+        asyncResp->res.result(boost::beast::http::status::not_found);
+        asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
     }
     return;
 }
@@ -381,48 +399,52 @@ inline void handleBroadcastService(const crow::Request& req,
 {
     std::string broadcastMsg;
 
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
+
     if (!redfish::json_util::readJson(req, res, "Message", broadcastMsg))
     {
         BMCWEB_LOG_DEBUG << "Not a Valid JSON";
-        res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
     if (broadcastMsg.size() > maxBroadcastMsgSize)
     {
         BMCWEB_LOG_ERROR << "Message size exceeds maximum allowed size[1KB]";
-        res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
     redfish::EventServiceManager::getInstance().sendBroadcastMsg(broadcastMsg);
-    res.end();
     return;
 }
 
 inline void handleFileUrl(const crow::Request& req, crow::Response& res,
                           const std::string& fileID)
 {
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
+
     if (req.method() == boost::beast::http::verb::put)
     {
-        handleFilePut(req, res, fileID);
-        res.end();
+        handleFilePut(req, asyncResp, fileID);
         return;
     }
     if (req.method() == boost::beast::http::verb::get)
     {
-        handleFileGet(res, fileID);
-        res.end();
+        handleFileGet(asyncResp, fileID);
         return;
     }
     if (req.method() == boost::beast::http::verb::delete_)
     {
-        handleFileDelete(res, fileID);
-        res.end();
+        handleFileDelete(asyncResp, fileID);
         return;
     }
 }
 
-inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
-                                 std::vector<nlohmann::json> body)
+inline void
+    handleAcquireLockAPI(const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         std::vector<nlohmann::json> body)
 {
     LockRequests lockRequestStructure;
     for (auto& element : body)
@@ -433,13 +455,12 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
         SegmentFlags segInfo;
         std::vector<nlohmann::json> segmentFlags;
 
-        if (!redfish::json_util::readJson(element, res, "LockType", lockType,
-                                          "ResourceID", resourceId,
+        if (!redfish::json_util::readJson(element, asyncResp->res, "LockType",
+                                          lockType, "ResourceID", resourceId,
                                           "SegmentFlags", segmentFlags))
         {
             BMCWEB_LOG_DEBUG << "Not a Valid JSON";
-            res.result(boost::beast::http::status::bad_request);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
         BMCWEB_LOG_DEBUG << lockType;
@@ -452,11 +473,11 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
             std::string lockFlags;
             uint32_t segmentLength;
 
-            if (!redfish::json_util::readJson(e, res, "LockFlag", lockFlags,
-                                              "SegmentLength", segmentLength))
+            if (!redfish::json_util::readJson(e, asyncResp->res, "LockFlag",
+                                              lockFlags, "SegmentLength",
+                                              segmentLength))
             {
-                res.result(boost::beast::http::status::bad_request);
-                res.end();
+                asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
 
@@ -500,15 +521,13 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
         {
             BMCWEB_LOG_DEBUG << "Not a Valid record";
             BMCWEB_LOG_DEBUG << "Bad json in request";
-            res.result(boost::beast::http::status::bad_request);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
         if (validityStatus.first && (validityStatus.second == 1))
         {
             BMCWEB_LOG_DEBUG << "There is a conflict within itself";
-            res.result(boost::beast::http::status::bad_request);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
     }
@@ -519,17 +538,16 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
         if (!conflictStatus.first)
         {
             BMCWEB_LOG_DEBUG << "There is no conflict with the locktable";
-            res.result(boost::beast::http::status::ok);
+            asyncResp->res.result(boost::beast::http::status::ok);
 
             auto var = std::get<uint32_t>(conflictStatus.second);
             nlohmann::json returnJson;
             returnJson["id"] = var;
-            res.jsonValue["TransactionID"] = var;
-            res.end();
+            asyncResp->res.jsonValue["TransactionID"] = var;
             return;
         }
         BMCWEB_LOG_DEBUG << "There is a conflict with the lock table";
-        res.result(boost::beast::http::status::conflict);
+        asyncResp->res.result(boost::beast::http::status::conflict);
         auto var =
             std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
         nlohmann::json returnJson, segments;
@@ -549,21 +567,22 @@ inline void handleAcquireLockAPI(const crow::Request& req, crow::Response& res,
 
         returnJson["SegmentFlags"] = myarray;
 
-        res.jsonValue["Record"] = returnJson;
-        res.end();
+        asyncResp->res.jsonValue["Record"] = returnJson;
         return;
     }
 }
-inline void handleRelaseAllAPI(const crow::Request& req, crow::Response& res)
+inline void
+    handleRelaseAllAPI(const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::ibm_mc_lock::Lock::getInstance().releaseLock(req.session->uniqueId);
-    res.result(boost::beast::http::status::ok);
-    res.end();
+    asyncResp->res.result(boost::beast::http::status::ok);
     return;
 }
 
 inline void
-    handleReleaseLockAPI(const crow::Request& req, crow::Response& res,
+    handleReleaseLockAPI(const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::vector<uint32_t>& listTransactionIds)
 {
     BMCWEB_LOG_DEBUG << listTransactionIds.size();
@@ -582,8 +601,7 @@ inline void
     if (!varReleaselock.first)
     {
         // validation Failed
-        res.result(boost::beast::http::status::bad_request);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
     auto statusRelease =
@@ -592,14 +610,12 @@ inline void
     {
         // The current hmc owns all the locks, so we already released
         // them
-        res.result(boost::beast::http::status::ok);
-        res.end();
         return;
     }
 
     // valid rid, but the current hmc does not own all the locks
     BMCWEB_LOG_DEBUG << "Current HMC does not own all the locks";
-    res.result(boost::beast::http::status::unauthorized);
+    asyncResp->res.result(boost::beast::http::status::unauthorized);
 
     auto var = statusRelease.second;
     nlohmann::json returnJson, segments;
@@ -618,13 +634,13 @@ inline void
     }
 
     returnJson["SegmentFlags"] = myArray;
-    res.jsonValue["Record"] = returnJson;
-    res.end();
+    asyncResp->res.jsonValue["Record"] = returnJson;
     return;
 }
 
-inline void handleGetLockListAPI(crow::Response& res,
-                                 const ListOfSessionIds& listSessionIds)
+inline void
+    handleGetLockListAPI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const ListOfSessionIds& listSessionIds)
 {
     BMCWEB_LOG_DEBUG << listSessionIds.size();
 
@@ -660,9 +676,8 @@ inline void handleGetLockListAPI(crow::Response& res,
             lockRecords.push_back(returnJson);
         }
     }
-    res.result(boost::beast::http::status::ok);
-    res.jsonValue["Records"] = lockRecords;
-    res.end();
+    asyncResp->res.result(boost::beast::http::status::ok);
+    asyncResp->res.jsonValue["Records"] = lockRecords;
 }
 
 inline bool isValidConfigFileName(const std::string& fileName,
@@ -707,18 +722,20 @@ inline void requestRoutes(App& app)
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&, crow::Response& res) {
-                res.jsonValue["@odata.type"] =
+                std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                    std::make_shared<bmcweb::AsyncResp>(res);
+
+                asyncResp->res.jsonValue["@odata.type"] =
                     "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
-                res.jsonValue["@odata.id"] = "/ibm/v1/";
-                res.jsonValue["Id"] = "IBM Rest RootService";
-                res.jsonValue["Name"] = "IBM Service Root";
-                res.jsonValue["ConfigFiles"] = {
+                asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/";
+                asyncResp->res.jsonValue["Id"] = "IBM Rest RootService";
+                asyncResp->res.jsonValue["Name"] = "IBM Service Root";
+                asyncResp->res.jsonValue["ConfigFiles"] = {
                     {"@odata.id", "/ibm/v1/Host/ConfigFiles"}};
-                res.jsonValue["LockService"] = {
+                asyncResp->res.jsonValue["LockService"] = {
                     {"@odata.id", "/ibm/v1/HMC/LockService"}};
-                res.jsonValue["BroadcastService"] = {
+                asyncResp->res.jsonValue["BroadcastService"] = {
                     {"@odata.id", "/ibm/v1/HMC/BroadcastService"}};
-                res.end();
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
@@ -764,40 +781,43 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
         .privileges({"ConfigureComponents", "ConfigureManager"})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req, crow::Response& res) {
-                std::vector<nlohmann::json> body;
-                if (!redfish::json_util::readJson(req, res, "Request", body))
-                {
-                    BMCWEB_LOG_DEBUG << "Not a Valid JSON";
-                    res.result(boost::beast::http::status::bad_request);
-                    res.end();
-                    return;
-                }
-                handleAcquireLockAPI(req, res, body);
-            });
+        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
+                                                    crow::Response& res) {
+            std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                std::make_shared<bmcweb::AsyncResp>(res);
+
+            std::vector<nlohmann::json> body;
+            if (!redfish::json_util::readJson(req, res, "Request", body))
+            {
+                BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+            handleAcquireLockAPI(req, asyncResp, body);
+        });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post)([](const crow::Request& req,
                                                     crow::Response& res) {
             std::string type;
             std::vector<uint32_t> listTransactionIds;
+            std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                std::make_shared<bmcweb::AsyncResp>(res);
 
             if (!redfish::json_util::readJson(req, res, "Type", type,
                                               "TransactionIDs",
                                               listTransactionIds))
             {
-                res.result(boost::beast::http::status::bad_request);
-                res.end();
+                asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
             if (type == "Transaction")
             {
-                handleReleaseLockAPI(req, res, listTransactionIds);
+                handleReleaseLockAPI(req, asyncResp, listTransactionIds);
             }
             else if (type == "Session")
             {
-                handleRelaseAllAPI(req, res);
+                handleRelaseAllAPI(req, asyncResp);
             }
             else
             {
@@ -808,19 +828,20 @@ inline void requestRoutes(App& app)
         });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .privileges({"ConfigureComponents", "ConfigureManager"})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req, crow::Response& res) {
-                ListOfSessionIds listSessionIds;
+        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
+                                                    crow::Response& res) {
+            ListOfSessionIds listSessionIds;
+            std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+                std::make_shared<bmcweb::AsyncResp>(res);
 
-                if (!redfish::json_util::readJson(req, res, "SessionIDs",
-                                                  listSessionIds))
-                {
-                    res.result(boost::beast::http::status::bad_request);
-                    res.end();
-                    return;
-                }
-                handleGetLockListAPI(res, listSessionIds);
-            });
+            if (!redfish::json_util::readJson(req, res, "SessionIDs",
+                                              listSessionIds))
+            {
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+            handleGetLockListAPI(asyncResp, listSessionIds);
+        });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
         .privileges({"ConfigureComponents", "ConfigureManager"})
