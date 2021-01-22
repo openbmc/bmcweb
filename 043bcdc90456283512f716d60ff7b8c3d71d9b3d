@@ -16,6 +16,24 @@
       "revId": "043bcdc90456283512f716d60ff7b8c3d71d9b3d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef3ecb8c_e92a91e4",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-22T21:35:31Z",
+      "side": 1,
+      "message": "i.e. my patch set 1 would have had a validator error",
+      "parentUuid": "ae6c26f6_28eb0863",
+      "revId": "043bcdc90456283512f716d60ff7b8c3d71d9b3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
