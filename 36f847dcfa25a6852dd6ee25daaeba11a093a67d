@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa5fd37b_1d08d026",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T22:19:54Z",
+      "side": 1,
+      "message": "This seems a little odd that we\u0027re relying on another service to do the serialization for us.  Why would we not just use the same serializer we have, and set the appropriate flags to get downloaded?\n\nI\u0027m a little worried about keeping consistency here.  This is one of the only APIs in redfish that would be operating on unstructured data, but I\u0027m not really following why we\u0027re avoiding the structure here and inventing a new API?\n\nAlso, with the privileges work being done, this is yet another set of files that would have to have their privileges migrated, which also seems a little problematic to me when we could just use the existing dbus apis, and build the \"file\" ourselves.\n\nMaybe there\u0027s more to this than I understand?",
+      "range": {
+        "startLine": 1704,
+        "startChar": 0,
+        "endLine": 1743,
+        "endChar": 59
+      },
+      "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
