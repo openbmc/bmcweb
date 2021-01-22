@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "911dcad3_92c2db8e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1483,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-22T15:21:49Z",
+      "side": 1,
+      "message": "This still concerns me a bit, so all event logs will have a File Path property? The only way they would not is new bmcweb but old phosphor-logging?",
+      "parentUuid": "ae9c81a2_5c6ef1c6",
+      "range": {
+        "startLine": 1483,
+        "startChar": 30,
+        "endLine": 1483,
+        "endChar": 47
+      },
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "827975a2_24017ca7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
