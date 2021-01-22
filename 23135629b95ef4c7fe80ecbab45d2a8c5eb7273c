@@ -39,6 +39,30 @@
       "revId": "23135629b95ef4c7fe80ecbab45d2a8c5eb7273c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ba0e9a_88f98338",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-22T03:15:46Z",
+      "side": 1,
+      "message": "I can. Is it too much of a pain to ask people to modify this and rerun this every time they need to include a schema..? I really don\u0027t want people adding/modify schemas by hand.",
+      "parentUuid": "ab1722e4_22ac53c6",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 5
+      },
+      "revId": "23135629b95ef4c7fe80ecbab45d2a8c5eb7273c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
