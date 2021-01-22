@@ -48,6 +48,76 @@
     },
     {
       "key": {
+        "uuid": "29cb50a2_471bd2b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-22T03:43:09Z",
+      "side": 1,
+      "message": "I know IBM as well other companies use this, why Redfish added.\n\n\u003e how the clients that implement pagination and polling should ensure that this parameter is caught\n\nFilter resolved logEntries out?\n\n\u003e Considering that the Resolved field can be changed _after_ the log is created, this messes with pagination.\n\nHow does it mess with pagination? Are you sorting by created/id? Could also sort by modified if it helps?",
+      "parentUuid": "bb9e75bc_37c62b56",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ada203_13860603",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-22T03:43:09Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 14,
+        "startChar": 33,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee7b221_b01e5c41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-22T03:43:09Z",
+      "side": 1,
+      "message": "before",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64624439_a9d7adf6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
