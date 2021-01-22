@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ea980bf8_c32218fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T23:15:55Z",
+      "side": 1,
+      "message": "\u003e I know IBM as well other companies use this, why Redfish added.\n\u003e \n\u003e \u003e how the clients that implement pagination and polling should ensure that this parameter is caught\n\u003e \n\u003e Filter resolved logEntries out?\n\nCan you describe this better?  Filtering out resolved logEntries doesn\u0027t fix the pagination problem, and arguably makes it worse, because you can actually miss events if they\u0027re resolved faster than your polling interval, unless i\u0027m missing something about your idea.\n\n\u003e \n\u003e \u003e Considering that the Resolved field can be changed _after_ the log is created, this messes with pagination.\n\u003e \n\u003e How does it mess with pagination? Are you sorting by created/id? Could also sort by modified if it helps?\n\nIf I want to write an interface that reads all logs, generally I would;\n\nQuery the log collection with start\u003d0 and top\u003dreasonable page size.\nthen increment start, polling the logs, until no entries are returned.\nthen would would monitor for new logs with start\u003dcurrentIndex on some sort of loop\n\nDoing this sort of log streaming relies on the fact that the ID for a given log entry is immutable, and logs of a given ID won\u0027t change.  This is how most paging collection APIs work.\n\nIf a log that happened in the past has the potential to change, now I can no longer rely on any of the above to get an accurate state of the logs at any give set of time unless the BMC changes the log ID every time the resolved field is changed, which it doesn\u0027t look like it does today.",
+      "parentUuid": "29cb50a2_471bd2b3",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54ada203_13860603",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
