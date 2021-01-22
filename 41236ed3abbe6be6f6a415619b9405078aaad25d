@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52e19752_6c550d25",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T18:15:26Z",
+      "side": 1,
+      "message": "\u003e I am 100% good with this, just sounds a bit \"GUI\" like and not as much webserver.\n\nYeah.  This largely came from the stock github template.\n\n\u003e \n\u003e alternatives: \n\u003e \n\u003e \"\n\u003e ### Expected behavior \n\u003e Example: What should the command return?\n\u003e \n\u003e ### Actual behavior \n\u003e Example: What does the command return?\n\u003e \n\u003e ### Steps to reproduce \n\u003e Example: What is the command? Any other setup? \n\u003e \n\u003e ### Other information\n\u003e Example: Does this happen all the time? Any related code?\n\u003e \n\u003e \"\n\nI can make the change above.  Seems reasonable.\n\n\u003e \n\u003e I am 100% good with this though.",
+      "parentUuid": "4705aa92_ea1ebacf",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7143c6ea_f2e9d026",
         "filename": ".github/ISSUE_TEMPLATE/custom.md",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c40e6de_383988e2",
+        "filename": ".github/ISSUE_TEMPLATE/custom.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T18:15:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7143c6ea_f2e9d026",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +139,54 @@
       "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e055c1_f895cfa6",
+        "filename": ".github/ISSUE_TEMPLATE/feature_request.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T18:15:26Z",
+      "side": 1,
+      "message": "Exactly.  This is to prevent me from having to reply to every 3rd \"bug\" with \"please email this to the mailing list\".",
+      "parentUuid": "23103cb9_d8dbfe54",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40334962_f5873176",
+        "filename": ".github/ISSUE_TEMPLATE/feature_request.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T18:15:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8313af8e_d04139a9",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
