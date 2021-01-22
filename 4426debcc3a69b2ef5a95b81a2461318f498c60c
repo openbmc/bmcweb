@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "175642ff_58a6d3b1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1483,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-22T21:32:09Z",
+      "side": 1,
+      "message": "Correct. The change in phosphor-logging creates a File Path property for all the error log entries when the app starts up as part of restoring the d-bus objects.",
+      "parentUuid": "911dcad3_92c2db8e",
+      "range": {
+        "startLine": 1483,
+        "startChar": 30,
+        "endLine": 1483,
+        "endChar": 47
+      },
+      "revId": "4426debcc3a69b2ef5a95b81a2461318f498c60c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "827975a2_24017ca7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
