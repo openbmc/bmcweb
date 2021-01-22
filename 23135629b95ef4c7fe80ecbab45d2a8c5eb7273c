@@ -63,6 +63,30 @@
       "revId": "23135629b95ef4c7fe80ecbab45d2a8c5eb7273c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2157b868_6a8cd57e",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-22T21:33:13Z",
+      "side": 1,
+      "message": "For fear of having someone break it because they don\u0027t know it\u0027s there?  I wonder if there\u0027s a way we could force that a little, like generate an hpp file with definitions for all the odata.ids that are allowed, so that if they try to add a new schema with an id we don\u0027t ship, they get a compiler error and they know they have to update the list.\n\nI\u0027m thinking out loud at this point.\n\nOverall, I think I\u0027m ok with having to update the list when we add a new schema, it\u0027s just a little bit of lore we\u0027ll have to remember, and if we mess it up, CI should catch it.",
+      "parentUuid": "d0ba0e9a_88f98338",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 5
+      },
+      "revId": "23135629b95ef4c7fe80ecbab45d2a8c5eb7273c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
