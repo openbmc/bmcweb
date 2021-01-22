@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "454cea68_d78ad66e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-22T07:43:27Z",
+      "side": 1,
+      "message": "Ed, are you saying we should be associating every inventory D-Bus object with its chassis using\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Association ? There was some concern that this could lead to a lot D-Bus objects\n\nIs that the direction in general for OpenBMC? Trying to understand why it is wrong to rely on the object path hierarchy, when that is what a `bustl tree` would show.",
+      "parentUuid": "cb3e55c3_a498b4ac",
+      "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2dc9f25_fa195daa",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 15
