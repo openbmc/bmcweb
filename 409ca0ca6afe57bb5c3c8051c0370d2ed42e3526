@@ -81,6 +81,24 @@
       "revId": "409ca0ca6afe57bb5c3c8051c0370d2ed42e3526",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9349994f_731b989f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-24T23:13:29Z",
+      "side": 1,
+      "message": "If that is true, should it be defined in the PDI https://github.com/openbmc/phosphor-dbus-interfaces/blob/4c7663b0e50e13724efe62284073eca6ac2fcb24/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L124 ?",
+      "parentUuid": "41526e36_dde06f21",
+      "revId": "409ca0ca6afe57bb5c3c8051c0370d2ed42e3526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
