@@ -204,6 +204,30 @@
     },
     {
       "key": {
+        "uuid": "8969816a_82d7153b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-24T23:10:09Z",
+      "side": 1,
+      "message": "Can you add some of this to the commit message? \nI still think a design document on the different dumps is needed",
+      "parentUuid": "ec05035c_c47bec82",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "fbb87d717a5f556d8f75ed8a616088fbacd683b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "795932f7_9f22650f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
