@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dca14e6_3b3afacc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-01-25T12:02:25Z",
+      "side": 1,
+      "message": "You can use sdbusplus::unpackProperties for unpacking variants:\n\nhttps://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/unpack_properties.hpp",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 5
+      },
+      "revId": "5272f2e43471bd372dafae5dcf50f3ceeb51825f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d9dfdcd_684e9332",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-01-25T12:02:25Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/unpack_properties.hpp",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 74,
+        "endChar": 17
+      },
+      "revId": "5272f2e43471bd372dafae5dcf50f3ceeb51825f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
