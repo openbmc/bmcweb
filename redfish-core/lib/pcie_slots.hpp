@@ -9,7 +9,6 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
-#include <utils/json_utils.hpp>
 
 namespace redfish
 {
@@ -138,6 +137,66 @@ inline void
         slot["HotPluggable"] = *hotPluggable;
     }
 
+    for (const auto& property : propertiesList)
+    {
+        const std::string& propertyName = property.first;
+
+        if (propertyName == "Generation")
+        {
+            const std::string* value =
+                std::get_if<std::string>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::optional<std::string> pcieType =
+                redfishPcieGenerationFromDbus(*value);
+            if (!pcieType)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            slot["PCIeType"] = !pcieType;
+        }
+        else if (propertyName == "Lanes")
+        {
+            const size_t* value = std::get_if<size_t>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            slot["Lanes"] = *value;
+        }
+        else if (propertyName == "SlotType")
+        {
+            const std::string* value =
+                std::get_if<std::string>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::string slotType = dbusSlotTypeToRf(*value);
+            if (!slotType.empty())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            slot["SlotType"] = slotType;
+        }
+        else if (propertyName == "HotPluggable")
+        {
+            const bool* value = std::get_if<bool>(&property.second);
+            if (value == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            slot["HotPluggable"] = *value;
+        }
+    }
     slots.emplace_back(std::move(slot));
 }
 
