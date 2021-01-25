@@ -1,0 +1,10 @@
+Code-Review+1: Andrew Geissler <geissonator@yahoo.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: Ed Tanous <ed@tanous.net>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: George Liu <liuxiwei@inspur.com>
+Submitted-at: Mon, 25 Jan 2021 00:48:06 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39817
+Project: openbmc/bmcweb
+Branch: refs/heads/master
