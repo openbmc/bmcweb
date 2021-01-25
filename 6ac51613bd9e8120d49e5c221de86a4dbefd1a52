@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "8ec2937f_5f645575",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-25T05:13:20Z",
+      "side": 1,
+      "message": "This check should find out if there are no other characters in the filename than the upper case alphabets, lowercase alphabets, hyphen and numbers. I found this is the simple way to validate the same. \n\nAre you indicating that, listing characters which are not allowed is simpler than mentioning what is allowed?",
+      "parentUuid": "e8e18455_37704ecc",
+      "range": {
+        "startLine": 623,
+        "startChar": 13,
+        "endLine": 623,
+        "endChar": 20
+      },
+      "revId": "6ac51613bd9e8120d49e5c221de86a4dbefd1a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "444597f8_2374affb",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 12
@@ -68,6 +92,30 @@
       "revId": "6ac51613bd9e8120d49e5c221de86a4dbefd1a52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660c0368_eeb0d9a0",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-25T05:13:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "444597f8_2374affb",
+      "range": {
+        "startLine": 668,
+        "startChar": 49,
+        "endLine": 668,
+        "endChar": 53
+      },
+      "revId": "6ac51613bd9e8120d49e5c221de86a4dbefd1a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
