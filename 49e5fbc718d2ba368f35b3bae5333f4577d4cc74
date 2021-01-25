@@ -22,6 +22,30 @@
       "revId": "49e5fbc718d2ba368f35b3bae5333f4577d4cc74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a401336_2812e888",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-25T16:15:30Z",
+      "side": 1,
+      "message": "Yes, policy has something due to the if on line 2242 - 2245\n\nI see this other places, e.g. https://github.com/openbmc/bmcweb/blob/af6298daa55d41d5a47459215b96ca5ec079dfb4/redfish-core/lib/event_service.hpp#L321",
+      "parentUuid": "f379133a_951ba5b4",
+      "range": {
+        "startLine": 1551,
+        "startChar": 53,
+        "endLine": 1551,
+        "endChar": 60
+      },
+      "revId": "49e5fbc718d2ba368f35b3bae5333f4577d4cc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
