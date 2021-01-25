@@ -366,6 +366,9 @@ class Chassis : public Node
                             asyncResp->res.jsonValue["Status"] = {
                                 {"State", "Enabled"},
                             };
+                            asyncResp->res.jsonValue["PCIeSlots"] = {
+                                {"@odata.id", "/redfish/v1/Chassis/" +
+                                                  chassisId + "/PCIeSlots"}};
 
                             asyncResp->res
                                 .jsonValue["Links"]["ComputerSystems"] = {
