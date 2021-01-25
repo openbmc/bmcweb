@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bb6b210_a961bcdf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-25T17:24:39Z",
+      "side": 1,
+      "message": "Only related to this review as in, want to make sure you shouldn\u0027t follow this. Ed, I thought we said this is incorrect. https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38044\nAgreed? So therefore Sunny has it correct and *Should not* check for empty.",
+      "range": {
+        "startLine": 255,
+        "startChar": 44,
+        "endLine": 255,
+        "endChar": 59
+      },
+      "revId": "720007e6a00d4d4348a730efed5398cb84b9f37e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
