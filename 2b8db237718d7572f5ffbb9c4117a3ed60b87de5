@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "469de651_593ab128",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-25T15:59:25Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "a12dbdb1_969b960f",
+      "range": {
+        "startLine": 10,
+        "startChar": 14,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d787603c_5feb97ab",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
@@ -39,6 +63,24 @@
       "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3257e99a_36a91e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-25T15:59:25Z",
+      "side": 1,
+      "message": "Rebased on commit https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39864/3",
+      "parentUuid": "d787603c_5feb97ab",
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "a60f599f_4a740655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-25T15:59:25Z",
+      "side": 1,
+      "message": "rebased on commit https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39864/3",
+      "parentUuid": "af6b4495_8bc781c2",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 4
+      },
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a29f1a21_9111d5fb",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 12
@@ -76,6 +142,24 @@
       "writtenOn": "2020-12-18T15:14:42Z",
       "side": 1,
       "message": "Manager is set to 1_9 here.. in your commit it is 1_11 ..? You will need 1_11 for SparePartNumber and Location but it isn\u0027t out yet.",
+      "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5c29c9_886a8c2d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-25T15:59:25Z",
+      "side": 1,
+      "message": "Rebased on commit https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39864/3. It has v1_11...",
+      "parentUuid": "a29f1a21_9111d5fb",
       "revId": "2b8db237718d7572f5ffbb9c4117a3ed60b87de5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
