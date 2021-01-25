@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "daf1b931_1f17c717",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-25T16:03:38Z",
+      "side": 1,
+      "message": "it\u0027s on my list.  I\u0027ll try to get there today.",
+      "parentUuid": "543faab7_be05620e",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cf8a4ed_005677e1",
         "filename": "redfish-core/include/utils/fw_utils.hpp",
         "patchSetId": 4
