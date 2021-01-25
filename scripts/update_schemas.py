@@ -68,6 +68,7 @@ include_list = [
     'PCIeDeviceCollection',
     'PCIeFunction',
     'PCIeFunctionCollection',
+    'PCIeSlots',
     'Power',
     'Processor',
     'ProcessorCollection',
