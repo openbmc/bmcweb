@@ -27,6 +27,7 @@
 #include "../lib/message_registries.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/pcie.hpp"
+#include "../lib/pcie_slots.hpp"
 #include "../lib/power.hpp"
 #include "../lib/processor.hpp"
 #include "../lib/redfish_sessions.hpp"
@@ -86,6 +87,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<StorageCollection>(app));
         nodes.emplace_back(std::make_unique<Storage>(app));
         nodes.emplace_back(std::make_unique<Drive>(app));
+        nodes.emplace_back(std::make_unique<PCIeSlots>(app));
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         nodes.emplace_back(
             std::make_unique<UpdateServiceActionsSimpleUpdate>(app));
