@@ -62,6 +62,30 @@
       "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0590133c_c4c3a5f7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-25T17:28:37Z",
+      "side": 1,
+      "message": "I don\u0027t think should use auto here and should be something like \n\n\n                                        const std::string* value \u003d\n                                            std::get_if\u003cstd::string\u003e(\n                                                \u0026property.second);\n                                        if (value \u003d\u003d nullptr)\n                                        {\n                                            // illegal property\n                                            messages::internalError(\n                                                asyncResp-\u003eres);\n                                            return;\n                                        }\n                                                           aResp-\u003eres.jsonValue[\"Location\"][\"PartLocation\"][\"ServiceLabel\"] \u003d   *value;",
+      "parentUuid": "dbdf2873_284a7c88",
+      "range": {
+        "startLine": 1719,
+        "startChar": 1,
+        "endLine": 1723,
+        "endChar": 13
+      },
+      "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
