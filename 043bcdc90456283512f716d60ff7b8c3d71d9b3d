@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4c03a2cf_122e11f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-26T15:41:07Z",
+      "side": 1,
+      "message": "Added a sentence to Redfish.md",
+      "parentUuid": "551bf291_0637ee25",
+      "revId": "043bcdc90456283512f716d60ff7b8c3d71d9b3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae6c26f6_28eb0863",
         "filename": "static/redfish/v1/$metadata/index.xml",
         "patchSetId": 2
