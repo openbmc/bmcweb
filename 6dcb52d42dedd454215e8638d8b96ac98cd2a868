@@ -46,6 +46,30 @@
       "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "716620d4_b8d39a56",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-01-26T08:37:49Z",
+      "side": 1,
+      "message": "It is thrown when either property is missing or have incorrect type in both cases this is caused when interface on dbus missmatch your expectations. There is detailed message if needed. Assumption is that used will catch exception and convert it to proper error code.",
+      "parentUuid": "1cf770bc_6db8de7b",
+      "range": {
+        "startLine": 1373,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 17
+      },
+      "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
