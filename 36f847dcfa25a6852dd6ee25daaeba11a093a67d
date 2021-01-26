@@ -46,6 +46,30 @@
       "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "060cbbc2_7105978f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-26T15:59:13Z",
+      "side": 1,
+      "message": "\u003e Hi Ed, the idea is to be able to download the file specified by the FilePath property in the error log entry. I used the bmc dump download as an example, although I know you\u0027re in the middle of adding an openFile function - https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35992/10/include/openbmc_dbus_rest.hpp\n\u003e \n\u003e I\u0027m not familiar with the current serializer in bmcweb. Is it \"boost::beast::http::response_serializer\"? Or what\u0027s the function you mentioned that should be use for this case?\n\nNo, in general it\u0027s the nlohmann::json serializer.  Dumps have this same problem, in that because the data is unstructured, unfortunately I wasn\u0027t on that review, or I would\u0027ve pointed that out there as well.\n\nAs a general rule, bmcweb takes the opinion that all non-build time data should be \"touched\" within the serializer, to remove the possibility of injection attacks, or other things within services compromising security, and making it much harder to break.  Having a \"download this file created at runtime\" uri breaks that paradyme, and opens the security envelope up to all applications that publish a file, not just bmcweb.",
+      "parentUuid": "6b30a910_7ed679bc",
+      "range": {
+        "startLine": 1704,
+        "startChar": 0,
+        "endLine": 1743,
+        "endChar": 59
+      },
+      "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
