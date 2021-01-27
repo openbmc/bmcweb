@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bc1e0c4_a0002f03",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-01-27T11:22:12Z",
+      "side": 1,
+      "message": "Hello, This will be a generic code for LocationIndicatorActive that is present in the Memory/Port/PcieSlot/Assembly... etc and hence it\u0027s here.\n\nAll those other schemas will include this file and utilise these APIs.",
+      "parentUuid": "746b6835_af14978f",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 38
+      },
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdd1e3c3_b8249cbb",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 25
