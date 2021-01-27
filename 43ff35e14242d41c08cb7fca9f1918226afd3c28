@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d4a0343_8e512653",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T16:17:41Z",
+      "side": 1,
+      "message": "This check isn\u0027t required, right?  the match expression won\u0027t allow anything other than this through, right?",
+      "range": {
+        "startLine": 732,
+        "startChar": 0,
+        "endLine": 732,
+        "endChar": 63
+      },
+      "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c9fa520_8155803f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T16:17:41Z",
+      "side": 1,
+      "message": "If status \u003d\u003d completed, return task not completed?  That seems odd.",
+      "range": {
+        "startLine": 742,
+        "startChar": 43,
+        "endLine": 742,
+        "endChar": 67
+      },
+      "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5900b5d0_a6d021ff",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T16:17:41Z",
+      "side": 1,
+      "message": "isn\u0027t this wrong?  if the interface doesn\u0027t match, the task isn\u0027t completed.",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 35
+      },
+      "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
