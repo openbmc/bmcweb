@@ -70,6 +70,30 @@
       "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56773ea_531a0b1b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-27T15:42:35Z",
+      "side": 1,
+      "message": "Per discussion in Discord, we\u0027ve agreed to encode the data into base64, set the http header to text/base64 instead of octet, and send it out. The receiving end (caller) would then need to decode the data to get the binary file back.",
+      "parentUuid": "060cbbc2_7105978f",
+      "range": {
+        "startLine": 1704,
+        "startChar": 0,
+        "endLine": 1743,
+        "endChar": 59
+      },
+      "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
