@@ -223,6 +223,70 @@ inline std::optional<pcie_device::PCIeTypes>
     return std::nullopt;
 }
 
+inline void getPCIeDeviceAsset(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& pcieDevicePath,
+                               const std::string& service)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        [pcieDevicePath,
+         aResp{aResp}](const boost::system::error_code& ec,
+                       const dbus::utility::DBusPropertiesMap& assetList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Properties"
+                                 << ec.value();
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        const std::string* manufacturer = nullptr;
+        const std::string* model = nullptr;
+        const std::string* partNumber = nullptr;
+        const std::string* serialNumber = nullptr;
+        const std::string* sparePartNumber = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), assetList, "Manufacturer",
+            manufacturer, "Model", model, "PartNumber", partNumber,
+            "SerialNumber", serialNumber, "SparePartNumber", sparePartNumber);
+
+        if (!success)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (manufacturer != nullptr && !manufacturer->empty())
+        {
+            aResp->res.jsonValue["Manufacturer"] = *manufacturer;
+        }
+        if (model != nullptr)
+        {
+            aResp->res.jsonValue["Model"] = *model;
+        }
+
+        if (partNumber != nullptr)
+        {
+            aResp->res.jsonValue["PartNumber"] = *partNumber;
+        }
+
+        if (serialNumber != nullptr)
+        {
+            aResp->res.jsonValue["SerialNumber"] = *serialNumber;
+        }
+
+        if (sparePartNumber != nullptr && !sparePartNumber->empty())
+        {
+            aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+        });
+}
+
 inline void addPCIeDeviceProperties(
     crow::Response& resp, const std::string& pcieDeviceId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
@@ -337,6 +401,7 @@ inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
                       [aResp, pcieDeviceId](const std::string& pcieDevicePath,
                                             const std::string& service) {
         addPCIeDeviceHeader(aResp, pcieDeviceId);
+        getPCIeDeviceAsset(aResp, pcieDevicePath, service);
         getPCIeDeviceProperties(
             aResp, pcieDevicePath, service,
             [aResp, pcieDeviceId](
