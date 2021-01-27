@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9e86d43_ce155ba8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-27T21:50:00Z",
+      "side": 1,
+      "message": "Done. Checking for the FilePath interface and adding new field if Path property exists.",
+      "parentUuid": "1dc2272f_4c60b752",
+      "range": {
+        "startLine": 1483,
+        "startChar": 0,
+        "endLine": 1486,
+        "endChar": 52
+      },
+      "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa5fd37b_1d08d026",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "That\u0027s a good start.  I still haven\u0027t seen an answer to why this is a physical file, and isn\u0027t being read from dbus.",
       "parentUuid": "b56773ea_531a0b1b",
+      "range": {
+        "startLine": 1704,
+        "startChar": 0,
+        "endLine": 1743,
+        "endChar": 59
+      },
+      "revId": "36f847dcfa25a6852dd6ee25daaeba11a093a67d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a474d5ed_247d9485",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-01-27T21:50:00Z",
+      "side": 1,
+      "message": "If the question is about why there\u0027s not a phosphor-logging dbus method to get the file, I assume it was determined to add the file path property to phosphor-logging instead of an offload/read-file method. Just guessing that maybe there\u0027s not a desire to expose the ability to extract the log files using dbus, only through bmcweb.\n\nAdding encoder with: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40067",
+      "parentUuid": "fd8b190d_75f6706a",
       "range": {
         "startLine": 1704,
         "startChar": 0,
