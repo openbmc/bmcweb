@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 190> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -2409,6 +2409,39 @@ constexpr std::array<MessageEntry, 187> registry = {
             1,
             {"string"},
             "None.",
+        }},
+    MessageEntry{
+        "StateSensorStateChangeNormal",
+        {
+            "Indicates that a state sensor has changed state to normal.",
+            "%1 of %2 state sensor changed from %3 to %4.",
+            "OK",
+            "OK",
+            4,
+            {"string", "string", "string", "string"},
+            "None.",
+        }},
+    MessageEntry{
+        "StateSensorStateChangeWarning",
+        {
+            "Indicates that a state sensor has changed state to warning.",
+            "%1 of %2 state sensor changed from %3 to %4.",
+            "Warning",
+            "Warning",
+            4,
+            {"string", "string", "string", "string"},
+            "Check sensor subsystem for errors.",
+        }},
+    MessageEntry{
+        "StateSensorStateChangeCritical",
+        {
+            "Indicates that a state sensor has changed state to critical.",
+            "%1 of %2 state sensor changed from %3 to %4.",
+            "Critical",
+            "Critical",
+            4,
+            {"string", "string", "string", "string"},
+            "Check sensor subsystem for errors.",
         }},
 
 };
