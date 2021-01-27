@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71109167_6624f923",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T22:13:34Z",
+      "side": 1,
+      "message": "static isn\u0027t needed here.",
+      "range": {
+        "startLine": 407,
+        "startChar": 7,
+        "endLine": 407,
+        "endChar": 13
+      },
+      "revId": "14b9a60b900ac449f16a956156d098f7921b786f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0151561b_672737cc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T22:13:34Z",
+      "side": 1,
+      "message": "Considering we have c++17 now, can we change this to be a std::string_view to be more clear.\n\nTechnically std::span\u003cuint8_t\u003e would be even more correct, but we haven\u0027t turned on c++ 20 yet.",
+      "range": {
+        "startLine": 408,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 34
+      },
+      "revId": "14b9a60b900ac449f16a956156d098f7921b786f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d1542a2_38fda80f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T22:13:34Z",
+      "side": 1,
+      "message": "Having this as a param isn\u0027t really safe, as you\u0027re indexing into an array of unknown size at runtime.\n\nIn the past, this was only here for handling url safe base64, which I don\u0027t think anyone intends to do, and if they do, is a problem for another patchset.\n\nSo for now, please just inline it as a const std::array\u003cchar\u003e",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 74
+      },
+      "revId": "14b9a60b900ac449f16a956156d098f7921b786f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "021e91e1_2734e693",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-27T22:13:34Z",
+      "side": 1,
+      "message": "is there any way to make this logic more clear?  as is, it\u0027s a bunch of hardcoded values, and anyone trying to read it just has their eyes hurt.\n\nI realize this isn\u0027t your fault, but this is kind of the reason we deleted it in the first place.  if we can get even incrementally better than what we had before, I\u0027ll be happy.\n\nSome ideas for cleaning this up;\n\nSeparate the postfix increments to their own line, so it++ and data++ line up more often, and it\u0027s clear we\u0027re incrementing both.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 66
+      },
+      "revId": "14b9a60b900ac449f16a956156d098f7921b786f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
