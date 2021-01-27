@@ -404,6 +404,45 @@ struct function_traits<std::function<r(Args...)>>
     using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
 };
 
+inline static std::string base64encode(
+    const char* data, size_t size,
+    const char* key =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
+{
+    std::string ret;
+    ret.resize((size + 2) / 3 * 4);
+    auto it = ret.begin();
+    while (size >= 3)
+    {
+        *it++ = key[((static_cast<unsigned char>(*data)) & 0xFC) >> 2];
+        auto h = ((static_cast<unsigned char>(*data++)) & 0x03) << 4;
+        *it++ = key[h | (((static_cast<unsigned char>(*data)) & 0xF0) >> 4)];
+        h = ((static_cast<unsigned char>(*data++)) & 0x0F) << 2;
+        *it++ = key[h | (((static_cast<unsigned char>(*data)) & 0xC0) >> 6)];
+        *it++ = key[(static_cast<unsigned char>(*data++)) & 0x3F];
+
+        size -= 3;
+    }
+    if (size == 1)
+    {
+        *it++ = key[((static_cast<unsigned char>(*data)) & 0xFC) >> 2];
+        auto h = ((static_cast<unsigned char>(*data++)) & 0x03) << 4;
+        *it++ = key[h];
+        *it++ = '=';
+        *it++ = '=';
+    }
+    else if (size == 2)
+    {
+        *it++ = key[((static_cast<unsigned char>(*data)) & 0xFC) >> 2];
+        auto h = ((static_cast<unsigned char>(*data++)) & 0x03) << 4;
+        *it++ = key[h | (((static_cast<unsigned char>(*data)) & 0xF0) >> 4)];
+        h = ((static_cast<unsigned char>(*data++)) & 0x0F) << 2;
+        *it++ = key[h];
+        *it++ = '=';
+    }
+    return ret;
+}
+
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
 inline bool base64Decode(const std::string_view input, std::string& output)
