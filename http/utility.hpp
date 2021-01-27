@@ -404,6 +404,51 @@ struct function_traits<std::function<r(Args...)>>
     using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
 };
 
+inline std::string base64encode(const std::string_view data)
+{
+    const std::array<char, 65> key = {
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
+
+    size_t size = data.size();
+    std::string ret;
+    ret.resize((size + 2) / 3 * 4);
+    auto it = ret.begin();
+
+    size_t i = 0;
+    while (i < size)
+    {
+        *it++ = key[static_cast<size_t>(data[i] & 0xFC) >> 2];
+
+        if (i + 1 < size)
+        {
+            *it++ = key[(static_cast<size_t>(data[i] & 0x03) << 4) +
+                        (static_cast<size_t>(data[i + 1] & 0xF0) >> 4)];
+
+            if (i + 2 < size)
+            {
+                *it++ = key[(static_cast<size_t>(data[i + 1] & 0x0F) << 2) +
+                            (static_cast<size_t>(data[i + 2] & 0xC0) >> 6)];
+                *it++ = key[static_cast<size_t>(data[i + 2] & 0x3F)];
+            }
+            else
+            {
+                *it++ = key[static_cast<size_t>(data[i + 1] & 0x0F) << 2];
+                *it++ = '=';
+            }
+        }
+        else
+        {
+            *it++ = key[static_cast<size_t>(data[i] & 0x03) << 4];
+            *it++ = '=';
+            *it++ = '=';
+        }
+
+        i += 3;
+    }
+
+    return ret;
+}
+
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
 inline bool base64Decode(const std::string_view input, std::string& output)
