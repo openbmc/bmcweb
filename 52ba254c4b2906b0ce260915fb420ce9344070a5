@@ -126,6 +126,24 @@
       "revId": "52ba254c4b2906b0ce260915fb420ce9344070a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d36fc0b_6a6bb8b7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-27T17:29:04Z",
+      "side": 1,
+      "message": "It is because, the dumpType would be sent in either as system or bmc.\nThe resource check falls here in this method above. Hence, used this dumpPath to store the respective dump entry paths",
+      "parentUuid": "c2757bca_c3d34e8d",
+      "revId": "52ba254c4b2906b0ce260915fb420ce9344070a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
