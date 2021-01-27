@@ -837,6 +837,11 @@ other.
 - Description
 - Members
 - Members@odata.count
+- Manufacturer
+- Model
+- PartNumber
+- SerialNumber
+- SparePartNumber
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
