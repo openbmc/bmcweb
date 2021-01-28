@@ -17,6 +17,8 @@ enable_health_populate = get_option('redfish-health-populate')
 conf_data.set10('BMCWEB_ENABLE_HEALTH_POPULATE', enable_health_populate.enabled())
 enable_proc_mem_status = get_option('redfish-enable-proccessor-memory-status')
 conf_data.set10('BMCWEB_ENABLE_PROC_MEM_STATUS', enable_proc_mem_status.enabled())
+enable_http2 = get_option('experimental-http2')
+conf_data.set10('BMCWEB_ENABLE_HTTP2', enable_http2.enabled())
 
 # Logging level
 loglvlopt = get_option('bmcweb-logging')

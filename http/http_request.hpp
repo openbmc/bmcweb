@@ -51,6 +51,8 @@ struct Request
         }
     }
 
+    Request() = default;
+
     Request(const Request& other) = default;
     Request(Request&& other) = default;
 
