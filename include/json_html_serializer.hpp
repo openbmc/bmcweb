@@ -1,5 +1,6 @@
-#include "http_response.hpp"
+#pragma once
 
+#include "http_response.hpp"
 #include <nlohmann/json.hpp>
 
 #include <string>

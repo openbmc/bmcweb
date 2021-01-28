@@ -50,7 +50,6 @@ inline std::shared_ptr<persistent_data::UserSession>
     // Check that we have reached final certificate in chain
     int32_t depth = X509_STORE_CTX_get_error_depth(cts);
     if (depth != 0)
-
     {
         BMCWEB_LOG_DEBUG << "Certificate verification in progress (depth "
                          << depth << "), waiting to reach final depth";
@@ -95,7 +94,6 @@ inline std::shared_ptr<persistent_data::UserSession>
     }
 
     // Determine that ExtendedKeyUsage includes Client Auth
-
     stack_st_ASN1_OBJECT* extUsage = static_cast<stack_st_ASN1_OBJECT*>(
         X509_get_ext_d2i(peerCert, NID_ext_key_usage, nullptr, nullptr));
 
