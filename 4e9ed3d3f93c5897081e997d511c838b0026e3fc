@@ -69,6 +69,30 @@
       "revId": "4e9ed3d3f93c5897081e997d511c838b0026e3fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "734735a8_0eeb8a7b",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2446,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T18:19:51Z",
+      "side": 1,
+      "message": "\u003e I see your point. But in this case its actually a state sensor not a resource completely. The sensor can be related to BMC or of a add on card connected to it. In that case Resource Changed events may not be right.\n\u003e \n\nWhat is a \"state sensor\"?  If it\u0027s analogous to an IPMI discrete sensor, then your path forward would be to add Resources where you need them to log this type of event.\n\n\u003e How about changing it as only `StateSensorStateChange`? Basically it will give a info saying that the state of the sensor is changed from one value to another.\n\nI think you\u0027re somewhat missing the point.  Redfish has a well defined way to model resources, and this someone brings the abstraction back to IPMI , which we should avoid.",
+      "parentUuid": "464a8dca_7ce0de69",
+      "range": {
+        "startLine": 2413,
+        "startChar": 0,
+        "endLine": 2446,
+        "endChar": 0
+      },
+      "revId": "4e9ed3d3f93c5897081e997d511c838b0026e3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
