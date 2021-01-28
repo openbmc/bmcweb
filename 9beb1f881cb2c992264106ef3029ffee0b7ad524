@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f73cb41e_790177ed",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "Not really in this commit, but please use the boost beast enum overload for this instead of the string one.  It\u0027s more efficient.",
+      "range": {
+        "startLine": 88,
+        "startChar": 54,
+        "endLine": 88,
+        "endChar": 68
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66595cb9_a1aa7a36",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we be checking that the content-type is equal to what we expect, instead of special casing one of the \"wrong\" things?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 63
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7b25d03_82406715",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "use the correct overload of this that doesn\u0027t throw.  Also, there are options that need to be set to limit depth and symlinks.  Depth should have an absolute limit, and symlinks should be disallowed.",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 115,
+        "endChar": 60
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50faaa6a_4fbc83f2",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "Could this simply delete the existing file if it exists, then do the max size calculation?  Doing that would save a significant amount of special cases here, and simplify the code alot.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 37
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "745af80e_d6c504f1",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "Please don\u0027t use a terinary for this.  it confuses the logic.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 33
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9136daeb_c9503014",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "This should not be constructing its own asyncResp.  Construct one at the top level (where you register the handler).\n\nWithin this scope, it doesn\u0027t need to know about asyncResp at all, as it already returns an error code, and doesn\u0027t spin off any async jobs.",
+      "range": {
+        "startLine": 620,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 49
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b8fa5e_89b2f83f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "I\u0027m really sorry, I lead you down the wrong path with one typo.  Imean that we should be using std::string::find_first_not_of(\"\u003cset of legal characters\u003e\") as that\u0027s very obvious what characters we allow through.  This list is hard to verify that it\u0027s correct to the intent.",
+      "range": {
+        "startLine": 658,
+        "startChar": 17,
+        "endLine": 658,
+        "endChar": 30
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079d2e75_757553d2",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "Please have this branch return early, rather than having an else statement.",
+      "range": {
+        "startLine": 661,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 59
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1516c6_d7ee8f33",
+        "filename": "redfish-core/ut/configfile_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:58:57Z",
+      "side": 1,
+      "message": "Excellent.  Thank you.",
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
