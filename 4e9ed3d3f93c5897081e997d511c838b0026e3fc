@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ceb2bef5_3eb83dd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2021-01-28T05:32:24Z",
+      "side": 1,
+      "message": "nit: build?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 5
+      },
+      "revId": "4e9ed3d3f93c5897081e997d511c838b0026e3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19938f6c_432cdfa9",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
