@@ -4,6 +4,7 @@
 #include "async_resp.hpp"
 #include "authentication.hpp"
 #include "complete_response_fields.hpp"
+#include "http2_connection.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -161,13 +162,41 @@ class Connection :
                 {
                     return;
                 }
-                doReadHeaders();
+                afterSslHandshake();
             });
         }
         else
         {
             doReadHeaders();
         }
+    }
+
+    void afterSslHandshake()
+    {
+        // If http2 is enabled, negotiate the protocol
+        if constexpr (bmcwebEnableHTTP2)
+        {
+            const unsigned char* alpn = nullptr;
+            unsigned int alpnlen = 0;
+            SSL_get0_alpn_selected(adaptor.native_handle(), &alpn, &alpnlen);
+            if (alpn != nullptr)
+            {
+                std::string_view selectedProtocol(
+                    std::bit_cast<const char*>(alpn), alpnlen);
+                BMCWEB_LOG_DEBUG << "ALPN selected protocol \""
+                                 << selectedProtocol << "\" len: " << alpnlen;
+                if (selectedProtocol == "h2")
+                {
+                    auto http2 =
+                        std::make_shared<HTTP2Connection<Adaptor, Handler>>(
+                            std::move(adaptor), handler, getCachedDateStr);
+                    http2->start();
+                    return;
+                }
+            }
+        }
+
+        doReadHeaders();
     }
 
     void handle()
