@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f409471_4b7eeee5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-01-28T14:21:44Z",
+      "side": 1,
+      "message": "can we use system-resolved here?",
+      "range": {
+        "startLine": 73,
+        "startChar": 1,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "010b847dc95b1fa5c262098702193c711b8a7fc9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "162ef8ff_fdd26294",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-01-28T14:21:44Z",
+      "side": 1,
+      "message": "Do we need to put a empty check here? As per boost documentation we require the check.\nhttps://www.boost.org/doc/libs/1_55_0/doc/html/boost/circular_buffe_idp21015912.html",
+      "range": {
+        "startLine": 213,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "010b847dc95b1fa5c262098702193c711b8a7fc9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
