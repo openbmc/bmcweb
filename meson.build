@@ -266,6 +266,10 @@ atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
+nghttp2 = dependency('libnghttp2', required : true)
+bmcweb_dependencies += nghttp2
+
+
 sdbusplus = dependency('sdbusplus',required : false)
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
@@ -405,7 +409,14 @@ if(get_option('tests').enabled())
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus,pam
+                                boost,
+                                boost_url,
+                                gtest,openssl,
+                                gmock,
+                                nlohmann_json,
+                                sdbusplus,
+                                pam,
+                                nghttp2
                               ]))
   endforeach
 endif
