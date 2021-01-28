@@ -258,6 +258,16 @@ atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
+nghttp2_ex = dependency('libnghttp2', version: '>=1.54.0', required : false)
+if not nghttp2_ex.found()
+  cmake = import('cmake')
+  opt_var = cmake.subproject_options()
+  opt_var.add_cmake_defines({'BUILD_SHARED_LIBS': false})
+  nghttp2_ex = cmake.subproject('nghttp2', options: opt_var)
+  nghttp2 = nghttp2_ex.dependency('nghttp2')
+endif
+bmcweb_dependencies += nghttp2
+
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
