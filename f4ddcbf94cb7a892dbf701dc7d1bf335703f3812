@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "ae69d8f7_82e82510",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T22:55:19Z",
+      "side": 1,
+      "message": "actually.... I lied.  I went to try this, and using a std::filesystem::path is way more invasive here than I\u0027d like.  It would require us to use paths in way more places, and I don\u0027t think I\u0027m prepared to update and test all the new collections to do that.\n\nWe could really use a \"uri path\" class for this kind of thing, but I\u0027d have to think about that.",
+      "parentUuid": "daf1b931_1f17c717",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cf8a4ed_005677e1",
         "filename": "redfish-core/include/utils/fw_utils.hpp",
         "patchSetId": 4
