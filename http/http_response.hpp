@@ -35,7 +35,14 @@ struct Response
     }
 
     Response() : stringResponse(response_type{})
-    {}
+    {
+        BMCWEB_LOG_DEBUG << "Constructed crow::Response at" << this;
+    }
+
+    ~Response()
+    {
+        BMCWEB_LOG_DEBUG << "Destroyed crow::Response at " << this;
+    }
 
     Response& operator=(const Response& r) = delete;
 

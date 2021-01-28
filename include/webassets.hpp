@@ -52,7 +52,13 @@ inline void requestRoutes(App& app)
              {".map", "application/json"}}};
 
     std::filesystem::path rootpath{"/usr/share/www/"};
-    std::filesystem::recursive_directory_iterator dirIter(rootpath);
+    std::error_code ec;
+    std::filesystem::recursive_directory_iterator dirIter(rootpath, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "Failed to open " << rootpath;
+        return;
+    }
     // In certain cases, we might have both a gzipped version of the file AND a
     // non-gzipped version.  To avoid duplicated routes, we need to make sure we
     // get the gzipped version first.  Because the gzipped path should be longer

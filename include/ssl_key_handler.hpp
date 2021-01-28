@@ -1,6 +1,7 @@
 #pragma once
 #ifdef BMCWEB_ENABLE_SSL
 
+#include <nghttp2/nghttp2.h>
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -354,6 +355,31 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     }
 }
 
+static unsigned char next_proto_list[256];
+static size_t next_proto_list_len;
+
+static int next_proto_cb(SSL*, const unsigned char** data, unsigned int* len,
+                         void*)
+{
+    *data = next_proto_list;
+    *len = static_cast<unsigned int>(next_proto_list_len);
+    return SSL_TLSEXT_ERR_OK;
+}
+
+static int alpn_select_proto_cb(SSL*, const unsigned char** out,
+                                unsigned char* outlen, const unsigned char* in,
+                                unsigned int inlen, void*)
+{
+    int rv = nghttp2_select_next_protocol(const_cast<unsigned char**>(out),
+                                          outlen, in, inlen);
+    if (rv != 1)
+    {
+        return SSL_TLSEXT_ERR_NOACK;
+    }
+
+    return SSL_TLSEXT_ERR_OK;
+}
+
 inline std::shared_ptr<boost::asio::ssl::context>
     getSslContext(const std::string& sslPemFile)
 {
@@ -380,6 +406,19 @@ inline std::shared_ptr<boost::asio::ssl::context>
                                       boost::asio::ssl::context::pem);
     mSslContext->use_private_key_file(sslPemFile,
                                       boost::asio::ssl::context::pem);
+
+    next_proto_list[0] = NGHTTP2_PROTO_VERSION_ID_LEN;
+    memcpy(&next_proto_list[1], NGHTTP2_PROTO_VERSION_ID,
+           NGHTTP2_PROTO_VERSION_ID_LEN);
+    next_proto_list_len = 1 + NGHTTP2_PROTO_VERSION_ID_LEN;
+
+    SSL_CTX_set_next_protos_advertised_cb(mSslContext->native_handle(),
+                                          next_proto_cb, NULL);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10002000L
+    SSL_CTX_set_alpn_select_cb(mSslContext->native_handle(),
+                               alpn_select_proto_cb, NULL);
+#endif // OPENSSL_VERSION_NUMBER >= 0x10002000L
 
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio

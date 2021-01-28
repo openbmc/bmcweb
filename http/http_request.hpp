@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common.hpp"
 #include "sessions.hpp"
 
 #include <boost/asio/io_context.hpp>

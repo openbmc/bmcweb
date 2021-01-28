@@ -8,14 +8,17 @@
 #include "timer_queue.hpp"
 #include "utility.hpp"
 
+#include <nghttp2/nghttp2.h>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
-#include <boost/beast/core/flat_static_buffer.hpp>
+#include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
+#include <boost/container/flat_set.hpp>
 #include <json_html_serializer.hpp>
 #include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
@@ -26,6 +29,60 @@
 
 namespace crow
 {
+
+struct http2_stream_data
+{
+    http2_stream_data() : req(reqBase)
+    {}
+    boost::beast::http::request<boost::beast::http::string_body> reqBase;
+    crow::Request req;
+    std::shared_ptr<crow::Response> res;
+};
+
+struct nghttp2_session_callbacks_ptr
+{
+    nghttp2_session_callbacks_ptr()
+    {
+        nghttp2_session_callbacks_new(&ptr);
+    }
+
+    ~nghttp2_session_callbacks_ptr()
+    {
+        nghttp2_session_callbacks_del(ptr);
+    }
+
+    nghttp2_session_callbacks* get()
+    {
+        return ptr;
+    }
+
+    nghttp2_session_callbacks* ptr = nullptr;
+};
+
+struct nghttp2_session_ptr
+{
+    nghttp2_session_ptr(nghttp2_session_callbacks_ptr& callbacks)
+    {
+        if (nghttp2_session_server_new(&ptr, callbacks.get(), nullptr) != 0)
+        {
+            BMCWEB_LOG_ERROR << "nghttp2_session_server_new failed";
+            return;
+        }
+    }
+
+    ~nghttp2_session_ptr()
+    {
+        nghttp2_session_del(ptr);
+    }
+
+    nghttp2_session* get()
+    {
+        return ptr;
+    }
+
+  private:
+    nghttp2_session* ptr = nullptr;
+};
 
 inline void prettyPrintJson(crow::Response& res)
 {
@@ -62,6 +119,7 @@ class Connection :
     Connection(Handler* handlerIn,
                std::function<std::string()>& getCachedDateStrF,
                detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
+
         adaptor(std::move(adaptorIn)),
         handler(handlerIn), getCachedDateStr(getCachedDateStrF),
         timerQueue(timerQueueIn)
@@ -70,6 +128,8 @@ class Connection :
         parser->body_limit(httpReqBodyLimit);
         parser->header_limit(httpHeaderLimit);
         req.emplace(parser->get());
+
+        streams.emplace(0, std::make_unique<http2_stream_data>());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         std::error_code error;
@@ -291,15 +351,44 @@ class Connection :
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
         {
-            adaptor.async_handshake(boost::asio::ssl::stream_base::server,
-                                    [this, self(shared_from_this())](
-                                        const boost::system::error_code& ec) {
-                                        if (ec)
-                                        {
-                                            return;
-                                        }
-                                        doReadHeaders();
-                                    });
+            adaptor.async_handshake(
+                boost::asio::ssl::stream_base::server,
+                [this, self(shared_from_this())](
+                    const boost::system::error_code& ec) {
+                    if (ec)
+                    {
+                        return;
+                    }
+
+                    const unsigned char* alpn = nullptr;
+                    unsigned int alpnlen = 0;
+                    SSL_get0_alpn_selected(adaptor.native_handle(), &alpn,
+                                           &alpnlen);
+                    if (alpn != nullptr)
+                    {
+                        std::string_view selected_protocol(
+                            reinterpret_cast<const char*>(alpn), alpnlen);
+                        BMCWEB_LOG_DEBUG << "ALPN selected protocol \""
+                                         << selected_protocol
+                                         << "\" len: " << alpnlen;
+                        if (selected_protocol == "h2")
+                        {
+                            cancelDeadlineTimer();
+                            initialize_nghttp2_session();
+                            if (send_server_connection_header() != 0)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "send_server_connection_header failed";
+                                return;
+                            }
+                            send_buffer();
+                            read_buffer();
+                            return;
+                        }
+                    }
+
+                    doReadHeaders();
+                });
         }
         else
         {
@@ -328,8 +417,6 @@ class Connection :
                         << req->version() % 10 << ' ' << req->methodString()
                         << " " << req->target() << " " << req->ipAddress;
 
-        needToCallAfterHandlers = false;
-
         if (!isInvalidRequest)
         {
             res.completeRequestHandler = [] {};
@@ -340,7 +427,6 @@ class Connection :
 
             if (!res.completed)
             {
-                needToCallAfterHandlers = true;
                 res.completeRequestHandler = [self(shared_from_this())] {
                     boost::asio::post(self->adaptor.get_executor(),
                                       [self] { self->completeRequest(); });
@@ -405,30 +491,13 @@ class Connection :
         }
     }
 
-    void completeRequest()
+    void completeResponseFields(crow::Response& res)
     {
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
         addSecurityHeaders(res);
 
-        if (needToCallAfterHandlers)
-        {
-            crow::authorization::cleanupTempSession(*req);
-        }
-
-        if (!isAlive())
-        {
-            // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
-            // isReading
-            // << ' ' << isWriting;
-            // delete this;
-
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            res.completeRequestHandler = nullptr;
-            return;
-        }
         if (res.body().empty() && !res.jsonValue.empty())
         {
             if (http_helpers::requestPrefersHtml(*req))
@@ -460,7 +529,26 @@ class Connection :
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         res.keepAlive(req->keepAlive());
+    }
 
+    void completeRequest()
+    {
+        crow::authorization::cleanupTempSession(*req);
+
+        if (!isAlive())
+        {
+            // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
+            // isReading
+            // << ' ' << isWriting;
+            // delete this;
+
+            // delete lambda with self shared_ptr
+            // to enable connection destruction
+            res.completeRequestHandler = nullptr;
+            return;
+        }
+
+        completeResponseFields(res);
         doWrite();
 
         // delete lambda with self shared_ptr
@@ -471,7 +559,6 @@ class Connection :
     void readClientIp()
     {
         boost::system::error_code ec;
-        BMCWEB_LOG_DEBUG << "Fetch the client IP address";
         boost::asio::ip::tcp::endpoint endpoint =
             boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
 
@@ -485,7 +572,36 @@ class Connection :
         else
         {
             req->ipAddress = endpoint.address();
+            BMCWEB_LOG_DEBUG << "Client IP address " << req->ipAddress;
         }
+    }
+
+    int send_server_connection_header()
+    {
+        BMCWEB_LOG_DEBUG << "send_server_connection_header()";
+
+        std::array<nghttp2_settings_entry, 1> iv = {
+            {NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS, 10}};
+        int rv = nghttp2_submit_settings(ngSession->get(), NGHTTP2_FLAG_NONE,
+                                         iv.data(), iv.size());
+        if (rv != 0)
+        {
+            BMCWEB_LOG_ERROR << "Fatal error: " << nghttp2_strerror(rv);
+            return -1;
+        }
+        return 0;
+    }
+
+    int session_send()
+    {
+        BMCWEB_LOG_DEBUG << "session_send()";
+        int rv = nghttp2_session_send(ngSession->get());
+        if (rv != 0)
+        {
+            BMCWEB_LOG_ERROR << "Fatal error: " << nghttp2_strerror(rv);
+            return -1;
+        }
+        return 0;
     }
 
   private:
@@ -495,7 +611,7 @@ class Connection :
 
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
-            adaptor, buffer, *parser,
+            adaptor, inBuffer, *parser,
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
@@ -535,7 +651,7 @@ class Connection :
 
                 // Note, despite the bmcweb coding policy on use of exceptions
                 // for error handling, this one particular use of exceptions is
-                // deemed acceptible, as it solved a significant error handling
+                // deemed acceptable, as it solved a significant error handling
                 // problem that resulted in seg faults, the exact thing that the
                 // exceptions rule is trying to avoid. If at some point,
                 // boost::urls makes the parser object public (or we port it
@@ -596,7 +712,7 @@ class Connection :
         BMCWEB_LOG_DEBUG << this << " doRead";
 
         boost::beast::http::async_read(
-            adaptor, buffer, *parser,
+            adaptor, inBuffer, *parser,
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
@@ -683,7 +799,7 @@ class Connection :
                 parser.emplace(std::piecewise_construct, std::make_tuple());
                 parser->body_limit(httpReqBodyLimit); // reset body limit for
                                                       // newly created parser
-                buffer.consume(buffer.size());
+                inBuffer.consume(inBuffer.size());
 
                 req.emplace(parser->get());
                 doReadHeaders();
@@ -752,7 +868,468 @@ class Connection :
                          << *timerCancelKey;
     }
 
+    struct SendPayload
+    {
+        std::weak_ptr<crow::Response> res;
+        size_t sent_sofar;
+    };
+
+    static ssize_t file_read_callback(nghttp2_session* /* session */,
+                                      int32_t /* stream_id */, uint8_t* buf,
+                                      size_t length, uint32_t* data_flags,
+                                      nghttp2_data_source* source, void*)
+    {
+        BMCWEB_LOG_DEBUG << "File read callback length: " << length;
+        SendPayload* str = reinterpret_cast<SendPayload*>(source->ptr);
+
+        std::shared_ptr<crow::Response> res = str->res.lock();
+        if (res == nullptr)
+        {
+            *data_flags |= NGHTTP2_DATA_FLAG_EOF;
+            return 0;
+        }
+
+        size_t to_send = std::min(res->body().size() - str->sent_sofar, length);
+        BMCWEB_LOG_DEBUG << "Sending " << to_send << " bytes";
+
+        memcpy(buf, res->body().data(), to_send);
+        str->sent_sofar += to_send;
+
+        if (str->sent_sofar >= res->body().size())
+        {
+            *data_flags |= NGHTTP2_DATA_FLAG_EOF;
+        }
+        return static_cast<ssize_t>(to_send);
+    }
+
+    int send_response(nghttp2_session* session, int32_t stream_id)
+    {
+        BMCWEB_LOG_DEBUG << "send_response stream_id:" << stream_id;
+
+        auto it = streams.find(stream_id);
+        if (it == streams.end())
+        {
+            close();
+            return -1;
+        }
+
+        crow::Response& res = *it->second->res;
+        std::vector<nghttp2_nv> hdr;
+
+        completeResponseFields(res);
+
+        // TODO(ed), this would need to be copied somewhere safe if we ever set
+        // NGHTTP2_NV_FLAG_NO_COPY_VALUE
+        boost::beast::http::fields& fields = res.stringResponse->base();
+        static std::string_view status = ":status";
+        std::string code = std::to_string(res.stringResponse->result_int());
+        hdr.emplace_back(nghttp2_nv{
+            const_cast<uint8_t*>(
+                reinterpret_cast<const uint8_t*>(status.data())),
+            const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(code.data())),
+            status.size(), code.size(), 0});
+
+        for (const boost::beast::http::fields::value_type& header : fields)
+        {
+            hdr.emplace_back(nghttp2_nv{
+                const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(
+                    header.name_string().data())),
+                const_cast<uint8_t*>(
+                    reinterpret_cast<const uint8_t*>(header.value().data())),
+                header.name_string().size(), header.value().size(), 0});
+        }
+
+        SendPayload sendPayload = {it->second->res, 0};
+
+        nghttp2_data_provider data_prd;
+
+        data_prd.source.ptr = &sendPayload;
+        data_prd.read_callback = file_read_callback;
+
+        int rv = nghttp2_submit_response(session, stream_id, hdr.data(),
+                                         hdr.size(), &data_prd);
+        if (rv != 0)
+        {
+            BMCWEB_LOG_ERROR << "Fatal error: " << nghttp2_strerror(rv);
+            close();
+            return -1;
+        }
+        send_buffer();
+
+        return 0;
+    }
+
+    void create_http2_stream_data(int32_t stream_id)
+    {
+        BMCWEB_LOG_DEBUG << "create_http2_stream_data for stream id "
+                         << stream_id;
+
+        std::unique_ptr<http2_stream_data> stream_data =
+            std::make_unique<http2_stream_data>();
+        streams.emplace(stream_id, std::move(stream_data));
+    }
+
+    void send_buffer()
+    {
+        BMCWEB_LOG_DEBUG << "send_buffer " << inBuffer.size()
+                         << " bytes to send";
+        if (socket_sending)
+        {
+            BMCWEB_LOG_DEBUG << "socket already sending";
+            return;
+        }
+
+        int r = session_send();
+        if (r != 0)
+        {
+            BMCWEB_LOG_ERROR << "session_send failed: " << r;
+            close();
+            return;
+        }
+
+        if (sendBuffer.size() == 0)
+        {
+            BMCWEB_LOG_DEBUG << "No data to send";
+            return;
+        }
+
+        socket_sending = true;
+        BMCWEB_LOG_DEBUG << "async_write_some sending " << sendBuffer.size()
+                         << " bytes";
+        adaptor.async_write_some(
+            sendBuffer.data(), [this, self(shared_from_this())](
+                                   boost::system::error_code ec, size_t bytes) {
+                BMCWEB_LOG_DEBUG << "Sent " << bytes << " bytes";
+                sendBuffer.consume(bytes);
+                socket_sending = false;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "async_write_some failed: " << ec;
+                    close();
+                    return;
+                }
+                ng_consume_input();
+                send_buffer();
+            });
+    }
+
+    static ssize_t send_callback(nghttp2_session*, const uint8_t* data,
+                                 size_t length, int, void* user_data)
+    {
+        BMCWEB_LOG_DEBUG << "send_callback";
+        if (user_data == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "user data was null?";
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+        Connection<Adaptor, Handler>* self =
+            reinterpret_cast<Connection<Adaptor, Handler>*>(user_data);
+        boost::system::error_code ec;
+        BMCWEB_LOG_DEBUG << "Writing " << length << " Bytes";
+
+        if (self->sendBuffer.capacity() - self->sendBuffer.size() < length)
+        {
+            BMCWEB_LOG_WARNING << "Returning would block capacity: "
+                               << self->sendBuffer.max_size() << " size "
+                               << self->sendBuffer.size() << " len:" << length;
+            return NGHTTP2_ERR_WOULDBLOCK;
+        }
+        std::array<boost::asio::const_buffer, 1> copyBuffer = {
+            boost::asio::buffer(data, length)};
+
+        size_t copied = boost::asio::buffer_copy(
+            self->sendBuffer.prepare(length), copyBuffer);
+        BMCWEB_LOG_DEBUG << "copied " << copied;
+        self->sendBuffer.commit(copied);
+
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "write_some failed with ec:" << ec;
+            self->close();
+        }
+        return static_cast<ssize_t>(copied);
+    }
+
+    void ng_consume_input()
+    {
+        size_t readSofar = 0;
+        for (boost::asio::const_buffer buf : inBuffer.data())
+        {
+            size_t bytesToRead = boost::asio::buffer_size(buf);
+            BMCWEB_LOG_DEBUG << "Buffer size " << bytesToRead;
+            if (bytesToRead <= 0)
+            {
+                BMCWEB_LOG_DEBUG << "No more data?";
+                break;
+            }
+            BMCWEB_LOG_DEBUG << "nghttp2_session_mem_recv calling with "
+                             << bytesToRead << " bytes";
+
+            ssize_t readLen = nghttp2_session_mem_recv(
+                ngSession->get(), reinterpret_cast<const uint8_t*>(buf.data()),
+                bytesToRead);
+
+            if (readLen <= 0)
+            {
+                BMCWEB_LOG_ERROR << "nghttp2_session_mem_recv returned "
+                                 << readLen;
+                return;
+            }
+            readSofar += static_cast<size_t>(readLen);
+        }
+        inBuffer.consume(readSofar);
+    }
+
+    void read_buffer()
+    {
+        BMCWEB_LOG_DEBUG << "read-buffer";
+        if (socket_reading)
+        {
+            BMCWEB_LOG_DEBUG << "socket already reading";
+            close();
+            return;
+        }
+
+        socket_reading = true;
+        adaptor.async_read_some(
+            inBuffer.prepare(8096),
+            [this, self(shared_from_this())](boost::system::error_code ec,
+                                             size_t bytes) {
+                socket_reading = false;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "async_read_some got error " << ec;
+                    close();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "async_read_some Got " << bytes << " bytes";
+
+                inBuffer.commit(bytes);
+                if (!socket_sending)
+                {
+                    ng_consume_input();
+                }
+
+                read_buffer();
+            });
+    }
+
+    int on_request_recv(nghttp2_session* session, int32_t stream_id)
+    {
+        BMCWEB_LOG_DEBUG << "on_request_recv";
+
+        auto it = streams.find(stream_id);
+        if (it == streams.end())
+        {
+            close();
+            return -1;
+        }
+
+        crow::Request& req = it->second->req;
+        BMCWEB_LOG_DEBUG << "Handling " << &req << " \"" << req.url << "\"";
+
+        it->second->res = std::make_shared<crow::Response>();
+
+        it->second->res->completeRequestHandler =
+            [this, session, stream_id, shared_res{it->second->res}]() {
+                // This request is complete, so no need to keep a reference to
+                // ourselves
+                shared_res->completeRequestHandler = nullptr;
+                BMCWEB_LOG_DEBUG << "res.completeRequestHandler called";
+                /*
+                if (!isAlive())
+                {
+                    BMCWEB_LOG_DEBUG << "Connection was closed";
+                    return;
+                }
+                */
+                if (send_response(session, stream_id) != 0)
+                {
+                    close();
+                    return;
+                }
+                send_buffer();
+            };
+
+        handler->handle(req, *it->second->res);
+
+        return 0;
+    }
+
+    static int on_frame_recv_callback(nghttp2_session* /* session */,
+                                      const nghttp2_frame* frame,
+                                      void* user_data)
+    {
+        BMCWEB_LOG_DEBUG << "on_frame_recv_callback";
+        if (user_data == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "user data was null?";
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+        Connection<Adaptor, Handler>* self =
+            reinterpret_cast<Connection<Adaptor, Handler>*>(user_data);
+        BMCWEB_LOG_DEBUG << "frame type " << static_cast<int>(frame->hd.type);
+        switch (frame->hd.type)
+        {
+            case NGHTTP2_DATA:
+            case NGHTTP2_HEADERS:
+                // Check that the client request has finished
+                if (frame->hd.flags & NGHTTP2_FLAG_END_STREAM)
+                {
+                    return self->on_request_recv(self->ngSession->get(),
+                                                 frame->hd.stream_id);
+                }
+                break;
+            default:
+                break;
+        }
+        return 0;
+    }
+
+    static int on_stream_close_callback(nghttp2_session* /* session */,
+                                        int32_t stream_id, uint32_t,
+                                        void* user_data)
+    {
+        BMCWEB_LOG_DEBUG << "on_stream_close_callback";
+        if (user_data == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "user data was null?";
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+        Connection<Adaptor, Handler>* self =
+            reinterpret_cast<Connection<Adaptor, Handler>*>(user_data);
+
+        self->streams.erase(stream_id);
+        return 0;
+    }
+
+    // nghttp2_on_header_callback: Called when nghttp2 library emits
+    //    single header name/value pair.
+
+    static int on_header_callback(nghttp2_session* /* session */,
+                                  const nghttp2_frame* frame,
+                                  const uint8_t* name, size_t namelen,
+                                  const uint8_t* value, size_t vallen, uint8_t,
+                                  void* user_data)
+    {
+
+        if (user_data == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "user data was null?";
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+        Connection<Adaptor, Handler>* self =
+            reinterpret_cast<Connection<Adaptor, Handler>*>(user_data);
+        std::string_view nameSv(reinterpret_cast<const char*>(name), namelen);
+        std::string_view valueSv(reinterpret_cast<const char*>(value), vallen);
+
+        BMCWEB_LOG_DEBUG << "on_header_callback name: " << nameSv << " value "
+                         << valueSv;
+
+        switch (frame->hd.type)
+        {
+            case NGHTTP2_HEADERS:
+                if (frame->headers.cat != NGHTTP2_HCAT_REQUEST)
+                {
+                    break;
+                }
+                auto thisStream = self->streams.find(frame->hd.stream_id);
+                if (thisStream == self->streams.end())
+                {
+                    BMCWEB_LOG_ERROR << "Unknown stream" << frame->hd.stream_id;
+                    self->close();
+                    return -1;
+                }
+
+                crow::Request& req = thisStream->second->req;
+
+                if (nameSv == ":path")
+                {
+                    try
+                    {
+                        // TODO Should use per stream structures
+                        req.req.target(valueSv);
+                        req.urlView = boost::urls::url_view(req.req.target());
+                        req.url = req.urlView.encoded_path();
+                        req.urlParams = req.urlView.params();
+                    }
+                    catch (std::exception& p)
+                    {
+                        BMCWEB_LOG_ERROR << p.what();
+                    }
+                }
+                else if (nameSv == ":method")
+                {
+                    req.req.method(boost::beast::http::string_to_verb(valueSv));
+                }
+                else if (nameSv == ":scheme")
+                {
+                    req.isSecure = valueSv == "https";
+                }
+                else
+                {
+                    req.fields.set(nameSv, valueSv);
+                }
+                break;
+        }
+        return 0;
+    }
+
+    static int on_begin_headers_callback(nghttp2_session* /* session */,
+                                         const nghttp2_frame* frame,
+                                         void* user_data)
+    {
+        BMCWEB_LOG_DEBUG << "on_begin_headers_callback";
+        if (user_data == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "user data was null?";
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+
+        Connection<Adaptor, Handler>* self =
+            reinterpret_cast<Connection<Adaptor, Handler>*>(user_data);
+
+        if (frame->hd.type != NGHTTP2_HEADERS ||
+            frame->headers.cat != NGHTTP2_HCAT_REQUEST)
+        {
+            return 0;
+        }
+        self->create_http2_stream_data(frame->hd.stream_id);
+        return 0;
+    }
+
+    void initialize_nghttp2_session()
+    {
+        nghttp2_session_callbacks_ptr callbacks;
+
+        nghttp2_session_callbacks_set_send_callback(callbacks.get(),
+                                                    send_callback);
+
+        nghttp2_session_callbacks_set_on_frame_recv_callback(
+            callbacks.get(), on_frame_recv_callback);
+
+        nghttp2_session_callbacks_set_on_stream_close_callback(
+            callbacks.get(), on_stream_close_callback);
+
+        nghttp2_session_callbacks_set_on_header_callback(callbacks.get(),
+                                                         on_header_callback);
+
+        nghttp2_session_callbacks_set_on_begin_headers_callback(
+            callbacks.get(), on_begin_headers_callback);
+
+        ngSession.emplace(callbacks);
+
+        nghttp2_session_set_user_data(ngSession->get(), this);
+    }
+
   private:
+    boost::container::flat_map<int32_t, std::unique_ptr<http2_stream_data>>
+        streams;
+
+    std::optional<nghttp2_session_ptr> ngSession;
+    bool socket_sending = false;
+    bool socket_reading = false;
+
     Adaptor adaptor;
     Handler* handler;
 
@@ -762,7 +1339,9 @@ class Connection :
         boost::beast::http::request_parser<boost::beast::http::string_body>>
         parser;
 
-    boost::beast::flat_static_buffer<8192> buffer;
+    boost::beast::flat_static_buffer<8096> sendBuffer;
+
+    boost::beast::multi_buffer inBuffer;
 
     std::optional<boost::beast::http::response_serializer<
         boost::beast::http::string_body>>
@@ -774,9 +1353,6 @@ class Connection :
     std::weak_ptr<persistent_data::UserSession> session;
 
     std::optional<size_t> timerCancelKey;
-
-    bool needToCallAfterHandlers{};
-    bool needToStartReadAfterComplete{};
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;

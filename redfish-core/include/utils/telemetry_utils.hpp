@@ -40,7 +40,7 @@ inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
             for (const std::string& report : reports)
             {
                 sdbusplus::message::object_path path(report);
-                std::string name = path.filename();
+                std::string name; // = path.filename();
                 if (name.empty())
                 {
                     BMCWEB_LOG_ERROR << "Received invalid path: " << report;

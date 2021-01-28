@@ -210,6 +210,14 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
   endif
 endif
 
+add_project_arguments([
+  '-DBMCWEB_ENABLE_LOGGING',
+  '-DBMCWEB_ENABLE_DEBUG',
+  '-DDEBUGBUILD',
+  '-DBOOST_ASIO_ENABLE_BUFFER_DEBUGGING',
+  ],
+language : 'cpp')
+
 # Set Compiler Security flags
 
 security_flags = [
@@ -259,6 +267,10 @@ pam = cxx.find_library('pam', required: get_option('pam'))
 atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
+
+nghttp2 = dependency('libnghttp2', required : true)
+bmcweb_dependencies += nghttp2
+
 
 sdbusplus = dependency('sdbusplus',required : false)
 if not sdbusplus.found()
@@ -390,7 +402,14 @@ if(get_option('tests').enabled())
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus,pam
+                                boost,
+                                boost_url,
+                                gtest,openssl,
+                                gmock,
+                                nlohmann_json,
+                                sdbusplus,
+                                pam,
+                                nghttp2
                               ]))
   endforeach
 endif
