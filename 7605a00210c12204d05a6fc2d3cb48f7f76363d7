@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4692bc5_44293ce9",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T23:38:38Z",
+      "side": 1,
+      "message": "Please don\u0027t do dbus-redfish enumm conversions that way.  Please use a method, and a simple if/else if ladder.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 57
+      },
+      "revId": "7605a00210c12204d05a6fc2d3cb48f7f76363d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b416a7eb_839c5230",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T23:38:38Z",
+      "side": 1,
+      "message": "extra parens.  There\u0027s lots of these in your file, please fix all of them.",
+      "range": {
+        "startLine": 140,
+        "startChar": 31,
+        "endLine": 140,
+        "endChar": 63
+      },
+      "revId": "7605a00210c12204d05a6fc2d3cb48f7f76363d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6512001_028a3045",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T23:38:38Z",
+      "side": 1,
+      "message": "This doesn\u0027t handle 404 properly.  Please test 404 cases.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 45
+      },
+      "revId": "7605a00210c12204d05a6fc2d3cb48f7f76363d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
