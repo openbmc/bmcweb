@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "804539ef_e0234fba",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-28T16:47:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "673035a0_1b1aa174",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 38
+      },
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdd1e3c3_b8249cbb",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 25
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "this is move, not copy, see L:366",
       "parentUuid": "cdd1e3c3_b8249cbb",
+      "range": {
+        "startLine": 396,
+        "startChar": 25,
+        "endLine": 396,
+        "endChar": 30
+      },
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6efa6f3_0c75c385",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-28T16:47:51Z",
+      "side": 1,
+      "message": "You are pointing at other location that is not related to my comment. You can move it here. Right now you are making a copy here.",
+      "parentUuid": "bc494f3f_00c3b64c",
       "range": {
         "startLine": 396,
         "startChar": 25,
