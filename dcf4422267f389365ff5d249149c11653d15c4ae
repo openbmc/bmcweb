@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bfb7807_a8df9324",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-28T21:56:39Z",
+      "side": 1,
+      "message": "Can we drop VPD?\nI don\u0027t see that used as a industry standard term and I don\u0027t think it helps describe what this commit is doing.",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "dcf4422267f389365ff5d249149c11653d15c4ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
