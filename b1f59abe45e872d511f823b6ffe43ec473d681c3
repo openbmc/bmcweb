@@ -165,6 +165,30 @@
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f1b4e1_75be1e99",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T20:43:38Z",
+      "side": 1,
+      "message": "It\u0027s subtle that asyncResp can be moved here, and doesn\u0027t need copied.  I really prefer whats there currently, because it\u0027s really obvious that it\u0027s correct, and unlikely to break, whereas moves can subtly break. \n Considering openbmc runs single threaded, and a shared_ptr move copy is really really cheap, I\u0027m not concerned about this level of optimization.  I suspect the compiler can generate the same code either way (although I haven\u0027t verified that).\n\nIt should be noted, we need to come up with a good set of rules for handling async resp (when to take them by value, when to take by reference, ect) and apply it universally across the project.  At the moment, we\u0027re inconsistent, which doesn\u0027t hurt us much, but it would be good to have one solid pattern for this.",
+      "parentUuid": "d6efa6f3_0c75c385",
+      "range": {
+        "startLine": 396,
+        "startChar": 25,
+        "endLine": 396,
+        "endChar": 30
+      },
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
