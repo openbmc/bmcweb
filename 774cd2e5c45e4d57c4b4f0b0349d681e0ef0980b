@@ -46,6 +46,30 @@
       "revId": "774cd2e5c45e4d57c4b4f0b0349d681e0ef0980b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3a58816_f0aa607a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T23:34:02Z",
+      "side": 1,
+      "message": "Not done.  It\u0027s still a 1 sentence commit message.  Please give it another attempt.",
+      "parentUuid": "bd64cf2b_771bc40f",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "774cd2e5c45e4d57c4b4f0b0349d681e0ef0980b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
