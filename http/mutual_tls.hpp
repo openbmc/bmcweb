@@ -3,8 +3,9 @@
 #include <logging.hpp>
 #include <persistent_data.hpp>
 
-std::shared_ptr<persistent_data::UserSession>
-    verifyMtlsUser(const boost::asio::ip::address& clientIp, bool preverified, boost::asio::ssl::verify_context& ctx)
+inline std::shared_ptr<persistent_data::UserSession>
+    verifyMtlsUser(const boost::asio::ip::address& clientIp, bool preverified,
+                   boost::asio::ssl::verify_context& ctx)
 {
     // do nothing if TLS is disabled
     if (!persistent_data::SessionStore::getInstance()
