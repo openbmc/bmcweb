@@ -22,6 +22,30 @@
       "revId": "fc35eb1447c9a3d823cb03fa45722700b2109087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ddddb2_54f5b7f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:35:34Z",
+      "side": 1,
+      "message": "\u003e (continuing from the PS4 comment)\n\u003e We discussed this in the 2020-01-20 meeting on the OpenBMC security working group https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI\n\u003e There are some use cases to disable the HTTPS interface, for example, on a BMC controlled by KCS.  Therefore this interface is worthwhile to add to BMCWeb.\n\nThis is not my recollection of this discussion.   I thought we agreed that disabling the HTTPS interface FROM the HTTPS interface should not be allowed, because it allows a user to inadvertently lock themselves out.  Disabling HTTPS from IPMI is completely reasonable.\n\n\u003e  We discussed the idea of using a \"block list\" to block users from disabling HTTPS; that block list would not be in BMCWeb but would be at the D-Bus API layer (xyz.openbmc_project.Control.Service.Attributes at /xyz/openbmc_project/control/service/).  The default would be that HTTPS is blocked (meaning it would always stay enabled).\n\u003e \n\u003e With this model, the D-Bus service manager would handle scenarios where the user locks themselves out.\n\ndbus service manager doesn\u0027t have the channel information, so it can\u0027t prevent this issue.\n\n\u003e  For example, if IPMI and HTTPS are the only two interfaces available, then the service manager should not allow both of them to be disabled.\n\u003e \n\u003e Does this resolve this comment?  If so, I propose creating an issue to enhance the service manager, and proceed with this commit.\n\nDisagree.  IF that\u0027s the plan, the merging of that feature into service cfg manager would be a pre-req of this patch.\n\nLets regroup in the next security WG and see if we just got our wires crossed.",
+      "parentUuid": "53e4b7ed_bffc5599",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "fc35eb1447c9a3d823cb03fa45722700b2109087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
