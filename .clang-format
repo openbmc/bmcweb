@@ -59,7 +59,7 @@ IncludeBlocks: Regroup
 IncludeCategories:
   - Regex:           '^[<"](gtest|gmock)'
     Priority:        7
-  - Regex:           '^"config.h"'
+  - Regex:           '^"bmcweb_config.h"'
     Priority:        -1
   - Regex:           '^".*\.h"'
     Priority:        1
