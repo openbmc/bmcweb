@@ -187,8 +187,7 @@ static std::shared_ptr<persistent_data::UserSession>
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
-    performTLSAuth(Response& res,
-                   const boost::beast::http::header<true>& reqHeader,
+    performTLSAuth(const boost::beast::http::header<true>& reqHeader,
                    const std::weak_ptr<persistent_data::UserSession>& session)
 {
     if (auto sp = session.lock())
@@ -204,14 +203,6 @@ static std::shared_ptr<persistent_data::UserSession>
         if (cookieValue.empty() ||
             cookieValue.find("SESSION=") == std::string::npos)
         {
-            // TODO: change this to not switch to cookie auth
-            res.addHeader(
-                "Set-Cookie",
-                "XSRF-TOKEN=" + sp->csrfToken +
-                    "; SameSite=Strict; Secure\r\nSet-Cookie: SESSION=" +
-                    sp->sessionToken +
-                    "; SameSite=Strict; Secure; HttpOnly\r\nSet-Cookie: "
-                    "IsAuthenticated=true; Secure");
             BMCWEB_LOG_DEBUG << " TLS session: " << sp->uniqueId
                              << " with cookie will be used for this request.";
             return sp;
@@ -260,7 +251,6 @@ static std::shared_ptr<persistent_data::UserSession>
 [[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     authenticate(
         const boost::asio::ip::address& ipAddress [[maybe_unused]],
-        Response& res [[maybe_unused]],
         boost::beast::http::verb method [[maybe_unused]],
         const boost::beast::http::header<true>& reqHeader,
         [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
@@ -273,7 +263,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (authMethodsConfig.tls)
     {
-        sessionOut = performTLSAuth(res, reqHeader, session);
+        sessionOut = performTLSAuth(reqHeader, session);
     }
 #endif
 #ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION

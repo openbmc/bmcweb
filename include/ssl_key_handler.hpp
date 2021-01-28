@@ -420,6 +420,31 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     }
 }
 
+static int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
+                             unsigned int* len, void* /*unused*/)
+{
+    // First byte is the length.
+    constexpr std::string_view h2 = "\x02h2";
+    *data = std::bit_cast<const unsigned char*>(h2.data());
+    *len = static_cast<unsigned int>(h2.size());
+    return SSL_TLSEXT_ERR_OK;
+}
+
+static int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
+                                   unsigned char* outlen,
+                                   const unsigned char* in, unsigned int inlen,
+                                   void* /*unused*/)
+{
+    int rv = nghttp2_select_next_protocol(const_cast<unsigned char**>(out),
+                                          outlen, in, inlen);
+    if (rv != 1)
+    {
+        return SSL_TLSEXT_ERR_NOACK;
+    }
+
+    return SSL_TLSEXT_ERR_OK;
+}
+
 inline std::shared_ptr<boost::asio::ssl::context>
     getSslContext(const std::string& sslPemFile)
 {
@@ -446,6 +471,12 @@ inline std::shared_ptr<boost::asio::ssl::context>
                                       boost::asio::ssl::context::pem);
     mSslContext->use_private_key_file(sslPemFile,
                                       boost::asio::ssl::context::pem);
+
+    SSL_CTX_set_next_protos_advertised_cb(mSslContext->native_handle(),
+                                          nextProtoCallback, nullptr);
+
+    SSL_CTX_set_alpn_select_cb(mSslContext->native_handle(),
+                               alpnSelectProtoCallback, nullptr);
 
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio

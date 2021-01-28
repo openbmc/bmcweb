@@ -41,7 +41,6 @@ inline std::shared_ptr<persistent_data::UserSession>
     // Check that we have reached final certificate in chain
     int32_t depth = X509_STORE_CTX_get_error_depth(cts);
     if (depth != 0)
-
     {
         BMCWEB_LOG_DEBUG << "Certificate verification in progress (depth "
                          << depth << "), waiting to reach final depth";
@@ -56,17 +55,15 @@ inline std::shared_ptr<persistent_data::UserSession>
 
     ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
         X509_get_ext_d2i(peerCert, NID_key_usage, nullptr, nullptr));
-
     if (usage == nullptr)
     {
         BMCWEB_LOG_DEBUG << "TLS usage is null";
         return nullptr;
     }
 
-    for (int i = 0; i < usage->length; i++)
+    for (unsigned char usageChar : std::span<unsigned char>{
+             usage->data, static_cast<size_t>(usage->length)})
     {
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        unsigned char usageChar = usage->data[i];
         if (KU_DIGITAL_SIGNATURE & usageChar)
         {
             isKeyUsageDigitalSignature = true;
@@ -87,7 +84,6 @@ inline std::shared_ptr<persistent_data::UserSession>
     }
 
     // Determine that ExtendedKeyUsage includes Client Auth
-
     stack_st_ASN1_OBJECT* extUsage = static_cast<stack_st_ASN1_OBJECT*>(
         X509_get_ext_d2i(peerCert, NID_ext_key_usage, nullptr, nullptr));
 

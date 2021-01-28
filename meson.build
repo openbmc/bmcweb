@@ -258,6 +258,17 @@ atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
+if(get_option('tests').enabled())
+
+nghttp2 = dependency('libnghttp2', required : false)
+  if not nghttp2.found()
+    nghttp2_proj = subproject('nghttp2', required: true)
+    nghttp2.get_variable('nghttp2_dep')
+    nghttp2 = nghttp2_proj.as_system('system')
+  endif
+  bmcweb_dependencies += nghttp2
+endif
+
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
