@@ -448,6 +448,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf3199b2_a2ce5df0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-01-28T04:39:39Z",
+      "side": 1,
+      "message": "The backend dbus call to set the pending attributes has the signature a{s(sv)}.\nIt calls for {attribute name \u003d\u003e attribute type and value}. So to get the attribute type, the idea was, if we have a map of all the attribute names and its corresponding types, we could directly get it from there.",
+      "parentUuid": "d9c185ba_8abf1d6b",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
