@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8457ca46_c2a371d0",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "These APIs didn\u0027t really need to change, right?  There\u0027s no raii handling of the async resp in this context, so it doesn\u0027t need to take any ownership.\n\nJust call the old function with asyncresp-\u003eres.\n\nWith that said, up to you if you want to go back now.  This is arguably no worse, just a little extra unnecessary code.",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 46,
+        "endChar": 74
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72928d99_fac52b61",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "FYI, if your goal is to make this look like an odata collection API, that\u0027s not what it looks like.\n\nWith that said, this is in IBM OEM, so do what you want.",
+      "range": {
+        "startLine": 233,
+        "startChar": 4,
+        "endLine": 233,
+        "endChar": 65
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ae3f6f_9b4a43d8",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t need explicitly set.  This is the default.",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 62
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "239cc3f2_1a1b09a2",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "This is the wrong return code for this kind of thing.  unauthorized means \"we can\u0027t identify your identity\".  The only thing that should be doing that is the bmcweb auth core.\n\nThis should likely be 503, service unavailable, with a Retry-After header set.",
+      "range": {
+        "startLine": 567,
+        "startChar": 4,
+        "endLine": 567,
+        "endChar": 68
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d1eea81_02a57e46",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "This is also a copy.  Not a problem in this patchset, but still an issue.",
+      "range": {
+        "startLine": 586,
+        "startChar": 41,
+        "endLine": 586,
+        "endChar": 51
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd05be8c_04ff7a9a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "Not a change in this patchset, but this is a copy.  You\u0027re probably better off just building this in place.",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 54
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8295c5f2_bf84b127",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 630,
+        "endChar": 11
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5702ae47_73a2c527",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 712,
+        "startChar": 0,
+        "endLine": 712,
+        "endChar": 23
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a410858a_d2aad2fd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "See below.   This isn\u0027t needed.",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 79
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f094c371_abf24adc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-28T17:56:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be set, the redfish utilities do this for you.\n\nWith that said, this is using redfish utilities where it shouldn\u0027t, but that\u0027s a different discussion.",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 79
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
