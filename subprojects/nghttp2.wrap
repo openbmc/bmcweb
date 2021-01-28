@@ -1,0 +1,5 @@
+[wrap-file]
+directory = nghttp2-1.46.0
+url = https://github.com/nghttp2/nghttp2/releases/download/v1.46.0/nghttp2-1.46.0.tar.xz
+source_filename = nghttp2-1.46.0.tar.xz
+source_hash = cc2f1417c308b1f6acc54f88eb70771a0bf65f76282ce5c40e54cfe52952702c
