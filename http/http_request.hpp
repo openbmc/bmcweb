@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common.hpp"
 #include "sessions.hpp"
 
 #include <boost/asio/io_context.hpp>
@@ -40,6 +39,8 @@ struct Request
         }
     }
 
+    Request() = default;
+
     Request(const Request& other) :
         req(other.req), isSecure(other.isSecure), ioService(other.ioService),
         ipAddress(other.ipAddress), session(other.session),
@@ -57,7 +58,7 @@ struct Request
     }
 
     Request& operator=(const Request&) = delete;
-    Request& operator=(const Request&&) = delete;
+    Request& operator=(Request&&) = delete;
     ~Request() = default;
 
     boost::beast::http::verb method() const
