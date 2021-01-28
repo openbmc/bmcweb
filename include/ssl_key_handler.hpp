@@ -3,6 +3,7 @@
 #include "logging.hpp"
 #include "random.hpp"
 
+#include <nghttp2/nghttp2.h>
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -423,6 +424,34 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     }
 }
 
+inline int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
+                             unsigned int* len, void* /*unused*/)
+{
+    // First byte is the length.
+    constexpr std::string_view h2 = "\x02h2";
+    *data = std::bit_cast<const unsigned char*>(h2.data());
+    *len = static_cast<unsigned int>(h2.size());
+    return SSL_TLSEXT_ERR_OK;
+}
+
+inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
+                                   unsigned char* outlen,
+                                   const unsigned char* in, unsigned int inlen,
+                                   void* /*unused*/)
+{
+    // There's a mismatch in constness for nghttp2_select_next_protocol.  The
+    // examples in nghttp2 don't show this problem.  Unclear what the right fix
+    // is here. NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    unsigned char** outNew = const_cast<unsigned char**>(out);
+    int rv = nghttp2_select_next_protocol(outNew, outlen, in, inlen);
+    if (rv != 1)
+    {
+        return SSL_TLSEXT_ERR_NOACK;
+    }
+
+    return SSL_TLSEXT_ERR_OK;
+}
+
 inline std::shared_ptr<boost::asio::ssl::context>
     getSslContext(const std::string& sslPemFile)
 {
@@ -450,6 +479,14 @@ inline std::shared_ptr<boost::asio::ssl::context>
     mSslContext->use_private_key_file(sslPemFile,
                                       boost::asio::ssl::context::pem);
 
+    if constexpr (bmcwebEnableHTTP2)
+    {
+        SSL_CTX_set_next_protos_advertised_cb(mSslContext->native_handle(),
+                                              nextProtoCallback, nullptr);
+
+        SSL_CTX_set_alpn_select_cb(mSslContext->native_handle(),
+                                   alpnSelectProtoCallback, nullptr);
+    }
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio
     // drop, use the right way
