@@ -114,38 +114,32 @@ static const Message* formatMessage(const std::string_view& messageID)
 
 namespace event_log
 {
-inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
-                             const bool firstEntry = true)
+inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID)
 {
-    static time_t prevTs = 0;
-    static int index = 0;
-    if (firstEntry)
-    {
-        prevTs = 0;
-    }
-
     // Get the entry timestamp
-    std::time_t curTs = 0;
     std::tm timeStruct = {};
     std::istringstream entryStream(logEntry);
     if (entryStream >> std::get_time(&timeStruct, "%Y-%m-%dT%H:%M:%S"))
     {
-        curTs = std::mktime(&timeStruct);
-        if (curTs == -1)
+        time_t seconds = std::mktime(&timeStruct);
+        if (seconds == -1)
         {
             return false;
         }
+
+        size_t dot = logEntry.find_first_of(".");
+        if (dot == std::string::npos)
+        {
+            return false;
+        }
+        // 2015-10-24T06:54:38.383093 => 6 digits for microseconds
+        std::string microSec = logEntry.substr((dot + 1), 6);
+        entryID = std::to_string(seconds) + "_";
+        entryID += microSec;
     }
-    // If the timestamp isn't unique, increment the index
-    index = (curTs == prevTs) ? index + 1 : 0;
-
-    // Save the timestamp
-    prevTs = curTs;
-
-    entryID = std::to_string(curTs);
-    if (index > 0)
+    else
     {
-        entryID += "_" + std::to_string(index);
+        return false;
     }
     return true;
 }
@@ -1151,7 +1145,6 @@ class EventServiceManager
         std::vector<EventLogObjectsType> eventRecords;
 
         bool startLogCollection = false;
-        bool firstEntry = true;
 
         std::string logEntry;
         while (std::getline(logStream, logEntry))
@@ -1166,11 +1159,10 @@ class EventServiceManager
             }
 
             std::string idStr;
-            if (!event_log::getUniqueEntryID(logEntry, idStr, firstEntry))
+            if (!event_log::getUniqueEntryID(logEntry, idStr))
             {
                 continue;
             }
-            firstEntry = false;
 
             std::string timestamp;
             std::string messageID;
