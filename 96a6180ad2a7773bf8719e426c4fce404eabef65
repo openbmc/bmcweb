@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "1252e982_9ee514f3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-28T20:23:08Z",
+      "side": 1,
+      "message": "The GetSubTree is on all CPU inventory items not just cores. \nI guess it isn\u0027t much different than line 559.",
+      "parentUuid": "ff2a9dd4_1b98ed01",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 52
+      },
+      "revId": "96a6180ad2a7773bf8719e426c4fce404eabef65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f701ae5_77424f5e",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
