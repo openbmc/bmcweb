@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3528b623_c631d89a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-28T21:58:59Z",
+      "side": 1,
+      "message": "nitpick remove",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "367fb1cf6e9ffed6b7b94e3e5648b48a1a677fd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "643106a7_8424bfcb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -31,6 +54,23 @@
       "side": 1,
       "message": "We require running the Redfish Validator, verifying it passes, and adding the output to the tested tag.",
       "parentUuid": "643106a7_8424bfcb",
+      "revId": "367fb1cf6e9ffed6b7b94e3e5648b48a1a677fd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a93d8f67_b389a7f6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-28T21:58:59Z",
+      "side": 1,
+      "message": "Needs bumped to 1_11 otherwise validator will fail. \nhttps://redfish.dmtf.org/schemas/v1/Memory.v1_11_0.json\n\n                \"SparePartNumber\": {\n                    \"description\": \"The spare part number of the memory.\",\n                    \"longDescription\": \"This property shall contain the spare part number of the memory.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ],\n                    \"versionAdded\": \"v1_11_0\"\n                },",
       "revId": "367fb1cf6e9ffed6b7b94e3e5648b48a1a677fd5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
