@@ -21,7 +21,7 @@ namespace crow
 namespace authorization
 {
 
-static void cleanupTempSession(Request& req)
+static void cleanupTempSession(const Request& req)
 {
     // TODO(ed) THis should really be handled by the persistent data
     // middleware, but because it is upstream, it doesn't have access to the
