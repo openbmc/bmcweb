@@ -131,7 +131,7 @@ int main(int /*argc*/, char** /*argv*/)
 
 #ifdef BMCWEB_ENABLE_SSL
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
-    crow::hostname_monitor::registerHostnameSignal();
+    // crow::hostname_monitor::registerHostnameSignal();
 #endif
 
     app.run();
