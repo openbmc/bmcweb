@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f62823f6_0d7e65f5",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-29T16:40:51Z",
+      "side": 1,
+      "message": "This is actually better than string view in this case, because in the code that calls this, we have to convert this to a std::string anyway to load into the json object.  This is arguably no worse.\n\nAlso, the subtleties of returning a string_view from a method can be very non-intuitive.  In this case, it would be fine, but it would be very easy for someone to accidentally return a view pointing to an rvalue reference.\n\nThis is all to say, I think this is fine as is, and follows a pattern we use all over the place.",
+      "parentUuid": "df665683_fa67e106",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b8ad424_2fc47254",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2021-01-29T15:21:10Z",
       "side": 1,
       "message": "nit Consider to return it as nullopt",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea613f38_2b9fc939",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-29T16:40:51Z",
+      "side": 1,
+      "message": "You can\u0027t return nullopt on a string.  We\u0027d have to change to std::optional\u003cstring\u003e",
+      "parentUuid": "3b8ad424_2fc47254",
       "range": {
         "startLine": 38,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4a05f22a_fac051f9",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-29T16:40:51Z",
+      "side": 1,
+      "message": "you can\u0027t move from a const reference.  He could pass it by value to this function, but that\u0027s functionally the same as moving here, and this is less code.",
+      "parentUuid": "a4c89b75_e5718e27",
+      "range": {
+        "startLine": 97,
+        "startChar": 9,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "808f1090_8b34b5b6",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2229de71_4ba96c51",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-29T16:40:51Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "808f1090_8b34b5b6",
+      "range": {
+        "startLine": 168,
+        "startChar": 36,
+        "endLine": 169,
+        "endChar": 45
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f9cd5ee_f603e2e7",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 9
@@ -105,6 +201,30 @@
       "writtenOn": "2021-01-29T15:21:10Z",
       "side": 1,
       "message": "You could set null on \"PCIeType\" property instead omitting it. It allows user and developer to check if response is filled with proper data or sth is missing.",
+      "range": {
+        "startLine": 174,
+        "startChar": 37,
+        "endLine": 174,
+        "endChar": 53
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f9e6a2e_dd0565d4",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-29T16:40:51Z",
+      "side": 1,
+      "message": "He should set internal error if pciieType.empty(), not null.",
+      "parentUuid": "2f9cd5ee_f603e2e7",
       "range": {
         "startLine": 174,
         "startChar": 37,
