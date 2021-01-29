@@ -18,6 +18,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/task_event_message_registry.hpp"
 
 #include <sys/inotify.h>
 
@@ -64,6 +65,41 @@ using EventLogObjectsType =
 
 namespace message_registries
 {
+static bool
+    isValidMessageId(const std::string& messageId,
+                     const boost::beast::span<const MessageEntry>& registry)
+{
+    boost::beast::span<const MessageEntry>::const_iterator messageIdIt =
+        std::find_if(registry.cbegin(), registry.cend(),
+                     [&messageId](const MessageEntry& messageEntry) {
+                         return !messageId.compare(messageEntry.first);
+                     });
+    if (messageIdIt != registry.cend())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+static const boost::beast::span<const MessageEntry>
+    getRegistryFromPrefix(const std::string& registryName)
+{
+    if (std::string(task_event::header.registryPrefix) == registryName)
+    {
+        return boost::beast::span<const MessageEntry>(task_event::registry);
+    }
+    else if (std::string(openbmc::header.registryPrefix) == registryName)
+    {
+        return boost::beast::span<const MessageEntry>(openbmc::registry);
+    }
+    else if (std::string(base::header.registryPrefix) == registryName)
+    {
+        return boost::beast::span<const MessageEntry>(base::registry);
+    }
+    return boost::beast::span<const MessageEntry>(openbmc::registry);
+}
+
 static const Message*
     getMsgFromRegistry(const std::string& messageKey,
                        const boost::beast::span<const MessageEntry>& registry)
@@ -97,18 +133,7 @@ static const Message* formatMessage(const std::string_view& messageID)
     std::string& messageKey = fields[3];
 
     // Find the right registry and check it for the MessageKey
-    if (std::string(base::header.registryPrefix) == registryName)
-    {
-        return getMsgFromRegistry(
-            messageKey, boost::beast::span<const MessageEntry>(base::registry));
-    }
-    if (std::string(openbmc::header.registryPrefix) == registryName)
-    {
-        return getMsgFromRegistry(
-            messageKey,
-            boost::beast::span<const MessageEntry>(openbmc::registry));
-    }
-    return nullptr;
+    return getMsgFromRegistry(messageKey, getRegistryFromPrefix(registryName));
 }
 } // namespace message_registries
 
