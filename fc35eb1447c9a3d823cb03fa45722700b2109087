@@ -46,6 +46,30 @@
       "revId": "fc35eb1447c9a3d823cb03fa45722700b2109087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95fac53c_fe2afff0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-01-29T00:14:16Z",
+      "side": 1,
+      "message": "Yes, we did agree to that. It was not my intention to repeat all the details in the review comments here (so apologies for being unclear).  Did you think BMCWeb itself would block disabling HTTPS, or that would be handled by the service manager?\n\nI had thought we would have to enhance the service manager D-Bus information to provide channel information.  I also had not understood the service manager enhancement would be a pre-req.\n\nSo let\u0027s discuss in email or Security WG.",
+      "parentUuid": "38ddddb2_54f5b7f3",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "fc35eb1447c9a3d823cb03fa45722700b2109087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
