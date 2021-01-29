@@ -165,6 +165,30 @@
       "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e5ca62_f412dd2b",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-01-29T12:41:14Z",
+      "side": 1,
+      "message": "I\u0027ll open an issue.\n\nhttps://github.com/openbmc/phosphor-objmgr/issues/20",
+      "parentUuid": "6ee7d284_c144cce8",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 65
+      },
+      "revId": "f4ddcbf94cb7a892dbf701dc7d1bf335703f3812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
