@@ -172,6 +172,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntryCollection>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntry>(app));
+        nodes.emplace_back(std::make_unique<DBusEventLogEntryDownload>(app));
 #endif
 
         nodes.emplace_back(
