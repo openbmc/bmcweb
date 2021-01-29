@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4a6624ae_6ece320f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-29T16:17:39Z",
+      "side": 1,
+      "message": "\u003e We wanted the proper error message returned to the client.\n\nI don\u0027t understand this. Shouldn\u0027t the same error message be returned to the client no matter what wrong  content-type was passed? \n\nI.e. I would expect to see for any wrong content-type\n\n        res.result(boost::beast::http::status::not_acceptable);\n        res.jsonValue[\"Description\"] \u003d contentNotAcceptableMsg;\n\nSunitha, do you mind putting up another commit to do this and the comment above?",
+      "parentUuid": "0b979eff_a4176c01",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 63
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7b25d03_82406715",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
