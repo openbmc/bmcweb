@@ -22,9 +22,12 @@
 #include "task.hpp"
 
 #include <systemd/sd-journal.h>
+#include <unistd.h>
 
+#include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/beast/core/span.hpp>
+#include <boost/beast/http.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
 #include <error_messages.hpp>
@@ -1754,6 +1757,131 @@ class DBusEventLogEntry : public Node
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
+    }
+};
+
+class DBusEventLogEntryDownload : public Node
+{
+  public:
+    DBusEventLogEntryDownload(App& app) :
+        Node(
+            app,
+            "/redfish/v1/Systems/system/LogServices/EventLog/attachment/<str>/",
+            std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::string_view acceptHeader = req.getHeaderValue("Accept");
+        // The iterators in boost/http/rfc7230.hpp end the string if '/' is
+        // found, so replace it with arbitrary character '|' which is not part
+        // of the Accept header syntax.
+        std::string acceptStr =
+            boost::replace_all_copy(std::string(acceptHeader), "/", "|");
+        boost::beast::http::ext_list acceptTypes{acceptStr};
+        bool supported = false;
+        for (const auto& type : acceptTypes)
+        {
+            if ((type.first == "*|*") ||
+                (type.first == "application|octet-stream"))
+            {
+                supported = true;
+                break;
+            }
+        }
+        if (!supported)
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+
+        std::string entryID = params[0];
+        dbus::utility::escapePathForDbus(entryID);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, entryID](const boost::system::error_code ec,
+                                 const sdbusplus::message::unix_fd& unixfd) {
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EventLogAttachment", entryID);
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                int fd = -1;
+                fd = dup(unixfd);
+                if (fd == -1)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                long long int size = lseek(fd, 0, SEEK_END);
+                if (size == -1)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                // Arbitrary max size of 64kb
+                constexpr int maxFileSize = 65536;
+                if (size > maxFileSize)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "File size exceeds maximum allowed size of "
+                        << maxFileSize;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                std::vector<char> data(static_cast<size_t>(size));
+                long long int rc = lseek(fd, 0, SEEK_SET);
+                if (rc == -1)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                rc = read(fd, data.data(), data.size());
+                if ((rc == -1) || (rc != size))
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                close(fd);
+
+                std::string_view strData(data.data(), data.size());
+                std::string output = crow::utility::base64encode(strData);
+
+                asyncResp->res.addHeader("Content-Type",
+                                         "application/octet-stream");
+                asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+                asyncResp->res.body() = std::move(output);
+            },
+            "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "xyz.openbmc_project.Logging.Entry", "GetEntry");
     }
 };
 
