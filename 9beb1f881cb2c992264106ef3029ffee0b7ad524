@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1367edf0_cc6591fc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f73cb41e_790177ed",
+      "range": {
+        "startLine": 88,
+        "startChar": 54,
+        "endLine": 88,
+        "endChar": 68
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66595cb9_a1aa7a36",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b979eff_a4176c01",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "Yes. That also can be done. We wanted the proper error message returned to the client.",
+      "parentUuid": "66595cb9_a1aa7a36",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 63
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c0f6c3c5_1fd82a1b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b25d03_82406715",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 115,
+        "endChar": 60
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50faaa6a_4fbc83f2",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
@@ -91,6 +163,30 @@
       "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e3708d_9840685b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "We want to retain the file until its successfully updated with the new incoming data. \nIf the update fails; the old file can still be used.",
+      "parentUuid": "50faaa6a_4fbc83f2",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 37
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b2af07c0_d5fdae31",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "As per your last comment i made this change. This works as expected. I have added the comment in the code to explain what is done in this line",
+      "parentUuid": "745af80e_d6c504f1",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 33
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9136daeb_c9503014",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
@@ -137,6 +257,30 @@
       "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22fc6845_8a9d321f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9136daeb_c9503014",
+      "range": {
+        "startLine": 620,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 49
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "963be620_a542ad82",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "I actually saw find_first_not_of API is better. But since you told to use find_first_of I used this way 😊\nChanged to find_first_not_of now",
+      "parentUuid": "04b8fa5e_89b2f83f",
+      "range": {
+        "startLine": 658,
+        "startChar": 17,
+        "endLine": 658,
+        "endChar": 30
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "079d2e75_757553d2",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
@@ -183,6 +351,30 @@
       "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69cfc996_e7e45ae1",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "079d2e75_757553d2",
+      "range": {
+        "startLine": 661,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 59
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
