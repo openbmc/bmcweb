@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df665683_fa67e106",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:21:10Z",
+      "side": 1,
+      "message": "Try to change it to string_view or const char* to avoid memory allocation done in string and take advantages of static memory",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8ad424_2fc47254",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:21:10Z",
+      "side": 1,
+      "message": "nit Consider to return it as nullopt",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4c89b75_e5718e27",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:21:10Z",
+      "side": 1,
+      "message": "nit move asyncResp instead of copying it",
+      "range": {
+        "startLine": 97,
+        "startChar": 9,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "808f1090_8b34b5b6",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:21:10Z",
+      "side": 1,
+      "message": "After setting response to internal error you should stop adding more content to response. Try to return instead of continuing a loop",
+      "range": {
+        "startLine": 168,
+        "startChar": 36,
+        "endLine": 169,
+        "endChar": 45
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9cd5ee_f603e2e7",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:21:10Z",
+      "side": 1,
+      "message": "You could set null on \"PCIeType\" property instead omitting it. It allows user and developer to check if response is filled with proper data or sth is missing.",
+      "range": {
+        "startLine": 174,
+        "startChar": 37,
+        "endLine": 174,
+        "endChar": 53
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
