@@ -1680,6 +1680,85 @@ class DBusEventLogEntry : public Node
     }
 };
 
+class DBusEventLogEntryDownload : public Node
+{
+  public:
+    DBusEventLogEntryDownload(App& app) :
+        Node(
+            app,
+            "/redfish/v1/Systems/system/LogServices/EventLog/attachment/<str>/",
+            std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string entryID = params[0];
+        dbus::utility::escapePathForDbus(entryID);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, entryID](const boost::system::error_code ec,
+                                 const sdbusplus::message::unix_fd& unixfd) {
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EventLogAttachment", entryID);
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                int fd = -1;
+                fd = dup(unixfd);
+                if (fd == -1)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                auto size = lseek(fd, 0, SEEK_END);
+                std::vector<char> data(static_cast<size_t>(size));
+                lseek(fd, 0, SEEK_SET);
+                auto rc = read(fd, data.data(), data.size());
+                if (rc == -1)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                close(fd);
+
+                std::string strData(data.data(), data.size());
+                std::string output = crow::utility::base64encode(strData);
+
+                asyncResp->res.addHeader("Content-Type", "text/plain");
+                asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+                asyncResp->res.body() = output;
+            },
+            "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "xyz.openbmc_project.Logging.Entry", "GetEntry");
+    }
+};
+
 class BMCLogServiceCollection : public Node
 {
   public:
