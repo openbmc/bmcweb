@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5d4c519_7d325d85",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:45:20Z",
+      "side": 1,
+      "message": "I am not sure if this is guarantee that status is not nullptr",
+      "range": {
+        "startLine": 652,
+        "startChar": 31,
+        "endLine": 652,
+        "endChar": 38
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2597913_26ea1b53",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:45:20Z",
+      "side": 1,
+      "message": "depends on dbus configuration and dbus traffic your call can stuck for 5 seconds before calling your callback. I know 5 seconds is a lot, but I do not see any reason why do you set it here. Can you move this timer into the callback to avoid racing condition?",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 52
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42825dd7_87edd648",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-01-29T15:45:20Z",
+      "side": 1,
+      "message": "I guess you are missing res.end() here. Try to setup first std::shared_ptr\u003cAsyncResp\u003e to avoid missing res.end()",
+      "range": {
+        "startLine": 888,
+        "startChar": 13,
+        "endLine": 889,
+        "endChar": 23
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
