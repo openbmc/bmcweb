@@ -22,7 +22,7 @@ namespace redfish
 static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
     eventFormatType, metricReportFormatType};
 static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
-    "Base", "OpenBMC", "Task"};
+    "Base", "OpenBMC", "TaskEvent"};
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
@@ -397,8 +397,54 @@ class EventDestinationCollection : public Node
 
         if (msgIds)
         {
-            // Do we need to loop-up MessageRegistry and validate
-            // data for authenticity??? Not mandate, i believe.
+            std::vector<std::string> registryPrefix;
+
+            // If no registry prefixes are mentioned, consider all supported
+            // prefixes
+            if (subValue->registryPrefixes.empty())
+            {
+                registryPrefix.assign(supportedRegPrefixes.begin(),
+                                      supportedRegPrefixes.end());
+            }
+            else
+            {
+                registryPrefix = subValue->registryPrefixes;
+            }
+
+            for (const std::string& id : *msgIds)
+            {
+                bool validId = false;
+
+                // Check for Message ID in each of the selected Registry
+                for (const std::string& it : registryPrefix)
+                {
+                    const boost::beast::span<
+                        const redfish::message_registries::MessageEntry>
+                        registry =
+                            redfish::message_registries::getRegistryFromPrefix(
+                                it);
+
+                    if (std::any_of(
+                            registry.cbegin(), registry.cend(),
+                            [&id](
+                                const redfish::message_registries::MessageEntry&
+                                    messageEntry) {
+                                return !id.compare(messageEntry.first);
+                            }))
+                    {
+                        validId = true;
+                        break;
+                    }
+                }
+
+                if (!validId)
+                {
+                    messages::propertyValueNotInList(asyncResp->res, id,
+                                                     "MessageIds");
+                    return;
+                }
+            }
+
             subValue->registryMsgIds = *msgIds;
         }
 
