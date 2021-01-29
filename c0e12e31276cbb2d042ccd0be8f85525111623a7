@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75592374_398bd41b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-01-29T15:13:20Z",
+      "side": 1,
+      "message": "The style I see more in bmcweb is \n\n            if (partNumber \u003d\u003d nullptr)\n            {\n                messages::internalError(aResp-\u003eres);\n                return;\n            }\n            aResp-\u003eres.jsonValue[\"PartNumber\"] \u003d *partNumber;\n\nbut I am fine with this.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 21
+      },
+      "revId": "c0e12e31276cbb2d042ccd0be8f85525111623a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
