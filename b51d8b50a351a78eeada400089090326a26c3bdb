@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71abf696_4f760d63",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8457ca46_c2a371d0",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 46,
+        "endChar": 74
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72928d99_fac52b61",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da5709cf_e0e3aa4e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "72928d99_fac52b61",
+      "range": {
+        "startLine": 233,
+        "startChar": 4,
+        "endLine": 233,
+        "endChar": 65
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d0a9b013_b23af391",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ae3f6f_9b4a43d8",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 62
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "239cc3f2_1a1b09a2",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9453ace_029f2469",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "This is as per the IBM BMC - Management Interface design",
+      "parentUuid": "239cc3f2_1a1b09a2",
+      "range": {
+        "startLine": 567,
+        "startChar": 4,
+        "endLine": 567,
+        "endChar": 68
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "66533fc9_38d881bd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d1eea81_02a57e46",
+      "range": {
+        "startLine": 586,
+        "startChar": 41,
+        "endLine": 586,
+        "endChar": 51
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd05be8c_04ff7a9a",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -137,6 +257,30 @@
       "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d547816_fc970339",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dd05be8c_04ff7a9a",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 54
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0f1ef033_86dd381d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8295c5f2_bf84b127",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 630,
+        "endChar": 11
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5702ae47_73a2c527",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -183,6 +351,30 @@
       "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd76ae29_560c7a17",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5702ae47_73a2c527",
+      "range": {
+        "startLine": 712,
+        "startChar": 0,
+        "endLine": 712,
+        "endChar": 23
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "6b6f2b52_4bd6771c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Not added as part of this commit. I prefer not changing this part of the code with this commit",
+      "parentUuid": "a410858a_d2aad2fd",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 79
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f094c371_abf24adc",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 7
@@ -229,6 +445,30 @@
       "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f934108d_f9b264a9",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-01-29T06:46:53Z",
+      "side": 1,
+      "message": "Not added as part of this commit. I prefer not changing this part of the code with this commit",
+      "parentUuid": "f094c371_abf24adc",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 79
+      },
+      "revId": "b51d8b50a351a78eeada400089090326a26c3bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
