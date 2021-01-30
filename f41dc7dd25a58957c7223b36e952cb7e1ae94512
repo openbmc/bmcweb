@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2008ef7c_77e9f4ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T06:14:32Z",
+      "side": 1,
+      "message": "I\u0027m not following the point of this.  the old entries were unique already, with an associated index, which you\u0027ve now dropped.  Considering that\u0027s an impactful change, you should really point that out here.  Could you please (in your commit message) go through the details of why this is better, especially considering that unique ids are intended to be opaque, and not meaningful.  In theory, if the logs ever contained two entries on the same microsecond, this patchset would be less unique.",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
