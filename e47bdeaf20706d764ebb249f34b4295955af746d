@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e11ded9_d6dcacdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T17:38:37Z",
+      "side": 1,
+      "message": "The redfish validator has nothing to do with this function.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8b386dc_848104f7",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T17:38:37Z",
+      "side": 1,
+      "message": "why is size a separate param?  string view contains the size, we should use that.",
+      "range": {
+        "startLine": 407,
+        "startChar": 59,
+        "endLine": 407,
+        "endChar": 72
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ab4d531_677b95cd",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T17:38:37Z",
+      "side": 1,
+      "message": "This is something that it would be great to get a couple minor unit tests for.",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 73
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "120687fc_08fbb564",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T17:38:37Z",
+      "side": 1,
+      "message": "I would\u0027ve expected this to be 64.... hence base64 encoding;  Any idea why it\u0027s not?",
+      "range": {
+        "startLine": 409,
+        "startChar": 27,
+        "endLine": 409,
+        "endChar": 29
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ba1137_28e58e1a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T17:38:37Z",
+      "side": 1,
+      "message": "i + 0?  Can\u0027t that just be i?",
+      "range": {
+        "startLine": 419,
+        "startChar": 46,
+        "endLine": 419,
+        "endChar": 51
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53862e65_8bb84cb3",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-01-30T17:38:37Z",
+      "side": 1,
+      "message": "extra parens (this happens in a bunch of places, please fix all of them.)",
+      "range": {
+        "startLine": 423,
+        "startChar": 44,
+        "endLine": 423,
+        "endChar": 66
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
