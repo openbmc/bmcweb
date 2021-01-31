@@ -120,6 +120,9 @@ inline void getAdapter(const std::shared_ptr<AsyncResp>& aResp,
                 }
 
                 aResp->res.jsonValue["Id"] = adapterId;
+                aResp->res.jsonValue["Ports"] = {
+                    {"@odata.id", "/redfish/v1/Systems/system/FabricAdapters/" +
+                                      adapterId + "/Ports"}};
 
                 getAdapterProperties(aResp, adapterId, objectPath, serviceMap);
                 return;
