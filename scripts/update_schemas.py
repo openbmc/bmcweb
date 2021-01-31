@@ -68,7 +68,10 @@ include_list = [
     'PCIeFunction',
     'PCIeFunctionCollection',
     'Power',
+    'Port',
+    'PortCollection',
     'Privileges',  # Used in Role
+    'Privileges', #Used in Role
     'Processor',
     'ProcessorCollection',
     'RedfishError',
