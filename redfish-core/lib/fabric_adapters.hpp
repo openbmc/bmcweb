@@ -67,6 +67,9 @@ inline void getAdapter(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 }
 
                 aResp->res.jsonValue["Id"] = adapterId;
+                aResp->res.jsonValue["Ports"] = {
+                    {"@odata.id", "/redfish/v1/Systems/system/FabricAdapters/" +
+                                      adapterId + "/Ports"}};
 
                 // use last part of Object path as a default name.
                 aResp->res.jsonValue["Name"] = adapterId;
