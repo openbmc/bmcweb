@@ -86,6 +86,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<StorageCollection>(app));
         nodes.emplace_back(std::make_unique<Storage>(app));
         nodes.emplace_back(std::make_unique<Drive>(app));
+        nodes.emplace_back(std::make_unique<Port>(app));
+        nodes.emplace_back(std::make_unique<PortCollection>(app));
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         nodes.emplace_back(
             std::make_unique<UpdateServiceActionsSimpleUpdate>(app));
