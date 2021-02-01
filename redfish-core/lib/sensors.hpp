@@ -60,9 +60,15 @@ static const boost::container::flat_map<std::string_view,
               {"/xyz/openbmc_project/sensors/voltage",
                "/xyz/openbmc_project/sensors/power"}},
              {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
+              {"/xyz/openbmc_project/sensors/voltage",
+               "/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/utilization"}},
+               "/xyz/openbmc_project/sensors/utilization",
+               "/xyz/openbmc_project/sensors/fan_tach",
+               "/xyz/openbmc_project/sensors/temperature",
+               "/xyz/openbmc_project/sensors/fan_pwm",
+               "/xyz/openbmc_project/sensors/altitude",
+               "/xyz/openbmc_project/sensors/energy"}},
              {node::thermal,
               {"/xyz/openbmc_project/sensors/fan_tach",
                "/xyz/openbmc_project/sensors/temperature",
@@ -862,60 +868,89 @@ inline void objectInterfacesToJson(
         {
             sensorJson["ReadingUnits"] = "Amperes";
         }
-        else if (sensorType == "utilization")
+        else if (sensorType == "utilization" || sensorType == "fan_pwm")
         {
             sensorJson["ReadingUnits"] = "Percent";
         }
+        else if (sensorType == "fan" || sensorType == "fan_tach")
+        {
+            sensorJson["ReadingUnits"] = "RPM";
+        }
+        else if (sensorType == "temperature")
+        {
+            sensorJson["ReadingUnits"] = "DegreesC";
+        }
+        else if (sensorType == "voltage")
+        {
+            sensorJson["ReadingUnits"] = "Volts";
+        }
+        else if (sensorType == "altitude")
+        {
+            sensorJson["ReadingUnits"] = "Meters";
+        }
+        else if (sensorType == "energy")
+        {
+            sensorJson["ReadingUnits"] = "Joules";
+        }
     }
-    else if (sensorType == "temperature")
+    else if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
-        unit = "/ReadingCelsius"_json_pointer;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
-        // TODO(ed) Documentation says that path should be type fan_tach,
-        // implementation seems to implement fan
-    }
-    else if (sensorType == "fan" || sensorType == "fan_tach")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "fan_pwm")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "voltage")
-    {
-        unit = "/ReadingVolts"_json_pointer;
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
-    }
-    else if (sensorType == "power")
-    {
-        std::string sensorNameLower =
-            boost::algorithm::to_lower_copy(sensorName);
+        if (sensorType == "voltage")
+        {
+            unit = "/ReadingVolts"_json_pointer;
+            sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+            sensorJson["ReadingUnits"] = "Volts";
+        }
+        else if (sensorType == "power")
+        {
+            std::string sensorNameLower =
+                boost::algorithm::to_lower_copy(sensorName);
+            sensorJson["ReadingUnits"] = "Watts";
 
-        if (!sensorName.compare("total_power"))
-        {
-            sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
-            // Put multiple "sensors" into a single PowerControl, so have
-            // generic names for MemberId and Name. Follows Redfish mockup.
-            sensorJson["MemberId"] = "0";
-            sensorJson["Name"] = "Chassis Power Control";
-            unit = "/PowerConsumedWatts"_json_pointer;
+            if (!sensorName.compare("total_power"))
+            {
+                sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
+                // Put multiple "sensors" into a single PowerControl, so have
+                // generic names for MemberId and Name. Follows Redfish mockup.
+                sensorJson["MemberId"] = "0";
+                sensorJson["Name"] = "Chassis Power Control";
+                unit = "/PowerConsumedWatts"_json_pointer;
+            }
+            else if (sensorNameLower.find("input") != std::string::npos)
+            {
+                unit = "/PowerInputWatts"_json_pointer;
+            }
+            else
+            {
+                unit = "/PowerOutputWatts"_json_pointer;
+            }
         }
-        else if (sensorNameLower.find("input") != std::string::npos)
+    }
+    else if (sensorsAsyncResp->chassisSubNode == sensors::node::thermal)
+    {
+        if (sensorType == "temperature")
         {
-            unit = "/PowerInputWatts"_json_pointer;
+            unit = "/ReadingCelsius"_json_pointer;
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+            sensorJson["ReadingUnits"] = "DegreesC";
+            // TODO(ed) Documentation says that path should be type fan_tach,
+            // implementation seems to implement fan
         }
-        else
+        else if (sensorType == "fan" || sensorType == "fan_tach")
         {
-            unit = "/PowerOutputWatts"_json_pointer;
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = "RPM";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
+        }
+        else if (sensorType == "fan_pwm")
+        {
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = "Percent";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
         }
     }
     else
