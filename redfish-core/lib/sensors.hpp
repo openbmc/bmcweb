@@ -60,9 +60,13 @@ static const boost::container::flat_map<std::string_view,
               {"/xyz/openbmc_project/sensors/voltage",
                "/xyz/openbmc_project/sensors/power"}},
              {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
+              {"/xyz/openbmc_project/sensors/voltage",
+               "/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/utilization"}},
+               "/xyz/openbmc_project/sensors/utilization",
+               "/xyz/openbmc_project/sensors/fan_tach",
+               "/xyz/openbmc_project/sensors/temperature",
+               "/xyz/openbmc_project/sensors/fan_pwm"}},
              {node::thermal,
               {"/xyz/openbmc_project/sensors/fan_tach",
                "/xyz/openbmc_project/sensors/temperature",
@@ -314,15 +318,15 @@ void getConnections(
 /**
  * @brief Shrinks the list of sensors for processing
  * @param SensorsAysncResp  The class holding the Redfish response
- * @param allSensors  A list of all the sensors associated to the
+ * @param sensors  A list of all the sensors associated to the
  * chassis element (i.e. baseboard, front panel, etc...)
  * @param activeSensors A list that is a reduction of the incoming
- * allSensors list.  Eliminate Thermal sensors when a Power request is
+ * sensors list.  Eliminate Thermal sensors when a Power request is
  * made, and eliminate Power sensors when a Thermal request is made.
  */
 inline void reduceSensorList(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::vector<std::string>* allSensors,
+    const std::vector<std::string>* sensors,
     const std::shared_ptr<boost::container::flat_set<std::string>>&
         activeSensors)
 {
@@ -330,7 +334,7 @@ inline void reduceSensorList(
     {
         return;
     }
-    if ((allSensors == nullptr) || (activeSensors == nullptr))
+    if ((sensors == nullptr) || (activeSensors == nullptr))
     {
         messages::resourceNotFound(
             sensorsAsyncResp->res, sensorsAsyncResp->chassisSubNode,
@@ -340,7 +344,7 @@ inline void reduceSensorList(
 
         return;
     }
-    if (allSensors->empty())
+    if (sensors->empty())
     {
         // Nothing to do, the activeSensors object is also empty
         return;
@@ -348,7 +352,7 @@ inline void reduceSensorList(
 
     for (const char* type : sensorsAsyncResp->types)
     {
-        for (const std::string& sensor : *allSensors)
+        for (const std::string& sensor : *sensors)
         {
             if (boost::starts_with(sensor, type))
             {
@@ -862,60 +866,70 @@ inline void objectInterfacesToJson(
         {
             sensorJson["ReadingUnits"] = "Amperes";
         }
-        else if (sensorType == "utilization")
+        else if (sensorType == "utilization" || sensorType == "fan_pwm")
         {
             sensorJson["ReadingUnits"] = "Percent";
         }
+        else if (sensorType == "fan" || sensorType == "fan_tach")
+        {
+            sensorJson["ReadingUnits"] = "RPM";
+        }
     }
-    else if (sensorType == "temperature")
+    else if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
-        unit = "/ReadingCelsius"_json_pointer;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
-        // TODO(ed) Documentation says that path should be type fan_tach,
-        // implementation seems to implement fan
-    }
-    else if (sensorType == "fan" || sensorType == "fan_tach")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "fan_pwm")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "voltage")
-    {
-        unit = "/ReadingVolts"_json_pointer;
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
-    }
-    else if (sensorType == "power")
-    {
-        std::string sensorNameLower =
-            boost::algorithm::to_lower_copy(sensorName);
+        if (sensorType == "voltage")
+        {
+            unit = "/ReadingVolts"_json_pointer;
+            sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+        }
+        else if (sensorType == "power")
+        {
+            std::string sensorNameLower =
+                boost::algorithm::to_lower_copy(sensorName);
 
-        if (!sensorName.compare("total_power"))
-        {
-            sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
-            // Put multiple "sensors" into a single PowerControl, so have
-            // generic names for MemberId and Name. Follows Redfish mockup.
-            sensorJson["MemberId"] = "0";
-            sensorJson["Name"] = "Chassis Power Control";
-            unit = "/PowerConsumedWatts"_json_pointer;
+            if (!sensorName.compare("total_power"))
+            {
+                sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
+                // Put multiple "sensors" into a single PowerControl, so have
+                // generic names for MemberId and Name. Follows Redfish mockup.
+                sensorJson["MemberId"] = "0";
+                sensorJson["Name"] = "Chassis Power Control";
+                unit = "/PowerConsumedWatts"_json_pointer;
+            }
+            else if (sensorNameLower.find("input") != std::string::npos)
+            {
+                unit = "/PowerInputWatts"_json_pointer;
+            }
+            else
+            {
+                unit = "/PowerOutputWatts"_json_pointer;
+            }
         }
-        else if (sensorNameLower.find("input") != std::string::npos)
+    }
+    else if (sensorsAsyncResp->chassisSubNode == sensors::node::thermal)
+    {
+        if (sensorType == "temperature")
         {
-            unit = "/PowerInputWatts"_json_pointer;
+            unit = "/ReadingCelsius"_json_pointer;
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+            // TODO(ed) Documentation says that path should be type fan_tach,
+            // implementation seems to implement fan
         }
-        else
+        else if (sensorType == "fan" || sensorType == "fan_tach")
         {
-            unit = "/PowerOutputWatts"_json_pointer;
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = "RPM";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
+        }
+        else if (sensorType == "fan_pwm")
+        {
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = "Percent";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
         }
     }
     else
@@ -3030,7 +3044,8 @@ class SensorCollection : public Node
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
             std::make_shared<SensorsAsyncResp>(
-                res, chassisId, sensors::dbus::types.at(sensors::node::sensors),
+                res, chassisId,
+                sensors::dbus::types.at(sensors::node::sensors),
                 sensors::node::sensors);
 
         auto getChassisCb =
