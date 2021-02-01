@@ -88,6 +88,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a684e6e0_cd05e7cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-01T17:27:16Z",
+      "side": 1,
+      "message": "\u003e Sure, Agree with the suggestion of having UT to test the logic that is sitting under a compilation flag which is disabled by default.\n\u003e \n\u003e But the problem with bmcweb is it has a huge code base with more than 20 configurations \u0026 none of them have any UT,so how will we make sure that bmcweb builds in other configurations apart from the default one ?\n\nUsing CI, the same way we always do with per-machine CI?\n\nIf you\u0027re interested in writing unit tests for the rest of the bmcweb code, that\u0027s one solution, but in general bmcweb submitters tend to not want to write unit tests, and prefer functional tests instead.  It\u0027s not something I really like, but it\u0027s what we have today.  You\u0027ll notice that bmcweb has some unit tests, but in the early days of bmcweb, I got tired of enforcing their use, so they\u0027re not that useful.\n\n\u003e \n\u003e Atleast for ibm Locks, we have UT\u0027s ,so it should not be much of a problem even if we remove this flag. \n\u003e \n\u003e But Atleast having something compiled in CI is better than nothing right ? until some one comes up with UT\u0027s for the other features apart from IBM one ?\n\nHere\u0027s the core of the problem: if we\u0027re testing an optional config at the expense of the default config, that\u0027s an issue, as way more people use the default config.  Presumably we could build every possible option and every combination, but we have limited build resources, so we can\u0027t really do that in anything except the machine build.\n\nTo be clear, my priority here is the default build, and making sure it stays stable, as I think that\u0027s the most useful to everyone.  If you have ways that we can have that, and test every option, I\u0027m open to ideas, but barring rewriting unit tests for every conceivable option, I\u0027m not sure how to do it aside from relying on the machine-specific builds.",
+      "parentUuid": "e6524cc9_312eb126",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
