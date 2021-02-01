@@ -86,17 +86,15 @@ inline void handleFilePut(const crow::Request& req,
 {
     std::error_code ec;
     // Check the content-type of the request
-    std::string_view contentType = req.getHeaderValue("content-type");
-    if (boost::starts_with(contentType, "multipart/form-data"))
+    boost::beast::string_view contentType = req.getHeaderValue("content-type");
+    if (!boost::istarts_with(contentType, "application/octet-stream"))
     {
-        BMCWEB_LOG_DEBUG
-            << "This is multipart/form-data. Invalid content for PUT";
-
         asyncResp->res.result(boost::beast::http::status::not_acceptable);
         asyncResp->res.jsonValue["Description"] = contentNotAcceptableMsg;
         return;
     }
-    BMCWEB_LOG_DEBUG << "Not a multipart/form-data. Continue..";
+    BMCWEB_LOG_DEBUG
+        << "File upload in application/octet-stream format. Continue..";
 
     BMCWEB_LOG_DEBUG
         << "handleIbmPut: Request to create/update the save-area file";
