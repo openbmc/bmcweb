@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "41bf57dd_c1410142",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-01T19:04:03Z",
+      "side": 1,
+      "message": "\u003e I didn\u0027t find anything explicit, but I assume it\u0027s because it\u0027s a char array, it needs to be null terminated, so the size would be string + 1 if it\u0027s not. The compile error with 64 is:\n\u003e \n\u003e  ../git/http/utility.hpp:410:9: error: initializer-string for \u0027std::__array_traits\u003cchar, 64\u003e::_Type\u0027 {aka \u0027char [64]\u0027} is too long [-fpermissive]\n\u003e |   410 |         \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"};\n\u003e |       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nAH, that makes sense.  I suspect we just need to initialize it without using a char array literal, and instead use individual char literals.\n\nSomething like\n\n\u0027A\u0027, \u0027B\u0027, \u0027C\u0027, \u0027D\u0027, \u0027E\u0027, \u0027F\u0027, \u0027G\u0027, \u0027H\u0027, \u0027I\u0027, \u0027J\u0027, \u0027K\u0027, \u0027L\u0027, \u0027M\u0027, \u0027N\u0027, \u0027O\u0027, \u0027P\u0027, \u0027Q\u0027, \u0027R\u0027, \u0027S\u0027, \u0027T\u0027, \u0027U\u0027, \u0027V\u0027, \u0027W\u0027, \u0027X\u0027, \u0027Y\u0027, \u0027Z\u0027, \u0027a\u0027, \u0027b\u0027, \u0027c\u0027, \u0027d\u0027, \u0027e\u0027, \u0027f\u0027, \u0027g\u0027, \u0027h\u0027, \u0027i\u0027, \u0027j\u0027, \u0027k\u0027, \u0027l\u0027, \u0027m\u0027, \u0027n\u0027, \u0027o\u0027, \u0027p\u0027, \u0027q\u0027, \u0027r\u0027, \u0027s\u0027, \u0027t\u0027, \u0027u\u0027, \u0027v\u0027, \u0027w\u0027, \u0027x\u0027, \u0027y\u0027, \u0027z\u0027, \u00270\u0027, \u00271\u0027, \u00272\u0027, \u00273\u0027, \u00274\u0027, \u00275\u0027, \u00276\u0027, \u00277\u0027, \u00278\u0027, \u00279\u0027, \u0027+\u0027, \u0027/\u0027\n\nSimilar to how we init the array on line 453",
+      "parentUuid": "e1d82aa0_9add8c0f",
+      "range": {
+        "startLine": 409,
+        "startChar": 27,
+        "endLine": 409,
+        "endChar": 29
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46ba1137_28e58e1a",
         "filename": "http/utility.hpp",
         "patchSetId": 3
