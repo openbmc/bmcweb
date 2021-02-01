@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55439a52_ef8af6df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T03:37:08Z",
+      "side": 1,
+      "message": "Going to need a lot more here..\n\nDepending on what this is for is where this should be modeled: \nhttps://redfish.dmtf.org/schemas/v1/Port_v1.xml",
+      "revId": "2b7d496471609873b28cdefe31eccc36c5b01ef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1bb5751_66c89366",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T03:37:08Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "2b7d496471609873b28cdefe31eccc36c5b01ef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "214b44bb_6444ae56",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T03:37:08Z",
+      "side": 1,
+      "message": "I know this is a WIP, just jumping in here because it caught my eye and hopefully these comments will help. \n\nGoing to need a Port Collection first\nhttps://redfish.dmtf.org/schemas/v1/PortCollection.json\n\nAnd then both (PortCollection and Port) need to added to https://github.com/openbmc/bmcweb/blob/master/scripts/update_schemas.py#L71\nAnd update_schema rerun\n\n\nPort can only be at the following location: \n\nhttps://redfish.dmtf.org/schemas/v1/Port_v1.xml",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 51
+      },
+      "revId": "2b7d496471609873b28cdefe31eccc36c5b01ef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
