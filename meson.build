@@ -223,6 +223,16 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
       summary({'power-thermal' :'-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
               },section : 'Enabled Features')
     endif
+
+    if( get_option('redfish-new-powersubsystem-thermalsubsystem').enabled())
+     add_project_arguments([
+       '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
+       ],
+      language : 'cpp')
+
+      summary({'new-powersubsystem-thermalsubsystem' :'-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
+              },section : 'Enabled Features')
+    endif
   endif
 endif
 
