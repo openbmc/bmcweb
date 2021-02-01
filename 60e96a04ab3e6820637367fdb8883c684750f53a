@@ -70,6 +70,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6524cc9_312eb126",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-02-01T05:04:06Z",
+      "side": 1,
+      "message": "Sure, Agree with the suggestion of having UT to test the logic that is sitting under a compilation flag which is disabled by default.\n\nBut the problem with bmcweb is it has a huge code base with more than 20 configurations \u0026 none of them have any UT,so how will we make sure that bmcweb builds in other configurations apart from the default one ?\n\nAtleast for ibm Locks, we have UT\u0027s ,so it should not be much of a problem even if we remove this flag. \n\nBut Atleast having something compiled in CI is better than nothing right ? until some one comes up with UT\u0027s for the other features apart from IBM one ?",
+      "parentUuid": "0b710dff_3c915a17",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
