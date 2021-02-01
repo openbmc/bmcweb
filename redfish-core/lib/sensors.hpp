@@ -48,7 +48,7 @@ namespace sensors
 namespace node
 {
 static constexpr std::string_view power = "Power";
-static constexpr std::string_view sensors = "Sensors";
+static constexpr std::string_view allSensors = "Sensors";
 static constexpr std::string_view thermal = "Thermal";
 } // namespace node
 
@@ -59,10 +59,14 @@ static const boost::container::flat_map<std::string_view,
     types = {{node::power,
               {"/xyz/openbmc_project/sensors/voltage",
                "/xyz/openbmc_project/sensors/power"}},
-             {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
+             {node::allSensors,
+              {"/xyz/openbmc_project/sensors/voltage",
+               "/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/utilization"}},
+               "/xyz/openbmc_project/sensors/utilization",
+               "/xyz/openbmc_project/sensors/fan_tach",
+               "/xyz/openbmc_project/sensors/temperature",
+               "/xyz/openbmc_project/sensors/fan_pwm"}},
              {node::thermal,
               {"/xyz/openbmc_project/sensors/fan_tach",
                "/xyz/openbmc_project/sensors/temperature",
@@ -476,7 +480,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
             sensorsAsyncResp->res.jsonValue["Temperatures"] =
                 nlohmann::json::array();
         }
-        else if (chassisSubNode == sensors::node::sensors)
+        else if (chassisSubNode == sensors::node::allSensors)
         {
             sensorsAsyncResp->res.jsonValue["@odata.type"] =
                 "#SensorCollection.SensorCollection";
@@ -487,7 +491,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
             sensorsAsyncResp->res.jsonValue["Members@odata.count"] = 0;
         }
 
-        if (chassisSubNode != sensors::node::sensors)
+        if (chassisSubNode != sensors::node::allSensors)
         {
             sensorsAsyncResp->res.jsonValue["Id"] = chassisSubNode;
         }
@@ -825,7 +829,7 @@ inline void objectInterfacesToJson(
         }
     }
 
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::allSensors)
     {
         // For sensors in SensorCollection we set Id instead of MemberId,
         // including power sensors.
@@ -851,7 +855,7 @@ inline void objectInterfacesToJson(
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::allSensors)
     {
         sensorJson["@odata.type"] = "#Sensor.v1_0_0.Sensor";
         if (sensorType == "power")
@@ -862,60 +866,70 @@ inline void objectInterfacesToJson(
         {
             sensorJson["ReadingUnits"] = "Amperes";
         }
-        else if (sensorType == "utilization")
+        else if (sensorType == "utilization" || sensorType == "fan_pwm")
         {
             sensorJson["ReadingUnits"] = "Percent";
         }
+        else if (sensorType == "fan" || sensorType == "fan_tach")
+        {
+            sensorJson["ReadingUnits"] = "RPM";
+        }
     }
-    else if (sensorType == "temperature")
+    else if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
-        unit = "/ReadingCelsius"_json_pointer;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
-        // TODO(ed) Documentation says that path should be type fan_tach,
-        // implementation seems to implement fan
-    }
-    else if (sensorType == "fan" || sensorType == "fan_tach")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "fan_pwm")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "voltage")
-    {
-        unit = "/ReadingVolts"_json_pointer;
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
-    }
-    else if (sensorType == "power")
-    {
-        std::string sensorNameLower =
-            boost::algorithm::to_lower_copy(sensorName);
+        if (sensorType == "voltage")
+        {
+            unit = "/ReadingVolts"_json_pointer;
+            sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+        }
+        else if (sensorType == "power")
+        {
+            std::string sensorNameLower =
+                boost::algorithm::to_lower_copy(sensorName);
 
-        if (!sensorName.compare("total_power"))
-        {
-            sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
-            // Put multiple "sensors" into a single PowerControl, so have
-            // generic names for MemberId and Name. Follows Redfish mockup.
-            sensorJson["MemberId"] = "0";
-            sensorJson["Name"] = "Chassis Power Control";
-            unit = "/PowerConsumedWatts"_json_pointer;
+            if (!sensorName.compare("total_power"))
+            {
+                sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
+                // Put multiple "sensors" into a single PowerControl, so have
+                // generic names for MemberId and Name. Follows Redfish mockup.
+                sensorJson["MemberId"] = "0";
+                sensorJson["Name"] = "Chassis Power Control";
+                unit = "/PowerConsumedWatts"_json_pointer;
+            }
+            else if (sensorNameLower.find("input") != std::string::npos)
+            {
+                unit = "/PowerInputWatts"_json_pointer;
+            }
+            else
+            {
+                unit = "/PowerOutputWatts"_json_pointer;
+            }
         }
-        else if (sensorNameLower.find("input") != std::string::npos)
+    }
+    else if (sensorsAsyncResp->chassisSubNode == sensors::node::thermal)
+    {
+        if (sensorType == "temperature")
         {
-            unit = "/PowerInputWatts"_json_pointer;
+            unit = "/ReadingCelsius"_json_pointer;
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+            // TODO(ed) Documentation says that path should be type fan_tach,
+            // implementation seems to implement fan
         }
-        else
+        else if (sensorType == "fan" || sensorType == "fan_tach")
         {
-            unit = "/PowerOutputWatts"_json_pointer;
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = "RPM";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
+        }
+        else if (sensorType == "fan_pwm")
+        {
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = "Percent";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
         }
     }
     else
@@ -931,7 +945,7 @@ inline void objectInterfacesToJson(
 
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::allSensors)
     {
         properties.emplace_back(
             "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
@@ -964,7 +978,7 @@ inline void objectInterfacesToJson(
 
     // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::allSensors)
     {
         properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
                                 "/ReadingRangeMin"_json_pointer);
@@ -2485,7 +2499,7 @@ inline void getSensorData(
 
                 nlohmann::json* sensorJson = nullptr;
 
-                if (sensorSchema == sensors::node::sensors)
+                if (sensorSchema == sensors::node::allSensors)
                 {
                     sensorsAsyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId +
@@ -3030,8 +3044,9 @@ class SensorCollection : public Node
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
             std::make_shared<SensorsAsyncResp>(
-                res, chassisId, sensors::dbus::types.at(sensors::node::sensors),
-                sensors::node::sensors);
+                res, chassisId,
+                sensors::dbus::types.at(sensors::node::allSensors),
+                sensors::node::allSensors);
 
         auto getChassisCb =
             [asyncResp](
@@ -3102,7 +3117,7 @@ class Sensor : public Node
         std::shared_ptr<SensorsAsyncResp> asyncResp =
             std::make_shared<SensorsAsyncResp>(res, chassisId,
                                                std::vector<const char*>(),
-                                               sensors::node::sensors);
+                                               sensors::node::allSensors);
 
         const std::string& sensorName = params[1];
         const std::array<const char*, 1> interfaces = {
