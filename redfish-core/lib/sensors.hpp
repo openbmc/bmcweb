@@ -21,6 +21,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
 #include <cmath>
@@ -60,9 +61,16 @@ static const boost::container::flat_map<std::string_view,
               {"/xyz/openbmc_project/sensors/voltage",
                "/xyz/openbmc_project/sensors/power"}},
              {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
+              {"/xyz/openbmc_project/sensors/voltage",
+               "/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/utilization"}},
+               "/xyz/openbmc_project/sensors/airflow",
+               "/xyz/openbmc_project/sensors/utilization",
+               "/xyz/openbmc_project/sensors/fan_tach",
+               "/xyz/openbmc_project/sensors/temperature",
+               "/xyz/openbmc_project/sensors/fan_pwm",
+               "/xyz/openbmc_project/sensors/altitude",
+               "/xyz/openbmc_project/sensors/energy"}},
              {node::thermal,
               {"/xyz/openbmc_project/sensors/fan_tach",
                "/xyz/openbmc_project/sensors/temperature",
@@ -607,10 +615,10 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                         sensorsAsyncResp->chassisSubNode ==
                                 sensors::node::thermal
                             ? "Temperatures"
-                        : sensorsAsyncResp->chassisSubNode ==
-                                sensors::node::power
-                            ? "Voltages"
-                            : "Sensors");
+                            : sensorsAsyncResp->chassisSubNode ==
+                                      sensors::node::power
+                                  ? "Voltages"
+                                  : "Sensors");
                     return;
                 }
                 const std::shared_ptr<boost::container::flat_set<std::string>>
