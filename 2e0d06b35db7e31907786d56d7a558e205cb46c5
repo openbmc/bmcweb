@@ -22,6 +22,23 @@
       "revId": "2e0d06b35db7e31907786d56d7a558e205cb46c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf8d9e82_685c6940",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T21:30:44Z",
+      "side": 1,
+      "message": "I wouldn\u0027t think this LOG does much good, specially with the DEBUG LOG already on line 92. \nAnyway, I am fine if it stays.",
+      "revId": "2e0d06b35db7e31907786d56d7a558e205cb46c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
