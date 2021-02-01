@@ -142,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "c9864ce6_1da9fc97",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-01T04:57:50Z",
+      "side": 1,
+      "message": "it\u0027s actually U.2\n\nSince we don\u0027t use \".\" in D-Bus interfaces, replaced by _\n\nSame with M.2",
+      "parentUuid": "d6fab254_955068db",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4c89b75_e5718e27",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 9
