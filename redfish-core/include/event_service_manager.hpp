@@ -1208,7 +1208,7 @@ class EventServiceManager
 
     static void watchRedfishEventLogFile()
     {
-        if (inotifyConn)
+        if (!inotifyConn)
         {
             return;
         }
