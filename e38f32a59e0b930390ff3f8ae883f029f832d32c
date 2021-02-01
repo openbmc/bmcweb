@@ -96,6 +96,52 @@
     },
     {
       "key": {
+        "uuid": "2ae6f5ba_6f2fd858",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T03:46:49Z",
+      "side": 1,
+      "message": "M2 ?",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6fab254_955068db",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T03:46:49Z",
+      "side": 1,
+      "message": "isn\u0027t this U2?\n\n\n        \"SlotTypes\": {\n            \"enum\": [\n                \"FullLength\",\n                \"HalfLength\",\n                \"LowProfile\",\n                \"Mini\",\n                \"M2\",\n                \"OEM\",\n                \"OCP3Small\",\n                \"OCP3Large\",\n                \"U2\"\n            ],\n            \"enumDescriptions\": {\n                \"FullLength\": \"Full-Length PCIe slot.\",\n                \"HalfLength\": \"Half-Length PCIe slot.\",\n                \"LowProfile\": \"Low-Profile or Slim PCIe slot.\",\n                \"M2\": \"PCIe M.2 slot.\",\n                \"Mini\": \"Mini PCIe slot.\",\n                \"OCP3Large\": \"Open Compute Project 3.0 large form factor slot.\",\n                \"OCP3Small\": \"Open Compute Project 3.0 small form factor slot.\",\n                \"OEM\": \"An OEM-specific slot.\",\n                \"U2\": \"U.2 / SFF-8639 slot or bay.\"\n            },",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "e38f32a59e0b930390ff3f8ae883f029f832d32c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4c89b75_e5718e27",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 9
