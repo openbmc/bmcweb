@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d4b8cfd_47b6638e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-01T18:52:04Z",
+      "side": 1,
+      "message": "Done. Removed.",
+      "parentUuid": "8e11ded9_d6dcacdd",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8b386dc_848104f7",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "f5a1b96e_965f4f95",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-01T18:52:04Z",
+      "side": 1,
+      "message": "Done. Agree. Added test cases.",
+      "parentUuid": "0ab4d531_677b95cd",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 73
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5830159_095a95a1",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-01T18:52:04Z",
+      "side": 1,
+      "message": "Done. Removed. I was passing char* to the function, which truncated the size when it\u0027d found a 00 (null terminator).",
+      "parentUuid": "e8b386dc_848104f7",
+      "range": {
+        "startLine": 407,
+        "startChar": 59,
+        "endLine": 407,
+        "endChar": 72
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "120687fc_08fbb564",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2021-01-30T17:38:37Z",
       "side": 1,
       "message": "I would\u0027ve expected this to be 64.... hence base64 encoding;  Any idea why it\u0027s not?",
+      "range": {
+        "startLine": 409,
+        "startChar": 27,
+        "endLine": 409,
+        "endChar": 29
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d82aa0_9add8c0f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-01T18:52:04Z",
+      "side": 1,
+      "message": "I didn\u0027t find anything explicit, but I assume it\u0027s because it\u0027s a char array, it needs to be null terminated, so the size would be string + 1 if it\u0027s not. The compile error with 64 is:\n\n ../git/http/utility.hpp:410:9: error: initializer-string for \u0027std::__array_traits\u003cchar, 64\u003e::_Type\u0027 {aka \u0027char [64]\u0027} is too long [-fpermissive]\n|   410 |         \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"};\n|       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "parentUuid": "120687fc_08fbb564",
       "range": {
         "startLine": 409,
         "startChar": 27,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a0a28679_653a3449",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-01T18:52:04Z",
+      "side": 1,
+      "message": "Done. Leftover from the exercise of moving from postfix to index.",
+      "parentUuid": "46ba1137_28e58e1a",
+      "range": {
+        "startLine": 419,
+        "startChar": 46,
+        "endLine": 419,
+        "endChar": 51
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53862e65_8bb84cb3",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "364f8b8e_ab1f1798",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-01T18:52:04Z",
+      "side": 1,
+      "message": "Done. Oops, leftovers from fixing the static_cast calls to work on 32/64 bit.",
+      "parentUuid": "53862e65_8bb84cb3",
+      "range": {
+        "startLine": 423,
+        "startChar": 44,
+        "endLine": 423,
+        "endChar": 66
+      },
+      "revId": "e47bdeaf20706d764ebb249f34b4295955af746d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
