@@ -267,7 +267,7 @@ class ConnectionImpl : public Connection
     }
 
   private:
-    boost::beast::websocket::stream<Adaptor> ws;
+    boost::beast::websocket::stream<Adaptor, false> ws;
 
     std::string inString;
     boost::asio::dynamic_string_buffer<std::string::value_type,
