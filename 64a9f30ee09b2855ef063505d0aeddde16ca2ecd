@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e0562610_3e74afa3",
+        "filename": "meson_options.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-01T08:49:27Z",
+      "side": 1,
+      "message": "I enabled this feature by default now. If there is any incorrect please let me know, thank you.",
+      "parentUuid": "967671e8_96a5bfab",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebb6102c_b1590e51",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 4
@@ -614,6 +638,30 @@
     },
     {
       "key": {
+        "uuid": "e420547b_3d8b323b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-01T08:49:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "556e6bf1_1ce077ca",
+      "range": {
+        "startLine": 1734,
+        "startChar": 0,
+        "endLine": 1734,
+        "endChar": 35
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "610002fe_07f10162",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -684,6 +732,30 @@
     },
     {
       "key": {
+        "uuid": "ec876c7c_460fe4a9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1751,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-01T08:49:27Z",
+      "side": 1,
+      "message": "Will \"HostConsole\" be a better naming of this feature?",
+      "parentUuid": "1472b349_b096bc1a",
+      "range": {
+        "startLine": 1751,
+        "startChar": 18,
+        "endLine": 1751,
+        "endChar": 29
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbda1eb9_8ba9fa8f",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -728,6 +800,30 @@
       "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78424194_f33ca4a4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-01T08:49:27Z",
+      "side": 1,
+      "message": "After research about the MessageID, i think we will not use the message ID to log message to redfish log. So remove the \"MessageID\" and \"MessageArgs\" level.",
+      "parentUuid": "696be331_9433fadb",
+      "range": {
+        "startLine": 1754,
+        "startChar": 35,
+        "endLine": 1754,
+        "endChar": 45
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
