@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff00f606_a1d8da07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T19:53:49Z",
+      "side": 1,
+      "message": "Could add a link to https://www.boost.org/doc/libs/1_70_0/libs/beast/doc/html/beast/using_websocket.html",
+      "revId": "867b14194d6d8c201d9f4e77beb91a91d3075ef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af4007f0_8a73f31b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T19:53:49Z",
+      "side": 1,
+      "message": "Test that the existing websocket functionality works?",
+      "revId": "867b14194d6d8c201d9f4e77beb91a91d3075ef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
