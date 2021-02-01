@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c04bbf93_49c9d721",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T14:36:07Z",
+      "side": 1,
+      "message": "\u003e then would would monitor for new logs with start\u003dcurrentIndex on some sort of loop\n\nIdeally this would be something like Redfish events for \"monitor for new logs\"?\n\nCan\u0027t you subscribe to redfish events for the log changes? As well as new logs?\n\nHow in the above case does the \"interface that reads all logs\" get updated when a log is deleted ?",
+      "parentUuid": "ea980bf8_c32218fa",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54ada203_13860603",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
