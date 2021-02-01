@@ -193,10 +193,11 @@ class InventoryItem
         ledState(LedState::UNKNOWN)
     {
         // Set inventory item name to last node of object path
-        auto pos = objectPath.rfind('/');
-        if ((pos != std::string::npos) && ((pos + 1) < objectPath.size()))
+        sdbusplus::message::object_path path(objectPath);
+        name = path.filename();
+        if (name.empty())
         {
-            name = objectPath.substr(pos + 1);
+            BMCWEB_LOG_ERROR << "Failed to find '/' in " << objectPath;
         }
     }
 
@@ -388,13 +389,13 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
             std::string chassisName;
             for (const std::string& chassis : chassisPaths)
             {
-                std::size_t lastPos = chassis.rfind('/');
-                if (lastPos == std::string::npos)
+                sdbusplus::message::object_path path(chassis);
+                chassisName = path.filename();
+                if (chassisName.empty())
                 {
                     BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
                     continue;
                 }
-                chassisName = chassis.substr(lastPos + 1);
                 if (chassisName == asyncResp->chassisId)
                 {
                     chassisPath = chassis;
@@ -441,13 +442,13 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         std::string chassisName;
         for (const std::string& chassis : chassisPaths)
         {
-            std::size_t lastPos = chassis.rfind('/');
-            if (lastPos == std::string::npos)
+            sdbusplus::message::object_path path(chassis);
+            chassisName = path.filename();
+            if (chassisName.empty())
             {
                 BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
                 continue;
             }
-            chassisName = chassis.substr(lastPos + 1);
             if (chassisName == sensorsAsyncResp->chassisId)
             {
                 chassisPath = &chassis;
@@ -1149,15 +1150,16 @@ inline void populateFanRedundancy(
                                         sensorsAsyncResp->res);
                                     return;
                                 }
-                                size_t lastSlash = path.rfind('/');
-                                if (lastSlash == std::string::npos)
+                                sdbusplus::message::object_path objectPath(
+                                    path);
+                                std::string name = objectPath.filename();
+                                if (name.empty())
                                 {
                                     // this should be impossible
                                     messages::internalError(
                                         sensorsAsyncResp->res);
                                     return;
                                 }
-                                std::string name = path.substr(lastSlash + 1);
                                 std::replace(name.begin(), name.end(), '_',
                                              ' ');
 
@@ -1180,10 +1182,12 @@ inline void populateFanRedundancy(
                                     sensorsAsyncResp->res.jsonValue["Fans"];
                                 for (const std::string& item : *collection)
                                 {
-                                    lastSlash = item.rfind('/');
-                                    // make a copy as collection is const
-                                    std::string itemName =
-                                        item.substr(lastSlash + 1);
+                                    sdbusplus::message::object_path path(item);
+                                    std::string itemName = path.filename();
+                                    if (itemName.empty())
+                                    {
+                                        continue;
+                                    }
                                     /*
                                     todo(ed): merge patch that fixes the names
                                     std::replace(itemName.begin(),
@@ -2684,14 +2688,14 @@ inline bool findSensorNameUsingSensorPath(
     boost::container::flat_set<std::string>& sensorsList,
     boost::container::flat_set<std::string>& sensorsModified)
 {
-    for (std::string_view chassisSensor : sensorsList)
+    for (auto& chassisSensor : sensorsList)
     {
-        std::size_t pos = chassisSensor.rfind('/');
-        if (pos >= (chassisSensor.size() - 1))
+        sdbusplus::message::object_path path(chassisSensor);
+        std::string_view thisSensorName = path.filename();
+        if (thisSensorName.empty())
         {
             continue;
         }
-        std::string_view thisSensorName = chassisSensor.substr(pos + 1);
         if (thisSensorName == sensorName)
         {
             sensorsModified.emplace(chassisSensor);
@@ -2790,14 +2794,13 @@ inline void setSensorsOverride(
                 }
                 for (const auto& item : objectsWithConnection)
                 {
-
-                    auto lastPos = item.first.rfind('/');
-                    if (lastPos == std::string::npos)
+                    sdbusplus::message::object_path path(item.first);
+                    std::string sensorName = path.filename();
+                    if (sensorName.empty())
                     {
                         messages::internalError(sensorAsyncResp->res);
                         return;
                     }
-                    std::string sensorName = item.first.substr(lastPos + 1);
 
                     const auto& iterator = overrideMap.find(sensorName);
                     if (iterator == overrideMap.end())
@@ -3042,15 +3045,14 @@ class SensorCollection : public Node
                 {
                     BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
 
-                    std::size_t lastPos = sensor.rfind('/');
-                    if (lastPos == std::string::npos ||
-                        lastPos + 1 >= sensor.size())
+                    sdbusplus::message::object_path path(sensor);
+                    std::string sensorName = path.filename();
+                    if (sensorName.empty())
                     {
                         BMCWEB_LOG_ERROR << "Invalid sensor path: " << sensor;
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    std::string sensorName = sensor.substr(lastPos + 1);
                     entriesArray.push_back(
                         {{"@odata.id",
                           "/redfish/v1/Chassis/" + asyncResp->chassisId + "/" +
@@ -3128,16 +3130,14 @@ class Sensor : public Node
                             std::vector<std::pair<std::string,
                                                   std::vector<std::string>>>>&
                             object) {
-                        std::string_view sensor = object.first;
-                        std::size_t lastPos = sensor.rfind('/');
-                        if (lastPos == std::string::npos ||
-                            lastPos + 1 >= sensor.size())
+                        sdbusplus::message::object_path path(object.first);
+                        std::string name = path.filename();
+                        if (name.empty())
                         {
                             BMCWEB_LOG_ERROR << "Invalid sensor path: "
-                                             << sensor;
+                                             << object.first;
                             return false;
                         }
-                        std::string_view name = sensor.substr(lastPos + 1);
 
                         return name == sensorName;
                     });
