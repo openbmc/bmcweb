@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80d05b6c_59fc785c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-01T14:41:25Z",
+      "side": 1,
+      "message": "I think we need to add here for things like temperature, fan, fan_tach, etc",
+      "revId": "e680c15d39ca2af07048bd37532653c21220acad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
