@@ -5,6 +5,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <event_service_manager.hpp>
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <nlohmann/json.hpp>
@@ -129,6 +130,38 @@ class ConfigFile
                         SessionStore::getInstance().updateSessionTimeout(
                             sessionTimeoutInseconds);
                     }
+                    else if (item.key() == "Event_Configurations")
+                    {
+                        EventServiceManager::getInstance()
+                            .getEventServiceConfig()
+                            .fromJson(item.value());
+                    }
+                    else if (item.key() == "Event_Subscriptions")
+                    {
+
+                        for (const auto& elem : item.value())
+                        {
+                            std::shared_ptr<Subscription> newSubscription =
+                                EventServiceManager::getInstance()
+                                    .GetSubscriptionfromJson(elem);
+                            if (newSubscription == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Problem reading subscription "
+                                    << "from persistent store";
+                                continue;
+                            }
+                            std::string id =
+                                EventServiceManager::getInstance()
+                                    .addSubscription(newSubscription);
+                            if (id.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Fail to read subscription id";
+                                continue;
+                            }
+                        }
+                    }
                     else
                     {
                         // Do nothing in the case of extra fields.  We may have
@@ -170,6 +203,8 @@ class ConfigFile
             std::filesystem::perms::group_read;
         std::filesystem::permissions(filename, permission);
         const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        const auto& evc =
+            EventServiceManager::getInstance().getEventServiceConfig();
         nlohmann::json data{
             {"auth_config",
              {{"XToken", c.xtoken},
@@ -177,6 +212,12 @@ class ConfigFile
               {"SessionToken", c.sessionToken},
               {"BasicAuth", c.basic},
               {"TLS", c.tls}}
+
+            },
+            {"Event_Configurations",
+             {{"ServiceEnabled", evc.enabled},
+              {"DeliveryRetryAttempts", evc.retryAttempts},
+              {"DeliveryRetryIntervalSeconds", evc.retryTimeoutInterval}}
 
             },
             {"system_uuid", systemUuid},
@@ -201,6 +242,34 @@ class ConfigFile
 #endif
                 });
             }
+        }
+        nlohmann::json& subListArray = data["Event_Subscriptions"];
+        subListArray = nlohmann::json::array();
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> subValue = it.second;
+            if (subValue->subscriptionType == "SSE")
+            {
+                BMCWEB_LOG_DEBUG
+                    << "The subscription type is SSE, so skipping.";
+                continue;
+            }
+            nlohmann::json entry;
+            entry["Context"] = subValue->customText;
+            entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
+            entry["Destination"] = subValue->destinationUrl;
+            entry["EventFormatType"] = subValue->eventFormatType;
+            entry["HttpHeaders"] = subValue->httpHeaders;
+            entry["MessageIds"] = subValue->registryMsgIds;
+            entry["Protocol"] = subValue->protocol;
+            entry["RegistryPrefixes"] = subValue->registryPrefixes;
+            entry["ResourceTypes"] = subValue->resourceTypes;
+            entry["SubscriptionType"] = subValue->subscriptionType;
+            entry["MetricReportDefinitions"] =
+                subValue->metricReportDefinitions;
+
+            subListArray.push_back(entry);
         }
         persistentFile << data;
     }
