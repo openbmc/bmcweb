@@ -106,6 +106,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef30179f_a5cbf316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-02-02T02:59:20Z",
+      "side": 1,
+      "message": "\u003e If you\u0027re interested in writing unit tests for the rest of the bmcweb code, that\u0027s one solution, \n\nyes ,I have some other priority items on my plate right now, but once i am free ,i would be happy to take up that activity if no one else is interested.\n\n\u003e To be clear, my priority here is the default build, and making sure it stays stable, as I think that\u0027s the most useful to everyone.  If you have ways that we can have that, and test every option, I\u0027m open to ideas, but barring rewriting unit tests for every conceivable option, I\u0027m not sure how to do it aside from relying on the machine-specific builds.\n\nI understood what you are trying to say, but we can always test the superset of the default build, so that CI tests the default build+featurecode.\n\nAs i said, i don\u0027t have much preference on this one. removing this flag will not harm, as meta-CI will catch it. If maintainers are keen to remove ,then i guess i am okay with it.",
+      "parentUuid": "a684e6e0_cd05e7cd",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
