@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cecffeb_c0d59ec8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2272,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-02T15:19:01Z",
+      "side": 1,
+      "message": "we don\u0027t need to explicitly tell about Resource dump service here.",
+      "range": {
+        "startLine": 2272,
+        "startChar": 19,
+        "endLine": 2272,
+        "endChar": 30
+      },
+      "revId": "57518123d7ebbc6dfbdda709fb14b234f241d60d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e353b38_5eae5eeb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2321,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-02T15:19:01Z",
+      "side": 1,
+      "message": "Instead of passing the dump type, Can we have the logic where we can send the d-bus interface to get all the objects implementing that interface.\nI know we have the specific dbus interface for the dump types..\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Dump/Entry",
+      "range": {
+        "startLine": 2320,
+        "startChar": 0,
+        "endLine": 2321,
+        "endChar": 54
+      },
+      "revId": "57518123d7ebbc6dfbdda709fb14b234f241d60d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
