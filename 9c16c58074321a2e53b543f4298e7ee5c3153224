@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "8f505a6d_d6f7fb62",
+        "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-02T08:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4a0cb74_adb18cc0",
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab75e16b_38fcf8a6",
         "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
         "patchSetId": 8
@@ -184,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "520533c9_56ec8d21",
+        "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-02T08:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab75e16b_38fcf8a6",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 6
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3629baf_b0e0d033",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 8
@@ -204,6 +246,30 @@
       "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3ae5fc_abbe0a71",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-02T08:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3629baf_b0e0d033",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 32
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
