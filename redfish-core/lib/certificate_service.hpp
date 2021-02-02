@@ -1029,8 +1029,9 @@ class CertificateLocations : public Node
                                  const ManagedObjectType& certs) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                    messages::internalError(asyncResp->res);
+                    BMCWEB_LOG_WARNING
+                        << "Certificate collection query failed: " << ec
+                        << ", skipping " << certURL;
                     return;
                 }
                 nlohmann::json& links =
@@ -1080,14 +1081,17 @@ class LDAPCertificateCollection : public Node
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const ManagedObjectType& certs) {
+                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+                nlohmann::json& count =
+                    asyncResp->res.jsonValue["Members@odata.count"];
+                members = nlohmann::json::array();
+                count = 0;
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                    messages::internalError(asyncResp->res);
+                    BMCWEB_LOG_WARNING << "LDAP certificate query failed: "
+                                       << ec;
                     return;
                 }
-                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-                members = nlohmann::json::array();
                 for (const auto& cert : certs)
                 {
                     long id = getIDFromURL(cert.first.str);
@@ -1099,8 +1103,7 @@ class LDAPCertificateCollection : public Node
                                                std::to_string(id)}});
                     }
                 }
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    members.size();
+                count = members.size();
             },
             certs::ldapServiceName, certs::ldapObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");
