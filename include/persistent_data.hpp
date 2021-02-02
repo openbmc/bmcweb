@@ -5,6 +5,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <event_service_manager.hpp>
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <nlohmann/json.hpp>
@@ -17,6 +18,10 @@
 
 namespace persistent_data
 {
+
+static constexpr const char* defaulEventFormatType = "Event";
+static constexpr const char* defaulSubscriptionType = "RedfishEvent";
+static constexpr const char* defaulRetryPolicy = "TerminateAfterRetries";
 
 class ConfigFile
 {
@@ -129,6 +134,160 @@ class ConfigFile
                         SessionStore::getInstance().updateSessionTimeout(
                             sessionTimeoutInseconds);
                     }
+                    else if (item.key() == "Event_Configurations")
+                    {
+                        nlohmann::json& evcfg = item.value();
+                        for (const auto& element : evcfg.items())
+                        {
+                            if (element.key() == "ServiceEnabled")
+                            {
+                                const bool* value =
+                                    element.value().get_ptr<const bool*>();
+                                if (value == nullptr)
+                                {
+                                    continue;
+                                }
+                                enabled = *value;
+                            }
+                            else if (element.key() == "DeliveryRetryAttempts")
+                            {
+                                const uint64_t* value =
+                                    element.value().get_ptr<const uint64_t*>();
+                                if (value == nullptr)
+                                {
+                                    continue;
+                                }
+                                retryAttempts = static_cast<uint32_t>(*value);
+                            }
+                            else if (element.key() ==
+                                     "DeliveryRetryIntervalSeconds")
+                            {
+                                const uint64_t* value =
+                                    element.value().get_ptr<const uint64_t*>();
+                                if (value == nullptr)
+                                {
+                                    continue;
+                                }
+                                retryTimeoutInterval =
+                                    static_cast<uint32_t>(*value);
+                            }
+                        }
+                        redfish::EventServiceManager::getInstance()
+                            .setEventServiceConfig(std::make_tuple(
+                                enabled, retryAttempts, retryTimeoutInterval));
+                    }
+                    else if (item.key() == "Event_Subscriptions")
+                    {
+
+                        nlohmann::json subscriptionsList;
+                        if (!redfish::json_util::getValueFromJsonObject(
+                                data, "Event_Subscriptions", subscriptionsList))
+                        {
+                            BMCWEB_LOG_DEBUG << "EventService: Subscriptions"
+                                                "not exist";
+                            continue;
+                        }
+
+                        for (nlohmann::json& jsonObj : subscriptionsList)
+                        {
+
+                            std::string protocol;
+                            if (!redfish::json_util::getValueFromJsonObject(
+                                    jsonObj, "Protocol", protocol))
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << "Invalid subscription Protocol exist.";
+                                continue;
+                            }
+
+                            std::string subscriptionType;
+                            if (!redfish::json_util::getValueFromJsonObject(
+                                    jsonObj, "SubscriptionType",
+                                    subscriptionType))
+                            {
+                                subscriptionType = defaulSubscriptionType;
+                            }
+                            // SSE connections are initiated from client
+                            // and can't be re-established from server.
+                            if (subscriptionType == "SSE")
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << "The subscription type is SSE, "
+                                       "so skipping.";
+                                continue;
+                            }
+
+                            std::string destination;
+                            if (!redfish::json_util::getValueFromJsonObject(
+                                    jsonObj, "Destination", destination))
+                            {
+                                BMCWEB_LOG_DEBUG << "Invalid subscription "
+                                                    "destination exist.";
+                                continue;
+                            }
+                            std::string host;
+                            std::string urlProto;
+                            std::string port;
+                            std::string path;
+                            bool status =
+                                redfish::EventServiceManager::getInstance()
+                                    .validateAndSplitUrl(destination, urlProto,
+                                                         host, port, path);
+
+                            if (!status)
+                            {
+                                BMCWEB_LOG_ERROR << "Failed to validate and "
+                                                    "split destination url";
+                                continue;
+                            }
+                            std::shared_ptr<redfish::Subscription> subValue =
+                                std::make_shared<redfish::Subscription>(
+                                    host, port, path, urlProto);
+
+                            subValue->destinationUrl = destination;
+                            subValue->protocol = protocol;
+                            subValue->subscriptionType = subscriptionType;
+                            if (!redfish::json_util::getValueFromJsonObject(
+                                    jsonObj, "DeliveryRetryPolicy",
+                                    subValue->retryPolicy))
+                            {
+                                subValue->retryPolicy = defaulRetryPolicy;
+                            }
+                            if (!redfish::json_util::getValueFromJsonObject(
+                                    jsonObj, "EventFormatType",
+                                    subValue->eventFormatType))
+                            {
+                                subValue->eventFormatType =
+                                    defaulEventFormatType;
+                            }
+                            redfish::json_util::getValueFromJsonObject(
+                                jsonObj, "Context", subValue->customText);
+                            redfish::json_util::getValueFromJsonObject(
+                                jsonObj, "MessageIds",
+                                subValue->registryMsgIds);
+                            redfish::json_util::getValueFromJsonObject(
+                                jsonObj, "RegistryPrefixes",
+                                subValue->registryPrefixes);
+                            redfish::json_util::getValueFromJsonObject(
+                                jsonObj, "ResourceTypes",
+                                subValue->resourceTypes);
+                            redfish::json_util::getValueFromJsonObject(
+                                jsonObj, "HttpHeaders", subValue->httpHeaders);
+                            redfish::json_util::getValueFromJsonObject(
+                                jsonObj, "MetricReportDefinitions",
+                                subValue->metricReportDefinitions);
+
+                            std::string id =
+                                redfish::EventServiceManager::getInstance()
+                                    .addSubscription(subValue);
+                            if (id.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Failed to read subscription id";
+                                continue;
+                            }
+                        }
+                    }
                     else
                     {
                         // Do nothing in the case of extra fields.  We may have
@@ -170,6 +329,8 @@ class ConfigFile
             std::filesystem::perms::group_read;
         std::filesystem::permissions(filename, permission);
         const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        const auto [enabled, retryAttempts, retryTimeoutInterval] =
+            redfish::EventServiceManager::getInstance().getEventServiceConfig();
         nlohmann::json data{
             {"auth_config",
              {{"XToken", c.xtoken},
@@ -177,6 +338,12 @@ class ConfigFile
               {"SessionToken", c.sessionToken},
               {"BasicAuth", c.basic},
               {"TLS", c.tls}}
+
+            },
+            {"Event_Configurations",
+             {{"ServiceEnabled", enabled},
+              {"DeliveryRetryAttempts", retryAttempts},
+              {"DeliveryRetryIntervalSeconds", retryTimeoutInterval}}
 
             },
             {"system_uuid", systemUuid},
@@ -202,10 +369,41 @@ class ConfigFile
                 });
             }
         }
+        nlohmann::json& subListArray = data["Event_Subscriptions"];
+        subListArray = nlohmann::json::array();
+        for (const auto& it :
+             redfish::EventServiceManager::getInstance().subscriptionsMap)
+        {
+            std::shared_ptr<redfish::Subscription> subValue = it.second;
+            if (subValue->subscriptionType == "SSE")
+            {
+                BMCWEB_LOG_DEBUG
+                    << "The subscription type is SSE, so skipping.";
+                continue;
+            }
+            nlohmann::json entry;
+            entry["Context"] = subValue->customText;
+            entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
+            entry["Destination"] = subValue->destinationUrl;
+            entry["EventFormatType"] = subValue->eventFormatType;
+            entry["HttpHeaders"] = subValue->httpHeaders;
+            entry["MessageIds"] = subValue->registryMsgIds;
+            entry["Protocol"] = subValue->protocol;
+            entry["RegistryPrefixes"] = subValue->registryPrefixes;
+            entry["ResourceTypes"] = subValue->resourceTypes;
+            entry["SubscriptionType"] = subValue->subscriptionType;
+            entry["MetricReportDefinitions"] =
+                subValue->metricReportDefinitions;
+
+            subListArray.push_back(entry);
+        }
         persistentFile << data;
     }
 
     std::string systemUuid{""};
+    bool enabled{"true"};
+    uint32_t retryAttempts{3};
+    uint32_t retryTimeoutInterval{30};
 };
 
 inline ConfigFile& getConfig()

@@ -31,7 +31,6 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <fstream>
 #include <memory>
 #include <variant>
 
@@ -44,9 +43,6 @@ using EventServiceConfig = std::tuple<bool, uint32_t, uint32_t>;
 
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
-
-static constexpr const char* eventServiceFile =
-    "/var/lib/bmcweb/eventservice_config.json";
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
@@ -586,13 +582,6 @@ class Subscription
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 };
 
-static constexpr const bool defaultEnabledState = true;
-static constexpr const uint32_t defaultRetryAttempts = 3;
-static constexpr const uint32_t defaultRetryInterval = 30;
-static constexpr const char* defaulEventFormatType = "Event";
-static constexpr const char* defaulSubscriptionType = "RedfishEvent";
-static constexpr const char* defaulRetryPolicy = "TerminateAfterRetries";
-
 class EventServiceManager
 {
   private:
@@ -600,229 +589,21 @@ class EventServiceManager
     uint32_t retryAttempts;
     uint32_t retryTimeoutInterval;
 
-    EventServiceManager()
-    {
-        // Load config from persist store.
-        initConfig();
-    }
-
     std::string lastEventTStr;
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
-    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
-        subscriptionsMap;
 
     uint64_t eventId{1};
 
   public:
-    EventServiceManager(const EventServiceManager&) = delete;
-    EventServiceManager& operator=(const EventServiceManager&) = delete;
-    EventServiceManager(EventServiceManager&&) = delete;
-    EventServiceManager& operator=(EventServiceManager&&) = delete;
+    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
+        subscriptionsMap;
 
     static EventServiceManager& getInstance()
     {
         static EventServiceManager handler;
         return handler;
-    }
-
-    void loadDefaultConfig()
-    {
-        serviceEnabled = defaultEnabledState;
-        retryAttempts = defaultRetryAttempts;
-        retryTimeoutInterval = defaultRetryInterval;
-    }
-
-    void initConfig()
-    {
-        std::ifstream eventConfigFile(eventServiceFile);
-        if (!eventConfigFile.good())
-        {
-            BMCWEB_LOG_DEBUG << "EventService config not exist";
-            loadDefaultConfig();
-            return;
-        }
-        auto jsonData = nlohmann::json::parse(eventConfigFile, nullptr, false);
-        if (jsonData.is_discarded())
-        {
-            BMCWEB_LOG_ERROR << "EventService config parse error.";
-            loadDefaultConfig();
-            return;
-        }
-
-        nlohmann::json jsonConfig;
-        if (json_util::getValueFromJsonObject(jsonData, "Configuration",
-                                              jsonConfig))
-        {
-            if (!json_util::getValueFromJsonObject(jsonConfig, "ServiceEnabled",
-                                                   serviceEnabled))
-            {
-                serviceEnabled = defaultEnabledState;
-            }
-            if (!json_util::getValueFromJsonObject(
-                    jsonConfig, "DeliveryRetryAttempts", retryAttempts))
-            {
-                retryAttempts = defaultRetryAttempts;
-            }
-            if (!json_util::getValueFromJsonObject(
-                    jsonConfig, "DeliveryRetryIntervalSeconds",
-                    retryTimeoutInterval))
-            {
-                retryTimeoutInterval = defaultRetryInterval;
-            }
-        }
-        else
-        {
-            loadDefaultConfig();
-        }
-
-        nlohmann::json subscriptionsList;
-        if (!json_util::getValueFromJsonObject(jsonData, "Subscriptions",
-                                               subscriptionsList))
-        {
-            BMCWEB_LOG_DEBUG << "EventService: Subscriptions not exist.";
-            return;
-        }
-
-        for (nlohmann::json& jsonObj : subscriptionsList)
-        {
-            std::string protocol;
-            if (!json_util::getValueFromJsonObject(jsonObj, "Protocol",
-                                                   protocol))
-            {
-                BMCWEB_LOG_DEBUG << "Invalid subscription Protocol exist.";
-                continue;
-            }
-
-            std::string subscriptionType;
-            if (!json_util::getValueFromJsonObject(jsonObj, "SubscriptionType",
-                                                   subscriptionType))
-            {
-                subscriptionType = defaulSubscriptionType;
-            }
-            // SSE connections are initiated from client
-            // and can't be re-established from server.
-            if (subscriptionType == "SSE")
-            {
-                BMCWEB_LOG_DEBUG
-                    << "The subscription type is SSE, so skipping.";
-                continue;
-            }
-
-            std::string destination;
-            if (!json_util::getValueFromJsonObject(jsonObj, "Destination",
-                                                   destination))
-            {
-                BMCWEB_LOG_DEBUG << "Invalid subscription destination exist.";
-                continue;
-            }
-            std::string host;
-            std::string urlProto;
-            std::string port;
-            std::string path;
-            bool status =
-                validateAndSplitUrl(destination, urlProto, host, port, path);
-
-            if (!status)
-            {
-                BMCWEB_LOG_ERROR
-                    << "Failed to validate and split destination url";
-                continue;
-            }
-            std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(host, port, path, urlProto);
-
-            subValue->destinationUrl = destination;
-            subValue->protocol = protocol;
-            subValue->subscriptionType = subscriptionType;
-            if (!json_util::getValueFromJsonObject(
-                    jsonObj, "DeliveryRetryPolicy", subValue->retryPolicy))
-            {
-                subValue->retryPolicy = defaulRetryPolicy;
-            }
-            if (!json_util::getValueFromJsonObject(jsonObj, "EventFormatType",
-                                                   subValue->eventFormatType))
-            {
-                subValue->eventFormatType = defaulEventFormatType;
-            }
-            json_util::getValueFromJsonObject(jsonObj, "Context",
-                                              subValue->customText);
-            json_util::getValueFromJsonObject(jsonObj, "MessageIds",
-                                              subValue->registryMsgIds);
-            json_util::getValueFromJsonObject(jsonObj, "RegistryPrefixes",
-                                              subValue->registryPrefixes);
-            json_util::getValueFromJsonObject(jsonObj, "ResourceTypes",
-                                              subValue->resourceTypes);
-            json_util::getValueFromJsonObject(jsonObj, "HttpHeaders",
-                                              subValue->httpHeaders);
-            json_util::getValueFromJsonObject(
-                jsonObj, "MetricReportDefinitions",
-                subValue->metricReportDefinitions);
-
-            std::string id = addSubscription(subValue, false);
-            if (id.empty())
-            {
-                BMCWEB_LOG_ERROR << "Failed to add subscription";
-            }
-        }
-        return;
-    }
-
-    void updateSubscriptionData()
-    {
-        // Persist the config and subscription data.
-        nlohmann::json jsonData;
-
-        nlohmann::json& configObj = jsonData["Configuration"];
-        configObj["ServiceEnabled"] = serviceEnabled;
-        configObj["DeliveryRetryAttempts"] = retryAttempts;
-        configObj["DeliveryRetryIntervalSeconds"] = retryTimeoutInterval;
-
-        nlohmann::json& subListArray = jsonData["Subscriptions"];
-        subListArray = nlohmann::json::array();
-
-        for (const auto& it : subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> subValue = it.second;
-            // Don't preserve SSE connections. Its initiated from
-            // client side and can't be re-established from server.
-            if (subValue->subscriptionType == "SSE")
-            {
-                BMCWEB_LOG_DEBUG
-                    << "The subscription type is SSE, so skipping.";
-                continue;
-            }
-
-            nlohmann::json entry;
-            entry["Context"] = subValue->customText;
-            entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
-            entry["Destination"] = subValue->destinationUrl;
-            entry["EventFormatType"] = subValue->eventFormatType;
-            entry["HttpHeaders"] = subValue->httpHeaders;
-            entry["MessageIds"] = subValue->registryMsgIds;
-            entry["Protocol"] = subValue->protocol;
-            entry["RegistryPrefixes"] = subValue->registryPrefixes;
-            entry["ResourceTypes"] = subValue->resourceTypes;
-            entry["SubscriptionType"] = subValue->subscriptionType;
-            entry["MetricReportDefinitions"] =
-                subValue->metricReportDefinitions;
-
-            subListArray.push_back(entry);
-        }
-
-        const std::string tmpFile(std::string(eventServiceFile) + "_tmp");
-        std::ofstream ofs(tmpFile, std::ios::out);
-        const auto& writeData = jsonData.dump();
-        ofs << writeData;
-        ofs.close();
-
-        BMCWEB_LOG_DEBUG << "EventService config updated to file.";
-        if (std::rename(tmpFile.c_str(), eventServiceFile) != 0)
-        {
-            BMCWEB_LOG_ERROR << "Error in renaming temporary file: "
-                             << tmpFile.c_str();
-        }
     }
 
     EventServiceConfig getEventServiceConfig()
@@ -832,7 +613,6 @@ class EventServiceManager
 
     void setEventServiceConfig(const EventServiceConfig& cfg)
     {
-        bool updateConfig = false;
         bool updateRetryCfg = false;
 
         if (serviceEnabled != std::get<0>(cfg))
@@ -846,26 +626,18 @@ class EventServiceManager
             {
                 unregisterMetricReportSignal();
             }
-            updateConfig = true;
         }
 
         if (retryAttempts != std::get<1>(cfg))
         {
             retryAttempts = std::get<1>(cfg);
-            updateConfig = true;
             updateRetryCfg = true;
         }
 
         if (retryTimeoutInterval != std::get<2>(cfg))
         {
             retryTimeoutInterval = std::get<2>(cfg);
-            updateConfig = true;
             updateRetryCfg = true;
-        }
-
-        if (updateConfig)
-        {
-            updateSubscriptionData();
         }
 
         if (updateRetryCfg)
@@ -924,8 +696,7 @@ class EventServiceManager
         return subValue;
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription>& subValue,
-                                const bool updateFile = true)
+    std::string addSubscription(const std::shared_ptr<Subscription>& subValue)
     {
 
         std::uniform_int_distribution<uint32_t> dist(0);
@@ -958,11 +729,6 @@ class EventServiceManager
 
         updateNoOfSubscribersCount();
 
-        if (updateFile)
-        {
-            updateSubscriptionData();
-        }
-
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         if (lastEventTStr.empty())
         {
@@ -993,7 +759,6 @@ class EventServiceManager
         {
             subscriptionsMap.erase(obj);
             updateNoOfSubscribersCount();
-            updateSubscriptionData();
         }
     }
 

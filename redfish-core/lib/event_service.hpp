@@ -16,6 +16,8 @@
 #pragma once
 #include "event_service_manager.hpp"
 
+#include <persistent_data.hpp>
+
 namespace redfish
 {
 
@@ -145,6 +147,8 @@ class EventService : public Node
 
         EventServiceManager::getInstance().setEventServiceConfig(
             std::make_tuple(enabled, retryCount, retryTimeoutInterval));
+
+        persistent_data::getConfig().writeData();
     }
 };
 
@@ -448,6 +452,7 @@ class EventDestinationCollection : public Node
             messages::internalError(asyncResp->res);
             return;
         }
+        persistent_data::getConfig().writeData();
 
         messages::created(asyncResp->res);
         asyncResp->res.addHeader(
@@ -574,7 +579,7 @@ class EventDestination : public Node
             subValue->updateRetryPolicy();
         }
 
-        EventServiceManager::getInstance().updateSubscriptionData();
+        persistent_data::getConfig().writeData();
     }
 
     void doDelete(crow::Response& res, const crow::Request&,
@@ -595,6 +600,7 @@ class EventDestination : public Node
             return;
         }
         EventServiceManager::getInstance().deleteSubscription(params[0]);
+        persistent_data::getConfig().writeData();
     }
 };
 
