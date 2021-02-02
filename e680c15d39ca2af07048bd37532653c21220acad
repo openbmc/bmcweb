@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7ca5f3b_b341261e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-02T07:13:07Z",
+      "side": 1,
+      "message": "\u003e What changes do you expect? \n\nThe previous logic, /redfish/v1/Chassis/\u003cId\u003e/Sensors only contains current and utilization. According to design requirements, now all related to the sensor (power and thermal) should be moved to the all sensor and retain the original power and thermal.\n\n\u003e How would a users output change?\n\nWhen the user ran /redfish/v1/Chassis/\u003cId\u003e/Sensors, all sensors (including the original power, sensor, and thermal) will be obtained\n\n\u003e was this related to any changes in Redfish that might have occured?\n\nNo.\nRefer to:\nhttps://github.com/ibm-openbmc/dev/issues/2796",
+      "parentUuid": "319a41a9_21edc8fb",
+      "revId": "e680c15d39ca2af07048bd37532653c21220acad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6e01b24_fbc49b0d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "6b0ed0ee_01fbb1f7",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-02T07:13:07Z",
+      "side": 1,
+      "message": "Sorry, It is my mistake.\nDone",
+      "parentUuid": "e5755743_32a657a8",
+      "revId": "e680c15d39ca2af07048bd37532653c21220acad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80d05b6c_59fc785c",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
@@ -68,6 +104,24 @@
       "revId": "e680c15d39ca2af07048bd37532653c21220acad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf391656_ae48151d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-02T07:13:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80d05b6c_59fc785c",
+      "revId": "e680c15d39ca2af07048bd37532653c21220acad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
