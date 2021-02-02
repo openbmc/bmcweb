@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "744c4ba1_f60b6582",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-02T23:06:43Z",
+      "side": 1,
+      "message": "Check what\u0027s there now.  I kinda merged the old with some of the stuff from what you want.  One important thing is I want to stop fighting bugs against peoples OpenBMC forks in github issues, so I want to keep the environment section as a top level line item.\n\nI did make the steps sound less, GUIey, so hopefully that works.  If not, I can take another run at it.",
+      "parentUuid": "52e19752_6c550d25",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7143c6ea_f2e9d026",
         "filename": ".github/ISSUE_TEMPLATE/custom.md",
         "patchSetId": 1
@@ -183,6 +207,54 @@
         "startChar": 41,
         "endLine": 10,
         "endChar": 47
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8574cc2d_fc4c0013",
+        "filename": ".github/ISSUE_TEMPLATE/feature_request.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-02T23:06:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40334962_f5873176",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac4c25e_2450030d",
+        "filename": ".github/ISSUE_TEMPLATE/feature_request.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-02T23:06:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2e055c1_f895cfa6",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 37
       },
       "revId": "41236ed3abbe6be6f6a415619b9405078aaad25d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
