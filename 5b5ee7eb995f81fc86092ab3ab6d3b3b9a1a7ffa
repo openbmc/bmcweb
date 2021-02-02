@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b323534_cc80eda8",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-02T09:47:58Z",
+      "side": 1,
+      "message": "I think we can define the method simple like filename.\nhttps://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/message/native_types.hpp#L144\n\n```\nstd::string typeName(std::string str) const\n{\n    auto index \u003d str.rfind(\u0027.\u0027);\n    if (index \u003d\u003d std::string::npos)\n    {\n        return \"\";\n    }\n    index++;\n    if (index \u003e\u003d str.size())\n    {\n        return \"\";\n    }\n\n    return str.substr(index);\n    }\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 1
+      },
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
