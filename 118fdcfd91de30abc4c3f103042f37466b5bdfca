@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4865d4a8_b27e6d02",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-03T20:53:28Z",
+      "side": 1,
+      "message": "std::string ?",
+      "range": {
+        "startLine": 1781,
+        "startChar": 16,
+        "endLine": 1781,
+        "endChar": 21
+      },
+      "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
