@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7372934e_584616c6",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:16:30Z",
+      "side": 1,
+      "message": "This file should not have event service manager as a dependency.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 36
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e364e091_bc1a279a",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:16:30Z",
+      "side": 1,
+      "message": "These are each only used in one place.  Please inline.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f49e60_76655251",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:16:30Z",
+      "side": 1,
+      "message": "Event service needs to be pulling this config from persistent data, we can\u0027t be pushing it into it on read.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc0f8cd_9232d99c",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:16:30Z",
+      "side": 1,
+      "message": "We should not be directly calling event service manager here.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 75
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf4a26f_55da7484",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:16:30Z",
+      "side": 1,
+      "message": "These need to be moved away from these helpers the match the get_if style of the other things in this file.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 67
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1420228f_6062752a",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:16:30Z",
+      "side": 1,
+      "message": "same problem here.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 63
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
