@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae7e20e9_468d5896",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T00:23:08Z",
+      "side": 1,
+      "message": "Just calling encode and decode isn\u0027t a great unit test for encode.  It might be a good one for testing that we can round trip through the protocol, but if both implementations are wrong, this doesn\u0027t really test for that.  We should be calling encode, and asserting against known good values in at least one test.\n\n\nExamples of similar asserts from the bouncy castle unit tests:\n\n   BASE64(\"\") \u003d \"\"\n   BASE64(\"f\") \u003d \"Zg\u003d\u003d\"\n   BASE64(\"fo\") \u003d \"Zm8\u003d\"\n   BASE64(\"foo\") \u003d \"Zm9v\"\n   BASE64(\"foob\") \u003d \"Zm9vYg\u003d\u003d\"\n   BASE64(\"fooba\") \u003d \"Zm9vYmE\u003d\"\n   BASE64(\"foobar\") \u003d \"Zm9vYmFy\"\n\n\nI believe these would cover all cases in the base64 encoder.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "27a4468a72e006715c8fc975dacb7e1b9da010f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98f3335f_f0085088",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T00:23:08Z",
+      "side": 1,
+      "message": "I\u0027m not really following what this test is testing that the last test didn\u0027t test.  The last 4 lines are identical, so it seems like it\u0027s only really testing that you can construct a std::string from an istringstream, which isn\u0027t something we should really test, that\u0027s more for libc++ unit tests.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "27a4468a72e006715c8fc975dacb7e1b9da010f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
