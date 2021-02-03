@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4022ce55_e89e474d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:02:41Z",
+      "side": 1,
+      "message": "I still haven\u0027t seen a response to how this is going to work when privilege isolation works.  I suspect this file descriptor needs to come from dbus rather than reading and writing directly to the filesystem.",
+      "range": {
+        "startLine": 1770,
+        "startChar": 0,
+        "endLine": 1770,
+        "endChar": 50
+      },
+      "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4865d4a8_b27e6d02",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -18,6 +41,29 @@
         "startChar": 16,
         "endLine": 1781,
         "endChar": 21
+      },
+      "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de1857b9_851daa07",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T21:02:41Z",
+      "side": 1,
+      "message": "This makes it look like you\u0027re trying to make this file downloadable in the browser.  That largely defeats the purpose of base64 encoding it.",
+      "range": {
+        "startLine": 1785,
+        "startChar": 0,
+        "endLine": 1788,
+        "endChar": 66
       },
       "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
