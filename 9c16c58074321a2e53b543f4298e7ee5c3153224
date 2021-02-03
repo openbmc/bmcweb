@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "8f6763aa_796c8c24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-03T05:22:40Z",
+      "side": 1,
+      "message": "Also, as mentioned above , Redfish is not the only initiator of this feature. We have Operator Panel hardware in IBM systems and users can initiate the lamp test by pressing some key combinations.",
+      "parentUuid": "b1d499ac_6f90f8fc",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1fdee5d_5c5ffe11",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
