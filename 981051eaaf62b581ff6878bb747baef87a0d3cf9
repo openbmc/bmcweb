@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4972038f_cc120e76",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T05:39:56Z",
+      "side": 1,
+      "message": "Your patchset actually gave me the idea that if we had \"done\" callbacks, we wouldn\u0027t need to have the core take ownership of the string, which means we can use buffer body, and have flow control with it, which removes the need for dynamic body, like we do with websockets.  In fact, websockets could use a buffer interface too if we had callbacks when the write was done, which would fix the flow control issues there too.",
+      "parentUuid": "1accb857_b24c9d14",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "397be55e_9982afdb",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2021-02-03T05:23:51Z",
       "side": 1,
       "message": "i did not understand why do we need to store headers ?\nheaders sent only once before writing data right?",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f0c48ee_98f7caa0",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T05:39:56Z",
+      "side": 1,
+      "message": "We\u0027re converting the body to a different type here.  The first call to write will send the headers along with the first payload, so they need to be preserved.  Unfortunately, they\u0027re part of the body, and I wasn\u0027t able to get a fields reference type to work (it\u0027s not allowed).  and the way we organize this, we don\u0027t really know if the API in question is going to call write, until it does, so we can\u0027t send the headers ahead of time before the first call to write.\n\nHopefully that makes sense.",
+      "parentUuid": "397be55e_9982afdb",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
