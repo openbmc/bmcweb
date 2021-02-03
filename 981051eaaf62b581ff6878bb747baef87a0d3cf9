@@ -16,6 +16,41 @@
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1accb857_b24c9d14",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-02-03T05:23:51Z",
+      "side": 1,
+      "message": "don\u0027t we need to create another response structure for dynamic body type?\nbecoz existing response body is of string type",
+      "parentUuid": "2a3ddf49_7079d14f",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "397be55e_9982afdb",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-02-03T05:23:51Z",
+      "side": 1,
+      "message": "i did not understand why do we need to store headers ?\nheaders sent only once before writing data right?",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
