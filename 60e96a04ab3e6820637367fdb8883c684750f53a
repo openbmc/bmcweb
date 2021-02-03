@@ -124,6 +124,24 @@
       "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a997e4b9_81989f04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-03T19:09:16Z",
+      "side": 1,
+      "message": "\u003e \u003e If you\u0027re interested in writing unit tests for the rest of the bmcweb code, that\u0027s one solution, \n\u003e \n\u003e yes ,I have some other priority items on my plate right now, but once i am free ,i would be happy to take up that activity if no one else is interested.\n\nGreat.  Looking forward to seeing the patches.  I have it on my todo list too, so when you get there, lets see if we can split up the work in a reasonable way.\n\n\u003e \n\u003e \u003e To be clear, my priority here is the default build, and making sure it stays stable, as I think that\u0027s the most useful to everyone.  If you have ways that we can have that, and test every option, I\u0027m open to ideas, but barring rewriting unit tests for every conceivable option, I\u0027m not sure how to do it aside from relying on the machine-specific builds.\n\u003e \n\u003e I understood what you are trying to say, but we can always test the superset of the default build, so that CI tests the default build+featurecode.\n\nIf we had a way to build both the default build and the \"everything\" build in CI, that would be great, but barring that, default build takes priority.\n\n\u003e \n\u003e As i said, i don\u0027t have much preference on this one. removing this flag will not harm, as meta-CI will catch it. If maintainers are keen to remove ,then i guess i am okay with it.\n\nThis is kinda my thought too.  It should be noted, most of the IBM code is behind unit tests, so those get built whether or not the option is enabled.",
+      "parentUuid": "ef30179f_a5cbf316",
+      "revId": "60e96a04ab3e6820637367fdb8883c684750f53a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
