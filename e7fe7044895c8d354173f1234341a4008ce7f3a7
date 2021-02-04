@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "11354551_c5f70e92",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:09:05Z",
+      "side": 1,
+      "message": "It seems possible for it to occur in a race condition (interface is removed between calling the mapper and calling the service) so I think handling this silently better than posting a 500.\n\nwith that said, this is all super unlikely, so I don\u0027t care that much, and when it \"fails\" still gives a reasonable response, so I\u0027m not too worried about it.",
+      "parentUuid": "825d879d_ee11fa3e",
+      "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbdf2873_284a7c88",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 13
@@ -152,6 +170,30 @@
       "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55bb82bc_eb7b599d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:09:05Z",
+      "side": 1,
+      "message": "Agree with both of gunnars comments.  Use the pattern he proposed, as it\u0027s much more \"regular\"\n\nTo be clear, aside from readability, there is nothing technically wrong with what you did, it\u0027s just harder to read when you have to read a lot of these every day.",
+      "parentUuid": "0590133c_c4c3a5f7",
+      "range": {
+        "startLine": 1719,
+        "startChar": 1,
+        "endLine": 1723,
+        "endChar": 13
+      },
+      "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

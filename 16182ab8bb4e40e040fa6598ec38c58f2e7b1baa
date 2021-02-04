@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c50b9880_b151080d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:09:05Z",
+      "side": 1,
+      "message": "Why?\n\nWhat would a SparePartNumber convey in the context of a BMC, which is generally soldered to the board, and therefore has no spare part?\n\nLocation-\u003ePartLocation-\u003eServiceLabel looks like it\u0027s the exact property you added (not mentioned in the commit message), but it looks like you used a schematic location to fill it?  That looks incorrect to me, but I can\u0027t understand your intent without more detail here.\n\nModel is meant to convey, the specific model of BMC on a normal system?  This seems odd that we would specify the chip.  Normally this field is used for conveying a rack managers specific model when it\u0027s a completely separate component in the rack.  In the context of the bmc, it seems a little weird, but again, I can only guess as to your intent without a good commit message.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "16182ab8bb4e40e040fa6598ec38c58f2e7b1baa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f182de_45efcf8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:09:05Z",
+      "side": 1,
+      "message": "This is one of the properties you added, and it looks like it doesn\u0027t work?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 14
+      },
+      "revId": "16182ab8bb4e40e040fa6598ec38c58f2e7b1baa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
