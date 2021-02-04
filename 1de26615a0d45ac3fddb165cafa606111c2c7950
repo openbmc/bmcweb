@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d5ed67d_a57c90f2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "inline.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 6
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9776cb22_71dc0c46",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "spans should be taken by value.",
+      "range": {
+        "startLine": 70,
+        "startChar": 27,
+        "endLine": 70,
+        "endChar": 66
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a34d7741_67d215dc",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "inline.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 6
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c70188_ff4c0c01",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "This string construction isn\u0027t required.  std::string can be directly compared against const char*",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 20
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a66c3ad2_348f11e8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "Please split this onto two lines for clarity.",
+      "range": {
+        "startLine": 136,
+        "startChar": 11,
+        "endLine": 136,
+        "endChar": 79
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0758791b_a001ff5f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "Need to return an error if this isn\u0027t filled?",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 400,
+        "endChar": 9
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32029c0e_2c8d01e5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "I wonder if we need to do this deeper in the code.  If someone adds a subscription for all registries, then we add a new registry later, it would need to be supported, right?  That tells me this check probably needs to be in the add subscription call, not the message handler.",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 13
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d53b49_8341483c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "Spans should be taken by copy/value.",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 73
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4fe12e_e04e44c5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:34:59Z",
+      "side": 1,
+      "message": "I wonder if std::any_of would be more clear here.  Up to you if you want to try it, but it seems like it would be much more obvious what check you\u0027re doing.",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 17
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
