@@ -116,6 +116,9 @@ int main(int /*argc*/, char** /*argv*/)
 
     redfish::RedfishService redfish(app);
 
+    // Create EventServiceManager instance and initialize Config
+    redfish::EventServiceManager::getInstance();
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
     if (rc)
