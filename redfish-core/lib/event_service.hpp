@@ -48,6 +48,9 @@ class EventService : public Node
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+
+        // Create EventServiceManager instance to initialize Config
+        EventServiceManager::getInstance();
     }
 
   private:
