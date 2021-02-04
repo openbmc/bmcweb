@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6ace09d_5f6a70dc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-04T15:44:40Z",
+      "side": 1,
+      "message": "I tried to follow the way it has been handled for other properties in chassis. (Line 387 onwards). Let me know if you still want me to change that.\nAlso I did not return from here so that not receiving a location code should not restrict us from populating the rest of the schema. Let me know if we agree on this.",
+      "parentUuid": "90176d56_84d1d7ad",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 33
+      },
+      "revId": "3b73bd56136dec053225ff4321ab45d40197318d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da5da586_99e8d51e",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a0edf997_1f054a66",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-04T15:44:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5da586_99e8d51e",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 65
+      },
+      "revId": "3b73bd56136dec053225ff4321ab45d40197318d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af975ae1_ba10a5ee",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 17
@@ -62,6 +110,24 @@
       "revId": "3b73bd56136dec053225ff4321ab45d40197318d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37a009a2_1f940bb9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-04T15:44:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af975ae1_ba10a5ee",
+      "revId": "3b73bd56136dec053225ff4321ab45d40197318d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
