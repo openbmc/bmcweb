@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "94070974_78e45baf",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-04T17:57:02Z",
+      "side": 1,
+      "message": "I think we should have a return so after setting the internalError we don\u0027t just keep going.",
+      "parentUuid": "c6ace09d_5f6a70dc",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 33
+      },
+      "revId": "3b73bd56136dec053225ff4321ab45d40197318d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da5da586_99e8d51e",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 17
