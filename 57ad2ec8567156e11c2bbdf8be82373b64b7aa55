@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "e145014f_436e23f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:00:32Z",
+      "side": 1,
+      "message": "\u003e \u003e then would would monitor for new logs with start\u003dcurrentIndex on some sort of loop\n\u003e \n\u003e Ideally this would be something like Redfish events for \"monitor for new logs\"?\n\u003e \n\u003e Can\u0027t you subscribe to redfish events for the log changes? As well as new logs?\n\nThat\u0027s one way a client could implement, but not how most REST based log collection schemes were done when this was first committed.  Also, we didn\u0027t always have event service, so code got written against the collection that I\u0027d really like to not break.\n\n\u003e \n\u003e How in the above case does the \"interface that reads all logs\" get updated when a log is deleted ?\n\n\nThis usually isn\u0027t a concern for a streaming log service, but you make a good point, it wouldn\u0027t be registered.",
+      "parentUuid": "c04bbf93_49c9d721",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54ada203_13860603",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
