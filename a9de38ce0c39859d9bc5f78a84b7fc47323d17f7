@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "b8b87951_e8bf79d5",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-02-04T09:33:58Z",
+      "side": 1,
+      "message": "If not pushing it into memory via this function, Redfish will not get the event service config.(it will be false 0 0)\nMay I ask you mean it should not call the functions under the redfish namespace. so all variables event service config and subscriptions should merge here likes sessions.hpp style. \nIt will not calling event service manager after modification.",
+      "parentUuid": "20f49e60_76655251",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bc0f8cd_9232d99c",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 1
