@@ -79,6 +79,10 @@ int main(int /*argc*/, char** /*argv*/)
 
 #ifdef BMCWEB_ENABLE_REDFISH
     crow::redfish::requestRoutes(app);
+    redfish::RedfishService redfish(app);
+
+    // Create EventServiceManager instance and initialize Config
+    redfish::EventServiceManager::getInstance();
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
@@ -115,8 +119,6 @@ int main(int /*argc*/, char** /*argv*/)
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
     crow::nbd_proxy::requestRoutes(app);
 #endif
-
-    redfish::RedfishService redfish(app);
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
