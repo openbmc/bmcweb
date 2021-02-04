@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afbdd1dc_df979a13",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-04T17:58:14Z",
+      "side": 1,
+      "message": "return ?",
+      "range": {
+        "startLine": 292,
+        "startChar": 24,
+        "endLine": 292,
+        "endChar": 32
+      },
+      "revId": "d2d6aa6fb87f6b7e849722cd62cda2a31c8ebe2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c12246f_5d56522a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-04T17:58:14Z",
+      "side": 1,
+      "message": "I really think return here",
+      "range": {
+        "startLine": 304,
+        "startChar": 24,
+        "endLine": 304,
+        "endChar": 32
+      },
+      "revId": "d2d6aa6fb87f6b7e849722cd62cda2a31c8ebe2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
