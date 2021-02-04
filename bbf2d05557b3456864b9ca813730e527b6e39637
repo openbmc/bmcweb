@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26cf3d2c_b0d5c546",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-04T20:35:58Z",
+      "side": 1,
+      "message": "Please put this in main(), not in an event service route constructor.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "bbf2d05557b3456864b9ca813730e527b6e39637",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
