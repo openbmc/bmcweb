@@ -9,7 +9,7 @@ not-always-obvious ways, or impose a pattern that tends to cause hard to find
 bugs, or bugs that appear later.  Every one has been submitted to code review
 multiple times.
 
-### Directly dereferencing a pointer without checking for validity first
+### 1. Directly dereferencing a pointer without checking for validity first
 ```C++
 int myBadMethod(const nlohmann::json& j){
     const int* myPtr = j.get_if<int>();
@@ -18,7 +18,7 @@ int myBadMethod(const nlohmann::json& j){
 ```
 This pointer is not guaranteed to be filled, and could be a null dereference.
 
-### String views aren't null terminated
+### 2. String views aren't null terminated
 ```C++
 int getIntFromString(const std::string_view s){
     return std::atoi(s.data());
@@ -28,7 +28,7 @@ This will give the right answer much of the time, but has the possibility to
 fail when string\_view is not null terminated.  Use from\_chars instead, which
 takes both a pointer and a length
 
-### Not handling input errors
+### 3. Not handling input errors
 ```C++
 int getIntFromString(const std::string& s){
     return std::atoi(s.c_str());
@@ -39,7 +39,7 @@ undefined behavior at system level.  Code needs to check for validity of the
 string, ideally with something like from\_chars, and return the appropriate error
 code.
 
-### Walking off the end of a string
+### 4. Walking off the end of a string
 ```C++
 std::string getFilenameFromPath(const std::string& path){
     size_t index = path.find("/");
@@ -51,7 +51,7 @@ std::string getFilenameFromPath(const std::string& path){
 }
 ```
 
-### Using methods that throw (or not handling bad inputs)
+### 5. Using methods that throw (or not handling bad inputs)
 ```C++
 int myBadMethod(nlohmann::json& j){
     return j.get<int>();
@@ -120,7 +120,7 @@ system, the fact that most filesystem accesses are into tmpfs (and therefore
 should be "fast" most of the time) and in general how little the filesystem is
 used in practice.
 
-### Lack of locking between subsequent calls
+### 6. Lack of locking between subsequent calls
 While global data structures are discouraged, they are sometimes required to
 store temporary state for operations that require it.  Given the single
 threaded nature of bmcweb, they are not required to be explicitly threadsafe,
@@ -140,7 +140,7 @@ void secondCallbackInFlow(){
 In the above case, the first callback needs a check to ensure that
 currentOperation is not already being used.
 
-### Wildcard reference captures in lambdas
+### 7. Wildcard reference captures in lambdas
 ```
 std::string x; auto mylambda = [&](){
     x = "foo";
@@ -156,7 +156,7 @@ captured by value or by reference.  The above prototypes would change to
 [&x]()... Which makes clear that x is captured, and its lifetime needs tracked.
 
 
-### URLs should end in "/"
+### 8. URLs should end in "/"
 ```C++
 BMCWEB("/foo/bar");
 ```
@@ -168,7 +168,7 @@ used by users.  While many specifications do not require this, it resolves a
 whole class of bug that we've seen in the past.
 
 
-### URLs constructed in aggregate
+### 9. URLs constructed in aggregate
 ```C++
 std::string routeStart = "/redfish/v1";
 
