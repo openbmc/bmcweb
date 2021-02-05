@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "630ca5d9_46c7570b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-05T21:18:37Z",
+      "side": 1,
+      "message": "here. added with this commit: https://github.com/openbmc/bmcweb/commit/d139c2364bec98a5da1fe803414f3b02fdcd3092",
+      "range": {
+        "startLine": 625,
+        "startChar": 0,
+        "endLine": 628,
+        "endChar": 17
+      },
+      "revId": "0a00a9e0834cecdf74c61356225bde1e78ef0072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
