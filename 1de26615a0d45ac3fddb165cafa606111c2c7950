@@ -164,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "647eec30_a92d6254",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:35:57Z",
+      "side": 1,
+      "message": "Gotcha.  Done.",
+      "parentUuid": "4d28d083_e9819c81",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 400,
+        "endChar": 9
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32029c0e_2c8d01e5",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 1
@@ -199,6 +223,30 @@
       "side": 1,
       "message": "If registry prefix is not specified, In subscription store, storing it as empty only(subValue-\u003eregistryPrefixes). So adding new registry, Will not impact the subscribers functionality( Example: If registry is empty and messageId\u0027s is empty, adding new registry later still work fine. If Regitry is empty and MessageId\u0027s have some entries, validation will happen while adding subscription. Adding new registry, will have no impact to subscriber either)\n\nThis code block is used only for validating MessageId\u0027s if anything added. So this vlidation is done during addition of subscription. If MessageId\u0027s are empty, This code is not used.",
       "parentUuid": "32029c0e_2c8d01e5",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 13
+      },
+      "revId": "1de26615a0d45ac3fddb165cafa606111c2c7950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a87b2c1_148731d7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:35:57Z",
+      "side": 1,
+      "message": "yep, you\u0027re right, I misread this code, fine as is.",
+      "parentUuid": "99e4a0e0_d3af302a",
       "range": {
         "startLine": 405,
         "startChar": 0,
