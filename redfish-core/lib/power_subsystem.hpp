@@ -19,6 +19,8 @@ inline void getPowerSubsystem(const std::shared_ptr<AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["Id"] = "1";
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisID + "/PowerSubsystem";
+    asyncResp->res.jsonValue["PowerSupplies"]["@odata.id"] =
+        "/redfish/v1/Chassis/" + chassisID + "/PowerSubsystem/PowerSupplies";
 }
 
 class PowerSubsystem : public Node
