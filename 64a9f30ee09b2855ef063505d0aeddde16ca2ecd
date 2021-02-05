@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "04f99b7f_1794b0f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T16:54:59Z",
+      "side": 1,
+      "message": "Why is this patchset important?  What changes would a user expect to see once this is merged?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 96
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce20a092_1688fb58",
         "filename": "meson_options.txt",
         "patchSetId": 4
@@ -109,6 +132,30 @@
       "side": 1,
       "message": "I enabled this feature by default now. If there is any incorrect please let me know, thank you.",
       "parentUuid": "967671e8_96a5bfab",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f1b7bc2_7ddddb04",
+        "filename": "meson_options.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T16:54:59Z",
+      "side": 1,
+      "message": "I think you did the right thing.",
+      "parentUuid": "e0562610_3e74afa3",
       "range": {
         "startLine": 16,
         "startChar": 57,
@@ -815,6 +862,30 @@
       "side": 1,
       "message": "After research about the MessageID, i think we will not use the message ID to log message to redfish log. So remove the \"MessageID\" and \"MessageArgs\" level.",
       "parentUuid": "696be331_9433fadb",
+      "range": {
+        "startLine": 1754,
+        "startChar": 35,
+        "endLine": 1754,
+        "endChar": 45
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a65b68c_6440a44f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T16:54:59Z",
+      "side": 1,
+      "message": "MessageId is required for Event type logs.",
+      "parentUuid": "78424194_f33ca4a4",
       "range": {
         "startLine": 1754,
         "startChar": 35,
