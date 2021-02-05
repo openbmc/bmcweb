@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfad3082_231a895c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:50:58Z",
+      "side": 1,
+      "message": "Wrong overload of exists used here.",
+      "range": {
+        "startLine": 160,
+        "startChar": 7,
+        "endLine": 160,
+        "endChar": 37
+      },
+      "revId": "aa389dc6af186aeed1dd5c8b8b796e8135932f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828deace_e26cf051",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:50:58Z",
+      "side": 1,
+      "message": "wrong overload of file_size used here.",
+      "range": {
+        "startLine": 170,
+        "startChar": 41,
+        "endLine": 170,
+        "endChar": 67
+      },
+      "revId": "aa389dc6af186aeed1dd5c8b8b796e8135932f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9510d8f_13ea2fe7",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:50:58Z",
+      "side": 1,
+      "message": "nit: Can we get rid of this terenary?  It makes this code hard to read.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 33
+      },
+      "revId": "aa389dc6af186aeed1dd5c8b8b796e8135932f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f18f128_84d6ab16",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:50:58Z",
+      "side": 1,
+      "message": "Isn\u0027t this check now redundant to line 645?  How is it possible to hit this?",
+      "range": {
+        "startLine": 653,
+        "startChar": 0,
+        "endLine": 664,
+        "endChar": 5
+      },
+      "revId": "aa389dc6af186aeed1dd5c8b8b796e8135932f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

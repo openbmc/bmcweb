@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "5a4ddaf7_3a53fed5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:50:58Z",
+      "side": 1,
+      "message": "I didn\u0027t say the logic was wrong, I said it\u0027s hard to read.  The line length limit splits this onto multiple lines anyway, so you\u0027re not really saving any code by not writing this out as conditionals.",
+      "parentUuid": "b2af07c0_d5fdae31",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 33
+      },
+      "revId": "9beb1f881cb2c992264106ef3029ffee0b7ad524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9136daeb_c9503014",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17
