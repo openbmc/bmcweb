@@ -232,6 +232,29 @@ Chassis to Drives, The name of the association is "chassis<->drive")
 ##### Power
 PowerControl Voltages PowerSupplies Redundancy
 
+#### /redfish/v1/Chassis/{ChassisId}/Power/PowerSubsystem
+##### PowerSubsystem
+- PowerSupplies
+- Status
+
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies
+##### PowerSupplyCollection
+- Description
+- Members
+- Members@odata.count
+
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PSUName}
+##### PowerSupply
+- EfficiencyRatings
+- FirmwareVersion
+- LocationIndicatorActive
+- Manufacturer
+- Model
+- PartNumber
+- SerialNumber
+- SparePartNumber
+- Status
+
 #### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 ##### PowerControl
 - MemberId
