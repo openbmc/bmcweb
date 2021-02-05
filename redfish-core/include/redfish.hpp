@@ -32,6 +32,8 @@
 #include "../lib/pcie.hpp"
 #include "../lib/pcie_slots.hpp"
 #include "../lib/power.hpp"
+#include "../lib/power_subsystem.hpp"
+#include "../lib/power_supply.hpp"
 #include "../lib/processor.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
@@ -78,6 +80,9 @@ class RedfishService
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
+        requestRoutesPowerSubsystem(app);
+        requestRoutesPowerSupplyCollection(app);
+        requestRoutesPowerSupply(app);
         requestRoutesPCIeSlots(app);
         requestRoutesChassisCollection(app);
         requestRoutesChassis(app);
