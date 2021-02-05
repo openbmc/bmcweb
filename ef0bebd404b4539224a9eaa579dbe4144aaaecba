@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbd0709a_468113fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-05T21:19:41Z",
+      "side": 1,
+      "message": "signed-off ?",
+      "revId": "ef0bebd404b4539224a9eaa579dbe4144aaaecba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
