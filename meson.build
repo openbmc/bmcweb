@@ -34,8 +34,10 @@ optimization = get_option('optimization')
 summary('Build Type',build, section : 'Build Info')
 summary('Optimization',optimization, section : 'Build Info')
 
+
 # remove debug information for minsize buildtype
 if(get_option('buildtype') == 'minsize')
+  add_project_arguments(['-fdata-sections', '-ffunction-sections'], language : 'cpp')
   add_project_arguments('-DNDEBUG', language : 'cpp')
 endif
 
@@ -376,6 +378,7 @@ install_subdir('static', install_dir : 'share/www', strip_directory : true)
 executable('bmcweb',srcfiles_bmcweb,
             include_directories : incdir,
             dependencies: bmcweb_dependencies,
+            link_args: '-Wl,--gc-sections',
             install: true,
             install_dir:bindir)
 
