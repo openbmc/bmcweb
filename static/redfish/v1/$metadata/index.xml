@@ -1424,6 +1424,17 @@
         <edmx:Include Namespace="Power.v1_6_2"/>
         <edmx:Include Namespace="Power.v1_7_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PowerSubsystem_v1.xml">
+        <edmx:Include Namespace="PowerSubsystem"/>
+        <edmx:Include Namespace="PowerSubsystem.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PowerSupply_v1.xml">
+        <edmx:Include Namespace="PowerSupply"/>
+        <edmx:Include Namespace="PowerSupply.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PowerSupplyCollection_v1.xml">
+        <edmx:Include Namespace="PowerSupplyCollection"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Processor_v1.xml">
         <edmx:Include Namespace="Processor"/>
         <edmx:Include Namespace="Processor.v1_0_0"/>
