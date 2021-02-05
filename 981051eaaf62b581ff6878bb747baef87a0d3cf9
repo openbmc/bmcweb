@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "52e8ce94_30cef9a4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-02-05T04:45:07Z",
+      "side": 1,
+      "message": "Ed,\n\nI have created  response class with http buffer_body type and buffer body type ignoring content length header even if i set and chunked encoding enabled by default with buffer_body type(could not disable).\n\n curl -k -H \"X-Auth-Token: $bmc_token\" -X GET -D dumpheader.txt http://${BMC_IP}/redfish/v1/Managers/bmc/LogServices/Dump/attachment/1 \u003e bmcdump_1\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n100  4096    0  4096    0     0   141k      0 --:--:-- --:--:-- --:--:--  142k\n\ncurl: (56) Problem (2) in the Chunked-Encoded data\n\n\n-cat dumpheader.txt\nHTTP/1.1 200 OK\nContent-Type: application/octet-stream\nTransfer-Encoding: chunked",
+      "parentUuid": "e1b577b7_e6d2b2f8",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "397be55e_9982afdb",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
