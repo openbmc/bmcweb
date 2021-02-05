@@ -256,7 +256,7 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#Chassis.v1_14_0.Chassis";
+                            "#Chassis.v1_15_0.Chassis";
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Chassis/" + chassisId;
                         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -409,6 +409,14 @@ inline void requestRoutesChassis(App& app)
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Power"}};
 #endif
+
+#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+                                asyncResp->res.jsonValue["PowerSubsystem"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId +
+                                                      "/PowerSubsystem"}};
+#endif
+
                                 // SensorCollection
                                 asyncResp->res.jsonValue["Sensors"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +

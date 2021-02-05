@@ -996,6 +996,30 @@ const static auto& putPowerDistributionMetrics =
 const static auto& deletePowerDistributionMetrics =
     privilegeSetConfigureComponents;
 
+// PowerSubsystem
+const static auto& getPowerSubsystem = privilegeSetLogin;
+const static auto& headPowerSubsystem = privilegeSetLogin;
+const static auto& patchPowerSubsystem = privilegeSetConfigureManager;
+const static auto& putPowerSubsystem = privilegeSetConfigureManager;
+const static auto& deletePowerSubsystem = privilegeSetConfigureManager;
+const static auto& postPowerSubsystem = privilegeSetConfigureManager;
+
+// PowerSupply
+const static auto& getPowerSupply = privilegeSetLogin;
+const static auto& headPowerSupply = privilegeSetLogin;
+const static auto& patchPowerSupply = privilegeSetConfigureManager;
+const static auto& putPowerSupply = privilegeSetConfigureManager;
+const static auto& deletePowerSupply = privilegeSetConfigureManager;
+const static auto& postPowerSupply = privilegeSetConfigureManager;
+
+// PowerSupplyCollection
+const static auto& getPowerSupplyCollection = privilegeSetLogin;
+const static auto& headPowerSupplyCollection = privilegeSetLogin;
+const static auto& patchPowerSupplyCollection = privilegeSetConfigureManager;
+const static auto& putPowerSupplyCollection = privilegeSetConfigureManager;
+const static auto& deletePowerSupplyCollection = privilegeSetConfigureManager;
+const static auto& postPowerSupplyCollection = privilegeSetConfigureManager;
+
 // Processor
 const static auto& getProcessor = privilegeSetLogin;
 const static auto& headProcessor = privilegeSetLogin;
