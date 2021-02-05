@@ -255,7 +255,7 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#Chassis.v1_14_0.Chassis";
+                            "#Chassis.v1_15_0.Chassis";
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Chassis/" + chassisId;
                         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -369,6 +369,12 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Power"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Power"}};
+                            
+asyncResp->res.jsonValue["PowerSubsystem"] = {
+                                {"@odata.id", "/redfish/v1/Chassis/" +
+                                                  chassisId +
+                                                  "/PowerSubsystem"}};
+
                                 // SensorCollection
                                 asyncResp->res.jsonValue["Sensors"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
