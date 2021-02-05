@@ -4,6 +4,7 @@
 
 #include <openssl/crypto.h>
 
+#include <chrono>
 #include <cstdint>
 #include <cstring>
 #include <functional>
