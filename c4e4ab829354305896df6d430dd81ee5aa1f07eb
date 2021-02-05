@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0c15269_0324940b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:52:56Z",
+      "side": 1,
+      "message": "What changes would a user expect to see here?  Why is this way better?\n\nPlease put detailed description of those questions in your commit message.",
+      "revId": "c4e4ab829354305896df6d430dd81ee5aa1f07eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "566f2ab6_8941d97f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-05T19:52:56Z",
+      "side": 1,
+      "message": "Surely more things need to be checked than just the validator?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c4e4ab829354305896df6d430dd81ee5aa1f07eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
