@@ -5,6 +5,7 @@
 
 #include <boost/beast/http/message.hpp>
 
+#include <atomic>
 #include <string>
 
 namespace crow
@@ -35,7 +36,9 @@ struct Response
     }
 
     Response() : stringResponse(response_type{})
-    {}
+    {
+        counthandle = counthandle + 1;
+    }
 
     Response& operator=(const Response& r) = delete;
 
@@ -109,11 +112,21 @@ struct Response
 
     void end()
     {
+        BMCWEB_LOG_ERROR << "HANDLECOUNT = " << counthandle;
+        if (counthandle > 1)
+        {
+            BMCWEB_LOG_ERROR << "handle's count not suit";
+            counthandle = counthandle - 1;
+            return;
+        }
+
         if (completed)
         {
             BMCWEB_LOG_ERROR << "Response was ended twice";
             return;
         }
+
+        counthandle = counthandle - 1;
         completed = true;
         BMCWEB_LOG_DEBUG << "calling completion handler";
         if (completeRequestHandler)
@@ -133,6 +146,9 @@ struct Response
     {
         return isAliveHelper && isAliveHelper();
     }
+
+  public:
+    std::atomic<int> counthandle;
 
   private:
     bool completed{};

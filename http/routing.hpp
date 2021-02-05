@@ -1207,12 +1207,12 @@ class Router
         }
     }
 
-    void handle(Request& req, Response& res)
+    void handle(Request& req, std::shared_ptr<bmcweb::AsyncResp> aResp)
     {
         if (static_cast<size_t>(req.method()) >= perMethods.size())
         {
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            aResp->res.result(boost::beast::http::status::not_found);
+            aResp->res.end();
             return;
         }
         PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
@@ -1232,14 +1232,15 @@ class Router
                     p.trie.find(req.url);
                 if (found2.first > 0)
                 {
-                    res.result(boost::beast::http::status::method_not_allowed);
-                    res.end();
+                    aResp->res.result(
+                        boost::beast::http::status::method_not_allowed);
+                    aResp->res.end();
                     return;
                 }
             }
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            aResp->res.result(boost::beast::http::status::not_found);
+            aResp->res.end();
             return;
         }
 
@@ -1252,21 +1253,21 @@ class Router
         {
             BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
                             << req.url;
-            res.result(boost::beast::http::status::moved_permanently);
+            aResp->res.result(boost::beast::http::status::moved_permanently);
 
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
             {
-                res.addHeader("Location", std::string(req.url) + "/");
+                aResp->res.addHeader("Location", std::string(req.url) + "/");
             }
             else
             {
-                res.addHeader("Location",
-                              (req.isSecure ? "https://" : "http://") +
-                                  std::string(req.getHeaderValue("Host")) +
-                                  std::string(req.url) + "/");
+                aResp->res.addHeader(
+                    "Location", (req.isSecure ? "https://" : "http://") +
+                                    std::string(req.getHeaderValue("Host")) +
+                                    std::string(req.url) + "/");
             }
-            res.end();
+            aResp->res.end();
             return;
         }
 
@@ -1277,8 +1278,8 @@ class Router
                              << " with " << req.methodString() << "("
                              << static_cast<uint32_t>(req.method()) << ") / "
                              << rules[ruleIndex]->getMethods();
-            res.result(boost::beast::http::status::method_not_allowed);
-            res.end();
+            aResp->res.result(boost::beast::http::status::method_not_allowed);
+            aResp->res.end();
             return;
         }
 
@@ -1288,12 +1289,12 @@ class Router
 
         if (req.session == nullptr)
         {
-            rules[ruleIndex]->handle(req, res, found.second);
+            rules[ruleIndex]->handle(req, aResp->res, found.second);
             return;
         }
 
         crow::connections::systemBus->async_method_call(
-            [&req, &res, &rules, ruleIndex, found](
+            [&req, aResp{std::move(aResp)}, &rules, ruleIndex, found](
                 const boost::system::error_code ec,
                 std::map<std::string, std::variant<bool, std::string,
                                                    std::vector<std::string>>>
@@ -1301,9 +1302,9 @@ class Router
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-                    res.result(
+                    aResp->res.result(
                         boost::beast::http::status::internal_server_error);
-                    res.end();
+                    aResp->res.end();
                     return;
                 }
 
@@ -1333,9 +1334,9 @@ class Router
                 {
                     BMCWEB_LOG_ERROR
                         << "RemoteUser property missing or wrong type";
-                    res.result(
+                    aResp->res.result(
                         boost::beast::http::status::internal_server_error);
-                    res.end();
+                    aResp->res.end();
                     return;
                 }
                 bool remoteUser = *remoteUserPtr;
@@ -1360,9 +1361,9 @@ class Router
                         BMCWEB_LOG_ERROR
                             << "UserPasswordExpired property is expected for"
                                " local user but is missing or wrong type";
-                        res.result(
+                        aResp->res.result(
                             boost::beast::http::status::internal_server_error);
-                        res.end();
+                        aResp->res.end();
                         return;
                     }
                 }
@@ -1387,20 +1388,20 @@ class Router
 
                 if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
                 {
-                    res.result(boost::beast::http::status::forbidden);
+                    aResp->res.result(boost::beast::http::status::forbidden);
                     if (req.session->isConfigureSelfOnly)
                     {
                         redfish::messages::passwordChangeRequired(
-                            res, "/redfish/v1/AccountService/Accounts/" +
-                                     req.session->username);
+                            aResp->res, "/redfish/v1/AccountService/Accounts/" +
+                                            req.session->username);
                     }
-                    res.end();
+                    aResp->res.end();
                     return;
                 }
 
                 req.userRole = userRole;
 
-                rules[ruleIndex]->handle(req, res, found.second);
+                rules[ruleIndex]->handle(req, aResp->res, found.second);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.Manager", "GetUserInfo",
