@@ -1,5 +1,7 @@
 #include "crow.h"
 
+#include <async_resp.hpp>
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -134,10 +136,11 @@ TEST(Crow, PathRouting)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/file";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL(200, res.resultInt());
     }
@@ -145,30 +148,33 @@ TEST(Crow, PathRouting)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/file/";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_EQUAL(404, res.resultInt());
     }
     {
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/path";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_NOTEQUAL(404, res.resultInt());
     }
     {
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/path/";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_EQUAL(200, res.resultInt());
     }
 }
@@ -220,10 +226,11 @@ TEST(Crow, RoutingTest)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/-1";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL(404, res.resultInt());
     }
@@ -232,10 +239,11 @@ TEST(Crow, RoutingTest)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/0/1001999";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL(200, res.resultInt());
 
@@ -246,10 +254,11 @@ TEST(Crow, RoutingTest)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/1/-100/1999";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL(200, res.resultInt());
 
@@ -260,10 +269,11 @@ TEST(Crow, RoutingTest)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/4/5000/3/-2.71828/hellhere";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL(200, res.resultInt());
 
@@ -276,10 +286,11 @@ TEST(Crow, RoutingTest)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/5/-5/999/3.141592/hello_there/a/b/c/d";
 
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL(200, res.resultInt());
 
@@ -349,9 +360,10 @@ TEST(Crow, http_method)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/";
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL("2", res.body());
     }
@@ -359,10 +371,11 @@ TEST(Crow, http_method)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/";
         r.method(boost::beast::http::verb::post);
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL("1", res.body());
     }
@@ -371,9 +384,10 @@ TEST(Crow, http_method)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/get_only";
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_EQUAL("get", res.body());
     }
@@ -382,10 +396,11 @@ TEST(Crow, http_method)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
 
         req.url = "/get_only";
         r.method(boost::beast::http::verb::post);
-        app.handle(req, res);
+        app.handle(req, aResp);
 
         ASSERT_NOTEQUAL("get", res.body());
     }
@@ -907,32 +922,36 @@ TEST(Crow, routeDynamic)
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
         req.url = "/";
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_EQUAL(x, 2);
     }
     {
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
         req.url = "/set_int/42";
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_EQUAL(x, 42);
     }
     {
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
         req.url = "/set5";
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_EQUAL(x, 5);
     }
     {
         boost::beast::http::request<boost::beast::http::string_body> r{};
         Request req{r};
         Response res;
+        auto aResp = std::make_shared<AsyncResp>(res);
         req.url = "/set4";
-        app.handle(req, res);
+        app.handle(req, aResp);
         ASSERT_EQUAL(x, 4);
     }
 }
