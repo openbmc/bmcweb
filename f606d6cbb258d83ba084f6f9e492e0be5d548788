@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56fe42cb_89b2d3a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-05T15:34:10Z",
+      "side": 1,
+      "message": "+1, Lets add detailed description of this commit/feature does.",
+      "parentUuid": "82929c4b_6028e8c9",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8db347aa_1087cda9",
         "filename": "include/authorization.hpp",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "42e6e0e0_c0896c99",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-05T15:34:10Z",
+      "side": 1,
+      "message": "I don\u0027t think we have a way to identify interface(webui, python, cmdtool etc..), who is trying this basic authentication. So lets make its some generic like \"HTTPS\".",
+      "parentUuid": "396d4dc8_ea213d13",
+      "range": {
+        "startLine": 75,
+        "startChar": 67,
+        "endLine": 75,
+        "endChar": 74
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0358b005_e062f248",
         "filename": "include/login_routes.hpp",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2021-01-21T18:14:36Z",
       "side": 1,
       "message": "This isn\u0027t just for the webui.  Should we just make any failed login on any interface the same message?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 66
+      },
+      "revId": "f606d6cbb258d83ba084f6f9e492e0be5d548788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f03d5d3_8cb9a601",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-05T15:34:10Z",
+      "side": 1,
+      "message": "Yes, Agree. We can make it generic like \"HTTPS\".",
+      "parentUuid": "0358b005_e062f248",
       "range": {
         "startLine": 135,
         "startChar": 0,
