@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a38243c_515a844d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2021-02-05T20:48:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure how you can get this back if you didn\u0027t pass it with the array on line 838?\n\nAlso, I have the same comment as before, about how the intended use of associations is not to use the Associations.Definition interface. That being said I\u0027m not a maintainer.",
+      "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
