@@ -316,6 +316,26 @@ if get_option('tests').enabled()
   gmock = gmock.as_system('system')
 endif
 
+# Gather the Configuration data
+
+conf_data = configuration_data()
+conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
+xss_enabled = get_option('insecure-disable-xss')
+conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled.enabled())
+enable_redfish_query = get_option('insecure-enable-redfish-query')
+conf_data.set10('BMCWEB_INSECURE_ENABLE_QUERY_PARAMS', enable_redfish_query.enabled())
+# enable_redfish_aggregation = get_option('redfish-aggregation')
+# conf_data.set10('BMCWEB_ENABLE_REDFISH_AGGREGATION', enable_redfish_aggregation.enabled())
+insecure_push_style_notification = get_option('insecure-push-style-notification')
+conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push_style_notification.enabled())
+conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
+conf_data.set('HTTPS_PORT', get_option('https_port'))
+configure_file(input: 'bmcweb_config.h.in',
+               output: 'bmcweb_config.h',
+               configuration: conf_data)
+
+# Configure and install systemd unit files
+
 systemd_system_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
 
 bindir = get_option('prefix') + '/' +get_option('bindir')
@@ -381,6 +401,7 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/log_services_dump_test.cpp',
   'test/redfish-core/lib/service_root_test.cpp',
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
+  'test/redfish-core/lib/power_subsystem_test.cpp',
 )
 
 if(get_option('tests').enabled())
