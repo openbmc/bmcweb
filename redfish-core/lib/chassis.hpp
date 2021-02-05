@@ -25,6 +25,8 @@
 #include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
 
+#include <variant>
+
 namespace redfish
 {
 
@@ -392,6 +394,13 @@ inline void requestRoutesChassis(App& app)
                     asyncResp->res.jsonValue["Power"]["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId + "/Power";
 #endif
+
+#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+                    asyncResp->res.jsonValue["PowerSubsystem"] = {
+                        {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                          "/PowerSubsystem"}};
+#endif
+
                     // SensorCollection
                     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId + "/Sensors";
