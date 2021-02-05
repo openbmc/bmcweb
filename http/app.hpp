@@ -7,6 +7,8 @@
 #include "routing.hpp"
 #include "utility.hpp"
 
+#include <async_resp.hpp>
+
 #include <chrono>
 #include <cstdint>
 #include <functional>
@@ -49,9 +51,9 @@ class App
         router.handleUpgrade(req, res, std::move(adaptor));
     }
 
-    void handle(Request& req, Response& res)
+    void handle(Request& req, std::shared_ptr<bmcweb::AsyncResp> aResp)
     {
-        router.handle(req, res);
+        router.handle(req, aResp);
     }
 
     DynamicRule& routeDynamic(std::string&& rule)

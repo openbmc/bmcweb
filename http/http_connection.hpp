@@ -8,6 +8,7 @@
 #include "timer_queue.hpp"
 #include "utility.hpp"
 
+#include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
@@ -310,6 +311,7 @@ class Connection :
     void handle()
     {
         cancelDeadlineTimer();
+        auto aResp = std::make_shared<bmcweb::AsyncResp>(res);
 
         bool isInvalidRequest = false;
 
@@ -319,7 +321,7 @@ class Connection :
             if (req->getHeaderValue(boost::beast::http::field::host).empty())
             {
                 isInvalidRequest = true;
-                res.result(boost::beast::http::status::bad_request);
+                aResp->res.result(boost::beast::http::status::bad_request);
             }
         }
 
@@ -332,16 +334,16 @@ class Connection :
 
         if (!isInvalidRequest)
         {
-            res.completeRequestHandler = [] {};
-            res.isAliveHelper = [this]() -> bool { return isAlive(); };
+            aResp->res.completeRequestHandler = [] {};
+            aResp->res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
             req->ioService = static_cast<decltype(req->ioService)>(
                 &adaptor.get_executor().context());
 
-            if (!res.completed)
+            if (!aResp->res.completed)
             {
                 needToCallAfterHandlers = true;
-                res.completeRequestHandler = [self(shared_from_this())] {
+                aResp->res.completeRequestHandler = [self(shared_from_this())] {
                     boost::asio::post(self->adaptor.get_executor(),
                                       [self] { self->completeRequest(); });
                 };
@@ -350,13 +352,14 @@ class Connection :
                         req->getHeaderValue(boost::beast::http::field::upgrade),
                         "websocket"))
                 {
-                    handler->handleUpgrade(*req, res, std::move(adaptor));
+                    handler->handleUpgrade(*req, aResp->res,
+                                           std::move(adaptor));
                     // delete lambda with self shared_ptr
                     // to enable connection destruction
-                    res.completeRequestHandler = nullptr;
+                    aResp->res.completeRequestHandler = nullptr;
                     return;
                 }
-                handler->handle(*req, res);
+                handler->handle(*req, aResp);
             }
             else
             {
@@ -409,6 +412,13 @@ class Connection :
     {
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
+        if (res.counthandle > 1)
+        {
+            BMCWEB_LOG_ERROR << "The count of handle is wrong= "
+                             << res.counthandle;
+            res.completeRequestHandler = nullptr;
+            res.completed = false;
+        }
 
         addSecurityHeaders(res);
 
