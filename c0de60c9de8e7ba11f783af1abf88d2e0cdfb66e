@@ -34,6 +34,116 @@
       "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4bf30d_199ec4e2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-06T03:59:39Z",
+      "side": 1,
+      "message": "You should include where it is required.",
+      "parentUuid": "9c9645aa_c873d8f9",
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dcd2d22_77bb91ef",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-06T03:59:39Z",
+      "side": 1,
+      "message": "How they both are different?",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 29
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f3eb86_e70e610e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-06T03:59:39Z",
+      "side": 1,
+      "message": "PropertyValueTypeError???",
+      "range": {
+        "startLine": 463,
+        "startChar": 26,
+        "endLine": 463,
+        "endChar": 48
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f7ac96_fee0f515",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-06T03:59:39Z",
+      "side": 1,
+      "message": "PropertyValueFormatError???",
+      "range": {
+        "startLine": 470,
+        "startChar": 26,
+        "endLine": 470,
+        "endChar": 48
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94511a78_1a90f4d9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-06T03:59:39Z",
+      "side": 1,
+      "message": "std::move??",
+      "range": {
+        "startLine": 476,
+        "startChar": 28,
+        "endLine": 476,
+        "endChar": 32
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
