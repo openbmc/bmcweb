@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1edd61d1_1ed920ee",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-06T17:25:35Z",
+      "side": 1,
+      "message": "Done. Talking with Matt, created a new phosphor-logging interface to return the fd. Waiting on approval for commits:\npdi: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/40351\nlogging: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-logging/+/40361",
+      "parentUuid": "4022ce55_e89e474d",
+      "range": {
+        "startLine": 1770,
+        "startChar": 0,
+        "endLine": 1770,
+        "endChar": 50
+      },
+      "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4865d4a8_b27e6d02",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "585ed94f_8d598053",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-06T17:25:35Z",
+      "side": 1,
+      "message": "Done. Sure.",
+      "parentUuid": "4865d4a8_b27e6d02",
+      "range": {
+        "startLine": 1781,
+        "startChar": 16,
+        "endLine": 1781,
+        "endChar": 21
+      },
+      "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de1857b9_851daa07",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c283a8_68eb9c05",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-06T17:25:35Z",
+      "side": 1,
+      "message": "Done. Agree, we\u0027re not sending an attachment file anymore, removed.",
+      "parentUuid": "de1857b9_851daa07",
+      "range": {
+        "startLine": 1785,
+        "startChar": 0,
+        "endLine": 1788,
+        "endChar": 66
+      },
+      "revId": "118fdcfd91de30abc4c3f103042f37466b5bdfca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
