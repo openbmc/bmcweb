@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "0746129d_1d124edc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-06T04:07:06Z",
+      "side": 1,
+      "message": "Ed, this is just to enable the trap configuration, SNMP event format will be followed as https://tools.ietf.org/html/rfc3418.\n\nRedfish is not defining the format for SNMP trap.\n\nI agree that we can ask for how it is being tested..Just giving the process how it can be tested..\n\n\u003d\u003e Run the snmp trap opensoure listener(snmptrapd) on any machine\n\u003d\u003e configure the SNMP trap listener details here through this API.\n\u003d\u003e Create some error logs on the system.\n\u003d\u003e You should get the trap on the snmp trapd.",
+      "parentUuid": "ce806505_05493cbc",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f20a711_08ca141f",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 10
