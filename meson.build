@@ -59,7 +59,6 @@ feature_map = {
 'insecure-disable-auth'           : '-DBMCWEB_INSECURE_DISABLE_AUTHENTICATION',
 'insecure-disable-csrf'           : '-DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION',
 'insecure-disable-ssl'            : '-DBMCWEB_INSECURE_DISABLE_SSL',
-'insecure-disable-xss'            : '-DBMCWEB_INSECURE_DISABLE_XSS_PREVENTION',
 'host-serial-socket'              : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
 'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
 'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
@@ -342,9 +341,12 @@ srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
 # Gather the Configuration data
 
 conf_data = configuration_data()
-conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB',get_option('http-body-limit'))
-conf_data.set('MESON_INSTALL_PREFIX',get_option('prefix'))
-configure_file(output: 'config.h',
+conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
+xss_enabled = get_option('insecure-disable-xss')
+conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled)
+conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
+configure_file(input: 'config.h.in',
+               output: 'config.h',
                configuration: conf_data)
 
 # Configure and install systemd unit files

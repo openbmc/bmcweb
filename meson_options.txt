@@ -31,7 +31,7 @@ option('http-body-limit', type: 'integer', min : 0, max : 512, value : 30, descr
 option ('insecure-disable-csrf', type : 'feature', value : 'disabled', description : 'Disable CSRF prevention checks.Should be set to false for production systems.')
 option ('insecure-disable-ssl', type : 'feature', value : 'disabled', description : 'Disable SSL ports. Should be set to false for production systems.')
 option ('insecure-disable-auth', type : 'feature', value : 'disabled', description : 'Disable authentication on all ports. Should be set to false for production systems')
-option ('insecure-disable-xss', type : 'feature', value : 'disabled', description : 'Disable XSS preventions')
+option ('insecure-disable-xss', type : 'feature', value : 'enabled', description : 'Disable XSS preventions')
 option ('insecure-tftp-update', type : 'feature', value : 'disabled', description : '''Enable TFTP based firmware update transactions through Redfish UpdateService.SimpleUpdate.''')
 option ('insecure-push-style-notification',type : 'feature', value : 'disabled', description : 'Enable HTTP push style eventing feature')
 option ('validate-unsecure-feature', type : 'feature', value : 'disabled', description : '''Enables unsecure features required by validation. Note: mustbe turned off for production images.''')

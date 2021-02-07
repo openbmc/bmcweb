@@ -1,0 +1,11 @@
+#pragma once
+
+#include <cstdint>
+
+constexpr const bool BMCWEB_INSECURE_DISABLE_XSS_PREVENTION =
+    @BMCWEB_INSECURE_DISABLE_XSS_PREVENTION @;
+
+constexpr const size_t BMCWEB_HTTP_REQ_BODY_LIMIT_MB =
+    @BMCWEB_HTTP_REQ_BODY_LIMIT_MB @;
+
+constexpr const char* MESON_INSTALL_PREFIX = "@MESON_INSTALL_PREFIX@";
