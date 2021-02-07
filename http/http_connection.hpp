@@ -410,7 +410,7 @@ class Connection :
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
-        addSecurityHeaders(res);
+        addSecurityHeaders(*req, res);
 
         if (needToCallAfterHandlers)
         {
