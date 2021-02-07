@@ -22,6 +22,30 @@
       "revId": "23587c7219f7963b1d79bcfd033d2a34209c50b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bef746a_b1a98b6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-07T17:46:46Z",
+      "side": 1,
+      "message": "It wasn\u0027t quite the same, but it was here:\nhttps://github.com/openbmc/bmcweb/blob/65176d3908b27393d81b72284dbebc47055e517c/CMakeLists.txt#L285",
+      "parentUuid": "3389a042_5eb96e54",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "23587c7219f7963b1d79bcfd033d2a34209c50b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
