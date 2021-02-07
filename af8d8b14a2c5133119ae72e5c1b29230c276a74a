@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "11b5f2ff_e862f9ca",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-07T08:17:10Z",
+      "side": 1,
+      "message": "Yes, There are many places for this kind of problem（like L:179 and so on）. I really think we need to add an error attribute of `Action not allowed`. Since this problem is not the only place, could we push a new commit to fix it?",
+      "parentUuid": "1c66e6c7_215745c0",
+      "range": {
+        "startLine": 290,
+        "startChar": 16,
+        "endLine": 290,
+        "endChar": 52
+      },
+      "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af1c7719_9fbbcf38",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 26
@@ -56,6 +80,24 @@
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5c560b_ca4bb112",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-07T08:17:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e979303_f54f0626",
+      "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
