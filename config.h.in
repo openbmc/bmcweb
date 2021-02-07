@@ -1,0 +1,12 @@
+#pragma once
+
+#include <cstdint>
+
+// clang-format off
+constexpr const bool bmcwebInsecureDisableXssPrevention =
+    @bmcwebInsecureDisableXssPrevention@;
+
+constexpr const size_t bmcwebHttpReqBodyLimitMb = @bmcwebHttpReqBodyLimitMb@;
+
+constexpr const char* mesonInstallPrefix = "@mesonInstallPrefix@";
+// clang-format on
