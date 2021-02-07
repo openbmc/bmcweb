@@ -2,6 +2,7 @@
 
 #include <app.hpp>
 #include <boost/asio/io_context.hpp>
+#include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
 #include <hostname_monitor.hpp>
@@ -99,9 +100,10 @@ int main(int /*argc*/, char** /*argv*/)
     crow::ibm_mc_lock::Lock::getInstance();
 #endif
 
-#ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
-    cors_preflight::requestRoutes(app);
-#endif
+    if (BMCWEB_INSECURE_DISABLE_XSS_PREVENTION)
+    {
+        cors_preflight::requestRoutes(app);
+    }
 
     crow::login_routes::requestRoutes(app);
 
