@@ -38,9 +38,9 @@ inline void prettyPrintJson(crow::Response& res)
 static std::atomic<int> connectionCount;
 #endif
 
-// request body limit size set by the BMCWEB_HTTP_REQ_BODY_LIMIT_MB option
+// request body limit size set by the bmcwebHttpReqBodyLimitMb option
 constexpr unsigned int httpReqBodyLimit =
-    1024 * 1024 * BMCWEB_HTTP_REQ_BODY_LIMIT_MB;
+    1024 * 1024 * bmcwebHttpReqBodyLimitMb;
 
 constexpr uint64_t loggedOutPostBodyLimit = 4096;
 
@@ -410,7 +410,7 @@ class Connection :
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
-        addSecurityHeaders(res);
+        addSecurityHeaders(*req, res);
 
         if (needToCallAfterHandlers)
         {
