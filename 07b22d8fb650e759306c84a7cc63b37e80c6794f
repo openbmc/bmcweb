@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0617590f_23087bb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-07T03:11:11Z",
+      "side": 1,
+      "message": "The PowerSupply Schema will be added in the new commit:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40326/3\n\n\"Allocation\", \"CapacityWatts\", and \"PowerSupplyRedundance\" are not yet implemented in D-bus, so they are not available in this Redfish API.",
+      "parentUuid": "27c92e6b_a5855e97",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 73
+      },
+      "revId": "07b22d8fb650e759306c84a7cc63b37e80c6794f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ca6f8b5_da7f4c4e",
         "filename": "redfish-core/lib/power_subsystem.hpp",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-06T07:00:42Z",
       "side": 1,
       "message": "Why is this useful?  It appears to do nothing.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 63
+      },
+      "revId": "07b22d8fb650e759306c84a7cc63b37e80c6794f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dc8c92a_4376c460",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-07T03:11:11Z",
+      "side": 1,
+      "message": "The PowerSupply Schema will be added in the new commit, it gets PSU information : \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40326/3",
+      "parentUuid": "2ca6f8b5_da7f4c4e",
       "range": {
         "startLine": 12,
         "startChar": 0,
