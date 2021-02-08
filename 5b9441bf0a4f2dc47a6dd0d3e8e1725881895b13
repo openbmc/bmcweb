@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c9a7c6d_8e010c78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-08T07:06:49Z",
+      "side": 1,
+      "message": "Did you mean manufacturers?",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 21
+      },
+      "revId": "5b9441bf0a4f2dc47a6dd0d3e8e1725881895b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
