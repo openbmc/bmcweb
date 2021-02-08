@@ -15,6 +15,85 @@ namespace redfish
 {
 
 /**
+ * @brief Retrieves hypervisor state properties over dbus
+ *
+ * The hypervisor state object is optional so this function will only set the
+ * state variables if the object is found
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void getHypervisorState(const std::shared_ptr<AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get hypervisor state information.";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& hostState) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return;
+            }
+
+            const std::string* s = std::get_if<std::string>(&hostState);
+            if (s == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Hypervisor state: " << *s;
+            // Verify Host State
+            if (*s == "xyz.openbmc_project.State.Host.HostState.Running")
+            {
+                aResp->res.jsonValue["PowerState"] = "On";
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            }
+            else if (*s == "xyz.openbmc_project.State.Host.HostState."
+                           "Quiesced")
+            {
+                aResp->res.jsonValue["PowerState"] = "On";
+                aResp->res.jsonValue["Status"]["State"] = "Quiesced";
+            }
+            else if (*s == "xyz.openbmc_project.State.Host.HostState."
+                           "Standby")
+            {
+                aResp->res.jsonValue["PowerState"] = "On";
+                aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            }
+            else if (*s == "xyz.openbmc_project.State.Host.HostState."
+                           "TransitioningToRunning")
+            {
+                aResp->res.jsonValue["PowerState"] = "PoweringOn";
+                aResp->res.jsonValue["Status"]["State"] = "Starting";
+            }
+            else if (*s == "xyz.openbmc_project.State.Host.HostState."
+                           "TransitioningToOff")
+            {
+                aResp->res.jsonValue["PowerState"] = "PoweringOff";
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            }
+            else if (*s == "xyz.openbmc_project.State.Host.HostState.Off")
+            {
+                aResp->res.jsonValue["PowerState"] = "Off";
+                aResp->res.jsonValue["Status"]["State"] = "Disabled";
+            }
+            else
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.State.Hypervisor",
+        "/xyz/openbmc_project/state/hypervisor0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Host", "CurrentHostState");
+}
+
+/**
  * Hypervisor Systems derived class for delivering Computer Systems Schema.
  */
 class HypervisorSystem : public Node
@@ -62,6 +141,7 @@ class HypervisorSystem : public Node
                 asyncResp->res.jsonValue["EthernetInterfaces"] = {
                     {"@odata.id", "/redfish/v1/Systems/hypervisor/"
                                   "EthernetInterfaces"}};
+                getHypervisorState(asyncResp);
                 // TODO: Add "SystemType" : "hypervisor"
             },
             "xyz.openbmc_project.Settings",
