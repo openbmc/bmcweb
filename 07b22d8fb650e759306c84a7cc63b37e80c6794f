@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ee7ff6f4_523b5c37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-08T21:29:07Z",
+      "side": 1,
+      "message": "Can you add some more about the new PowerSubsystem / ThermalSubsystem..? I think the overview is a good resource, https://www.google.com/url?sa\u003dt\u0026rct\u003dj\u0026q\u003d\u0026esrc\u003ds\u0026source\u003dweb\u0026cd\u003d\u0026ved\u003d2ahUKEwjM1svIm9vuAhVWWs0KHcuwCeMQFjABegQIAxAC\u0026url\u003dhttps%3A%2F%2Fwww.dmtf.org%2Fsites%2Fdefault%2Ffiles%2FRedfish_Release_2020.4_Overview.pdf\u0026usg\u003dAOvVaw3Fg8h_AtqjUCWmXNexLTf1 \n\nE.g. The PowerSubsystem, PowerSupply, PowerSupplyMetrics, and EnvironmentMetrics schemas  were added in 2020.4 as a replacement for the Power schema. This commit implements the root of the new \"Power\" model, the  PowerSubsystem. From the PowerSubsystem all other Power schemas can be reached. \n\nAn implementation can support both the new Power / Thermal schemas and the old and OpenBMC should do the same for the time being.\n\nAlso some info out at https://www.dmtf.org/sites/default/files/standards/documents/DSP-IS0015_v0.9a.zip from when these were proposed",
+      "revId": "07b22d8fb650e759306c84a7cc63b37e80c6794f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27c92e6b_a5855e97",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
