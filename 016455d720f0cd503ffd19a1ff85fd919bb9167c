@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14251578_47a1f65c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-08T15:16:49Z",
+      "side": 1,
+      "message": "Why? Where will it be implemented?",
+      "revId": "016455d720f0cd503ffd19a1ff85fd919bb9167c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34946ae7_be9193ce",
+        "filename": "static/redfish/v1/schema/Port_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-08T15:16:49Z",
+      "side": 1,
+      "message": "Need to add to  update_schemas.py and rerun like https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40323/1/scripts/update_schemas.py \nThere will be more than this file changed",
+      "revId": "016455d720f0cd503ffd19a1ff85fd919bb9167c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
