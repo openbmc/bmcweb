@@ -86,6 +86,47 @@ inline void getHypervisorState(const std::shared_ptr<AsyncResp>& aResp)
 }
 
 /**
+ * @brief Populate Actions if any are valid for hypervisor object
+ *
+ * The hypervisor state object is optional so this function will only set the
+ * Action if the object is found
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void setHypervisorActions(const std::shared_ptr<AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get hypervisor actions.";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& reqHostTran) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return;
+            }
+
+            const std::string* s = std::get_if<std::string>(&reqHostTran);
+            BMCWEB_LOG_DEBUG << "Hypervisor last requested host transition: "
+                             << *s;
+
+            // Object present so system support limited ComputerSystem Action
+            aResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+                {"target",
+                 "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset"},
+                {"@Redfish.ActionInfo",
+                 "/redfish/v1/Systems/hypervisor/ResetActionInfo"}};
+        },
+        "xyz.openbmc_project.State.Hypervisor",
+        "/xyz/openbmc_project/state/hypervisor0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Host", "RequestedHostTransition");
+}
+
+/**
  * Hypervisor Systems derived class for delivering Computer Systems Schema.
  */
 class HypervisorSystem : public Node
@@ -141,6 +182,7 @@ class HypervisorSystem : public Node
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName");
 
         getHypervisorState(asyncResp);
+        setHypervisorActions(asyncResp);
     }
 };
 
@@ -939,6 +981,120 @@ class HypervisorInterface : public Node
                 setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
             });
         res.result(boost::beast::http::status::accepted);
+    }
+};
+
+/**
+ * HypervisorResetActionInfo derived class for delivering Computer Systems
+ * ResetType AllowableValues using ResetInfo schema.
+ */
+class HypervisorResetActionInfo : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    HypervisorResetActionInfo(App& app) :
+        Node(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response& res, const crow::Request&,
+               const std::vector<std::string>&) override
+    {
+        // The hypervisor object only support the ability to turn On
+        // The system object Action should be utilized for other operations
+        res.jsonValue = {
+            {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+            {"@odata.id", "/redfish/v1/Systems/hypervisor/ResetActionInfo"},
+            {"Name", "Reset Action Info"},
+            {"Id", "ResetActionInfo"},
+            {"Parameters",
+             {{{"Name", "ResetType"},
+               {"Required", true},
+               {"DataType", "String"},
+               {"AllowableValues", {"On"}}}}}};
+        res.end();
+    }
+};
+
+/**
+ * HypervisorActionsReset class supports the POST method for Reset action.
+ * The class sends data directly to D-Bus.
+ */
+class HypervisorActionsReset : public Node
+{
+  public:
+    HypervisorActionsReset(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Function handles POST method request.
+     * Analyzes POST body message before sends Reset request data to D-Bus.
+     */
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>&) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::string resetType;
+        if (!json_util::readJson(req, res, "ResetType", resetType))
+        {
+            return;
+        }
+
+        // Hypervisor object only support On operation
+        std::string command;
+        if (resetType == "On")
+        {
+            command = "xyz.openbmc_project.State.Host.Transition.On";
+        }
+        else
+        {
+            messages::actionParameterUnknown(res, "Reset", resetType);
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, resetType](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    if (ec.value() == boost::asio::error::invalid_argument)
+                    {
+                        messages::actionParameterNotSupported(
+                            asyncResp->res, resetType, "Reset");
+                    }
+                    else
+                    {
+                        messages::internalError(asyncResp->res);
+                    }
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.State.Hypervisor",
+            "/xyz/openbmc_project/state/hypervisor0",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+            std::variant<std::string>{command});
     }
 };
 } // namespace redfish
