@@ -594,6 +594,24 @@
     },
     {
       "key": {
+        "uuid": "864938f9_4d99e53a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "See comment on the patchset previous to this.  The Node-inherited class objects should only implement methods overriden from their subclass, nothing more, as it makes future transitions harder.",
+      "parentUuid": "ed969d38_a5d59982",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab0c980b_f3dc9c66",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26

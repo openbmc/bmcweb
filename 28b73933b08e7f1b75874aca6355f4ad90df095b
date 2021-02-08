@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1317cf1f_041449c8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be checked;  Unless there\u0027s behavior that I don\u0027t understand about from_chars?\n\nAlso, once this is removed, it basically becomes a bool wrapper around from_chars, which isn\u0027t terribly useful outside of inlining from_chars.  So please inline this code",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20903206_a0a1cfc2",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "One letter variable names are rarely descriptive enough.",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0ba968a_0d0dc464",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "string_view should be passed by value.",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "744549c5_1e6aafb2",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "This set of logic seems odd.  Why are we adding 0 prefixes to the end of a string that we\u0027ve copied?  What if we did this in integer space instead\n\nsize_t digits \u003d std::min\u003csize_t\u003e(pos, 3U);\nstd::string_view str(fmt.data(), digits);\nauto [ptr, ec] \u003d std::from_chars(start, end, val);\nif (ec !\u003d std::errc()){\n...\n}\nv \u003d v * 10 * (3-digits);\n\nThat removes a loop, removes a string copy and construction, and keeps the logic the same for all paths.  It also means (not shown above) that the milliseconds case and the non-milliseconds case look much more similar, and a lot of their code deduplicates.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "491880d0_42f67a7d",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "Why do we need to cast the value to type T?  out is already milliseconds type.  v is milliseconds type.  Shouldn\u0027t this just be\nout +\u003d v;\n\n\nwith that said, shouldn\u0027t line 64 just be declared of type T instead of milliseconds?",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 12
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18f62f0_fd6c43ca",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "This looks like it\u0027s trying to handle overflow, but it\u0027s really tough to determine what it\u0027s doing.  Can it be cleaned up some?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a476973_6c76120b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-08T17:38:14Z",
+      "side": 1,
+      "message": "Considering this function is non-trivial, is this worth having some unit tests for?",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
