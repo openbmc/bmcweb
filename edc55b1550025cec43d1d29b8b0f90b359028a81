@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72fa04a5_0b674634",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "is it single IP or multiple?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa186e59_09709d57",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "You could have used resolvedIP defined in line no 40.",
+      "range": {
+        "startLine": 86,
+        "startChar": 25,
+        "endLine": 86,
+        "endChar": 54
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8d0ebd_e0fa6f3a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "I didn\u0027t get this logic, How the ipaddress at line no 103 looks like?\nCan you add some example?",
+      "range": {
+        "startLine": 103,
+        "startChar": 15,
+        "endLine": 111,
+        "endChar": 21
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7414e562_a18ae3cb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "std::from_chars??",
+      "range": {
+        "startLine": 115,
+        "startChar": 44,
+        "endLine": 115,
+        "endChar": 54
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce7ea77_b5a5acae",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "If we have got the ssl(asio.ssl) error here, we need to restart the session from the scratch..\n\u003d\u003e Connect\n\u003d\u003e Handhake\n\nRight now it is keep retrying sending the message which is not going to help here.",
+      "range": {
+        "startLine": 194,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a64ed3bc_088ba73b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "There are two issues:\n\n1/ You have got two events at the same time so EventManager calls the send Message twice\n\nwhich internally calls the handle connection state twice..\n\nNow say during handling of first event you do  async_write and now you get the control back and handle connection state would be called again and this time it again tries to send the same event which would cause the same event to be sent twice.\n\nAs it always picks the message from top and you haven\u0027t popped up the message from the queue during send.\n\n\n2/ If you have sent the event successfully but haven\u0027t received the HTTP response then how you are going to handle this case.",
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb5e736_e9b7358a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "You need to handle the specific error: If it is ssl error then you can not use the same ssl stream, you need to create a new stream..\n\nDo you need to create new state like \"init\" which does creating of new ssl stream if there is ssl error? and set the state to \"Initialized\" so that it will go and do the resolve business..",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 228,
+        "endChar": 47
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "743fc394_65f33e24",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "It\u0027s good you added this check as it may crash the bmcweb if request queue is empty.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b214964a_5e7c4e21",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-08T16:19:05Z",
+      "side": 1,
+      "message": "why to call the conn.close for both the cases? it is needed for the unsecure case but for secure case can we call sslConn.next_layer.close()?",
+      "range": {
+        "startLine": 324,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 21
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
