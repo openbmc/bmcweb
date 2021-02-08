@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2922e0ad_422aa690",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-08T06:04:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c50b9880_b151080d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "16182ab8bb4e40e040fa6598ec38c58f2e7b1baa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21f182de_45efcf8d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-04T20:09:05Z",
       "side": 1,
       "message": "This is one of the properties you added, and it looks like it doesn\u0027t work?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 14
+      },
+      "revId": "16182ab8bb4e40e040fa6598ec38c58f2e7b1baa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2292cd5c_4b053177",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-08T06:04:42Z",
+      "side": 1,
+      "message": "Intent is to publish Model here and if the data for that keyword is  blank on the system, the plan is to still return it and publish as blank instead of leaving out if it is empty.\nsimilar to Manufacturer.",
+      "parentUuid": "21f182de_45efcf8d",
       "range": {
         "startLine": 83,
         "startChar": 0,
