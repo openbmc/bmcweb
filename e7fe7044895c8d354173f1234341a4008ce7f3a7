@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "457c482f_3b97000f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-08T18:32:34Z",
+      "side": 1,
+      "message": "I am good with as is.",
+      "parentUuid": "11354551_c5f70e92",
+      "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbdf2873_284a7c88",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 13
@@ -194,6 +212,30 @@
       "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a18ad6c4_986eab24",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-08T18:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55bb82bc_eb7b599d",
+      "range": {
+        "startLine": 1719,
+        "startChar": 1,
+        "endLine": 1723,
+        "endChar": 13
+      },
+      "revId": "e7fe7044895c8d354173f1234341a4008ce7f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
