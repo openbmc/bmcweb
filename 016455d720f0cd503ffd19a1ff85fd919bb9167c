@@ -33,6 +33,24 @@
       "revId": "016455d720f0cd503ffd19a1ff85fd919bb9167c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ac32522_5c049f3c",
+        "filename": "static/redfish/v1/schema/Port_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-08T16:11:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "34946ae7_be9193ce",
+      "revId": "016455d720f0cd503ffd19a1ff85fd919bb9167c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
