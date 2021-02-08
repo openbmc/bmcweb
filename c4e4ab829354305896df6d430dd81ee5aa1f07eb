@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ca92c4f1_1ab741b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-08T01:02:33Z",
+      "side": 1,
+      "message": "@Ed, @Gunnar\nSorry, I did not follow the initial design discussion of this feature :(\nWill update this commit message.",
+      "parentUuid": "0920c839_271d85da",
+      "revId": "c4e4ab829354305896df6d430dd81ee5aa1f07eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "566f2ab6_8941d97f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
