@@ -32,8 +32,6 @@ class TelemetryService : public Node
         res.jsonValue["Id"] = "TelemetryService";
         res.jsonValue["Name"] = "Telemetry Service";
 
-        res.jsonValue["LogService"]["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/Journal";
         res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
         res.jsonValue["MetricReports"]["@odata.id"] =
