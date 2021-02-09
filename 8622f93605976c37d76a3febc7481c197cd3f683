@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9f5811f_82b0434a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-09T10:31:09Z",
+      "side": 1,
+      "message": "hmm.. is this really needed ?.. The dictionary anyway gives Associations.Definitions..\n\nExample:\n\ndbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/xyz/openbmc_project/inventory\" int32:0 array:string:\"xyz.openbmc_project.Inventory.Item.Fan\"\n\n      dict entry(\n         string \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan3\"\n         array [\n            dict entry(\n               string \"xyz.openbmc_project.Inventory.Manager\"\n               array [\n                  string \"org.freedesktop.DBus.Introspectable\"\n                  string \"org.freedesktop.DBus.Peer\"\n                  string \"org.freedesktop.DBus.Properties\"\n                  string \"xyz.openbmc_project.Association.Definitions\"\n                  string \"xyz.openbmc_project.Inventory.Item\"\n                  string \"xyz.openbmc_project.Inventory.Item.Fan\"\n                  string \"xyz.openbmc_project.State.Decorator.OperationalStatus\"\n               ]\n            )\n         ]\n\n-----\n\nAlso, in doPatch(), I don\u0027t see we pass Associations.Definitions",
+      "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619065c5_96825829",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-09T10:31:09Z",
+      "side": 1,
+      "message": "this can go after the below if() check",
+      "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
