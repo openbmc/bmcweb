@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "166b88c2_8694fc3a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "Depends on what we want to cover. If you pass \"10S\", than ec is not set to error. You get val \u003d\u003d 10 and ptr pointing at end - 1. This is not acceptable in my case because I pass a decimal number in string and expect there are no leftovers. That\u0027s why I always check if from_chars parse whole string or a part of it.\n\nI made a fromChars to make any error during conversion more verbose.\nIn the last patchset I inlined it",
+      "parentUuid": "1317cf1f_041449c8",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20903206_a0a1cfc2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-08T17:38:14Z",
       "side": 1,
       "message": "One letter variable names are rarely descriptive enough.",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aa7077c_9bb3129f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "I am going to change it to FromTime, sounds ok? Or I can use FromChronoDuration?",
+      "parentUuid": "20903206_a0a1cfc2",
       "range": {
         "startLine": 50,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5c2b6b05_290d3cc3",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "Why? I am changing a size of fmt in this function at line 97",
+      "parentUuid": "b0ba968a_0d0dc464",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "744549c5_1e6aafb2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -82,6 +154,30 @@
       "writtenOn": "2021-02-08T17:38:14Z",
       "side": 1,
       "message": "This set of logic seems odd.  Why are we adding 0 prefixes to the end of a string that we\u0027ve copied?  What if we did this in integer space instead\n\nsize_t digits \u003d std::min\u003csize_t\u003e(pos, 3U);\nstd::string_view str(fmt.data(), digits);\nauto [ptr, ec] \u003d std::from_chars(start, end, val);\nif (ec !\u003d std::errc()){\n...\n}\nv \u003d v * 10 * (3-digits);\n\nThat removes a loop, removes a string copy and construction, and keeps the logic the same for all paths.  It also means (not shown above) that the milliseconds case and the non-milliseconds case look much more similar, and a lot of their code deduplicates.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a913fe_82822f97",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "power of 10 is required here, not multiplication. It was your suggestion to change it to string:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32536/34/redfish-core/include/utils/time_utils.hpp#71\n\nIt is possible to change it to\nticks *\u003d static_cast\u003cstd::chrono::milliseconds::rep\u003e(std::pow(10, 3 - digits));\nSounds ok?",
+      "parentUuid": "744549c5_1e6aafb2",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "142c0917_30833f3f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "You have to convert it to hours or minutes before converting it to milliseconds. v is long (long?) (\u003d\u003d std::chrono::milliseconds::rep) and do not have any information about time. I am going to rename v to ticks or rep to better reflect its type in the latest patchset",
+      "parentUuid": "491880d0_42f67a7d",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 12
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b18f62f0_fd6c43ca",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -128,6 +248,30 @@
       "writtenOn": "2021-02-08T17:38:14Z",
       "side": 1,
       "message": "This looks like it\u0027s trying to handle overflow, but it\u0027s really tough to determine what it\u0027s doing.  Can it be cleaned up some?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c120050_fa47ce2f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "Yes, it is not straightforward and took a lot of testing activities to find out the best check for overflow. \nFirst you have to check overflow after conversion from one chrono::duration type to another.\nSecond you have to check if value from v (that is long int) fits in the possible maximum range that you can convert from one duration type (ex. hours) to std::chrono::milliseconds. If you omit this check you get smaller value that fits in milliseconds.\nIn the latest patchset I moved std::chrono::duration_cast\u003cT\u003e(std::chrono::milliseconds::max()).count() to auto maxConversionRange to better reflect it.",
+      "parentUuid": "b18f62f0_fd6c43ca",
       "range": {
         "startLine": 90,
         "startChar": 0,
@@ -160,6 +304,30 @@
       "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791919a7_3b639186",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "Done, added in the latest patchset",
+      "parentUuid": "2a476973_6c76120b",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

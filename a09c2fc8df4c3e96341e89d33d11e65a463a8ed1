@@ -612,6 +612,24 @@
     },
     {
       "key": {
+        "uuid": "0b896292_57f99392",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T13:06:40Z",
+      "side": 1,
+      "message": "Yes, understood. Already changed it in the latest patchset. Thanks",
+      "parentUuid": "864938f9_4d99e53a",
+      "revId": "a09c2fc8df4c3e96341e89d33d11e65a463a8ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab0c980b_f3dc9c66",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26
