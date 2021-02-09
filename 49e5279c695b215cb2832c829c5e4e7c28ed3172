@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af504932_73b20c43",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T19:25:51Z",
+      "side": 1,
+      "message": "Does redfish give guidance on whether or not this should be in the redfish tree tree?  I had always assumed it would point to something outside the tree, but I\u0027m not positive either way.",
+      "range": {
+        "startLine": 1518,
+        "startChar": 29,
+        "endLine": 1518,
+        "endChar": 39
+      },
+      "revId": "49e5279c695b215cb2832c829c5e4e7c28ed3172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61fab089_7a4bd18a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T19:25:51Z",
+      "side": 1,
+      "message": "I don\u0027t see a 404 condition here.  \n\n/redfish/v1/Systems/system/LogServices/EventLog/Entries/foobar should return 404, otherwise security scanners file an error.\n\nNot your patchset, but does need resolved at some point.",
+      "revId": "49e5279c695b215cb2832c829c5e4e7c28ed3172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
