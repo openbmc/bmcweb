@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6b8855d_253e60b8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-09T10:06:54Z",
+      "side": 1,
+      "message": "Hmm.. so if an association is not found, then will it result in returning HTTP: 404 ?",
+      "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
