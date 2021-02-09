@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb65381a_ffe95459",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Please pass shared_ptr\u0027s by value. This applies to all functions that take in a shared_ptr.",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c58ed7ce_21ced918",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "This could be done at the higher level function.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 71
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f997d3c_ea94ef94",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Could you define this outside this for loop and capture it?",
+      "range": {
+        "startLine": 59,
+        "startChar": 1,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faf95342_0f8a8632",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "How would one perform a reverse lookup with this ID for, say, driving an LED associated with this AssemblyData? I think this needs to match the last segment of the D-Bus object path of the Assembly inventory item.",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 76
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a51e23_d4b02117",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Why not a const ref?",
+      "range": {
+        "startLine": 164,
+        "startChar": 39,
+        "endLine": 164,
+        "endChar": 69
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d906738_68906229",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Set internal error to aResp here",
+      "range": {
+        "startLine": 175,
+        "startChar": 7,
+        "endLine": 175,
+        "endChar": 15
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9329ceb3_8100580e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "If this necessarily an error? Can\u0027t we return an empty array here?",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 52
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f361831_dc0b920b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we return an HTTP error back to the client if the chassis ID is never found within this loop? I think it would be a 404?",
+      "range": {
+        "startLine": 239,
+        "startChar": 20,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a319fbb_e53f5f72",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "getAssembliesLinkedToChassis**, plural?",
+      "range": {
+        "startLine": 242,
+        "startChar": 16,
+        "endLine": 242,
+        "endChar": 42
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe1e5b88_c74aef6e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 273,
+        "startChar": 28,
+        "endLine": 273,
+        "endChar": 35
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39808268_0b0ec8f3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-09T18:01:32Z",
+      "side": 1,
+      "message": "Please clean this space up.",
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
