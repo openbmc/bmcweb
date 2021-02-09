@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6454663f_b05866fe",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-02-09T04:07:39Z",
+      "side": 1,
+      "message": "it should be BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "8ef4d138aa133d68a46dcdd04a1f7550922050ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
