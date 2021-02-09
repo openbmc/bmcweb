@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "88382481_2620f448",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-09T09:42:26Z",
+      "side": 1,
+      "message": "The resolved response is a(iiay)st\nThe resolvedIp will contain the array of iiay. \nThere can be multiple ip addresses in the response. Thus there is a vector of this struct",
+      "parentUuid": "72fa04a5_0b674634",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa186e59_09709d57",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -59,6 +83,30 @@
       "writtenOn": "2021-02-08T16:19:05Z",
       "side": 1,
       "message": "I didn\u0027t get this logic, How the ipaddress at line no 103 looks like?\nCan you add some example?",
+      "range": {
+        "startLine": 103,
+        "startChar": 15,
+        "endLine": 111,
+        "endChar": 21
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "150b9374_1143d548",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-09T09:42:26Z",
+      "side": 1,
+      "message": "The dbus response will be something like below\n\n   array [\n      struct {\n         int32 2\n         int32 2\n         array of bytes [\n            \u003cbyte1\u003e \u003cbyte2\u003e \u003cbyte3\u003e \u003cbyte4\u003e\n         ]\n      }\n   ]\n   string \"\u003chostname\u003e\"\n   uint64 1\n\nI will need to parse the array of bytes and add the \u0027dots\u0027 to form the IP address string",
+      "parentUuid": "dc8d0ebd_e0fa6f3a",
       "range": {
         "startLine": 103,
         "startChar": 15,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "895d5020_6ff35eab",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-09T09:42:26Z",
+      "side": 1,
+      "message": "It will not call sendMessage() straight away.\n\nThe state ConnState::retry triggers checkQueueAndRetry(). This performs the retries as per the retry policies set by the subscriber. \nIn checkQueueAndRetry() method:\n 1. Existing tcp connection will be closed\n 2. retryCount in incremented to validate it against the user settings\n 3. The state will be set to ConnState::resolved\n 4. This will trigger the fresh connect \u0026 handshake\n\nSo i believe, current changes do as you have suggested",
+      "parentUuid": "4ce7ea77_b5a5acae",
+      "range": {
+        "startLine": 194,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a64ed3bc_088ba73b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -134,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "d8ac9121_13fbe6b5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-09T09:42:26Z",
+      "side": 1,
+      "message": "The message was popped out of the queue once we receive the response from the subscriber. This was done to enable the retry mechanism, in case if the message was sent successfully - but response is not received.\n\nI agree with you that the BMC should not worry about receiving the response from the subscriber. It should only see if the send is successful. \n\nI think we can pop the message out of the queue when the sendMessage() is complete. If the recvMessage() returns any error, we should re-initialize the connection according to the relevant recvMessage error types. There will be no re-sending of the message for which the recvMessage() failed.\n\n@Ed, @Gunnar - Please share your views here.",
+      "parentUuid": "a64ed3bc_088ba73b",
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2eb5e736_e9b7358a",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -145,6 +235,30 @@
       "writtenOn": "2021-02-08T16:19:05Z",
       "side": 1,
       "message": "You need to handle the specific error: If it is ssl error then you can not use the same ssl stream, you need to create a new stream..\n\nDo you need to create new state like \"init\" which does creating of new ssl stream if there is ssl error? and set the state to \"Initialized\" so that it will go and do the resolve business..",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 228,
+        "endChar": 47
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ccd060_c77ec4a7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-09T09:42:26Z",
+      "side": 1,
+      "message": "The state ConnState::retry does closes the existing socket and tries creating a fresh one",
+      "parentUuid": "2eb5e736_e9b7358a",
       "range": {
         "startLine": 228,
         "startChar": 1,
@@ -177,6 +291,30 @@
       "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34172d1f_e35f6fbc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-09T09:42:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "743fc394_65f33e24",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
