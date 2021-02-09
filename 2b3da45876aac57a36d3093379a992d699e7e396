@@ -22,6 +22,30 @@
       "revId": "2b3da45876aac57a36d3093379a992d699e7e396",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b64868c_3595321d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-02-09T20:10:25Z",
+      "side": 1,
+      "message": "It\u0027s my mistake. I am very sorry it. Moving between internal (ex. meta-intel-openbmc/s2600wf) and external (ex. meta-ibm/romulus) dependencies is not a good idea. Should stick to single environment when testing my patches. I have to retest other patches and fix commit messages that only default OpenBMC image is used during tests.",
+      "parentUuid": "aff2bd3e_b3962033",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "2b3da45876aac57a36d3093379a992d699e7e396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
