@@ -115,6 +115,30 @@
       "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f8b8f79_c0d0b9ee",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-09T23:07:38Z",
+      "side": 1,
+      "message": "I didn\u0027t find any documentation, but if a close is called, this error shows up saying systemd is trying to close an invalid fd:\n\nbmcweb[256]: Assertion \u0027close_nointr(fd) !\u003d -EBADF\u0027 failed at src/basic/fd-util.c:72, function safe_close(). Aborting.\n\nThen I found that Deepak ran into this same issue when calling the getPEL interface and concluded systemd was closing the fd (https://github.com/openbmc/phosphor-dbus-interfaces/blob/1b4a98af49059da61695c41469e4b7b134c1bf68/org/open_power/Logging/PEL.interface.yaml#L4).\n\n@Deepak, did you find any documentation when you saw this issue?",
+      "parentUuid": "efbe44dd_e59c99c9",
+      "range": {
+        "startLine": 1772,
+        "startChar": 19,
+        "endLine": 1772,
+        "endChar": 40
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
