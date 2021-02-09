@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "b683d9db_681fa2d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T17:02:03Z",
+      "side": 1,
+      "message": "\u003e Thanks for the comments Ed. However, it\u0027s a feature that we want to contain in the server code for the reasons mentioned above. \n\nI\u0027ve listed alternatives that don\u0027t require OEM properties, and implement what you want above.  Yes, it requires clients to be more complex, but given the cost burden of maintaining oem properties, it seems well worth it.\n\nAlso, considering the variety of LEDs you want to change that we don\u0027t even have them modeled in Redfish yet, I\u0027d recommend that we need to model those first, before trying to add them to an OEM property.\n\n\u003e Also, there are some one-off behaviors that we need to enforce on led-manager when the lamp test is happening. So, we can not rely on clients to do right thing for us.\n\nCan you give some examples of what these one-off behaviors are that you\u0027d like to enforce?\n\n\u003e We have gone over these in the phosphor-dbus-interfaces commit that I ended up abandoning.\n\nI will add it to my reading list, to see if I can understand your use cases better.",
+      "parentUuid": "b1d499ac_6f90f8fc",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "9c16c58074321a2e53b543f4298e7ee5c3153224",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1fdee5d_5c5ffe11",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
