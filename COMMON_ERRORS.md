@@ -180,3 +180,61 @@ accuracy.  While these processes are largely manual, they can mostly be
 conducted by a simple grep statement to search for urls in question.  Doing the
 above makes the route handlers no longer greppable, and complicates bmcweb
 patchsets as a whole.
+
+### 11. Not responding to 404
+```C++
+BMCWEB_ROUTE("/myendpoint/<str>",
+    [](Request& req, Response& res, const std::string& id){
+     crow::connections::systemBus->async_method_call(
+          [asyncResp](const boost::system::error_code ec,
+                      const std::string& myProperty) {
+              if (ec)
+              {
+                  messages::internalError(asyncResp->res);
+                  return;
+              }
+              ... handle code
+          },
+          "xyz.openbmc_project.Logging",
+          "/xyz/openbmc_project/mypath/" + id,
+          "xyz.MyInterface", "GetAll", "");
+});
+```
+All bmcweb routes should handle 404 (not found) properly, and return it where
+appropriate.  500 internal error is not a substitute for this, and should be
+only used if there isn't a more appropriate error code that can be returned.
+This is important, because a number of vulnerability scanners attempt injection
+attacks in the form of /myendpoint/foobar, or /myendpoint/#$*(%)&#%$)(*&  in an
+attempt to circumvent security.  If the server returns 500 to any of these
+requests, the security scanner logs it as an error for followup.  While in
+general these errors are benign, and not actually a real security threat, having
+a clean security run allows maintainers to minimize the amount of time spent
+triaging issues reported from these scanning tools.
+
+A inplementation of the above that handles 404 would look like:
+```C++
+BMCWEB_ROUTE("/myendpoint/<str>",
+    [](Request& req, Response& res, const std::string& id){
+     crow::connections::systemBus->async_method_call(
+          [asyncResp](const boost::system::error_code ec,
+                      const std::string& myProperty) {
+              if (ec == <error code that gets returned by not found>){
+                  messages::resourceNotFound(res);
+                  return;
+              }
+              if (ec)
+              {
+                  messages::internalError(asyncResp->res);
+                  return;
+              }
+              ... handle code
+          },
+          "xyz.openbmc_project.Logging",
+          "/xyz/openbmc_project/mypath/" + id,
+          "xyz.MyInterface", "GetAll", "");
+});
+```
+
+Note: A more general form of this rule is that no handler should ever return 500
+on a working system, and any cases where 500 is found, can immediately be
+assumed to be [a bug in either the system, or bmcweb.](https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#error-handling)
