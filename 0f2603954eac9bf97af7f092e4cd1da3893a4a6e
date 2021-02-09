@@ -187,6 +187,30 @@
       "revId": "0f2603954eac9bf97af7f092e4cd1da3893a4a6e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d216c14_10b8ba1b",
+        "filename": "http/routing.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T19:14:44Z",
+      "side": 1,
+      "message": "I don\u0027t understand the question.  To do this, part of the first task would require getting all of the core using the same AsyncResp object, which I have patchsets out to make them similar in behavior, which would likely help with your effort.",
+      "parentUuid": "b0858e80_3ab151d7",
+      "range": {
+        "startLine": 1215,
+        "startChar": 0,
+        "endLine": 1215,
+        "endChar": 3
+      },
+      "revId": "0f2603954eac9bf97af7f092e4cd1da3893a4a6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
