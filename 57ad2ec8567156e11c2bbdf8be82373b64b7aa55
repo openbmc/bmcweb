@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "9283c28d_571eaff7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-09T00:05:47Z",
+      "side": 1,
+      "message": "\u003e \u003e How in the above case does the \"interface that reads all logs\" get updated when a log is deleted ?\n\n\u003e This usually isn\u0027t a concern for a streaming log service, but you make a good point, it wouldn\u0027t be registered.\n\nIf it isn\u0027t a concern for deleting a log, then I wouldn\u0027t think it would be a concern for resolved..",
+      "parentUuid": "e145014f_436e23f9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54ada203_13860603",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
