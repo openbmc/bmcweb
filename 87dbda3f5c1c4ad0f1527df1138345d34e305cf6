@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fea5b81c_ccf4f952",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T19:21:01Z",
+      "side": 1,
+      "message": "needs escaped for dbus.",
+      "range": {
+        "startLine": 1750,
+        "startChar": 27,
+        "endLine": 1750,
+        "endChar": 34
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efbe44dd_e59c99c9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T19:21:01Z",
+      "side": 1,
+      "message": "How does it know it needs to close the fd?  Are you sure this is the case?  Is there a systemd/dbus doc on this that you have a link to handy? (asking earnestly, because I\u0027ve never done this before).",
+      "range": {
+        "startLine": 1772,
+        "startChar": 19,
+        "endLine": 1772,
+        "endChar": 40
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
