@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "beeb77ac_25c3d765",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2021-02-09T22:28:55Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fea5b81c_ccf4f952",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
