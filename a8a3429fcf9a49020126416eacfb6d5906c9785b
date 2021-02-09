@@ -118,6 +118,30 @@
       "revId": "a8a3429fcf9a49020126416eacfb6d5906c9785b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d106f10c_e84e8ca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-02-09T19:44:44Z",
+      "side": 1,
+      "message": "Done.\n\nThanks for the review comments. Added now in detailed commit message. Please let me know your comments.",
+      "parentUuid": "838bffc1_41ca3d8b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "a8a3429fcf9a49020126416eacfb6d5906c9785b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
