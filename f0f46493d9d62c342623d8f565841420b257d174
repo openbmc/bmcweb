@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f06bb41_d0b8204e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-09T00:31:39Z",
+      "side": 1,
+      "message": "This doesn\u0027t tell me a lot. \nMaybe something more like\n\nThis attribute indicates whether the logentry has been resolved or repaired. This property is Read/Write but this commit only implements the Read.",
+      "revId": "f0f46493d9d62c342623d8f565841420b257d174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d68843e5_91becb71",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1472,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-09T00:31:39Z",
+      "side": 1,
+      "message": "probably best to check for nullptr..\n\nif (resolveptr \u003d\u003d nullptr)\n{\n messages::internalError(asyncResp-\u003eres);\nreturn;\n}\n resolved \u003d *resolveptr;",
+      "revId": "f0f46493d9d62c342623d8f565841420b257d174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
