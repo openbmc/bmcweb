@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a19f58f2_2fa2636b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1758,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-09T19:52:32Z",
+      "side": 1,
+      "message": "FYI, I\u0027m adding this to COMMON_ERRORS.md.  You\u0027re far from the first person to get this wrong.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40429",
+      "parentUuid": "09f6673e_e0856137",
+      "range": {
+        "startLine": 1758,
+        "startChar": 0,
+        "endLine": 1758,
+        "endChar": 60
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efbe44dd_e59c99c9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
