@@ -16,6 +16,24 @@
       "revId": "7646b0f11e52c3ae8d43930a48032f9834ff598c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ce87e7e_c5ca641b",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-10T19:00:36Z",
+      "side": 1,
+      "message": "If i understand it correctly, the fix would be:\n -                   messages::internalError(asyncResp-\u003eres);\n +                   messages::resourceNotFound(asyncResp-\u003eres, \"myendpoint\", myProperty);",
+      "parentUuid": "3ae2ce59_0b4c3d43",
+      "revId": "7646b0f11e52c3ae8d43930a48032f9834ff598c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
