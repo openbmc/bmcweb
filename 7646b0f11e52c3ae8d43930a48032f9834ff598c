@@ -34,6 +34,24 @@
       "revId": "7646b0f11e52c3ae8d43930a48032f9834ff598c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ea80fd_c9641067",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-10T19:09:29Z",
+      "side": 1,
+      "message": "The problem here is that we don\u0027t have a consistent \"not found\" message on dbus that everything implements the same, so it\u0027s hard to give generic advice in a doc like this.  With that said, I could put something like.\n\n\u0027\u0027\u0027\nDepending on the daemon being called, a fix to this might look like\nif (ec \u003d\u003d \u003cerror code that gets returned by not found\u003e){\n   messages::resourceNotFound(res);\n   return;\n}\nif (ec){\n   messages::internalError(res);\n   return;\n}\n\u0027\u0027\u0027\n\nIn as the \"correct\" version, leaving it up to the implementer to figure out the return code.  Does that work?",
+      "parentUuid": "6ce87e7e_c5ca641b",
+      "revId": "7646b0f11e52c3ae8d43930a48032f9834ff598c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
