@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ae2ce59_0b4c3d43",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-10T17:25:38Z",
+      "side": 1,
+      "message": "The example shows the \"before\" case, could we add an \"after\" that shows the correct handling? is the fix to return \"messages::resourceNotFound()\" instead of internalError() for example?",
+      "revId": "7646b0f11e52c3ae8d43930a48032f9834ff598c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
