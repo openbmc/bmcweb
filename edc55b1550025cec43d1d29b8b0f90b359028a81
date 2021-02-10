@@ -142,6 +142,29 @@
     },
     {
       "key": {
+        "uuid": "dd10907b_eb536298",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-10T07:11:34Z",
+      "side": 1,
+      "message": "Thanks for resolving this asynResolve issue. \n\nCan you load this change as new patch on top of existing one. So that makes easy for review and also keep isolation if some OEM\u0027s don\u0027t want to use this dbus method for resolving. Also makes easy if boost library fixes the original issue with async_resolve().",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 18
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ce7ea77_b5a5acae",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -189,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "d740f698_bbc7c6ac",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-10T07:11:34Z",
+      "side": 1,
+      "message": "When there send (or recv) error, retry loop will get triggers and does  gracefulshutdown previous connection -\u003e connect -\u003e handshake and then attempt sendMessage. So lgtm.",
+      "parentUuid": "895d5020_6ff35eab",
+      "range": {
+        "startLine": 194,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a64ed3bc_088ba73b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -218,6 +265,24 @@
       "side": 1,
       "message": "The message was popped out of the queue once we receive the response from the subscriber. This was done to enable the retry mechanism, in case if the message was sent successfully - but response is not received.\n\nI agree with you that the BMC should not worry about receiving the response from the subscriber. It should only see if the send is successful. \n\nI think we can pop the message out of the queue when the sendMessage() is complete. If the recvMessage() returns any error, we should re-initialize the connection according to the relevant recvMessage error types. There will be no re-sending of the message for which the recvMessage() failed.\n\n@Ed, @Gunnar - Please share your views here.",
       "parentUuid": "a64ed3bc_088ba73b",
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec270f41_faed7f14",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-10T07:11:34Z",
+      "side": 1,
+      "message": "My initial patch has protect against two request comes at same time. If one of the operation is in progress(connect/send/recv), corresponding state machine is updated to inProgress and add new message to queue for getting it turn. But this latest code has some issue with state machine as Ratan pointed out. I did observed the issue and planning to fix work on it this week.",
+      "parentUuid": "d8ac9121_13fbe6b5",
       "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -259,6 +324,30 @@
       "side": 1,
       "message": "The state ConnState::retry does closes the existing socket and tries creating a fresh one",
       "parentUuid": "2eb5e736_e9b7358a",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 228,
+        "endChar": 47
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7db978bd_806a5084",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-10T07:11:34Z",
+      "side": 1,
+      "message": "Agree with Sunitha.",
+      "parentUuid": "10ccd060_c77ec4a7",
       "range": {
         "startLine": 228,
         "startChar": 1,
@@ -329,6 +418,30 @@
       "writtenOn": "2021-02-08T16:19:05Z",
       "side": 1,
       "message": "why to call the conn.close for both the cases? it is needed for the unsecure case but for secure case can we call sslConn.next_layer.close()?",
+      "range": {
+        "startLine": 324,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 21
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656c001e_31005e7d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-10T07:11:34Z",
+      "side": 1,
+      "message": "Agree with Ratan. This seems to be reverted from old patch. Need to be corrected.",
+      "parentUuid": "b214964a_5e7c4e21",
       "range": {
         "startLine": 324,
         "startChar": 8,
