@@ -472,6 +472,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ff0245_32b42b9a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-10T18:19:03Z",
+      "side": 1,
+      "message": "That sounds like a dbus api that needs reworked.  Having a type implicit in the set call requires exactly this code you\u0027ve written, which is quite complex and error prone.  Normally an API like this would simply enumerate the various properties, with the appropriate types as properties individually, not as one super dictionary, especially not as a super dictionary that ignored the dbus typing system.\n\nAlternatively, you could add a \"AddPendingChange\" method which takes a key and value pair, and puts this complexity into the bios manager daemon.\n\nIt should also be noted that looking at this API, there\u0027s no way to add pending attributes without effecting the previously added pending attributes.  That seems like an issue.\n\nAs written, I don\u0027t want to be doing two calls for this type of operation.  It adds code and imposes extra conditions in Redfish, which should be a simple json-\u003edbus call converter.",
+      "parentUuid": "bf3199b2_a2ce5df0",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
