@@ -1412,20 +1412,12 @@ class DBusEventLogEntryCollection : public Node
                             if (propertyMap.first == "Id")
                             {
                                 id = std::get_if<uint32_t>(&propertyMap.second);
-                                if (id == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
                             }
                             else if (propertyMap.first == "Timestamp")
                             {
                                 const uint64_t* millisTimeStamp =
                                     std::get_if<uint64_t>(&propertyMap.second);
-                                if (millisTimeStamp == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
-                                else
+                                if (millisTimeStamp != nullptr)
                                 {
                                     timestamp = crow::utility::getTimestamp(
                                         *millisTimeStamp);
@@ -1435,11 +1427,7 @@ class DBusEventLogEntryCollection : public Node
                             {
                                 const uint64_t* millisTimeStamp =
                                     std::get_if<uint64_t>(&propertyMap.second);
-                                if (millisTimeStamp == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
-                                else
+                                if (millisTimeStamp != nullptr)
                                 {
                                     updateTimestamp =
                                         crow::utility::getTimestamp(
@@ -1450,20 +1438,18 @@ class DBusEventLogEntryCollection : public Node
                             {
                                 severity = std::get_if<std::string>(
                                     &propertyMap.second);
-                                if (severity == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
                             }
                             else if (propertyMap.first == "Message")
                             {
                                 message = std::get_if<std::string>(
                                     &propertyMap.second);
-                                if (message == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
                             }
+                        }
+                        if (id == nullptr || message == nullptr ||
+                            severity == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
                         }
                         thisEntry = {
                             {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
@@ -1522,13 +1508,20 @@ class DBusEventLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        const std::string& entryID = params[0];
+        std::string entryID = params[0];
+        dbus::utility::escapePathForDbus(entryID);
 
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
             [asyncResp, entryID](const boost::system::error_code ec,
                                  GetManagedPropertyType& resp) {
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, "EventLogEntry",
+                                               entryID);
+                    return;
+                }
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR
@@ -1547,20 +1540,12 @@ class DBusEventLogEntry : public Node
                     if (propertyMap.first == "Id")
                     {
                         id = std::get_if<uint32_t>(&propertyMap.second);
-                        if (id == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
                     }
                     else if (propertyMap.first == "Timestamp")
                     {
                         const uint64_t* millisTimeStamp =
                             std::get_if<uint64_t>(&propertyMap.second);
-                        if (millisTimeStamp == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                        else
+                        if (millisTimeStamp != nullptr)
                         {
                             timestamp =
                                 crow::utility::getTimestamp(*millisTimeStamp);
@@ -1570,11 +1555,7 @@ class DBusEventLogEntry : public Node
                     {
                         const uint64_t* millisTimeStamp =
                             std::get_if<uint64_t>(&propertyMap.second);
-                        if (millisTimeStamp == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                        else
+                        if (millisTimeStamp != nullptr)
                         {
                             updateTimestamp =
                                 crow::utility::getTimestamp(*millisTimeStamp);
@@ -1584,22 +1565,15 @@ class DBusEventLogEntry : public Node
                     {
                         severity =
                             std::get_if<std::string>(&propertyMap.second);
-                        if (severity == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
                     }
                     else if (propertyMap.first == "Message")
                     {
                         message = std::get_if<std::string>(&propertyMap.second);
-                        if (message == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
                     }
                 }
                 if (id == nullptr || message == nullptr || severity == nullptr)
                 {
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 asyncResp->res.jsonValue = {
