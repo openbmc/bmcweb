@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c202c4b1_ab016883",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-11T17:23:42Z",
+      "side": 1,
+      "message": "Why was this changed from a vector\u003cpair to a flat_map?\n\nWhile more complex, the old code that loops ends up being faster, and compile smaller than creating a flat map and calling find, so in general, unless you really require key order, we recommend the way this was done before.",
+      "range": {
+        "startLine": 726,
+        "startChar": 12,
+        "endLine": 726,
+        "endChar": 38
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c365da8_f7189476",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-11T17:23:42Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be something like task::error?  At a minimum we should log the error.",
+      "range": {
+        "startLine": 735,
+        "startChar": 23,
+        "endLine": 735,
+        "endChar": 40
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d354f00_fce02524",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-11T17:23:42Z",
+      "side": 1,
+      "message": "Please use operator -\u003e in these situations instead of (*var).",
+      "range": {
+        "startLine": 744,
+        "startChar": 38,
+        "endLine": 744,
+        "endChar": 48
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fd713b6_39e02a47",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-11T17:23:42Z",
+      "side": 1,
+      "message": "Just do an exact match here on the exact interface you\u0027re looking for.  This code looks complex and brittle, and exemplifies common error #4.",
+      "range": {
+        "startLine": 744,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 69
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8549198_754f2e0f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-11T17:23:42Z",
+      "side": 1,
+      "message": "not your fault in this patch, but this string needs escaped for http header usage.",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2c602d_13bf33fd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-11T17:23:42Z",
+      "side": 1,
+      "message": "Please declare this on line 825 and give it a variable name so we can have a better idea what it\u0027s for and why it\u0027s empty.",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 58
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
