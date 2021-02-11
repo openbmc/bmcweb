@@ -274,14 +274,31 @@ inline void requestRoutes(App& app)
         .streamingResponse()
         .onopen([](crow::streaming_response::Connection& conn) {
             std::string url(conn.req.target());
+
+            std::string dumpEntry;
             std::size_t pos = url.rfind('/');
-            std::string dumpId;
             if (pos != std::string::npos)
             {
-                dumpId = url.substr(pos + 1);
+                dumpEntry = url.substr(pos + 1);
             }
 
-            std::string dumpType = "system";
+            // System and Resource dump entries are currently being
+            // listed under /Systems/system/LogServices/Dump/Entries/
+            // redfish path. To differentiate between the two, the dump
+            // entries would be listed as System_<id> and Resource_<id> for
+            // the respective dumps. Hence the dump id and type are being
+            // extracted here from the above format.
+            std::string dumpId;
+            std::string dumpType;
+            std::size_t idPos = dumpEntry.rfind('_');
+
+            if (idPos != std::string::npos)
+            {
+                dumpType =
+                    boost::algorithm::to_lower_copy(dumpEntry.substr(0, idPos));
+                dumpId = dumpEntry.substr(idPos + 1);
+            }
+
             boost::asio::io_context* ioCon = conn.getIoContext();
 
             std::string unixSocketPath =
