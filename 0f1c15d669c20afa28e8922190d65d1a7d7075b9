@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bbef13f1_1181cd3e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-11T04:44:10Z",
+      "side": 1,
+      "message": "No Asmitha",
+      "parentUuid": "04560444_43b79889",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 51
+      },
+      "revId": "0f1c15d669c20afa28e8922190d65d1a7d7075b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b6c0441_310a9c2f",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8bf5a163_d3f9174a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-11T04:44:10Z",
+      "side": 1,
+      "message": "Works as it is now",
+      "parentUuid": "4b6c0441_310a9c2f",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 59
+      },
+      "revId": "0f1c15d669c20afa28e8922190d65d1a7d7075b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff706471_c4331762",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2021-02-08T04:54:21Z",
       "side": 1,
       "message": "Also here, should we be passing asyncResp here?",
+      "range": {
+        "startLine": 741,
+        "startChar": 1,
+        "endLine": 741,
+        "endChar": 54
+      },
+      "revId": "0f1c15d669c20afa28e8922190d65d1a7d7075b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b28e681_7c1aa89b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-11T04:44:10Z",
+      "side": 1,
+      "message": "Not needed. This method returns res , and that is contained in the asyncResp in this method",
+      "parentUuid": "ff706471_c4331762",
       "range": {
         "startLine": 741,
         "startChar": 1,
