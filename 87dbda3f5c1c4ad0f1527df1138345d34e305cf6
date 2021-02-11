@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "48044711_5e16c7c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:22:17Z",
+      "side": 1,
+      "message": "Done. thanks.",
+      "parentUuid": "beeb77ac_25c3d765",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fea5b81c_ccf4f952",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96b5853c_abcb26fe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:22:17Z",
+      "side": 1,
+      "message": "Done. Learning all kinds of good stuff.",
+      "parentUuid": "fea5b81c_ccf4f952",
+      "range": {
+        "startLine": 1750,
+        "startChar": 27,
+        "endLine": 1750,
+        "endChar": 34
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d1473826_9a37bbf5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1758,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:22:17Z",
+      "side": 1,
+      "message": "Done. Thanks for explaining this.",
+      "parentUuid": "a19f58f2_2fa2636b",
+      "range": {
+        "startLine": 1758,
+        "startChar": 0,
+        "endLine": 1758,
+        "endChar": 60
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efbe44dd_e59c99c9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
@@ -139,6 +211,30 @@
       "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ecf4fe2_5dfcdce3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:22:17Z",
+      "side": 1,
+      "message": "Done. Did more searching, we need to dup the fd, I verified the fd number doesn\u0027t increase with each call so we\u0027re correctly closing and re-using it.",
+      "parentUuid": "6f8b8f79_c0d0b9ee",
+      "range": {
+        "startLine": 1772,
+        "startChar": 19,
+        "endLine": 1772,
+        "endChar": 40
+      },
+      "revId": "87dbda3f5c1c4ad0f1527df1138345d34e305cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
