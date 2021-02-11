@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a691227b_8d327290",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-11T20:25:01Z",
+      "side": 1,
+      "message": "Done, removed with move to mapper call",
+      "parentUuid": "34dd9ddb_1c3458c2",
+      "range": {
+        "startLine": 114,
+        "startChar": 32,
+        "endLine": 114,
+        "endChar": 34
+      },
+      "revId": "43c96cbb5c1980a9874ca2a1e23570cd60b0fb59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7e9a3cf_663eefe8",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "42744833_2dcc5f8d",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-11T20:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7e9a3cf_663eefe8",
+      "range": {
+        "startLine": 125,
+        "startChar": 44,
+        "endLine": 125,
+        "endChar": 47
+      },
+      "revId": "43c96cbb5c1980a9874ca2a1e23570cd60b0fb59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cfee043_6f50d58e",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2021-02-11T17:31:29Z",
       "side": 1,
       "message": "You can only turn it on, not off?  Should we be getting this list of allowable values from dbus somehow?",
+      "range": {
+        "startLine": 1027,
+        "startChar": 0,
+        "endLine": 1027,
+        "endChar": 47
+      },
+      "revId": "43c96cbb5c1980a9874ca2a1e23570cd60b0fb59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5769084e_890d940e",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-11T20:25:01Z",
+      "side": 1,
+      "message": "Yeah, we had some debates back and forth in the PDI review on whether to create a new interface for the Hypervisor or to just utilize the existing Host interface. The decision there was to utilize the Host one instead of creating something new. That means we only support a subset of it though. I\u0027m not sure of anyway to make that clear on D-Bus. We could allow them all in bmcweb and get the \"Unsupported\" error back from the D-Bus object? I\u0027d prefer what we have here but let me know.",
+      "parentUuid": "5cfee043_6f50d58e",
       "range": {
         "startLine": 1027,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "43c96cbb5c1980a9874ca2a1e23570cd60b0fb59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eadb565_300dc1ad",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-11T20:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39f49434_c285bcf0",
+      "range": {
+        "startLine": 1028,
+        "startChar": 0,
+        "endLine": 1028,
+        "endChar": 18
+      },
+      "revId": "43c96cbb5c1980a9874ca2a1e23570cd60b0fb59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
