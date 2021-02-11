@@ -215,7 +215,7 @@ class App
 #else
     uint16_t portUint = 80;
 #endif
-    std::string bindaddrStr = "::";
+    std::string bindaddrStr = "0.0.0.0";
     int socketFd = -1;
     Router router;
 
