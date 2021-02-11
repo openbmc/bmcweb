@@ -3,7 +3,7 @@
 *.crt
 *.key
 
-/include/config.h
+/include/bmcweb_config.h
 
 # Created by https://www.toptal.com/developers/gitignore/api/osx,linux,windows,pycharm,intellij,visualstudio,visualstudiocode,eclipse,meson
 # Edit at https://www.toptal.com/developers/gitignore?templates=osx,linux,windows,pycharm,intellij,visualstudio,visualstudiocode,eclipse,meson

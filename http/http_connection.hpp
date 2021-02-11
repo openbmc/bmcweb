@@ -1,5 +1,5 @@
 #pragma once
-#include "config.h"
+#include "bmcweb_config.h"
 
 #include "authorization.hpp"
 #include "http_response.hpp"
