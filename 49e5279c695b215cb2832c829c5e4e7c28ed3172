@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e25ade0_410c5243",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:18:23Z",
+      "side": 1,
+      "message": "Seems they\u0027re ok in the redfish tree /redfish/v1 as long as it doesn\u0027t conflict with a known URL. Here is their response when they were asked about the dump attachment endpoint: https://redfishforum.com/thread/358/dump-offload-walkable-path-redfish",
+      "parentUuid": "af504932_73b20c43",
+      "range": {
+        "startLine": 1518,
+        "startChar": 29,
+        "endLine": 1518,
+        "endChar": 39
+      },
+      "revId": "49e5279c695b215cb2832c829c5e4e7c28ed3172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61fab089_7a4bd18a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
@@ -39,6 +63,24 @@
       "revId": "49e5279c695b215cb2832c829c5e4e7c28ed3172",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d86d55e0_900ebbbf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:18:23Z",
+      "side": 1,
+      "message": "Done. Added it in a commit underneath this one: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40527",
+      "parentUuid": "61fab089_7a4bd18a",
+      "revId": "49e5279c695b215cb2832c829c5e4e7c28ed3172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

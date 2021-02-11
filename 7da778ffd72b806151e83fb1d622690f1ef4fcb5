@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4bdfd5a0_33ea171a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1422,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:18:23Z",
+      "side": 1,
+      "message": "We\u0027re now just logging internal error for message, id, severity since those are the ones that are of importance and returning if they\u0027re not set. Timestamp can be set to 0 and will be handled.",
+      "parentUuid": "96808c71_b6af523d",
+      "revId": "7da778ffd72b806151e83fb1d622690f1ef4fcb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9069fd19_6f81782b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -134,6 +152,24 @@
       "revId": "7da778ffd72b806151e83fb1d622690f1ef4fcb5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb0e2245_d3a6b8c2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-11T19:18:23Z",
+      "side": 1,
+      "message": "Done. Makes sense. We only care about id, msg, and sev, since timestamp is handled if empty. Reworked it in a separate commit underneath this one https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40527",
+      "parentUuid": "8a92262a_35f5ef09",
+      "revId": "7da778ffd72b806151e83fb1d622690f1ef4fcb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
