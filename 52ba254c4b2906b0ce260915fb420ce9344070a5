@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "0a4c9d0a_62528ac7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-12T07:04:38Z",
+      "side": 1,
+      "message": "You mean to say for system, we would be passing \"System\" for OEMDiagnosticDataType and for resource it should be something like:\n\n\u0027{\"DiagnosticDataType\":\"OEM\", \"OEMDiagnosticDataType\":\"com.ibm.Dump.Create.CreateParameters.VSPString:\u003cvspString\u003e;com.ibm.Dump.Create.CreateParameters.Password:\u003cpassword\u003e\"}\u0027\n\nIf so, yes instead of doing Resource_\u003cvspstring\u003e_\u003cpassword\u003e, we could do like how you suggested that avoids the definition of a new type.\n\nThanks for this, Deepak.",
+      "parentUuid": "7cbfc830_6165ff14",
+      "range": {
+        "startLine": 407,
+        "startChar": 50,
+        "endLine": 407,
+        "endChar": 58
+      },
+      "revId": "52ba254c4b2906b0ce260915fb420ce9344070a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af48e7aa_eea65fc9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 12
