@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e5ecd8a_07a7d203",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-12T23:15:27Z",
+      "side": 1,
+      "message": "but the client posted this action.\nI think we need to fail, otherwise the client is going to get a 200/204 back and think it worked.\n\nmessage::ActionNotSupported ?\nEd thoughts?",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc49dba0_6800ebe5",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-12T23:15:27Z",
+      "side": 1,
+      "message": "message::ActionNotSupported ?",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d6b21a9_95a87606",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-12T23:15:27Z",
+      "side": 1,
+      "message": "shouldn\u0027t we check first if we have ResetType ?\nIf not return ActionParameterMissing ?",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24b81821_edb5e33c",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-12T23:15:27Z",
+      "side": 1,
+      "message": "I know you got this from https://github.com/openbmc/bmcweb/blob/1a2a14379d515c393cc134ea719d56efbae2116e/redfish-core/lib/systems.hpp#L1976\nbut I feel \n\nPropertyValueNotInList (probably my pick)\nActionParameterValueFormatError\nhttps://redfish.dmtf.org/registries/Base.1.9.0.json\nare better.\n\nReally Redfish needs another message here for ActionParameterValueNotInList\n\nI opened https://github.com/DMTF/Redfish/issues/4437 \n\nBecause this is really talking about if a client were to pass \"Resett\" with the action (note the extra t)\n\n        \"ActionParameterUnknown\": {\n            \"Description\": \"Indicates that an action was submitted but a parameter supplied did not match any of the known parameters.\",\n            \"LongDescription\": \"This message shall be used to indicate that an action was submitted but a parameter supplied did not match any of the known parameters.\",\n            \"Message\": \"The action %1 was submitted with the invalid parameter %2.\",",
+      "range": {
+        "startLine": 1077,
+        "startChar": 22,
+        "endLine": 1077,
+        "endChar": 44
+      },
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
