@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a570395_8073e2c8",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-12T22:50:35Z",
+      "side": 1,
+      "message": "I would think if it nullptr here, it is an error\n\nif (state \u003d\u003d nullptr)\n{\n  internalError;\n  return\n\n}\n// Verify Host State\n if (*state \u003d\u003d \"xyz.openbmc_project.State.Host.HostState.Running\")\n  {\n       aResp-\u003eres.jsonValue[\"PowerState\"] \u003d \"On\";\n       aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n }\n else if (*state \u003d\u003d \"xyz.openbmc_project.State.Host.HostState.\"\n                               \"Quiesced\")\n {\n       aResp-\u003eres.jsonValue[\"PowerState\"] \u003d \"On\";\n       aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Quiesced\";\n }",
+      "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21fbd255_c7d03ba2",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-12T22:50:35Z",
+      "side": 1,
+      "message": "DiagnosticMode ?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/4461e14097547ca2b85945e371c260c40a5d6d86/xyz/openbmc_project/State/Host.interface.yaml#L80",
+      "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
