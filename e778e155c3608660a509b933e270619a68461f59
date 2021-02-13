@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "064f7849_11ec4de3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Passing them by value fails the CI, stating that const qualified member is copied for each invocation, consider making it a reference. (This warning gets treated like error in CI).\nAlso, we have similar implementation in another schemas where shared pointer is passed as const reference. like processor.hpp.",
+      "parentUuid": "cb65381a_ffe95459",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c58ed7ce_21ced918",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
@@ -45,6 +69,30 @@
       "revId": "e778e155c3608660a509b933e270619a68461f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab0d4c3_4de50730",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c58ed7ce_21ced918",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 71
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1c288b64_3c76d212",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f997d3c_ea94ef94",
+      "range": {
+        "startLine": 59,
+        "startChar": 1,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faf95342_0f8a8632",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
@@ -91,6 +163,30 @@
       "revId": "e778e155c3608660a509b933e270619a68461f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2ea9d9_88bf4ff8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faf95342_0f8a8632",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 76
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5cf851d3_9d60bef0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97a51e23_d4b02117",
+      "range": {
+        "startLine": 164,
+        "startChar": 39,
+        "endLine": 164,
+        "endChar": 69
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d906738_68906229",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
@@ -137,6 +257,30 @@
       "revId": "e778e155c3608660a509b933e270619a68461f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c6df49_b3bb6e5c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d906738_68906229",
+      "range": {
+        "startLine": 175,
+        "startChar": 7,
+        "endLine": 175,
+        "endChar": 15
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "b314aed4_851420aa",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9329ceb3_8100580e",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 52
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f361831_dc0b920b",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
@@ -183,6 +351,30 @@
       "revId": "e778e155c3608660a509b933e270619a68461f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a08c55_131a544b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f361831_dc0b920b",
+      "range": {
+        "startLine": 239,
+        "startChar": 20,
+        "endLine": 239,
+        "endChar": 29
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "58e3c0fb_96711709",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a319fbb_e53f5f72",
+      "range": {
+        "startLine": 242,
+        "startChar": 16,
+        "endLine": 242,
+        "endChar": 42
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe1e5b88_c74aef6e",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "79a09180_ab4d0949",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1e5b88_c74aef6e",
+      "range": {
+        "startLine": 273,
+        "startChar": 28,
+        "endLine": 273,
+        "endChar": 35
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39808268_0b0ec8f3",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
@@ -246,6 +486,24 @@
       "revId": "e778e155c3608660a509b933e270619a68461f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aaa005b_ba0c2a6e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-13T18:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39808268_0b0ec8f3",
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
