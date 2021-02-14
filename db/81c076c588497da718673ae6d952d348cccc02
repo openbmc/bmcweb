@@ -1,0 +1,9 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Ed Tanous <ed@tanous.net>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Submitted-by: Sunitha Harish <sunithaharish04@gmail.com>
+Submitted-at: Sun, 14 Feb 2021 16:27:51 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39924
+Project: openbmc/bmcweb
+Branch: refs/heads/master
