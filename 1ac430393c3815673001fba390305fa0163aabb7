@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feadc0c0_4a64fd31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-14T04:20:32Z",
+      "side": 1,
+      "message": "I don\u0027t think we should hardcode this to 0. How about id here? i.e. how about vdd_vrm0 here?",
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88bfe953_c876b1ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-14T04:20:32Z",
+      "side": 1,
+      "message": "I am fine with this, but I don\u0027t think this is very useful either. \n\nStorage uses id for both of these.. \nhttps://github.com/openbmc/bmcweb/blob/f23b729676559f539790580930b1ff3b0c05805b/redfish-core/lib/storage.hpp#L175\n\nDoes \"Vdd Vrm0\" make sense? I.e. replace the underscores with spaces?\n\n\nPrettyName isn\u0027t used? I think that would be a great fit here\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/32304979b404c24e32f195d08c667e65b9b34695/xyz/openbmc_project/Inventory/Item.interface.yaml#L5",
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "104d9e9b_86fc9904",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-14T04:20:32Z",
+      "side": 1,
+      "message": "How about just \"Assembly\" here so it matches other resources in bmcweb? typically we set Id to the last segment of the URI.",
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
