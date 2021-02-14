@@ -16,6 +16,24 @@
       "revId": "92ca84338fd5fdafee112304f9169b793e471954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "322402d4_edb70bf5",
+        "filename": "include/config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-14T05:01:50Z",
+      "side": 1,
+      "message": "unintentional.  As a consequence of renaming the file in the .gitignore, I had an old one in the tree that got checked in with git add -u.\n\nI was reviewing fast and didn\u0027t notice it when I pushed it.  Will fix.\n\n\nIt should be noted, generated files should be written to the build dir, not the include dir, so that\u0027s another issue that we\u0027ll need to fix in our meson config.",
+      "parentUuid": "f155cdd1_b637b2a3",
+      "revId": "92ca84338fd5fdafee112304f9169b793e471954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
