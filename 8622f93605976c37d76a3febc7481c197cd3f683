@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c9f9ab7_90047ca2",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-15T01:25:54Z",
+      "side": 1,
+      "message": "\u003e is this really needed ?\n\nI do not think so.\n\n@ Matt said: \n\n```\nThis is missing from the array down below.\n\nIgnoring the issue on if it\u0027s a good idea to use this interface, there could be other associations in it besides the LED one so just it being here doesn\u0027t mean there is an associated LED.\n```\n\n\u003e  The dictionary anyway gives Associations.Definitions..\n\nI agree with @Vishwa, But I think adding this interface is only logically clearer, So I agree to add.\n\n@Matt, @Vishwa\nWhat do you think?\n\n\u003e Also, in doPatch(), I don\u0027t see we pass Associations.Definitions\n\nYes, I will add it.",
+      "parentUuid": "f9f5811f_82b0434a",
+      "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "619065c5_96825829",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 24
@@ -33,6 +51,24 @@
       "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37c3c984_bd84fe86",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-15T01:25:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "619065c5_96825829",
+      "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
