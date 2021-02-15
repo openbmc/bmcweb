@@ -8,7 +8,9 @@ project('bmcweb', 'cpp',
             'buildtype=debugoptimized',
             'b_ndebug=if-release',
             'b_lto=true',
-            'cpp_rtti=false'
+            'cpp_rtti=false',
+            'b_lto_mode=default',
+            'b_lto_threads=0'
            ])
 
 # Project related links
