@@ -544,6 +544,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64bb760a_bb1efb10",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-15T10:34:01Z",
+      "side": 1,
+      "message": "\u003e It should also be noted that looking at this API, there\u0027s no way to add pending attributes without effecting the previously added pending attributes.  That seems like an issue\n\nNo, This is not an issue as during changing of the pending attributes properties, it changes the value of the existing BIOS attribute if exist otherwise it adds the BIOS attribute which is not there in the pending attributes.\n\nhttps://github.com/openbmc/bios-settings-mgr/blob/master/src/manager.cpp#L282",
+      "parentUuid": "60b253e3_cd909f67",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
