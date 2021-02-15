@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0266e01_601d61c7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-15T15:23:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c202c4b1_ab016883",
+      "range": {
+        "startLine": 726,
+        "startChar": 12,
+        "endLine": 726,
+        "endChar": 38
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c365da8_f7189476",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2f3eab_ff6c992e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-15T15:23:34Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t this be something like task::error?\n\nI hope the task runs until we return task::completed (until the timer expires). So I have returned it this way.\n\n\u003e At a minimum we should log the error.\n\nAck",
+      "parentUuid": "1c365da8_f7189476",
+      "range": {
+        "startLine": 735,
+        "startChar": 23,
+        "endLine": 735,
+        "endChar": 40
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b18e82fe_22db8b9f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-15T15:23:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d354f00_fce02524",
+      "range": {
+        "startLine": 744,
+        "startChar": 38,
+        "endLine": 744,
+        "endChar": 48
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fd713b6_39e02a47",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
@@ -91,6 +163,30 @@
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27dccdfb_77e329a9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-15T15:23:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2fd713b6_39e02a47",
+      "range": {
+        "startLine": 744,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 69
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "db009548_39701a4b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-15T15:23:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f8549198_754f2e0f",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2c602d_13bf33fd",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
@@ -137,6 +257,30 @@
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f455598_bff0f921",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-02-15T15:23:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de2c602d_13bf33fd",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 58
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
