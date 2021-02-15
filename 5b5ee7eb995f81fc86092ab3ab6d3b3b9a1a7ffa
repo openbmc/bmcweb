@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "b64133e4_777596c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-15T00:36:07Z",
+      "side": 1,
+      "message": "PCIeSlots? typically our Id \u003d last segment of the uri.. I just don\u0027t see a good reason here for \"1\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 9,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8188bda1_10c4a61e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-15T00:36:07Z",
+      "side": 1,
+      "message": "Is there a count for the number of PCIeSlots, I think that would be useful.. like Members@odata.count",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b323534_cc80eda8",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 11
@@ -67,6 +107,81 @@
         "endLine": 39,
         "endChar": 1
       },
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43ca8674_0d5dca43",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-15T00:36:07Z",
+      "side": 1,
+      "message": "We prefer inline convert D-Bus enum to redfish type function like this. \nI vote leaving as is.",
+      "parentUuid": "f1707dfd_4244bf26",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 1
+      },
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d00aea69_e53b30c0",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-15T00:36:07Z",
+      "side": 1,
+      "message": "What if the chassis doesn\u0027t have PCIeSlots ?\nGoing to have a link to: \n\"/redfish/v1/Chassis/\" + chassisId + \"/PCIeSlots\"\nbut when the client requests /redfish/v1/Chassis/$chassisId/PCIeSlots they are going to get a 404 right? \n\nI would think the validator will flag this.\n\n2 options I think here: \n\n1) (my preference) leave the link as is and just return an empty array when the chassis doesn\u0027t have any PCIeslots E.g.\n\ncurl -k -H \"X-Auth-Token: $token\" -X GET\nhttps://${bmc}/redfish/v1/Chassis/chassis/PCIeSlots\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/chassis/PCIeSlots\",\n  \"@odata.type\": \"#PCIeSlots.v1_4_0.PCIeSlots\",\n  \"Id\": \"PCIeSlots\",\n  \"Name\": \"PCIe Slot Information\",\n  \"Slots\": []\n}\n\n2) check in chassis for PCIeSlots before creating the link",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "979340c9_6fc34209",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-15T00:36:07Z",
+      "side": 1,
+      "message": "Should this really be an error if the D-Bus property is set to \"Unknown\" ?\nI guess I would vote more towards leaving it off if the D-Bus property is \"Unknown\" or others.. \nSo would suggest removing this else.",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b9c97c4_e1f32c7e",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-15T00:36:07Z",
+      "side": 1,
+      "message": "Should this really be an error if the D-Bus property is set to \"Unknown\" ?\nRemove the else?",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
