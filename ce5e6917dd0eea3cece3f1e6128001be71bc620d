@@ -520,6 +520,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60b253e3_cd909f67",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-15T10:29:03Z",
+      "side": 1,
+      "message": "\u003e Alternatively, you could add a \"AddPendingChange\" method which takes a key and value pair, and puts this complexity into the bios manager daemon.\n\nEd, We already have the following API in the Dbus Backend.\nhttps://github.com/openbmc/bios-settings-mgr/blob/master/src/manager.cpp#L33\n\nBut with this Dbus API we have to make multiple D-bus calls for multiple properties. \n\nAre you fine to have multiple D-bus calls for patching of multiple BIOS attributes?\n\nOr\n\nAre you suggesting that we should have setAttributes which have the following signature.\n\nvoid Manager::setAttributes(std::vector\u003cAttributeName , AttributeValue\u003e) -\u003e with this API caller doesn\u0027t bother about the type checking and multiple attributes can be set in one D-bus call.",
+      "parentUuid": "2dbdcc01_9d5d2c4a",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
