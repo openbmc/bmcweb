@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "41a3f063_c25f2bfe",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-15T05:15:11Z",
+      "side": 1,
+      "message": "Sure.. If it makes it clean to have it explicitly mentioned, then yes: agree with you.",
+      "parentUuid": "9c9f9ab7_90047ca2",
+      "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "619065c5_96825829",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 24
