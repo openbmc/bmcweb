@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f96e858b_f0b2cf58",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-15T05:14:03Z",
+      "side": 1,
+      "message": "hmm.. I don\u0027t think so it\u0027s an error not having the association ?.. I would defer that to maintainers",
+      "parentUuid": "74be05b0_22d13403",
+      "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8698efd3_eb5499f9",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
