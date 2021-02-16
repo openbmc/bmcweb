@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "807482a2_363373fc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-16T20:05:37Z",
+      "side": 1,
+      "message": "Re Appu,\nIf you get a recv or send error, there\u0027s no need for a graceful shutdown, the connection is already dead, we can just completely close it.\n\n+1 to what Ratan is saying.  The entire connection needs tore down and started over including dns resolution.  We can\u0027t just restart from where we left off.  This probably means that the http client connection needs separated from the http client class, so we can construct a new one.  This would probably need to be done anyway.",
+      "parentUuid": "b1e78b00_eaf1c48f",
+      "range": {
+        "startLine": 194,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a64ed3bc_088ba73b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -349,6 +373,24 @@
       "side": 1,
       "message": "Thanks Appu, The later patch sets were pushed to address the comments around this area. \nThe issues mentioned need to be addressed - since we have seen them in our test cycles. We have the changes ready to address these issues, and i will push them here. Please have a look at them and share your comments.",
       "parentUuid": "ec270f41_faed7f14",
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94950979_9c80205d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-16T20:05:37Z",
+      "side": 1,
+      "message": "I wonder if we need a structure with a set of queues per host so we can rely on keepalive and just feed information.\n\nThinking out loud a bit.",
+      "parentUuid": "bcd02bd7_2f176f8d",
       "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
