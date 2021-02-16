@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "6096ef31_0029ff89",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-02-16T05:29:44Z",
+      "side": 1,
+      "message": "nit: code readability. if (!ipmiSessionsFlag)",
+      "range": {
+        "startLine": 138,
+        "startChar": 15,
+        "endLine": 138,
+        "endChar": 41
+      },
+      "revId": "dc5b94bbe9b8d60763de429984467d428b4810b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0dc0c98d_f5ae23f4",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 8
