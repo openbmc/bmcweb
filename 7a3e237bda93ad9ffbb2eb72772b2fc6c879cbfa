@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1012f0f_4edfed97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-16T16:56:26Z",
+      "side": 1,
+      "message": "don\u0027t we need yocto to bump meson to 57.0 first?\nhttps://github.com/openbmc/openbmc/blob/3f877c75b73e6d18a12f1ce2179b358fe7f92f36/poky/meta/recipes-devtools/meson/nativesdk-meson_0.56.0.bb",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "7a3e237bda93ad9ffbb2eb72772b2fc6c879cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06c5e49_d007e6bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-16T16:56:26Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 12
+      },
+      "revId": "7a3e237bda93ad9ffbb2eb72772b2fc6c879cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58ceaff_047d02f1",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-16T16:56:26Z",
+      "side": 1,
+      "message": "should we require 57.0 now ?",
+      "range": {
+        "startLine": 3,
+        "startChar": 28,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "7a3e237bda93ad9ffbb2eb72772b2fc6c879cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
