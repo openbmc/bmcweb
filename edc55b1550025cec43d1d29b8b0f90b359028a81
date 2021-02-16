@@ -260,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b1e78b00_eaf1c48f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-16T04:00:06Z",
+      "side": 1,
+      "message": "No, that is not going to work at all..You need to re instantiate of the ssl stream.I explicitly said that if there is an ssl error:\n\nAfetr an ssl error even if you are creating the new tcp connection and doing a fresh handshake,It will get you an ssl error again and finally retry limit gets over so to fix this, you have to create a new SSL stream object which is not happening on this commit.",
+      "parentUuid": "d740f698_bbc7c6ac",
+      "range": {
+        "startLine": 194,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a64ed3bc_088ba73b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -390,6 +414,30 @@
       "side": 1,
       "message": "Agree with Sunitha.",
       "parentUuid": "10ccd060_c77ec4a7",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 228,
+        "endChar": 47
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a69669ba_4b0766af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-16T04:00:06Z",
+      "side": 1,
+      "message": "\u003e The state ConnState::retry does closes the existing socket and tries creating a fresh one\n\nYou need to think for the SSL connection, Not only the TCP connection...\n\n\u003d\u003e If you get an ssl error after send/Recv then creating a new connection and performing handshke is not sufficient, You need to create a new ssl stream object.\n\nGuys, please test this scenario and then let me know is it working?",
+      "parentUuid": "7db978bd_806a5084",
       "range": {
         "startLine": 228,
         "startChar": 1,
