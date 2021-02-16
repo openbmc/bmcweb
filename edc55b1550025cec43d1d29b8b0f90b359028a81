@@ -189,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "d5b46f4c_c8e68a61",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-16T20:07:56Z",
+      "side": 1,
+      "message": "\u003e @Appu - the comment is on this commit and many discussions have happened in this commit. I believe, we have to address all comments on the same commit. \n\u003e Ed, please let us know if this can be another commit on top of this?\n\n\"if some OEM\u0027s don\u0027t want to use this dbus method for resolving\"\nThis should be kept as a non-openbmc option flag.  All OpenBMC systems I would expect to use resolved unless there\u0027s a good reason not to.\n\n\u003e Ed, please let us know if this can be another commit on top of this?\n\nI\u0027d like to see the async resolve in a separate patchset prior to adding SSL.  They are orthogonal.",
+      "parentUuid": "2f5b4996_96a007ab",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 18
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ce7ea77_b5a5acae",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
