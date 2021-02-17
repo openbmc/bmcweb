@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "39d64e9b_c3622fc7",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a570395_8073e2c8",
+      "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21fbd255_c7d03ba2",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2021-02-12T22:50:35Z",
       "side": 1,
       "message": "DiagnosticMode ?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/4461e14097547ca2b85945e371c260c40a5d6d86/xyz/openbmc_project/State/Host.interface.yaml#L80",
+      "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662e2728_ec223528",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "Hypervisor doesn\u0027t support DiagnosticMode. How is that documented you may ask? Not very well currently. We chose to implement a subset of the Host interface vs. making a more specific Hypervisor D-Bus object. The issue with that is there is not a clear mechanism to document that other then in the code. I\u0027ll get something in the state manager README though.",
+      "parentUuid": "21fbd255_c7d03ba2",
       "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
