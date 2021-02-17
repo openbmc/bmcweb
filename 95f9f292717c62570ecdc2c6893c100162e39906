@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3dbcf45_db7f6e82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T21:45:58Z",
+      "side": 1,
+      "message": "Ed asked this and I don\u0027t see it answered here: \"Just because Redfish has a field for it doesn\u0027t mean that OpenBMC needs it.  What\u0027s your specific use case for wanting it?\"",
+      "revId": "95f9f292717c62570ecdc2c6893c100162e39906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
