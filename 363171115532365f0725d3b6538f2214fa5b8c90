@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42b99cad_ac2f394f",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-02-17T22:32:00Z",
+      "side": 1,
+      "message": "We we write a journal entry here if token auth fails to get a session?",
+      "range": {
+        "startLine": 94,
+        "startChar": 9,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5808ac2_831ed19f",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-02-17T22:32:00Z",
+      "side": 1,
+      "message": "We we write a journal entry here if token auth fails to get a session?",
+      "range": {
+        "startLine": 111,
+        "startChar": 9,
+        "endLine": 111,
+        "endChar": 16
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2532bb9_6990f6d9",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-02-17T22:32:00Z",
+      "side": 1,
+      "message": "We we write a journal entry here if cookie auth fails to get a session?",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a0f60f_b2daba52",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-02-17T22:32:00Z",
+      "side": 1,
+      "message": "I am unfamiliar with this code flow.  Is there a place we can write a journal entry here if mTLS is attempted but fails to get a session?",
+      "range": {
+        "startLine": 205,
+        "startChar": 11,
+        "endLine": 205,
+        "endChar": 18
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
