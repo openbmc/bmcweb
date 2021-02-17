@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bcc45b1b_c9c502d9",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "Done. Yeah, was thinking we\u0027re \"setting\" the response but get makes more sense.",
+      "parentUuid": "f3dd2571_d842368a",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc49dba0_6800ebe5",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 3
@@ -69,6 +87,24 @@
       "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9929fc_d95c6897",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "008b997b_eecebb3f",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -112,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "2f95aa4f_792e3789",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "I was thinking since we only put ResetActionInfo in the response to a GET on /redfish/v1/Systems/hypervisor that we\u0027d be ok. But yeah, if someone doesn\u0027t utilize the dynamic discovery of Redfish and hard codes (i.e. REDFISH.md) a GET on ResetActionInfo, this would pop up on unsupported systems. I\u0027ll add a check to make sure it\u0027s available.",
+      "parentUuid": "fb1b5967_183d53b0",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d6b21a9_95a87606",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 3
@@ -123,6 +177,24 @@
       "writtenOn": "2021-02-12T23:15:27Z",
       "side": 1,
       "message": "shouldn\u0027t we check first if we have ResetType ?\nIf not return ActionParameterMissing ?",
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f3fcf28_fa78cfa5",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "\u003e shouldn\u0027t we check first if we have ResetType ?\nhmm, something more then the above code?\n\n\u003e If not return ActionParameterMissing ?\nYep, let me add this to the return",
+      "parentUuid": "1d6b21a9_95a87606",
       "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -152,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "41edfad0_24e9573e",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "Done. Thanks for opening the issue!\nI think the PropertyValueNotInList error reads the most clean here. \"\"The value \" + arg1 + \" for the property \" + arg2 + \"is not in the list of acceptable values.\"",
+      "parentUuid": "24b81821_edb5e33c",
+      "range": {
+        "startLine": 1077,
+        "startChar": 22,
+        "endLine": 1077,
+        "endChar": 44
+      },
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c5ef21_e4b8d56c",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 3
@@ -175,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "c11a0174_60c0173a",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "ok, I\u0027m not super familiar with this. Should I just utilize the resourceNotFound error or do I need something more specific for an action not being found? I\u0027ll put some code up for input.",
+      "parentUuid": "55c5ef21_e4b8d56c",
+      "range": {
+        "startLine": 1091,
+        "startChar": 20,
+        "endLine": 1091,
+        "endChar": 24
+      },
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2883f219_ee360115",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 3
@@ -186,6 +306,30 @@
       "writtenOn": "2021-02-12T23:22:11Z",
       "side": 1,
       "message": "remove.",
+      "range": {
+        "startLine": 1095,
+        "startChar": 0,
+        "endLine": 1095,
+        "endChar": 27
+      },
+      "revId": "2d2973662338caf92bb6c55c9f88631916880d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64a48f96_60f8f0e8",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-17T19:20:58Z",
+      "side": 1,
+      "message": "I guess you want the \"return\" statement in both the if/else clauses vs. just one like this to hit the whole if(ec) code?",
+      "parentUuid": "2883f219_ee360115",
       "range": {
         "startLine": 1095,
         "startChar": 0,
