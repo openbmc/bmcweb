@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "d1b5ddfc_4810c242",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:31:39Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 12,
+        "startChar": 50,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b9420ad_a576f423",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:31:39Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 26,
+        "startChar": 64,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "331c80fc_94ad9488",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:31:39Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6ad91ce_eec13a4a",
         "filename": "config.h.in",
         "patchSetId": 10
@@ -31,6 +100,24 @@
       "side": 1,
       "message": "I\u0027 m not quite following.  What would the comment say that can\u0027t be seen in the file?",
       "parentUuid": "a6ad91ce_eec13a4a",
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa85fd8_cf9fdb27",
+        "filename": "config.h.in",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:31:39Z",
+      "side": 1,
+      "message": "I guess what I am suggesting is a repeat of some of the commit msg here: \nE.g \nUse a config.h file and a constexpr variable rather than a #define so both the code paths will compile regardless of whether or not they\u0027re used.\nHave had a lot of issues of one-off build options breaking.\n\nI am good with this, just a suggestion. \nYes, I know the developer (might be me) could go dig through the blame/git commit history but not always takes just 5 seconds (e.g. the next commmit moves this file and in 2 years when there has been 20 changes to this file)",
+      "parentUuid": "251e9154_721f9b16",
       "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
