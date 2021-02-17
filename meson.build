@@ -8,9 +8,7 @@ project('bmcweb', 'cpp',
             'buildtype=debugoptimized',
             'b_ndebug=if-release',
             'b_lto=true',
-# enable when https://github.com/chriskohlhoff/asio/issues/533
-# is resolved. ASIO default executor doesn't build with no-rtti
-           #'cpp_rtti=false'
+            'cpp_rtti=false'
            ])
 
 # Project related links
@@ -295,10 +293,10 @@ else
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.73.0', required : false)
+boost = dependency('boost',version : '>=1.75.0', required : false)
 if not boost.found()
   subproject('boost', required: false)
-  boost_inc = include_directories('subprojects/boost_1_73_0/', is_system:true)
+  boost_inc = include_directories('subprojects/boost_1_75_0/', is_system:true)
   boost  = declare_dependency(include_directories : boost_inc)
 endif
 bmcweb_dependencies += boost
