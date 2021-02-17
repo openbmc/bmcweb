@@ -34,6 +34,98 @@
       "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286cb2f4_8b0e159e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:03:44Z",
+      "side": 1,
+      "message": "Don\u0027t you need \n#include \u003cunistd.h\u003e\n?",
+      "range": {
+        "startLine": 1745,
+        "startChar": 28,
+        "endLine": 1745,
+        "endChar": 33
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4c041a7_a57db1e6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:03:44Z",
+      "side": 1,
+      "message": "Should you check for -1 here?",
+      "range": {
+        "startLine": 1745,
+        "startChar": 21,
+        "endLine": 1745,
+        "endChar": 26
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b559ac7d_a2085d45",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:03:44Z",
+      "side": 1,
+      "message": "More common in bmcweb to see int",
+      "range": {
+        "startLine": 1748,
+        "startChar": 16,
+        "endLine": 1748,
+        "endChar": 21
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e833bab_370c0151",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:03:44Z",
+      "side": 1,
+      "message": "#include ?",
+      "range": {
+        "startLine": 1748,
+        "startChar": 26,
+        "endLine": 1748,
+        "endChar": 30
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
