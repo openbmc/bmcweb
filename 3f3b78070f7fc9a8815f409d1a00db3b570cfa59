@@ -121,6 +121,24 @@
       "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4905926_27a70784",
+        "filename": "config.h.in",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-17T23:21:29Z",
+      "side": 1,
+      "message": "I guess some of the issue I have with that is that these are self describing if you understand c++, and including info about how branching works is kinda like teaching c++ in a C++ file.  If we\u0027re documenting everything we didn\u0027t do because it was a bad idea, 80% of the code would be comments.\n\n\nI don\u0027t think we should be in the business of describing the different between an #ifdef and an if statement in a comment.  We could certainly document that every option going forward should be using if() unlesss there\u0027s a good reason not to, but that would go in the developing guide, and I don\u0027t want to make this policy until I get a little seat time with this one option to make sure there aren\u0027t any gotchas over some time.",
+      "parentUuid": "dfa85fd8_cf9fdb27",
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
