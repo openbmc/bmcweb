@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c6b05d9_d48f3de6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-17T18:02:52Z",
+      "side": 1,
+      "message": "this can be a meaningful name?",
+      "range": {
+        "startLine": 309,
+        "startChar": 52,
+        "endLine": 309,
+        "endChar": 63
+      },
+      "revId": "4bdfb57c53c1e2ebd8edc820830bd44d22540c34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "838886d3_4707620a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-17T18:02:52Z",
+      "side": 1,
+      "message": "do we need this explicitly",
+      "range": {
+        "startLine": 332,
+        "startChar": 50,
+        "endLine": 332,
+        "endChar": 61
+      },
+      "revId": "4bdfb57c53c1e2ebd8edc820830bd44d22540c34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
