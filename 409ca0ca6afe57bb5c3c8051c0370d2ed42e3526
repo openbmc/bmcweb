@@ -135,6 +135,24 @@
       "revId": "409ca0ca6afe57bb5c3c8051c0370d2ed42e3526",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8590e8f5_4bbd9da7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T22:18:02Z",
+      "side": 1,
+      "message": "I do, if this is the only enum we plan to support",
+      "parentUuid": "9be2957e_0c36c58c",
+      "revId": "409ca0ca6afe57bb5c3c8051c0370d2ed42e3526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
