@@ -8,9 +8,7 @@ project('bmcweb', 'cpp',
             'buildtype=debugoptimized',
             'b_ndebug=if-release',
             'b_lto=true',
-# enable when https://github.com/chriskohlhoff/asio/issues/533
-# is resolved. ASIO default executor doesn't build with no-rtti
-           #'cpp_rtti=false'
+            'cpp_rtti=false'
            ])
 
 # Project related links
