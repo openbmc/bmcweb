@@ -22,6 +22,30 @@
       "revId": "cba4f44896bea631f409cbc9e52d4ddb7d2e86c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a113b37_8547dc71",
+        "filename": "http/routing.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-17T22:10:52Z",
+      "side": 0,
+      "message": "\u003e This code block was removed and not replaced.  Please mention this in the commit message.\n\nI did.  I pointed out that the privileges check was replaced with the role cache we used to have.\n\n\u003e - Before this change, a local user\u0027s expired-password state would be refreshed for every HTTP operation.  For example, if the user\u0027s password expired during a session, the very next operation using that session would likely fail due to lack of privileges (because a user with an expired password effectively has only the ConfigureSelf privilege).\n\nThat is still true today.  The role cache is operating asyncronously, and will get populated with updated data as the roles change including the password change, unless I\u0027m missing something.\n\n\u003e - With this change, a local user\u0027s expired password state is established at the start of the session and cannot be changed.\n\u003e - This means a user who changes their expired password would have to login again to regain their role\u0027s privileges.\n\nI don\u0027t think this is true.  Can you come up with a curl test case that shows what\u0027s broken?  I\u0027m not quite following what\u0027s wrong here from the code block.\n\n\u003e - This also means a user whose password expires during a session will be able to continue using that session with full privileges until they log out.\n\nThis might be right.  I can look into this.",
+      "parentUuid": "883ea338_c184ce8f",
+      "range": {
+        "startLine": 1374,
+        "startChar": 19,
+        "endLine": 1374,
+        "endChar": 65
+      },
+      "revId": "cba4f44896bea631f409cbc9e52d4ddb7d2e86c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
