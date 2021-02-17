@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6ad91ce_eec13a4a",
+        "filename": "config.h.in",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-17T20:29:25Z",
+      "side": 1,
+      "message": "I am good with this approach. A comment here about why we did this, this way, might help someone in the future",
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
