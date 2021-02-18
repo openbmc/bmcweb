@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "baaf0bc3_d9e75e4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T17:19:56Z",
+      "side": 1,
+      "message": "more than a one sentance description please.\n\nWhy would we want to do this?  How is this helpful to users?  What changes are made to any endpoints.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42b99cad_ac2f394f",
         "filename": "include/authorization.hpp",
         "patchSetId": 3
