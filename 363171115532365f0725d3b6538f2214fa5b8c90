@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bac9afa9_811d8fd2",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-02-18T20:50:47Z",
+      "side": 1,
+      "message": "I disagree and don\u0027t see where loginSessionByToken invokes any PAM functions.  I understand the flow at this point is:\n1. A user logged in via username+password, BMCWeb checked those credentials via PAM, created a token which represents that session, and passed that token back to the user.\n2. The user is using their session to perform an operation: they passed in the token (with *no* additional credentials), and the code flowed to this point.\n3. loginSessionByToken() check if the token represents a valid session, and returns here.\nIs this token-auth failure worthy of a journal entry?  I vote yes.\nSame with the other two sites below.",
+      "parentUuid": "5275851f_e4c30000",
+      "range": {
+        "startLine": 94,
+        "startChar": 9,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5808ac2_831ed19f",
         "filename": "include/authorization.hpp",
         "patchSetId": 3
