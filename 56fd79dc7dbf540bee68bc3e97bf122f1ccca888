@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "560e88a3_a058bb3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-18T23:32:36Z",
+      "side": 1,
+      "message": "Hopefully it\u0027s cleared up with a link to the design doc change.",
+      "parentUuid": "9f8a4a94_3c7a890d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 72
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0de77294_029cc13f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-18T03:27:10Z",
       "side": 1,
       "message": "Are these reviews that are currently open?  I can\u0027t seem to find the sha when I search in gerrit.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a28eef3_97c30a2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-18T23:32:36Z",
+      "side": 1,
+      "message": "Hmm, gerrit search works perfectly for me to find things by Change-Id, open or closed. Are you searching the entire string with leading \u0027I\u0027?",
+      "parentUuid": "0de77294_029cc13f",
       "range": {
         "startLine": 12,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4d54726e_da549b5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-18T23:32:36Z",
+      "side": 1,
+      "message": "I did now and added step to the commit msg.",
+      "parentUuid": "70b03db2_c0487fe0",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b4148a8_edfef8b4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2021-02-18T04:21:10Z",
       "side": 1,
       "message": "May not be a concern of this patch, but will this work on multi-host system?",
+      "range": {
+        "startLine": 3060,
+        "startChar": 12,
+        "endLine": 3061,
+        "endChar": 56
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516218b8_91d102a1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3061,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-18T23:32:36Z",
+      "side": 1,
+      "message": "No, I\u0027ll leave it up to others to add that support. I\u0027m just trying to fix what broke.",
+      "parentUuid": "8b4148a8_edfef8b4",
       "range": {
         "startLine": 3060,
         "startChar": 12,
