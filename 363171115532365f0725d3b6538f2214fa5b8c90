@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5275851f_e4c30000",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T03:43:45Z",
+      "side": 1,
+      "message": "No.  loginSessionByToken calls into pam_authenticate which would log there.",
+      "parentUuid": "42b99cad_ac2f394f",
+      "range": {
+        "startLine": 94,
+        "startChar": 9,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5808ac2_831ed19f",
         "filename": "include/authorization.hpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-17T22:32:00Z",
       "side": 1,
       "message": "We we write a journal entry here if token auth fails to get a session?",
+      "range": {
+        "startLine": 111,
+        "startChar": 9,
+        "endLine": 111,
+        "endChar": 16
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3b045a_212537ec",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T03:43:45Z",
+      "side": 1,
+      "message": "No.  loginSessionByToken calls into pam_authenticate which would log there.",
+      "parentUuid": "f5808ac2_831ed19f",
       "range": {
         "startLine": 111,
         "startChar": 9,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ea580efd_70f9b430",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T03:43:45Z",
+      "side": 1,
+      "message": "No.  loginSessionByToken calls into pam_authenticate which would log there.",
+      "parentUuid": "d2532bb9_6990f6d9",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71a0f60f_b2daba52",
         "filename": "include/authorization.hpp",
         "patchSetId": 3
@@ -88,6 +160,47 @@
         "endLine": 205,
         "endChar": 18
       },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b643b2_a6a62bfc",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T03:43:45Z",
+      "side": 1,
+      "message": "This is the only one of the places you marked where we COULD log, but we can\u0027t here, because there mTLS auth is not required in all scenarios and we can\u0027t tell the difference between a user providing a wrong cert, and a user providing no cert.\n\nIf there\u0027s a way to tell the difference, it would be good, but I\u0027m not sure how to do it in this patch.",
+      "parentUuid": "71a0f60f_b2daba52",
+      "range": {
+        "startLine": 205,
+        "startChar": 11,
+        "endLine": 205,
+        "endChar": 18
+      },
+      "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47637cc6_b9a96778",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T03:43:45Z",
+      "side": 1,
+      "message": "Should we log here as well?  If a user logs into a session that\u0027s disabled, or a service account, that seems like an important thing to track.",
       "revId": "363171115532365f0725d3b6538f2214fa5b8c90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
