@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9459942_7611a824",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "These are only used in one place.  Please just inline the definitions.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d488bb7e_088f3e80",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used?",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 17
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c297e262_972b3c85",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "This is a vector of IP addresses, which will generate a list of addresses.  You seem to be loading that all into one variable, which is incorrect.",
+      "range": {
+        "startLine": 106,
+        "startChar": 30,
+        "endLine": 106,
+        "endChar": 34
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09767b6f_b71f12b3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "please use the appropriate casing.",
+      "range": {
+        "startLine": 109,
+        "startChar": 41,
+        "endLine": 109,
+        "endChar": 50
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fd75196_f9e79a68",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "This doesn\u0027t handle ipv6.\n\nI suspect this whole routine needs simplified to not do the intermediate string conversion.\n\nAddress v4 can be constructed from a uint32:\nhttps://www.boost.org/doc/libs/1_66_0/doc/html/boost_asio/reference/ip__address_v4/address_v4.html which can be built from this vector using\nif (ipAddress.size() \u003d\u003d 4){\n    uint32_t address \u003d ipAddress[0] + ipAddress[1] \u003c\u003c 8 .....\n}\n\nand address v6 can be constructed directly from the vector of bytes:\nhttps://www.boost.org/doc/libs/1_66_0/doc/html/boost_asio/reference/ip__address_v6/address_v6.html\n\nUsing these two as an input to the endpoint would avoid the string construction and destruction completely, and have fewer error conditions to handle.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ac6cf3_90bfb3a8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "common error #5",
+      "range": {
+        "startLine": 122,
+        "startChar": 56,
+        "endLine": 122,
+        "endChar": 68
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27132856_77757910",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "Common error #5.",
+      "range": {
+        "startLine": 123,
+        "startChar": 45,
+        "endLine": 123,
+        "endChar": 54
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d825330_b6cdfdd4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "If we\u0027re using systemd, we don\u0027t need the boost resolver at all, right?  We can just load the IP address directly into a tcp endpoint and call async connect.\n\nsomething like  https://www.boost.org/doc/libs/1_75_0/doc/html/boost_asio/reference/basic_socket/async_connect.html\n\n\nIn a perfect world, I\u0027d also really like this new resolver type encapsulated in a class that looks a lot like the boost resolver, just to constrain functionality, and make things intermediately testable.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80c07279_a0d802a7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:01:32Z",
+      "side": 1,
+      "message": "Please use the appropirate enum for this.  I think it\u0027s AF_UNSPEC from the docs, but I\u0027m not positive, please read through the systemd docs and find the correct one.",
+      "range": {
+        "startLine": 136,
+        "startChar": 76,
+        "endLine": 136,
+        "endChar": 77
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
