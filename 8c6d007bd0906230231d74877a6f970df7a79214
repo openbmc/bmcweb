@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d58abaa6_65a7f2a1",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:54:15Z",
+      "side": 1,
+      "message": "Shouldn\u0027t both of these go on line 194?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2184be99_29eefe90",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:54:15Z",
+      "side": 1,
+      "message": "Have you checked this against the privilege registry?",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1023,
+        "endChar": 73
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c23d45f5_140ee678",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:54:15Z",
+      "side": 1,
+      "message": "as a side note, this is the right way to detect the presence of the hypervisor.  All the other code that looks for the hostname param is wrong and should be fixed.\n\nWith that said, not a problem in your commit:  Good work.",
+      "range": {
+        "startLine": 1078,
+        "startChar": 0,
+        "endLine": 1082,
+        "endChar": 74
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "018017b5_9404d593",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:54:15Z",
+      "side": 1,
+      "message": "as written, this will post 2 error codes to the message.  What you want is to declare resetType as a std::optional\u003cstd::string\u003e, then have a presence check below to check for existence and return this error code.",
+      "range": {
+        "startLine": 1114,
+        "startChar": 0,
+        "endLine": 1115,
+        "endChar": 69
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "313f0eef_70f85b68",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:54:15Z",
+      "side": 1,
+      "message": "nit: can you invert this check for readability, and get rid of the else?\n\nsomething like\n\n        if (resetType !\u003d \"On\")\n        {\n            messages::propertyValueNotInList(asyncResp-\u003eres, resetType,\n                                             \"ResetType\");\n            return;\n        }\n\n        std::string command \u003d \"xyz.openbmc_project.State.Host.Transition.On\";",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1130,
+        "endChar": 9
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "174f57d3_244e926e",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T18:54:15Z",
+      "side": 1,
+      "message": "I would\u0027ve expected this to have a specific error code value it checked before declaring 404.  For example, if the dbus connection failed, this should return internal error, not resource not found.",
+      "range": {
+        "startLine": 1143,
+        "startChar": 0,
+        "endLine": 1145,
+        "endChar": 56
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
