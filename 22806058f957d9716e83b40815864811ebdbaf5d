@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "85d66231_2e166c76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-18T19:56:04Z",
+      "side": 1,
+      "message": "Yeah I am good with that.",
+      "parentUuid": "1928ada1_c5b71517",
+      "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6ee484e_780f99f7",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 5
@@ -66,6 +84,30 @@
       "writtenOn": "2021-02-18T18:43:31Z",
       "side": 1,
       "message": "Powering on is state disabled?  shouldn\u0027t it be enabled?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 69
+      },
+      "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b84e497_dd4157fb",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-18T19:56:04Z",
+      "side": 1,
+      "message": "We should change it here as well if we go that direction: \nhttps://github.com/openbmc/bmcweb/blob/1a2a14379d515c393cc134ea719d56efbae2116e/redfish-core/lib/systems.hpp#L655\nSame with comment below",
+      "parentUuid": "c6ee484e_780f99f7",
       "range": {
         "startLine": 71,
         "startChar": 0,
