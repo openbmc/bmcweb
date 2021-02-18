@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3781b915_d3b746c7",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-02-18T07:17:56Z",
+      "side": 1,
+      "message": "yeah.i wanted to throw error if certificate string is empty,\n\nbetter to use empty() right?",
+      "parentUuid": "1cf77fa8_04e16ee9",
+      "range": {
+        "startLine": 618,
+        "startChar": 11,
+        "endLine": 618,
+        "endChar": 30
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5d4c519_7d325d85",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 16
@@ -183,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "d0d6cb28_1ddeb9fe",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-02-18T07:17:56Z",
+      "side": 1,
+      "message": "yeah..we call cancel once we get the response before time out occurs\nit will be treated as timer operation aborted.",
+      "parentUuid": "279f4511_0564b04a",
+      "range": {
+        "startLine": 729,
+        "startChar": 19,
+        "endLine": 729,
+        "endChar": 75
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75199040_2f900db4",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 16
@@ -217,6 +265,30 @@
       "writtenOn": "2021-02-17T09:01:53Z",
       "side": 1,
       "message": "Do you want to delete the Dbus entry also?",
+      "range": {
+        "startLine": 741,
+        "startChar": 48,
+        "endLine": 742,
+        "endChar": 18
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa24e659_a0fc8fa4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-02-18T07:17:56Z",
+      "side": 1,
+      "message": "yes, deleting d-bus entries. deleteVMIDbusEntry() function called at 671",
+      "parentUuid": "147f7a82_c5a1e5a1",
       "range": {
         "startLine": 741,
         "startChar": 48,
