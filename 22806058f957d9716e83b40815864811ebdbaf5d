@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "d640a965_49798644",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T20:07:06Z",
+      "side": 1,
+      "message": "I think we should.  I missed that on the other review.",
+      "parentUuid": "8b84e497_dd4157fb",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 69
+      },
+      "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e335559_38325705",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 5
@@ -137,6 +161,23 @@
         "endLine": 77,
         "endChar": 69
       },
+      "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f9aa957_205985d5",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T20:07:06Z",
+      "side": 1,
+      "message": "else internal error?\n\nWe\u0027re required to have the status property, so if we happen to hit an enum that doesn\u0027t fit the mold, we\u0027ll return an incorrect response code here.",
       "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
