@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f8724aa_61b54e07",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T22:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d58abaa6_65a7f2a1",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2184be99_29eefe90",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 8
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "246a9505_89a89877",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T22:29:29Z",
+      "side": 1,
+      "message": "Thanks Gunnar",
+      "parentUuid": "3769e033_bd6ca75d",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1023,
+        "endChar": 73
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c23d45f5_140ee678",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 8
@@ -92,6 +140,23 @@
       "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adfd87e1_0f7631c3",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T22:29:29Z",
+      "side": 1,
+      "message": "I\u0027ll add it onto my TODO cleanup list",
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "d74d708a_0ccdc98b",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T22:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "018017b5_9404d593",
+      "range": {
+        "startLine": 1114,
+        "startChar": 0,
+        "endLine": 1115,
+        "endChar": 69
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "313f0eef_70f85b68",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 8
@@ -141,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "8f58f4fb_ed8aeea2",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T22:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "313f0eef_70f85b68",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1130,
+        "endChar": 9
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "174f57d3_244e926e",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 8
@@ -161,6 +274,30 @@
       "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9f1355_356fce30",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T22:29:29Z",
+      "side": 1,
+      "message": "ok, I did a bit of testing and found when the object is not there we get a EHOSTUNREACH(host_unreachable) error back so I\u0027ll specifically look for that.",
+      "parentUuid": "174f57d3_244e926e",
+      "range": {
+        "startLine": 1143,
+        "startChar": 0,
+        "endLine": 1145,
+        "endChar": 56
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
