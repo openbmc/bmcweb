@@ -34,6 +34,24 @@
       "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "053a50e8_1eac3a9c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T03:45:16Z",
+      "side": 1,
+      "message": "\"Also, I have the same comment as before, about how the intended use of associations is not to use the Associations.Definition interface. That being said I\u0027m not a maintainer.\"\n\nYep, this was my suspicion as well, but I forgot exactly how they\u0027re supposed to work.",
+      "parentUuid": "2e87fcc9_f3e12b90",
+      "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
