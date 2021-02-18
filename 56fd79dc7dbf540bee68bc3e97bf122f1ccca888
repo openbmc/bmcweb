@@ -45,6 +45,52 @@
       "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b03db2_c0487fe0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-02-18T04:21:10Z",
+      "side": 1,
+      "message": "Did you test Clear All?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4148a8_edfef8b4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3061,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-02-18T04:21:10Z",
+      "side": 1,
+      "message": "May not be a concern of this patch, but will this work on multi-host system?",
+      "range": {
+        "startLine": 3060,
+        "startChar": 12,
+        "endLine": 3061,
+        "endChar": 56
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
