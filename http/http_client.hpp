@@ -14,11 +14,14 @@
 // limitations under the License.
 */
 #pragma once
+#include <boost/asio/ip/address.hpp>
+#include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
+#include <include/async_resolve.hpp>
 
 #include <cstdlib>
 #include <functional>
@@ -35,6 +38,8 @@ static constexpr uint8_t maxRequestQueueSize = 50;
 enum class ConnState
 {
     initialized,
+    resolveInProgress,
+    resolveFailed,
     connectInProgress,
     connectFailed,
     connected,
@@ -50,12 +55,12 @@ enum class ConnState
 class HttpClient : public std::enable_shared_from_this<HttpClient>
 {
   private:
+    crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
     boost::beast::flat_buffer buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::response<boost::beast::http::string_body> res;
-    boost::asio::ip::tcp::resolver::results_type endpoint;
     std::vector<std::pair<std::string, std::string>> headers;
     std::queue<std::string> requestDataQueue;
     ConnState state;
@@ -69,7 +74,36 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     std::string retryPolicyAction;
     bool runningTimer;
 
-    void doConnect()
+    void doResolve()
+    {
+        if (state == ConnState::resolveInProgress)
+        {
+            return;
+        }
+        state = ConnState::resolveInProgress;
+
+        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+
+        auto respHandler =
+            [self(shared_from_this())](
+                const boost::beast::error_code ec,
+                const std::vector<boost::asio::ip::tcp::endpoint>&
+                    endpointList) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+                    self->state = ConnState::resolveFailed;
+                    self->checkQueue();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Resolved";
+                self->doConnect(endpointList);
+            };
+        resolver.asyncResolve(host, port, std::move(respHandler));
+    }
+
+    void doConnect(
+        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
     {
         if (state == ConnState::connectInProgress)
         {
@@ -78,26 +112,25 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         state = ConnState::connectInProgress;
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port;
-        // Set a timeout on the operation
+
         conn.expires_after(std::chrono::seconds(30));
+        conn.async_connect(
+            endpointList, [self(shared_from_this())](
+                              const boost::beast::error_code ec,
+                              const boost::asio::ip::tcp::endpoint& endpoint) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Connect " << endpoint
+                                     << " failed: " << ec.message();
+                    self->state = ConnState::connectFailed;
+                    self->checkQueue();
+                    return;
+                }
+                self->state = ConnState::connected;
+                BMCWEB_LOG_DEBUG << "Connected to: " << endpoint;
 
-        conn.async_connect(endpoint, [self(shared_from_this())](
-                                         const boost::beast::error_code& ec,
-                                         const boost::asio::ip::tcp::resolver::
-                                             results_type::endpoint_type& ep) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Connect " << ep
-                                 << " failed: " << ec.message();
-                self->state = ConnState::connectFailed;
                 self->checkQueue();
-                return;
-            }
-            self->state = ConnState::connected;
-            BMCWEB_LOG_DEBUG << "Connected to: " << ep;
-
-            self->checkQueue();
-        });
+            });
     }
 
     void sendMessage(const std::string& data)
@@ -274,6 +307,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     {
         switch (state)
         {
+            case ConnState::resolveInProgress:
             case ConnState::connectInProgress:
             case ConnState::sendInProgress:
             case ConnState::suspended:
@@ -285,10 +319,9 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             case ConnState::connectFailed:
             case ConnState::sendFailed:
             case ConnState::recvFailed:
+            case ConnState::resolveFailed:
             {
-                // After establishing the connection, checkQueue() will
-                // get called and it will attempt to send data.
-                doConnect();
+                doResolve();
                 break;
             }
             case ConnState::connected:
@@ -310,8 +343,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
         retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
     {
-        boost::asio::ip::tcp::resolver resolver(ioc);
-        endpoint = resolver.resolve(host, port);
         state = ConnState::initialized;
     }
 
