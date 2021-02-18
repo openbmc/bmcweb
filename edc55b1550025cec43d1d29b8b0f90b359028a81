@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "614fa985_d5e09e2c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T17:39:22Z",
+      "side": 1,
+      "message": "Ideally.... I\u0027d like to see patchsets for\n\n1. Async resolve\n2. Keepalive\n3. Correct retry handling (tear down the full connection and start over).\n4. SSL\n\nIn that order.  Depending on how it looks, 2 and 3 might get combined.\n\nIt looks like you\u0027ve done some of that already which is great.\n\nWhat is the use case for not wanting to use resolved?  I\u0027m not particularly inclined to support the old way unless there\u0027s a good technical reason to do it.  The only reason I can think of is if you didn\u0027t have resolved, which would mean you\u0027re not running systemd.  We already have deep systemd dependencies;  The code won\u0027t even link without it, so I\u0027m not quite following why we\u0027d want to add the option to not use it.",
+      "parentUuid": "d5b46f4c_c8e68a61",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 18
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ce7ea77_b5a5acae",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
