@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f3cd0981_da0756bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-02-18T09:03:33Z",
+      "side": 1,
+      "message": "Yes Gunnar, this also need to be bumped, but i am not sure how to do it. It comes a part of poky updates right ?",
+      "parentUuid": "e1012f0f_4edfed97",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "7a3e237bda93ad9ffbb2eb72772b2fc6c879cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f06c5e49_d007e6bf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "f9345252_b3c8a194",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-02-18T09:03:33Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/openbmc-build-scripts/blob/6bce2ca18eced0487e073a9b4d5d4fc2244ce365/scripts/build-unit-test-docker#L804\n\nyes , we are using 0.54.3 in CI. Need to push it to 57.",
+      "parentUuid": "b93297e2_e4acc090",
+      "range": {
+        "startLine": 3,
+        "startChar": 28,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "7a3e237bda93ad9ffbb2eb72772b2fc6c879cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba97baa0_64562986",
         "filename": "meson.build",
         "patchSetId": 1
@@ -130,6 +178,30 @@
       "writtenOn": "2021-02-16T17:02:23Z",
       "side": 1,
       "message": "If this is the default, why do we even need to specify it?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "7a3e237bda93ad9ffbb2eb72772b2fc6c879cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f64bbbc_3c6337a2",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-02-18T09:03:33Z",
+      "side": 1,
+      "message": "this can be `thin` as well which is a clang specific option, just having it here would help people to understand better.",
+      "parentUuid": "ba97baa0_64562986",
       "range": {
         "startLine": 11,
         "startChar": 0,
