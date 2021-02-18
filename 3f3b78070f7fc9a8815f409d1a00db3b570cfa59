@@ -175,6 +175,24 @@
       "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e349c83_ceaa062b",
+        "filename": "config.h.in",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T20:58:24Z",
+      "side": 1,
+      "message": "Fair point, we should be documenting the things that are non-standard when there\u0027s a good reason to.  Happy to see more comments, just not in this spot, and so long as they\u0027re non-obvious.  I really want to avoid comments like\n\n// Move the thing into str\nstd::string str \u003d std::move(thing);\n\nI\u0027m sure we can find a better balance though.  If anyone is going through code and finds something weird that deserves a comment, I\u0027m happy to take patches to add them.",
+      "parentUuid": "1198cf83_4bfcc56e",
+      "revId": "3f3b78070f7fc9a8815f409d1a00db3b570cfa59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
