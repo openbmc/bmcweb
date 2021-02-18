@@ -83,6 +83,54 @@
     },
     {
       "key": {
+        "uuid": "497f820b_34a3b197",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T02:17:20Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a4c041a7_a57db1e6",
+      "range": {
+        "startLine": 1745,
+        "startChar": 21,
+        "endLine": 1745,
+        "endChar": 26
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34d1de05_8666b446",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T02:17:20Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "286cb2f4_8b0e159e",
+      "range": {
+        "startLine": 1745,
+        "startChar": 28,
+        "endLine": 1745,
+        "endChar": 33
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b559ac7d_a2085d45",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -123,6 +171,94 @@
         "endLine": 1748,
         "endChar": 30
       },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f93175_04847e27",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T02:17:20Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "b559ac7d_a2085d45",
+      "range": {
+        "startLine": 1748,
+        "startChar": 16,
+        "endLine": 1748,
+        "endChar": 21
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d4e6e97_8df1937a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T02:17:20Z",
+      "side": 1,
+      "message": "What if the file is 120GB?  We need some sanity checks here.",
+      "parentUuid": "3e833bab_370c0151",
+      "range": {
+        "startLine": 1748,
+        "startChar": 26,
+        "endLine": 1748,
+        "endChar": 30
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50445bcf_1292ea3f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T02:17:20Z",
+      "side": 1,
+      "message": "this can be a string view to avoid the data copy.",
+      "range": {
+        "startLine": 1756,
+        "startChar": 21,
+        "endLine": 1756,
+        "endChar": 27
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de634325_8aa81949",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-18T02:17:20Z",
+      "side": 1,
+      "message": "Should we verify that the user requested text/plain before sending it to them?  We don\u0027t on redfish generally, because the URI is enough to know that they expect json, but here.\n\nAlso, octet-stream seems like an better fit, so long as we don\u0027t have a content-disposition, it won\u0027t download as a file, right?",
       "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
