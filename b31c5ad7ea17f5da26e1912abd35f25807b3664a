@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "def9a4c2_ef2592f3",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T00:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac1374a3_b39d6df2",
+      "range": {
+        "startLine": 1033,
+        "startChar": 8,
+        "endLine": 1033,
+        "endChar": 13
+      },
+      "revId": "b31c5ad7ea17f5da26e1912abd35f25807b3664a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d61d8ec_0d042b69",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2021-02-17T20:39:50Z",
       "side": 1,
       "message": "Don\u0027t you need asyncResp-\u003eres in there?\n\n            messages::actionParameterMissing(asyncResp-\u003eres, \"ComputerSystem.Reset\", \"ResetType\");\n\nBelow as well.",
+      "revId": "b31c5ad7ea17f5da26e1912abd35f25807b3664a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "583a79cd_14679eae",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T00:42:21Z",
+      "side": 1,
+      "message": "whoops! Let me add this path to the commit message tests.",
+      "parentUuid": "6d61d8ec_0d042b69",
       "revId": "b31c5ad7ea17f5da26e1912abd35f25807b3664a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
