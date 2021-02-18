@@ -52,6 +52,24 @@
       "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83891798_d7a5a2cf",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-18T05:24:14Z",
+      "side": 1,
+      "message": "This has been addressed in the later patch sets in this commit.",
+      "parentUuid": "053a50e8_1eac3a9c",
+      "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
