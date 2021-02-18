@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3769e033_bd6ca75d",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-18T20:02:54Z",
+      "side": 1,
+      "message": "https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json\n\nThere isn\u0027t a ComputerSystem.Reset or ActionInfo so I think these would all fall under ComputerSystem.. Matches so should be good. \n\"\n       {\n            \"Entity\": \"ComputerSystem\",\n            \"OperationMap\": {\n                \"GET\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"HEAD\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"PATCH\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureComponents\"\n                        ]\n                    }\n                ],\n                \"POST\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureComponents\"\n                        ]\n                    }\n                ],\n                \"PUT\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureComponents\"\n                        ]\n                    }\n                ],\n                \"DELETE\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureComponents\"\n                        ]\n                    }\n                ]\n            }\n        },\n\"",
+      "parentUuid": "2184be99_29eefe90",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1023,
+        "endChar": 73
+      },
+      "revId": "8c6d007bd0906230231d74877a6f970df7a79214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c23d45f5_140ee678",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 8
