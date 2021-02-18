@@ -14,6 +14,8 @@
 // limitations under the License.
 */
 #pragma once
+#include <boost/asio/ip/address.hpp>
+#include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/core/tcp_stream.hpp>
@@ -32,9 +34,15 @@ namespace crow
 
 static constexpr uint8_t maxRequestQueueSize = 50;
 
+using resolvedIpStruct = std::tuple<int32_t, int32_t, std::vector<uint8_t>>;
+using resolvedIp = std::vector<resolvedIpStruct>;
+
 enum class ConnState
 {
     initialized,
+    resolveInProgress,
+    resolved,
+    resolveFailed,
     connectInProgress,
     connectFailed,
     connected,
@@ -50,12 +58,14 @@ enum class ConnState
 class HttpClient : public std::enable_shared_from_this<HttpClient>
 {
   private:
+    boost::asio::ip::tcp::resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
     boost::beast::flat_buffer buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::response<boost::beast::http::string_body> res;
-    boost::asio::ip::tcp::resolver::results_type endpoint;
+    boost::asio::ip::tcp::endpoint endpoint;
+    boost::asio::ip::tcp::resolver::results_type resEndpoint;
     std::vector<std::pair<std::string, std::string>> headers;
     std::queue<std::string> requestDataQueue;
     ConnState state;
@@ -69,6 +79,65 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     std::string retryPolicyAction;
     bool runningTimer;
 
+    void doResolve()
+    {
+        if (state == ConnState::resolveInProgress)
+        {
+            return;
+        }
+        state = ConnState::resolveInProgress;
+
+        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+        uint64_t flag = 0;
+        crow::connections::systemBus->async_method_call(
+            [self(shared_from_this()),
+             flag](const boost::system::error_code ec,
+                   const resolvedIp& resp,
+                   const std::string& hostName, const uint64_t flagNum) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+                    self->state = ConnState::resolveFailed;
+                    self->checkQueue();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "ResolveHostname returned: " << hostName
+                                 << ":" << flagNum;
+                std::string address;
+                for (auto i : resp)
+                {
+                    // Extract the IP address from the response
+                    std::vector<uint8_t> ipaddress = std::get<2>(i);
+                    uint32_t index = 0;
+                    for (auto byte : ipaddress)
+                    {
+                        address += std::to_string(byte);
+                        index++;
+                        if (index != 4)
+                        {
+                            address += ".";
+                        }
+                    }
+                    BMCWEB_LOG_DEBUG << "IP Address: " << address;
+                }
+                self->endpoint.address(boost::asio::ip::make_address(address));
+                self->endpoint.port(uint16_t(std::stoi(self->port.c_str())));
+                BMCWEB_LOG_DEBUG << "Resolved endpoint is : " << self->endpoint;
+                // TODO: Get the resEndpoint(type-
+                // boost::asio::ip::tcp::resolver::results_type) from the
+                // endpoint(type- boost::asio::ip::tcp::endpoint).
+                // -OR- any other alternatives to this.
+                // Till then adding resolver.resolve call to get the resolve
+                // working
+                self->resEndpoint = self->resolver.resolve(address, self->port);
+                self->state = ConnState::resolved;
+                self->connStateCheck();
+            },
+            "org.freedesktop.resolve1", "/org/freedesktop/resolve1",
+            "org.freedesktop.resolve1.Manager", "ResolveHostname", 0, host, 0,
+            flag);
+    }
+
     void doConnect()
     {
         if (state == ConnState::connectInProgress)
@@ -80,7 +149,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port;
         // Set a timeout on the operation
         conn.expires_after(std::chrono::seconds(30));
-        conn.async_connect(endpoint, [self(shared_from_this())](
+        conn.async_connect(resEndpoint, [self(shared_from_this())](
                                          const boost::beast::error_code& ec,
                                          const boost::asio::ip::tcp::resolver::
                                              results_type::endpoint_type& ep) {
@@ -273,6 +342,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     {
         switch (state)
         {
+            case ConnState::resolveInProgress:
             case ConnState::connectInProgress:
             case ConnState::sendInProgress:
             case ConnState::suspended:
@@ -284,8 +354,14 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             case ConnState::connectFailed:
             case ConnState::sendFailed:
             case ConnState::recvFailed:
+            case ConnState::resolveFailed:
             {
-                // After establishing the connection, checkQueue() will
+                doResolve();
+                break;
+            }
+            case ConnState::resolved:
+            {
+                // After resolving the hostname, checkQueue() will
                 // get called and it will attempt to send data.
                 doConnect();
                 break;
@@ -304,13 +380,11 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     explicit HttpClient(boost::asio::io_context& ioc, const std::string& id,
                         const std::string& destIP, const std::string& destPort,
                         const std::string& destUri) :
-        conn(ioc),
+        resolver(ioc), conn(ioc),
         timer(ioc), subId(id), host(destIP), port(destPort), uri(destUri),
         retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
         retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
     {
-        boost::asio::ip::tcp::resolver resolver(ioc);
-        endpoint = resolver.resolve(host, port);
         state = ConnState::initialized;
     }
 
