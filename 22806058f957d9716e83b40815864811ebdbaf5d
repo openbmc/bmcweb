@@ -16,6 +16,24 @@
       "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5b6082_76a2ac9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-18T00:43:04Z",
+      "side": 1,
+      "message": "I just ran validator against the last commit in the series. Is that ok or need on each individual one?",
+      "parentUuid": "4d2c83d3_fc3b149c",
+      "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
