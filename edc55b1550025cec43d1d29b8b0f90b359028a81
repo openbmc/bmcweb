@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "345d388f_0e3ab045",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-18T11:39:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa186e59_09709d57",
+      "range": {
+        "startLine": 86,
+        "startChar": 25,
+        "endLine": 86,
+        "endChar": 54
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc8d0ebd_e0fa6f3a",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -139,6 +163,30 @@
       "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2dca88f_a6104e0f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-18T11:39:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7414e562_a18ae3cb",
+      "range": {
+        "startLine": 115,
+        "startChar": 44,
+        "endLine": 115,
+        "endChar": 54
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +258,30 @@
       "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "952e6aa5_d5101371",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-18T11:39:04Z",
+      "side": 1,
+      "message": "Done. Moved the async_resolve to new commit https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40702. I will move this commit on top of 40702\nBut what is the way to get the async_resolve done for those OEMs who do not support the resolved?",
+      "parentUuid": "d5b46f4c_c8e68a61",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 18
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -320,6 +392,30 @@
       "side": 1,
       "message": "Re Appu,\nIf you get a recv or send error, there\u0027s no need for a graceful shutdown, the connection is already dead, we can just completely close it.\n\n+1 to what Ratan is saying.  The entire connection needs tore down and started over including dns resolution.  We can\u0027t just restart from where we left off.  This probably means that the http client connection needs separated from the http client class, so we can construct a new one.  This would probably need to be done anyway.",
       "parentUuid": "b1e78b00_eaf1c48f",
+      "range": {
+        "startLine": 194,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1abbe0a4_0d7cda9e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-18T11:39:04Z",
+      "side": 1,
+      "message": "Agree. Working on the same",
+      "parentUuid": "807482a2_363373fc",
       "range": {
         "startLine": 194,
         "startChar": 10,
@@ -528,6 +624,30 @@
       "side": 1,
       "message": "Reference Link:\nhttps://stackoverflow.com/questions/49122521/cant-implement-boostasiosslstreamboostasioiptcpsocket-reconnect",
       "parentUuid": "a69669ba_4b0766af",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 228,
+        "endChar": 47
+      },
+      "revId": "edc55b1550025cec43d1d29b8b0f90b359028a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "338ad1c7_eb52530f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-18T11:39:04Z",
+      "side": 1,
+      "message": "Agree. Working on the same",
+      "parentUuid": "4a8ffc64_7e097c4b",
       "range": {
         "startLine": 228,
         "startChar": 1,
