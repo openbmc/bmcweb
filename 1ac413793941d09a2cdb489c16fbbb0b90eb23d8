@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "24a7a880_a64b20a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-02-18T17:44:41Z",
+      "side": 1,
+      "message": "can we please have an example where LampTest is \"true\" and also the output of busctl get-property on /xyz/openbmc_project/led/groups/lamp_test ?",
+      "revId": "1ac413793941d09a2cdb489c16fbbb0b90eb23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48b311f6_9fc1c0b7",
         "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
         "patchSetId": 9
