@@ -446,7 +446,9 @@ class Task : public Node
                 {"TargetUri", p.targetUri},
                 {"HttpOperation", p.httpOperation},
                 {"HttpHeaders", p.httpHeaders},
-                {"JsonBody", p.jsonBody.dump()}};
+                {"JsonBody",
+                 p.jsonBody.dump(2, ' ', true,
+                                 nlohmann::json::error_handler_t::replace)}};
         }
         asyncResp->res.jsonValue["PercentComplete"] = ptr->percentComplete;
     }
