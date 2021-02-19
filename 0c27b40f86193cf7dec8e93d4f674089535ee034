@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "eb6e20fc_f193a072",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "Done. Yep.",
+      "parentUuid": "97da3e49_84493653",
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "286cb2f4_8b0e159e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -128,6 +146,54 @@
       "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b26d740_12e4da18",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497f820b_34a3b197",
+      "range": {
+        "startLine": 1745,
+        "startChar": 21,
+        "endLine": 1745,
+        "endChar": 26
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40d6d45b_8067ecec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d1de05_8666b446",
+      "range": {
+        "startLine": 1745,
+        "startChar": 28,
+        "endLine": 1745,
+        "endChar": 33
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -225,6 +291,54 @@
     },
     {
       "key": {
+        "uuid": "484b82fe_7ba12fd7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "\u003e #include ?\nAdded #include \u003cunistd.h\u003e\n\n\u003e What if the file is 120GB?  We need some sanity checks here.\nAdded check for 64kb file size. The phosphor-logging repo doesn\u0027t specify a file size limit, but the PEL extensions enforces a size of 16kb, and a PEL adds more data to the error log entry (https://github.ibm.com/openbmc/phosphor-logging/blob/master/extensions/openpower-pels/README.md#ffdc-intended-for-userdata-pel-sections)",
+      "parentUuid": "3d4e6e97_8df1937a",
+      "range": {
+        "startLine": 1748,
+        "startChar": 26,
+        "endLine": 1748,
+        "endChar": 30
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffac4735_55f8420e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "Done. lseek and read return a long long int.",
+      "parentUuid": "10f93175_04847e27",
+      "range": {
+        "startLine": 1748,
+        "startChar": 16,
+        "endLine": 1748,
+        "endChar": 21
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50445bcf_1292ea3f",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -248,6 +362,30 @@
     },
     {
       "key": {
+        "uuid": "9c63063a_89309968",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "Done. Makes sense.",
+      "parentUuid": "50445bcf_1292ea3f",
+      "range": {
+        "startLine": 1756,
+        "startChar": 21,
+        "endLine": 1756,
+        "endChar": 27
+      },
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de634325_8aa81949",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -259,6 +397,24 @@
       "writtenOn": "2021-02-18T02:17:20Z",
       "side": 1,
       "message": "Should we verify that the user requested text/plain before sending it to them?  We don\u0027t on redfish generally, because the URI is enough to know that they expect json, but here.\n\nAlso, octet-stream seems like an better fit, so long as we don\u0027t have a content-disposition, it won\u0027t download as a file, right?",
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8be122_7f67c281",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-19T22:21:18Z",
+      "side": 1,
+      "message": "Yes, makes sense to change to octet-stream as that\u0027s the content type after being decoded.\nI added a check for \"Accept-Encoding\" to be base64, that should make it obvious to the caller that they\u0027re to receive a text file encoded as base64.",
+      "parentUuid": "de634325_8aa81949",
       "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
