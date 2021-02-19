@@ -1404,8 +1404,11 @@ class EthernetInterface : public Node
     {
         if ((!input.is_array()) || input.empty())
         {
-            messages::propertyValueTypeError(asyncResp->res, input.dump(),
-                                             "IPv4StaticAddresses");
+            messages::propertyValueTypeError(
+                asyncResp->res,
+                input.dump(2, ' ', true,
+                           nlohmann::json::error_handler_t::replace),
+                "IPv4StaticAddresses");
             return;
         }
 
@@ -1433,7 +1436,10 @@ class EthernetInterface : public Node
                                          "Gateway", gateway))
                 {
                     messages::propertyValueFormatError(
-                        asyncResp->res, thisJson.dump(), pathString);
+                        asyncResp->res,
+                        thisJson.dump(2, ' ', true,
+                                      nlohmann::json::error_handler_t::replace),
+                        pathString);
                     return;
                 }
 
@@ -1553,7 +1559,10 @@ class EthernetInterface : public Node
                         return;
                     }
                     messages::propertyValueFormatError(
-                        asyncResp->res, thisJson.dump(), pathString);
+                        asyncResp->res,
+                        thisJson.dump(2, ' ', true,
+                                      nlohmann::json::error_handler_t::replace),
+                        pathString);
                     return;
                 }
 
@@ -1599,8 +1608,11 @@ class EthernetInterface : public Node
     {
         if (!input.is_array() || input.empty())
         {
-            messages::propertyValueTypeError(asyncResp->res, input.dump(),
-                                             "IPv6StaticAddresses");
+            messages::propertyValueTypeError(
+                asyncResp->res,
+                input.dump(2, ' ', true,
+                           nlohmann::json::error_handler_t::replace),
+                "IPv6StaticAddresses");
             return;
         }
         size_t entryIdx = 1;
@@ -1621,7 +1633,10 @@ class EthernetInterface : public Node
                                          prefixLength))
                 {
                     messages::propertyValueFormatError(
-                        asyncResp->res, thisJson.dump(), pathString);
+                        asyncResp->res,
+                        thisJson.dump(2, ' ', true,
+                                      nlohmann::json::error_handler_t::replace),
+                        pathString);
                     return;
                 }
 
@@ -1688,7 +1703,10 @@ class EthernetInterface : public Node
                         return;
                     }
                     messages::propertyValueFormatError(
-                        asyncResp->res, thisJson.dump(), pathString);
+                        asyncResp->res,
+                        thisJson.dump(2, ' ', true,
+                                      nlohmann::json::error_handler_t::replace),
+                        pathString);
                     return;
                 }
 
