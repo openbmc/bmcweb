@@ -550,8 +550,11 @@ class HypervisorInterface : public Node
                                      address, "SubnetMask", subnetMask,
                                      "Gateway", gateway))
             {
-                messages::propertyValueFormatError(asyncResp->res,
-                                                   thisJson.dump(), pathString);
+                messages::propertyValueFormatError(
+                    asyncResp->res,
+                    thisJson.dump(2, ' ', true,
+                                  nlohmann::json::error_handler_t::replace),
+                    pathString);
                 return;
             }
 
