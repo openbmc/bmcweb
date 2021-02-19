@@ -412,7 +412,7 @@ class Subscription
                     reqHeaders.emplace_back(std::pair(key, val));
                 }
             }
-            conn->setHeaders(reqHeaders);
+            conn->addHeaders(reqHeaders);
             conn->sendData(msg);
             this->eventSeqNum++;
         }
