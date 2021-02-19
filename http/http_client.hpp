@@ -41,16 +41,21 @@ enum class ConnState
     initialized,
     resolveInProgress,
     resolveFailed,
+    resolved,
     connectInProgress,
     connectFailed,
     connected,
     sendInProgress,
     sendFailed,
+    recvInProgress,
     recvFailed,
     idle,
-    suspended,
+    closeInProgress,
     closed,
-    terminated
+    suspended,
+    terminated,
+    abortConnection,
+    retry
 };
 
 class HttpClient : public std::enable_shared_from_this<HttpClient>
@@ -61,9 +66,12 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     boost::asio::steady_timer timer;
     boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
-    boost::beast::http::response<boost::beast::http::string_body> res;
-    std::vector<std::pair<std::string, std::string>> headers;
+    std::optional<
+        boost::beast::http::response_parser<boost::beast::http::string_body>>
+        parser;
     boost::circular_buffer_space_optimized<std::string> requestDataQueue{};
+    std::vector<boost::asio::ip::tcp::endpoint> endPoints;
+
     ConnState state;
     std::string subId;
     std::string host;
@@ -77,12 +85,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
     void doResolve()
     {
-        if (state == ConnState::resolveInProgress)
-        {
-            return;
-        }
         state = ConnState::resolveInProgress;
-
         BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
 
         auto respHandler =
@@ -90,56 +93,49 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 const boost::beast::error_code ec,
                 const std::vector<boost::asio::ip::tcp::endpoint>&
                     endpointList) {
-                if (ec)
+                if (ec || (endpointList.size() == 0))
                 {
                     BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
                     self->state = ConnState::resolveFailed;
-                    self->checkQueue();
+                    self->handleConnState();
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Resolved";
-                self->doConnect(endpointList);
+                self->endPoints.assign(endpointList.begin(),
+                                       endpointList.end());
+                self->state = ConnState::resolved;
+                self->handleConnState();
             };
         resolver.asyncResolve(host, port, std::move(respHandler));
     }
 
-    void doConnect(
-        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
+    void doConnect()
     {
-        if (state == ConnState::connectInProgress)
-        {
-            return;
-        }
         state = ConnState::connectInProgress;
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port;
 
         conn.expires_after(std::chrono::seconds(30));
         conn.async_connect(
-            endpointList, [self(shared_from_this())](
-                              const boost::beast::error_code ec,
-                              const boost::asio::ip::tcp::endpoint& endpoint) {
+            endPoints, [self(shared_from_this())](
+                           const boost::beast::error_code ec,
+                           const boost::asio::ip::tcp::endpoint& endpoint) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Connect " << endpoint
                                      << " failed: " << ec.message();
                     self->state = ConnState::connectFailed;
-                    self->checkQueue();
+                    self->handleConnState();
                     return;
                 }
-                self->state = ConnState::connected;
                 BMCWEB_LOG_DEBUG << "Connected to: " << endpoint;
-
-                self->checkQueue();
+                self->state = ConnState::connected;
+                self->handleConnState();
             });
     }
 
     void sendMessage(const std::string& data)
     {
-        if (state == ConnState::sendInProgress)
-        {
-            return;
-        }
         state = ConnState::sendInProgress;
 
         BMCWEB_LOG_DEBUG << __FUNCTION__ << "(): " << host << ":" << port;
@@ -160,7 +156,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                     BMCWEB_LOG_ERROR << "sendMessage() failed: "
                                      << ec.message();
                     self->state = ConnState::sendFailed;
-                    self->checkQueue();
+                    self->handleConnState();
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
@@ -173,9 +169,17 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
     void recvMessage()
     {
+        state = ConnState::recvInProgress;
+
+        parser.emplace(std::piecewise_construct, std::make_tuple());
+        parser->body_limit(httpReadBodyLimit);
+
+        // Check only for the response header
+        parser->skip(true);
+
         // Receive the HTTP response
         boost::beast::http::async_read(
-            conn, buffer, res,
+            conn, buffer, *parser,
             [self(shared_from_this())](const boost::beast::error_code& ec,
                                        const std::size_t& bytesTransferred) {
                 if (ec)
@@ -183,15 +187,39 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                     BMCWEB_LOG_ERROR << "recvMessage() failed: "
                                      << ec.message();
                     self->state = ConnState::recvFailed;
-                    self->checkQueue();
+                    self->handleConnState();
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
                                  << bytesTransferred;
-                boost::ignore_unused(bytesTransferred);
+                BMCWEB_LOG_DEBUG << "recvMessage() data: "
+                                 << self->parser->get();
 
-                // Discard received data. We are not interested.
-                BMCWEB_LOG_DEBUG << "recvMessage() data: " << self->res;
+                // Check if the response and header are received
+                if (!self->parser->is_done())
+                {
+                    // The parser failed to receive the response
+                    BMCWEB_LOG_ERROR
+                        << "recvMessage() parser failed to receive response";
+                    self->state = ConnState::recvFailed;
+                    self->handleConnState();
+                    return;
+                }
+
+                unsigned int respCode = self->parser->get().result_int();
+                BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "
+                                 << respCode;
+
+                // 2XX response is considered to be successful
+                if ((respCode < 200) || (respCode >= 300))
+                {
+                    // The listener failed to receive the Sent-Event
+                    BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
+                                        "receive Sent-Event";
+                    self->state = ConnState::recvFailed;
+                    self->handleConnState();
+                    return;
+                }
 
                 // Send is successful, Lets remove data from queue
                 // check for next request data in queue.
@@ -200,16 +228,32 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                     self->requestDataQueue.pop_front();
                 }
                 self->state = ConnState::idle;
-                self->checkQueue();
+
+                // Keep the connection alive if server supports it
+                // Else close the connection
+                BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
+                                 << self->parser->keep_alive();
+                if (!self->parser->keep_alive())
+                {
+                    // Abort the connection since server is not keep-alive
+                    // enabled
+                    self->state = ConnState::abortConnection;
+                }
+
+                // Returns ownership of the parsed message
+                self->parser->release();
+
+                self->handleConnState();
             });
     }
 
     void doClose()
     {
+        state = ConnState::closeInProgress;
         boost::beast::error_code ec;
         conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+        conn.close();
 
-        state = ConnState::closed;
         // not_connected happens sometimes so don't bother reporting it.
         if (ec && ec != boost::beast::errc::not_connected)
         {
@@ -217,23 +261,18 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             return;
         }
         BMCWEB_LOG_DEBUG << "Connection closed gracefully";
+        if ((state != ConnState::suspended) && (state != ConnState::terminated))
+        {
+            state = ConnState::closed;
+            handleConnState();
+        }
     }
 
-    void checkQueue(const bool newRecord = false)
+    void waitAndRetry()
     {
-        if (requestDataQueue.empty())
-        {
-            // TODO: Having issue in keeping connection alive. So lets close if
-            // nothing to be transferred.
-            doClose();
-
-            BMCWEB_LOG_DEBUG << "requestDataQueue is empty\n";
-            return;
-        }
-
         if (retryCount >= maxRetryAttempts)
         {
-            BMCWEB_LOG_ERROR << "Maximum number of retries is reached.";
+            BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
 
             // Clear queue.
             while (!requestDataQueue.empty())
@@ -241,88 +280,120 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 requestDataQueue.pop_front();
             }
 
-            BMCWEB_LOG_DEBUG << "Retry policy is set to " << retryPolicyAction;
+            BMCWEB_LOG_DEBUG << "Retry policy: " << retryPolicyAction;
             if (retryPolicyAction == "TerminateAfterRetries")
             {
                 // TODO: delete subscription
                 state = ConnState::terminated;
-                return;
             }
             if (retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
-                return;
             }
-            // keep retrying, reset count and continue.
+            // Reset the retrycount to zero so that client can try connecting
+            // again if needed
             retryCount = 0;
-        }
-
-        if ((state == ConnState::connectFailed) ||
-            (state == ConnState::sendFailed) ||
-            (state == ConnState::recvFailed))
-        {
-            if (newRecord)
-            {
-                // We are already running async wait and retry.
-                // Since record is added to queue, it gets the
-                // turn in FIFO.
-                return;
-            }
-
-            if (runningTimer)
-            {
-                BMCWEB_LOG_DEBUG << "Retry timer is already running.";
-                return;
-            }
-            runningTimer = true;
-
-            retryCount++;
-
-            BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
-                             << " seconds. RetryCount = " << retryCount;
-            timer.expires_after(std::chrono::seconds(retryIntervalSecs));
-            timer.async_wait(
-                [self = shared_from_this()](const boost::system::error_code&) {
-                    self->runningTimer = false;
-                    self->connStateCheck();
-                });
+            handleConnState();
             return;
         }
-        // reset retry count.
-        retryCount = 0;
-        connStateCheck();
 
+        if (runningTimer)
+        {
+            BMCWEB_LOG_DEBUG << "Retry timer is already running.";
+            return;
+        }
+        runningTimer = true;
+
+        retryCount++;
+
+        BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
+                         << " seconds. RetryCount = " << retryCount;
+        timer.expires_after(std::chrono::seconds(retryIntervalSecs));
+        timer.async_wait(
+            [self = shared_from_this()](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
+                    // Ignore the error and continue the retry loop to attempt
+                    // sending the event as per the retry policy
+                }
+                self->runningTimer = false;
+
+                // Lets close connection and start from resolve.
+                self->doClose();
+            });
         return;
     }
 
-    void connStateCheck()
+    void handleConnState()
     {
         switch (state)
         {
             case ConnState::resolveInProgress:
             case ConnState::connectInProgress:
             case ConnState::sendInProgress:
-            case ConnState::suspended:
-            case ConnState::terminated:
-                // do nothing
+            case ConnState::recvInProgress:
+            case ConnState::closeInProgress:
+            {
+                BMCWEB_LOG_DEBUG << "Async operation is already in progress";
                 break;
+            }
             case ConnState::initialized:
             case ConnState::closed:
+            {
+                if (requestDataQueue.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "requestDataQueue is empty";
+                    return;
+                }
+                doResolve();
+                break;
+            }
+            case ConnState::resolved:
+            {
+                doConnect();
+                break;
+            }
+            case ConnState::suspended:
+            case ConnState::terminated:
+            {
+                doClose();
+                break;
+            }
+            case ConnState::resolveFailed:
             case ConnState::connectFailed:
             case ConnState::sendFailed:
             case ConnState::recvFailed:
-            case ConnState::resolveFailed:
+            case ConnState::retry:
             {
-                doResolve();
+                // In case of failures during connect and handshake
+                // the retry policy will be applied
+                waitAndRetry();
                 break;
             }
             case ConnState::connected:
             case ConnState::idle:
             {
+                // State idle means, previous attempt is successful
+                // State connected means, client connection is established
+                // successfully
+                if (requestDataQueue.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "requestDataQueue is empty";
+                    return;
+                }
                 std::string data = requestDataQueue.front();
                 sendMessage(data);
                 break;
             }
+            case ConnState::abortConnection:
+            {
+                // Server did not want to keep alive the session
+                doClose();
+                break;
+            }
+            default:
+                break;
         }
     }
 
@@ -340,12 +411,13 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         req.set(boost::beast::http::field::host, host);
         req.set(boost::beast::http::field::content_type, "application/json");
         req.keep_alive(true);
+
         requestDataQueue.set_capacity(maxRequestQueueSize);
     }
 
     void sendData(const std::string& data)
     {
-        if (state == ConnState::suspended)
+        if ((state == ConnState::suspended) || (state == ConnState::terminated))
         {
             return;
         }
@@ -353,7 +425,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         if (requestDataQueue.size() <= maxRequestQueueSize)
         {
             requestDataQueue.push_back(std::move(data));
-            checkQueue(true);
+            handleConnState();
         }
         else
         {
