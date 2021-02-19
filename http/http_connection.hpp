@@ -438,7 +438,8 @@ class Connection :
             else
             {
                 res.jsonMode();
-                res.body() = res.jsonValue.dump(2, ' ', true);
+                res.body() = res.jsonValue.dump(
+                    2, ' ', true, nlohmann::json::error_handler_t::replace);
             }
         }
 

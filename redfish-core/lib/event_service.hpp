@@ -434,7 +434,9 @@ class EventDestinationCollection : public Node
                 else
                 {
                     messages::propertyValueFormatError(
-                        asyncResp->res, mrdObj.dump(),
+                        asyncResp->res,
+                        mrdObj.dump(2, ' ', true,
+                                    nlohmann::json::error_handler_t::replace),
                         "MetricReportDefinitions");
                     return;
                 }
