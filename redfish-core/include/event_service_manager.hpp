@@ -443,7 +443,7 @@ class Subscription
                               {"Name", "Event Log"},
                               {"Events", logEntryArray}};
 
-        this->sendEvent(msg.dump());
+        this->sendEvent(msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -506,7 +506,7 @@ class Subscription
                               {"Name", "Event Log"},
                               {"Events", logEntryArray}};
 
-        this->sendEvent(msg.dump());
+        this->sendEvent(msg.2, ' ', true, nlohmann::json::error_handler_t::replace));
     }
 #endif
 
@@ -551,7 +551,7 @@ class Subscription
             {"MetricReportDefinition", {{"@odata.id", metricReportDef}}},
             {"MetricValues", metricValuesArray}};
 
-        this->sendEvent(msg.dump());
+        this->sendEvent(msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
     }
 
     void updateRetryConfig(const uint32_t retryAttempts,
@@ -813,7 +813,7 @@ class EventServiceManager
 
         const std::string tmpFile(std::string(eventServiceFile) + "_tmp");
         std::ofstream ofs(tmpFile, std::ios::out);
-        const auto& writeData = jsonData.dump();
+        const auto& writeData = jsonData.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         ofs << writeData;
         ofs.close();
 
@@ -1086,7 +1086,7 @@ class EventServiceManager
                     {"Name", "Event Log"},
                     {"Id", eventId},
                     {"Events", eventRecord}};
-                entry->sendEvent(msgJson.dump());
+                entry->sendEvent(msgJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
                 eventId++; // increament the eventId
             }
             else
@@ -1105,7 +1105,7 @@ class EventServiceManager
                 {"OriginOfCondition", "/ibm/v1/HMC/BroadcastService"},
                 {"Name", "Broadcast Message"},
                 {"Message", broadcastMsg}};
-            entry->sendEvent(msgJson.dump());
+            entry->sendEvent(msgJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
         }
     }
 

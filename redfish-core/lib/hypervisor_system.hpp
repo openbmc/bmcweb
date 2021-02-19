@@ -554,7 +554,7 @@ class HypervisorInterface : public Node
                                      "Gateway", gateway))
             {
                 messages::propertyValueFormatError(asyncResp->res,
-                                                   thisJson.dump(), pathString);
+                                                   thisJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace), pathString);
                 return;
             }
 

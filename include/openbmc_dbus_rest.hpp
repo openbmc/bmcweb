@@ -519,7 +519,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
                              const nlohmann::json& inputJson)
 {
     int r = 0;
-    BMCWEB_LOG_DEBUG << "Converting " << inputJson.dump()
+    BMCWEB_LOG_DEBUG << "Converting " << inputJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace)
                      << " to type: " << argType;
     const std::vector<std::string> argTypes = dbusArgSplit(argType);
 
@@ -914,7 +914,7 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
     {
         // json doesn't support non-string keys.  If we hit this condition,
         // convert the result to a string so we can proceed
-        key = key.dump();
+        key = key.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         keyPtr = key.get_ptr<const std::string*>();
         // in theory this can't fail now, but lets be paranoid about it
         // anyway

@@ -97,7 +97,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         return 0;
     }
 
-    connection->sendText(j.dump());
+    connection->sendText(j.dump(2, ' ', true,nlohmann::json::error_handler_t::replace));
     return 0;
 }
 

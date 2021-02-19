@@ -239,7 +239,7 @@ inline void handleRoleMapPatch(
             {
                 BMCWEB_LOG_ERROR << "Can't delete the object";
                 messages::propertyValueTypeError(
-                    asyncResp->res, thisJson.dump(),
+                    asyncResp->res, thisJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
                     "RemoteRoleMapping/" + std::to_string(index));
                 return;
             }
