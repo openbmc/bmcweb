@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a881221_ba7b1049",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-19T00:46:52Z",
+      "side": 1,
+      "message": "Yep, that helps",
+      "parentUuid": "560e88a3_a058bb3a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 72
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0de77294_029cc13f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "7577ba4a_cfa59cb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-19T00:46:52Z",
+      "side": 1,
+      "message": "I can find them now.... not sure what I was smoking the other day.  Fine as is.",
+      "parentUuid": "4a28eef3_97c30a2f",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b03db2_c0487fe0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "I did now and added step to the commit msg.",
       "parentUuid": "70b03db2_c0487fe0",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "56fd79dc7dbf540bee68bc3e97bf122f1ccca888",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79d41e45_88220a1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-19T00:46:52Z",
+      "side": 1,
+      "message": "Excellent.",
+      "parentUuid": "4d54726e_da549b5d",
       "range": {
         "startLine": 14,
         "startChar": 0,
