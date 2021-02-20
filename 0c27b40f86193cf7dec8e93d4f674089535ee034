@@ -418,6 +418,24 @@
       "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5921ec8b_0f844423",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T18:56:39Z",
+      "side": 1,
+      "message": "But this isn\u0027t a text file, right?  This is binary?\n\nYou also need a check the accept header to make sure that they are ok receiving text files:\nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept",
+      "parentUuid": "ce8be122_7f67c281",
+      "revId": "0c27b40f86193cf7dec8e93d4f674089535ee034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
