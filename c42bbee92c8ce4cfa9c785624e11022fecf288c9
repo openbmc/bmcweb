@@ -46,6 +46,30 @@
       "revId": "c42bbee92c8ce4cfa9c785624e11022fecf288c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a0eb9c8_b9a6c284",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T00:39:47Z",
+      "side": 1,
+      "message": "The approach you used is fine.  https://gerrit.openbmc-project.xyz/c/openbmc/openbmc-build-scripts/+/40588 is that patch to fix it\n\nand\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35522 is adjusting how we use the escaping functions as soon as the build-scripts patch lands.\n\nNeither of these will likely be your problem depending on the order in which patches get merged and rebased, but just FYI in case something weird happens.",
+      "parentUuid": "e95e88e6_80092a18",
+      "range": {
+        "startLine": 780,
+        "startChar": 9,
+        "endLine": 780,
+        "endChar": 36
+      },
+      "revId": "c42bbee92c8ce4cfa9c785624e11022fecf288c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
