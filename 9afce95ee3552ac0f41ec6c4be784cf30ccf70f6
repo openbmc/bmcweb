@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "862384a0_53ae106c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "OK to the first point.\n\nTo your second point, it is perhaps weird, especially since a malformed request here will generate an error message about \"@odata.id\" instead of \"AppliedConfig\" - so not as useful. If we expect the PATCH body to match the property format returned by GET then this is correct. I did not see anything in the Redfish or odata specs suggesting the PATCH format should be different.",
+      "parentUuid": "c285cf73_87e136ad",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 0
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6779ba8_7223d104",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-20T00:39:47Z",
       "side": 1,
       "message": "dbus paths are usually snake case.",
+      "range": {
+        "startLine": 833,
+        "startChar": 50,
+        "endLine": 833,
+        "endChar": 66
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e6e5fe_e040f6ea",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "This is not a D-Bus path - it\u0027s validating the @odata.id value.",
+      "parentUuid": "d6779ba8_7223d104",
       "range": {
         "startLine": 833,
         "startChar": 50,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7bcf9935_6654b677",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "Perhaps, but the D-Bus service today does not use associations because we didn\u0027t have a use case where the config objects needed to be decoupled from the cpu objects.",
+      "parentUuid": "76f1550f_69624926",
+      "range": {
+        "startLine": 842,
+        "startChar": 0,
+        "endLine": 850,
+        "endChar": 53
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf33784b_f5edd2df",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2021-02-20T00:39:47Z",
       "side": 1,
       "message": "Common error #11",
+      "range": {
+        "startLine": 861,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 51
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8c74f3c_e455e91d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "I think it complies with that rule? GetSubTree returns an empty success if no objects are found, so this means D-Bus or ObjectMapper is broken.",
+      "parentUuid": "cf33784b_f5edd2df",
       "range": {
         "startLine": 861,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b052631c_ad820e2b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "serviceMap is checked for empty on line 867.",
+      "parentUuid": "8c9228f4_d3c6b673",
+      "range": {
+        "startLine": 877,
+        "startChar": 51,
+        "endLine": 877,
+        "endChar": 69
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8817a86c_44e61d8c",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2021-02-20T00:39:47Z",
       "side": 1,
       "message": "Please call async_method_call for the moment to be consistent with the rest of bmcweb.  If we start using this method for sets, I\u0027d like to be consistent about it, not only use it in the new code.  If that\u0027s a change you\u0027re interested in see happen, I\u0027d love the help in getting the patchsets going.\n\nAs a side note, whomever wrote this to sdbusplus added a lovely race condition for you by following the javascript style of callback (with fail and success) instead of the normal asio style of a single callback that takes an error code.  You only capture resp on the failure side, so the response (in theory) could be sent out before the success callback is called.  Doesn\u0027t matter in this case, but I suspect someone will need to correct that before we can use that helper here, or in any place where we can\u0027t take multiple references to the same object in a callback.",
+      "range": {
+        "startLine": 876,
+        "startChar": 0,
+        "endLine": 892,
+        "endChar": 76
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dc8e000_262d5834",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "OK, no problem to replace this - it will make it easier to handle an D-Bus InvalidArgument response which I can map to the Redfish propertyValueIncorrect.\n\nAs for the race condition - sure I guess my success message would be printed after the response is sent. Doesn\u0027t seem like it would cause much trouble in practice since if you had any more work to do you\u0027d have to capture resp.",
+      "parentUuid": "8817a86c_44e61d8c",
       "range": {
         "startLine": 876,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a3549d62_e23953fa",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "In order to detect a 404, I\u0027d have to do an extra GetSubTree on all 6 interfaces that can create a Redfish Processor. It seemed like unnecessary work just to get the return code correct, but I\u0027ll look into it.",
+      "parentUuid": "52117996_97efe466",
+      "range": {
+        "startLine": 902,
+        "startChar": 22,
+        "endLine": 902,
+        "endChar": 37
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "649c4436_51677d5a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2021-02-20T00:39:47Z",
       "side": 1,
       "message": "Don\u0027t use the req.url directly.  Use params[0], which has already parsed out the relevant information for you.",
+      "range": {
+        "startLine": 1173,
+        "startChar": 51,
+        "endLine": 1173,
+        "endChar": 71
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def30737_e1cc9a08",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-20T02:14:26Z",
+      "side": 1,
+      "message": "I want the entire URL here (not the param fragment) because I use it to validate that the PATCHed URI is a child of the request URI. Is that not acceptable?",
+      "parentUuid": "649c4436_51677d5a",
       "range": {
         "startLine": 1173,
         "startChar": 51,
