@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "990dff05_ebb421e2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "\u003e OK to the first point.\n\u003e \n\u003e To your second point, it is perhaps weird, especially since a malformed request here will generate an error message about \"@odata.id\" instead of \"AppliedConfig\" - so not as useful.\n\nNot quite.  Accepting a parameter of @odata.id is not normally how this kind of thing would work, but I need to go do my research;  It\u0027s been a long time since we\u0027ve built one of these APIs, so you very well could be right.\n\n\u003e If we expect the PATCH body to match the property format returned by GET then this is correct.\n\nWe expect whatever Redfish specifies, but because this is a sub-resource, and also a link, I\u0027m not actually sure what it\u0027s supposed to look like.  If this were a formal collection this would be a PUT or POST.   I\u0027ll do some research and get back to you;  At the same time, if you find anything in the redfish spec clarifying this, please post the section number.\n\n\u003e I did not see anything in the Redfish or odata specs suggesting the PATCH format should be different.\n\nThe issue here is that this is a sub resource, and a link, so in some regards this is a PUT, as it\u0027s completely replacing the object, not PATCH, which would normally modify an existing object.",
+      "parentUuid": "862384a0_53ae106c",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 0
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6779ba8_7223d104",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "This is not a D-Bus path - it\u0027s validating the @odata.id value.",
       "parentUuid": "d6779ba8_7223d104",
+      "range": {
+        "startLine": 833,
+        "startChar": 50,
+        "endLine": 833,
+        "endChar": 66
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c437d4e_b3021093",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "Duh, my bad.  Fine as is.",
+      "parentUuid": "99e6e5fe_e040f6ea",
       "range": {
         "startLine": 833,
         "startChar": 50,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "0be841c3_59ad1479",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "\u003e Perhaps, but the D-Bus service today does not use associations because we didn\u0027t have a use case where the config objects needed to be decoupled from the cpu objects.\n\nIn general relying on specific object paths is a bad idea;  I\u0027ll think on this.  The use case I can think of would be when this needs to link to another resource, or when the object paths are different between two systems, which should be allowed.",
+      "parentUuid": "7bcf9935_6654b677",
+      "range": {
+        "startLine": 842,
+        "startChar": 0,
+        "endLine": 850,
+        "endChar": 53
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf33784b_f5edd2df",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -190,6 +262,53 @@
     },
     {
       "key": {
+        "uuid": "55b16d99_e31bb586",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "That didn\u0027t used to be the behavior, it used to return an error if the collection was empty.  Did that change?  Regardless, I see no call to resourceNotFound in your code, so there\u0027s no way this code could possibly comply, and properly handle 404.",
+      "parentUuid": "a8c74f3c_e455e91d",
+      "range": {
+        "startLine": 861,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 51
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846fdf4e_4a858e36",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "Technically this should be an internal error, right?",
+      "range": {
+        "startLine": 867,
+        "startChar": 58,
+        "endLine": 867,
+        "endChar": 76
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c9228f4_d3c6b673",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -225,6 +344,30 @@
       "side": 1,
       "message": "serviceMap is checked for empty on line 867.",
       "parentUuid": "8c9228f4_d3c6b673",
+      "range": {
+        "startLine": 877,
+        "startChar": 51,
+        "endLine": 877,
+        "endChar": 69
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84cf1f77_e005f199",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t even see that.  This line is fine as is, see comment on line 867.",
+      "parentUuid": "b052631c_ad820e2b",
       "range": {
         "startLine": 877,
         "startChar": 51,
@@ -284,6 +427,30 @@
     },
     {
       "key": {
+        "uuid": "7d52aedb_b9fd7fab",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "I have a patchset out to fix this.  I think this helper function is good, it just needs to look like a \"normal\" asio callback, not a javascript one.  It\u0027s not an issue here (your code is correct) but I don\u0027t want to start using a construct that we\u0027ll then have to fix later on down the road when we hit one of the harder cases.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/40749",
+      "parentUuid": "6dc8e000_262d5834",
+      "range": {
+        "startLine": 876,
+        "startChar": 0,
+        "endLine": 892,
+        "endChar": 76
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52117996_97efe466",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -331,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "a1f58d46_fe018510",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "I\u0027m not following why 6 lookups would be required.  If we hit this, it means that we couldn\u0027t find a place to write the value, and it\u0027s effectively 404.",
+      "parentUuid": "a3549d62_e23953fa",
+      "range": {
+        "startLine": 902,
+        "startChar": 22,
+        "endLine": 902,
+        "endChar": 37
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "649c4436_51677d5a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -366,6 +557,30 @@
       "side": 1,
       "message": "I want the entire URL here (not the param fragment) because I use it to validate that the PATCHed URI is a child of the request URI. Is that not acceptable?",
       "parentUuid": "649c4436_51677d5a",
+      "range": {
+        "startLine": 1173,
+        "startChar": 51,
+        "endLine": 1173,
+        "endChar": 71
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "289c1fb9_7be793b0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-20T17:52:16Z",
+      "side": 1,
+      "message": "Validate it against a fixed string with your path + the param.\n\nAt some point in the future, req.url becomes a private member variable, as using it makes it really hard to void injection attacks that the framework can solve for you.",
+      "parentUuid": "def30737_e1cc9a08",
       "range": {
         "startLine": 1173,
         "startChar": 51,
