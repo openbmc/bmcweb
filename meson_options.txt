@@ -3,7 +3,14 @@ option('yocto-deps', type: 'feature', value: 'disabled', description : 'Use YOCT
 option('kvm', type : 'feature',value : 'enabled', description : 'Enable the KVM host video WebSocket.  Path is \'/kvm/0\'.  Video is from the BMC\'s \'/dev/video\' device.')
 option ('tests', type : 'feature', value : 'enabled', description : 'Enable Unit tests for bmcweb')
 option('vm-websocket', type : 'feature', value : 'enabled', description : '''Enable the Virtual Media WebSocket. Path is \'/vm/0/0\'to open the websocket. See https://github.com/openbmc/jsnbd/blob/master/README.''')
-option('vm-nbdproxy', type: 'feature', value : 'disabled', description : 'Enable the Virtual Media WebSocket.')
+
+# if you use this option and are seeing this comment, please comment here:
+# https://github.com/openbmc/bmcweb/issues/188 and put forward your intentions
+# for this code.  At this point, no daemon has been upstreamed that implements
+# this interface, so for the moment this appears to be dead code;  In leiu of
+# removing it, it has been disabled to try to give those that use it the
+# opportunity to upstream their backend implementation
+#option('vm-nbdproxy', type: 'feature', value : 'disabled', description : 'Enable the Virtual Media WebSocket.')
 option('rest', type : 'feature', value : 'enabled', description : '''Enable Phosphor REST (D-Bus) APIs. Paths directly map Phosphor D-Bus object paths, for example, \'/xyz/openbmc_project/logging/entry/enumerate\'. See https://github.com/openbmc/docs/blob/master/rest-api.md.''')
 option('redfish', type : 'feature',value : 'enabled', description: 'Enable Redfish APIs.  Paths are under \'/redfish/v1/\'. See https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish.')
 option('host-serial-socket', type : 'feature', value : 'enabled', description : 'Enable host serial console WebSocket. Path is \'/console0\'.  See https://github.com/openbmc/docs/blob/master/console.md.')
