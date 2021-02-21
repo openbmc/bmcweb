@@ -94,6 +94,30 @@
       "revId": "bbf2d05557b3456864b9ca813730e527b6e39637",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d2b6e22_db2f4b44",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-21T20:42:24Z",
+      "side": 1,
+      "message": "\u003e EventService route is different from EventService backend but without having eventService route, there is no point in enabling eventService  and loading defaults, right?\n\nNot really, but because they are different things, I\u0027d like to see them called out separately in main() for clarity.  Route handlers should not be doing anything but registering routes.\n\n\u003e So IMO, its better to stick it here instead of in main.\n\nDisagree.  Route handlers ONLY handle routes.  There might be use cases where you want event service, but you don\u0027t want the configuration to be able to be modified, so you would start EventService, but wouldn\u0027t register the eventservice routes.\n\nAlso, this stands in the way of the Node class going away in the future.\nhttps://github.com/openbmc/bmcweb/issues/181",
+      "parentUuid": "5014d6ed_ed85f475",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "bbf2d05557b3456864b9ca813730e527b6e39637",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
