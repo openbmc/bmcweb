@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4e402b9c_8132361a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-02-22T05:20:23Z",
+      "side": 1,
+      "message": "It is optional property and ignored when is not used as below test result.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29670/55//COMMIT_MSG#214\n\nIt is based on the design as below, suggest to update below yaml file as well.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L168",
+      "parentUuid": "95a2de23_a9c61e91",
+      "range": {
+        "startLine": 120,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 32
+      },
+      "revId": "0ac7936b0c271890fb7bddd8af97a9edc0048613",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdc43b51_49c854ab",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 54
@@ -60,6 +84,30 @@
       "writtenOn": "2021-02-19T04:35:17Z",
       "side": 1,
       "message": "The validator fails in this case as well.\nThe response should look something like the below for each attribute:\n\n            {\n                \"AttributeName\": \"pvm_os_boot_side\",\n                \"CurrentValue\": \"Temp\",\n                \"DefaultValue\": \"Temp\",\n                \"DisplayName\": \"pvm_os_boot_side\",\n                \"HelpText\": \"pvm_os_boot_side\",\n                \"ReadOnly\": false,\n                \"Type\": \"Enumeration\",\n                \"Value\": [\n                    \"Perm\",\n                    \"Temp\"\n                ]\n            }\n\n\nBecause for now, with this implementation, we would be sending the response having some of the above properties listed under \"OneOf\" (like the following) which would be violating the schema.\n\n            {\n                \"AttributeName\": \"pvm_os_boot_side\",\n                \"CurrentValue\": \"Temp\",\n                \"DefaultValue\": \"Temp\",\n                \"DisplayName\": \"pvm_os_boot_side\",\n                \"HelpText\": \"pvm_os_boot_side\",\n                \"MenuPath\": \"\",\n                \"ReadOnly\": false,\n                \"Type\": \"Enumeration\",\n                \"Value\": [\n                    {\n                        \"OneOf\": \"Disabled\"\n                    },\n                    {\n                        \"OneOf\": \"Enabled\"\n                    },\n                    {\n                        \"OneOf\": \"PowerVM\"\n                    },\n                    {\n                        \"OneOf\": \"OPAL\"\n                    },\n                    {\n                        \"OneOf\": \"AIX\"\n                    },\n                    {\n                        \"OneOf\": \"Linux\"\n                    },\n                    {\n                        \"OneOf\": \"IBM I\"\n                    },\n                    {\n                        \"OneOf\": \"Perm\"\n                    },\n                    {\n                        \"OneOf\": \"Temp\"\n                    },\n                    {\n                        \"OneOf\": \"Disabled\"\n                    },\n                    {\n                        \"OneOf\": \"Enabled\"\n                    },\n                    {\n                        \"OneOf\": \"Allowed\"\n                    },\n                    {\n                        \"OneOf\": \"Not Allowed\"\n                    },\n                    {\n                        \"OneOf\": \"Perm\"\n                    },\n                    {\n                        \"OneOf\": \"Temp\"\n                    }\n                ]\n            }\n\nI have a patch to resolve these two issues, but still there is one more redfish validator failure that still needs to be addressed.",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 68
+      },
+      "revId": "0ac7936b0c271890fb7bddd8af97a9edc0048613",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f128bcb_5414863e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2021-02-22T05:20:23Z",
+      "side": 1,
+      "message": "It is implemented based on the design as below, suggest to update the yaml as well.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L80",
+      "parentUuid": "cdc43b51_49c854ab",
       "range": {
         "startLine": 525,
         "startChar": 0,
