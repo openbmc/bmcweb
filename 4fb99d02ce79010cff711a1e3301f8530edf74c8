@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "f80390be_fd16494f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-22T19:37:31Z",
+      "side": 1,
+      "message": "Really need a headerMissing..\nhttps://redfish.dmtf.org/registries/Base.1.9.0.json\n\nI can open an issue with the DMTF as long you/Ed agree ?",
+      "range": {
+        "startLine": 1718,
+        "startChar": 22,
+        "endLine": 1718,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb580249_1fbb47b5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -41,6 +64,29 @@
         "startChar": 8,
         "endLine": 1721,
         "endChar": 50
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a98b4d8_ccba7f1b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-22T19:37:31Z",
+      "side": 1,
+      "message": "Why text/plain if below application/octet-stream..",
+      "range": {
+        "startLine": 1721,
+        "startChar": 37,
+        "endLine": 1721,
+        "endChar": 47
       },
       "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -65,6 +111,46 @@
         "endLine": 1723,
         "endChar": 44
       },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72cf7274_2bd01fc6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-22T19:37:31Z",
+      "side": 1,
+      "message": "headerValueNotInList \nFor the DMTF.. I think this is fine for now.",
+      "range": {
+        "startLine": 1723,
+        "startChar": 22,
+        "endLine": 1723,
+        "endChar": 44
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5340cdc_5778c50d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-22T19:37:31Z",
+      "side": 1,
+      "message": "In my experience this isn\u0027t used that often. \nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding\n\nWhat happens on the default here ?\ni.e. what happens if the client doesn\u0027t include?\n*\n    Matches any content encoding not already listed in the header. This is the default value if the header is not present. It doesn\u0027t mean that any algorithm is supported; merely that no preference is expressed.",
       "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
