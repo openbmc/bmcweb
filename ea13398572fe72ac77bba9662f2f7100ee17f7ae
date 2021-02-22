@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "218574a8_08fce4f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-22T07:37:07Z",
+      "side": 1,
+      "message": "Thanks Sunith for separating this retry logic from original commit (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/31735). I see some issues with this change and i am currently addressed some and planning to load new patch set here.",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "ea13398572fe72ac77bba9662f2f7100ee17f7ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "903c66c0_97e58700",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-22T07:37:07Z",
+      "side": 1,
+      "message": "This is closing the connection which is done in doClose(). So this doesn\u0027t make sense to make it as doInit()",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 9
+      },
+      "revId": "ea13398572fe72ac77bba9662f2f7100ee17f7ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890b272d_184f7133",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-22T07:37:07Z",
+      "side": 1,
+      "message": "Send failure means, its should fall under retry logic,  not direct Init.",
+      "range": {
+        "startLine": 206,
+        "startChar": 45,
+        "endLine": 206,
+        "endChar": 56
+      },
+      "revId": "ea13398572fe72ac77bba9662f2f7100ee17f7ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39a71660_4a7e259b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-22T07:37:07Z",
+      "side": 1,
+      "message": "same Here, It should fall under retry logic.",
+      "range": {
+        "startLine": 236,
+        "startChar": 45,
+        "endLine": 236,
+        "endChar": 56
+      },
+      "revId": "ea13398572fe72ac77bba9662f2f7100ee17f7ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca2643f_8950f80c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-22T07:37:07Z",
+      "side": 1,
+      "message": "Better to init the connection when there is data in request queue. Add below code before init()\n                if (requestDataQueue.empty())\n                {\n                    BMCWEB_LOG_DEBUG \u003c\u003c \"requestDataQueue is empty\";\n                    return;\n                }",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 340,
+        "endChar": 22
+      },
+      "revId": "ea13398572fe72ac77bba9662f2f7100ee17f7ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d664b516_c03cf72e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-22T07:37:07Z",
+      "side": 1,
+      "message": "Better to call connect when there is data in request queue().\nif (requestDataQueue.empty())\n                {\n                    BMCWEB_LOG_DEBUG \u003c\u003c \"requestDataQueue is empty\";\n                    return;\n                }",
+      "revId": "ea13398572fe72ac77bba9662f2f7100ee17f7ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
