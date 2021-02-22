@@ -1771,8 +1771,9 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
         {"Id", bmcJournalLogEntryID},
         {"Message", std::move(message)},
         {"EntryType", "Oem"},
-        {"Severity",
-         severity <= 2 ? "Critical" : severity <= 4 ? "Warning" : "OK"},
+        {"Severity", severity <= 2   ? "Critical"
+                     : severity <= 4 ? "Warning"
+                                     : "OK"},
         {"OemRecordFormat", "BMC Journal Entry"},
         {"Created", std::move(entryTimeStr)}};
     return 0;
