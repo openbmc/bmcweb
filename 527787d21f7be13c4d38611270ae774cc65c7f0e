@@ -118,6 +118,30 @@
       "revId": "527787d21f7be13c4d38611270ae774cc65c7f0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f91fe49c_0a722540",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T16:30:42Z",
+      "side": 1,
+      "message": "I\u0027m not even following what is being asked of for this change.  Those two sections can\u0027t really be merged, unless you inverted the check, and pulled the get_if to a higher scope.  We do that in some places, but it doesn\u0027t save that many lines of code, and like Gunnar said, this is VERY easy to see it\u0027s correct at a glance.\n\nTherefore, I think this is fine as-is.\n\nHappy to discuss this more if you had different ideas.",
+      "parentUuid": "8e1fd7f8_c0a0c53a",
+      "range": {
+        "startLine": 675,
+        "startChar": 10,
+        "endLine": 697,
+        "endChar": 18
+      },
+      "revId": "527787d21f7be13c4d38611270ae774cc65c7f0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
