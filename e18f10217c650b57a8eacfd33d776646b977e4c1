@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "319bed76_6c292f4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-22T19:57:41Z",
+      "side": 1,
+      "message": "This is a lot better but what if I do \n\ncurl -k -H \"X-Auth-Token: $token\" -X GET\nhttps://${bmc}/redfish/v1/Chassis/badChassisId/PCIeSlots\n\nMaybe could we move this funciton and use it?\nhttps://github.com/openbmc/bmcweb/blob/28aa8de5d3ad14db3aecfb10f5462d5bd4637717/redfish-core/lib/sensors.hpp#L367\n\nhttps://github.com/openbmc/bmcweb/blob/f23b729676559f539790580930b1ff3b0c05805b/redfish-core/lib/power.hpp#L140\n\nMaybe a new \"chassis\" util ?\nhttps://github.com/openbmc/bmcweb/tree/28aa8de5d3ad14db3aecfb10f5462d5bd4637717/redfish-core/include/utils",
+      "revId": "e18f10217c650b57a8eacfd33d776646b977e4c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
