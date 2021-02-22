@@ -201,6 +201,30 @@
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5c7eb5_74068f87",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-22T09:13:36Z",
+      "side": 1,
+      "message": "I take that back - looks like this would be violation of the D-Bus spec. Per https://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-properties:\n\n\" An empty string may be provided for the interface name; in this case, if there are multiple properties on an object with the same name, the results are undefined (picking one by according to an arbitrary deterministic rule, or returning an error, are the reasonable possibilities). \"\n\nSo we should definitely fix this.",
+      "parentUuid": "a5443cf9_5550e965",
+      "range": {
+        "startLine": 148,
+        "startChar": 69,
+        "endLine": 148,
+        "endChar": 71
+      },
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
