@@ -521,10 +521,10 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                         sensorsAsyncResp->chassisSubNode ==
                                 sensors::node::thermal
                             ? "Temperatures"
-                            : sensorsAsyncResp->chassisSubNode ==
-                                      sensors::node::power
-                                  ? "Voltages"
-                                  : "Sensors");
+                        : sensorsAsyncResp->chassisSubNode ==
+                                sensors::node::power
+                            ? "Voltages"
+                            : "Sensors");
                     return;
                 }
                 const std::shared_ptr<boost::container::flat_set<std::string>>
