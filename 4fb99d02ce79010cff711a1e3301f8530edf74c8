@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e428e18_f1adb1de",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "The property isn\u0027t missing, a header is missing.  This is a form of 400 bad request error.\n\nAlso, because this isn\u0027t a redfish API, I wonder if we should avoid sending redfish return codes.  Maybe just set 400 on the response?",
+      "range": {
+        "startLine": 1718,
+        "startChar": 22,
+        "endLine": 1718,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb580249_1fbb47b5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "This needs properly parsed.  boost has utility functions for parsing stuff like this that you should use.\n\ntechnically text/plain;q\u003d0.9 is also legal here.",
+      "range": {
+        "startLine": 1721,
+        "startChar": 8,
+        "endLine": 1721,
+        "endChar": 50
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1929c35f_2425545c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "This isn\u0027t a property, so this value also should be a form of 400 bad request.",
+      "range": {
+        "startLine": 1723,
+        "startChar": 22,
+        "endLine": 1723,
+        "endChar": 44
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b48504b_1b466c14",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 1730,
+        "startChar": 22,
+        "endLine": 1730,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1781c122_8904fc4e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 1735,
+        "startChar": 22,
+        "endLine": 1735,
+        "endChar": 44
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c8e4c67_7160ccea",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1744,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "nit: Can you put this on line 1714 just so this looks like all the other handlers?  That makes it easier when this api gets fixed.",
+      "range": {
+        "startLine": 1740,
+        "startChar": 0,
+        "endLine": 1744,
+        "endChar": 9
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc99f5df_6878f113",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T19:37:18Z",
+      "side": 1,
+      "message": "I think you got some patches mismatched.  You check for accepting text/plain, then you return application/octet-stream.",
+      "range": {
+        "startLine": 1808,
+        "startChar": 42,
+        "endLine": 1808,
+        "endChar": 66
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
