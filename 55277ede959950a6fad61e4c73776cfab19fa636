@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bf35a82_bdec3b99",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T16:40:40Z",
+      "side": 1,
+      "message": "See previous review.  This whole section needs deleted.",
+      "parentUuid": "677a2409_9a64fc92",
+      "range": {
+        "startLine": 106,
+        "startChar": 26,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77588895_bb1b3991",
         "filename": "http/http_client.hpp",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2021-02-22T08:19:09Z",
       "side": 1,
       "message": "How we are making sure that the given address is v4 not the v6?",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 47
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aefdde9a_9e3b6f31",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T16:40:40Z",
+      "side": 1,
+      "message": "This has already been commented in previous patchsets.",
+      "parentUuid": "6ca4a139_bcbb9dce",
       "range": {
         "startLine": 111,
         "startChar": 2,
@@ -128,6 +176,30 @@
       "writtenOn": "2021-02-22T08:19:09Z",
       "side": 1,
       "message": "This is not getting used in lambda.",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 24
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c84a95_f36ffd3a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-22T16:40:40Z",
+      "side": 1,
+      "message": "This isn\u0027t in the lambda?",
+      "parentUuid": "005d6016_e05b8077",
       "range": {
         "startLine": 152,
         "startChar": 12,
