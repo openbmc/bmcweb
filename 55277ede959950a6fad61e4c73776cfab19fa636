@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "677a2409_9a64fc92",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-22T08:19:09Z",
+      "side": 1,
+      "message": "some descriptive name ??",
+      "range": {
+        "startLine": 106,
+        "startChar": 26,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77588895_bb1b3991",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-22T08:19:09Z",
+      "side": 1,
+      "message": "refrence?",
+      "range": {
+        "startLine": 109,
+        "startChar": 20,
+        "endLine": 109,
+        "endChar": 50
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ca4a139_bcbb9dce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-22T08:19:09Z",
+      "side": 1,
+      "message": "How we are making sure that the given address is v4 not the v6?",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 47
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d9d00d_20ac4422",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-22T08:19:09Z",
+      "side": 1,
+      "message": ".c_str() is not required.",
+      "range": {
+        "startLine": 123,
+        "startChar": 65,
+        "endLine": 123,
+        "endChar": 73
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a20591c_7866bdf3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-22T08:19:09Z",
+      "side": 1,
+      "message": "why we are doing so? I didn\u0027t understand.\nHow the resEndpoint and endpoint are different?",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "005d6016_e05b8077",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-22T08:19:09Z",
+      "side": 1,
+      "message": "This is not getting used in lambda.",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 24
+      },
+      "revId": "55277ede959950a6fad61e4c73776cfab19fa636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
