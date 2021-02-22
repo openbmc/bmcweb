@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "544ec146_b2395a98",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Removed check for missing Accept, the Accept header is always provided with a default value of */* if the caller does not specify it.",
+      "parentUuid": "4e428e18_f1adb1de",
+      "range": {
+        "startLine": 1718,
+        "startChar": 22,
+        "endLine": 1718,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00cfa41e_3e3c181e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "I think it makes sense to add a missing header, for now we\u0027ll be returning 400/bad-request",
+      "parentUuid": "f80390be_fd16494f",
+      "range": {
+        "startLine": 1718,
+        "startChar": 22,
+        "endLine": 1718,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb580249_1fbb47b5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -91,6 +139,54 @@
       "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f80d7d4_94f87946",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Fixed, returning text/plain. I misunderstood/mixed previous review comments.",
+      "parentUuid": "4a98b4d8_ccba7f1b",
+      "range": {
+        "startLine": 1721,
+        "startChar": 37,
+        "endLine": 1721,
+        "endChar": 47
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80ee6339_a7dd30ef",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Added parsing. We\u0027ll be checking for the default */* (all types accepted) and text/plain.",
+      "parentUuid": "eb580249_1fbb47b5",
+      "range": {
+        "startLine": 1721,
+        "startChar": 8,
+        "endLine": 1721,
+        "endChar": 50
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "26e67b9e_49ece07d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "72cf7274_2bd01fc6",
+      "range": {
+        "startLine": 1723,
+        "startChar": 22,
+        "endLine": 1723,
+        "endChar": 44
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b61e889_05c4ff6c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1929c35f_2425545c",
+      "range": {
+        "startLine": 1723,
+        "startChar": 22,
+        "endLine": 1723,
+        "endChar": 44
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5340cdc_5778c50d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -154,6 +298,24 @@
       "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ff87e90_6d379b7b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Removed. Only expecting the Accept header to support clients that don\u0027t specify any type and can handle any type.",
+      "parentUuid": "b5340cdc_5778c50d",
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "ba6a2991_74dae46e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Removed encoding header.",
+      "parentUuid": "2b48504b_1b466c14",
+      "range": {
+        "startLine": 1730,
+        "startChar": 22,
+        "endLine": 1730,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1781c122_8904fc4e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -200,6 +386,30 @@
       "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ce77d4c_4444f58f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Removed encoding header.",
+      "parentUuid": "1781c122_8904fc4e",
+      "range": {
+        "startLine": 1735,
+        "startChar": 22,
+        "endLine": 1735,
+        "endChar": 44
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "4cd47884_7b7ed860",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1744,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Makes sense.",
+      "parentUuid": "9c8e4c67_7160ccea",
+      "range": {
+        "startLine": 1740,
+        "startChar": 0,
+        "endLine": 1744,
+        "endChar": 9
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc99f5df_6878f113",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -246,6 +480,30 @@
       "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7675a06b_1524465d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-22T23:17:49Z",
+      "side": 1,
+      "message": "Done. Yeah, I misunderstood/mixed the previous review comments.",
+      "parentUuid": "dc99f5df_6878f113",
+      "range": {
+        "startLine": 1808,
+        "startChar": 42,
+        "endLine": 1808,
+        "endChar": 66
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
