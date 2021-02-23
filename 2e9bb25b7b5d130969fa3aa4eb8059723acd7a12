@@ -70,6 +70,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb2843b_31c57476",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-23T03:27:22Z",
+      "side": 1,
+      "message": "Also, LDAP notification in the library isn\u0027t required to host the privilege level.\n\nThe reason most web services like this even have sessions is to avoid doing this exact thing, calling into ldap for every single request, which slows down everything.  Sessions are generally only authorized once, then that privilege level is held through the course of the session.\n\nThis is the same way your laptop works with an LDAP server.  If your privilege level on the LDAP server is changed, it\u0027s not immediately applied, you need to log out and log back in before it\u0027s applied.",
+      "parentUuid": "d61d4310_e79243ff",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
