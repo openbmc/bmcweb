@@ -34,6 +34,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d20ba2_a19bccf4",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-23T03:21:48Z",
+      "side": 1,
+      "message": "Ed, We don\u0027t list the LDAP users on the Dbus. LDAP is used on the BMC for authentication not for the user management.\n\nLDAP notification is not supported in the back-end(nss-pam-ldapd).",
+      "parentUuid": "5e42e0f2_2a31cdd5",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
