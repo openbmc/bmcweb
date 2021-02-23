@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "904b8631_7ec27dd9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-23T05:45:40Z",
+      "side": 1,
+      "message": "Having a single flag is also good",
+      "range": {
+        "startLine": 78,
+        "startChar": 9,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3583f85d_4628b5a4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-23T05:45:40Z",
+      "side": 1,
+      "message": "Setting retry is fine. But retry should try fresh connection establishment.",
+      "range": {
+        "startLine": 219,
+        "startChar": 45,
+        "endLine": 219,
+        "endChar": 50
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c318424_24b5638c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-23T05:45:40Z",
+      "side": 1,
+      "message": "When the abortConnection state is set, doClose is called. So with this change, client will again start with doResolve since you are setting the ConnState::closed here. This is not the desired behavior",
+      "range": {
+        "startLine": 263,
+        "startChar": 8,
+        "endLine": 263,
+        "endChar": 80
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9209dad6_270b3dcf",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-23T05:45:40Z",
+      "side": 1,
+      "message": "This will keep calling the retry action again and again until the max attempts. We should change the ConnState here to get this to try the fresh connection - starting from resolving the host\n\nNote: self-\u003estate \u003d ConnState::initialized; from the patch set 1 is removed here.",
+      "range": {
+        "startLine": 322,
+        "startChar": 22,
+        "endLine": 322,
+        "endChar": 37
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
