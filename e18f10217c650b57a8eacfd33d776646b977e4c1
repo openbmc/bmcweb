@@ -16,6 +16,23 @@
       "revId": "e18f10217c650b57a8eacfd33d776646b977e4c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d62d1f93_6ad8acc7",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-23T15:03:04Z",
+      "side": 1,
+      "message": "Is this assignment required? Can\u0027t we pass objectPath directly to the bus call?",
+      "revId": "e18f10217c650b57a8eacfd33d776646b977e4c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
