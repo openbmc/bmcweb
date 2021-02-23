@@ -2691,7 +2691,7 @@ inline bool findSensorNameUsingSensorPath(
     for (auto& chassisSensor : sensorsList)
     {
         sdbusplus::message::object_path path(chassisSensor);
-        std::string_view thisSensorName = path.filename();
+        std::string thisSensorName = path.filename();
         if (thisSensorName.empty())
         {
             continue;

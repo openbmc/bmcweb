@@ -291,6 +291,7 @@ else
             'subprojects/nlohmann/single_include/nlohmann',
         ]
     )
+    nlohmann_json = nlohmann_json.as_system('system')
 endif
 bmcweb_dependencies += nlohmann_json
 
@@ -299,6 +300,7 @@ if not boost.found()
   subproject('boost', required: false)
   boost_inc = include_directories('subprojects/boost_1_75_0/', is_system:true)
   boost  = declare_dependency(include_directories : boost_inc)
+  boost = boost.as_system('system')
 endif
 bmcweb_dependencies += boost
 
@@ -308,6 +310,7 @@ else
   subproject('boost-url', required: false)
   boost_url_inc = include_directories('subprojects/boost-url/include', is_system:true)
   boost_url= declare_dependency(include_directories : boost_url_inc)
+  boost_url = boost_url.as_system('system')
 endif
 bmcweb_dependencies += boost_url
 
@@ -319,6 +322,8 @@ if get_option('tests').enabled()
     gtest = gtest_proj.get_variable('gtest_main_dep')
     gmock = gtest_proj.get_variable('gmock_dep')
   endif
+  gtest = gtest.as_system('system')
+  gmock = gmock.as_system('system')
 endif
 
 # Source files
