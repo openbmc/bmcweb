@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "38afaef0_9c475491",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-23T09:04:38Z",
+      "side": 1,
+      "message": "I rewrite the commit, if there is some other information need to be added here please let me know, thank you.",
+      "parentUuid": "04f99b7f_1794b0f9",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 96
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce20a092_1688fb58",
         "filename": "meson_options.txt",
         "patchSetId": 4
@@ -910,6 +934,30 @@
       "side": 1,
       "message": "MessageId is required for Event type logs.",
       "parentUuid": "78424194_f33ca4a4",
+      "range": {
+        "startLine": 1754,
+        "startChar": 35,
+        "endLine": 1754,
+        "endChar": 45
+      },
+      "revId": "64a9f30ee09b2855ef063505d0aeddde16ca2ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8bc25c4_1e4f115a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-23T09:04:38Z",
+      "side": 1,
+      "message": "I register a MessageId for HostLogger.",
+      "parentUuid": "2a65b68c_6440a44f",
       "range": {
         "startLine": 1754,
         "startChar": 35,

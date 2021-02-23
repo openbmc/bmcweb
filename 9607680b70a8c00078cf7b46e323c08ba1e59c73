@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c46aa3b0_a8913b23",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-23T09:04:38Z",
+      "side": 1,
+      "message": "Yes, i want to delete it. Modify the code here.",
+      "parentUuid": "88b84fac_1d3ce811",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "9607680b70a8c00078cf7b46e323c08ba1e59c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eec780c_a5cfe69e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "9607680b70a8c00078cf7b46e323c08ba1e59c73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cc9a68_710b9736",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-02-23T09:04:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eec780c_a5cfe69e",
+      "range": {
+        "startLine": 1683,
+        "startChar": 65,
+        "endLine": 1683,
+        "endChar": 67
+      },
+      "revId": "9607680b70a8c00078cf7b46e323c08ba1e59c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
