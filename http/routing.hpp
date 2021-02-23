@@ -714,11 +714,6 @@ class Trie
   public:
     void validate()
     {
-        if (!head()->isSimpleNode())
-        {
-            throw std::runtime_error(
-                "Internal error: Trie header should be simple!");
-        }
         optimize();
     }
 
