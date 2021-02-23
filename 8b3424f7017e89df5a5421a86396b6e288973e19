@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25c89e46_3f4e2224",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-23T03:52:38Z",
+      "side": 1,
+      "message": "Can we talk here a little bit about the fact that this duplicates values, and how we would expect clients to deal with it in the commit message?  That seems important.\n\nAlso, I seem to recall that the new schemas have a links strategy for chassis to point at their various sensors.  Can we talk to why we didn\u0027t do that here?",
+      "revId": "8b3424f7017e89df5a5421a86396b6e288973e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
