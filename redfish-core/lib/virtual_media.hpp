@@ -210,7 +210,7 @@ static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
                 }
 
                 item["@odata.id"] =
-                    "/redfish/v1/Managers/" + name + "/VirtualMedia/" + *path;
+                    "/redfish/v1/Managers/" + name + "/VirtualMedia/" + path;
 
                 members.emplace_back(std::move(item));
             }
