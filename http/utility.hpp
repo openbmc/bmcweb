@@ -18,6 +18,7 @@ namespace crow
 namespace black_magic
 {
 
+
 constexpr unsigned findClosingTag(std::string_view s, unsigned p)
 {
     return s[p] == '>' ? p : findClosingTag(s, p + 1);
@@ -122,8 +123,10 @@ struct computeParameterTagFromArgsList<Arg, Args...>
             : subValue;
 };
 
+
 inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
 {
+
     if (a == 0)
     {
         return b == 0;
@@ -151,6 +154,7 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
 
 constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
 {
+
     if (p == s.size())
     {
         return 0;

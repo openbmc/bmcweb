@@ -6,7 +6,7 @@
 
 namespace cors_preflight
 {
-void requestRoutes(App& app)
+inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "<str>")
         .methods(boost::beast::http::verb::options)(

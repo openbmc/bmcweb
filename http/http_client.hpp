@@ -80,6 +80,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port;
         // Set a timeout on the operation
         conn.expires_after(std::chrono::seconds(30));
+
         conn.async_connect(endpoint, [self(shared_from_this())](
                                          const boost::beast::error_code& ec,
                                          const boost::asio::ip::tcp::resolver::
