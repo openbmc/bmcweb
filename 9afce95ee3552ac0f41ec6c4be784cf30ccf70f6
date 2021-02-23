@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "3295fe20_5709a045",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c437d4e_b3021093",
+      "range": {
+        "startLine": 833,
+        "startChar": 50,
+        "endLine": 833,
+        "endChar": 66
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76f1550f_69624926",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -286,6 +310,30 @@
     },
     {
       "key": {
+        "uuid": "c223bf7e_51d909d8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "You can test with this:\n   busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTree sias /xyz/openbmc_project/inventory 0 1 InvalidInterface123\n\nreturns this:\n    a{sa{sas}} 0\n\nYou are right about 404 but I\u0027ll address that in a different thread",
+      "parentUuid": "55b16d99_e31bb586",
+      "range": {
+        "startLine": 861,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 51
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "846fdf4e_4a858e36",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -297,6 +345,30 @@
       "writtenOn": "2021-02-20T17:52:16Z",
       "side": 1,
       "message": "Technically this should be an internal error, right?",
+      "range": {
+        "startLine": 867,
+        "startChar": 58,
+        "endLine": 867,
+        "endChar": 76
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f41d6b5_5a32cf53",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "It doesn\u0027t make sense for ObjectMapper to return an object with an empty map, sure, so it could be an internal error.\n\nBut if this ObjectMapper result were consistent/repeatable, then if the client were to GET this same Processor, they would not find the AppliedOperatingConfig property. So that\u0027s why I decided it should return a PropertyUnknown. They are trying to PATCH a property which doesn\u0027t exist in the resource.",
+      "parentUuid": "846fdf4e_4a858e36",
       "range": {
         "startLine": 867,
         "startChar": 58,
@@ -380,6 +452,30 @@
     },
     {
       "key": {
+        "uuid": "e23aade4_17c462d2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84cf1f77_e005f199",
+      "range": {
+        "startLine": 877,
+        "startChar": 51,
+        "endLine": 877,
+        "endChar": 69
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8817a86c_44e61d8c",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -451,6 +547,30 @@
     },
     {
       "key": {
+        "uuid": "979e953d_2f033416",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d52aedb_b9fd7fab",
+      "range": {
+        "startLine": 876,
+        "startChar": 0,
+        "endLine": 892,
+        "endChar": 76
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52117996_97efe466",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -510,6 +630,30 @@
       "side": 1,
       "message": "I\u0027m not following why 6 lookups would be required.  If we hit this, it means that we couldn\u0027t find a place to write the value, and it\u0027s effectively 404.",
       "parentUuid": "a3549d62_e23953fa",
+      "range": {
+        "startLine": 902,
+        "startChar": 22,
+        "endLine": 902,
+        "endChar": 37
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619efad9_1337442c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "When client GETs the Processor, we do the lookup on several different interfaces in getProcessorData(). Only if none of the interfaces are found do we return 404. Hence the same logic should apply to the PATCH. This is missing in my patchset, but I will add the same lookup in doPatch() to determine up front if 404 should be returned.\n\nBut then in this function if xyz.openbmc_project.Control.Processor.CurrentOperatingConfig is not present we should return propertyUnknown, because it\u0027s required for AppliedOperatingConfiug to be present.",
+      "parentUuid": "a1f58d46_fe018510",
       "range": {
         "startLine": 902,
         "startChar": 22,
@@ -590,6 +734,30 @@
       "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7edd4efc_38559b5b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-23T19:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "289c1fb9_7be793b0",
+      "range": {
+        "startLine": 1173,
+        "startChar": 51,
+        "endLine": 1173,
+        "endChar": 71
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
