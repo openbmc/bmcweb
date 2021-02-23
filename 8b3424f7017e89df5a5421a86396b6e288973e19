@@ -16,6 +16,24 @@
       "revId": "8b3424f7017e89df5a5421a86396b6e288973e19",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "599e7e53_0e65d00a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-02-23T05:58:39Z",
+      "side": 1,
+      "message": "Quote the idea of @Gunnar:\n\n```\nRedfish\u0027s reply was \"My statement from 18 months ago is no longer our \nrecommendation. That was before we proposed to re-factor the Power and \nThermal schemas to use the Sensor model. And that continues to be our \ndirection. So in that light, we want everything that counts as a \n\"sensor\" to be part of the Sensor collection so that generic monitoring \nsoftware can be built to harvest sensor data across the Redfish model.\n\nEven if an implementation hasn\u0027t decided to adopt the (still a \nwork-in-progress) PowerSubystem and ThermalSubsystem models, the \nunderlying temperature and fan sensors can be rendered as Redfish Sensor \nresources as a good middle ground (and a step in the right direction for \nfuture work).\".\n\nBased on that reply, I propose we move Redfish SensorCollection to show \nall sensors. Let me know if anyone objects.\n\nOpenBMC plans to support both the new and old Power/Thermal Schemas for some time. There does not appear to be a \"new\" sensor collection.\n```",
+      "parentUuid": "25c89e46_3f4e2224",
+      "revId": "8b3424f7017e89df5a5421a86396b6e288973e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
