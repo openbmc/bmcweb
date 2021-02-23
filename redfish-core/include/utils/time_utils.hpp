@@ -26,7 +26,7 @@ inline void leftZeroPadding(std::string& str, const std::size_t padding)
  *        Example output: "P12DT1M5.5S"
  *        Ref: Redfish Specification, Section 9.4.4. Duration values
  */
-std::string toDurationString(std::chrono::milliseconds ms)
+inline std::string toDurationString(std::chrono::milliseconds ms)
 {
     if (ms < std::chrono::milliseconds::zero())
     {
