@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "116dab82_116e7f96",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-23T07:09:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "904b8631_7ec27dd9",
+      "range": {
+        "startLine": 78,
+        "startChar": 9,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3583f85d_4628b5a4",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-23T05:45:40Z",
       "side": 1,
       "message": "Setting retry is fine. But retry should try fresh connection establishment.",
+      "range": {
+        "startLine": 219,
+        "startChar": 45,
+        "endLine": 219,
+        "endChar": 50
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6424935b_ca88afe0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-23T07:09:24Z",
+      "side": 1,
+      "message": "yes, It does re-establish the connection.",
+      "parentUuid": "3583f85d_4628b5a4",
       "range": {
         "startLine": 219,
         "startChar": 45,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b5382ce6_b55d1996",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-23T07:09:24Z",
+      "side": 1,
+      "message": "When event listener not set the keep-alive, This will close the connection and make sure to re-establish the connection for sending remaining data in queue. We should  NOT stop/abort the sending event. It just need to abort connection and re-establish in that case. So we are good.",
+      "parentUuid": "0c318424_24b5638c",
+      "range": {
+        "startLine": 263,
+        "startChar": 8,
+        "endLine": 263,
+        "endChar": 80
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9209dad6_270b3dcf",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2021-02-23T05:45:40Z",
       "side": 1,
       "message": "This will keep calling the retry action again and again until the max attempts. We should change the ConnState here to get this to try the fresh connection - starting from resolving the host\n\nNote: self-\u003estate \u003d ConnState::initialized; from the patch set 1 is removed here.",
+      "range": {
+        "startLine": 322,
+        "startChar": 22,
+        "endLine": 322,
+        "endChar": 37
+      },
+      "revId": "74d13fe802a6c0187b2672c8bcb0e6d3683a5e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c994fc5_bb47a763",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-23T07:09:24Z",
+      "side": 1,
+      "message": "No need to change the connection state here. When control falls under retry logic, It will close existing connection and state will transition to ConnState::closed. So after wait timeout, It starts the fresh connection.\n\nBut i didn\u0027t noticed that doClose() call is removed in this patch which was there in original patch. I will add it back.",
+      "parentUuid": "9209dad6_270b3dcf",
       "range": {
         "startLine": 322,
         "startChar": 22,
