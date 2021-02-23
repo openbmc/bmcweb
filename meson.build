@@ -337,7 +337,7 @@ srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
 conf_data = configuration_data()
 conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
 xss_enabled = get_option('insecure-disable-xss')
-conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled)
+conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 configure_file(input: 'config.h.in',
                output: 'config.h',
