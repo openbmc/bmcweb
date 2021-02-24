@@ -22,6 +22,30 @@
       "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40eca9c4_6e910e3c",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T22:34:28Z",
+      "side": 1,
+      "message": "\u003e This design is yet to take a look , where we are sending redfish events by looking at the journal log, as this is not scalable\n\nWith respect, that\u0027s your opinion.  Other people on the project have found it scalable, and having this code here doesn\u0027t hurt the other use cases at all.\n\n\u003e and we cannot add such journal logs in other repos.\n\nWhy not?  It doesn\u0027t hurt anything to have extra entries in the journal that you don\u0027t use.  Other repos don\u0027t want to log anything?  bmcweb today doesn\u0027t take a hard dependency on phosphor-logging.\n\n\u003e Seems Intel is using this infra, should we keep this inside some compilation flag.\n\nThis is something that I don\u0027t think needs the compilation flag, and has value even if you don\u0027t have journal IPMI SEL enabled, as it still prints to the journal, similar to how auditd would do on a normal linux system.",
+      "parentUuid": "c6fb2222_e2dd14c3",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
