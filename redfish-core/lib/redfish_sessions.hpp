@@ -229,8 +229,8 @@ class SessionCollection : public Node
         // User is authenticated - create session
         std::shared_ptr<persistent_data::UserSession> session =
             persistent_data::SessionStore::getInstance().generateUserSession(
-                username, persistent_data::PersistenceType::TIMEOUT,
-                isConfigureSelfOnly, clientId, req.ipAddress.to_string());
+                username, req.ipAddress.to_string(), clientId,
+                persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);

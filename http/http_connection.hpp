@@ -239,12 +239,12 @@ class Connection :
                 return true;
             }
             sslUser.resize(lastChar);
-
-            session =
-                persistent_data::SessionStore::getInstance()
-                    .generateUserSession(
-                        sslUser, persistent_data::PersistenceType::TIMEOUT,
-                        false, req->ipAddress.to_string());
+            std::string unsupportedClientId = "";
+            session = persistent_data::SessionStore::getInstance()
+                          .generateUserSession(
+                              sslUser, req->ipAddress.to_string(),
+                              unsupportedClientId,
+                              persistent_data::PersistenceType::TIMEOUT);
             if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this
