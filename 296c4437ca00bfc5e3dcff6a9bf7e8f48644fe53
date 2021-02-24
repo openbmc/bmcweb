@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7634514e_37be7d1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T18:24:25Z",
+      "side": 1,
+      "message": "Please also call out the other two sections, and mention why we are deleting code for handling of those conditions.",
+      "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a44d5a1_17742cf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T18:24:25Z",
+      "side": 1,
+      "message": "Way more testing is needed here.  You\u0027ve modified error handling for almost every error type.  You don\u0027t have to check each one by hand, but I would expect to at least test one example of each type of error, as well as the difference between single errors, and multiple errors (they call different code paths).",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 8
+      },
+      "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4877fc7_66363e8f",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T18:24:25Z",
+      "side": 1,
+      "message": "This wasn\u0027t mentioned in the commit message at all?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 64
+      },
+      "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
