@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a365bf5_e9440101",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-02-24T21:38:36Z",
+      "side": 1,
+      "message": "If the code flows to this point, the username and password ARE correct, but the account cannot be used for login.  It could be because the account is expired, the password is expired and must be changed, or for a more esoteric reason such as access at the wrong time of day, etc.  See http://www.linux-pam.org/Linux-PAM-html/adg-interface-by-app-expected.html#adg-pam_acct_mgmt.\n\nThe messages should be closer to:\n  if (retval \u003d\u003d PAM_NEW_AUTHTOK_REQD) then \"The account password is expired\"\n  else \"The account cannot be used for login\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "e47e41d495e35ef3f6784311528a1dadb26909f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
