@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ae607ca_84b9a291",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9459942_7611a824",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d488bb7e_088f3e80",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65040acd_2a48e47b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "This is used to send as a dbus method argument in line 137",
+      "parentUuid": "d488bb7e_088f3e80",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 17
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "135e5780_2a2902e9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c297e262_972b3c85",
+      "range": {
+        "startLine": 106,
+        "startChar": 30,
+        "endLine": 106,
+        "endChar": 34
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09767b6f_b71f12b3",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c5d3267f_5cb2b32c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09767b6f_b71f12b3",
+      "range": {
+        "startLine": 109,
+        "startChar": 41,
+        "endLine": 109,
+        "endChar": 50
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fd75196_f9e79a68",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2021-02-18T18:01:32Z",
       "side": 1,
       "message": "This doesn\u0027t handle ipv6.\n\nI suspect this whole routine needs simplified to not do the intermediate string conversion.\n\nAddress v4 can be constructed from a uint32:\nhttps://www.boost.org/doc/libs/1_66_0/doc/html/boost_asio/reference/ip__address_v4/address_v4.html which can be built from this vector using\nif (ipAddress.size() \u003d\u003d 4){\n    uint32_t address \u003d ipAddress[0] + ipAddress[1] \u003c\u003c 8 .....\n}\n\nand address v6 can be constructed directly from the vector of bytes:\nhttps://www.boost.org/doc/libs/1_66_0/doc/html/boost_asio/reference/ip__address_v6/address_v6.html\n\nUsing these two as an input to the endpoint would avoid the string construction and destruction completely, and have fewer error conditions to handle.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a995b5e_e9d7629f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "I do not have setup to test for IPv6. So leaving out the ipv6 case with a TODO and debug trace",
+      "parentUuid": "3fd75196_f9e79a68",
       "range": {
         "startLine": 115,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "05a1d8b0_c4dfc725",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3ac6cf3_90bfb3a8",
+      "range": {
+        "startLine": 122,
+        "startChar": 56,
+        "endLine": 122,
+        "endChar": 68
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27132856_77757910",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07db0867_bcb04d33",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27132856_77757910",
+      "range": {
+        "startLine": 123,
+        "startChar": 45,
+        "endLine": 123,
+        "endChar": 54
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "b42cbd97_aaad58e0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d825330_b6cdfdd4",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80c07279_a0d802a7",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -206,6 +398,30 @@
       "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146c6881_830bbb09",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80c07279_a0d802a7",
+      "range": {
+        "startLine": 136,
+        "startChar": 76,
+        "endLine": 136,
+        "endChar": 77
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
