@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e15096b7_5cc2e6c6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-02-24T10:12:33Z",
+      "side": 1,
+      "message": "Done. Thanks",
+      "parentUuid": "4e7bb06d_153b75e2",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 33
+      },
+      "revId": "dc5b94bbe9b8d60763de429984467d428b4810b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd4971bf_566a7e96",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-15T06:38:22Z",
       "side": 1,
       "message": "negative case handled? if uid \u003d\u003d params[0] was always false in line 79",
+      "range": {
+        "startLine": 89,
+        "startChar": 16,
+        "endLine": 89,
+        "endChar": 43
+      },
+      "revId": "dc5b94bbe9b8d60763de429984467d428b4810b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e9bfc4_a5100db1",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-02-24T10:12:33Z",
+      "side": 1,
+      "message": "Line#49, when \"ipmiSessionsFlag\" is true then control will come here i.e.line#73. This if condition to find the position of that \"uid\" in sharedptr.",
+      "parentUuid": "dd4971bf_566a7e96",
       "range": {
         "startLine": 89,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d070b710_76a08022",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-02-24T10:12:33Z",
+      "side": 1,
+      "message": "Done. Thanks",
+      "parentUuid": "6096ef31_0029ff89",
+      "range": {
+        "startLine": 138,
+        "startChar": 15,
+        "endLine": 138,
+        "endChar": 41
+      },
+      "revId": "dc5b94bbe9b8d60763de429984467d428b4810b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0dc0c98d_f5ae23f4",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2021-02-15T06:38:22Z",
       "side": 1,
       "message": "any chance for Walking off the end of a string? as in https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md",
+      "range": {
+        "startLine": 281,
+        "startChar": 63,
+        "endLine": 281,
+        "endChar": 76
+      },
+      "revId": "dc5b94bbe9b8d60763de429984467d428b4810b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b3a0c98_09d89d3f",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-02-24T10:12:33Z",
+      "side": 1,
+      "message": "Fixed now.",
+      "parentUuid": "0dc0c98d_f5ae23f4",
       "range": {
         "startLine": 281,
         "startChar": 63,
