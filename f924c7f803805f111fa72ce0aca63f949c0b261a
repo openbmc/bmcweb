@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a013fa51_7daa4b13",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-24T16:27:35Z",
+      "side": 1,
+      "message": "@Appu - While i was testing this latest changes with two event subscribers - i was able to receive the events at only one subscriber. Other subscriber was unable to receive the events , and the \"Async operation is already in progress\" hits. So this does not work as expected",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 9
+      },
+      "revId": "f924c7f803805f111fa72ce0aca63f949c0b261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
