@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63968c5f_38e7e082",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-24T01:34:45Z",
+      "side": 1,
+      "message": "Why the new lines?",
+      "revId": "b00dcc27587267e18d3abdee82f1ed7b39744d02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
