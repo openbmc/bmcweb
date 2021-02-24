@@ -79,8 +79,8 @@ static std::shared_ptr<persistent_data::UserSession>
     // This whole flow needs to be revisited anyway, as we can't be
     // calling directly into pam for every request
     return persistent_data::SessionStore::getInstance().generateUserSession(
-        user, persistent_data::PersistenceType::SINGLE_REQUEST,
-        isConfigureSelfOnly, clientIp.to_string());
+        user, clientIp.to_string(),
+        persistent_data::PersistenceType::SINGLE_REQUEST, isConfigureSelfOnly);
 }
 #endif
 

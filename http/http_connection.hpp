@@ -240,11 +240,10 @@ class Connection :
             }
             sslUser.resize(lastChar);
 
-            session =
-                persistent_data::SessionStore::getInstance()
-                    .generateUserSession(
-                        sslUser, persistent_data::PersistenceType::TIMEOUT,
-                        false, req->ipAddress.to_string());
+            session = persistent_data::SessionStore::getInstance()
+                          .generateUserSession(
+                              sslUser, req->ipAddress.to_string(),
+                              persistent_data::PersistenceType::TIMEOUT);
             if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this

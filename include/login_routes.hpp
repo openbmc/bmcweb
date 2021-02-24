@@ -139,9 +139,9 @@ inline void requestRoutes(App& app)
                     auto session =
                         persistent_data::SessionStore::getInstance()
                             .generateUserSession(
-                                username,
+                                username, req.ipAddress.to_string(),
                                 persistent_data::PersistenceType::TIMEOUT,
-                                isConfigureSelfOnly, req.ipAddress.to_string());
+                                isConfigureSelfOnly);
 
                     if (looksLikePhosphorRest)
                     {
