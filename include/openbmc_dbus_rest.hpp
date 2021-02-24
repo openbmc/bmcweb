@@ -25,7 +25,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <regex>
 #include <utility>
 
 namespace crow
@@ -2058,6 +2057,27 @@ inline void handleDBusUrl(const crow::Request& req, crow::Response& res,
     res.end();
 }
 
+inline bool isValidFilename(const std::string_view fname)
+{
+    if (fname.empty())
+    {
+        return false;
+    }
+    if (fname[0] == '.')
+    {
+        return false;
+    }
+
+    for (char c : fname)
+    {
+        if (!isalnum(c) && c != '-' && c != ' ')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/bus/")
@@ -2148,8 +2168,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)([](const crow::Request&,
                                                    crow::Response& res,
                                                    const std::string& dumpId) {
-            std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
-            if (!std::regex_match(dumpId, validFilename))
+            if (!isValidFilename(dumpId))
             {
                 res.result(boost::beast::http::status::bad_request);
                 res.end();
@@ -2184,11 +2203,7 @@ inline void requestRoutes(App& app)
                 // directory
                 std::string dumpFileName = file.path().filename().string();
 
-                // Filename should be in alphanumeric, dot and underscore
-                // Its based on phosphor-debug-collector application dumpfile
-                // format
-                std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
-                if (!std::regex_match(dumpFileName, dumpFileRegex))
+                if (!isValidFilename(dumpFileName))
                 {
                     BMCWEB_LOG_ERROR << "Invalid dump filename "
                                      << dumpFileName;
