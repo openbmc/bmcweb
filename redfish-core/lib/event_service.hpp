@@ -67,15 +67,17 @@ class EventService : public Node
                            "EventService.SubmitTestEvent"}}}}},
             {"@odata.id", "/redfish/v1/EventService"}};
 
-        const auto& [enabled, retryAttempts, retryTimeoutInterval] =
-            EventServiceManager::getInstance().getEventServiceConfig();
+        const persistent_data::EventServiceConfig evconfig =
+            persistent_data::EventServiceStore::getInstance()
+                .getEventServiceConfig();
 
         asyncResp->res.jsonValue["Status"]["State"] =
-            (enabled ? "Enabled" : "Disabled");
-        asyncResp->res.jsonValue["ServiceEnabled"] = enabled;
-        asyncResp->res.jsonValue["DeliveryRetryAttempts"] = retryAttempts;
+            (evconfig.enabled ? "Enabled" : "Disabled");
+        asyncResp->res.jsonValue["ServiceEnabled"] = evconfig.enabled;
+        asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
+            evconfig.retryAttempts;
         asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-            retryTimeoutInterval;
+            evconfig.retryTimeoutInterval;
         asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
         asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
@@ -106,12 +108,13 @@ class EventService : public Node
             return;
         }
 
-        auto [enabled, retryCount, retryTimeoutInterval] =
-            EventServiceManager::getInstance().getEventServiceConfig();
+        persistent_data::EventServiceConfig evconfig =
+            persistent_data::EventServiceStore::getInstance()
+                .getEventServiceConfig();
 
         if (serviceEnabled)
         {
-            enabled = *serviceEnabled;
+            evconfig.enabled = *serviceEnabled;
         }
 
         if (retryAttemps)
@@ -125,7 +128,7 @@ class EventService : public Node
             }
             else
             {
-                retryCount = *retryAttemps;
+                evconfig.retryAttempts = *retryAttemps;
             }
         }
 
@@ -140,12 +143,11 @@ class EventService : public Node
             }
             else
             {
-                retryTimeoutInterval = *retryInterval;
+                evconfig.retryTimeoutInterval = *retryInterval;
             }
         }
 
-        EventServiceManager::getInstance().setEventServiceConfig(
-            std::make_tuple(enabled, retryCount, retryTimeoutInterval));
+        EventServiceManager::getInstance().setEventServiceConfig(evconfig);
     }
 };
 
