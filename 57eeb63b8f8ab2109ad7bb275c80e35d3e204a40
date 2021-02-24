@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fc449f1_b6e80dd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-24T19:05:08Z",
+      "side": 1,
+      "message": "This just isn\u0027t the GUI, it is anyone using /login with ClientID enabled. Also I think other Auth methods had this problem as well \n\nhttps://github.com/search?q\u003dorg%3Aopenbmc+generateUserSession\u0026type\u003dcode",
+      "range": {
+        "startLine": 7,
+        "startChar": 58,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "57eeb63b8f8ab2109ad7bb275c80e35d3e204a40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ec513b9_939ff82b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-24T19:05:08Z",
+      "side": 1,
+      "message": "Can you further explain the /login ? i.e. This isn\u0027t specific to the GUI but to anyone with ClientID enabled",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "57eeb63b8f8ab2109ad7bb275c80e35d3e204a40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
