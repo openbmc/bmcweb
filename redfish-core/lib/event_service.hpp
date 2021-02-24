@@ -56,16 +56,17 @@ inline void requestRoutesEventService(App& app)
                                    "EventService.SubmitTestEvent"}}}}},
                     {"@odata.id", "/redfish/v1/EventService"}};
 
-                const auto& [enabled, retryAttempts, retryTimeoutInterval] =
-                    EventServiceManager::getInstance().getEventServiceConfig();
+                const persistent_data::EventServiceConfig evconfig =
+                    persistent_data::EventServiceStore::getInstance()
+                        .getEventServiceConfig();
 
                 asyncResp->res.jsonValue["Status"]["State"] =
-                    (enabled ? "Enabled" : "Disabled");
-                asyncResp->res.jsonValue["ServiceEnabled"] = enabled;
+                    (evconfig.enabled ? "Enabled" : "Disabled");
+                asyncResp->res.jsonValue["ServiceEnabled"] = evconfig.enabled;
                 asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
-                    retryAttempts;
+                    evconfig.retryAttempts;
                 asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-                    retryTimeoutInterval;
+                    evconfig.retryTimeoutInterval;
                 asyncResp->res.jsonValue["EventFormatTypes"] =
                     supportedEvtFormatTypes;
                 asyncResp->res.jsonValue["RegistryPrefixes"] =
@@ -101,12 +102,13 @@ inline void requestRoutesEventService(App& app)
                     return;
                 }
 
-                auto [enabled, retryCount, retryTimeoutInterval] =
-                    EventServiceManager::getInstance().getEventServiceConfig();
+                persistent_data::EventServiceConfig evconfig =
+                    persistent_data::EventServiceStore::getInstance()
+                        .getEventServiceConfig();
 
                 if (serviceEnabled)
                 {
-                    enabled = *serviceEnabled;
+                    evconfig.enabled = *serviceEnabled;
                 }
 
                 if (retryAttemps)
@@ -120,7 +122,7 @@ inline void requestRoutesEventService(App& app)
                     }
                     else
                     {
-                        retryCount = *retryAttemps;
+                        evconfig.retryAttempts = *retryAttemps;
                     }
                 }
 
@@ -135,12 +137,12 @@ inline void requestRoutesEventService(App& app)
                     }
                     else
                     {
-                        retryTimeoutInterval = *retryInterval;
+                        evconfig.retryTimeoutInterval = *retryInterval;
                     }
                 }
 
                 EventServiceManager::getInstance().setEventServiceConfig(
-                    std::make_tuple(enabled, retryCount, retryTimeoutInterval));
+                    evconfig);
             });
 }
 
