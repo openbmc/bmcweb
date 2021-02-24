@@ -18,7 +18,6 @@
 #include <sdbusplus/message.hpp>
 
 #include <filesystem>
-#include <regex>
 
 namespace dbus
 {
@@ -91,6 +90,32 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+inline bool isHostnameValid(const std::string& hostName)
+{
+    if (hostName.empty() || hostName.length() > 64)
+    {
+        return false;
+    }
+
+    if (!isalnum(hostName[0]))
+    {
+        return false;
+    }
+    for (const char c : hostName)
+    {
+        if (!isalnum(c) && c != '-')
+        {
+            return false;
+        }
+    }
+    if (hostName[hostName.size() - 1] == '-')
+    {
+        return false;
+    }
+
+    return true;
 }
 
 } // namespace utility
