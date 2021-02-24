@@ -106,6 +106,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7d3e70_53e8a1f1",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T18:01:28Z",
+      "side": 1,
+      "message": "\u003e \u003e How are ldap users authorized then? \n\u003e We use the linux API for authorization where we get the group ID by calling the getpwnam_r and then call the getgrent to get the group name of the user..\n\u003e How does the get ent knows that they need to make the ldap call? There is a nsswitch configuration where we tells that for password, grpup search what should be called(Linux, ldap).\n\u003e \n\u003e I am not sure that internally these API makes the LDAP call for each request to get the grpup name or it caches somewhere.but I have seen most of the times that LDAP call goes to the LDAP server for the authorization but it is very fast(in mili or micro seconds) as our ldap server is in the same network.\n\nYou can\u0027t assume the LDAP server will always be fast, nor can you assume that the LDAP server can handle the load of all the bmcweb requests that might come through, also \"fast\" is relative, it\u0027s another network connection that needs polled, and significantly increases the response times.  Considering bmcweb is supposed to respond in a matter of milliseconds, adding another milliseconds hop to every request seems like an issue.\n\nConsidering that bmcweb is logging in via PAM directly, I would expect the getgrent to also be in bmcweb, so we can authorize users and determine their groups without any intermediates, at the same time we do the pam_authenticate call.  With that said, I don\u0027t have a problem authorizing through dbus, I have a problem authorizing every request.  If you have requirements around supporting removing sessions when the groups change (which is fairly unique) then phosphor-user-manager needs to set up inotify, and event on them properly.",
+      "parentUuid": "868870c7_148345bd",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
