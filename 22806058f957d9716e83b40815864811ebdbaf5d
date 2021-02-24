@@ -250,6 +250,24 @@
     },
     {
       "key": {
+        "uuid": "98a04264_2a3bc8b9",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-02-24T21:47:04Z",
+      "side": 1,
+      "message": "Still need to address or it\u0027s ok to default to Off for unknown enum?",
+      "parentUuid": "3f9aa957_205985d5",
+      "revId": "22806058f957d9716e83b40815864811ebdbaf5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a626e5d_4d068d2e",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 5
