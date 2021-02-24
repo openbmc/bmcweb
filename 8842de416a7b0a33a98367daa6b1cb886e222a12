@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cad1b72a_94df086b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-24T01:42:09Z",
+      "side": 1,
+      "message": "I saw your comment but always best to put the validator in the commit msg. (I could have missed it)",
+      "revId": "8842de416a7b0a33a98367daa6b1cb886e222a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e49178c_25f4643f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-24T01:42:09Z",
+      "side": 1,
+      "message": "Not sure this one makes sense, would think 404 here, I\u0027ll let Ed weigh in.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 104
+      },
+      "revId": "8842de416a7b0a33a98367daa6b1cb886e222a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
