@@ -136,12 +136,14 @@ inline void requestRoutes(App& app)
                 }
                 else
                 {
+                    std::string unsupportedClientId = "";
                     auto session =
                         persistent_data::SessionStore::getInstance()
                             .generateUserSession(
-                                username,
+                                username, req.ipAddress.to_string(),
+                                unsupportedClientId,
                                 persistent_data::PersistenceType::TIMEOUT,
-                                isConfigureSelfOnly, req.ipAddress.to_string());
+                                isConfigureSelfOnly);
 
                     if (looksLikePhosphorRest)
                     {
