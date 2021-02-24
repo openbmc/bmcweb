@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1536b073_c467282b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-24T09:41:04Z",
+      "side": 1,
+      "message": "Done. Add the getValidChassisPath function to utils/chassis_utils.hpp and use it to check the chassisID",
+      "parentUuid": "319bed76_6c292f4f",
+      "revId": "e18f10217c650b57a8eacfd33d776646b977e4c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d62d1f93_6ad8acc7",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "e18f10217c650b57a8eacfd33d776646b977e4c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a28d1ce_b72b6f9c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-24T09:41:04Z",
+      "side": 1,
+      "message": "Done, Remove it",
+      "parentUuid": "d62d1f93_6ad8acc7",
+      "revId": "e18f10217c650b57a8eacfd33d776646b977e4c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

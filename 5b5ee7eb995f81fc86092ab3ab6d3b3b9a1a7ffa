@@ -280,6 +280,24 @@
     },
     {
       "key": {
+        "uuid": "8e745a1c_d0353c2d",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-02-24T09:41:04Z",
+      "side": 1,
+      "message": "Done. Add a function to check the ChassisId",
+      "parentUuid": "d6bd990a_ad3c817b",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "979340c9_6fc34209",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 11
