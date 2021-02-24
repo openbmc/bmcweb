@@ -212,8 +212,8 @@ class SessionStore
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
         PersistenceType persistence = PersistenceType::TIMEOUT,
-        bool isConfigureSelfOnly = false, const std::string_view clientId = "",
-        const std::string_view clientIp = "")
+        bool isConfigureSelfOnly = false, const std::string_view clientIp = "",
+        const std::string_view clientId = "")
     {
         // TODO(ed) find a secure way to not generate session identifiers if
         // persistence is set to SINGLE_REQUEST
