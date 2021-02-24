@@ -14,13 +14,13 @@
 // limitations under the License.
 */
 #pragma once
-#include "event_service_manager.hpp"
+#include <persistent_data.hpp>
 
 namespace redfish
 {
 
 static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
-    eventFormatType, metricReportFormatType};
+    persistent_data::eventFormatType, persistent_data::metricReportFormatType};
 static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
     "Base", "OpenBMC", "Task"};
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
@@ -67,15 +67,17 @@ class EventService : public Node
                            "EventService.SubmitTestEvent"}}}}},
             {"@odata.id", "/redfish/v1/EventService"}};
 
-        const auto& [enabled, retryAttempts, retryTimeoutInterval] =
-            EventServiceManager::getInstance().getEventServiceConfig();
+        persistent_data::EventServiceConfig eventServiceConfig =
+            persistent_data::EventServiceManager::getInstance()
+                .getEventServiceConfig();
 
         asyncResp->res.jsonValue["Status"]["State"] =
-            (enabled ? "Enabled" : "Disabled");
-        asyncResp->res.jsonValue["ServiceEnabled"] = enabled;
-        asyncResp->res.jsonValue["DeliveryRetryAttempts"] = retryAttempts;
+            (eventServiceConfig.enabled ? "Enabled" : "Disabled");
+        asyncResp->res.jsonValue["ServiceEnabled"] = eventServiceConfig.enabled;
+        asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
+            eventServiceConfig.retryAttempts;
         asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-            retryTimeoutInterval;
+            eventServiceConfig.retryTimeoutInterval;
         asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
         asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
@@ -105,12 +107,13 @@ class EventService : public Node
             return;
         }
 
-        auto [enabled, retryCount, retryTimeoutInterval] =
-            EventServiceManager::getInstance().getEventServiceConfig();
+        persistent_data::EventServiceConfig eventServiceConfig =
+            persistent_data::EventServiceManager::getInstance()
+                .getEventServiceConfig();
 
         if (serviceEnabled)
         {
-            enabled = *serviceEnabled;
+            eventServiceConfig.enabled = *serviceEnabled;
         }
 
         if (retryAttemps)
@@ -124,7 +127,7 @@ class EventService : public Node
             }
             else
             {
-                retryCount = *retryAttemps;
+                eventServiceConfig.retryAttempts = *retryAttemps;
             }
         }
 
@@ -139,12 +142,14 @@ class EventService : public Node
             }
             else
             {
-                retryTimeoutInterval = *retryInterval;
+                eventServiceConfig.retryTimeoutInterval = *retryInterval;
             }
         }
 
-        EventServiceManager::getInstance().setEventServiceConfig(
-            std::make_tuple(enabled, retryCount, retryTimeoutInterval));
+        persistent_data::EventServiceManager::getInstance()
+            .setEventServiceConfig(eventServiceConfig);
+
+        persistent_data::getConfig().writeData();
     }
 };
 
@@ -168,7 +173,7 @@ class SubmitTestEvent : public Node
     void doPost(crow::Response& res, const crow::Request&,
                 const std::vector<std::string>&) override
     {
-        EventServiceManager::getInstance().sendTestEventLog();
+        persistent_data::EventServiceManager::getInstance().sendTestEventLog();
         res.result(boost::beast::http::status::no_content);
         res.end();
     }
@@ -204,7 +209,7 @@ class EventDestinationCollection : public Node
         nlohmann::json& memberArray = asyncResp->res.jsonValue["Members"];
 
         std::vector<std::string> subscripIds =
-            EventServiceManager::getInstance().getAllIDs();
+            persistent_data::EventServiceManager::getInstance().getAllIDs();
         memberArray = nlohmann::json::array();
         asyncResp->res.jsonValue["Members@odata.count"] = subscripIds.size();
 
@@ -221,8 +226,8 @@ class EventDestinationCollection : public Node
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
-            maxNoOfSubscriptions)
+        if (persistent_data::EventServiceManager::getInstance()
+                .getNumberOfSubscriptions() >= maxNoOfSubscriptions)
         {
             messages::eventSubscriptionLimitExceeded(asyncResp->res);
             return;
@@ -308,8 +313,9 @@ class EventDestinationCollection : public Node
             path = "/";
         }
 
-        std::shared_ptr<Subscription> subValue =
-            std::make_shared<Subscription>(host, port, path, uriProto);
+        std::shared_ptr<persistent_data::Subscription> subValue =
+            std::make_shared<persistent_data::Subscription>(host, port, path,
+                                                            uriProto);
 
         subValue->destinationUrl = destUrl;
 
@@ -444,12 +450,14 @@ class EventDestinationCollection : public Node
         }
 
         std::string id =
-            EventServiceManager::getInstance().addSubscription(subValue);
+            persistent_data::EventServiceManager::getInstance().addSubscription(
+                subValue);
         if (id.empty())
         {
             messages::internalError(asyncResp->res);
             return;
         }
+        persistent_data::getConfig().writeData();
 
         messages::created(asyncResp->res);
         asyncResp->res.addHeader(
@@ -484,8 +492,9 @@ class EventDestination : public Node
             return;
         }
 
-        std::shared_ptr<Subscription> subValue =
-            EventServiceManager::getInstance().getSubscription(params[0]);
+        std::shared_ptr<persistent_data::Subscription> subValue =
+            persistent_data::EventServiceManager::getInstance().getSubscription(
+                params[0]);
         if (subValue == nullptr)
         {
             res.result(boost::beast::http::status::not_found);
@@ -532,8 +541,9 @@ class EventDestination : public Node
             return;
         }
 
-        std::shared_ptr<Subscription> subValue =
-            EventServiceManager::getInstance().getSubscription(params[0]);
+        std::shared_ptr<persistent_data::Subscription> subValue =
+            persistent_data::EventServiceManager::getInstance().getSubscription(
+                params[0]);
         if (subValue == nullptr)
         {
             res.result(boost::beast::http::status::not_found);
@@ -576,7 +586,7 @@ class EventDestination : public Node
             subValue->updateRetryPolicy();
         }
 
-        EventServiceManager::getInstance().updateSubscriptionData();
+        persistent_data::getConfig().writeData();
     }
 
     void doDelete(crow::Response& res, const crow::Request&,
@@ -590,13 +600,16 @@ class EventDestination : public Node
             return;
         }
 
-        if (!EventServiceManager::getInstance().isSubscriptionExist(params[0]))
+        if (!persistent_data::EventServiceManager::getInstance()
+                 .isSubscriptionExist(params[0]))
         {
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
-        EventServiceManager::getInstance().deleteSubscription(params[0]);
+        persistent_data::EventServiceManager::getInstance().deleteSubscription(
+            params[0]);
+        persistent_data::getConfig().writeData();
     }
 };
 

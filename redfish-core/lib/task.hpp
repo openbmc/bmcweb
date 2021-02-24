@@ -206,50 +206,50 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         // "Cancelled" = taskCancelled
         if (state == "Starting")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskResumed(std::to_string(index)), origin,
                 resType);
         }
         else if (state == "Running")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskStarted(std::to_string(index)), origin,
                 resType);
         }
         else if ((state == "Suspended") || (state == "Interrupted") ||
                  (state == "Pending"))
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskPaused(std::to_string(index)), origin,
                 resType);
         }
         else if (state == "Stopping")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskAborted(std::to_string(index)), origin,
                 resType);
         }
         else if (state == "Completed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskCompletedOK(std::to_string(index)),
                 origin, resType);
         }
         else if (state == "Killed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskRemoved(std::to_string(index)), origin,
                 resType);
         }
         else if (state == "Exception")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskCompletedWarning(std::to_string(index)),
                 origin, resType);
         }
         else if (state == "Cancelled")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
+            persistent_data::EventServiceManager::getInstance().sendEvent(
                 redfish::messages::taskCancelled(std::to_string(index)), origin,
                 resType);
         }
