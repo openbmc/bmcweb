@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6aabf296_7178dd45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-24T15:42:49Z",
+      "side": 1,
+      "message": "Yeah, a bit confusing. I have it below in bullet 4. I just was unable to re-run after addressing my code review comments until yesterday.",
+      "parentUuid": "cad1b72a_94df086b",
+      "revId": "8842de416a7b0a33a98367daa6b1cb886e222a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9e49178c_25f4643f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2021-02-24T01:42:09Z",
       "side": 1,
       "message": "Not sure this one makes sense, would think 404 here, I\u0027ll let Ed weigh in.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 104
+      },
+      "revId": "8842de416a7b0a33a98367daa6b1cb886e222a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd059c79_138cf1e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-24T15:42:49Z",
+      "side": 1,
+      "message": "I wanted to retest this but when I rebuild my code based off of latest bmcweb master the hypervisor object is gone all together. I\u0027m not sure what\u0027s going on so back to a -1 until I can get to the bottom of it.",
+      "parentUuid": "9e49178c_25f4643f",
       "range": {
         "startLine": 59,
         "startChar": 0,
