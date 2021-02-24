@@ -88,6 +88,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "868870c7_148345bd",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-24T14:04:51Z",
+      "side": 1,
+      "message": "\u003e How are ldap users authorized then? \nWe use the linux API for authorization where we get the group ID by calling the getpwnam_r and then call the getgrent to get the group name of the user..\nHow does the get ent knows that they need to make the ldap call? There is a nsswitch configuration where we tells that for password, grpup search what should be called(Linux, ldap).\n\nI am not sure that internally these API makes the LDAP call for each request to get the grpup name or it caches somewhere.but I have seen most of the times that LDAP call goes to the LDAP server for the authorization but it is very fast(in mili or micro seconds) as our ldap server is in the same network.",
+      "parentUuid": "ebb2843b_31c57476",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
