@@ -5,6 +5,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <eventservicestore.hpp>
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <nlohmann/json.hpp>
@@ -129,6 +130,35 @@ class ConfigFile
                         SessionStore::getInstance().updateSessionTimeout(
                             sessionTimeoutInseconds);
                     }
+                    else if (item.key() == "eventservice_config")
+                    {
+                        EventServiceStore::getInstance()
+                            .getEventServiceConfig()
+                            .fromJson(item.value());
+                    }
+                    else if (item.key() == "subscriptions")
+                    {
+                        for (const auto& elem : item.value())
+                        {
+                            std::shared_ptr<UserSubscription> newSubscription =
+                                UserSubscription::fromJson(elem);
+
+                            if (newSubscription == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Problem reading subscription "
+                                       "from persistent store";
+                                continue;
+                            }
+
+                            BMCWEB_LOG_DEBUG << "Restored subscription: "
+                                             << newSubscription->id << " "
+                                             << newSubscription->customText;
+                            EventServiceStore::getInstance()
+                                .subscriptionsConfigMap.emplace(
+                                    newSubscription->id, newSubscription);
+                        }
+                    }
                     else
                     {
                         // Do nothing in the case of extra fields.  We may have
@@ -170,6 +200,8 @@ class ConfigFile
             std::filesystem::perms::group_read;
         std::filesystem::permissions(filename, permission);
         const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        const auto& e =
+            EventServiceStore::getInstance().getEventServiceConfig();
         nlohmann::json data{
             {"auth_config",
              {{"XToken", c.xtoken},
@@ -177,6 +209,12 @@ class ConfigFile
               {"SessionToken", c.sessionToken},
               {"BasicAuth", c.basic},
               {"TLS", c.tls}}
+
+            },
+            {"eventservice_config",
+             {{"ServiceEnabled", e.enabled},
+              {"DeliveryRetryAttempts", e.retryAttempts},
+              {"DeliveryRetryIntervalSeconds", e.retryTimeoutInterval}}
 
             },
             {"system_uuid", systemUuid},
@@ -201,6 +239,34 @@ class ConfigFile
 #endif
                 });
             }
+        }
+        nlohmann::json& subscriptions = data["subscriptions"];
+        subscriptions = nlohmann::json::array();
+        for (const auto& it :
+             EventServiceStore::getInstance().subscriptionsConfigMap)
+        {
+            std::shared_ptr<UserSubscription> subValue = it.second;
+            if (subValue->subscriptionType == "SSE")
+            {
+                BMCWEB_LOG_DEBUG
+                    << "The subscription type is SSE, so skipping.";
+                continue;
+            }
+            subscriptions.push_back({
+                {"Id", subValue->id},
+                {"Context", subValue->customText},
+                {"DeliveryRetryPolicy", subValue->retryPolicy},
+                {"Destination", subValue->destinationUrl},
+                {"EventFormatType", subValue->eventFormatType},
+                {"HttpHeaders", subValue->httpHeaders},
+                {"MessageIds", subValue->registryMsgIds},
+                {"Protocol", subValue->protocol},
+                {"RegistryPrefixes", subValue->registryPrefixes},
+                {"ResourceTypes", subValue->resourceTypes},
+                {"SubscriptionType", subValue->subscriptionType},
+                {"MetricReportDefinitions", subValue->metricReportDefinitions},
+
+            });
         }
         persistentFile << data;
     }
