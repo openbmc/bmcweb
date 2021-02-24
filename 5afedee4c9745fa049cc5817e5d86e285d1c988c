@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7bc02da7_a6740f26",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "line 137 is outside the scope of this lambda, so this capture isn\u0027t used and can be removed.",
+      "parentUuid": "65040acd_2a48e47b",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 17
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c297e262_972b3c85",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "I do not have setup to test for IPv6. So leaving out the ipv6 case with a TODO and debug trace",
       "parentUuid": "3fd75196_f9e79a68",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "5afedee4c9745fa049cc5817e5d86e285d1c988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1979a3ed_612f60b0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "It\u0027s likely 4 extra lines of code that should be pretty tough to do incorrectly.  Please write it, and I will test it for you.",
+      "parentUuid": "7a995b5e_e9d7629f",
       "range": {
         "startLine": 115,
         "startChar": 0,

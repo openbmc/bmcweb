@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70c2c9bf_3e193662",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "unresolved comment.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d279d439_b3d0e010",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "Initialize your variable to 0 here please.  It doesn\u0027t get set in all paths.",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c927b71d_89f0c65b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "Common error #5\n\nAlso, you need to incrementally loop over ALL addresses, not just the first one, otherwise load balancing and fail over won\u0027t work properly.",
+      "range": {
+        "startLine": 107,
+        "startChar": 66,
+        "endLine": 107,
+        "endChar": 68
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73b8444d_030f4595",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "Why not just declare address as uint32_t on line 105, rather than declaring it as the wrong type then casting it later.",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 53
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ddc40c4_88738109",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "See other comment, please implement this TODO (should be only 3 lines of code) and I will test it for you.",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9acc3790_6f82c68e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "Need to handle error if it\u0027s not ipv4 or ipv6?",
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948a3d43_ff1e8816",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "Rather than running through connStateCheck again here, can we just call doConnect directly?  That way, we can just pass endpoint in as an argument, and we won\u0027t have to store it in the object for the whole life of the connection.",
+      "range": {
+        "startLine": 126,
+        "startChar": 16,
+        "endLine": 126,
+        "endChar": 39
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ce47d9e_47f6141f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-24T17:51:19Z",
+      "side": 1,
+      "message": "Nit, callbacks should use boost::beast::error_codes by value.",
+      "range": {
+        "startLine": 145,
+        "startChar": 47,
+        "endLine": 145,
+        "endChar": 72
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
