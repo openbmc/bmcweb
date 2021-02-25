@@ -22,6 +22,30 @@
       "revId": "f924c7f803805f111fa72ce0aca63f949c0b261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "309dfde1_7848f42f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-25T04:14:43Z",
+      "side": 1,
+      "message": "connBusy is private member variable in HttpClient class and each subscription will have its own httpCLient object. So theoretically, It will not impact with increasing subscriptions. May be you need to check once from Listener side which is failing. I will also look at the any corner cases, where we are not resetting this flag. If you can enable debug logs and send it, that will be helpful.",
+      "parentUuid": "a013fa51_7daa4b13",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 9
+      },
+      "revId": "f924c7f803805f111fa72ce0aca63f949c0b261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
