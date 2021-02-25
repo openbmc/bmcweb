@@ -124,6 +124,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f04fac5_1d665edb",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-02-25T14:29:48Z",
+      "side": 1,
+      "message": "\u003e Considering that bmcweb is logging in via PAM directly,\nYes that will also make LDAP request for authentication via pam_ldap module.\n\n\u003e  I would expect the getgrent to also be in bmcweb, so we can authorize users and determine their groups without any intermediates, \ngetgrent internally makes the ldap request to get the group info from the LDAP. I think I have asked this info on the nss-pam-ldapd mailing list also.\n\nI am not sure either we make the getgrent call from the bmcweb or the phophosr-user-manager does, How it is solving the problem.\n\nOnce you get the group name you need to get the privilege for the group, for the same there is Dbus application.Hence you need to make the D-bus call.\n\nNow the question is whether getgrent is making the ldap call for each authorisation request or for some x amount of time it caches and then invalidate the cache , I have to take a look or I can fire a query to the maintainer of the nss-pam-ldapd.",
+      "parentUuid": "3e7d3e70_53e8a1f1",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
