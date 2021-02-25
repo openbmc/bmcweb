@@ -142,6 +142,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3554ca9_10e82a16",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-25T15:41:32Z",
+      "side": 1,
+      "message": "\u003e \u003e Considering that bmcweb is logging in via PAM directly,\n\u003e Yes that will also make LDAP request for authentication via pam_ldap module.\n\u003e \n\u003e \u003e  I would expect the getgrent to also be in bmcweb, so we can authorize users and determine their groups without any intermediates, \n\u003e getgrent internally makes the ldap request to get the group info from the LDAP. I think I have asked this info on the nss-pam-ldapd mailing list also.\n\u003e \n\u003e I am not sure either we make the getgrent call from the bmcweb or the phophosr-user-manager does, How it is solving the problem.\n\u003e \n\u003e Once you get the group name you need to get the privilege for the group, for the same there is Dbus application.Hence you need to make the D-bus call.\n\nI\u0027m not following this.  The group names contain the privileges for the groups.  If the user is in the admin group, it has admin privileges, operator group gets operator privileges, ect.  Why does that necessitate a call into phosphor-user-manager?\n\n\u003e \n\u003e Now the question is whether getgrent is making the ldap call for each authorisation request or for some x amount of time it caches and then invalidate the cache , I have to take a look or I can fire a query to the maintainer of the nss-pam-ldapd.\n\nThis doesn\u0027t matter, as getgrent would only be called when a session is created, and wouldn\u0027t need to be run on every request.",
+      "parentUuid": "8f04fac5_1d665edb",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
