@@ -357,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "f2b2adf5_43d97712",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-25T22:54:16Z",
+      "side": 1,
+      "message": "What\u0027s the behavior when the user marks it resolved?  This seems easy to define for oneshot events (like the read failure below), but for things like thresholds and other things, having a resolved flag would imply that when you \"resolve\" it, if the condition is still present, the event would get added to the top of the logs, right?  Is that the behavior in this case?",
+      "parentUuid": "e3e7090d_d957beac",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64624439_a9d7adf6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
