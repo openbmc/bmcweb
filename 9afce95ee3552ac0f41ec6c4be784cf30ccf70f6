@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "ef2bb2e6_9f6bbe94",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-25T02:09:16Z",
+      "side": 1,
+      "message": "I asked the question in the Redfish forum: https://redfishforum.com/thread/435/patch-link-sub-resource",
+      "parentUuid": "990dff05_ebb421e2",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 0
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6779ba8_7223d104",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -663,6 +687,30 @@
       "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7b46af_0c8ecab1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-02-25T02:09:16Z",
+      "side": 1,
+      "message": "Refactored with much more robust 404 handling.",
+      "parentUuid": "619efad9_1337442c",
+      "range": {
+        "startLine": 902,
+        "startChar": 22,
+        "endLine": 902,
+        "endChar": 37
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
