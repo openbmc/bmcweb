@@ -69,6 +69,24 @@
       "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a169b4a_9ee1d975",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-02-25T16:33:04Z",
+      "side": 1,
+      "message": "Did you get something in the state manager here?",
+      "parentUuid": "662e2728_ec223528",
+      "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
