@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f14ed6c8_ae50d14d",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-02-25T06:23:21Z",
+      "side": 1,
+      "message": "I move the event_service_manager.hpp to namespace persistent_data,\nIt means the include is similiar like #include \u003csessions.hpp\u003e below.",
+      "parentUuid": "7372934e_584616c6",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 36
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e364e091_bc1a279a",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "095f974f_db552243",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-02-25T06:23:21Z",
+      "side": 1,
+      "message": "These return to event_service_manager.hpp because persistent.hpp not to use them.",
+      "parentUuid": "e364e091_bc1a279a",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +155,30 @@
       "side": 1,
       "message": "\u003e If not pushing it into memory via this function, Redfish will not get the event service config.(it will be false 0 0)\n\nhence why the event service code needs to pull this information, similar to how the session service pulls it.\n\n\u003e May I ask you mean it should not call the functions under the redfish namespace. so all variables event service config and subscriptions should merge here likes sessions.hpp style. \n\nThe key here is that persistent data is intended to be a pull interface.  Clients that want to use it pull data from it, and request changes and writes when needed.  The class itself should not be calling into the various subsystems to push the data to them.\n\n\u003e It will not calling event service manager after modification.\n\nExcellent.",
       "parentUuid": "b8b87951_e8bf79d5",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "a9de38ce0c39859d9bc5f78a84b7fc47323d17f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae9129f_e1c137dc",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-02-25T06:23:21Z",
+      "side": 1,
+      "message": "I move the namespace of event_service_manager.hpp to \"persistent_data\" from \"redfish\" and want its level like sessions.hpp.",
+      "parentUuid": "192155ba_75656c57",
       "range": {
         "startLine": 175,
         "startChar": 0,
