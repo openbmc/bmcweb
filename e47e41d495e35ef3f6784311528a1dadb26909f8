@@ -46,6 +46,30 @@
       "revId": "e47e41d495e35ef3f6784311528a1dadb26909f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf64478_444bbba6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-02-25T11:36:58Z",
+      "side": 1,
+      "message": "Agree, This should not Invalid username or password\" event log. We need to add separate Event Logs for this case. It can go on its own commit,",
+      "parentUuid": "735dcb0c_6809a332",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "e47e41d495e35ef3f6784311528a1dadb26909f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
