@@ -87,6 +87,24 @@
       "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d853ae23_42866746",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-25T17:08:10Z",
+      "side": 1,
+      "message": "Not yet but I\u0027ve got it on the trello board TODO sticky with the other misc fixes we found here to apply to the Systems/system object.",
+      "parentUuid": "6a169b4a_9ee1d975",
+      "revId": "4f94a5d6f87244f5f55839c38cac5958c2b0f7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
