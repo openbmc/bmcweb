@@ -708,6 +708,27 @@ inline std::string dbusToRfBootSource(const std::string& dbusSource)
 }
 
 /**
+ * @brief Translates boot type DBUS property value to redfish.
+ *
+ * @param[in] dbusType    The boot type in DBUS speak.
+ *
+ * @return Returns as a string, the boot type in Redfish terms. If translation
+ * cannot be done, returns an empty string.
+ */
+inline std::string dbusToRfBootType(const std::string& dbusType)
+{
+    if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.Legacy")
+    {
+        return "Legacy";
+    }
+    if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.EFI")
+    {
+        return "UEFI";
+    }
+    return "";
+}
+
+/**
  * @brief Translates boot mode DBUS property value to redfish.
  *
  * @param[in] dbusMode    The boot mode in DBUS speak.
@@ -895,6 +916,53 @@ inline void getBootProgress(const std::shared_ptr<AsyncResp>& aResp)
 }
 
 /**
+ * @brief Retrieves boot type over DBUS and fills out the response
+ *
+ * @param[in] aResp         Shared pointer for generating response message.
+ * @param[in] bootDbusObj   The dbus object to query for boot properties.
+ *
+ * @return None.
+ */
+inline void getBootType(const std::shared_ptr<AsyncResp>& aResp,
+                        const std::string& bootDbusObj)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& bootType) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string* bootTypeStr =
+                std::get_if<std::string>(&bootType);
+
+            if (!bootTypeStr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Boot type: " << *bootTypeStr;
+
+            aResp->res.jsonValue["Boot"]["BootSourceOverrideMode@Redfish."
+                                         "AllowableValues"] = {"Legacy",
+                                                               "UEFI"};
+
+            auto rfType = dbusToRfBootType(*bootTypeStr);
+            if (!rfType.empty())
+            {
+                aResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = rfType;
+            }
+        },
+        "xyz.openbmc_project.Settings", bootDbusObj,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Control.Boot.Type", "BootType");
+}
+
+/**
  * @brief Retrieves boot mode over DBUS and fills out the response
  *
  * @param[in] aResp         Shared pointer for generating response message.
@@ -926,8 +994,6 @@ inline void getBootMode(const std::shared_ptr<AsyncResp>& aResp,
 
             BMCWEB_LOG_DEBUG << "Boot mode: " << *bootModeStr;
 
-            // TODO (Santosh): Do we need to support override mode?
-            aResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = "Legacy";
             aResp->res.jsonValue["Boot"]["BootSourceOverrideTarget@Redfish."
                                          "AllowableValues"] = {
                 "None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup", "Usb"};
@@ -1007,6 +1073,7 @@ inline void getBootSource(const std::shared_ptr<AsyncResp>& aResp,
         "xyz.openbmc_project.Settings", bootDbusObj,
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Control.Boot.Source", "BootSource");
+    getBootType(aResp, bootDbusObj);
     getBootMode(aResp, bootDbusObj);
 }
 
@@ -1247,6 +1314,92 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @param[in] aResp           Shared pointer for generating response message.
  * @param[in] oneTimeEnabled  Is "one-time" setting already enabled.
+ * @param[in] bootSource      The boot type to set.
+ * @param[in] bootEnable      The source override "enaOverrideMode*
+ * @return Integer error code.
+ */
+inline void setBootType(const std::shared_ptr<AsyncResp>& aResp,
+                        bool oneTimeEnabled,
+                        const std::optional<std::string>& bootType,
+                        const std::optional<std::string>& bootEnable)
+{
+    std::string bootTypeStr;
+    bool oneTimeSetting = oneTimeEnabled;
+
+    // Validate incoming parameters
+    if (bootEnable)
+    {
+        if (*bootEnable == "Once")
+        {
+            oneTimeSetting = true;
+        }
+        else if (*bootEnable == "Continuous")
+        {
+            oneTimeSetting = false;
+        }
+        else if (*bootEnable == "Disabled")
+        {
+            return;
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Unsupported value for "
+                                "BootSourceOverrideEnabled: "
+                             << *bootEnable;
+            messages::propertyValueNotInList(aResp->res, *bootEnable,
+                                             "BootSourceOverrideEnabled");
+            return;
+        }
+    }
+
+    // Source target specified
+    BMCWEB_LOG_DEBUG << "Boot type: " << *bootType;
+    // Figure out which DBUS interface and property to use
+    if (*bootType == "Legacy")
+    {
+        bootTypeStr = "xyz.openbmc_project.Control.Boot.Type.Types.Legacy";
+    }
+    else if (*bootType == "UEFI")
+    {
+        bootTypeStr = "xyz.openbmc_project.Control.Boot.Type.Types.EFI";
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "Invalid property value for "
+                            "BootSourceOverrideMode: "
+                         << *bootType;
+        messages::propertyValueNotInList(aResp->res, *bootType,
+                                         "BootSourceOverrideMode");
+        return;
+    }
+
+    // Act on validated parameters
+    BMCWEB_LOG_DEBUG << "DBUS boot type: " << bootTypeStr;
+    const char* bootObj =
+        oneTimeSetting ? "/xyz/openbmc_project/control/host0/boot/one_time"
+                       : "/xyz/openbmc_project/control/host0/boot";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Boot type update done.";
+        },
+        "xyz.openbmc_project.Settings", bootObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.Type", "BootType",
+        std::variant<std::string>(bootTypeStr));
+}
+
+/**
+ * @brief Sets boot properties into DBUS object(s).
+ *
+ * @param[in] aResp           Shared pointer for generating response message.
+ * @param[in] oneTimeEnabled  Is "one-time" setting already enabled.
  * @param[in] bootSource      The boot source to set.
  * @param[in] bootEnable      The source override "enable" to set.
  *
@@ -1369,18 +1522,21 @@ inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  *
  * @param[in] aResp      Shared pointer for generating response message.
  * @param[in] bootSource The boot source from incoming RF request.
+ * @param[in] bootType   The boot type from incoming RF request.
  * @param[in] bootEnable The boot override enable from incoming RF request.
  *
  * @return Integer error code.
  */
 inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
                                     std::optional<std::string> bootSource,
+                                    std::optional<std::string> bootType,
                                     std::optional<std::string> bootEnable)
 {
     BMCWEB_LOG_DEBUG << "Set boot information.";
 
     crow::connections::systemBus->async_method_call(
         [aResp, bootSource{std::move(bootSource)},
+         bootType{std::move(bootType)},
          bootEnable{std::move(bootEnable)}](const boost::system::error_code ec,
                                             const std::variant<bool>& oneTime) {
             if (ec)
@@ -1401,6 +1557,7 @@ inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
             BMCWEB_LOG_DEBUG << "Got one time: " << *oneTimePtr;
 
             setBootModeOrSource(aResp, *oneTimePtr, bootSource, bootEnable);
+            setBootType(aResp, *oneTimePtr, bootType, bootEnable);
         },
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot/one_time",
@@ -2215,12 +2372,14 @@ class Systems : public Node
         if (bootProps)
         {
             std::optional<std::string> bootSource;
+            std::optional<std::string> bootType;
             std::optional<std::string> bootEnable;
             std::optional<std::string> automaticRetryConfig;
 
             if (!json_util::readJson(
                     *bootProps, asyncResp->res, "BootSourceOverrideTarget",
-                    bootSource, "BootSourceOverrideEnabled", bootEnable,
+                    bootSource, "BootSourceOverrideMode", bootType,
+                    "BootSourceOverrideEnabled", bootEnable,
                     "AutomaticRetryConfig", automaticRetryConfig))
             {
                 return;
@@ -2228,6 +2387,7 @@ class Systems : public Node
             if (bootSource || bootEnable)
             {
                 setBootSourceProperties(asyncResp, std::move(bootSource),
+                                        std::move(bootType),
                                         std::move(bootEnable));
             }
             if (automaticRetryConfig)
