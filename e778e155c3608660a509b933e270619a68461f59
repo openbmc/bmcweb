@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "19505af3_28bac687",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-26T07:12:53Z",
+      "side": 1,
+      "message": "It is expected to be an index of the array, If we change that to last segment of Dbus object then validator will throw an error for index.\n\nERROR - This URI (/redfish/v1/Chassis/chassis/Assembly#/Assemblies/tpm_wilson) is accessing an array, but this is not an index: tpm_wilson\nERROR - @odata.id of ReferenceableMember does not contain a valid JSON pointer for this payload: /redfish/v1/Chassis/chassis/Assembly#/Assemblies/tpm_wilson\n\nLook up can be performed using Member ID? Now that we have the last segment of Dbus Object assigned to it?",
+      "parentUuid": "cd2ea9d9_88bf4ff8",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 76
+      },
+      "revId": "e778e155c3608660a509b933e270619a68461f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97a51e23_d4b02117",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 19
