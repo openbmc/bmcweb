@@ -19,6 +19,52 @@
     },
     {
       "key": {
+        "uuid": "8c810081_9c909a70",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-26T18:54:55Z",
+      "side": 1,
+      "message": "undefined behavior.  std::optional might not be populated.\n\nYou need to handle the case where bootType wasn\u0027t provided by the user.\n\nBased on its use, I suspect you can do that in the higher level code, and simply declare this const std::string\u0026, but I\u0027m not positive on that.",
+      "range": {
+        "startLine": 1356,
+        "startChar": 42,
+        "endLine": 1356,
+        "endChar": 50
+      },
+      "revId": "c4560682b2b12a3525039b50668acd808d8ff231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d31033f_567bc3e1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-26T18:54:55Z",
+      "side": 1,
+      "message": "can you avoid the terinary here and the duplication?\n\nSomething like\n\nstd::string bootObj \u003d \"/xyz/openbmc_project/control/host0/boot\";\nif (oneTimeSetting){\n   bootObj +\u003d \"/one_time\";\n}",
+      "range": {
+        "startLine": 1378,
+        "startChar": 0,
+        "endLine": 1380,
+        "endChar": 67
+      },
+      "revId": "c4560682b2b12a3525039b50668acd808d8ff231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20263e54_4c88bead",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
@@ -30,6 +76,24 @@
       "writtenOn": "2021-02-26T14:56:11Z",
       "side": 1,
       "message": "Only call this if bootType is value? The function does not seem to handle the situation where this is invalid.",
+      "revId": "c4560682b2b12a3525039b50668acd808d8ff231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73b8894_dbafe192",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-26T18:54:55Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "20263e54_4c88bead",
       "revId": "c4560682b2b12a3525039b50668acd808d8ff231",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
