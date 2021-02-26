@@ -16,6 +16,24 @@
       "revId": "b606eec219d6e79c1c61cd8c80c8aeb008ae4ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85dcfdb9_b40462ef",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-02-26T12:31:18Z",
+      "side": 1,
+      "message": "There are many functions in this file for which unit test is not written. In this commit new functions are not added. So i dont have plans to add any new UT case for this.\nWe may consider adding UT in future as separate activity. Please share your views",
+      "parentUuid": "3a23eec6_7989d840",
+      "revId": "b606eec219d6e79c1c61cd8c80c8aeb008ae4ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
