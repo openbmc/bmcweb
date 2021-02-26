@@ -266,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "9dd3e73b_afe00c05",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-26T09:46:24Z",
+      "side": 1,
+      "message": "I have some queries here, \n-\u003e Mandatory properties for AssemblyData under assembly schema is MemberId and odata.id. \nNow, odata.id expects the last value after \"/\" to be an index to the array. If I change that to something other than index, lets say name of the item, validator throws an error expecting it to be index to the array.\n\n-\u003e MemberId expects a string value. So we have change zero-based array index to string here.\n\na) As none of these will have the name of the item how de identify/patch individual items in this array? Or in a generic way \"How do we patch individual items in array of referencable object?\"\nb) Also is it ok if none of the mandatory item holds the name of the item? \n\nLet me know if I am missing something out here.",
+      "parentUuid": "63b42f89_c7e986d6",
+      "range": {
+        "startLine": 76,
+        "startChar": 46,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c04b576d_a505867e",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 22
