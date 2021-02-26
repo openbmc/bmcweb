@@ -141,6 +141,7 @@ inline void setIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp,
                         messages::internalError(aResp->res);
                         return;
                     }
+                    messages::success(aResp->res);
                 },
                 "xyz.openbmc_project.LED.GroupManager",
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
