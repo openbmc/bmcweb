@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1013c101_cfba3943",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-26T14:56:11Z",
+      "side": 1,
+      "message": "Please provide a \"Testing\" section where you lists tests you ran and confirm redfish validator has passed.",
+      "revId": "c4560682b2b12a3525039b50668acd808d8ff231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20263e54_4c88bead",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-02-26T14:56:11Z",
+      "side": 1,
+      "message": "Only call this if bootType is value? The function does not seem to handle the situation where this is invalid.",
+      "revId": "c4560682b2b12a3525039b50668acd808d8ff231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
