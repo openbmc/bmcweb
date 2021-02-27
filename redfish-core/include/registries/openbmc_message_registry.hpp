@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 189> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -2395,6 +2395,26 @@ constexpr std::array<MessageEntry, 187> registry = {
                      "System Power-On Failed.",
                      "Critical",
                      "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"ValidationUnsecureModeEntered",
+                 {
+                     "Indicates that the BMC entered Validation Unsecure Mode.",
+                     "Entered Validation Unsecure Mode.",
+                     "Critical",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"ValidationUnsecureModeExited",
+                 {
+                     "Indicates that the BMC exited Validation Unsecure Mode.",
+                     "Exited Validation Unsecure Mode.",
+                     "OK",
+                     "OK",
                      0,
                      {},
                      "None.",
