@@ -3107,7 +3107,8 @@ class PostCodesClear : public Node
 
 static void fillPostCodeEntry(
     const std::shared_ptr<AsyncResp>& aResp,
-    const boost::container::flat_map<uint64_t, uint64_t>& postcode,
+    const boost::container::flat_map<
+        uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
     const uint64_t skip = 0, const uint64_t top = 0)
 {
@@ -3119,7 +3120,8 @@ static void fillPostCodeEntry(
     nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
 
     uint64_t firstCodeTimeUs = 0;
-    for (const std::pair<uint64_t, uint64_t>& code : postcode)
+    for (const std::pair<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
+             code : postcode)
     {
         currentCodeIndex++;
         std::string postcodeEntryID =
@@ -3167,7 +3169,7 @@ static void fillPostCodeEntry(
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream hexCode;
         hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
-                << code.second;
+                << std::get<0>(code.second);
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;
@@ -3227,9 +3229,11 @@ static void getPostCodeForEntry(const std::shared_ptr<AsyncResp>& aResp,
                                 const uint64_t codeIndex)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp, bootIndex, codeIndex](
-            const boost::system::error_code ec,
-            const boost::container::flat_map<uint64_t, uint64_t>& postcode) {
+        [aResp, bootIndex,
+         codeIndex](const boost::system::error_code ec,
+                    const boost::container::flat_map<
+                        uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
+                        postcode) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS POST CODE PostCode response error";
@@ -3263,7 +3267,9 @@ static void getPostCodeForBoot(const std::shared_ptr<AsyncResp>& aResp,
     crow::connections::systemBus->async_method_call(
         [aResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code ec,
-              const boost::container::flat_map<uint64_t, uint64_t>& postcode) {
+              const boost::container::flat_map<
+                  uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
+                  postcode) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS POST CODE PostCode response error";
