@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bae61a59_3b433843",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-28T19:06:16Z",
+      "side": 1,
+      "message": "This should be done in a different commit.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 46
+      },
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5050ffd_a6001304",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-28T19:06:16Z",
+      "side": 1,
+      "message": "This literally says nothing about how you tested it.  How did you validate it?",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 86
+      },
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be1b7c2b_269c5ad6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-28T19:06:16Z",
+      "side": 1,
+      "message": "nit: tabs in your commit message.",
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "855f8154_8ff5b9c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-28T19:06:16Z",
+      "side": 1,
+      "message": "How?",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e42b4f16_e64f16a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-02-28T19:06:16Z",
+      "side": 1,
+      "message": "Can you also add to your verification steps creating subscriptions on with the old code, then ensuring that they restore properly with the new code.  I don\u0027t see that you\u0027ve handled that case in the code.",
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
