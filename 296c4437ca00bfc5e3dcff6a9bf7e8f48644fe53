@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "334f29ec_86918c1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-01T10:59:10Z",
+      "side": 1,
+      "message": "Sure, but this is where i had a concern initially when i pushed the PS.\n\nWhether or not to include the object and property extended info inside \"error\" property.",
+      "parentUuid": "7634514e_37be7d1b",
+      "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a44d5a1_17742cf6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
@@ -30,6 +48,30 @@
       "writtenOn": "2021-02-24T18:24:25Z",
       "side": 1,
       "message": "Way more testing is needed here.  You\u0027ve modified error handling for almost every error type.  You don\u0027t have to check each one by hand, but I would expect to at least test one example of each type of error, as well as the difference between single errors, and multiple errors (they call different code paths).",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 8
+      },
+      "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0e5f4a_9dcfa37a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-01T10:59:10Z",
+      "side": 1,
+      "message": "I have created two gist files and in it, i have shared the o/p containing the errors (with and without this change).\n\nhttps://gist.github.com/asmithakarun/7ce03df868fe15675381620078bdabe3\n\nhttps://gist.github.com/asmithakarun/b31b31f11036c81746e66219c37f3a55",
+      "parentUuid": "2a44d5a1_17742cf6",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -62,6 +104,30 @@
       "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bce5b4a1_97a9b675",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-01T10:59:10Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38194/12//COMMIT_MSG#65",
+      "parentUuid": "c4877fc7_66363e8f",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 64
+      },
+      "revId": "296c4437ca00bfc5e3dcff6a9bf7e8f48644fe53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
