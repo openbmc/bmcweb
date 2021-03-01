@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "63f20678_a8bab854",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T07:52:36Z",
+      "side": 1,
+      "message": "In case of error, the parser will not have any content. So we should not process further and check the header for the keep_alive flag, release call etc",
+      "parentUuid": "126a379b_5f85cc33",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 44
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b47c0103_cd9b8318",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
