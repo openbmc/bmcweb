@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2f16a18_49ddbfc1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:52:19Z",
+      "side": 1,
+      "message": "v1_11 ?",
+      "range": {
+        "startLine": 1132,
+        "startChar": 52,
+        "endLine": 1132,
+        "endChar": 59
+      },
+      "revId": "d632a427d9862ccb81f1e21bcb7a3dec1495078d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aed04c1_5663c3e4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:52:19Z",
+      "side": 1,
+      "message": "why is this needed? As stated above, aren\u0027t you looking for the \u003ccpu object path\u003e/identify_led_group ? Don\u0027t you check for (boost::ends_with(object.first, cpuId)) ?",
+      "range": {
+        "startLine": 1141,
+        "startChar": 21,
+        "endLine": 1141,
+        "endChar": 64
+      },
+      "revId": "d632a427d9862ccb81f1e21bcb7a3dec1495078d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
