@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "b66638f0_2ffbbc65",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "\u003e Did you declare your shifts as unsigned?\nNo. \n\nI get the below error - for which i used int32_t and then casted that to uint32_t which was needed by boost::asio::ip::address_v4 constructor\n\n../http/http_client.hpp:112:53: error: conversion to ‘uint32_t’ {aka ‘unsigned int’} from ‘int’ may change the sign of the result [-Werror\u003dsign-conversion]\n  112 |                                   ipAddress[2] \u003c\u003c 8 | ipAddress[3];",
+      "parentUuid": "b7bf3821_62012595",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 53
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ddc40c4_88738109",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -282,6 +306,30 @@
       "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ea51ae_c5fa3ebd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d8b47720_1dba4dbb",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -387,6 +435,30 @@
       "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b067f51_1e2663d1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ce47d9e_47f6141f",
+      "range": {
+        "startLine": 145,
+        "startChar": 47,
+        "endLine": 145,
+        "endChar": 72
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "dcd6bbf0_8231ad70",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "09b110db_ab5f1225",
+      "range": {
+        "startLine": 91,
+        "startChar": 60,
+        "endLine": 91,
+        "endChar": 67
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66720335_06503f01",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "2d334fb0_65865910",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc970ad0_cf984f6d",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 55
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f1c76f2_863c75f1",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "\u003e Do we support multiple endpoints? But don\u0027t think, current code is doing that. Its overriding the ipaddress and port during this loop. Ideally this d-bus returns single entry, so do we need to stop when we found valid IPv4 address and return from there by calling doConnect()\n\nWe need to loop through each entry and add it to the list, then use the overload of async_connect that takes and EndpointSequence.",
       "parentUuid": "7f1c76f2_863c75f1",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "931e689d_f690ef1f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "I dont have a setup which will fetch multiple endpoints. \n\nAs I understood the async_connect overload, it will try connecting to each endpoints. So I suspect this can result in sending same event multiple times to the same subscriber?",
+      "parentUuid": "f2d812bf_82a53875",
       "range": {
         "startLine": 105,
         "startChar": 16,
@@ -187,6 +259,30 @@
       "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b92f51_28958a12",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-01T16:19:24Z",
+      "side": 1,
+      "message": "Ack\nWorking on parsing the ipv6 address.",
+      "parentUuid": "808183ff_965dc211",
+      "range": {
+        "startLine": 134,
+        "startChar": 16,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
