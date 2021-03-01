@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74cc99ba_49f5c752",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "nitpick: For next time, we follow https://chris.beams.io/posts/git-commit/ which one of the 7 sevens rules is \"don\u0027t end the subject line with a period\"\n\n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "range": {
+        "startLine": 7,
+        "startChar": 45,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49ffb2db_4d1f8350",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "not 2019 and I don\u0027t think you work for Intel but I guess a copy from the other file. Can you just remove?",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee57e113_c79111a1",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "chassisID ?",
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a174f4a7_4774ebb6",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "Plans to move all the functions to this and remove the other ? \nhttps://github.com/openbmc/bmcweb/blob/feaf15005555a3099c7f22a7e3d16c99ccb40e72/redfish-core/lib/sensors.hpp#L367",
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3263d93c_58c48a8f",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "This seems complicated with the callback, can\u0027t just return true / false for \"validChassis\" ?",
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde11b3c_8beeaff6",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "Why ?",
+      "range": {
+        "startLine": 265,
+        "startChar": 71,
+        "endLine": 265,
+        "endChar": 79
+      },
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af854aa_7f74da4c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-01T17:22:18Z",
+      "side": 1,
+      "message": "nitpick: \"Not a valid chassis ID.\" or \"Not a valid chassis path\" or \"Didn\u0027t find chassis ID\" or \"Not a valid chassis ID: \" \u003c\u003c chassisID",
+      "range": {
+        "startLine": 268,
+        "startChar": 41,
+        "endLine": 268,
+        "endChar": 71
+      },
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
