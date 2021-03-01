@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "b7bf3821_62012595",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-01T07:41:10Z",
+      "side": 1,
+      "message": "what error?  Did you declare your shifts as unsigned?\n\nsomething like:\nipAddress[0] \u003c\u003c 16U\n\nIt also might need to be casted to uint32, but either way, don\u0027t use lexical cast here, it\u0027s unnecessary.",
+      "parentUuid": "35728dbb_b943c678",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 53
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ddc40c4_88738109",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -234,6 +258,30 @@
       "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8b47720_1dba4dbb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-01T07:41:10Z",
+      "side": 1,
+      "message": "Please do it here.  It\u0027s 3 extra lines of code, I\u0027d rather have it done now, as we also have to define error handling for this anyway, so it\u0027s better to just do it in this patchset.",
+      "parentUuid": "d2131381_f2a960ae",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
