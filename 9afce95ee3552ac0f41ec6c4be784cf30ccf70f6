@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "705fa59b_34f56838",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-03-01T18:08:10Z",
+      "side": 1,
+      "message": "Responses on the thread suggest I am expecting the correct PATCH payload (i.e. client should patch the full sub-object with @odata.id).\n\nHowever, my error handling is off since readJson will append error messages about the sub-property @odata.id. (And we should prefer to always respond with an error message about \"AppliedOperatingConfig\" - see my second post in that thread.)\nWould you prefer I continue to use readJson (with imperfect error responses), or roll my own json value extraction and ensure the full error message is returned?",
+      "parentUuid": "ef2bb2e6_9f6bbe94",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 0
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6779ba8_7223d104",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -358,6 +382,30 @@
     },
     {
       "key": {
+        "uuid": "7b06fb5f_f9e4b275",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-03-01T18:08:10Z",
+      "side": 1,
+      "message": "no more getsubtree call in this change - closing",
+      "parentUuid": "c223bf7e_51d909d8",
+      "range": {
+        "startLine": 861,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 51
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "846fdf4e_4a858e36",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -402,6 +450,30 @@
       "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f7722cf_07ff9847",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-03-01T18:08:10Z",
+      "side": 1,
+      "message": "code is removed from this change - closing",
+      "parentUuid": "2f41d6b5_5a32cf53",
+      "range": {
+        "startLine": 867,
+        "startChar": 58,
+        "endLine": 867,
+        "endChar": 76
+      },
+      "revId": "9afce95ee3552ac0f41ec6c4be784cf30ccf70f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
