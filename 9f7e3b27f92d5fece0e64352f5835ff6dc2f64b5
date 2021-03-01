@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82a85789_f22e5a4c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-01T06:34:46Z",
+      "side": 1,
+      "message": "nit: add reference",
+      "range": {
+        "startLine": 91,
+        "startChar": 60,
+        "endLine": 91,
+        "endChar": 67
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66720335_06503f01",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-01T06:34:46Z",
+      "side": 1,
+      "message": "nit: Move this to inline or close to that loop(line: 104)",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 55
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f1c76f2_863c75f1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-01T06:34:46Z",
+      "side": 1,
+      "message": "Do we support multiple endpoints? But don\u0027t think, current code is doing that. Its overriding the ipaddress and port during this loop. Ideally this d-bus returns single entry, so do we need to stop when we found valid IPv4 address and return from there by calling doConnect()",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b73644_93f9ae68",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-01T06:34:46Z",
+      "side": 1,
+      "message": "In case of IPv6 loop(ipAddress.size() \u003d\u003d 16), endpoint is empty and do point in calling this doConnect(). Either return in that loop or move this to IPv6 success block.",
+      "range": {
+        "startLine": 134,
+        "startChar": 16,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
