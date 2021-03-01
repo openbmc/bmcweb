@@ -288,7 +288,7 @@ class Chassis : public Node
                     }
 
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#Chassis.v1_14_0.Chassis";
+                        "#Chassis.v1_15_0.Chassis";
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId;
                     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -359,6 +359,11 @@ class Chassis : public Node
                             asyncResp->res.jsonValue["Power"] = {
                                 {"@odata.id", "/redfish/v1/Chassis/" +
                                                   chassisId + "/Power"}};
+                            // Thermal object
+                            asyncResp->res.jsonValue["ThermalSubsystem"] = {
+                                {"@odata.id", "/redfish/v1/Chassis/" +
+                                                  chassisId +
+                                                  "/ThermalSubsystem"}};
                             // SensorCollection
                             asyncResp->res.jsonValue["Sensors"] = {
                                 {"@odata.id", "/redfish/v1/Chassis/" +
