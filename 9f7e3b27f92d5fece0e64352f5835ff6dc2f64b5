@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "bedb6a61_a3ead971",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-01T16:22:20Z",
+      "side": 1,
+      "message": "\u003e I dont have a setup which will fetch multiple endpoints. \n\u003e \n\nPlease code it correctly anyway.\n\n\u003e As I understood the async_connect overload, it will try connecting to each endpoints. So I suspect this can result in sending same event multiple times to the same subscriber?\n\nNo.  It will only connect to a single endpoint.",
+      "parentUuid": "931e689d_f690ef1f",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "9f7e3b27f92d5fece0e64352f5835ff6dc2f64b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21b73644_93f9ae68",
         "filename": "http/http_client.hpp",
         "patchSetId": 7

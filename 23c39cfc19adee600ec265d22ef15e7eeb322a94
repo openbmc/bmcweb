@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "d89472b9_851654ec",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-01T16:22:20Z",
+      "side": 1,
+      "message": "Please find a way to do this without lexical cast.  I suspect\n\nipAddress[2] \u003c\u003c 8U\n\nMight get you there.",
+      "parentUuid": "b66638f0_2ffbbc65",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 53
+      },
+      "revId": "23c39cfc19adee600ec265d22ef15e7eeb322a94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ddc40c4_88738109",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
