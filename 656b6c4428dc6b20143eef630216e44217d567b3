@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c487194_0334f752",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-01T17:00:53Z",
+      "side": 1,
+      "message": "+1\n\nAlso, a nitpick, there should be a space after the colon.",
+      "parentUuid": "9ebaa04c_2c1d65a5",
+      "revId": "656b6c4428dc6b20143eef630216e44217d567b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ac2f9fc_438f1b6a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 14
