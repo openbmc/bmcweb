@@ -42,6 +42,7 @@
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
+#include "../lib/thermal_subsystem.hpp"
 #include "../lib/update_service.hpp"
 #include "../lib/virtual_media.hpp"
 
@@ -70,6 +71,7 @@ class RedfishService
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
         requestRoutesThermal(app);
+        requestRoutesThermalSubsystem(app);
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
         requestRoutesManagerResetAction(app);
