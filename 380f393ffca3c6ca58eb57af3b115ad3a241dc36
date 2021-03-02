@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74b326dc_dedea2e7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-02T12:57:48Z",
+      "side": 1,
+      "message": "const \u0026",
+      "range": {
+        "startLine": 686,
+        "startChar": 4,
+        "endLine": 686,
+        "endChar": 24
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c20414_1dbd470e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-02T12:57:48Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 687,
+        "startChar": 1,
+        "endLine": 687,
+        "endChar": 24
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbd571a0_67a57888",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-02T12:57:48Z",
+      "side": 1,
+      "message": "do you want to move this?",
+      "range": {
+        "startLine": 715,
+        "startChar": 9,
+        "endLine": 715,
+        "endChar": 22
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f217f48_ec65cd40",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-02T12:57:48Z",
+      "side": 1,
+      "message": "Some thing like \"Dump Collection Task not completed\" Can we add the dump object path also?\nIt will help in to debug the task and the backend Dbus object.",
+      "range": {
+        "startLine": 746,
+        "startChar": 37,
+        "endLine": 746,
+        "endChar": 45
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
