@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "41973ef4_f2618f14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "Currently Intel using internally when BMC entre into Validation unsecure mode. As it is generic registry added here. Please let us know if any comments.",
+      "parentUuid": "ce100dc6_c5c6903f",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d100c8b_da9a9c18",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-03-02T01:54:19Z",
       "side": 1,
       "message": "Why is this Critical ?",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1f21ea_13fe76fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "Jus followed as Manufacturing mode. This is one of the special mode BMC entering. So updated severity as \"Critical\".",
+      "parentUuid": "2d100c8b_da9a9c18",
       "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -70,6 +106,42 @@
     },
     {
       "key": {
+        "uuid": "78565889_4d8cd1f2",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2404,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d17700_f64ae571",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff4cba2f_05d4c191",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2404,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "This is generic registry, even though using internally now. So added here.",
+      "parentUuid": "606cc4e7_ef18dd19",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cff3414d_19407d10",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2712b82_57b433af",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cff3414d_19407d10",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "a1741c30_78e2179e",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2415,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a592a7d5_e14a66f9",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7702a1d1_f35008e6",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
@@ -118,6 +226,24 @@
       "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5586e5f1_cebe20de",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2417,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-02T11:49:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7702a1d1_f35008e6",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
