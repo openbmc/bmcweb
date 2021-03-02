@@ -43,6 +43,7 @@
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
+#include "../lib/thermal_subsystem.hpp"
 #include "../lib/trigger.hpp"
 #include "../lib/update_service.hpp"
 #include "../lib/virtual_media.hpp"
@@ -74,6 +75,9 @@ class RedfishService
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
         requestRoutesPower(app);
+#endif
+#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+        requestRoutesThermalSubsystem(app);
 #endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
