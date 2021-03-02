@@ -390,10 +390,17 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Thermal"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Thermal"}};
+
                                 // Power object
                                 asyncResp->res.jsonValue["Power"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Power"}};
+#endif
+#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+                                asyncResp->res.jsonValue["ThermalSubsystem"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId +
+                                                      "/ThermalSubsystem"}};
 #endif
                                 // SensorCollection
                                 asyncResp->res.jsonValue["Sensors"] = {
@@ -571,7 +578,7 @@ inline void requestRoutesChassis(App& app)
                     }
 
                     messages::resourceNotFound(
-                        asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
+                        asyncResp->res, "#Chassis.v1_15_0.Chassis", chassisId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
