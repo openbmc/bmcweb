@@ -1331,6 +1331,9 @@ const static auto& putThermal = privilegeSetConfigureManager;
 const static auto& deleteThermal = privilegeSetConfigureManager;
 const static auto& postThermal = privilegeSetConfigureManager;
 
+// ThermalSubsystem
+const static auto& getThermalSubsystem = privilegeSetLogin;
+
 // Triggers
 const static auto& getTriggers = privilegeSetLogin;
 const static auto& headTriggers = privilegeSetLogin;
