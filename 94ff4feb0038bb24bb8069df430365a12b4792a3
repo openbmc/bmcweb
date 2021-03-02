@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65d7578f_7af31e7a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-02T18:38:28Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t catch this at first.  We can\u0027t be omitting properties because they\u0027re empty.  If dbus has a different definition of \"not filled in\" than phosphor-networkd does, we need to coerce it to a known value.\n\nIdeally this would just be published by phosphor-networkd as \"::\" in the cases where it\u0027s not set, but if we need to coerce it here because we want to keep the dbus interface the same, I\u0027m ok with that too, but we should be setting this property to SOMETHING in all cases.",
+      "range": {
+        "startLine": 1835,
+        "startChar": 8,
+        "endLine": 1835,
+        "endChar": 50
+      },
+      "revId": "94ff4feb0038bb24bb8069df430365a12b4792a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "792470d4_4ebd1c2a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-02T18:38:28Z",
+      "side": 1,
+      "message": "I suspect we don\u0027t need this.  I suspect this is a bug fixed here:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40892",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "94ff4feb0038bb24bb8069df430365a12b4792a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
