@@ -96,6 +96,7 @@ include_list = [
     'Thermal',
     'Triggers',
     'TriggersCollection',
+    'ThermalSubsystem',
     'UpdateService',
     'VLanNetworkInterfaceCollection',
     'VLanNetworkInterface',

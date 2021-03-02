@@ -163,6 +163,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Triggers"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/ThermalSubsystem"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/UpdateService"
     },
     {
