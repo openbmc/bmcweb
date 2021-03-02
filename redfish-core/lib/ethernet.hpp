@@ -1832,7 +1832,13 @@ class EthernetInterface : public Node
             }
         }
 
-        jsonResponse["IPv6DefaultGateway"] = ethData.ipv6_default_gateway;
+        std::string ipv6GatewayStr = ethData.ipv6_default_gateway;
+        if (ipv6GatewayStr.empty())
+        {
+            ipv6GatewayStr = "0:0:0:0:0:0:0:0";
+        }
+
+        jsonResponse["IPv6DefaultGateway"] = ipv6GatewayStr;
 
         nlohmann::json& ipv6Array = jsonResponse["IPv6Addresses"];
         nlohmann::json& ipv6StaticArray = jsonResponse["IPv6StaticAddresses"];
