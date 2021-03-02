@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbd0a4b9_36a921b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-02T15:32:01Z",
+      "side": 1,
+      "message": "Can you please explain this more..\nE.g. \n\"ThermalSubsystem is a root for fans and temperatures. Fans are a new schema. Temperature sensors will be part of the new ThermalMetrics schema.\n\nThermalSubsystem can co-exist with the current Thermal resource. \n\nThermalSubsystem is an improvement on the existing Thermal schema because \n1. It includes the latest properties like LocationINdicatorActive \n2. Fans and Temperatures were arrays in the old Thermal schema and this was cumbersome and could hit limits of JSON arrays \n3. Large amount of static data mixed with sensor readings, which hurt performance\n4. Inconsistent definitions of properties vs like Processor and Memory schemas\n\nIn a future commits Fans and ThermalMetrics will be added, they are commented out with a TODO in this commit. \"",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "b79a20f8c3a5eb8a6cd00f36afcd0ae68269402a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3291a5fa_533f364d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-02T15:32:01Z",
+      "side": 1,
+      "message": "What I curl -k https://${bmc}/redfish/v1/Chassis/badChassisId/ThermalSubsystem ? I don\u0027t think you are handling 404",
+      "range": {
+        "startLine": 17,
+        "startChar": 44,
+        "endLine": 17,
+        "endChar": 102
+      },
+      "revId": "b79a20f8c3a5eb8a6cd00f36afcd0ae68269402a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
