@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "13078356_43ddf74f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e33b7843_7219d4fc",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 43
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94ff3abf_f6668c97",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44968edf_1cbb7339",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94ff3abf_f6668c97",
+      "range": {
+        "startLine": 213,
+        "startChar": 45,
+        "endLine": 213,
+        "endChar": 57
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "de653591_8f27d89e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "Tested this",
+      "parentUuid": "63f20678_a8bab854",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 44
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b47c0103_cd9b8318",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -106,6 +178,30 @@
       "writtenOn": "2021-03-01T07:52:07Z",
       "side": 1,
       "message": "I know this was here before, but please just remove the bytes Transferred from the callback signature.",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 1
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c29408_64e1792b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "bytesTransferred is a required parameter to the asyc_read",
+      "parentUuid": "b47c0103_cd9b8318",
       "range": {
         "startLine": 227,
         "startChar": 0,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "bb2554ec_1031cfe3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "Ed, What is higher scope ? Can you please elaborate the comment?",
+      "parentUuid": "38ae9d84_b7c6e1e9",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 321,
+        "endChar": 64
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f3929da_1b4ff814",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -161,6 +281,30 @@
       "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47c354eb_1116ef64",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f3929da_1b4ff814",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 17
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "30ee4473_c204023e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e42d28_653ccf2e",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 29
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e40ffdf_5f76e4c2",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -207,6 +375,30 @@
       "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11fcebbf_91bf0442",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-02T10:41:26Z",
+      "side": 1,
+      "message": "No. State suspended means - the subscriber is not interested in receiving events. Terminated state indicates that the connection is not available to send events.",
+      "parentUuid": "7e40ffdf_5f76e4c2",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 6
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
