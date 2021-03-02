@@ -2035,6 +2035,10 @@
         <edmx:Include Namespace="Thermal.v1_6_2"/>
         <edmx:Include Namespace="Thermal.v1_7_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/ThermalSubsystem_v1.xml">
+        <edmx:Include Namespace="ThermalSubsystem"/>
+        <edmx:Include Namespace="ThermalSubsystem.v1_0_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/UpdateService_v1.xml">
         <edmx:Include Namespace="UpdateService"/>
         <edmx:Include Namespace="UpdateService.v1_0_0"/>
