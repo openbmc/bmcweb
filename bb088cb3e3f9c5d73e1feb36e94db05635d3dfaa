@@ -37,6 +37,47 @@
     },
     {
       "key": {
+        "uuid": "2d8045ce_d86d9a46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-02T16:08:05Z",
+      "side": 1,
+      "message": "Cool.  Let us know when the backend daemons for these are merged to master or in review.",
+      "parentUuid": "41973ef4_f2618f14",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa065bd_9aff3b0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-02T16:08:05Z",
+      "side": 1,
+      "message": "You just booted it up and the log presented itself without doing anything else?  That sounds like a bug.\n\nWhat I suspect is that you missed a number of steps here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 32
+      },
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d100c8b_da9a9c18",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -174,6 +215,29 @@
       "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34e1b8fe_a6a8b2bc",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2413,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-02T16:08:05Z",
+      "side": 1,
+      "message": "Validation seems like a weird thing to be publishing through an external interface.  I wonder if there\u0027s a better name we could use, as I would assume this mode expands farther than just validation.",
+      "range": {
+        "startLine": 2413,
+        "startChar": 18,
+        "endLine": 2413,
+        "endChar": 28
+      },
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
