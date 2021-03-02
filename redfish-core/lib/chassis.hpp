@@ -384,6 +384,11 @@ inline void
                 asyncResp->res.jsonValue["Power"]["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/Power";
 #endif
+#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+                asyncResp->res.jsonValue["ThermalSubsystem"]["@odata.id"] =
+                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                 chassisId, "ThermalSubsystem");
+#endif
                 // SensorCollection
                 asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/Sensors";
