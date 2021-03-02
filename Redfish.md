@@ -223,6 +223,11 @@ Chassis to Drives, The name of the association is "chassis<->drive")
 - MinNumNeeded
 - MaxNumSupported
 
+#### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem
+
+##### ThermalSubsystem
+- Status
+
 #### /redfish/v1/Chassis/{ChassisId}/Power/
 ##### Power
 PowerControl Voltages PowerSupplies Redundancy
