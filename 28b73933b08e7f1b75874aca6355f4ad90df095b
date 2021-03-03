@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7071d0ce_ad87b1f4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-03T14:34:12Z",
+      "side": 1,
+      "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "166b88c2_8694fc3a",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20903206_a0a1cfc2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I am going to change it to FromTime, sounds ok? Or I can use FromChronoDuration?",
       "parentUuid": "20903206_a0a1cfc2",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73bf7bc_c5e71c85",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-03T14:34:12Z",
+      "side": 1,
+      "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "9aa7077c_9bb3129f",
       "range": {
         "startLine": 50,
         "startChar": 19,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "3b4666a7_317bcc14",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-03T14:34:12Z",
+      "side": 1,
+      "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "5c2b6b05_290d3cc3",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "744549c5_1e6aafb2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "power of 10 is required here, not multiplication. It was your suggestion to change it to string:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32536/34/redfish-core/include/utils/time_utils.hpp#71\n\nIt is possible to change it to\nticks *\u003d static_cast\u003cstd::chrono::milliseconds::rep\u003e(std::pow(10, 3 - digits));\nSounds ok?",
       "parentUuid": "744549c5_1e6aafb2",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fbba181_9fc63425",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-03T14:34:12Z",
+      "side": 1,
+      "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "35a913fe_82822f97",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -237,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "86b95224_33f7418f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-03T14:34:12Z",
+      "side": 1,
+      "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "142c0917_30833f3f",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 12
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b18f62f0_fd6c43ca",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -272,6 +392,30 @@
       "side": 1,
       "message": "Yes, it is not straightforward and took a lot of testing activities to find out the best check for overflow. \nFirst you have to check overflow after conversion from one chrono::duration type to another.\nSecond you have to check if value from v (that is long int) fits in the possible maximum range that you can convert from one duration type (ex. hours) to std::chrono::milliseconds. If you omit this check you get smaller value that fits in milliseconds.\nIn the latest patchset I moved std::chrono::duration_cast\u003cT\u003e(std::chrono::milliseconds::max()).count() to auto maxConversionRange to better reflect it.",
       "parentUuid": "b18f62f0_fd6c43ca",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f5edce4_40ef11b9",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-03T14:34:12Z",
+      "side": 1,
+      "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "7c120050_fa47ce2f",
       "range": {
         "startLine": 90,
         "startChar": 0,
