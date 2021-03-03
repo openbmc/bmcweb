@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "03d1a139_c3c6ea6a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-03T12:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e4bf30d_199ec4e2",
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dcd2d22_77bb91ef",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
@@ -66,6 +84,30 @@
       "writtenOn": "2021-02-06T03:59:39Z",
       "side": 1,
       "message": "How they both are different?",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 29
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a27f4805_f52bc061",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-03T12:04:24Z",
+      "side": 1,
+      "message": "uriProto is http or https and so on;\nprotocol is Redfish or SNMPv2c and so on;",
+      "parentUuid": "6dcd2d22_77bb91ef",
       "range": {
         "startLine": 232,
         "startChar": 2,
@@ -101,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "e29e22b4_67ce17c9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-03T12:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94f3eb86_e70e610e",
+      "range": {
+        "startLine": 463,
+        "startChar": 26,
+        "endLine": 463,
+        "endChar": 48
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f7ac96_fee0f515",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
@@ -121,6 +187,30 @@
       "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0ca082_5735f674",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-03T12:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f7ac96_fee0f515",
+      "range": {
+        "startLine": 470,
+        "startChar": 26,
+        "endLine": 470,
+        "endChar": 48
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +281,30 @@
       "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eca9bc7_89f17b31",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-03T12:04:24Z",
+      "side": 1,
+      "message": "Done. You\u0027re right. Thank you",
+      "parentUuid": "204c07a4_5121b7f6",
+      "range": {
+        "startLine": 700,
+        "startChar": 8,
+        "endLine": 700,
+        "endChar": 73
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
