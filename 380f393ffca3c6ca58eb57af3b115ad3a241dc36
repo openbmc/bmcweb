@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "86b2fc28_eacba8f7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-03T03:36:18Z",
+      "side": 1,
+      "message": "nit: Is it really needed to validate the dumpPath string coming from the dbus ? Can we just add the dumpPath and dumpId directly?",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 712,
+        "endChar": 5
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbd571a0_67a57888",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -64,6 +87,29 @@
         "startChar": 9,
         "endLine": 715,
         "endChar": 22
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4a52cb_948fb4fb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-03T03:36:18Z",
+      "side": 1,
+      "message": "Cancelled state is suitable if there a user action for the Task. If there is any internal error, the state should be set to \"Killed\".",
+      "range": {
+        "startLine": 721,
+        "startChar": 34,
+        "endLine": 721,
+        "endChar": 45
       },
       "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
