@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "ca76b018_0fd4e0d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-03-03T06:34:51Z",
+      "side": 1,
+      "message": "I don\u0027t understand what you mean \"implement port schema here\".. It will anyway be implemented as part of CXP fabric-port work right ?.. Or are you saying, we will pull this as part of that commit ?\n\nAs an example: piceslot schema was already in bmcweb repo before. However, there was no implementation until we started working that with IPS now.",
+      "parentUuid": "1612b316_aa720a61",
+      "revId": "11fb24085275462e6112fa54bae42fa566d1544a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2f6cd33_9303f8ce",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 3
