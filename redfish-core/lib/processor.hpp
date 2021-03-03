@@ -609,6 +609,34 @@ inline void getCpuLocationCode(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
 }
 
+/**
+ * Populate the unique identifier in a Processor resource by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getCpuUniqueId(const std::shared_ptr<AsyncResp>& aResp,
+                           const std::string& service,
+                           const std::string& objectPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp](boost::system::error_code /* ec */,
+                const std::variant<std::string>& property) {
+            const std::string* id = std::get_if<std::string>(&property);
+            if (id != nullptr && !id->empty())
+            {
+                aResp->res
+                    .jsonValue["ProcessorId"]["ProtectedIdentificationNumber"] =
+                    *id;
+            }
+        },
+        service, objectPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
+        "UniqueIdentifier");
+}
+
 inline void getProcessorData(std::shared_ptr<AsyncResp> aResp,
                              const std::string& processorId)
 {
@@ -675,6 +703,11 @@ inline void getProcessorData(std::shared_ptr<AsyncResp> aResp,
                         {
                             getCpuLocationCode(aResp, serviceName, objectPath);
                         }
+                        else if (interface == "xyz.openbmc_project.Inventory."
+                                              "Decorator.UniqueIdentifier")
+                        {
+                            getCpuUniqueId(aResp, serviceName, objectPath);
+                        }
                     }
                 }
                 return;
@@ -687,13 +720,14 @@ inline void getProcessorData(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 6>{
+        std::array<const char*, 7>{
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Decorator.Revision",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Decorator.LocationCode",
             "xyz.openbmc_project.Inventory.Item.Accelerator",
-            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
+            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+            "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"});
 }
 
 /**
