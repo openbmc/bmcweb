@@ -237,31 +237,41 @@ inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
 
-            for (const auto& property : properties)
+            for (const auto& [propertyName, propertyVal] : properties)
             {
-                if (property.first == "SerialNumber")
+                if (propertyName == "SerialNumber")
                 {
                     const std::string* sn =
-                        std::get_if<std::string>(&property.second);
+                        std::get_if<std::string>(&propertyVal);
                     if (sn != nullptr && !sn->empty())
                     {
                         aResp->res.jsonValue["SerialNumber"] = *sn;
                     }
                 }
-                else if (property.first == "Model")
+                else if (propertyName == "UniqueIdentifier")
+                {
+                    const auto* ppin = std::get_if<std::string>(&propertyVal);
+                    if (ppin != nullptr && !ppin->empty())
+                    {
+                        aResp->res.jsonValue["ProcessorId"]
+                                            ["ProtectedIdentificationNumber"] =
+                            *ppin;
+                    }
+                }
+                else if (propertyName == "Model")
                 {
                     const std::string* model =
-                        std::get_if<std::string>(&property.second);
+                        std::get_if<std::string>(&propertyVal);
                     if (model != nullptr && !model->empty())
                     {
                         aResp->res.jsonValue["Model"] = *model;
                     }
                 }
-                else if (property.first == "Manufacturer")
+                else if (propertyName == "Manufacturer")
                 {
 
                     const std::string* mfg =
-                        std::get_if<std::string>(&property.second);
+                        std::get_if<std::string>(&propertyVal);
                     if (mfg != nullptr)
                     {
                         aResp->res.jsonValue["Manufacturer"] = *mfg;
@@ -281,29 +291,36 @@ inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
                         }
                     }
                 }
-                else if (property.first == "PartNumber")
+                else if (propertyName == "PartNumber")
                 {
                     const std::string* partNumber =
-                        std::get_if<std::string>(&property.second);
+                        std::get_if<std::string>(&propertyVal);
 
                     if (partNumber == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["PartNumber"] = *partNumber;
+                    if (!partNumber->empty())
+                    {
+                        aResp->res.jsonValue["PartNumber"] = *partNumber;
+                    }
                 }
-                else if (property.first == "SparePartNumber")
+                else if (propertyName == "SparePartNumber")
                 {
                     const std::string* sparePartNumber =
-                        std::get_if<std::string>(&property.second);
+                        std::get_if<std::string>(&propertyVal);
 
                     if (sparePartNumber == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+                    if (!sparePartNumber->empty())
+                    {
+                        aResp->res.jsonValue["SparePartNumber"] =
+                            *sparePartNumber;
+                    }
                 }
             }
         },
