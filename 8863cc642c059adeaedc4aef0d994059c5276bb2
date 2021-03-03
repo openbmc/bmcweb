@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b855daea_4944690f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-03T17:05:25Z",
+      "side": 1,
+      "message": "More detail needed here.  Two sentences of description doesn\u0027t seem appropriate when you have added a whole feature to redfish.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "8863cc642c059adeaedc4aef0d994059c5276bb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2bbd33ae_bca14bbb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 14
