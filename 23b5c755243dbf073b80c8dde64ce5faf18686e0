@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "055b252a_8cfde8cf",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-03T18:19:07Z",
+      "side": 1,
+      "message": "uri is empty at this point. Need to use destUri",
+      "range": {
+        "startLine": 407,
+        "startChar": 56,
+        "endLine": 407,
+        "endChar": 59
+      },
+      "revId": "23b5c755243dbf073b80c8dde64ce5faf18686e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

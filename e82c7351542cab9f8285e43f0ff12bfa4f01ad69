@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "c1fe2073_f729e01c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-03T18:19:07Z",
+      "side": 1,
+      "message": "For correct state machine check, return immediately after calling handleConnState()[This has some async calls]. We may end up on unknown issues if we process data even after calling handleConState(In below case, state value is changed from retry to idle/abort).",
+      "parentUuid": "de653591_8f27d89e",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 44
+      },
+      "revId": "e82c7351542cab9f8285e43f0ff12bfa4f01ad69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b47c0103_cd9b8318",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
