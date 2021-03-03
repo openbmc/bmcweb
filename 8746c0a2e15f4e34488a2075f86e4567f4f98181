@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2532b740_d5b5b664",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-03T19:56:59Z",
+      "side": 1,
+      "message": "These really shouldn\u0027t be default params.  If they\u0027re required data, they need to be required.  If certain implementations don\u0027t have a way to fill in clientId, it should leave it empty, but still present in calling code.\n\n\nclientIP definitely shouldn\u0027t be defaulted, as we would expect all callers here to be able to determine the source IP.",
+      "range": {
+        "startLine": 215,
+        "startChar": 40,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8746c0a2e15f4e34488a2075f86e4567f4f98181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
