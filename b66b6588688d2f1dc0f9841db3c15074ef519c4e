@@ -57,6 +57,24 @@
       "revId": "b66b6588688d2f1dc0f9841db3c15074ef519c4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ae09d8_c19e221a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-03T19:29:52Z",
+      "side": 1,
+      "message": "I would like to see it be a full class, built so its usage is identical to the asio-in tcp resolver.",
+      "parentUuid": "33a0eaf1_82c94ad4",
+      "revId": "b66b6588688d2f1dc0f9841db3c15074ef519c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
