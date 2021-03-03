@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
@@ -651,6 +652,34 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
 }
 
 /**
+ * Populate the unique identifier in a Processor resource by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& service,
+                           const std::string& objectPath)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objectPath,
+        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
+        "UniqueIdentifier",
+        [aResp](boost::system::error_code ec, const std::string& id) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Failed to read cpu unique id: " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res
+                .jsonValue["ProcessorId"]["ProtectedIdentificationNumber"] = id;
+        });
+}
+
+/**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
  * response and don't call the handler.
@@ -721,14 +750,15 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 7>{
+        std::array<const char*, 8>{
             "xyz.openbmc_project.Common.UUID",
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Decorator.Revision",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Decorator.LocationCode",
             "xyz.openbmc_project.Inventory.Item.Accelerator",
-            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
+            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+            "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"});
 }
 
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -773,6 +803,11 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
                 getProcessorUUID(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory."
+                                  "Decorator.UniqueIdentifier")
+            {
+                getCpuUniqueId(aResp, serviceName, objectPath);
             }
         }
     }
