@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb8241b4_b965235a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-03T09:24:57Z",
+      "side": 0,
+      "message": "Ahh, we have other callers of generate user session function which was creating the problem..\n\nhttps://github.com/openbmc/bmcweb/blob/c0ea7ae1c502fa2c67b0a58aee05b75581dafa7a/include/login_routes.hpp#L141",
+      "range": {
+        "startLine": 215,
+        "startChar": 42,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "feaf15005555a3099c7f22a7e3d16c99ccb40e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
