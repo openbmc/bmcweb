@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11b9901a_625f590a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-04T19:02:34Z",
+      "side": 1,
+      "message": "Always best to include how: \nThis is accomplished by changing the IPv6DefaultGateway to \"0:0:0:0:0:0:0:0\" if empty. \n\nFor next time.",
+      "revId": "aa088135a8c6620bf9242bad6a5495abb1d6a93d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
