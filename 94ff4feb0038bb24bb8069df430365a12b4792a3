@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "187d014f_9c33e30d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-04T05:11:17Z",
+      "side": 1,
+      "message": "i think its better to assign \"0:0:0:0:0:0:0:0\" if its empty.\nright?\nupdated latest patch with same",
+      "parentUuid": "65d7578f_7af31e7a",
+      "range": {
+        "startLine": 1835,
+        "startChar": 8,
+        "endLine": 1835,
+        "endChar": 50
+      },
+      "revId": "94ff4feb0038bb24bb8069df430365a12b4792a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "792470d4_4ebd1c2a",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 5
