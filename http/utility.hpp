@@ -571,6 +571,34 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     return true;
 }
 
+inline std::string convertToAscii(const uint64_t& element)
+{
+    uint64_t tmpelement = element;
+
+    uint8_t* p = reinterpret_cast<uint8_t*>(&tmpelement);
+
+    std::vector<unsigned char> bytearray(p, p + 8);
+
+    std::string asciiString = {};
+
+    bool isAsciiConvertable = true;
+    for (auto& byte : bytearray)
+    {
+        if (!std::isprint(byte))
+        {
+            isAsciiConvertable = false;
+            return asciiString;
+        }
+    }
+    if (isAsciiConvertable)
+    {
+
+        asciiString = std::string(bytearray.begin(), bytearray.end());
+        return asciiString;
+    }
+    return asciiString;
+}
+
 /**
  * Method returns Date Time information according to requested format
  *
