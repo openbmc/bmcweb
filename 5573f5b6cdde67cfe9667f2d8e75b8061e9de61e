@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee8e50df_849bf29d",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-04T05:54:57Z",
+      "side": 1,
+      "message": "Agree.. I was wondering too as to why was this not under BMCWEB_ENABLE_REDFISH.. Will fix this too",
+      "parentUuid": "dc99053d_31c5da7c",
+      "revId": "5573f5b6cdde67cfe9667f2d8e75b8061e9de61e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb21eb45_9a6bd915",
         "filename": "src/webserver_main.cpp",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "5573f5b6cdde67cfe9667f2d8e75b8061e9de61e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573c9f1f_a72554d6",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-04T05:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb21eb45_9a6bd915",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 48
+      },
+      "revId": "5573f5b6cdde67cfe9667f2d8e75b8061e9de61e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
