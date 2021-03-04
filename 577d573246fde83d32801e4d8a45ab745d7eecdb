@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "04f2b1f8_6fdc4353",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-04T04:48:23Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "5b9bf666_ad87532f",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9f9ece0_2b46be37",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "98d5a282_06b7aaaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-04T04:48:23Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "e9f9ece0_2b46be37",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc2054db_3ed9e292",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2021-01-28T20:48:36Z",
       "side": 1,
       "message": "This is also a valid input (which should delete the ip address)  Is that what you observed?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63b841b7_4d88ac05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-04T04:48:23Z",
+      "side": 1,
+      "message": "yes it deletes entry.",
+      "parentUuid": "bc2054db_3ed9e292",
       "range": {
         "startLine": 19,
         "startChar": 0,
