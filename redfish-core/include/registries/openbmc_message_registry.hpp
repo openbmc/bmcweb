@@ -21,15 +21,15 @@ namespace redfish::message_registries::openbmc
 const Header header = {
     "Copyright 2018 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.1.0",
+    "OpenBMC.0.2.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.1.0",
+    "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 188> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -194,6 +194,17 @@ constexpr std::array<MessageEntry, 187> registry = {
                      "OK",
                      3,
                      {"number", "number", "number"},
+                     "None.",
+                 }},
+    MessageEntry{"BIOSPOSTCodeASCII",
+                 {
+                     "BIOS Power-On Self-Test Code received",
+                     "Boot Count: %1: TS Offset: %2; POST Code: %3; POST Code "
+                     "in Ascii: %4",
+                     "OK",
+                     "OK",
+                     4,
+                     {"number", "number", "number", "string"},
                      "None.",
                  }},
     MessageEntry{"BIOSPOSTError",
