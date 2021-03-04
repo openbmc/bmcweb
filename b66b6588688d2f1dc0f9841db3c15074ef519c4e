@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7fbca2bc_6e2c1f19",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-04T16:35:04Z",
+      "side": 1,
+      "message": "\u003e from_chars does not give the unsigned short int - I will again have to convert the from_chars output.\n\nI\u0027m not sure where you got that idea.  from_chars works fine on uint16_t?\nhttps://godbolt.org/z/PcEa8a\n\n\u003e Do you see any problem if the lexical_cast is used ?\n\nThis is listed in common errors;  lexical cast throws on bad input.",
+      "parentUuid": "1e313695_58840534",
+      "range": {
+        "startLine": 116,
+        "startChar": 28,
+        "endLine": 116,
+        "endChar": 79
+      },
+      "revId": "b66b6588688d2f1dc0f9841db3c15074ef519c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36039159_c469d953",
         "filename": "http/http_client.hpp",
         "patchSetId": 10

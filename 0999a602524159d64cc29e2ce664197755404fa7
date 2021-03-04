@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47ad8771_f1b3c215",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-04T16:35:04Z",
+      "side": 1,
+      "message": "This does nothing.  We\u0027re not using conn in this operation, so setting a timeout has no effect.  Because we\u0027re accessing dbus here, we can rely on the dbus timeouts.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 53
+      },
+      "revId": "0999a602524159d64cc29e2ce664197755404fa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0a119e4_2c271bc9",
+        "filename": "include/async_resolve.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-04T16:35:04Z",
+      "side": 1,
+      "message": "please make this look like the asio resolver, which does not take host and port in the constructor.  Instead, it accepts host and service variables in the async_resolve method.\n\nThese need not be member variables.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "0999a602524159d64cc29e2ce664197755404fa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
