@@ -56,3 +56,19 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_TRUE(crow::utility::base64Decode(encoded, decoded));
     EXPECT_EQ(data, decoded);
 }
+
+TEST(Utility, convertToAsciiGoodTestCase)
+{
+    std::string stringCode = crow::utility::convertToAscii(0x205942444e415453);
+    EXPECT_EQ("STANDBY ", stringCode);
+    stringCode = crow::utility::convertToAscii(0x3030463130303143);
+    EXPECT_EQ("C1001F00", stringCode);
+}
+
+TEST(Utility, convertToAsciiBadTestCase)
+{
+    std::string stringCode = crow::utility::convertToAscii(0xFFFFFFFFFFFFFFFF);
+    EXPECT_EQ("", stringCode);
+    stringCode = crow::utility::convertToAscii(0xD7D7D7D7D7D7D7D7);
+    EXPECT_EQ("", stringCode);
+}
