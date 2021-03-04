@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e313695_58840534",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-04T11:37:50Z",
+      "side": 1,
+      "message": "from_chars does not give the unsigned short int - I will again have to convert the from_chars output.\nDo you see any problem if the lexical_cast is used ?",
+      "parentUuid": "33cfe0d0_bc37c94a",
+      "range": {
+        "startLine": 116,
+        "startChar": 28,
+        "endLine": 116,
+        "endChar": 79
+      },
+      "revId": "b66b6588688d2f1dc0f9841db3c15074ef519c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36039159_c469d953",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
@@ -75,6 +99,24 @@
       "revId": "b66b6588688d2f1dc0f9841db3c15074ef519c4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4dc4aeb_910e0efc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-04T11:37:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97ae09d8_c19e221a",
+      "revId": "b66b6588688d2f1dc0f9841db3c15074ef519c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
