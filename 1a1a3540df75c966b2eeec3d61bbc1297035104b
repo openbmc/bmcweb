@@ -82,6 +82,30 @@
     },
     {
       "key": {
+        "uuid": "74c7c479_fb6ede8a",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-04T21:24:55Z",
+      "side": 1,
+      "message": "It actually is not required in the redfish spec but I agree with Ed that this should be filled in regardless of whether it exists on D-Bus. That is a pattern we have followed in bmcweb, we treat \"Status\" as if it is required.\n\nhttps://redfish.dmtf.org/schemas/v1/PowerSupply.v1_0_0.json\n            \"required\": [\n                \"@odata.id\",\n                \"@odata.type\",\n                \"Id\",\n                \"Name\"\n            ],",
+      "parentUuid": "9edc0452_1ef4319b",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 68
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14e6dc20_2bedd1d9",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
