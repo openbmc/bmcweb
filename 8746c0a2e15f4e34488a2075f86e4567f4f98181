@@ -70,6 +70,30 @@
       "revId": "8746c0a2e15f4e34488a2075f86e4567f4f98181",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57a02533_5927229f",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-04T15:42:38Z",
+      "side": 1,
+      "message": "\"But clientId can be defaulted\"\n\nPlease don\u0027t.  I\u0027d much rather we have something like\n\nstd::string unsupportedClientId \u003d \"\"\ngenerateUserSession(... unsupportedClientId)\n\nTo make it really obvious that we didn\u0027t push clientId everywhere, and so we don\u0027t hit this situation again with default params.",
+      "parentUuid": "7ba897a0_be7235a3",
+      "range": {
+        "startLine": 215,
+        "startChar": 40,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8746c0a2e15f4e34488a2075f86e4567f4f98181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
