@@ -29,7 +29,7 @@ const Header header = {
     "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 188> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -197,6 +197,17 @@ constexpr std::array<MessageEntry, 187> registry = {
             {"number", "number", "number"},
             "None.",
         }},
+    MessageEntry{"BIOSPOSTCodeASCII",
+                 {
+                     "BIOS Power-On Self-Test Code received",
+                     "Boot Count: %1; Time Stamp Offset: %2 seconds; POST "
+                     "Code: %3; POST Code in ASCII: %4",
+                     "OK",
+                     "OK",
+                     4,
+                     {"number", "number", "number", "string"},
+                     "None.",
+                 }},
     MessageEntry{"BIOSPOSTError",
                  {
                      "Indicates BIOS POST has encountered an error.",
