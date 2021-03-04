@@ -3100,6 +3100,7 @@ static void fillPostCodeEntry(
         std::ostringstream hexCode;
         hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
                 << code.second;
+        std::string stringCode = crow::utility::convertToAscii(code.second);
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;
@@ -3107,8 +3108,9 @@ static void fillPostCodeEntry(
         timeOffsetStr << std::setprecision(4);
         // Add double to stream
         timeOffsetStr << static_cast<double>(usTimeOffset) / 1000 / 1000;
-        std::vector<std::string> messageArgs = {
-            std::to_string(bootIndex), timeOffsetStr.str(), hexCode.str()};
+        std::vector<std::string> messageArgs = {std::to_string(bootIndex),
+                                                timeOffsetStr.str(),
+                                                hexCode.str(), stringCode};
 
         // Get MessageArgs template from message registry
         std::string msg;
