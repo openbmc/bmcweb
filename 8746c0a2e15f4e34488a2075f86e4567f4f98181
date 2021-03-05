@@ -94,6 +94,30 @@
       "revId": "8746c0a2e15f4e34488a2075f86e4567f4f98181",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2907ede2_4e451e17",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-05T07:38:30Z",
+      "side": 1,
+      "message": "Ya wherever the generateUserSession is called, i will need to do this. But there are two other default arguments in this method. isConfigureSelfOnly and persistence. How about them ?\n\nI saw one of your commits https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37576 - to make the clientId wrapped with the IBM compiler flag. That may not be needed if these changes are made",
+      "parentUuid": "57a02533_5927229f",
+      "range": {
+        "startLine": 215,
+        "startChar": 40,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8746c0a2e15f4e34488a2075f86e4567f4f98181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
