@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c54a43d_712e0082",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-05T10:07:06Z",
+      "side": 1,
+      "message": "You don\u0027t need to create a std::string again from dir.c_str() , You could have done like as std::string lockPersistentFilePath \u003d dir.c_str();",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 367,
+        "endChar": 59
+      },
+      "revId": "1ecd8a7643c5c680cb982d8b551aa1603007ba69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab3ee6d_73bab005",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-05T10:07:06Z",
+      "side": 1,
+      "message": "Can we directly pass dir.c_str() here?",
+      "range": {
+        "startLine": 368,
+        "startChar": 55,
+        "endLine": 368,
+        "endChar": 77
+      },
+      "revId": "1ecd8a7643c5c680cb982d8b551aa1603007ba69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
