@@ -22,6 +22,30 @@
       "revId": "6dfb0c410201b83e5e6f07d6e569ffca659f0e33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041334f9_7f6caa76",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-05T02:36:31Z",
+      "side": 1,
+      "message": "Done. It\u0027s better to use \"HotPluggable.\" thanks",
+      "parentUuid": "12ff2887_1e5ce472",
+      "range": {
+        "startLine": 215,
+        "startChar": 45,
+        "endLine": 215,
+        "endChar": 57
+      },
+      "revId": "6dfb0c410201b83e5e6f07d6e569ffca659f0e33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
