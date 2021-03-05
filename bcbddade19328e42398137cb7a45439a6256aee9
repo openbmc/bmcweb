@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "56dd8970_7bc82930",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-05T15:43:38Z",
+      "side": 1,
+      "message": "use a char literal here to avoid an extra construction.\n\nI\u0027m surprised clang-tidy didn\u0027t catch this, but it usually does.",
+      "range": {
+        "startLine": 47,
+        "startChar": 45,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5455eff5_1d95d897",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 17
@@ -987,6 +1010,30 @@
       "side": 1,
       "message": "I agree with Jozef, also how can we be sure that someone in the future will change this link and he/she will test every possible case needed to make sure it works?\n\n@Ed Tanous, just a reminder it is still an open topic.",
       "parentUuid": "875cc038_32318666",
+      "range": {
+        "startLine": 151,
+        "startChar": 31,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "bcbddade19328e42398137cb7a45439a6256aee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a651b63_3844de5c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-05T15:43:38Z",
+      "side": 1,
+      "message": "You will have tested it, and at minimum run the validator, which catches bugs in this kind of thing.  With that said, I\u0027m not very worried about this.  Fine as is if you want to leave it.",
+      "parentUuid": "29bae646_d2f0a273",
       "range": {
         "startLine": 151,
         "startChar": 31,
