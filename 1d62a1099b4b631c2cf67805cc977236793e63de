@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49e4a9a5_0ada7ab6",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-05T09:38:42Z",
+      "side": 1,
+      "message": "You have to check if (cert) as std::get_if may return null and you would end up calling empty function on the null which would cause a crash.",
+      "range": {
+        "startLine": 770,
+        "startChar": 8,
+        "endLine": 770,
+        "endChar": 30
+      },
+      "revId": "1d62a1099b4b631c2cf67805cc977236793e63de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b37f4f89_9657560c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-05T09:38:42Z",
+      "side": 1,
+      "message": "Can we call objPath.filename()?",
+      "range": {
+        "startLine": 864,
+        "startChar": 3,
+        "endLine": 883,
+        "endChar": 13
+      },
+      "revId": "1d62a1099b4b631c2cf67805cc977236793e63de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c693b32f_24b72b12",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-05T09:38:42Z",
+      "side": 1,
+      "message": "if (ec)\n{  if(ec !\u003d boost::asio::error::operation_aborted)\n    {\n        BMCWEB_LOG_ERROR \u003c\u003c \"Async_wait failed \" \u003c\u003c ec;\n     }\n  return;\n}",
+      "range": {
+        "startLine": 887,
+        "startChar": 1,
+        "endLine": 896,
+        "endChar": 17
+      },
+      "revId": "1d62a1099b4b631c2cf67805cc977236793e63de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac06c83_42b4cb0a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-05T09:38:42Z",
+      "side": 1,
+      "message": "Can we create asyncResp here?",
+      "range": {
+        "startLine": 1023,
+        "startChar": 16,
+        "endLine": 1023,
+        "endChar": 26
+      },
+      "revId": "1d62a1099b4b631c2cf67805cc977236793e63de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
