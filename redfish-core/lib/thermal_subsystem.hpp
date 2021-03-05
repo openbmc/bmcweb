@@ -51,8 +51,9 @@ class ThermalSubsystem : public Node
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/ThermalSubsystem";
 
-                // TODO : Add new fan schema
-
+                asyncResp->res.jsonValue["Fans"] = {
+                    {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                      "/ThermalSubsystem/Fans"}};
                 // TODO : Add Thermal Metrics schema
 
                 asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
