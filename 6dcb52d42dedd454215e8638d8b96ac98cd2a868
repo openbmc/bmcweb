@@ -94,6 +94,30 @@
       "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4f1f08_1b525b5f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T02:40:00Z",
+      "side": 1,
+      "message": "We\u0027ve had bad luck in bmcweb with expecting people to catch exceptions.  Almost every crash we\u0027ve had around bad data has been some form of uncaught exception, or calling a method that nobody realized threw, or forgetting to catch a particular exception type.  Unfortunately, this crashes bmcweb, as we need to make sure that things are cleaned up, and we don\u0027t end up with DOS vectors and leaked memory or descriptors because of the failures.\n\nI\u0027m not a huge fan of adding exceptions for this case, even if there were a way to do it safely, the rules around it aren\u0027t consistent enough for us to trust in a security context, also, it makes code much harder to review.",
+      "parentUuid": "71eac879_cae0ca34",
+      "range": {
+        "startLine": 1373,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 17
+      },
+      "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
