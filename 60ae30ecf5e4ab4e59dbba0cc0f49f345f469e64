@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "021a246c_b7c95dfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-06T00:57:22Z",
+      "side": 1,
+      "message": "But BMCWEB_ENABLE_STATIC_HOSTING has to enabled to hit this code..",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
