@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "816fed6b_c2d6b272",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T02:40:57Z",
+      "side": 1,
+      "message": "Frankly, I still don\u0027t like that this is a template, as that seems like overkill for this kind of thing, but I haven\u0027t looked at the code with the right lens to understand why this is a template, and how it simplifies the code.\n\nYes, that template variable name seems fine.",
+      "parentUuid": "e73bf7bc_c5e71c85",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0ba968a_0d0dc464",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -215,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "3c8e2b04_718bc8f4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T02:40:57Z",
+      "side": 1,
+      "message": "Yes, this is ok.....  the fact that the variable is mutable, and modified is a little odd to read, but I guess it\u0027s fine.",
+      "parentUuid": "3b4666a7_317bcc14",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "744549c5_1e6aafb2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -273,6 +321,30 @@
       "writtenOn": "2021-03-03T14:34:12Z",
       "side": 1,
       "message": "@Ed Tanous, just a reminder. Please respond.",
+      "parentUuid": "35a913fe_82822f97",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ee6fd4_cf5ccb76",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T02:40:57Z",
+      "side": 1,
+      "message": "Ah, I\u0027m remembering this now.  fine as is.",
       "parentUuid": "35a913fe_82822f97",
       "range": {
         "startLine": 68,
@@ -357,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "9217837d_db06825c",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T02:40:57Z",
+      "side": 1,
+      "message": "ok, that makes sense.  I guess the template confused me this time around.  Fine as-is.",
+      "parentUuid": "86b95224_33f7418f",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 12
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b18f62f0_fd6c43ca",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -416,6 +512,30 @@
       "side": 1,
       "message": "@Ed Tanous, just a reminder. Please respond.",
       "parentUuid": "7c120050_fa47ce2f",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a54482d7_be17b20a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T02:40:57Z",
+      "side": 1,
+      "message": "Great.  I think I understand.  I\u0027ll take a look at the latest patchset and respond there.",
+      "parentUuid": "7f5edce4_40ef11b9",
       "range": {
         "startLine": 90,
         "startChar": 0,
