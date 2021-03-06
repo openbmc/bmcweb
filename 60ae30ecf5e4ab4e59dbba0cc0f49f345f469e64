@@ -22,6 +22,30 @@
       "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd93b336_7ba614ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-06T01:00:42Z",
+      "side": 1,
+      "message": "Yes, but nobody knows how to read documentation, and BMCWEB_ENABLE_STATIC_HOSTING is enabled by default.  This has unfortunately bitten more than one project that attempted to use bmcweb outside of openbmc, hence why I\u0027m trying to solve it.",
+      "parentUuid": "021a246c_b7c95dfe",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
