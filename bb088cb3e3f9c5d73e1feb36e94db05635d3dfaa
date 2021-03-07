@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "b7f20901_78b9381c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-07T18:15:46Z",
+      "side": 1,
+      "message": "Still under review. As this is internal to Intel specific, unable to provide the gerrit patch link.",
+      "parentUuid": "2d8045ce_d86d9a46",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ffa065bd_9aff3b0c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -66,6 +84,30 @@
       "writtenOn": "2021-03-02T16:08:05Z",
       "side": 1,
       "message": "You just booted it up and the log presented itself without doing anything else?  That sounds like a bug.\n\nWhat I suspect is that you missed a number of steps here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 32
+      },
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332ba25f_8ea02f26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-07T18:15:46Z",
+      "side": 1,
+      "message": "Done. Added now all the points.",
+      "parentUuid": "ffa065bd_9aff3b0c",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -229,6 +271,30 @@
       "writtenOn": "2021-03-02T16:08:05Z",
       "side": 1,
       "message": "Validation seems like a weird thing to be publishing through an external interface.  I wonder if there\u0027s a better name we could use, as I would assume this mode expands farther than just validation.",
+      "range": {
+        "startLine": 2413,
+        "startChar": 18,
+        "endLine": 2413,
+        "endChar": 28
+      },
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2434f91_4a800c39",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2413,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-03-07T18:15:46Z",
+      "side": 1,
+      "message": "This is pre-defined special mode. \nCommand: busctl call \"xyz.openbmc_project.SpecialMode\" /xyz/openbmc_project/security/special_mode org.freedesktop.DBus.Properties Get ss xyz.openbmc_project.Security.SpecialMode SpecialMode --no-pager\nResponse: v s \"xyz.openbmc_project.Control.Security.SpecialMode.Modes.ValidationUnsecure\"",
+      "parentUuid": "34e1b8fe_a6a8b2bc",
       "range": {
         "startLine": 2413,
         "startChar": 18,
