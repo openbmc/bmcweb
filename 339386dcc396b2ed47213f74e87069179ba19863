@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f060c03c_97034fbd",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-07T21:42:19Z",
+      "side": 1,
+      "message": "?  This patch seems like it\u0027s a WIP?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "339386dcc396b2ed47213f74e87069179ba19863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
