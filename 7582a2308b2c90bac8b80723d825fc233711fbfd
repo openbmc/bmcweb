@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bcddef75_c39dd687",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-07T10:51:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "782c982f_b913f67a",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 70
+      },
+      "revId": "7582a2308b2c90bac8b80723d825fc233711fbfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8637a0e_5c12d139",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9f8a0b12_d31021a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-07T10:51:49Z",
+      "side": 1,
+      "message": "The space is coming because of ascii conversion of the hex 20",
+      "parentUuid": "b8637a0e_5c12d139",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "7582a2308b2c90bac8b80723d825fc233711fbfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f24897ca_fdfd82b7",
         "filename": "http/utility.hpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2021-03-04T23:35:10Z",
       "side": 1,
       "message": "There could be better way to do it. But, here is my suggestion:\nif (std::count_if(bytearray.begin(), bytearray.end(), \n                         [](unsigned char c){ return !std::isprint(c); } \n                        )\n{\n      return {}\n}\nreturn std::string(bytearray.begin(), bytearray.end());",
+      "range": {
+        "startLine": 582,
+        "startChar": 4,
+        "endLine": 592,
+        "endChar": 23
+      },
+      "revId": "7582a2308b2c90bac8b80723d825fc233711fbfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92620a5a_7a2cfcd4",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-07T10:51:49Z",
+      "side": 1,
+      "message": "This logic is optimized than mine. Thanks.",
+      "parentUuid": "f24897ca_fdfd82b7",
       "range": {
         "startLine": 582,
         "startChar": 4,
