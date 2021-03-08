@@ -3271,7 +3271,7 @@ static void fillPostCodeEntry(
         // add to AsyncResp
         logEntryArray.push_back({});
         nlohmann::json& bmcLogEntry = logEntryArray.back();
-        bmcLogEntry = {{"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        bmcLogEntry = {{"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
                        {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
                                      "PostCodes/Entries/" +
                                          postcodeEntryID},
@@ -3283,6 +3283,14 @@ static void fillPostCodeEntry(
                        {"EntryType", "Event"},
                        {"Severity", std::move(severity)},
                        {"Created", entryTimeStr}};
+
+        if (std::get<std::vector<uint8_t>>(code.second).size())
+        {
+            bmcLogEntry["AdditionalDataURI"] =
+                "/redfish/v1/Systems/system/LogServices/PostCodes/"
+                "attachment/" +
+                postcodeEntryID;
+        }
     }
 }
 
