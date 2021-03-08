@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bd44a59a_1fe2551e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-08T14:02:17Z",
+      "side": 1,
+      "message": "Sure, I will add log",
+      "parentUuid": "54403ca0_82dd34b5",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 19
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a78eab3_4a608500",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 23
@@ -36,6 +60,30 @@
       "writtenOn": "2021-03-06T02:40:00Z",
       "side": 1,
       "message": "This check is redundant, right?  arg0 is already specified in the filter on line 1357.",
+      "range": {
+        "startLine": 1375,
+        "startChar": 0,
+        "endLine": 1378,
+        "endChar": 17
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4facc96_5a9aac9e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-08T14:02:17Z",
+      "side": 1,
+      "message": "I will double check it and remove if not needed.",
+      "parentUuid": "1a78eab3_4a608500",
       "range": {
         "startLine": 1375,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "893e24b2_24236c70",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1393,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-08T14:02:17Z",
+      "side": 1,
+      "message": "I can replace it with find_if, in general it follows same algorithm as sdbusplus::unpackProperties but in this case exception would be likely to happen. (PropertiesChanged may not include this property if something else changed)",
+      "parentUuid": "94954c0d_5751c426",
+      "range": {
+        "startLine": 1382,
+        "startChar": 0,
+        "endLine": 1393,
+        "endChar": 17
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83270855_84685d90",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 23
@@ -82,6 +154,30 @@
       "writtenOn": "2021-03-06T02:40:00Z",
       "side": 1,
       "message": "Unnecessary copy.  Use Subscription\u0026 instead.",
+      "range": {
+        "startLine": 1406,
+        "startChar": 20,
+        "endLine": 1406,
+        "endChar": 49
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc6986b_f5b1f5de",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-08T14:02:17Z",
+      "side": 1,
+      "message": "Will be fixed.",
+      "parentUuid": "83270855_84685d90",
       "range": {
         "startLine": 1406,
         "startChar": 20,
