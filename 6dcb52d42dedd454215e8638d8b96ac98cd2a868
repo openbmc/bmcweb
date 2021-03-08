@@ -118,6 +118,30 @@
       "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "632f0b9c_6a0b310e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-08T08:12:39Z",
+      "side": 1,
+      "message": "Ok, I understand your point of view. It is hard to replace exception with error_code. Exception class contains information which property was incorrect and reason either name was not found or type was not matched.\n\nIf used in dbus context it will ether never throws or always throws if someone test their code one test will be enough to test it.\n\nIf this doesn\u0027t convince you I can propose one more overload to sdbusplus (overload which throws can be helpful when debugging or just in any other code which doesn\u0027t avoid exceptions).\n\nbool unpackProperties(std::nothrow_t, Container, args...) noexcept;\nor\nbool unpackPropertiesNoThrow(Container, args...) noexcept;\nor\nstd::optional\u003cExceptionClass\u003e unpackProperties(std::nothrow_t, Container, args...) noexcept;\nor\nstd::optional\u003cExceptionClass\u003e unpackPropertiesNoThrow(Container, args...) noexcept;\nor whatever you prefer.\n\nStill I would like to keep both of them. In case the no throw version return false, we can get much more information what was wrong from exception class. Even if openBmc will only use no throw version modern C++ advices to use exceptions. Well of course we have to keep in mind that instead of using at on vector we should rather check for size and use [], but this exception will ether never happen or always in case of logic_error (unpackProperties parameters doesn\u0027t match with what is actually on dbus).",
+      "parentUuid": "9e4f1f08_1b525b5f",
+      "range": {
+        "startLine": 1373,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 17
+      },
+      "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
