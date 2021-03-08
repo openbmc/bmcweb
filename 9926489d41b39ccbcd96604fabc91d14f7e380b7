@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60f4dc66_9df7b0e2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-08T12:21:49Z",
+      "side": 1,
+      "message": "This would be the result of the above.\n\ncurl -k -H \"X-Auth-Token:$bmc_token\" -X GET https://${bmc}/redfish/v1/TaskService/Tasks/0\n{\n  \"@odata.id\": \"/redfish/v1/TaskService/Tasks/0\",\n  \"@odata.type\": \"#Task.v1_4_3.Task\",\n  \"EndTime\": \"2021-03-08T12:16:35+00:00\",\n  \"Id\": \"0\",\n  \"Messages\": [\n    {\n      \"@odata.type\": \"#Message.v1_0_0.Message\",\n      \"Message\": \"The task with id 0 has started.\",\n      \"MessageArgs\": [\n        \"0\"\n      ],\n      \"MessageId\": \"TaskEvent.1.0.1.TaskStarted\",\n      \"Resolution\": \"None.\",\n      \"Severity\": \"OK\"\n    },\n    {\n      \"@odata.type\": \"#Message.v1_0_0.Message\",\n      \"Message\": \"The task with id 0 has been aborted.\",\n      \"MessageArgs\": [\n        \"0\"\n      ],\n      \"MessageId\": \"TaskEvent.1.0.1.TaskAborted\",\n      \"Resolution\": \"None.\",\n      \"Severity\": \"Critical\"\n    },\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The request failed due to an internal service error.  The service is still operational.\",\n      \"MessageArgs\": [],\n      \"MessageId\": \"Base.1.8.1.InternalError\",\n      \"MessageSeverity\": \"Critical\",\n      \"Resolution\": \"Resubmit the request.  If the problem persists, consider resetting the service.\"\n    }\n  ],\n  \"Name\": \"Task 0\",\n  \"Payload\": {\n    \"HttpHeaders\": [\n      \"Host: 9.3.86.170\",\n      \"User-Agent: curl/7.71.1\",\n      \"Accept: */*\",\n      \"Content-Length: 72\"\n    ],\n    \"HttpOperation\": \"POST\",\n    \"JsonBody\": \"{\\\"DiagnosticDataType\\\":\\\"OEM\\\",\\\"OEMDiagnosticDataType\\\":\\\"Resource_vsp_pwd\\\"}\",\n    \"TargetUri\": \"/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData\"\n  },\n  \"PercentComplete\": 0,\n  \"StartTime\": \"2021-03-08T12:11:35+00:00\",\n  \"TaskMonitor\": \"/redfish/v1/TaskService/Tasks/0/Monitor\",\n  \"TaskState\": \"Cancelled\",\n  \"TaskStatus\": \"Warning\"\n}",
+      "range": {
+        "startLine": 722,
+        "startChar": 16,
+        "endLine": 722,
+        "endChar": 75
+      },
+      "revId": "9926489d41b39ccbcd96604fabc91d14f7e380b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
