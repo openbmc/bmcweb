@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6f5d401d_3dbf07ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T15:00:57Z",
+      "side": 1,
+      "message": "Thanks for reminder, it will be provided in next patchset",
+      "parentUuid": "32fe9cbe_1149c1d7",
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2851c03b_4946d122",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2021-03-08T14:56:46Z",
       "side": 1,
       "message": "You\u0027ve significantly changed what this returns.  In the previous usage, this returned \"Volts\" not \"V\"",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0a16d63_3f160943",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T15:00:57Z",
+      "side": 1,
+      "message": "Are you sure? Do you compare it with: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33363/56/redfish-core/lib/sensors.hpp#106",
+      "parentUuid": "2851c03b_4946d122",
       "range": {
         "startLine": 106,
         "startChar": 0,
