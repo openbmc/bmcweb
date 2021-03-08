@@ -94,6 +94,30 @@
       "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f120274_79e360ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T21:51:22Z",
+      "side": 1,
+      "message": "\u003e Yes, the system would fail to host /usr/share/www files, but it shouldn\u0027t crash, and shouldn\u0027t take down the other interfaces that don\u0027t have problems\n\nYeah\n\n\u003e based on the fact that they\u0027re doing things outside the definition of \"normal\"\n\nbut can\u0027t I make that same argument as for why fatal error is okay here",
+      "parentUuid": "b75810a2_3491999c",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
