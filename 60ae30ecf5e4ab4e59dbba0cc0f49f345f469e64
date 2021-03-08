@@ -70,6 +70,30 @@
       "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75810a2_3491999c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T21:40:00Z",
+      "side": 1,
+      "message": "\u003e If I take a step back and think about this.. The user enabled BMCWEB_ENABLE_STATIC_HOSTING (regardless if enabled by default) and Static Hostings relies on \"/usr/share/www\" but that directory was not there, a fatal error seems like the appropriate thing to happen.\n\nDepends on how you define fatal error.  Yes, the system would fail to host /usr/share/www files, but it shouldn\u0027t crash, and shouldn\u0027t take down the other interfaces that don\u0027t have problems.  Technically a non-existent directory could be valid if the UI was ever removable at somet point.\n\n\u003e \n\u003e Not sure I care a ton. Possible I get a defect one day for us sweeping this under the rug (the only way you would see you the warning if you had logging enabled).\n\nI doubt it, and I wouldn\u0027t really call this sweeping it under the rug.  We ignore similar errors in other cases, like the log folders not existing.  The only way a user would see this would be if they bypassed the yocto install process (which I\u0027ve heard of openbmc users doing to test bmcweb) or they weren\u0027t running on OpenBMC (which was the case when this was reported to me the other day).  In terms of OpenBMC, neither would be an external facing defect, or would be closed quickly based on the fact that they\u0027re doing things outside the definition of \"normal\".",
+      "parentUuid": "791ed464_bdb36b75",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
