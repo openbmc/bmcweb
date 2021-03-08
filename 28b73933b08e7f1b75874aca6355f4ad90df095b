@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "fe75557e_34d85d2f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7071d0ce_ad87b1f4",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20903206_a0a1cfc2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "Frankly, I still don\u0027t like that this is a template, as that seems like overkill for this kind of thing, but I haven\u0027t looked at the code with the right lens to understand why this is a template, and how it simplifies the code.\n\nYes, that template variable name seems fine.",
       "parentUuid": "e73bf7bc_c5e71c85",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2473031_a2e879c1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:40:30Z",
+      "side": 1,
+      "message": "Thanks, leaving as unresolved in case if someone is able to provide better solution",
+      "parentUuid": "816fed6b_c2d6b272",
       "range": {
         "startLine": 50,
         "startChar": 19,
@@ -263,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "7a099537_2c675d90",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:40:30Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "3c8e2b04_718bc8f4",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "744549c5_1e6aafb2",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -355,6 +427,30 @@
       "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e48495_c9f3a6db",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46ee6fd4_cf5ccb76",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -453,6 +549,30 @@
     },
     {
       "key": {
+        "uuid": "7aa80492_26af595c",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9217837d_db06825c",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 12
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b18f62f0_fd6c43ca",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
@@ -545,6 +665,30 @@
       "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3588085_30f89eb6",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a54482d7_be17b20a",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
