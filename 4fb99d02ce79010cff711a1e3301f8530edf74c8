@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1526a88a_0eb451f8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T16:35:16Z",
+      "side": 1,
+      "message": "if you wanted to, you could.  This api isn\u0027t strictly \"redfish\" as we\u0027re not sending json, so I suspect we also shouldn\u0027t be obeying the return codes from redfish, otherwise we\u0027d get requests that accept octet stream, but return json, which is funky.",
+      "parentUuid": "f80390be_fd16494f",
+      "range": {
+        "startLine": 1718,
+        "startChar": 22,
+        "endLine": 1718,
+        "endChar": 37
+      },
+      "revId": "4fb99d02ce79010cff711a1e3301f8530edf74c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb580249_1fbb47b5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
