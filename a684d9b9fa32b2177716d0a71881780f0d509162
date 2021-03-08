@@ -55,6 +55,29 @@
     },
     {
       "key": {
+        "uuid": "f288e76c_41e23ea1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:05:37Z",
+      "side": 1,
+      "message": "You\u0027ve also added ReadingType to the properties that are supported.  Please mention that, and the impact it will have on the external API.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2851c03b_4946d122",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -94,6 +117,53 @@
         "startLine": 106,
         "startChar": 0,
         "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9651592_e9b8059c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:05:37Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure (although I have been wrong from time to time).  I left comments on the exact lines that now have a behavior change.\n\nI\u0027m comparing this code against master, not against another in-review patchset.",
+      "parentUuid": "f0a16d63_3f160943",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc78d12_21357540",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:05:37Z",
+      "side": 1,
+      "message": "New code returns \"W\"",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
         "endChar": 19
       },
       "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
