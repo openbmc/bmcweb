@@ -3034,6 +3034,421 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     getChassisData(resp);
 }
 
+/**
+ * @brief Builds a json sensor representation of a sensor.
+ * @param sensorName  The name of the sensor to be built
+ * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
+ * build
+ * @param sensorsAsyncResp  Sensor metadata
+ * @param interfacesDict  A dictionary of the interfaces and properties of said
+ * interfaces to be built from
+ * @param sensorJson  The json object to fill
+ */
+inline void metricsObjectInterfacesToJson(
+    const std::string& sensorName, const std::string& sensorType,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const boost::container::flat_map<
+        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        interfacesDict,
+    nlohmann::json& sensorJson)
+{
+    // We need a value interface before we can do anything with it
+    auto valueIt = interfacesDict.find("xyz.openbmc_project.Sensor.Value");
+    if (valueIt == interfacesDict.end())
+    {
+        BMCWEB_LOG_ERROR << "Sensor doesn't have a value interface";
+        return;
+    }
+
+    // Assume values exist as is (10^0 == 1) if no scale exists
+    int64_t scaleMultiplier = 0;
+    auto scaleIt = valueIt->second.find("Scale");
+    // If a scale exists, pull value as int64, and use the scaling.
+    if (scaleIt != valueIt->second.end())
+    {
+        const int64_t* int64Value = std::get_if<int64_t>(&scaleIt->second);
+        if (int64Value != nullptr)
+        {
+            scaleMultiplier = *int64Value;
+        }
+    }
+
+    nlohmann::json::json_pointer unit("/Reading");
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::thermal)
+    {
+        if (sensorType == "temperature")
+        {
+            unit = "/Reading"_json_pointer;
+        }
+    }
+
+    // Map of dbus interface name, dbus property name and redfish property_name
+    std::vector<
+        std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
+        properties;
+    properties.reserve(1);
+
+    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
+    for (const std::tuple<const char*, const char*,
+                          nlohmann::json::json_pointer>& p : properties)
+    {
+        auto interfaceProperties = interfacesDict.find(std::get<0>(p));
+        if (interfaceProperties != interfacesDict.end())
+        {
+            auto thisValueIt = interfaceProperties->second.find(std::get<1>(p));
+            if (thisValueIt != interfaceProperties->second.end())
+            {
+                const SensorVariant& valueVariant = thisValueIt->second;
+
+                // The property we want to set may be nested json, so use
+                // a json_pointer for easy indexing into the json structure.
+                const nlohmann::json::json_pointer& key = std::get<2>(p);
+
+                // Attempt to pull the int64 directly
+                const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
+
+                const double* doubleValue = std::get_if<double>(&valueVariant);
+                const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
+                double temp = 0.0;
+                if (int64Value != nullptr)
+                {
+                    temp = static_cast<double>(*int64Value);
+                }
+                else if (doubleValue != nullptr)
+                {
+                    temp = *doubleValue;
+                }
+                else if (uValue != nullptr)
+                {
+                    temp = *uValue;
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Got value interface that wasn't int or double";
+                    continue;
+                }
+                temp = temp * std::pow(10, scaleMultiplier);
+                sensorJson[key] = temp;
+            }
+        }
+    }
+    sensorJson["DataSourceUri"] = "/redfish/v1/Chassis/" +
+                                  sensorsAsyncResp->chassisId + "/Sensors/" +
+                                  sensorName;
+    sensorJson["@odata.id"] = "/redfish/v1/Chassis/" +
+                              sensorsAsyncResp->chassisId + "/Sensors/" +
+                              sensorName;
+
+    sensorsAsyncResp->addMetadata(sensorJson, unit.to_string(),
+                                  "/xyz/openbmc_project/sensors/" + sensorType +
+                                      "/" + sensorName);
+
+    BMCWEB_LOG_DEBUG << "Added sensor " << sensorName;
+}
+
+/**
+ * @brief Retrieves requested chassis sensors and redundancy data from DBus .
+ * @param sensorsAsyncResp   Pointer to object holding response data
+ * @param callback  Callback for next step in gathered sensor processing
+ */
+template <typename Callback>
+void getThermalMetrics(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    Callback&& callback)
+{
+    BMCWEB_LOG_DEBUG << "getThermalMetrics enter";
+    const std::array<const char*, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp](
+                           const boost::system::error_code ec,
+                           const std::vector<std::string>& chassisPaths) {
+        BMCWEB_LOG_DEBUG << "getThermalMetrics respHandler enter";
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "getThermalMetrics respHandler DBUS error: "
+                             << ec;
+            messages::internalError(sensorsAsyncResp->res);
+            return;
+        }
+
+        const std::string* chassisPath = nullptr;
+        std::string chassisName;
+        for (const std::string& chassis : chassisPaths)
+        {
+            sdbusplus::message::object_path path(chassis);
+            chassisName = path.filename();
+            if (chassisName.empty())
+            {
+                BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
+                continue;
+            }
+            if (chassisName == sensorsAsyncResp->chassisId)
+            {
+                chassisPath = &chassis;
+                break;
+            }
+        }
+        if (chassisPath == nullptr)
+        {
+            messages::resourceNotFound(sensorsAsyncResp->res, "ThermalMetrics",
+                                       sensorsAsyncResp->chassisId);
+            return;
+        }
+
+        sensorsAsyncResp->res.jsonValue["@odata.type"] =
+            "#ThermalMetrics.v1_0_0.ThermalMetrics";
+        sensorsAsyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId +
+            "/ThermalSubsystem/ThermalMetrics";
+        sensorsAsyncResp->res.jsonValue["Id"] = "ThermalMetrics";
+        sensorsAsyncResp->res.jsonValue["Name"] = "Chassis Thermal Metrics";
+        sensorsAsyncResp->res.jsonValue["TemperatureReadingsCelsius"] =
+            nlohmann::json::array();
+
+        // Get the list of all sensors for this Chassis element
+        std::string sensorPath = *chassisPath + "/all_sensors";
+        crow::connections::systemBus->async_method_call(
+            [sensorsAsyncResp, callback{std::move(callback)}](
+                const boost::system::error_code& ec,
+                const std::variant<std::vector<std::string>>&
+                    variantEndpoints) {
+                if (ec)
+                {
+                    messages::internalError(sensorsAsyncResp->res);
+                    return;
+                }
+                const std::vector<std::string>* nodeSensorList =
+                    std::get_if<std::vector<std::string>>(&(variantEndpoints));
+                if (nodeSensorList == nullptr)
+                {
+                    messages::resourceNotFound(sensorsAsyncResp->res,
+                                               sensorsAsyncResp->chassisSubNode,
+                                               "Temperatures");
+                    return;
+                }
+                const std::shared_ptr<boost::container::flat_set<std::string>>
+                    culledSensorList = std::make_shared<
+                        boost::container::flat_set<std::string>>();
+                reduceSensorList(sensorsAsyncResp, nodeSensorList,
+                                 culledSensorList);
+                callback(culledSensorList);
+            },
+            "xyz.openbmc_project.ObjectMapper", sensorPath,
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Association", "endpoints");
+    };
+
+    // Get the Chassis Collection
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0, interfaces);
+    BMCWEB_LOG_DEBUG << "getThermalMetrics exit";
+}
+
+/**
+ * @brief Gets the values of the specified sensors.
+ *
+ * Stores the results as JSON in the SensorsAsyncResp.
+ *
+ * Gets the sensor values asynchronously.  Stores the results later when the
+ * information has been obtained.
+ *
+ * The sensorNames set contains all requested sensors for the current chassis.
+ *
+ * To minimize the number of DBus calls, the DBus method
+ * org.freedesktop.DBus.ObjectManager.GetManagedObjects() is used to get the
+ * values of all sensors provided by a connection (service).
+ *
+ * The connections set contains all the connections that provide sensor values.
+ *
+ * The objectMgrPaths map contains mappings from a connection name to the
+ * corresponding DBus object path that implements ObjectManager.
+ *
+ * The InventoryItem vector contains D-Bus inventory items associated with the
+ * sensors.  Inventory item data is needed for some Redfish sensor properties.
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorNames All requested sensors within the current chassis.
+ * @param connections Connections that provide sensor values.
+ * @param objectMgrPaths Mappings from connection name to DBus object path that
+ * implements ObjectManager.
+ * @param inventoryItems Inventory items associated with the sensors.
+ */
+inline void getThermalSensorData(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
+    const boost::container::flat_set<std::string>& connections,
+    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
+        objectMgrPaths,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems)
+{
+    BMCWEB_LOG_DEBUG << "getThermalSensorData enter";
+    // Get managed objects from all services exposing sensors
+    for (const std::string& connection : connections)
+    {
+        // Response handler to process managed objects
+        auto getManagedObjectsCb = [sensorsAsyncResp, sensorNames,
+                                    inventoryItems](
+                                       const boost::system::error_code ec,
+                                       ManagedObjectsVectorType& resp) {
+            BMCWEB_LOG_DEBUG << "getManagedObjectsCb enter";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "getManagedObjectsCb DBUS error: " << ec;
+                messages::internalError(sensorsAsyncResp->res);
+                return;
+            }
+            // Go through all objects and update response with sensor data
+            for (const auto& objDictEntry : resp)
+            {
+                const std::string& objPath =
+                    static_cast<const std::string&>(objDictEntry.first);
+                BMCWEB_LOG_DEBUG << "getManagedObjectsCb parsing object "
+                                 << objPath;
+
+                std::vector<std::string> split;
+                // Reserve space for
+                // /xyz/openbmc_project/sensors/<name>/<subname>
+                split.reserve(6);
+                boost::algorithm::split(split, objPath, boost::is_any_of("/"));
+                if (split.size() < 6)
+                {
+                    BMCWEB_LOG_ERROR << "Got path that isn't long enough "
+                                     << objPath;
+                    continue;
+                }
+                // These indexes aren't intuitive, as boost::split puts an empty
+                // string at the beginning
+                const std::string& sensorType = split[4];
+                const std::string& sensorName = split[5];
+                BMCWEB_LOG_DEBUG << "sensorName " << sensorName
+                                 << " sensorType " << sensorType;
+                if (sensorNames->find(objPath) == sensorNames->end())
+                {
+                    BMCWEB_LOG_ERROR << sensorName << " not in sensor list ";
+                    continue;
+                }
+
+                nlohmann::json* sensorJson = nullptr;
+
+                if (sensorType != "temperature")
+                {
+                    BMCWEB_LOG_ERROR << "Unsure how to handle sensorType "
+                                     << sensorType;
+                    continue;
+                }
+
+                nlohmann::json& tempArray =
+                    sensorsAsyncResp->res
+                        .jsonValue["TemperatureReadingsCelsius"];
+                tempArray.push_back({{"DeviceName", sensorName}});
+                sensorJson = &(tempArray.back());
+
+                if (sensorJson)
+                {
+                    metricsObjectInterfacesToJson(
+                        sensorName, sensorType, sensorsAsyncResp,
+                        objDictEntry.second, *sensorJson);
+                }
+            }
+            if (sensorsAsyncResp.use_count() == 1)
+            {
+                sortJSONResponse(sensorsAsyncResp);
+                if (sensorsAsyncResp->chassisSubNode == sensors::node::thermal)
+                {
+                    populateFanRedundancy(sensorsAsyncResp);
+                }
+            }
+            BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
+        };
+
+        // Find DBus object path that implements ObjectManager for the current
+        // connection.  If no mapping found, default to "/".
+        auto iter = objectMgrPaths->find(connection);
+        const std::string& objectMgrPath =
+            (iter != objectMgrPaths->end()) ? iter->second : "/";
+        BMCWEB_LOG_DEBUG << "ObjectManager path for " << connection << " is "
+                         << objectMgrPath;
+
+        crow::connections::systemBus->async_method_call(
+            getManagedObjectsCb, connection, objectMgrPath,
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+    BMCWEB_LOG_DEBUG << "getThermalSensorData exit";
+}
+
+inline void processThermalSensorList(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
+{
+    auto getConnectionCb =
+        [sensorsAsyncResp, sensorNames](
+            const boost::container::flat_set<std::string>& connections) {
+            BMCWEB_LOG_DEBUG << "getConnectionCb enter";
+            auto getObjectManagerPathsCb =
+                [sensorsAsyncResp, sensorNames,
+                 connections](const std::shared_ptr<boost::container::flat_map<
+                                  std::string, std::string>>& objectMgrPaths) {
+                    BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb enter";
+                    auto getInventoryItemsCb =
+                        [sensorsAsyncResp, sensorNames, connections,
+                         objectMgrPaths](
+                            const std::shared_ptr<std::vector<InventoryItem>>&
+                                inventoryItems) {
+                            BMCWEB_LOG_DEBUG << "getInventoryItemsCb enter";
+                            // Get sensor data and store results in JSON
+                            getThermalSensorData(sensorsAsyncResp, sensorNames,
+                                                 connections, objectMgrPaths,
+                                                 inventoryItems);
+                            BMCWEB_LOG_DEBUG << "getInventoryItemsCb exit";
+                        };
+
+                    // Get inventory items associated with sensors
+                    getInventoryItems(sensorsAsyncResp, sensorNames,
+                                      objectMgrPaths,
+                                      std::move(getInventoryItemsCb));
+
+                    BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb exit";
+                };
+
+            // Get mapping from connection names to the DBus object
+            // paths that implement the ObjectManager interface
+            getObjectManagerPaths(sensorsAsyncResp,
+                                  std::move(getObjectManagerPathsCb));
+            BMCWEB_LOG_DEBUG << "getConnectionCb exit";
+        };
+
+    // Get set of connections that provide sensor values
+    getConnections(sensorsAsyncResp, sensorNames, std::move(getConnectionCb));
+}
+
+/**
+ * @brief Entry point for retrieving sensors data related to requested
+ *        chassis.
+ * @param sensorsAsyncResp   Pointer to object holding response data
+ */
+inline void
+    getThermalData(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
+{
+    BMCWEB_LOG_DEBUG << "getThermalData enter";
+    auto getThermalCb =
+        [sensorsAsyncResp](
+            const std::shared_ptr<boost::container::flat_set<std::string>>&
+                sensorNames) {
+            BMCWEB_LOG_DEBUG << "getThermalCb enter";
+            processThermalSensorList(sensorsAsyncResp, sensorNames);
+            BMCWEB_LOG_DEBUG << "getThermalCb exit";
+        };
+
+    // Get set of sensors in chassis
+    getThermalMetrics(sensorsAsyncResp, std::move(getThermalCb));
+    BMCWEB_LOG_DEBUG << "getThermalData exit";
+}
+
 class SensorCollection : public Node
 {
   public:
