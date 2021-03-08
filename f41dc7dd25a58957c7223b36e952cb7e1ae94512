@@ -22,6 +22,30 @@
       "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7499eb86_9471908b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-08T05:51:57Z",
+      "side": 1,
+      "message": "First sorry for late pitch in here.\nPrevious Format (\u003cid\u003e_\u003cidx\u003e) Works fine in normal operations. But major issues comes with skip \u0026 top query parameters. If we have 3 logs on same time(in seconds), They will be assigned with \u003cid\u003e, \u003cid\u003e_1 \u0026 \u003cid\u003e_2 with current design. When user tried to add skip query parameter(Split after \u003cid\u003e or \u003cid\u003e_1 ), Then due to our dynamic ID calculation, previous \u003cid\u003e_2 logs assigned with \u003cid\u003e.\n\nWe are currently calculating id using time stamp till seconds. This patch makes it more unique by adding milliseconds to it so that always there will be unique(Per specification) id for log entries.  Yes, There is still corner case of two log entries on same milliseconds, but IMO, that is almost impossible with current processors.",
+      "parentUuid": "2008ef7c_77e9f4ff",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
