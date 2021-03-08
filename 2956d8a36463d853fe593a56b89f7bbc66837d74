@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e12decf2_5e78da4d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:10:42Z",
+      "side": 1,
+      "message": "common error #5",
+      "range": {
+        "startLine": 245,
+        "startChar": 54,
+        "endLine": 245,
+        "endChar": 63
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b3e8a1_9f668e4b",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:10:42Z",
+      "side": 1,
+      "message": "Common error #5",
+      "range": {
+        "startLine": 143,
+        "startChar": 56,
+        "endLine": 143,
+        "endChar": 65
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "300496f6_bc0a191f",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:10:42Z",
+      "side": 1,
+      "message": "I\u0027m realizing now, we also could\u0027ve used a more type safe equivalent for IP address rather than a string, but that\u0027s probably for another patchset.",
+      "range": {
+        "startLine": 213,
+        "startChar": 64,
+        "endLine": 213,
+        "endChar": 72
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc6c568c_9198bd85",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T15:10:42Z",
+      "side": 1,
+      "message": "common error #5",
+      "range": {
+        "startLine": 232,
+        "startChar": 40,
+        "endLine": 232,
+        "endChar": 49
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
