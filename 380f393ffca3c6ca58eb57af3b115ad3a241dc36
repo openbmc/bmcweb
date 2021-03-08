@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6abaf5ed_26c1886f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-08T11:14:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "74b326dc_dedea2e7",
+      "range": {
+        "startLine": 686,
+        "startChar": 4,
+        "endLine": 686,
+        "endChar": 24
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54c20414_1dbd470e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "09459173_5b3464dc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-08T11:14:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "54c20414_1dbd470e",
+      "range": {
+        "startLine": 687,
+        "startChar": 1,
+        "endLine": 687,
+        "endChar": 24
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86b2fc28_eacba8f7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -68,6 +116,23 @@
       "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01879f05_c3ba9ef0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-08T11:14:25Z",
+      "side": 1,
+      "message": "Ack for validation is not required. But check is needed for deciding on the dumpentrypath!",
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "fd7851fb_78176d8f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-08T11:14:25Z",
+      "side": 1,
+      "message": "\u003e Cancelled state is suitable if there a user action for the Task. \n\nAck\n\nbut will \"suspended\" suit for this one. because in tasks.hpp, if the state is suspended, the event is sent as task paused! Any thoughts on what the state can be?\n\nIn other instances of task (in bmcweb code), in case of an internal error,\n\n\u003e      taskData-\u003emessages.emplace_back(\n\u003e          messages::internalError());\n\u003e          return task::completed;\n\nwill be used. the task completes with an internal error (appended to its messages field). Hence I thought the same can be used in this case as well.\n\nAny thoughts?",
+      "parentUuid": "5a4a52cb_948fb4fb",
+      "range": {
+        "startLine": 721,
+        "startChar": 34,
+        "endLine": 721,
+        "endChar": 45
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f217f48_ec65cd40",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -137,6 +226,30 @@
       "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb82a1f4_20c30188",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-08T11:14:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f217f48_ec65cd40",
+      "range": {
+        "startLine": 746,
+        "startChar": 37,
+        "endLine": 746,
+        "endChar": 45
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
