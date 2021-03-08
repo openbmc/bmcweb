@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cc4eb3a_5d224518",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T22:23:26Z",
+      "side": 1,
+      "message": "+1, or at most go to the oneline identifiers the linux kernel uses.\n\nWith that said, this patchset is fine.",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "14373bf0da557d1fa3d08c3086fcaa6bd2ee1795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
