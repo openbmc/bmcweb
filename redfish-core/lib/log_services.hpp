@@ -498,7 +498,7 @@ inline void
                     }
                 }
 
-                thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
+                thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
                 thisEntry["@odata.id"] = dumpPath + entryID;
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
@@ -620,7 +620,7 @@ inline void
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntry.v1_7_0.LogEntry";
+                    "#LogEntry.v1_8_0.LogEntry";
                 asyncResp->res.jsonValue["@odata.id"] = dumpPath + entryID;
                 asyncResp->res.jsonValue["Id"] = entryID;
                 asyncResp->res.jsonValue["EntryType"] = "Event";
@@ -1149,7 +1149,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
 
     // Fill in the log entry with the gathered data
     logEntryJson = {
-        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
         {"@odata.id",
          "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
              logEntryID},
@@ -2005,7 +2005,7 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
 
     // Fill in the log entry with the gathered data
     bmcJournalLogEntryJson = {
-        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
         {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
                           bmcJournalLogEntryID},
         {"Name", "BMC Journal Entry"},
@@ -2672,7 +2672,7 @@ static void
             std::string crashdumpURI =
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                 logID + "/" + filename;
-            logEntryJson = {{"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
+            logEntryJson = {{"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
                             {"@odata.id", "/redfish/v1/Systems/system/"
                                           "LogServices/Crashdump/Entries/" +
                                               logID},
@@ -3263,7 +3263,7 @@ static void fillPostCodeEntry(
         // add to AsyncResp
         logEntryArray.push_back({});
         nlohmann::json& bmcLogEntry = logEntryArray.back();
-        bmcLogEntry = {{"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        bmcLogEntry = {{"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
                        {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
                                      "PostCodes/Entries/" +
                                          postcodeEntryID},
@@ -3275,6 +3275,13 @@ static void fillPostCodeEntry(
                        {"EntryType", "Event"},
                        {"Severity", std::move(severity)},
                        {"Created", entryTimeStr}};
+
+        if (std::get<std::vector<uint8_t>>(code.second).size())
+        {
+            bmcLogEntry["AdditionalDataURI"] =
+                "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
+                postcodeEntryID + "/attachment";
+        }
     }
 }
 
@@ -3506,7 +3513,7 @@ class PostCodesEntry : public Node
                              << params[0];
         }
 
-        asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_4_0.LogEntry";
+        asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/"
             "Entries";
