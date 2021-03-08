@@ -22,6 +22,30 @@
       "revId": "d9cbbca336247d70ec7edfa84b5038765aa1c037",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255d248a_e1864f6c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-08T16:06:29Z",
+      "side": 1,
+      "message": "The GET implementation for this endpoint is in the commit on top of this one: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40136/",
+      "parentUuid": "0c3f147f_e7b6c768",
+      "range": {
+        "startLine": 1501,
+        "startChar": 29,
+        "endLine": 1502,
+        "endChar": 40
+      },
+      "revId": "d9cbbca336247d70ec7edfa84b5038765aa1c037",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
