@@ -511,6 +511,30 @@
     },
     {
       "key": {
+        "uuid": "9dd63993_f6de9e08",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Here we fill MetricReport. MetricReport attributes are taken from Readings property in the latest patchset. To be able to support backward version of DBus api, we agreed to use metadata as point to reflect Redfish Metric (ex. /redfish/v1/Chassis/chassis/Sensors/BMC_Voltage). We can extend this metadata with uri to MetricDefinition. This is the next step that needs to be implemented (unless design change).\nAbsence of MetricDefinition or metric in metadata is not required, so if user is extend support of sensors in Telemetry service, user is still able to use bmcweb to control Reports",
+      "parentUuid": "c7110a4c_4b7c61c1",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 24
+      },
+      "revId": "141cee16b6886337cdc21c3714e93f7ab50bbb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0d5f5ca_0b6cdc5a",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 31

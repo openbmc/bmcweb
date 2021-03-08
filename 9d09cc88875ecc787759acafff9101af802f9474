@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a636d84_ddf7e3f1",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ae073cf_80428ddf",
+      "range": {
+        "startLine": 23,
+        "startChar": 61,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07204488_c0dc4360",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 56
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e3375af9_a38c5fa3",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07204488_c0dc4360",
+      "range": {
+        "startLine": 43,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd5d2f6b_9a47e23e",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 56
@@ -59,6 +107,24 @@
       "writtenOn": "2021-03-05T16:15:39Z",
       "side": 1,
       "message": "I suspect this whole class can be deleted.\n\nAll it appears to be doing is creating a set of all the dbus path types, then writing them into the members collection.    That seems easy enough for the code to do on the resp object directly, checking for duplicates if need be.\n\nDoing that would avoid this pattern of using the destructor to do real work.  Unfortunately, exceptions are still enabled in bmcweb, and do happen from time to time, so you can\u0027t necessarily rely on the destructor to be called in the golden path, it might be called during an exception, in which case we don\u0027t really want to have this pattern.  (yes, I know we use this pattern in other places, but it\u0027s arguably incorrect).\n\nMostly what I\u0027m seeing here seems to be duplicate prevention, which I think is easily accomplished by looping the json array and checking for duplicates before calling push back.\n\n\n\nThe above was my initial reaction.  As I dig into this more, I\u0027m not following why this isn\u0027t just a hardcoded list of sensor types?  We know all the dbus path types that are available upfront, and have a fixed list of them we don\u0027t really need to access dbus for the available types, right?",
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "984ae535_11ed44cd",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Yes, it is possible to omit DefinitionCollectionReduce but I wanted to keep to single pattern that is applied to Sensor and MetricReportDefinition. It also sums all received sensors(line 80). It is possible to remove it, please, let me know if yes.\n\nI did not want to go into hardcoded list of sensor types because not all sensor types are present in system. If we want to do it hardcoded way then Redfish user will get MetricDefinition resource that has empty MetricProperties array. It is useless for a user if MetricDefinition points to nowhere.\n\nI could use single DBus call using GetSubTree method but than there is a lot of other dependencies that allows sensor to be exposed by Redfish in bmcweb. It would be nice to have DBus service that is exposing a list of Redfish sensors and maps them to DBus sensors. \n\nAnyway, up to you which way we want to follow here",
+      "parentUuid": "bd5d2f6b_9a47e23e",
       "revId": "9d09cc88875ecc787759acafff9101af802f9474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "ff2f3030_8dab01e0",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "I will change DefinitionReduce to MetricDefinitionReduce, is it sounds ok? Anyway, base on your other comments I will remove this class if possible",
+      "parentUuid": "fdf5639c_dd057f66",
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee1e3b8e_157d4aee",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 56
@@ -93,6 +177,30 @@
       "writtenOn": "2021-03-05T16:15:39Z",
       "side": 1,
       "message": "This doesn\u0027t seem like a sufficient check.  getNthStringFromPath seems like what you\u0027d want to use here, and remove the pattern variable from this class entirely.",
+      "range": {
+        "startLine": 143,
+        "startChar": 16,
+        "endLine": 143,
+        "endChar": 40
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f2d21a6_1edaf130",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee1e3b8e_157d4aee",
       "range": {
         "startLine": 143,
         "startChar": 16,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "e22d0889_89a3278a",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Yes, you are right with it. I will remove it in next patchset",
+      "parentUuid": "b01e92e7_f20dda56",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 56
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75437610_dfe79202",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 56
@@ -148,6 +280,30 @@
       "revId": "9d09cc88875ecc787759acafff9101af802f9474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08dd3cac_dc962856",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75437610_dfe79202",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 73
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "b83356d4_4d9dcdbc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Ok, move it to new patch -\u003e https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41131",
+      "parentUuid": "10d78d35_f62752eb",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 14
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa2fc8dd_9b579d38",
         "filename": "redfish-core/lib/thermal.hpp",
         "patchSetId": 56
@@ -185,6 +365,30 @@
       "writtenOn": "2021-03-05T16:15:39Z",
       "side": 1,
       "message": "not  a problem in your patchset, but at() throws, which will generate the unwind tables, even if we can\u0027t actually throw from here.\n\nJust more cleanup to do.",
+      "range": {
+        "startLine": 51,
+        "startChar": 30,
+        "endLine": 51,
+        "endChar": 53
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ad9cd86_47c4b963",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:41:43Z",
+      "side": 1,
+      "message": "Sure, I will try to fix it in separate patch",
+      "parentUuid": "fa2fc8dd_9b579d38",
       "range": {
         "startLine": 51,
         "startChar": 30,
