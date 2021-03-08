@@ -70,6 +70,30 @@
       "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79ea9634_1471fe93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T21:23:52Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not quite following.  So lets say a 3 logs happened at time 5.\n\n\u003e The first ID is 5, the second id is 5_2\n\n\u003e If I call $skip\u003d5, I would get logs 5_2 and 5_3.\n\u003e If I call $skip\u003d5_2, I would get only log 5_3.\n\nThis $skip logic seems wrong. \n\nFrom DSP0266:\n\n$skip\u003d\u003cinteger\u003e \tApplies to resource collections. Returns a subset of the members in a resource collection, or an empty set of members if the $skip value is greater than or equal to the member count. This paging query parameter defines the number of members in the resource collection to skip.\n\nExample:\n\nhttps://resourcecollection?$skip\u003d5",
+      "parentUuid": "bb7295dd_c29f82f8",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
