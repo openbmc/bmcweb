@@ -46,6 +46,30 @@
       "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791ed464_bdb36b75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T21:31:51Z",
+      "side": 1,
+      "message": "If I take a step back and think about this.. The user enabled BMCWEB_ENABLE_STATIC_HOSTING (regardless if enabled by default) and Static Hostings relies on \"/usr/share/www\" but that directory was not there, a fatal error seems like the appropriate thing to happen.\n\nNot sure I care a ton. Possible I get a defect one day for us sweeping this under the rug (the only way you would see you the warning if you had logging enabled).",
+      "parentUuid": "cd93b336_7ba614ed",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "60ae30ecf5e4ab4e59dbba0cc0f49f345f469e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
