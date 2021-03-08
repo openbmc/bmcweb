@@ -41,6 +41,7 @@
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
+#include "../lib/thermal_metrics.hpp"
 #include "../lib/thermal_subsystem.hpp"
 #include "../lib/update_service.hpp"
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
@@ -78,6 +79,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<EthernetInterface>(app));
         nodes.emplace_back(std::make_unique<Thermal>(app));
         nodes.emplace_back(std::make_unique<ThermalSubsystem>(app));
+        nodes.emplace_back(std::make_unique<ThermalMetrics>(app));
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
         nodes.emplace_back(std::make_unique<ManagerResetAction>(app));
