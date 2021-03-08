@@ -42,6 +42,7 @@
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
+#include "../lib/thermal_metrics.hpp"
 #include "../lib/thermal_subsystem.hpp"
 #include "../lib/update_service.hpp"
 #include "../lib/virtual_media.hpp"
@@ -76,6 +77,7 @@ class RedfishService
 #endif
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
         requestRoutesThermalSubsystem(app);
+        requestRoutesThermalMetrics(app);
 #endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
