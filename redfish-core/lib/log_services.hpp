@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "http_utility.hpp"
 #include "node.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
@@ -32,6 +33,7 @@
 #include <boost/system/linux_error.hpp>
 #include <error_messages.hpp>
 
+#include <charconv>
 #include <filesystem>
 #include <optional>
 #include <string_view>
@@ -1782,24 +1784,7 @@ class DBusEventLogEntryDownload : public Node
             return;
         }
 
-        std::string_view acceptHeader = req.getHeaderValue("Accept");
-        // The iterators in boost/http/rfc7230.hpp end the string if '/' is
-        // found, so replace it with arbitrary character '|' which is not part
-        // of the Accept header syntax.
-        std::string acceptStr =
-            boost::replace_all_copy(std::string(acceptHeader), "/", "|");
-        boost::beast::http::ext_list acceptTypes{acceptStr};
-        bool supported = false;
-        for (const auto& type : acceptTypes)
-        {
-            if ((type.first == "*|*") ||
-                (type.first == "application|octet-stream"))
-            {
-                supported = true;
-                break;
-            }
-        }
-        if (!supported)
+        if (!http_helpers::isOctetAccepted(req))
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
@@ -3406,6 +3391,132 @@ static void
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount");
 }
+
+inline static bool parsePostCode(std::string postCodeID, uint64_t& currentValue,
+                                 uint16_t& index)
+{
+    // postCodeID = B1-1
+    std::vector<std::string> split;
+    boost::algorithm::split(split, postCodeID, boost::is_any_of("-"));
+    if (split.size() != 2 || split[0].length() < 2)
+    {
+        return false;
+    }
+
+    const char* start = split[0].data() + 1;
+    const char* end = split[0].data() + split[0].size();
+    auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
+
+    if (ptrIndex != end || ecIndex != std::errc() || !index)
+    {
+        return false;
+    }
+
+    start = split[1].data();
+    end = split[1].data() + split[1].size();
+    auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
+    if (ptrValue != end || ecValue != std::errc() || !currentValue)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+class PostCodesEntryAdditionalData : public Node
+{
+  public:
+    PostCodesEntryAdditionalData(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/<str>/"
+             "attachment/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (!http_helpers::isOctetAccepted(req))
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+
+        const std::string& postCodeID = params[0];
+        uint64_t currentValue = 0;
+        uint16_t index = 0;
+        if (!parsePostCode(postCodeID, currentValue, index))
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, postCodeID, currentValue](
+                const boost::system::error_code ec,
+                const std::vector<std::tuple<uint64_t, std::vector<uint8_t>>>&
+                    postcodes) {
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                               postCodeID);
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (currentValue < 1 || postcodes.size() <= currentValue)
+                {
+                    BMCWEB_LOG_ERROR << "Wrong currentValue value";
+                    messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                               postCodeID);
+                    return;
+                }
+
+                size_t value = static_cast<size_t>(currentValue) - 1;
+                auto& [tID, code] = postcodes[value];
+
+                if (code.size() == 0)
+                {
+                    BMCWEB_LOG_INFO << "No found post code data";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                std::string_view strData(
+                    reinterpret_cast<const char*>(code.data()), code.size());
+
+                asyncResp->res.addHeader("Content-Type",
+                                         "application/octet-stream");
+                asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+                asyncResp->res.body() =
+                    std::move(crow::utility::base64encode(strData));
+            },
+            "xyz.openbmc_project.State.Boot.PostCode0",
+            "/xyz/openbmc_project/State/Boot/PostCode0",
+            "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes", index);
+    }
+};
 
 class PostCodesEntryCollection : public Node
 {
