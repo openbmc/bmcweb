@@ -313,6 +313,11 @@ Fields common to all schemas
 #### ThermalSubsystem
 
 - Status
+- ThermalMetrics
+
+#### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/ThermalMetrics/
+
+##### ThermalMetrics
 
 #### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans
 
