@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c3f147f_e7b6c768",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-08T15:35:00Z",
+      "side": 1,
+      "message": "I am having hard time to find this redfish rule(where it is implemented?)",
+      "range": {
+        "startLine": 1501,
+        "startChar": 29,
+        "endLine": 1502,
+        "endChar": 40
+      },
+      "revId": "d9cbbca336247d70ec7edfa84b5038765aa1c037",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
