@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "d3c58c04_824cde35",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T14:54:21Z",
+      "side": 1,
+      "message": "InternalError?",
+      "revId": "75e3e1e1e0244aad9ef50932185b2f421f4bbb5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a9db89_399cff90",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T14:54:21Z",
+      "side": 1,
+      "message": "Internal error?",
+      "revId": "75e3e1e1e0244aad9ef50932185b2f421f4bbb5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddccf34b_51422509",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T14:54:21Z",
+      "side": 1,
+      "message": "Why is this a 404 ?\nCan we just have an empty Members collection?",
+      "revId": "75e3e1e1e0244aad9ef50932185b2f421f4bbb5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec3720a_1acc61ea",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T14:54:21Z",
+      "side": 1,
+      "message": "Can we use path.filename() ?\nhttps://github.com/openbmc/bmcweb/blob/2dfd18ef79d3b0a2995ba731983479d492be5949/redfish-core/include/utils/collection.hpp#L48",
+      "revId": "75e3e1e1e0244aad9ef50932185b2f421f4bbb5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb03a57f_6480eacf",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
@@ -13,6 +81,30 @@
       "writtenOn": "2021-03-05T07:49:50Z",
       "side": 1,
       "message": "Need to resolve the 404 like line 220.",
+      "range": {
+        "startLine": 254,
+        "startChar": 7,
+        "endLine": 254,
+        "endChar": 49
+      },
+      "revId": "75e3e1e1e0244aad9ef50932185b2f421f4bbb5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b4ef730_3c92df6f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-08T14:54:21Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "eb03a57f_6480eacf",
       "range": {
         "startLine": 254,
         "startChar": 7,
