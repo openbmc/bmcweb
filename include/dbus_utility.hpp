@@ -50,6 +50,12 @@ inline void escapePathForDbus(std::string& path)
     std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
 }
 
+bool isNumber(std::string& str)
+{
+    std::regex pattern(R"(^[\d]+[\.]?[\d+]?$)");
+    return regex_match(str, pattern);
+}
+
 // gets the string N strings deep into a path
 // i.e.  /0th/1st/2nd/3rd
 inline bool getNthStringFromPath(const std::string& path, int index,
