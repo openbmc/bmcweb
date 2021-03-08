@@ -101,6 +101,7 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogService>(app));
+        nodes.emplace_back(std::make_unique<PostCodesEntryAdditionalData>(app));
 
         nodes.emplace_back(std::make_unique<PostCodesLogService>(app));
         nodes.emplace_back(std::make_unique<PostCodesClear>(app));
