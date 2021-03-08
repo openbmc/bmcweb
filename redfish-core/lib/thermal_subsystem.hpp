@@ -51,11 +51,15 @@ class ThermalSubsystem : public Node
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/ThermalSubsystem";
 
+                asyncResp->res.jsonValue["ThermalMetrics"] = {
+                    {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                      "/ThermalSubsystem/ThermalMetrics"}};
+
                 asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
                                                       {"Health", "OK"}};
             };
         redfish::chassis_utils::getValidChassisID(asyncResp, chassisId,
-                                                  std::move(getChassisPath));
+                                                    std::move(getChassisPath));
     }
 };
 } // namespace redfish
