@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "83e812cc_901375a1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-08T05:25:01Z",
+      "side": 1,
+      "message": "Please use boost::iequals",
+      "range": {
+        "startLine": 363,
+        "startChar": 20,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "235c3968_06493d6a",
         "filename": "http/http_connection.hpp",
         "patchSetId": 36
@@ -18,6 +41,29 @@
         "startChar": 0,
         "endLine": 376,
         "endChar": 42
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad66a0e1_80a1c399",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-08T05:25:01Z",
+      "side": 1,
+      "message": "Please use boost::iequals",
+      "range": {
+        "startLine": 123,
+        "startChar": 21,
+        "endLine": 123,
+        "endChar": 39
       },
       "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
