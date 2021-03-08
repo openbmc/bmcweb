@@ -270,6 +270,13 @@ Fields common to all schemas
 #### ThermalSubsystem
 
 - Status
+- ThermalMetrics
+
+#### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/ThermalMetrics/
+
+##### ThermalMetrics
+
+- TemperatureReadingsCelsius
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 
