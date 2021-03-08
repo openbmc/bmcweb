@@ -46,6 +46,30 @@
       "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb7295dd_c29f82f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-08T20:00:05Z",
+      "side": 1,
+      "message": "\u003e First sorry for late pitch in here.\n\u003e Previous Format (\u003cid\u003e_\u003cidx\u003e) Works fine in normal operations. But major issues comes with skip \u0026 top query parameters. If we have 3 logs on same time(in seconds), They will be assigned with \u003cid\u003e, \u003cid\u003e_1 \u0026 \u003cid\u003e_2 with current design. When user tried to add skip query parameter(Split after \u003cid\u003e or \u003cid\u003e_1 ), Then due to our dynamic ID calculation, previous \u003cid\u003e_2 logs assigned with \u003cid\u003e.\n\n?  I\u0027m not quite following.  So lets say a 3 logs happened at time 5.\n\nThe first ID is 5, the second id is 5_2\n\nIf I call $skip\u003d5, I would get logs 5_2 and 5_3.\nIf I call $skip\u003d5_2, I would get only log 5_3.\n\nIn terms of API, that doesn\u0027t sounds like an issue.  If the current code doesn\u0027t work like that, maybe it should?\n\nI\u0027m really worried about multiple logs happening in the same microsecond/millisecond/whatever granularity we pick.  While unlikely in the \"normal\" case, if any daemons are relying on coarsetime, it could happen.\n\n\u003e \n\u003e We are currently calculating id using time stamp till seconds. This patch makes it more unique by adding milliseconds to it so that always there will be unique(Per specification) id for log entries.  Yes, There is still corner case of two log entries on same milliseconds, but IMO, that is almost impossible with current processors.\n\nI\u0027d really like to hear this from the person that submitted the patch.  If what you said is what they were thinking, then the commit message is totally incorrect, which makes sense, because this patchset is no more or less unique than what was there before.  I\u0027d really like the submitter to understand why this patch exists.  If fixing $top and $skip is the priority, I would expect that called out in the tested.\n\nLets get a commit message with this detail, the old reasoning removed (if it\u0027s no longer valid) typed up and pushed, and go from there.",
+      "parentUuid": "7499eb86_9471908b",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
