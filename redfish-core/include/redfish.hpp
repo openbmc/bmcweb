@@ -41,6 +41,7 @@
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
+#include "../lib/thermal_metrics.hpp"
 #include "../lib/thermal_subsystem.hpp"
 #include "../lib/update_service.hpp"
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
@@ -74,6 +75,7 @@ class RedfishService
         requestEthernetInterfacesRoutes(app);
         requestRoutesThermal(app);
         requestRoutesThermalSubsystem(app);
+        requestRoutesThermalMetrics(app);
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
         requestRoutesManagerResetAction(app);
