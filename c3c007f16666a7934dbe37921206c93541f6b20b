@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4926140_217beb29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-08T05:59:37Z",
+      "side": 1,
+      "message": "I think there is change with Ed comment on this. Now EventServiceManager instantiation happens dueing start the webserver(In main). You can correct it.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "c3c007f16666a7934dbe37921206c93541f6b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a598325f_c53074d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-08T05:59:37Z",
+      "side": 1,
+      "message": "nit: This is not correct always. Today, EventService Instantiation happens even if there is call(GET/POST/PATCH etc..) to /redfish/v1/EventService route.",
+      "range": {
+        "startLine": 16,
+        "startChar": 21,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "c3c007f16666a7934dbe37921206c93541f6b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
