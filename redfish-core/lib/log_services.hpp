@@ -3416,6 +3416,128 @@ static void
         "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount");
 }
 
+class PostCodesEntryAdditionalData : public Node
+{
+  public:
+    PostCodesEntryAdditionalData(App& app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/PostCodes/attachment/"
+             "<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::string_view acceptHeader = req.getHeaderValue("Accept");
+        // The iterators in boost/http/rfc7230.hpp end the string if '/' is
+        // found, so replace it with arbitrary character '|' which is not part
+        // of the Accept header syntax.
+        std::string acceptStr =
+            boost::replace_all_copy(std::string(acceptHeader), "/", "|");
+        bool supported = false;
+        for (const auto& param : boost::beast::http::ext_list{acceptStr})
+        {
+            if (param.first == "*|*" ||
+                param.first == "application|octet-stream")
+            {
+                supported = true;
+                break;
+            }
+        }
+        if (!supported)
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+
+        std::string postCodeID = params[0];
+        // postCodeID = B1-1
+        std::vector<std::string> split;
+        boost::algorithm::split(split, postCodeID, boost::is_any_of("-"));
+        if (split.size() != 2 || split[0].length() < 2)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+            return;
+        }
+
+        uint16_t index = 0;
+        const char* start = split[0].data() + 1;
+        const char* end = split[0].data() + split[0].size();
+        auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
+
+        if (ptrIndex != end || ecIndex != std::errc() || !index)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+            return;
+        }
+
+        uint64_t currentValue = 0;
+        start = split[1].data();
+        end = split[1].data() + split[1].size();
+        auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
+        if (ptrValue != end || ecValue != std::errc() || !currentValue)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, postCodeID, currentValue](
+                const boost::system::error_code ec,
+                const std::vector<std::tuple<uint64_t, std::vector<uint8_t>>>&
+                    postcodes) {
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                               postCodeID);
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (postcodes.size() < currentValue)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                auto& [tID, code] =
+                    postcodes[static_cast<size_t>(currentValue) - 1];
+
+                std::string_view strData(
+                    reinterpret_cast<const char*>(code.data()), code.size());
+                std::string output = crow::utility::base64encode(strData);
+
+                asyncResp->res.addHeader("Content-Type",
+                                         "application/octet-stream");
+                asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+                asyncResp->res.body() = std::move(output);
+            },
+            "xyz.openbmc_project.State.Boot.PostCode0",
+            "/xyz/openbmc_project/State/Boot/PostCode0",
+            "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes", index);
+    }
+};
+
 class PostCodesEntryCollection : public Node
 {
   public:
