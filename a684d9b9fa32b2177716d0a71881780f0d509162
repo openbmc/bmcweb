@@ -149,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "0cbb2d5e_41f46905",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T15:13:26Z",
+      "side": 1,
+      "message": "Yes, but I was wondering where I changed it from Volts to V. And I do not see any reference in code to \"Volts\". Only on line 895, but I do not modify it.",
+      "parentUuid": "a9651592_e9b8059c",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddc78d12_21357540",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -160,6 +184,30 @@
       "writtenOn": "2021-03-08T15:05:37Z",
       "side": 1,
       "message": "New code returns \"W\"",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 19
+      },
+      "revId": "a684d9b9fa32b2177716d0a71881780f0d509162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ea2b1e_0a07de50",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T15:13:26Z",
+      "side": 1,
+      "message": "That is right, it is done on purpose. I have to change commit msg to better reflect my intention. Sorry for it.\nI changed it to \"W\" because that what Redfish Scheme suggest. I sync it with https://redfish.dmtf.org/schemas/v1/Sensor.v1_0_0.json  where ReadingType describe what ReadingUnit should be used",
+      "parentUuid": "ddc78d12_21357540",
       "range": {
         "startLine": 110,
         "startChar": 0,
