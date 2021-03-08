@@ -50,6 +50,20 @@ inline void escapePathForDbus(std::string& path)
     std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
 }
 
+bool isNumber(const std::string& str)
+{
+    for (std::size_t i = 0; i < str.size(); ++i)
+    {
+        const uint8_t tmp = static_cast<uint8_t>(str[i]);
+        if (tmp < 48 || tmp > 57)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 // gets the string N strings deep into a path
 // i.e.  /0th/1st/2nd/3rd
 inline bool getNthStringFromPath(const std::string& path, int index,
