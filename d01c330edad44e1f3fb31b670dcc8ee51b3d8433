@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "49f69c7b_fbc926f3",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:43:26Z",
+      "side": 1,
+      "message": "Ok, added in the latest patchset",
+      "parentUuid": "54403ca0_82dd34b5",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 19
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a78eab3_4a608500",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 23
@@ -93,6 +117,30 @@
       "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10b72792_821d0e88",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:43:26Z",
+      "side": 1,
+      "message": "Not required, removed. Thanks for catch",
+      "parentUuid": "1a78eab3_4a608500",
+      "range": {
+        "startLine": 1375,
+        "startChar": 0,
+        "endLine": 1378,
+        "endChar": 17
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "51c3d115_b6573094",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1393,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:43:26Z",
+      "side": 1,
+      "message": "The latest patchset uses find_if here",
+      "parentUuid": "94954c0d_5751c426",
+      "range": {
+        "startLine": 1382,
+        "startChar": 0,
+        "endLine": 1393,
+        "endChar": 17
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83270855_84685d90",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 23
@@ -187,6 +259,30 @@
       "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1d81e9_4e56b304",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-08T14:43:26Z",
+      "side": 1,
+      "message": "Good catch, thanks. Fixed in the latest patchset",
+      "parentUuid": "83270855_84685d90",
+      "range": {
+        "startLine": 1406,
+        "startChar": 20,
+        "endLine": 1406,
+        "endChar": 49
+      },
+      "revId": "d01c330edad44e1f3fb31b670dcc8ee51b3d8433",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
