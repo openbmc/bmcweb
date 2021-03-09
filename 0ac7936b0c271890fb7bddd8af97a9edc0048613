@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "997fb5fc_0e092315",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:33:34Z",
+      "side": 1,
+      "message": "\u003e It is optional property and ignored when is not used as below test result.\n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29670/55//COMMIT_MSG#214\n\nSounds like you need to update your test cases to ensure that you hit this as part of your testing.\n\n\u003e \n\u003e It is based on the design as below, suggest to update below yaml file as well.\n\u003e https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L168\n\nI\u0027m with ratan, I\u0027m not really following;  Dbus is not required to be identical to redfish, with that said, feel free to push a patchset to change it if you want.",
+      "parentUuid": "4e402b9c_8132361a",
+      "range": {
+        "startLine": 120,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 32
+      },
+      "revId": "0ac7936b0c271890fb7bddd8af97a9edc0048613",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdc43b51_49c854ab",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 54
