@@ -45,6 +45,30 @@
       "revId": "9926489d41b39ccbcd96604fabc91d14f7e380b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8875bb9_a2cf5064",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-09T11:02:48Z",
+      "side": 1,
+      "message": "As per my understanding, the task runs until the \"task::completed\" is being returned or till the timer expires.\n\nSo if we do a !task::completed, the task still runs waiting for the \"task::completed\" and then finally when the timer expires, the task state is set to cancelled and the task stops!\n\nIn this case in line 723 (in case of an error) we set the task message with an error msg and return task completed so that the task will stop at that point thus avoiding to run further!",
+      "parentUuid": "4899b1bd_8cc46a74",
+      "range": {
+        "startLine": 723,
+        "startChar": 16,
+        "endLine": 723,
+        "endChar": 39
+      },
+      "revId": "9926489d41b39ccbcd96604fabc91d14f7e380b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
