@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e113266_ede6e8ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-09T02:13:51Z",
+      "side": 1,
+      "message": "Don\u0027t we have this problem all over? Is there some generic way we can handle this?\nE.g. \nhttps://github.com/openbmc/bmcweb/blob/1a2a14379d515c393cc134ea719d56efbae2116e/redfish-core/lib/systems.hpp#L1357\n\nhttps://github.com/openbmc/bmcweb/blob/1a2a14379d515c393cc134ea719d56efbae2116e/redfish-core/lib/systems.hpp#L1529\n\nhttps://github.com/openbmc/bmcweb/blob/1a2a14379d515c393cc134ea719d56efbae2116e/redfish-core/lib/systems.hpp#L1576\n\nhttps://github.com/openbmc/bmcweb/blob/1a2a14379d515c393cc134ea719d56efbae2116e/redfish-core/lib/systems.hpp#L1822",
+      "revId": "5362535964940b6f92cce67fa0f4ab12467e8e6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
