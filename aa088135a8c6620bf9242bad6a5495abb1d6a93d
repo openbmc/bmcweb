@@ -39,6 +39,30 @@
       "revId": "aa088135a8c6620bf9242bad6a5495abb1d6a93d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e5a9187_b3bb6a7d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1838,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-09T14:58:54Z",
+      "side": 1,
+      "message": "I think this is more clear in the code, but don\u0027t care strongly.",
+      "parentUuid": "1fb690f6_2543888c",
+      "range": {
+        "startLine": 1838,
+        "startChar": 30,
+        "endLine": 1838,
+        "endChar": 45
+      },
+      "revId": "aa088135a8c6620bf9242bad6a5495abb1d6a93d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
