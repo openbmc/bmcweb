@@ -46,6 +46,30 @@
       "revId": "bb83908d8ffec94089a9699ab8611210a365921a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35731e98_218d65bf",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-03-09T11:05:25Z",
+      "side": 1,
+      "message": "Okay.. I see what you mean.. we will have same problem with Assembly too.. I don\u0027t think so, we can have 1 wrapper that works across all schemas since each schema is different and I would rather have this function one per schema in that respective file.\n\nBut I would defer that to Ed.",
+      "parentUuid": "d17648b9_9ab0ec53",
+      "range": {
+        "startLine": 325,
+        "startChar": 24,
+        "endLine": 325,
+        "endChar": 71
+      },
+      "revId": "bb83908d8ffec94089a9699ab8611210a365921a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
