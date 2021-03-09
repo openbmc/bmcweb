@@ -73,6 +73,139 @@
     },
     {
       "key": {
+        "uuid": "476186ec_fdddd80e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T16:59:26Z",
+      "side": 1,
+      "message": "That\u0027s part of it, also, once entries are created and versioned, they can\u0027t really be changed easily.  I suspect if this is something you really want to do, we\u0027ll have to research how redfish would recommend doing it in a backward compatible way.",
+      "parentUuid": "714f6f65_7e4b2322",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "624ccc83_b7f02145",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T16:59:26Z",
+      "side": 1,
+      "message": "I\u0027m not really following why this is needed?  This is an API, if the consumer wants to change how this is interpreted (int/hex/ascii), they certainly can, that\u0027s why MessageArgs exists, and is strongly typed.\n\nCan you please add some more details in your commit message on why we need to duplicate this information.  Some questions I\u0027d like to see answered:\n1. Most systems don\u0027t have ascii convertable post codes, (at least not directly) what impacts will this have on those systems?\n2. Why aren\u0027t clients capable of doing this conversion, considering the data already exists in the message format.\n3. Aforementioned question above about versioning in the schemas.  Please find some kind of statement within the redfish spec about this kind of thing.",
+      "range": {
+        "startLine": 14,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a614d5f_81149826",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T16:59:26Z",
+      "side": 1,
+      "message": "Please talk to the backward compatibility guarantees for systems that use this API already.",
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ce34c66_7d5ee336",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T16:59:26Z",
+      "side": 1,
+      "message": "Excellent.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 72
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13737289_f415cc63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T16:59:26Z",
+      "side": 1,
+      "message": "Please test in a more real scenario, ie, on a system that\u0027s producing post codes.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9960ed7_78f9c9ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T16:59:26Z",
+      "side": 1,
+      "message": "?  Extra space looks incorrect?",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "34e666c4_54fdbb0f",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 3
