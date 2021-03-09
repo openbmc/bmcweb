@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63963da9_783b6c8d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-09T08:41:37Z",
+      "side": 1,
+      "message": "Below are the boost definitions which are available for the to_string()\n\nstd::string address::to_string() const\n{\n  if (type_ \u003d\u003d ipv6)\n    return ipv6_address_.to_string();\n  return ipv4_address_.to_string();\n}\n\n#if !defined(BOOST_ASIO_NO_DEPRECATED)\nstd::string address::to_string(boost::system::error_code\u0026 ec) const\n{\n  if (type_ \u003d\u003d ipv6)\n    return ipv6_address_.to_string(ec);\n  return ipv4_address_.to_string(ec);\n}\n#endif // !defined(BOOST_ASIO_NO_DEPRECATED)\n\nI am not able to use the overload\nhttps://github.com/openbmc/bmcweb/blob/master/meson.build#L242",
+      "parentUuid": "e12decf2_5e78da4d",
+      "range": {
+        "startLine": 245,
+        "startChar": 54,
+        "endLine": 245,
+        "endChar": 63
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72b3e8a1_9f668e4b",
         "filename": "include/login_routes.hpp",
         "patchSetId": 4
@@ -68,6 +92,30 @@
       "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b0ec29_7ba527a9",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-09T08:41:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "300496f6_bc0a191f",
+      "range": {
+        "startLine": 213,
+        "startChar": 64,
+        "endLine": 213,
+        "endChar": 72
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
