@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "662441ab_14e8a7b2",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-09T08:34:57Z",
+      "side": 1,
+      "message": "seems variable used inside if block, move this to 24 line?",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c529ff_443dd142",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-09T08:34:57Z",
+      "side": 1,
+      "message": "it may throw any exceptions like std::bad_alloc right?",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb67c7de_47921604",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-09T08:34:57Z",
+      "side": 1,
+      "message": "seems lock.hpp already includes \u003cfilesystem\u003e header, remove here?",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
