@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ed5a04f_943a5815",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-09T10:38:39Z",
+      "side": 1,
+      "message": "How did we reach at this number?",
+      "range": {
+        "startLine": 37,
+        "startChar": 50,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc18322_90f43ceb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-09T10:38:39Z",
+      "side": 1,
+      "message": "We are directly calling the doConnect function here, Shouldn\u0027t we change the state and call handleConnState which should call the respective function depending on the state.\n\nWe did the same in the doConnect and recvMessage\n\nbut in the rest of the functions\n\n* Failure case: call the handleConnState\n* Success case: Call the next state function.",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c5237b_3ffe3a5d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-09T10:38:39Z",
+      "side": 1,
+      "message": "Recieve??",
+      "range": {
+        "startLine": 191,
+        "startChar": 19,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "084d361e_55453cde",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-09T10:38:39Z",
+      "side": 1,
+      "message": "why we are putting the state change under the condition? \nat line no 229 we know that there is no error during shutdown so we could have changed the state over there.",
+      "range": {
+        "startLine": 233,
+        "startChar": 12,
+        "endLine": 233,
+        "endChar": 38
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
