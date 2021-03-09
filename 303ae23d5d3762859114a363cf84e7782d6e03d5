@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e0ec2b20_1c559f6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "Isn\u0027t this what the state flag is already for.  This is http1.1, so there is not need for multiple state flags, only one thing can be happening at a time.",
+      "range": {
+        "startLine": 17,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ed5a04f_943a5815",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -18,6 +41,76 @@
         "startChar": 50,
         "endLine": 37,
         "endChar": 54
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e594e3a_638dce81",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "I\u0027m assuming it\u0027s arbitrary and small, as we should only be getting trivial payloads.\n\nIt probably should be 8192 just to be a power of 2, but other than that, this is small enough that it shouldn\u0027t cause a memory issue.",
+      "parentUuid": "6ed5a04f_943a5815",
+      "range": {
+        "startLine": 37,
+        "startChar": 50,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83f2bcb9_164c6c16",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "nit: Why was this moved?  I\u0027m not seeing an obvious reason for it to be the last thing initialized.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 20
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32bc5af4_bfcadd0c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "nit, this is duplicated in both sides of the conditional.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 43
       },
       "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -48,6 +141,29 @@
     },
     {
       "key": {
+        "uuid": "b349ffc7_4ee07702",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "If you want to start a fresh connection, you need to actually create a fresh connection.  I suspect the core of this here is that we need to separate this class into two classes, an HttpClientConnection class, and a HttpClient class.  When we go into retry, the HttpClientConnection class can be completely destroyed and re-initialized.  Keeping them separate will ensure that we destroy the correct state, and can keep the details of things like keepalive separate from the details of retries.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 45
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11c5237b_3ffe3a5d",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -59,6 +175,30 @@
       "writtenOn": "2021-03-09T10:38:39Z",
       "side": 1,
       "message": "Recieve??",
+      "range": {
+        "startLine": 191,
+        "startChar": 19,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7c2427_4951cd5b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "The send is not successful at this point, you need to check return codes.",
+      "parentUuid": "11c5237b_3ffe3a5d",
       "range": {
         "startLine": 191,
         "startChar": 19,
@@ -87,6 +227,29 @@
         "startChar": 12,
         "endLine": 233,
         "endChar": 38
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9684df99_424d10da",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 1,
+      "message": "We set keepalive, but we don\u0027t seem to actually implement it properly.  I see no checking of the keep alive headers from the response.",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 29
       },
       "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "019ee065_91c07b77",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 0,
+      "message": "See comment in the commit message.  It\u0027s not clear why this was bifurcated.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 45
+      },
+      "revId": "29a82b08abd4bb1435cf5b18b3d7638b6be0cc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681b2c4f_8c68edaf",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-09T15:27:51Z",
+      "side": 0,
+      "message": "Even though you\u0027ve removed this comment, it\u0027s still happening.  If we get a non 200 error code, we need to retry.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 64
+      },
+      "revId": "29a82b08abd4bb1435cf5b18b3d7638b6be0cc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
