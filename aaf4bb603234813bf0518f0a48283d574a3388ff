@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2b1acb6_5abe1c7b",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-10T08:15:13Z",
+      "side": 1,
+      "message": "FanCollection ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
