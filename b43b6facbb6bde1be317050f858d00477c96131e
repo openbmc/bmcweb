@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6b21eb87_1e4fcded",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-10T10:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662441ab_14e8a7b2",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9c529ff_443dd142",
         "filename": "include/ibm/utils.hpp",
         "patchSetId": 19
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bf2898f7_886ae408",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-10T10:32:27Z",
+      "side": 1,
+      "message": "ec will capture the exceptions",
+      "parentUuid": "c9c529ff_443dd142",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb67c7de_47921604",
         "filename": "redfish-core/ut/lock_test.cpp",
         "patchSetId": 19
@@ -50,6 +86,24 @@
       "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9865103_b2c5d9c2",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-10T10:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb67c7de_47921604",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
