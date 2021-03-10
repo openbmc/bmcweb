@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44b4ed9e_a297ab60",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-10T04:05:16Z",
+      "side": 1,
+      "message": "This was attempted also in the Assembly schema, but we cannot assume hierarchy based on\nD-Bus object paths. Please see the Assembly commit, we have added a chassis association to assemblies and used that to determine containment.\n\nI\u0027ll let Ed comment here, but I would say we need a similar association here.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 17
+      },
+      "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
