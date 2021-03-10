@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "7e4648bd_63ec3862",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-10T09:20:29Z",
+      "side": 1,
+      "message": "NIT: lowerCamelCase?",
+      "range": {
+        "startLine": 28,
+        "startChar": 48,
+        "endLine": 28,
+        "endChar": 63
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba014d6a_aea77c4f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-10T09:20:29Z",
+      "side": 1,
+      "message": "NIT: lowerCamelCase ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 36,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa8a932_2646d0d5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-10T09:20:29Z",
+      "side": 1,
+      "message": "NIT: Using object_path.parent_path ?\nsdbusplus::message::object_path path(chassisfan);\nchassisfanName \u003d path.parent_path().parent_path();",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 51
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d01dae2b_ca9bc18c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-10T09:20:29Z",
+      "side": 1,
+      "message": "NIT: should nPos1, nPos2, nPos3 be validated before this step ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2b1acb6_5abe1c7b",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 3
