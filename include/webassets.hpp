@@ -142,6 +142,11 @@ inline void requestRoutes(App& app)
                                  << extension;
             }
 
+            if (webpath == "/")
+            {
+                forward_unauthorized::hasWebuiRoute = true;
+            }
+
             app.routeDynamic(webpath)(
                 [absolutePath, contentType, contentEncoding](
                     const crow::Request&,
