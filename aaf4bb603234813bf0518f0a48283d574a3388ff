@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d3a64514_4ed3f6a7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-10T09:58:47Z",
+      "side": 1,
+      "message": "Will be achieved in another way！",
+      "parentUuid": "7e4648bd_63ec3862",
+      "range": {
+        "startLine": 28,
+        "startChar": 48,
+        "endLine": 28,
+        "endChar": 63
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba014d6a_aea77c4f",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d5cb6458_250c9241",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-10T09:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba014d6a_aea77c4f",
+      "range": {
+        "startLine": 40,
+        "startChar": 36,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa8a932_2646d0d5",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2021-03-10T09:20:29Z",
       "side": 1,
       "message": "NIT: Using object_path.parent_path ?\nsdbusplus::message::object_path path(chassisfan);\nchassisfanName \u003d path.parent_path().parent_path();",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 51
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a56193cf_5ae72458",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-10T09:58:47Z",
+      "side": 1,
+      "message": "Will be achieved in another way！",
+      "parentUuid": "baa8a932_2646d0d5",
       "range": {
         "startLine": 42,
         "startChar": 16,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "80192c2e_3c8fc2a5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-10T09:58:47Z",
+      "side": 1,
+      "message": "Will be achieved in another way！",
+      "parentUuid": "d01dae2b_ca9bc18c",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2b1acb6_5abe1c7b",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b01589_414efc7f",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-10T09:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2b1acb6_5abe1c7b",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "aaf4bb603234813bf0518f0a48283d574a3388ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
