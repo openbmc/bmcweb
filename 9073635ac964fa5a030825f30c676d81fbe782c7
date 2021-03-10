@@ -22,6 +22,30 @@
       "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e591e481_db3b0946",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-10T08:09:54Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t know why we can\u0027t base on D-Bus object paths. We used D-Bus to check the chassisID(line 283).I think all PCIeSlots fall into these chassises(https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39970/26/redfish-core/include/utils/chassis_utils.hpp#21).\n\nMany of the existing schemas need to be modified, for example Sensor schema and Fan schema and PowerSupply schema need to determine if they actually belong to the chassisID. So I want to do it in a very simple way.\n\nAdding a chassis association to PCIeSlot and used that to determine containment is also a good idea.",
+      "parentUuid": "44b4ed9e_a297ab60",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 17
+      },
+      "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
