@@ -6,6 +6,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
 #include <common.hpp>
+#include <forward_unauthorized.hpp>
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <http_utility.hpp>
@@ -296,26 +297,7 @@ static void authenticate(
     if (req.session == nullptr)
     {
         BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
-
-        // If it's a browser connecting, don't send the HTTP authenticate
-        // header, to avoid possible CSRF attacks with basic auth
-        if (http_helpers::requestPrefersHtml(req))
-        {
-            res.result(boost::beast::http::status::temporary_redirect);
-            res.addHeader("Location",
-                          "/#/login?next=" + http_helpers::urlEncode(req.url));
-        }
-        else
-        {
-            res.result(boost::beast::http::status::unauthorized);
-            // only send the WWW-authenticate header if this isn't a xhr
-            // from the browser.  most scripts,
-            if (req.getHeaderValue("User-Agent").empty())
-            {
-                res.addHeader("WWW-Authenticate", "Basic");
-            }
-        }
-
+        forward_unauthorized::sendUnauthorized(req, res);
         res.end();
         return;
     }
