@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2acf5b21_b123546f",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T20:56:26Z",
+      "side": 1,
+      "message": "Ideally there would be the health rollup of the fans/temperatures and other children resources.. But our health rollup needs some real work so going to let this slide.",
+      "revId": "69eaec8885980ad611f1be246c4640aa9cf7e177",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
