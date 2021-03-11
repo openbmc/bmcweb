@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab17a85_f34910c4",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T20:34:26Z",
+      "side": 1,
+      "message": "createDirectory? \ncreateOwnerPermissionsDirectory ?\n\nIt creates 1 path not \"paths\"",
+      "range": {
+        "startLine": 13,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 33
+      },
+      "revId": "2fc4a3fa6ddfbf091af866abdbfdeccfdb4f19d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d77fd886_bf4b58fd",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T20:34:26Z",
+      "side": 1,
+      "message": "but isn\u0027t this generic ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "2fc4a3fa6ddfbf091af866abdbfdeccfdb4f19d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
