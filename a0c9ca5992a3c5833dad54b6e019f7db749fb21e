@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ce7b399_f56a0301",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:12:01Z",
+      "side": 1,
+      "message": "This",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa70a913_82b22230",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:12:01Z",
+      "side": 1,
+      "message": "And I assume after you decode base64 you get the same as the pldmtool raw ?",
+      "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a69b4dd_68bd6cc9",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:12:01Z",
+      "side": 1,
+      "message": "I would think this would match something similar to below \nPostCodesEntryAdditionalData ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 44,
+        "endLine": 104,
+        "endChar": 48
+      },
+      "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
