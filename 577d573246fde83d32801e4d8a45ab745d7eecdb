@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5bb8f478_c004fc43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-11T21:24:56Z",
+      "side": 1,
+      "message": "But isn\u0027t this valid input in redfish?",
+      "parentUuid": "6f735f1a_2d0abad8",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc2054db_3ed9e292",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Can you add this to the commit msg?\n\nWhat I am envisioning is (might be wrong but just an example)\n\n\u0027{\"IPv4StaticAddresses\": null}\u0027 returned a 400\n\u0027{\"IPv4StaticAddresses\": []}\u0027 returned a 400 \n\u0027{\"IPv4StaticAddresses\": [null]}\u0027 returned a 200 and deleted the entry",
       "parentUuid": "63b841b7_4d88ac05",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9734c43_063fe072",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-11T21:24:56Z",
+      "side": 1,
+      "message": "+1  those kinds of results make it a lot more obvious what we expect the behavior to be, and allows us to compare to the spec in the review.",
+      "parentUuid": "7d9230a5_6f5e81e4",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -273,6 +321,30 @@
       "writtenOn": "2021-01-19T18:09:24Z",
       "side": 1,
       "message": "Redfish allows for multiple IP addresses here.",
+      "range": {
+        "startLine": 842,
+        "startChar": 53,
+        "endLine": 842,
+        "endChar": 66
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c34fdc5e_01b4b6db",
+        "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-11T21:24:56Z",
+      "side": 1,
+      "message": "+1, we should handle multiple here, but up to the submitter if they want to solve it in this patch.  I could see solving the crash and supporting multiple broken into multiple patches.",
+      "parentUuid": "483be5d7_6fcd7469",
       "range": {
         "startLine": 842,
         "startChar": 53,
