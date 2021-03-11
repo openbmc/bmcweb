@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ce8a6fd_e42b00b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:01:06Z",
+      "side": 1,
+      "message": "Thanks for the background, still missing this in a lot of bmcweb commits, this really helps understand why bmcweb needs this commit.",
+      "revId": "ef82bffccf25ed4aa16fb22bd96073f779aee0b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51eea2a4_f35ca8aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:01:06Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 21,
+        "startChar": 46,
+        "endLine": 21,
+        "endChar": 54
+      },
+      "revId": "ef82bffccf25ed4aa16fb22bd96073f779aee0b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9be89490_f92c990e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:01:06Z",
+      "side": 1,
+      "message": "Can you link these ? Either here or in a comment in the review ?",
+      "revId": "ef82bffccf25ed4aa16fb22bd96073f779aee0b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
