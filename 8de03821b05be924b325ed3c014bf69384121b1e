@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "b43c2e77_5fd89869",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T08:54:32Z",
+      "side": 1,
+      "message": "Asked redfish forum , and the suggestion is to add a new registry and bump the minor version.\nhttps://redfishforum.com/thread/447/bumping-message-registry-backward-compatability",
+      "parentUuid": "476186ec_fdddd80e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "624ccc83_b7f02145",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -108,6 +132,30 @@
       "writtenOn": "2021-03-09T16:59:26Z",
       "side": 1,
       "message": "I\u0027m not really following why this is needed?  This is an API, if the consumer wants to change how this is interpreted (int/hex/ascii), they certainly can, that\u0027s why MessageArgs exists, and is strongly typed.\n\nCan you please add some more details in your commit message on why we need to duplicate this information.  Some questions I\u0027d like to see answered:\n1. Most systems don\u0027t have ascii convertable post codes, (at least not directly) what impacts will this have on those systems?\n2. Why aren\u0027t clients capable of doing this conversion, considering the data already exists in the message format.\n3. Aforementioned question above about versioning in the schemas.  Please find some kind of statement within the redfish spec about this kind of thing.",
+      "range": {
+        "startLine": 14,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04662521_9c1fb880",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T08:54:32Z",
+      "side": 1,
+      "message": "Addressed all 3 points and updated the commit message.",
+      "parentUuid": "624ccc83_b7f02145",
       "range": {
         "startLine": 14,
         "startChar": 51,
@@ -137,6 +185,24 @@
     },
     {
       "key": {
+        "uuid": "55e5f196_06e8d2fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T08:54:32Z",
+      "side": 1,
+      "message": "As far as i understood, the redfish clients would parse the message registry based on the version right.\n\nSo, adding a new registry \u0026 bumping the version would not break the existing clients, any old clients would now get a different version of the Message registry which they would have to parse for.",
+      "parentUuid": "4a614d5f_81149826",
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ce34c66_7d5ee336",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -157,6 +223,30 @@
       "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "410f0495_4536f342",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T08:54:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6ce34c66_7d5ee336",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 72
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -183,6 +273,30 @@
     },
     {
       "key": {
+        "uuid": "680e5637_eb60ea04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T08:54:32Z",
+      "side": 1,
+      "message": "I could not test it because in IBM systems we don\u0027t have a snoop port at all, and the progress codes comes down from host via pldm.I did test it via pldm though. Can some one help me on this ? probably from intel ? I think i can rely on Zhikui for a +1 on this ?",
+      "parentUuid": "13737289_f415cc63",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9960ed7_78f9c9ce",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -194,6 +308,30 @@
       "writtenOn": "2021-03-09T16:59:26Z",
       "side": 1,
       "message": "?  Extra space looks incorrect?",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "8de03821b05be924b325ed3c014bf69384121b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8483b57c_066c2615",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-11T08:54:32Z",
+      "side": 1,
+      "message": "No, its not an extra space, out of 8 hex words, the last hex word when converted to ascii became a \"space\".",
+      "parentUuid": "e9960ed7_78f9c9ce",
       "range": {
         "startLine": 44,
         "startChar": 12,
