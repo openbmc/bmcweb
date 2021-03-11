@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "7d9230a5_6f5e81e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T20:49:38Z",
+      "side": 1,
+      "message": "Can you add this to the commit msg?\n\nWhat I am envisioning is (might be wrong but just an example)\n\n\u0027{\"IPv4StaticAddresses\": null}\u0027 returned a 400\n\u0027{\"IPv4StaticAddresses\": []}\u0027 returned a 400 \n\u0027{\"IPv4StaticAddresses\": [null]}\u0027 returned a 200 and deleted the entry",
+      "parentUuid": "63b841b7_4d88ac05",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "910151d1_ca6f2fba",
         "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
         "patchSetId": 3
