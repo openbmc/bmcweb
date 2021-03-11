@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53215b61_6077c52f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "chassis/ThermalSubsystem?",
+      "range": {
+        "startLine": 20,
+        "startChar": 36,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aba47244_3f48081f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "move to L: 204",
+      "range": {
+        "startLine": 198,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 80
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe090bf2_9a36f375",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "add ec value:\nBMCWEB_LOG_DEBUG \u003c\u003c \"DBUS response error, ec \u003d \" \u003c\u003c ec.value();",
+      "range": {
+        "startLine": 229,
+        "startChar": 24,
+        "endLine": 229,
+        "endChar": 65
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82284c9_77b07213",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "std::string newPath \u003d \"/redfish/v1/Chassis/\" +\n                       chassisId +\n                       \"/ThermalSubsystem/Fans/\"\n                       + leaf;",
+      "range": {
+        "startLine": 245,
+        "startChar": 24,
+        "endLine": 248,
+        "endChar": 40
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed04575_ba03795f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "why use std::move?",
+      "range": {
+        "startLine": 249,
+        "startChar": 57,
+        "endLine": 249,
+        "endChar": 66
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "becff7ee_f7952d70",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "chassisPath?",
+      "range": {
+        "startLine": 257,
+        "startChar": 16,
+        "endLine": 257,
+        "endChar": 48
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c9d053d_8bb52fa2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "why convert to `int32_t`?",
+      "range": {
+        "startLine": 257,
+        "startChar": 50,
+        "endLine": 257,
+        "endChar": 60
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07cdb9f9_9527ea27",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-11T02:12:15Z",
+      "side": 1,
+      "message": "move to L: 295",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 80
+      },
+      "revId": "403a2f47b239b8599d67e9139bb35c59805a2645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
