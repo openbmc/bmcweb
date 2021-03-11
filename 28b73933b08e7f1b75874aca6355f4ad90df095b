@@ -240,6 +240,30 @@
     },
     {
       "key": {
+        "uuid": "7f6047ae_7cdaf97f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-11T15:10:18Z",
+      "side": 1,
+      "message": "I analyzed this function, even if get rid of constexpr ifs (that would require to copy paste whole function and remove those if\u0027s in both of them) we will still end up with template parameter in the one which handles handles days, hours, minutes, seconds, usage below:\n\n 77     out +\u003d FromTime(ticks);\n 78     const auto maxConversionRange \u003d\n 79         std::chrono::duration_cast\u003cFromTime\u003e(std::chrono::milliseconds::max())\n 80             .count();\n 81     if (out \u003c FromTime(ticks) || maxConversionRange \u003c ticks)\n 82     {\n 83         return false;\n 84     }\n\nI didn\u0027t find anything better than using this template.",
+      "parentUuid": "8c400d91_5ff50fe6",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "28b73933b08e7f1b75874aca6355f4ad90df095b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0ba968a_0d0dc464",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 53
