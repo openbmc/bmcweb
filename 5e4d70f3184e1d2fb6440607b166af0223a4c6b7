@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "194beb5d_444dc013",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T01:50:22Z",
+      "side": 1,
+      "message": "So should have been removed here? https://github.com/openbmc/bmcweb/commit/57fce80e24cfe08e530e0697d6c70bba14076d1c",
+      "revId": "5e4d70f3184e1d2fb6440607b166af0223a4c6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
