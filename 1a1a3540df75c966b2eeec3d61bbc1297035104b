@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "8cb3e9e4_ceda1ef1",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c9488bf_f8dea264",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 57
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9edc0452_1ef4319b",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -129,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "028d61a3_3a622ef8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "PowerSupply is not a sensor. Its health status is determined by Functional, only true or false. True is \"OK\" and false is \"Critical\". So I don\u0027t think it needs to be rolled up, and it don\u0027t need the \"HealthPopulate\" in health.hpp",
+      "parentUuid": "14e6dc20_2bedd1d9",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 43
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12a3edbe_d9cc958f",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -140,6 +188,30 @@
       "writtenOn": "2021-02-21T21:20:26Z",
       "side": 1,
       "message": "This param doesn\u0027t look used aside from the log statement.",
+      "range": {
+        "startLine": 105,
+        "startChar": 50,
+        "endLine": 105,
+        "endChar": 59
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b588854_9ff13d79",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Yes. We need some way to make sure that this PowerSupply belongs to this chassisID. I saw your discussion on Discord. We might add a chassis association to PowerSupply and used that to determine containment. But no final decision has been made yet. I will modify this part of the code if the discussion comes to an end",
+      "parentUuid": "12a3edbe_d9cc958f",
       "range": {
         "startLine": 105,
         "startChar": 50,
@@ -175,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "8587150d_60c1d615",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a65ba4e9_eebba55c",
+      "range": {
+        "startLine": 110,
+        "startChar": 21,
+        "endLine": 110,
+        "endChar": 24
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fb26904_89a43c33",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -195,6 +291,30 @@
       "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "074f5639_53349e46",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fb26904_89a43c33",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 13
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -221,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "576404b2_39606a4d",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31e9f572_20c5a3ad",
+      "range": {
+        "startLine": 137,
+        "startChar": 24,
+        "endLine": 137,
+        "endChar": 52
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "022c557c_b258b6d4",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -241,6 +385,30 @@
       "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028f29b5_70a74ea0",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "022c557c_b258b6d4",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -313,6 +481,30 @@
     },
     {
       "key": {
+        "uuid": "024a955d_de1b90b8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "We want to get \"EfficiencyPercent\", but it\u0027s only one.\nxyz.openbmc_project.Control.PowerSupplyAttributes",
+      "parentUuid": "21f6c2ef_8b45cd00",
+      "range": {
+        "startLine": 210,
+        "startChar": 67,
+        "endLine": 211,
+        "endChar": 38
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10fbf218_2474bf33",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -333,6 +525,30 @@
       "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c82d4018_ddffa305",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10fbf218_2474bf33",
+      "range": {
+        "startLine": 212,
+        "startChar": 16,
+        "endLine": 212,
+        "endChar": 39
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +575,30 @@
     },
     {
       "key": {
+        "uuid": "49d6f8a6_39e5fe19",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e90ab46b_15684a6c",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 13
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "521bfcf7_a5fc4cc2",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -370,6 +610,30 @@
       "writtenOn": "2021-02-21T21:20:26Z",
       "side": 1,
       "message": "I don\u0027t see this listed in phosphor dbus interfaces.",
+      "range": {
+        "startLine": 240,
+        "startChar": 50,
+        "endLine": 240,
+        "endChar": 67
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "635da434_867b8306",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "It is not in the dbus interfaces. It is in the PowerSupply schema:\n  \"EfficiencyRatings\": [\n    {\n      \"EfficiencyPercent\": 90\n    }\n  ],",
+      "parentUuid": "521bfcf7_a5fc4cc2",
       "range": {
         "startLine": 240,
         "startChar": 50,
@@ -402,6 +666,30 @@
       "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662b14c1_f0d13d32",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dc8cd3d_65ed02fe",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -517,6 +805,30 @@
       "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfeed33f_e2293b75",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-11T14:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2efe03_c8be4c84",
+      "range": {
+        "startLine": 347,
+        "startChar": 54,
+        "endLine": 347,
+        "endChar": 62
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
