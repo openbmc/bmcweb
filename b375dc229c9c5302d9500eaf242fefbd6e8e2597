@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a3715b0_7e10b711",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:08:22Z",
+      "side": 1,
+      "message": "Could add a bit more around why this Additional Data URI is needed.. \n\nIBM progress codes are typically 72 bytes including a primary code (8 bytes) and a secondary code that contains hex words that would provide additional details on the core problem during boot hangs. These secondary hex words would be in this Additional Data URI.",
+      "revId": "b375dc229c9c5302d9500eaf242fefbd6e8e2597",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "280a6191_f257c575",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3162,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-11T21:08:22Z",
+      "side": 1,
+      "message": "Need the commit above or it is a dead link",
+      "revId": "b375dc229c9c5302d9500eaf242fefbd6e8e2597",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
