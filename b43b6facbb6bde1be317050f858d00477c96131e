@@ -122,6 +122,24 @@
       "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0f602b7_f21915c6",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-11T08:59:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35ac3261_9bcfb298",
+      "revId": "b43b6facbb6bde1be317050f858d00477c96131e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
