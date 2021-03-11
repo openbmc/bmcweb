@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "35159a12_d45e2356",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-11T15:29:40Z",
+      "side": 1,
+      "message": "No need for try catch here.  They deprecated it because none of the common implementations could throw.\n\nThis is fine as is.  Sorry, the doc I was reading was apparently on an old version of boost.",
+      "parentUuid": "daa520b6_6cd71baf",
+      "range": {
+        "startLine": 245,
+        "startChar": 54,
+        "endLine": 245,
+        "endChar": 63
+      },
+      "revId": "2956d8a36463d853fe593a56b89f7bbc66837d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72b3e8a1_9f668e4b",
         "filename": "include/login_routes.hpp",
         "patchSetId": 4
