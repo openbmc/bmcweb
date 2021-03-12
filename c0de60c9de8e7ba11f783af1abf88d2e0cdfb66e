@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "66e73ee7_e917820f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-12T06:09:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a27f4805_f52bc061",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 29
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94f3eb86_e70e610e",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
@@ -214,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "e0f36d4d_50e5e6d2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-12T06:09:40Z",
+      "side": 1,
+      "message": "I asked for the propertyValueFormatError.As per the documentation it seems best fit here.\n\n \"PropertyValueFormatError\": {\n            \"Description\": \"Indicates that a property was given the correct value type but the value of that property was not supported.\",\n            \"Message\": \"The value %1 for the property %2 is of a different format than the property can accept.\",",
+      "parentUuid": "ba0ca082_5735f674",
+      "range": {
+        "startLine": 470,
+        "startChar": 26,
+        "endLine": 470,
+        "endChar": 48
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94511a78_1a90f4d9",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
@@ -249,6 +297,30 @@
       "side": 1,
       "message": "host is a `std::string` type(POD), do we really need to use `std::move`?",
       "parentUuid": "94511a78_1a90f4d9",
+      "range": {
+        "startLine": 476,
+        "startChar": 28,
+        "endLine": 476,
+        "endChar": 32
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68729ddc_6f63825d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-12T06:09:40Z",
+      "side": 1,
+      "message": "I am not getting that why the string should not be move? \nMove is allowing the efficient transfer of resources from one object to another object. Are you really using it after the lambda?",
+      "parentUuid": "fe3f9313_d19bb8e9",
       "range": {
         "startLine": 476,
         "startChar": 28,
