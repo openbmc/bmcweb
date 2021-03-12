@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fac872e8_7d1e4908",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T21:37:41Z",
+      "side": 1,
+      "message": "https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid\",\n\"@odata.type\": \"#Processor.v1_11_0.Processor\",\n\"SubProcessors\": {\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid/SubProcessors\"\n},\n...\nBut shouldn\u0027t this only include the error ? I.e. none of the other fields (odata.id, odata.type..)\n\nhttps://${bmc}/redfish/v1/Systems/system/Processors/badprocessorname/SubProcessors\nLooks correct. I only see the error.",
+      "parentUuid": "2ab64f69_04c7f835",
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a72cbdf1_ceb4d206",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 19
@@ -119,6 +137,30 @@
       "side": 1,
       "message": "I want to know why?\nBut I am Ok, changed to `std::shared_ptr\u003cAsyncResp\u003e asyncResp`.",
       "parentUuid": "ac74884d_bf028c3a",
+      "range": {
+        "startLine": 1326,
+        "startChar": 8,
+        "endLine": 1326,
+        "endChar": 13
+      },
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11b4db9e_16c45fbf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T21:37:41Z",
+      "side": 1,
+      "message": "I think it is more clear if we don\u0027t use auto.\n\nIf you want to see more discussion on this, see https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41216/6/redfish-core/lib/FabricAdapters.hpp#158",
+      "parentUuid": "22a26ab6_72a3f3fa",
       "range": {
         "startLine": 1326,
         "startChar": 8,
