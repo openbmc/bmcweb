@@ -44,6 +44,7 @@
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
+#include "../lib/FabricAdapters.hpp"
 #include "../lib/hypervisor_system.hpp"
 
 namespace redfish
@@ -89,6 +90,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<StorageCollection>(app));
         nodes.emplace_back(std::make_unique<Storage>(app));
         nodes.emplace_back(std::make_unique<Drive>(app));
+        nodes.emplace_back(std::make_unique<FabricAdapters>(app));
+        nodes.emplace_back(std::make_unique<FabricAdapterCollection>(app));
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         nodes.emplace_back(
             std::make_unique<UpdateServiceActionsSimpleUpdate>(app));
