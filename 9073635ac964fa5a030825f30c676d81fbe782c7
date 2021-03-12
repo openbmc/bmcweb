@@ -70,6 +70,30 @@
       "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9841eeb_a190309b",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-12T08:48:03Z",
+      "side": 1,
+      "message": "Thank you. But I\u0027ve seen discussions on Discord about this, and it\u0027s not final yet. So I want to wait until it has a final conclusion before I modify it.",
+      "parentUuid": "adc1805a_cfce8309",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 17
+      },
+      "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
