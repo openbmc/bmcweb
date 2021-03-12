@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bd8b8d1_a7c3c6c2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T00:30:41Z",
+      "side": 1,
+      "message": "typically don\u0027t use auto here",
+      "range": {
+        "startLine": 954,
+        "startChar": 12,
+        "endLine": 954,
+        "endChar": 17
+      },
+      "revId": "899920455ffbb213cc1d22f8c7ef72f720efff83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5143c85b_aed7c024",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T00:30:41Z",
+      "side": 1,
+      "message": "Need messages::success(aResp-\u003eres); here?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40969",
+      "revId": "899920455ffbb213cc1d22f8c7ef72f720efff83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
