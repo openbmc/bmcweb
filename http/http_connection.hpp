@@ -378,11 +378,13 @@ class Connection :
                               [self] { self->completeRequest(); });
         });
 
-        if (thisReq.isUpgrade() &&
-            boost::iequals(
-                thisReq.getHeaderValue(boost::beast::http::field::upgrade),
-                "websocket"))
+        if ((thisReq.isUpgrade() &&
+             boost::iequals(
+                 thisReq.getHeaderValue(boost::beast::http::field::upgrade),
+                 "websocket")) ||
+            (req->url == "/sse"))
         {
+            BMCWEB_LOG_DEBUG << "Request: " << this << " is getting upgraded";
             handler->handleUpgrade(thisReq, res, std::move(adaptor));
             // delete lambda with self shared_ptr
             // to enable connection destruction
