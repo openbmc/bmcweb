@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7ba709d_cbbaeb3f",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-12T18:41:29Z",
+      "side": 1,
+      "message": "1st check your error codes.  ec seems ignored here.\n2nd This check is redundant.  Just catch the \"directory already exists\" error when you call create_directories.  Otherwise, there\u0027s a possible race condition if the directory is deleted between the calls.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 49
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee25507_d61c5477",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-12T18:41:29Z",
+      "side": 1,
+      "message": "ignored error code.  If the directory wasn\u0027t created, you shouldn\u0027t be trying to set permissions on it.",
+      "range": {
+        "startLine": 22,
+        "startChar": 50,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c788ada_9b549526",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-12T18:41:29Z",
+      "side": 1,
+      "message": "Why are the unit tests interacting with the filesystem at all?  I would expect some mocks for the filesystem instead of trying to rely on temp directories.\n\nWith that said, this code is no worse, but I\u0027d like to see some discussion on why this was done originally, so when we get to more broad unit tests in bmcweb, we can have a generalized solution for this kind of thing.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
