@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f3c97c7_e9d0ec4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T17:55:42Z",
+      "side": 1,
+      "message": "Needs https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/41017 to merge first",
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "288ef67b_79783d96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T17:55:42Z",
+      "side": 1,
+      "message": "Not very many properties here, do we plan to add more later?",
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "077a687d_2f6e9427",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T17:55:42Z",
+      "side": 1,
+      "message": "I assume Name/PrettyName will be set later?",
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ab683a1_ff788a5c",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T17:55:42Z",
+      "side": 1,
+      "message": "we typically don\u0027t use auto here",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7face710_631932e3",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T17:55:42Z",
+      "side": 1,
+      "message": "we typically don\u0027t use auto here",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
