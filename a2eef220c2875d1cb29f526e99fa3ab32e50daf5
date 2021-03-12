@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "808bf1bf_cda0e1a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T00:33:13Z",
+      "side": 1,
+      "message": "What about badpowersupplyId\n\ncurl -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}\n/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies/badpowersupplyid/",
+      "revId": "a2eef220c2875d1cb29f526e99fa3ab32e50daf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
