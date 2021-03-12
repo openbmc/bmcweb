@@ -2122,6 +2122,9 @@ class Systems : public Node
             {"Health", "OK"},
             {"State", "Enabled"},
         };
+
+        res.jsonValue["FabricAdapters"] = {
+            {"@odata.id", "/redfish/v1/Systems/system/FabricAdapters"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         constexpr const std::array<const char*, 4> inventoryForSystems = {
