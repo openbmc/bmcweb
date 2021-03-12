@@ -164,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "61e492b1_58ea23aa",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-12T10:27:08Z",
+      "side": 1,
+      "message": "This seems to be a good design Ed. But having spent a lot of rework \u0026 testing on this commit, i think, we can go ahead with the current approach for now. \nThis commit is tested multiple times, and we have the good path \u0026 some obvious bad paths working as expected. New design may cover even the corner cases, which can be taken up as new work. \n\nAppu/Ratan, please share your views.",
+      "parentUuid": "b349ffc7_4ee07702",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 45
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11c5237b_3ffe3a5d",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
