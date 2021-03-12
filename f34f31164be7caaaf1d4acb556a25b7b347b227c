@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "f35df305_9ed740e6",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-12T19:23:52Z",
+      "side": 1,
+      "message": "We\u0027re inconsistent at best.  The thinking behind the auto policy is that the types within a commit should be immediately obvious by reading the code, and changes to the type should force diffs on everywhere that type is assumed so we can re-review for correctness and security.\n\nmake_shared is a bit of a unique case where both the type is available at the call site (in the make_shared template) and is never going to change because it\u0027s STL, so in this specific case, I tend to ignore auto when I see it in diffs.  Also, if the cleanup plans come to fruition, all these make_shared\u003cAsyncResp\u003e calls go away in lieu of a smarter router that has RAII built-in.\n\nThat\u0027s the long winded way of saying, I\u0027m not worried about it either way;  If it\u0027s important to Gunnar, lets just go ahead and change it.",
+      "parentUuid": "aa9428f8_5e62c4bf",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7face710_631932e3",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
         "patchSetId": 6
