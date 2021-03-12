@@ -118,6 +118,30 @@
       "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ef5e95_dfe4e120",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-12T11:43:42Z",
+      "side": 1,
+      "message": "Apologies for my delayed response...\nYes, this patch is intended to address the skip functionality issue. \nEarlier, unique ID\u0027s were generated using Timestamp until seconds, so, when we have say three events, there is a high probability of them being within the same second. so the ID\u0027s would be X, X_1 and X_2. Suppose X was 20th record, which makes X_1 21st record and X_2 22nd record. So, when we call Skip until 21 i.e. $skip\u003d21, X_1 would now be displayed as X, and X_2 would become X_1... Which would not comply with DMTF specification, as it requires that every ID of event log to be unique. So in order to avoid the above scenario, Timestamp until microseconds is considered. \nConsidering the filesystem overheads/bottlenecks that might be involved in logging a record, the probability of records falling into the same microsecond window would be very less compared to records falling under the same Second. If there were records at 5.000001   5.000012   5.000022   5.000030   5.000100 , with this patch we would have different ID\u0027s for each due to varying microseconds, but if we consider seconds, all the 5 records fall under the 5 second mark. So, the reason of this commit is to extend the the Timestamp consideration until microseconds to improve the uniqueness though corner cases still would exist.",
+      "parentUuid": "847e2dbf_f6da0ba0",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
