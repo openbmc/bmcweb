@@ -2337,7 +2337,7 @@ class CrashdumpService : public Node
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
         asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
         asyncResp->res.jsonValue["Id"] = "Oem Crashdump";
@@ -2350,19 +2350,15 @@ class CrashdumpService : public Node
             {"#LogService.ClearLog",
              {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
                          "Actions/LogService.ClearLog"}}},
-            {"Oem",
-             {{"#Crashdump.OnDemand",
-               {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                           "Actions/Oem/Crashdump.OnDemand"}}},
-              {"#Crashdump.Telemetry",
-               {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                           "Actions/Oem/Crashdump.Telemetry"}}}}}};
+            {"#LogService.CollectDiagnosticData",
+             {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                         "Actions/LogService.CollectDiagnosticData"}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
-        asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
+        asyncResp->res.jsonValue["Actions"]["Oem"] = {
             {"#Crashdump.SendRawPeci",
              {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                         "Actions/Oem/Crashdump.SendRawPeci"}}});
+                         "Actions/Oem/Crashdump.SendRawPeci"}}}};
 #endif
     }
 };
@@ -2443,15 +2439,16 @@ static void logCrashdumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
             std::string crashdumpURI =
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                 logID + "/" + filename;
-            logEntryJson = {{"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+            logEntryJson = {{"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
                             {"@odata.id", "/redfish/v1/Systems/system/"
                                           "LogServices/Crashdump/Entries/" +
                                               logID},
                             {"Name", "CPU Crashdump"},
                             {"Id", logID},
                             {"EntryType", "Oem"},
-                            {"OemRecordFormat", "Crashdump URI"},
-                            {"Message", std::move(crashdumpURI)},
+                            {"AdditionalDataURI", std::move(crashdumpURI)},
+                            {"DiagnosticDataType", "OEM"},
+                            {"OEMDiagnosticDataType", "Crashdump"},
                             {"Created", std::move(timestamp)}};
         };
     crow::connections::systemBus->async_method_call(
@@ -2682,13 +2679,12 @@ class CrashdumpFile : public Node
     }
 };
 
-class OnDemandCrashdump : public Node
+class CrashdumpCollect : public Node
 {
   public:
-    OnDemandCrashdump(App& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
-             "Crashdump.OnDemand/")
+    CrashdumpCollect(App& app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/"
+                  "LogService.CollectDiagnosticData/")
     {
         // Note: Deviated from redfish privilege registry for GET & HEAD
         // method for security reasons.
@@ -2707,10 +2703,28 @@ class OnDemandCrashdump : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        auto generateonDemandLogCallback = [asyncResp,
-                                            req](const boost::system::error_code
-                                                     ec,
-                                                 const std::string&) {
+        std::string diagnosticDataType;
+        std::string oemDiagnosticDataType;
+        if (!redfish::json_util::readJson(
+                req, asyncResp->res, "DiagnosticDataType", diagnosticDataType,
+                "OEMDiagnosticDataType", oemDiagnosticDataType))
+        {
+            return;
+        }
+
+        if (diagnosticDataType != "OEM")
+        {
+            BMCWEB_LOG_ERROR
+                << "Only OEM DiagnosticDataType supported for Crashdump";
+            messages::actionParameterValueFormatError(
+                asyncResp->res, diagnosticDataType, "DiagnosticDataType",
+                "CollectDiagnosticData");
+            return;
+        }
+
+        auto collectCrashdumpCallback = [asyncResp, req](
+                                            const boost::system::error_code ec,
+                                            const std::string&) {
             if (ec)
             {
                 if (ec.value() == boost::system::errc::operation_not_supported)
@@ -2748,81 +2762,30 @@ class OnDemandCrashdump : public Node
             task->populateResp(asyncResp->res);
             task->payload.emplace(req);
         };
-        crow::connections::systemBus->async_method_call(
-            std::move(generateonDemandLogCallback), crashdumpObject,
-            crashdumpPath, crashdumpOnDemandInterface, "GenerateOnDemandLog");
-    }
-};
 
-class TelemetryCrashdump : public Node
-{
-  public:
-    TelemetryCrashdump(App& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
-             "Crashdump.Telemetry/")
-    {
-        // Note: Deviated from redfish privilege registry for GET & HEAD
-        // method for security reasons.
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
-        auto generateTelemetryLogCallback = [asyncResp, req](
-                                                const boost::system::error_code
-                                                    ec,
-                                                const std::string&) {
-            if (ec)
-            {
-                if (ec.value() == boost::system::errc::operation_not_supported)
-                {
-                    messages::resourceInStandby(asyncResp->res);
-                }
-                else if (ec.value() ==
-                         boost::system::errc::device_or_resource_busy)
-                {
-                    messages::serviceTemporarilyUnavailable(asyncResp->res,
-                                                            "60");
-                }
-                else
-                {
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [](boost::system::error_code err, sdbusplus::message::message&,
-                   const std::shared_ptr<task::TaskData>& taskData) {
-                    if (!err)
-                    {
-                        taskData->messages.emplace_back(
-                            messages::taskCompletedOK(
-                                std::to_string(taskData->index)));
-                        taskData->state = "Completed";
-                    }
-                    return task::completed;
-                },
-                "type='signal',interface='org.freedesktop.DBus.Properties',"
-                "member='PropertiesChanged',arg0namespace='com.intel."
-                "crashdump'");
-            task->startTimer(std::chrono::minutes(5));
-            task->populateResp(asyncResp->res);
-            task->payload.emplace(req);
-        };
-        crow::connections::systemBus->async_method_call(
-            std::move(generateTelemetryLogCallback), crashdumpObject,
-            crashdumpPath, crashdumpTelemetryInterface, "GenerateTelemetryLog");
+        if (oemDiagnosticDataType == "ondemand")
+        {
+            crow::connections::systemBus->async_method_call(
+                std::move(collectCrashdumpCallback), crashdumpObject,
+                crashdumpPath, crashdumpOnDemandInterface,
+                "GenerateOnDemandLog");
+        }
+        else if (oemDiagnosticDataType == "telemetry")
+        {
+            crow::connections::systemBus->async_method_call(
+                std::move(collectCrashdumpCallback), crashdumpObject,
+                crashdumpPath, crashdumpTelemetryInterface,
+                "GenerateTelemetryLog");
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unsupported OEMDiagnosticDataType: "
+                             << oemDiagnosticDataType;
+            messages::actionParameterValueFormatError(
+                asyncResp->res, oemDiagnosticDataType, "OEMDiagnosticDataType",
+                "CollectDiagnosticData");
+            return;
+        }
     }
 };
 
