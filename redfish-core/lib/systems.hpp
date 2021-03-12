@@ -2109,6 +2109,10 @@ inline void requestRoutesSystems(App& app)
                 {"Health", "OK"},
                 {"State", "Enabled"},
             };
+
+            asyncResp->res.jsonValue["FabricAdapters"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/FabricAdapters"}};
+
             constexpr const std::array<const char*, 4> inventoryForSystems = {
                 "xyz.openbmc_project.Inventory.Item.Dimm",
                 "xyz.openbmc_project.Inventory.Item.Cpu",

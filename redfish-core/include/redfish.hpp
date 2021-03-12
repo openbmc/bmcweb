@@ -44,6 +44,7 @@
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
+#include "../lib/FabricAdapters.hpp"
 #include "../lib/hypervisor_system.hpp"
 
 namespace redfish
@@ -85,6 +86,8 @@ class RedfishService
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
+        requestRoutesFabricAdapters(app);
+        requestRoutesFabricAdapterCollection(app);
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
