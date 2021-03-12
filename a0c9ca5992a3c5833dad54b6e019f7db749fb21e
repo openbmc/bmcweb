@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e363feb_b129ef55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:11:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ce7b399_f56a0301",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa70a913_82b22230",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2021-03-11T21:12:01Z",
       "side": 1,
       "message": "And I assume after you decode base64 you get the same as the pldmtool raw ?",
+      "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b67400e_c87ca676",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:11:08Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "aa70a913_82b22230",
       "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -62,6 +104,30 @@
       "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fa11d8d_7df7bf82",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:11:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a69b4dd_68bd6cc9",
+      "range": {
+        "startLine": 104,
+        "startChar": 44,
+        "endLine": 104,
+        "endChar": 48
+      },
+      "revId": "a0c9ca5992a3c5833dad54b6e019f7db749fb21e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
