@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "23a9ee76_5f19935e",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T20:17:42Z",
+      "side": 1,
+      "message": "I don\u0027t care enough to enforce it so i\u0027ll leave it up to the author.\nMost of the new commits, don\u0027t use auto here.",
+      "parentUuid": "f35df305_9ed740e6",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7face710_631932e3",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
         "patchSetId": 6
@@ -213,6 +237,30 @@
       "side": 1,
       "message": "I could see these as auto in many other schemas like systems.hpp, processor.hpp etc\nIs there a plan to not use them in new implementations?",
       "parentUuid": "7face710_631932e3",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03ae61d_50d30643",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T20:17:42Z",
+      "side": 1,
+      "message": "I am okay either way here. I have asked on a few reviews to not use auto here but as Ed stated above though, \"if the cleanup plans come to fruition, all these make_shared\u003cAsyncResp\u003e calls go away in lieu of a smarter router that has RAII built-in\" and that makes more sense to invest time in / this is probably a moot point so I am fine either way.",
+      "parentUuid": "2e650ec1_a71da46d",
       "range": {
         "startLine": 200,
         "startChar": 8,
