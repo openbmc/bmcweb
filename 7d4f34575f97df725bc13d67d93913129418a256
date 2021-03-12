@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2ab64f69_04c7f835",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:51:07Z",
+      "side": 1,
+      "message": "\u003e https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid\",\n\"@odata.type\": \"#Processor.v1_11_0.Processor\",\n\"SubProcessors\": {\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid/SubProcessors\"\n},\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type Processor named badcoreid was not found.\",\n\"MessageArgs\": [\n\"Processor\",\n\"badcoreid\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type Processor named badcoreid was not found.\"\n}\n}\n\n\u003e https://${bmc}/redfish/v1/Systems/system/Processors/badprocessorname/SubProcessors \n\n{\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type SubProcessor named badprocessorname was not found.\",\n\"MessageArgs\": [\n\"SubProcessor\",\n\"badprocessorname\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type SubProcessor named badprocessorname was not found.\"\n}\n}",
+      "parentUuid": "040367cb_a65dfa57",
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a72cbdf1_ceb4d206",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 19
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "8eed0d16_bd9c1a36",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:51:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a72cbdf1_ceb4d206",
+      "range": {
+        "startLine": 1278,
+        "startChar": 8,
+        "endLine": 1278,
+        "endChar": 13
+      },
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac74884d_bf028c3a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 19
@@ -53,6 +95,30 @@
       "writtenOn": "2021-03-11T23:50:19Z",
       "side": 1,
       "message": "typically we don\u0027t use auto here",
+      "range": {
+        "startLine": 1326,
+        "startChar": 8,
+        "endLine": 1326,
+        "endChar": 13
+      },
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22a26ab6_72a3f3fa",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:51:07Z",
+      "side": 1,
+      "message": "I want to know why?\nBut I am Ok, changed to `std::shared_ptr\u003cAsyncResp\u003e asyncResp`.",
+      "parentUuid": "ac74884d_bf028c3a",
       "range": {
         "startLine": 1326,
         "startChar": 8,
