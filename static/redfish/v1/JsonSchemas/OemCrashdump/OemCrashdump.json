@@ -20,43 +20,8 @@
                 }
             },
             "properties": {
-                "#Crashdump.OnDemand": {
-                    "$ref": "#/definitions/OnDemand"
-                },
                 "#Crashdump.SendRawPeci": {
                     "$ref": "#/definitions/SendRawPeci"
-                }
-            },
-            "type": "object"
-        },
-        "OnDemand": {
-            "additionalProperties": false,
-            "description": "This action is used to trigger a new on-demand crashdump.",
-            "longDescription": "This action is used to trigger a new on-demand crashdump which is returned immediately.",
-            "parameters": {},
-            "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
-                    "description": "This property shall specify a valid odata or Redfish property.",
-                    "type": [
-                        "array",
-                        "boolean",
-                        "integer",
-                        "number",
-                        "null",
-                        "object",
-                        "string"
-                    ]
-                }
-            },
-            "properties": {
-                "target": {
-                    "description": "Link to invoke action",
-                    "format": "uri-reference",
-                    "type": "string"
-                },
-                "title": {
-                    "description": "Friendly action name",
-                    "type": "string"
                 }
             },
             "type": "object"

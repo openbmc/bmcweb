@@ -10,12 +10,6 @@
 
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemCrashdump.v1_0_0">
-            <Action Name="OnDemand" IsBound="true">
-                <Parameter Name="LogService" Type="LogService.v1_0_0.OemActions"/>
-                <Annotation Term="OData.Description" String="This action is used to trigger a new on-demand crashdump." />
-                <Annotation Term="OData.LongDescription" String="This action is used to trigger a new on-demand crashdump which is returned immediately." />
-            </Action>
-
             <Action Name="SendRawPeci" IsBound="true">
                 <Parameter Name="LogService" Type="LogService.v1_0_0.OemActions"/>
                 <Parameter Name="ClientAddress" Type="Edm.Int64" Nullable="false">
