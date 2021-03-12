@@ -13,10 +13,15 @@ namespace crow
 template <typename Adaptor, typename Handler>
 class Connection;
 
+template <typename Adaptor>
+class SseConnectionImpl;
+
 struct Response
 {
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
+    template <typename Adaptor>
+    friend class crow::SseConnectionImpl;
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
 
@@ -136,8 +141,8 @@ struct Response
 
   private:
     bool completed{};
-    std::function<void()> completeRequestHandler;
     std::function<bool()> isAliveHelper;
+    std::function<void()> completeRequestHandler;
 
     // In case of a JSON object, set the Content-Type header
     void jsonMode()
