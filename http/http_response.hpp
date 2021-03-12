@@ -24,6 +24,8 @@ struct Response
 
     nlohmann::json jsonValue;
 
+    std::function<void()> completeRequestHandler;
+
     void addHeader(const std::string_view key, const std::string_view value)
     {
         stringResponse->set(key, value);
@@ -136,7 +138,6 @@ struct Response
 
   private:
     bool completed{};
-    std::function<void()> completeRequestHandler;
     std::function<bool()> isAliveHelper;
 
     // In case of a JSON object, set the Content-Type header
