@@ -142,6 +142,30 @@
       "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d30a5d9_d3a10b66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-12T19:14:12Z",
+      "side": 1,
+      "message": "See Gunnars comment from the spec.  $skip needs to be based on zero based indexes, not ids.  I will fully admit, when I got jason to implement this initially, I had my understanding of skip incorrect, and led him down the wrong path, we should just fix it to be correct.\n\nTo do the thing you\u0027re trying to do, you likely want to use the $filter command set, using ID \u003e X as the function.\n\nI realize this is a lot of work, but it\u0027s inline with the spec.  Please review the patch trying to add $only as a param, as you\u0027ll likely need a lot of that same background work to make $filter functional in bmcweb.",
+      "parentUuid": "d2ef5e95_dfe4e120",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f41dc7dd25a58957c7223b36e952cb7e1ae94512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
