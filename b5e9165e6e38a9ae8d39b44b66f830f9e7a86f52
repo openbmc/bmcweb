@@ -16,6 +16,24 @@
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9439f28b_f97bbc19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-12T05:05:23Z",
+      "side": 1,
+      "message": "yes Gunnar.\nthat\u0027s the design doc, we have updated long back with new design.",
+      "parentUuid": "7aecad9d_c96c769e",
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
