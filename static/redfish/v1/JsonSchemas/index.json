@@ -52,6 +52,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/EventService"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/FabricAdapter"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/IPAddresses"
     },
     {
