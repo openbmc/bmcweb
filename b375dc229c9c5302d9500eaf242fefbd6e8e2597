@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "08d96204_8020e423",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-12T09:11:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8a3715b0_7e10b711",
+      "revId": "b375dc229c9c5302d9500eaf242fefbd6e8e2597",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "280a6191_f257c575",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
