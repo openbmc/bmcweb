@@ -2930,6 +2930,8 @@ inline void requestRoutesSystems(App& app)
             "/redfish/v1/Systems/system/Memory";
         asyncResp->res.jsonValue["Storage"]["@odata.id"] =
             "/redfish/v1/Systems/system/Storage";
+        asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
+            "/redfish/v1/Systems/system/FabricAdapters";
 
         asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
             "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset";
