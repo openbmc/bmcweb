@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fcf122d3_4e14a1c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-12T18:24:59Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "6f3c97c7_e9d0ec4a",
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "288ef67b_79783d96",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "faf590dd_ed5cfba9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-12T18:24:59Z",
+      "side": 1,
+      "message": "No, Just the mandatory properties and then link to port collection once that is implemented.",
+      "parentUuid": "288ef67b_79783d96",
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "077a687d_2f6e9427",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2021-03-12T17:55:42Z",
       "side": 1,
       "message": "I assume Name/PrettyName will be set later?",
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe6799a8_e869bab6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-12T18:24:59Z",
+      "side": 1,
+      "message": "Yes, it is not in the development build, but should be there in final build.",
+      "parentUuid": "077a687d_2f6e9427",
       "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "aa9428f8_5e62c4bf",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-12T18:24:59Z",
+      "side": 1,
+      "message": "I see them as auto in other schemas like processor.hpp.\nIs there a plan to not use them now in new implementations?",
+      "parentUuid": "9ab683a1_ff788a5c",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7face710_631932e3",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
         "patchSetId": 6
@@ -87,6 +165,30 @@
       "writtenOn": "2021-03-12T17:55:42Z",
       "side": 1,
       "message": "we typically don\u0027t use auto here",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e650ec1_a71da46d",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-12T18:24:59Z",
+      "side": 1,
+      "message": "I could see these as auto in many other schemas like systems.hpp, processor.hpp etc\nIs there a plan to not use them in new implementations?",
+      "parentUuid": "7face710_631932e3",
       "range": {
         "startLine": 200,
         "startChar": 8,
