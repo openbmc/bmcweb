@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "../lib/FabricAdapters.hpp"
 #include "../lib/account_service.hpp"
 #include "../lib/bios.hpp"
 #include "../lib/certificate_service.hpp"
@@ -83,6 +84,8 @@ class RedfishService
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
+        requestRoutesFabricAdapters(app);
+        requestRoutesFabricAdapterCollection(app);
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
