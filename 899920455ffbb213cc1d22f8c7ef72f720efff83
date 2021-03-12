@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb52b8e4_d3813b73",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-03-12T13:08:21Z",
+      "side": 1,
+      "message": "It comes from the rfMode/rfSource code, you can see in other parts of the file:\n```\nauto rfMode \u003d dbusToRfBootMode(*bootModeStr);\nauto rfSource \u003d dbusToRfBootSource(*bootSourceStr);\n```\nIn this case I should correct them too.\nCould you please explain, why `std::string` is preferrable to `auto` in this case?",
+      "parentUuid": "0bd8b8d1_a7c3c6c2",
+      "range": {
+        "startLine": 954,
+        "startChar": 12,
+        "endLine": 954,
+        "endChar": 17
+      },
+      "revId": "899920455ffbb213cc1d22f8c7ef72f720efff83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5143c85b_aed7c024",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2021-03-12T00:30:41Z",
       "side": 1,
       "message": "Need messages::success(aResp-\u003eres); here?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40969",
+      "revId": "899920455ffbb213cc1d22f8c7ef72f720efff83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35da2e4b_ad090550",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-03-12T13:08:21Z",
+      "side": 1,
+      "message": "I\u0027ve tried to add it, but it doesn\u0027t change the response code for the PATCH message, code remains 204 (No Content).\n\nTested with:\n```\n$ python redfishtool.py -r \u003cIP\u003e -u root -p 0penBmc -S Always Systems setBootOverride Continuous None -sss\n\n...\n#REQUEST:  PATCH     https://\u003cIP\u003e/redfish/v1/Systems/system\n#__Request.Headers:  {\u0027User-Agent\u0027: \u0027python-requests/2.25.1\u0027, \u0027Accept\u0027: \u0027application/json\u0027, \u0027Connection\u0027: \u0027keep-alive\u0027, \u0027OData-Version\u0027: \u00274.0\u0027, \u0027Content-Type\u0027: \u0027application/json\u0027, \u0027Content-Length\u0027: \u002789\u0027, \u0027Authorization\u0027: \u0027Basic cm9vdDowcGVuQm1j\u0027}\n#__Request AuthType: Basic\n#__Request Data: {\"Boot\": {\"BootSourceOverrideEnabled\": \"Continuous\", \"BootSourceOverrideTarget\": \"None\"}}\n#__Response.status_code: 204,         r.url: https://\u003cIP\u003e/redfish/v1/Systems/system\n#__Response.elapsed(responseTime): 0.18 sec\n...\n```\n\nHowever if I add `messages::internalError(aResp-\u003eres);` here responce code changes to 500.\n\nAm I missing something?",
+      "parentUuid": "5143c85b_aed7c024",
       "revId": "899920455ffbb213cc1d22f8c7ef72f720efff83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
