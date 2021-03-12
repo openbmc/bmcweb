@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd332f11_e410adf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T00:19:07Z",
+      "side": 1,
+      "message": "webui-vue should just handle this under the covers\nhttps://github.com/openbmc/webui-vue/blob/09e258557365eec9b617ab544be0da07784ceb42/src/store/modules/Health/SensorsStore.js#L60",
+      "parentUuid": "1c3c8527_6fe82c3d",
+      "range": {
+        "startLine": 11,
+        "startChar": 52,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9472893d_7887955f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3607eb0c_aa5c4423",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T00:19:07Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9472893d_7887955f",
+      "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be379ae1_d648649e",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2021-03-11T15:16:47Z",
       "side": 1,
       "message": "Same here, there seems to be some missing types.  Even if we don\u0027t have examples, lets try to cover them all in this commit just for consistency.",
+      "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e2e8834_abcc9ff0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-12T00:19:07Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "be379ae1_d648649e",
       "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
