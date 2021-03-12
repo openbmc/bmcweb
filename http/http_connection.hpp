@@ -345,11 +345,15 @@ class Connection :
                     boost::asio::post(self->adaptor.get_executor(),
                                       [self] { self->completeRequest(); });
                 };
-                if (req->isUpgrade() &&
-                    boost::iequals(
-                        req->getHeaderValue(boost::beast::http::field::upgrade),
-                        "websocket"))
+
+                if ((req->isUpgrade() &&
+                     boost::iequals(req->getHeaderValue(
+                                        boost::beast::http::field::upgrade),
+                                    "websocket")) ||
+                    (req->target() == "/sse"))
                 {
+                    BMCWEB_LOG_DEBUG << "Request: " << this
+                                     << " is getting upgraded";
                     handler->handleUpgrade(*req, res, std::move(adaptor));
                     // delete lambda with self shared_ptr
                     // to enable connection destruction
