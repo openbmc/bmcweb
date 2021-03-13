@@ -56,6 +56,24 @@
       "revId": "ef82bffccf25ed4aa16fb22bd96073f779aee0b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "116e26c5_9d31eace",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-13T08:12:23Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/q/topic:%22progress+codes%22+(status:open%20OR%20status:merged)\n\nBoth the PDI \u0026 all the other clients using the Raw Value property and already fixed and merged in the above commit(s).\n\nAs the PDI Commits already merged, we can merge this commit as well.",
+      "parentUuid": "9be89490_f92c990e",
+      "revId": "ef82bffccf25ed4aa16fb22bd96073f779aee0b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
