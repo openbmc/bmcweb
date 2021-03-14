@@ -155,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "07f98d79_2c57b75e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000418
+      },
+      "writtenOn": "2021-03-14T16:43:09Z",
+      "side": 1,
+      "message": "FYI, VALIDATION_UNSECURE_MODE usage: https://github.com/openbmc/intel-ipmi-oem/blob/06aa21ab75cecce354b2a17e05d053c6f61d6a29/CMakeLists.txt#L125",
+      "parentUuid": "4f1f21ea_13fe76fc",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22d17700_f64ae571",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
