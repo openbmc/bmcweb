@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "6f62c5e8_034c73ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-15T20:22:59Z",
+      "side": 1,
+      "message": "You haven\u0027t written this to be intel specific, and you\u0027ve pushed to openbmc, hence my confusion.  Please put together a better commit message than the above that talks through these points, along with your expected timelines for getting the backend pushed.\n\nIn regards to the review, cool.  I\u0027m going to drop off this patch for the moment.  Feel free to ping me when the rest of the patches needed for this is in review and documented in the commit message.",
+      "parentUuid": "b7f20901_78b9381c",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ffa065bd_9aff3b0c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -166,6 +184,24 @@
       "writtenOn": "2021-03-14T16:43:09Z",
       "side": 1,
       "message": "FYI, VALIDATION_UNSECURE_MODE usage: https://github.com/openbmc/intel-ipmi-oem/blob/06aa21ab75cecce354b2a17e05d053c6f61d6a29/CMakeLists.txt#L125",
+      "parentUuid": "4f1f21ea_13fe76fc",
+      "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2214e98d_9e28560d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-15T20:22:59Z",
+      "side": 1,
+      "message": "That\u0027s not a good enough answer.  Is this expected on a working system?",
       "parentUuid": "4f1f21ea_13fe76fc",
       "revId": "bb088cb3e3f9c5d73e1feb36e94db05635d3dfaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
