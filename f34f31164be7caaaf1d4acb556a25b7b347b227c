@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "c74fa32b_8ecbe26a",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-15T08:17:33Z",
+      "side": 1,
+      "message": "Modified.",
+      "parentUuid": "23a9ee76_5f19935e",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7face710_631932e3",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
         "patchSetId": 6
@@ -261,6 +285,30 @@
       "side": 1,
       "message": "I am okay either way here. I have asked on a few reviews to not use auto here but as Ed stated above though, \"if the cleanup plans come to fruition, all these make_shared\u003cAsyncResp\u003e calls go away in lieu of a smarter router that has RAII built-in\" and that makes more sense to invest time in / this is probably a moot point so I am fine either way.",
       "parentUuid": "2e650ec1_a71da46d",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "f34f31164be7caaaf1d4acb556a25b7b347b227c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5f6875_7eb87fd0",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-15T08:17:33Z",
+      "side": 1,
+      "message": "Modified.",
+      "parentUuid": "f03ae61d_50d30643",
       "range": {
         "startLine": 200,
         "startChar": 8,
