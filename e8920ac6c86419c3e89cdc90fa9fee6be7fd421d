@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "862a686e_795783ba",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-15T15:11:37Z",
+      "side": 1,
+      "message": "why the ec here?",
+      "range": {
+        "startLine": 22,
+        "startChar": 46,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "e8920ac6c86419c3e89cdc90fa9fee6be7fd421d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64888786_2decaabc",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-15T15:11:37Z",
+      "side": 1,
+      "message": "Can you move this up before the trying to set the permissions ?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 5
+      },
+      "revId": "e8920ac6c86419c3e89cdc90fa9fee6be7fd421d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
