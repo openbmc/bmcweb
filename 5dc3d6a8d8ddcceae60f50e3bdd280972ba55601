@@ -70,6 +70,30 @@
       "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59bbb884_0feea291",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-15T15:23:20Z",
+      "side": 1,
+      "message": "\u003eWhy not?  It doesn\u0027t hurt anything to have extra entries in the journal that you don\u0027t use.  Other repos don\u0027t want to log anything?  bmcweb today doesn\u0027t take a hard dependency on phosphor-logging.\n\nWhen I say scalability, I meant that writing to the journal with the message having \"REDFISH_MESSAGE_ID\u003d%s\" can not be done at other Dbus Repos. I think we have some design review going on for the same.\n\n\n\u003e This is something that I don\u0027t think needs the compilation flag, and has value even if you don\u0027t have journal IPMI SEL enabled, as it still prints to the journal, similar to how auditd would do on a normal linux system.\n\n\nAs per my understanding how the \"REDFISH_MESSAGE_ID\u003d%s\" is being used once bmcweb write it to the journal.\n\nRyslog reads the specific journal message having string \u003d \"REDFISH_MESSAGE_ID\u003d%s\" and writes it to the the /var/log/redfish so that bmcweb can send the Redfish event.\n\nRsyslog code which does all this under meta-intel https://github.com/openbmc/openbmc/blob/master/meta-intel-openbmc/meta-common/recipes-extended/rsyslog/rsyslog/rsyslog.conf#L67.",
+      "parentUuid": "d645b735_8f89f9cb",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
