@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "d529226f_854a888a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-15T02:08:15Z",
+      "side": 1,
+      "message": "https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n\n```\n{\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type SubProcessorsCore named badcoreid was not found.\",\n\"MessageArgs\": [\n\"SubProcessorsCore\",\n\"badcoreid\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type SubProcessorsCore named badcoreid was not found.\"\n}\n}\n```\n\n\u003e But shouldn\u0027t this only include the error ? I.e. none of the other fields (odata.id, odata.type..)\n\nDone",
+      "parentUuid": "fac872e8_7d1e4908",
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a72cbdf1_ceb4d206",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 19
@@ -161,6 +179,30 @@
       "side": 1,
       "message": "I think it is more clear if we don\u0027t use auto.\n\nIf you want to see more discussion on this, see https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41216/6/redfish-core/lib/FabricAdapters.hpp#158",
       "parentUuid": "22a26ab6_72a3f3fa",
+      "range": {
+        "startLine": 1326,
+        "startChar": 8,
+        "endLine": 1326,
+        "endChar": 13
+      },
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2dcdb0_e25f0efc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-15T02:08:15Z",
+      "side": 1,
+      "message": "Sure, Thanks Gunnar 😊",
+      "parentUuid": "11b4db9e_16c45fbf",
       "range": {
         "startLine": 1326,
         "startChar": 8,
