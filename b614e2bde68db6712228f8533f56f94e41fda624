@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c9c68fd_9ad86c54",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2359,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-15T15:28:01Z",
+      "side": 0,
+      "message": "Can we remove some of the OEM schemas with this?\nhttps://github.com/openbmc/bmcweb/tree/af6298daa55d41d5a47459215b96ca5ec079dfb4/static/redfish/v1/JsonSchemas/OemCrashdump ?",
+      "range": {
+        "startLine": 2353,
+        "startChar": 0,
+        "endLine": 2359,
+        "endChar": 67
+      },
+      "revId": "b614e2bde68db6712228f8533f56f94e41fda624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
