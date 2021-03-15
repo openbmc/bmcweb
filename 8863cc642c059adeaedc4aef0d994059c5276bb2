@@ -117,6 +117,30 @@
       "revId": "8863cc642c059adeaedc4aef0d994059c5276bb2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "988f9538_9f3c6b8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-15T03:20:59Z",
+      "side": 1,
+      "message": "This is the SNMPTrap of the PowerSupply AC Lost received by the destination computer：\n\n2021-03-15 11:02:22 \u003cUNKNOWN\u003e [UDP: [10.164.29.38]:53426-\u003e[192.168.31.109]:162]:\niso.3.6.1.6.3.1.1.4.1.0 \u003d OID: iso.3.6.1.4.1.49871.1.0.0.1\tiso.3.6.1.4.1.49871.1.0.1.1 \u003d Gauge32: 8\tiso.3.6.1.4.1.49871.1.0.1.2 \u003d Opaque: UInt64: 3728753206088434040\tiso.3.6.1.4.1.49871.1.0.1.3 \u003d INTEGER: 3\tiso.3.6.1.4.1.49871.1.0.1.4 \u003d STRING: \"org.open_power.Witherspoon.Fault.Error.PowerSupplyInputFault\"",
+      "parentUuid": "8909ceba_3e2b1969",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "8863cc642c059adeaedc4aef0d994059c5276bb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
