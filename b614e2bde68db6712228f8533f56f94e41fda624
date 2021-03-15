@@ -46,6 +46,30 @@
       "revId": "b614e2bde68db6712228f8533f56f94e41fda624",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9522fd_cf210e20",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2359,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-03-15T20:14:53Z",
+      "side": 0,
+      "message": "Yes.  The \"OnDemand\" OEM Action can be removed from the schema.  I\u0027m working on the raw PECI Action, so that schema is still used but looks outdated.  I can just remove the whole schema for now if that\u0027s better.  Otherwise, I\u0027ll have to update it once I figure out what to do with the raw PECI Action.",
+      "parentUuid": "60bf72f9_c766ac76",
+      "range": {
+        "startLine": 2353,
+        "startChar": 0,
+        "endLine": 2359,
+        "endChar": 67
+      },
+      "revId": "b614e2bde68db6712228f8533f56f94e41fda624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
