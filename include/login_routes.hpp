@@ -167,11 +167,13 @@ inline void requestRoutes(App& app)
                         // "set-cookie" string into the value header, and get
                         // the result we want, even though we are technicaly
                         // declaring two headers here.
-                        res.addHeader("Set-Cookie",
-                                      "XSRF-TOKEN=" + session->csrfToken +
-                                          "; Secure\r\nSet-Cookie: SESSION=" +
-                                          session->sessionToken +
-                                          "; Secure; HttpOnly");
+                        res.addHeader(
+                            "Set-Cookie",
+                            "XSRF-TOKEN=" + session->csrfToken +
+                                "; SameSite=Strict; Secure\r\nSet-Cookie: "
+                                "SESSION=" +
+                                session->sessionToken +
+                                "; SameSite=Strict; Secure; HttpOnly");
                     }
                     else
                     {

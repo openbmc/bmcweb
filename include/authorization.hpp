@@ -193,11 +193,13 @@ static std::shared_ptr<persistent_data::UserSession>
             cookieValue.find("SESSION=") == std::string::npos)
         {
             // TODO: change this to not switch to cookie auth
-            res.addHeader("Set-Cookie", "XSRF-TOKEN=" + sp->csrfToken +
-                                            "; Secure\r\nSet-Cookie: SESSION=" +
-                                            sp->sessionToken +
-                                            "; Secure; HttpOnly\r\nSet-Cookie: "
-                                            "IsAuthenticated=true; Secure");
+            res.addHeader(
+                "Set-Cookie",
+                "XSRF-TOKEN=" + sp->csrfToken +
+                    "; SameSite=Strict; Secure\r\nSet-Cookie: SESSION=" +
+                    sp->sessionToken +
+                    "; SameSite=Strict; Secure; HttpOnly\r\nSet-Cookie: "
+                    "IsAuthenticated=true; Secure");
             BMCWEB_LOG_DEBUG << " TLS session: " << sp->uniqueId
                              << " with cookie will be used for this request.";
             return sp;
