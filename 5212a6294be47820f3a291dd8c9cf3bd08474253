@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8c8490dc_11b33cf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-15T08:06:33Z",
+      "side": 1,
+      "message": "Yes, the FRU number keyword will be published as SparePartNumber of D-Bus.",
+      "parentUuid": "d6c9dacc_62c7bc3e",
+      "revId": "5212a6294be47820f3a291dd8c9cf3bd08474253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eca34c0f_3c2c6986",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 26
