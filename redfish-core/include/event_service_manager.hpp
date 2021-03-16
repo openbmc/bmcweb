@@ -23,13 +23,15 @@
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
+#include <boost/beast/core/span.hpp>
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
 #include <random.hpp>
-#include <server_sent_events.hpp>
+#include <server_sent_event.hpp>
 #include <utils/json_utils.hpp>
 
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
@@ -46,8 +48,26 @@ using EventServiceConfig = std::tuple<bool, uint32_t, uint32_t>;
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
 
+static constexpr const char* subscriptionTypeSSE = "SSE";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
+
+static constexpr const uint8_t maxNoOfSubscriptions = 20;
+static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
+
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
+static constexpr const char* redfishEventLogDir = "/var/log";
+static constexpr const char* redfishEventLogFile = "/var/log/redfish";
+static constexpr const size_t iEventSize = sizeof(inotify_event);
+static int inotifyFd = -1;
+static int dirWatchDesc = -1;
+static int fileWatchDesc = -1;
+
+// <ID, timestamp, RedfishLogId, registryPrefix, MessageId, MessageArgs>
+using EventLogObjectsType =
+    std::tuple<std::string, std::string, std::string, std::string, std::string,
+               std::vector<std::string>>;
 
 namespace message_registries
 {
@@ -68,24 +88,6 @@ inline boost::beast::span<const MessageEntry>
     }
     return boost::beast::span<const MessageEntry>(openbmc::registry);
 }
-} // namespace message_registries
-
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
-static constexpr const char* redfishEventLogDir = "/var/log";
-static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-static constexpr const size_t iEventSize = sizeof(inotify_event);
-static int inotifyFd = -1;
-static int dirWatchDesc = -1;
-static int fileWatchDesc = -1;
-
-// <ID, timestamp, RedfishLogId, registryPrefix, MessageId, MessageArgs>
-using EventLogObjectsType =
-    std::tuple<std::string, std::string, std::string, std::string, std::string,
-               std::vector<std::string>>;
-
-namespace message_registries
-{
 static const Message*
     getMsgFromRegistry(const std::string& messageKey,
                        const boost::beast::span<const MessageEntry>& registry)
@@ -401,11 +403,9 @@ class Subscription
             path);
     }
 
-    Subscription(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
-        eventSeqNum(1)
-    {
-        sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);
-    }
+    Subscription(const std::shared_ptr<crow::SseConnection>& adaptor) :
+        sseConn(adaptor), eventSeqNum(1)
+    {}
 
     ~Subscription() = default;
 
@@ -430,7 +430,7 @@ class Subscription
 
         if (sseConn != nullptr)
         {
-            sseConn->sendData(eventSeqNum, msg);
+            sseConn->sendEvent(std::to_string(eventSeqNum), msg);
         }
     }
 
@@ -520,6 +520,7 @@ class Subscription
 
         this->sendEvent(
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+        this->eventSeqNum++;
     }
 #endif
 
@@ -590,14 +591,39 @@ class Subscription
         return eventSeqNum;
     }
 
+    void setSubscriptionId(const std::string& id)
+    {
+        BMCWEB_LOG_DEBUG << "Subscription ID: " << id;
+        subId = id;
+    }
+
+    std::string getSubscriptionId()
+    {
+        return subId;
+    }
+
+    std::optional<std::string>
+        getSubscriptionId(const std::shared_ptr<crow::SseConnection>& connPtr)
+    {
+        if (sseConn != nullptr && connPtr == sseConn)
+        {
+            BMCWEB_LOG_DEBUG << __FUNCTION__
+                             << " conn matched, subId: " << subId;
+            return subId;
+        }
+
+        return std::nullopt;
+    }
+
   private:
+    std::shared_ptr<crow::SseConnection> sseConn = nullptr;
     uint64_t eventSeqNum;
     std::string host;
     std::string port;
     std::string path;
     std::string uriProto;
     std::shared_ptr<crow::HttpClient> conn = nullptr;
-    std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
+    std::string subId;
 };
 
 static constexpr const bool defaultEnabledState = true;
@@ -988,6 +1014,8 @@ class EventServiceManager
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
         subValue->updateRetryPolicy();
 
+        // Set Subscription ID for back trace
+        subValue->setSubscriptionId(id);
         return id;
     }
 
@@ -1012,9 +1040,38 @@ class EventServiceManager
         }
     }
 
+    void deleteSubscription(const std::shared_ptr<crow::SseConnection>& connPtr)
+    {
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            if (entry->subscriptionType == subscriptionTypeSSE)
+            {
+                std::optional<std::string> id =
+                    entry->getSubscriptionId(connPtr);
+                if (id)
+                {
+                    deleteSubscription(*id);
+                    return;
+                }
+            }
+        }
+    }
+
     size_t getNumberOfSubscriptions()
     {
         return subscriptionsMap.size();
+    }
+
+    size_t getNumberOfSSESubscriptions() const
+    {
+        auto count = std::count_if(
+            subscriptionsMap.begin(), subscriptionsMap.end(),
+            [this](const std::pair<std::string, std::shared_ptr<Subscription>>&
+                       entry) {
+                return (entry.second->subscriptionType == subscriptionTypeSSE);
+            });
+        return static_cast<size_t>(count);
     }
 
     std::vector<std::string> getAllIDs()

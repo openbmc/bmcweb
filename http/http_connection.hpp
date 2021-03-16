@@ -350,7 +350,7 @@ class Connection :
                      boost::iequals(req->getHeaderValue(
                                         boost::beast::http::field::upgrade),
                                     "websocket")) ||
-                    (req->url == "/sse"))
+                    (req->url == "/redfish/v1/EventService/Subscriptions/SSE"))
                 {
                     BMCWEB_LOG_DEBUG << "Request: " << this
                                      << " is getting upgraded";

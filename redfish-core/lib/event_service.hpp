@@ -34,8 +34,6 @@ static constexpr const std::array<const char*, 1> supportedResourceTypes = {
     "Task"};
 #endif
 
-static constexpr const uint8_t maxNoOfSubscriptions = 20;
-
 class EventService : public Node
 {
   public:
@@ -59,6 +57,8 @@ class EventService : public Node
             {"@odata.type", "#EventService.v1_5_0.EventService"},
             {"Id", "EventService"},
             {"Name", "Event Service"},
+            {"ServerSentEventUri",
+             "/redfish/v1/EventService/Subscriptions/SSE"},
             {"Subscriptions",
              {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
             {"Actions",
