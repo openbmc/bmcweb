@@ -38,6 +38,7 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
 
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
@@ -53,8 +54,12 @@ using ReadingsObjType =
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
 
+static constexpr const char* subscriptionTypeSSE = "SSE";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
+
+static constexpr const uint8_t maxNoOfSubscriptions = 20;
+static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 
 namespace registries
 {
@@ -382,11 +387,14 @@ class Subscription : public persistent_data::UserSubscription
                  boost::asio::io_context& ioc) :
         host(inHost),
         port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(ioc, policy), path(inPath), uriProto(inUriProto)
+        path(inPath), uriProto(inUriProto)
     {
+        client.emplace(ioc, policy);
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
     }
+
+    Subscription(crow::sse_socket::Connection& connIn) : sseConn(&connIn) {}
 
     ~Subscription() = default;
 
@@ -402,13 +410,16 @@ class Subscription : public persistent_data::UserSubscription
 
         bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
-        client.sendData(msg, host, port, path, useSSL, httpHeaders,
-                        boost::beast::http::verb::post);
+        if (client)
+        {
+            client->sendData(msg, host, port, path, useSSL, httpHeaders,
+                             boost::beast::http::verb::post);
+        }
         eventSeqNum++;
 
         if (sseConn != nullptr)
         {
-            sseConn->sendData(eventSeqNum, msg);
+            sseConn->sendEvent(std::to_string(eventSeqNum), msg);
         }
         return true;
     }
@@ -437,7 +448,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        return this->sendEvent(strMsg);
+        return sendEvent(strMsg);
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -503,10 +514,10 @@ class Subscription : public persistent_data::UserSubscription
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
-
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
         this->sendEvent(strMsg);
+        this->eventSeqNum++;
     }
 #endif
 
@@ -561,15 +572,38 @@ class Subscription : public persistent_data::UserSubscription
         return eventSeqNum;
     }
 
+    void setSubscriptionId(const std::string& id2)
+    {
+        BMCWEB_LOG_DEBUG << "Subscription ID: " << id2;
+        subId = id2;
+    }
+
+    std::string getSubscriptionId()
+    {
+        return subId;
+    }
+
+    std::optional<std::string>
+        getSubscriptionId(crow::sse_socket::Connection& thisConn)
+    {
+        if (&thisConn == sseConn)
+        {
+            BMCWEB_LOG_DEBUG << " conn matched, subId: " << subId;
+            return subId;
+        }
+
+        return std::nullopt;
+    }
+
   private:
+    crow::sse_socket::Connection* sseConn = nullptr;
     uint64_t eventSeqNum = 1;
     std::string host;
     uint16_t port = 0;
     std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::HttpClient client;
+    std::optional<crow::HttpClient> client;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
@@ -587,6 +621,8 @@ class Subscription : public persistent_data::UserSubscription
         return boost::system::errc::make_error_code(
             boost::system::errc::success);
     }
+    std::shared_ptr<crow::HttpClient> conn = nullptr;
+    std::string subId;
 };
 
 class EventServiceManager
@@ -828,8 +864,8 @@ class EventServiceManager
             for (const auto& it :
                  EventServiceManager::getInstance().subscriptionsMap)
             {
-                std::shared_ptr<Subscription> entry = it.second;
-                entry->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+                Subscription& entry = *it.second;
+                entry.updateRetryConfig(retryAttempts, retryTimeoutInterval);
             }
         }
     }
@@ -942,6 +978,8 @@ class EventServiceManager
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
 
+        // Set Subscription ID for back trace
+        subValue->setSubscriptionId(id);
         return id;
     }
 
@@ -966,9 +1004,38 @@ class EventServiceManager
         }
     }
 
+    void deleteSubscription(crow::sse_socket::Connection& thisConn)
+    {
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            if (entry->subscriptionType == subscriptionTypeSSE)
+            {
+                std::optional<std::string> id =
+                    entry->getSubscriptionId(thisConn);
+                if (id)
+                {
+                    deleteSubscription(*id);
+                    return;
+                }
+            }
+        }
+    }
+
     size_t getNumberOfSubscriptions()
     {
         return subscriptionsMap.size();
+    }
+
+    size_t getNumberOfSSESubscriptions() const
+    {
+        auto count = std::count_if(
+            subscriptionsMap.begin(), subscriptionsMap.end(),
+            [](const std::pair<std::string, std::shared_ptr<Subscription>>&
+                   entry) {
+            return (entry.second->subscriptionType == subscriptionTypeSSE);
+            });
+        return static_cast<size_t>(count);
     }
 
     std::vector<std::string> getAllIDs()

@@ -24,6 +24,7 @@
 #include "environment_metrics.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
+#include "eventservice_sse.hpp"
 #include "fabric_adapters.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
@@ -222,6 +223,7 @@ class RedfishService
         requestRoutesTaskCollection(app);
         requestRoutesTask(app);
         requestRoutesEventService(app);
+        requestRoutesEventServiceSse(app);
         requestRoutesEventDestinationCollection(app);
         requestRoutesEventDestination(app);
         requestRoutesFabricAdapters(app);
