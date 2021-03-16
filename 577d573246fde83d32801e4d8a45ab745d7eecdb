@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "50d3a54d_b81087ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-16T08:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9734c43_063fe072",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "910151d1_ca6f2fba",
         "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
         "patchSetId": 3
@@ -345,6 +369,30 @@
       "side": 1,
       "message": "+1, we should handle multiple here, but up to the submitter if they want to solve it in this patch.  I could see solving the crash and supporting multiple broken into multiple patches.",
       "parentUuid": "483be5d7_6fcd7469",
+      "range": {
+        "startLine": 842,
+        "startChar": 53,
+        "endLine": 842,
+        "endChar": 66
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b7a249_8f5bcb23",
+        "filename": "redfish-core/lib/hypervisor_ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-16T08:45:53Z",
+      "side": 1,
+      "message": "yes. i got it, will fix this in following commit",
+      "parentUuid": "c34fdc5e_01b4b6db",
       "range": {
         "startLine": 842,
         "startChar": 53,
