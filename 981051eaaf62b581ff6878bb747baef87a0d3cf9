@@ -127,6 +127,24 @@
     },
     {
       "key": {
+        "uuid": "52b6cea9_1701588f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-16T16:38:13Z",
+      "side": 1,
+      "message": "sure Ed. I need to search for that code, not sure if i had backup.\ni remember enabling res.chunked(true) but did not use make_chunk, i think that\u0027s where we need to write more code to prepare chunk header and chunk data for each chunk right?\ni will try once again and will let you know.\nbut don\u0027t we have another way to achieve flow control with dynamic_buffer body.\nthat\u0027s exactly suits for data streaming right?",
+      "parentUuid": "bf74b38d_b3e023d8",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "397be55e_9982afdb",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
