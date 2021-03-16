@@ -37,8 +37,6 @@ static constexpr const std::array<const char*, 1> supportedResourceTypes = {
     "Task"};
 #endif
 
-static constexpr const uint8_t maxNoOfSubscriptions = 20;
-
 inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
@@ -50,6 +48,8 @@ inline void requestRoutesEventService(App& app)
                     {"@odata.type", "#EventService.v1_5_0.EventService"},
                     {"Id", "EventService"},
                     {"Name", "Event Service"},
+                    {"ServerSentEventUri",
+                     "/redfish/v1/EventService/Subscriptions/SSE"},
                     {"Subscriptions",
                      {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
                     {"Actions",
@@ -90,9 +90,7 @@ inline void requestRoutesEventService(App& app)
         .privileges(redfish::privileges::patchEventService)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-
-            {
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 std::optional<bool> serviceEnabled;
                 std::optional<uint32_t> retryAttemps;
                 std::optional<uint32_t> retryInterval;

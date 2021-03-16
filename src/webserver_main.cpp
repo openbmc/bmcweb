@@ -6,6 +6,7 @@
 #include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <eventservice_sse.hpp>
 #include <google/google_service_root.hpp>
 #include <hostname_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
@@ -83,6 +84,7 @@ int main(int /*argc*/, char** /*argv*/)
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH
+    redfish::eventservice_sse::requestRoutes(app);
     redfish::requestRoutes(app);
     redfish::RedfishService redfish(app);
 

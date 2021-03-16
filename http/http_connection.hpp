@@ -382,7 +382,7 @@ class Connection :
              boost::iequals(
                  thisReq.getHeaderValue(boost::beast::http::field::upgrade),
                  "websocket")) ||
-            (req->url == "/sse"))
+            (req->url == "/redfish/v1/EventService/Subscriptions/SSE"))
         {
             BMCWEB_LOG_DEBUG << "Request: " << this << " is getting upgraded";
             handler->handleUpgrade(thisReq, res, std::move(adaptor));
