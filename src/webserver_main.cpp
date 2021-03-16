@@ -5,6 +5,7 @@
 #include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <eventservice_sse.hpp>
 #include <hostname_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
 #include <image_upload.hpp>
@@ -82,6 +83,7 @@ int main(int /*argc*/, char** /*argv*/)
     redfish::RedfishService redfish(app);
 
     // Create EventServiceManager instance and initialize Config
+    redfish::eventservice_sse::requestRoutes(app);
     redfish::EventServiceManager::getInstance();
 #endif
 
