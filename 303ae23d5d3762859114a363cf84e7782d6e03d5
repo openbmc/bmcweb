@@ -95,6 +95,29 @@
     },
     {
       "key": {
+        "uuid": "efa9b9ec_b2ad3d71",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-16T11:05:06Z",
+      "side": 1,
+      "message": "Instead of keeping the connBusy in this class and checking in every function.\n\nHow about in every state function there should be a precondition like.\n\nIf state \u003d\u003d Idle || state \u003d \u003csome other state\u003e then allow otherwise not. I am hoping the intention to keep this var to not allow/server other event while the current once has not completed.",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32bc5af4_bfcadd0c",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -200,6 +223,30 @@
       "side": 1,
       "message": "Any comments on this please ?",
       "parentUuid": "61e492b1_58ea23aa",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 45
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "211930c1_47d1c100",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-16T11:05:06Z",
+      "side": 1,
+      "message": "I am fine with staged approach but the decision lies with Ed :)",
+      "parentUuid": "ecd5e750_dbb14e6f",
       "range": {
         "startLine": 148,
         "startChar": 0,
