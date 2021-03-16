@@ -702,10 +702,10 @@ class RedfishAggregator
             std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.req.body();
-        client.sendDataWithCallback(data, std::string(sat->second.host()),
-                                    sat->second.port_number(), targetURI,
-                                    false /*useSSL*/, thisReq.fields(),
-                                    thisReq.method(), cb);
+        client.sendDataWithCallback(
+            std::move(data), std::string(sat->second.host()),
+            sat->second.port_number(), targetURI, false /*useSSL*/,
+            thisReq.fields(), thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -721,10 +721,10 @@ class RedfishAggregator
 
             std::string targetURI(thisReq.target());
             std::string data = thisReq.req.body();
-            client.sendDataWithCallback(data, std::string(sat.second.host()),
-                                        sat.second.port_number(), targetURI,
-                                        false /*useSSL*/, thisReq.fields(),
-                                        thisReq.method(), cb);
+            client.sendDataWithCallback(
+                std::move(data), std::string(sat.second.host()),
+                sat.second.port_number(), targetURI, false /*useSSL*/,
+                thisReq.fields(), thisReq.method(), cb);
         }
     }
 
