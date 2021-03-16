@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "410788cb_c7fbf66d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-16T13:33:00Z",
+      "side": 1,
+      "message": "@Ed do you want me to add some more explanation to commit message or can it stay as is?",
+      "parentUuid": "cd332f11_e410adf0",
+      "range": {
+        "startLine": 11,
+        "startChar": 52,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9472893d_7887955f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
