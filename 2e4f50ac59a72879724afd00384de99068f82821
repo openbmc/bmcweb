@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd2cf3ae_98193011",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Nit  Duplicated title.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d7066d_880f15f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Please word wrap properly, 50/72 is the standard here, which I would hope your editor can do for you automatically.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fff7fd15_73a3f735",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "We need to find a better way to handle upgrades here.  This is effectively adding yet another router into the connection layer, which is fine for a demo, but we can\u0027t do overall.",
+      "range": {
+        "startLine": 353,
+        "startChar": 20,
+        "endLine": 353,
+        "endChar": 46
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d27540_c22a3530",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Nit, please just call this SseConnection instead of sse::Connection.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e62563_a5140529",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Please remove this.  This should be coming out of req.session, which the user can do for themselves.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24bc8122_9f9eee25",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "On an sse connection there is no response, right?  I wouldn\u0027t expect this to be here.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7a5158_fb4feb65",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4ac73c5_4923bf7a",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "This is an sse connection.  Why would it ever \"complete\" in the normal sense?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e493052_fe7b0cd8",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Please use boost::beast::lowest_layer",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 9
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1cc25b_75c6fc5f",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "No longer correct.  This has been changed since this patchset was started.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 65
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94611863_e9db3631",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Missing timeouts.",
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6415a52_78af58dc",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Um..... not quite following this statement.  That doesn\u0027t mean we need to close the sse connection.  We probably also should be reading just to keep from buffer attacks, so we know to close the connection if the client disobeys the protocol.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 42
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "687cc818_0b30e458",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "This would normally be\n\noutBuffer.consume(bytesTransferred);",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 189,
+        "endChar": 53
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c1764ba_71cb2f5d",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t eof close the connection too?",
+      "range": {
+        "startLine": 191,
+        "startChar": 26,
+        "endLine": 191,
+        "endChar": 49
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54d3f112_b536fd25",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "SSE requests never \"complete\" they close.  This api seems incorrect.",
+      "range": {
+        "startLine": 210,
+        "startChar": 9,
+        "endLine": 210,
+        "endChar": 24
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b623a0_f047775f",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 1,
+      "message": "string_view for both of these please",
+      "range": {
+        "startLine": 249,
+        "startChar": 48,
+        "endLine": 249,
+        "endChar": 61
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

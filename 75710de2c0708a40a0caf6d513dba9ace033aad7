@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98dd044d_be052f9a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:26:17Z",
+      "side": 0,
+      "message": "This needs to remain private.  Handlers should not be overriding the completion handler.  If something else needs access to it, please declare it as a friend class, similar to how connection is done today.",
+      "revId": "75710de2c0708a40a0caf6d513dba9ace033aad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
