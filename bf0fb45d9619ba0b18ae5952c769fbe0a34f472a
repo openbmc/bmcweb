@@ -141,6 +141,24 @@
       "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "683e69e3_ee984bf4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T16:50:18Z",
+      "side": 1,
+      "message": "\"If this commit is any guide, following the spec is immaterial.\"\nI have no idea where you got that impression.  Immaterial implies that we ignore the spec, which has never been the case.  Weighing the impact of client implementations breaking with the specification itself is always something we\u0027ve done, and tried to tread softly.  I\u0027m sorry if you feel like you were uprightly judged or singled out, but there\u0027s no need to carry that attitude into other peoples patches.  If you have legitimate concerns where a working client would break because of this change, I\u0027d love to hear them, but that seems unlikely, given that a working client would have to be ignoring the payload entirely to function with the code as-is, so adding a success message seems really unlikely to break anything.\n\n\n\"The spec is explicitly allowed to be ignored in the event it may break existing behavior.\"\n\nUnlike the commit you linked, this change is very unlikely to break existing behavior.  It also happens in the golden path, and doesn\u0027t also require a broken client to make it happen.  That significantly changes the discussion, unless you have clients that are broken because of doing this?\n\n\n\nBack to the issue at hand, in a perfect world we would be putting a success message in all responses, but as Ratan says, the spec says \"should\" which means that it\u0027s not breaking to avoid putting it here.  I would prefer a success message, as gunnar suggested, but considering this code is no worse than the old code, I my opinion isn\u0027t very strong.",
+      "parentUuid": "d0973295_ca95eac6",
+      "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
