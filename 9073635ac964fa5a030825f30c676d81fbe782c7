@@ -94,6 +94,30 @@
       "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1be28ad2_ea0fd1bd",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-03-16T06:40:38Z",
+      "side": 1,
+      "message": "@Santosh: Do you see any of this changing in terms of being okay with path containment ?.. If not, I think we should go ahead do what Assembly did for containment.. \n\n@Chicago ^",
+      "parentUuid": "e9841eeb_a190309b",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 17
+      },
+      "revId": "9073635ac964fa5a030825f30c676d81fbe782c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
