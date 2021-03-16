@@ -326,7 +326,7 @@ class Connection :
         BMCWEB_LOG_INFO << "Request: "
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target() << " " << req->ipAddress;
+                        << " " << req->url << " " << req->ipAddress;
 
         needToCallAfterHandlers = false;
 
@@ -350,7 +350,7 @@ class Connection :
                      boost::iequals(req->getHeaderValue(
                                         boost::beast::http::field::upgrade),
                                     "websocket")) ||
-                    (req->target() == "/sse"))
+                    (req->url == "/redfish/v1/EventService/Subscriptions/SSE"))
                 {
                     BMCWEB_LOG_DEBUG << "Request: " << this
                                      << " is getting upgraded";
