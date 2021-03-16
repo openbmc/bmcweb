@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "bf74b38d_b3e023d8",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T16:14:14Z",
+      "side": 1,
+      "message": "Can you post the code you used somewhere?  I was under the impression that code had to call res.chunked(true) to enable chunking, and also call net::make_chunk.  I\u0027m not sure what you did to get it, but I\u0027ve used buffer body in the past for similar things.",
+      "parentUuid": "52e8ce94_30cef9a4",
+      "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "397be55e_9982afdb",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
