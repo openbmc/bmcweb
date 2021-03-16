@@ -24,6 +24,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/privilege_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 #include "server_sent_events.hpp"
 #include "str_utility.hpp"
@@ -38,6 +39,7 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
 
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
@@ -53,8 +55,12 @@ using ReadingsObjType =
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
 
+static constexpr const char* subscriptionTypeSSE = "SSE";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
+
+static constexpr const uint8_t maxNoOfSubscriptions = 20;
+static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 
 namespace registries
 {
@@ -382,15 +388,20 @@ class Subscription : public persistent_data::UserSubscription
                  boost::asio::io_context& ioc) :
         host(inHost),
         port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(ioc, policy), path(inPath), uriProto(inUriProto)
+        path(inPath), uriProto(inUriProto)
     {
+        client.emplace(ioc, policy);
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
     }
 
+    explicit Subscription(crow::sse_socket::Connection& connIn) :
+        sseConn(&connIn)
+    {}
+
     ~Subscription() = default;
 
-    bool sendEvent(std::string& msg)
+    bool sendEvent(std::string&& msg)
     {
         persistent_data::EventServiceConfig eventServiceConfig =
             persistent_data::EventServiceStore::getInstance()
@@ -402,13 +413,17 @@ class Subscription : public persistent_data::UserSubscription
 
         bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
-        client.sendData(msg, host, port, path, useSSL, httpHeaders,
-                        boost::beast::http::verb::post);
-        eventSeqNum++;
+        if (client)
+        {
+            client->sendData(std::move(msg), host, port, path, useSSL,
+                             httpHeaders, boost::beast::http::verb::post);
+            return true;
+        }
 
         if (sseConn != nullptr)
         {
-            sseConn->sendData(eventSeqNum, msg);
+            eventSeqNum++;
+            sseConn->sendEvent(std::to_string(eventSeqNum), msg);
         }
         return true;
     }
@@ -437,7 +452,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        return this->sendEvent(strMsg);
+        return sendEvent(std::move(strMsg));
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -503,10 +518,10 @@ class Subscription : public persistent_data::UserSubscription
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
-
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        this->sendEvent(strMsg);
+        sendEvent(std::move(strMsg));
+        eventSeqNum++;
     }
 #endif
 
@@ -546,7 +561,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        this->sendEvent(strMsg);
+        sendEvent(std::move(strMsg));
     }
 
     void updateRetryConfig(uint32_t retryAttempts,
@@ -561,15 +576,32 @@ class Subscription : public persistent_data::UserSubscription
         return eventSeqNum;
     }
 
+    void setSubscriptionId(const std::string& id2)
+    {
+        BMCWEB_LOG_DEBUG << "Subscription ID: " << id2;
+        subId = id2;
+    }
+
+    std::string getSubscriptionId()
+    {
+        return subId;
+    }
+
+    bool matchSseId(const crow::sse_socket::Connection& thisConn)
+    {
+        return &thisConn == sseConn;
+    }
+
   private:
+    std::string subId;
     uint64_t eventSeqNum = 1;
     std::string host;
     uint16_t port = 0;
     std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::HttpClient client;
+    crow::sse_socket::Connection* sseConn = nullptr;
+    std::optional<crow::HttpClient> client;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
@@ -828,8 +860,8 @@ class EventServiceManager
             for (const auto& it :
                  EventServiceManager::getInstance().subscriptionsMap)
             {
-                std::shared_ptr<Subscription> entry = it.second;
-                entry->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+                Subscription& entry = *it.second;
+                entry.updateRetryConfig(retryAttempts, retryTimeoutInterval);
             }
         }
     }
@@ -942,6 +974,8 @@ class EventServiceManager
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
 
+        // Set Subscription ID for back trace
+        subValue->setSubscriptionId(id);
         return id;
     }
 
@@ -966,9 +1000,36 @@ class EventServiceManager
         }
     }
 
-    size_t getNumberOfSubscriptions()
+    void deleteSseSubscription(const crow::sse_socket::Connection& thisConn)
+    {
+        for (const auto& it : subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            bool entryIsThisConn = entry->matchSseId(thisConn);
+            if (entryIsThisConn)
+            {
+                persistent_data::EventServiceStore::getInstance()
+                    .subscriptionsConfigMap.erase(
+                        it.second->getSubscriptionId());
+                return;
+            }
+        }
+    }
+
+    size_t getNumberOfSubscriptions() const
     {
         return subscriptionsMap.size();
+    }
+
+    size_t getNumberOfSSESubscriptions() const
+    {
+        auto size = std::count_if(
+            subscriptionsMap.begin(), subscriptionsMap.end(),
+            [](const std::pair<std::string, std::shared_ptr<Subscription>>&
+                   entry) {
+            return (entry.second->subscriptionType == subscriptionTypeSSE);
+            });
+        return static_cast<size_t>(size);
     }
 
     std::vector<std::string> getAllIDs()
@@ -981,7 +1042,7 @@ class EventServiceManager
         return idList;
     }
 
-    bool isDestinationExist(const std::string& destUrl)
+    bool isDestinationExist(const std::string& destUrl) const
     {
         for (const auto& it : subscriptionsMap)
         {
@@ -997,7 +1058,7 @@ class EventServiceManager
 
     bool sendTestEventLog()
     {
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             if (!entry->sendTestEventLog())
@@ -1027,7 +1088,7 @@ class EventServiceManager
 
         eventRecord.emplace_back(std::move(eventMessage));
 
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             bool isSubscribed = false;
@@ -1062,7 +1123,7 @@ class EventServiceManager
 
                 std::string strMsg = msgJson.dump(
                     2, ' ', true, nlohmann::json::error_handler_t::replace);
-                entry->sendEvent(strMsg);
+                entry->sendEvent(std::move(strMsg));
                 eventId++; // increament the eventId
             }
             else
@@ -1073,7 +1134,7 @@ class EventServiceManager
     }
     void sendBroadcastMsg(const std::string& broadcastMsg)
     {
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             nlohmann::json msgJson;
@@ -1085,7 +1146,7 @@ class EventServiceManager
 
             std::string strMsg = msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
-            entry->sendEvent(strMsg);
+            entry->sendEvent(std::move(strMsg));
         }
     }
 
@@ -1188,7 +1249,7 @@ class EventServiceManager
             return;
         }
 
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             if (entry->eventFormatType == "Event")
