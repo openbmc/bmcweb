@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "4aaea322_0dd05f77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-16T10:21:10Z",
+      "side": 1,
+      "message": "seems its not a valid input\neven EthernetInterface IPV4 static address does not allow this input",
+      "parentUuid": "5bb8f478_c004fc43",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "577d573246fde83d32801e4d8a45ab745d7eecdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc2054db_3ed9e292",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
