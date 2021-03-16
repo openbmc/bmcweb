@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e032bd24_1b9d2986",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:01:06Z",
+      "side": 1,
+      "message": "This looks incorrect, and will look for all associations, not associations that exist on dimm interfaces.  I do like that you went to the loop style, as it\u0027s simpler in this case, but I suspect we still need to keep it as two steps, and be checking that this is BOTH a dimm AND implements an association to an LED before calling into getLocationIndicatorActive.",
+      "range": {
+        "startLine": 848,
+        "startChar": 0,
+        "endLine": 850,
+        "endChar": 51
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03d4577_8508459f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:01:06Z",
+      "side": 1,
+      "message": "nit.  Please declare on line 968.",
+      "range": {
+        "startLine": 960,
+        "startChar": 0,
+        "endLine": 960,
+        "endChar": 52
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "362b5812_0a6cfb65",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:01:06Z",
+      "side": 1,
+      "message": "The mapper returns errors if nothing is found with that path.  You will need to catch the specific error and return 404 in that case, while keeping the \"otherwise 500\" behavior.",
+      "range": {
+        "startLine": 990,
+        "startChar": 0,
+        "endLine": 990,
+        "endChar": 64
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3f697b_92479645",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:01:06Z",
+      "side": 1,
+      "message": "Please fix this check.\n\n dimm and foobar_dimm need to be treated as different, so endswith is not appropriate here.\n\nI suspect this needs to convert this to object_path and use the filename() method, then do an exact match on that.",
+      "range": {
+        "startLine": 997,
+        "startChar": 28,
+        "endLine": 997,
+        "endChar": 66
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46368248_21cf64e3",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:01:06Z",
+      "side": 1,
+      "message": "This is non-obvious, but because this is a different scope, you need to check for this parameter being filled before you use it, as you\u0027re in a different scope here.\n\nNormally, I\u0027d fix this on line 976, with something like\n\nif (locationIndicatorActive){\n    bool active \u003d *locationIndicatorActive;\n    crow::connections::systemBus-\u003easync_method_call(\n                [asyncResp, dimmId, active](\n}\n\n\nTo ensure that past a certain point, you\u0027re using a value type, and not a std::optional type.",
+      "range": {
+        "startLine": 1014,
+        "startChar": 45,
+        "endLine": 1014,
+        "endChar": 68
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0547ff29_b42df3a4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:01:06Z",
+      "side": 1,
+      "message": "Good.  Most people don\u0027t get this right the first time.",
+      "range": {
+        "startLine": 1022,
+        "startChar": 0,
+        "endLine": 1023,
+        "endChar": 74
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
