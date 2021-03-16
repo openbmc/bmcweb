@@ -16,6 +16,24 @@
       "revId": "a8006794e56e84069c54cd011ddd67c866350542",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6208db02_fb1c277f",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-16T09:17:41Z",
+      "side": 1,
+      "message": "This is quite funny, when you do exactly like clang-tidy says, there is another error which says to do it is right now:\n\n../redfish-core/include/../lib/metric_definition.hpp:33:18: error: the type of the loop variable \u0027path\u0027 is different from the one returned by the iterator and generates an implicit conversion; you can either change the type to the matching one (\u0027const std::__cxx11::basic_string\u003cchar\u003e \u0026\u0027 but \u0027const auto\u0026\u0027 is always a valid option) or remove the reference to make it explicit that you are creating a new value [performance-implicit-conversion-in-loop,-warnings-as-errors]\n         for (const sdbusplus::message::object_path\u0026 path : chassis)",
+      "parentUuid": "2c8e031d_e0709dc7",
+      "revId": "a8006794e56e84069c54cd011ddd67c866350542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
