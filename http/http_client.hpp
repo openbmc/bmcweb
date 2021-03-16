@@ -710,7 +710,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
-    void sendData(std::string& data, const std::string& destUri,
+    void sendData(std::string&& data, const std::string& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const std::function<void(Response&)>& resHandler)
@@ -866,19 +866,19 @@ class HttpClient
 
     // Send a request to destIP:destPort where additional processing of the
     // result is not required
-    void sendData(std::string& data, const std::string& destIP,
+    void sendData(std::string&& data, const std::string& destIP,
                   uint16_t destPort, const std::string& destUri, bool useSSL,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb)
     {
         const std::function<void(Response&)> cb = genericResHandler;
-        sendDataWithCallback(data, destIP, destPort, destUri, useSSL,
+        sendDataWithCallback(std::move(data), destIP, destPort, destUri, useSSL,
                              httpHeader, verb, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
     // handle the response
-    void sendDataWithCallback(std::string& data, const std::string& destIP,
+    void sendDataWithCallback(std::string&& data, const std::string& destIP,
                               uint16_t destPort, const std::string& destUri,
                               bool useSSL,
                               const boost::beast::http::fields& httpHeader,
@@ -897,7 +897,7 @@ class HttpClient
         }
         // Send the data using either the existing connection pool or the newly
         // created connection pool
-        pool.first->second->sendData(data, destUri, httpHeader, verb,
+        pool.first->second->sendData(std::move(data), destUri, httpHeader, verb,
                                      resHandler);
     }
 };
