@@ -405,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "fd1eb3f7_65f561a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T16:53:01Z",
+      "side": 1,
+      "message": "\u003e On systems that have the full phosphor-logging and phosphor-led stacks enabled (like witherspoon), an unresolved error log that has a FRU callout will light the fault LED for that FRU. When Resolved is set to true, the LED turns off. \n\u003e Also on witherspoon (phosphor-fan and phosphor-power repos), the code will automatically resolve the log when a fan or PS is replaced.\n\u003e \n\u003e Regardless of the auto-resolve behavior, our service team wants the ability for the user to be able to set this themselves, so event logs that the user or the service team have already dealt with can be ignored.\n\nOk, I guess I can buy that.  \n\n\u003e \n\u003e There may be code added in the future watch for FRUs being replaced (new SN for a processor for example) and Resolve all logs that had that FRU as a callout.",
+      "parentUuid": "da6f47d8_20ba168c",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "57ad2ec8567156e11c2bbdf8be82373b64b7aa55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64624439_a9d7adf6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
