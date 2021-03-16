@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29bab04d_68af5aed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 34
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-16T19:04:54Z",
+      "side": 1,
+      "message": "Can you please talk to how one would expect the external redfish interface to change?  Clearly you didn\u0027t _just_ add the methods.  You added the methods, and used them to implement LocationIndicatorActive.  Please talk through that a little bit.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "905d4c5c160b285760eea25f5ea477e414c8b793",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
