@@ -188,6 +188,30 @@
       "revId": "fa42215575e069bf05a0c26262649760f00c1577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d75690dc_67e0c8ff",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-17T04:39:51Z",
+      "side": 1,
+      "message": "Gunnar. Its a future work. There are other places where the UT is done by creating files and dirs at tmp path. There needs to be a discussion for a different approach and every place a rework is needed. Along with that this part of the code also can be reworked.",
+      "parentUuid": "ae87ade9_161c8561",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
