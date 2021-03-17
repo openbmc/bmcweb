@@ -54,6 +54,11 @@ static constexpr const char* eventServiceFile =
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 
+static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
+    eventFormatType, metricReportFormatType};
+static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
+    "Base", "OpenBMC", "Task"};
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
 static constexpr const char* redfishEventLogDir = "/var/log";

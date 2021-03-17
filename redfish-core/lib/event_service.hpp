@@ -19,10 +19,6 @@
 namespace redfish
 {
 
-static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
-    eventFormatType, metricReportFormatType};
-static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
-    "Base", "OpenBMC", "Task"};
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
