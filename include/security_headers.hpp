@@ -30,10 +30,15 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "font-src 'self'; "
                                                  "style-src 'self'; "
                                                  "script-src 'self'; "
-                                                 "connect-src 'self' wss:");
+                                                 "connect-src 'self' wss:; "
+                                                 "form-action 'none'; "
+                                                 "frame-ancestors 'none'; "
+                                                 "plugin-types 'none'; "
+                                                 "base-uri 'none'  ");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
-        // https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
+        // https://stackoverflow.com/questions/18447970/content-security-polic
+        // y-data-not-working-for-base64-images-in-chrome-28
     }
     else
     {
@@ -44,7 +49,11 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "font-src *; "
                                                  "style-src *; "
                                                  "script-src *; "
-                                                 "connect-src *");
+                                                 "connect-src *; "
+                                                 "form-action *; "
+                                                 "frame-ancestors *; "
+                                                 "plugin-types *; "
+                                                 "base-uri *");
 
         const std::string_view origin = req.getHeaderValue("Origin");
         res.addHeader(bf::access_control_allow_origin, origin);
