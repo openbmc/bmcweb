@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de36ed98_f65cf5a3",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T16:17:55Z",
+      "side": 1,
+      "message": "Just an aside, I wonder if we should just change the prototype of propertyValueTypeError and some of the other errors to just do this automatically when you pass a nlohmann::json object.",
+      "range": {
+        "startLine": 980,
+        "startChar": 28,
+        "endLine": 982,
+        "endChar": 73
+      },
+      "revId": "e9c07eb44bfad71447e27e08e476db8777c36c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee469825_2c987b2e",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T16:17:55Z",
+      "side": 1,
+      "message": "That\u0027s not an internal error.  The user gave us input we don\u0027t support, so it should be some form of 400 error.",
+      "range": {
+        "startLine": 990,
+        "startChar": 34,
+        "endLine": 990,
+        "endChar": 47
+      },
+      "revId": "e9c07eb44bfad71447e27e08e476db8777c36c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
