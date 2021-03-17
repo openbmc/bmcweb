@@ -82,6 +82,30 @@
     },
     {
       "key": {
+        "uuid": "ba3dfcea_4c6dbe18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T16:25:56Z",
+      "side": 1,
+      "message": "to further clarify.... load up the initial page with the debug network tab open and ensure there aren\u0027t any errors on content loading, and no warnings or errors on the console tab.",
+      "parentUuid": "5372fc32_f3b737f9",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 67
+      },
+      "revId": "c1d1c72e86857fa43e4d6b48b6adf1c4337be11c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8065e0ed_a07933de",
         "filename": "include/security_headers.hpp",
         "patchSetId": 1
