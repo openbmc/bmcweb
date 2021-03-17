@@ -2147,6 +2147,32 @@ void mutualExclusiveProperties(crow::Response& res, const std::string& arg1,
     addMessageToErrorJson(res.jsonValue, mutualExclusiveProperties(arg1, arg2));
 }
 
+/**
+ * @internal
+ * @brief Formats InvalidQueryFilter into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json invalidQueryFilter()
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"MessageId", "Base.1.5.0.InvalidQueryFilter"},
+        {"Message", "The requested url contains the invalid query filter."},
+        {"MessageArgs", nlohmann::json::array()},
+        {"Severity", "Warning"},
+        {"Resolution",
+         "Ensure the correct query filter is specified in requested url "
+         "and resubmit the request."}};
+}
+
+void invalidQueryFilter(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, invalidQueryFilter());
+}
+
 } // namespace messages
 
 } // namespace redfish

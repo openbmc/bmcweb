@@ -959,6 +959,15 @@ nlohmann::json mutualExclusiveProperties(const std::string& arg1,
 void mutualExclusiveProperties(crow::Response& res, const std::string& arg1,
                                const std::string& arg2);
 
+/**
+ * @brief Formats InvalidQueryFilter message into JSON
+ * Message body: "The requested URL contains the invalid query filters"
+ *
+ * @returns Message InvalidQueryFilter formatted to JSON */
+nlohmann::json invalidQueryFilter();
+
+void invalidQueryFilter(crow::Response& res);
+
 } // namespace messages
 
 } // namespace redfish
