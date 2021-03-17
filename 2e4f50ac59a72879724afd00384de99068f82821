@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "0a15f5dd_6baead6a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T05:45:50Z",
+      "side": 1,
+      "message": "SSE connection stream need to be established upon GET of SSE specific URI. So the request in such case will be as if normal get request to any other routes. So i only differentiating factor here is only URI itself. \n\nCan you please advise here for a way to differentiate SSE request from other GET requests. Thanks in advance.",
+      "parentUuid": "fff7fd15_73a3f735",
+      "range": {
+        "startLine": 353,
+        "startChar": 20,
+        "endLine": 353,
+        "endChar": 46
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d27540_c22a3530",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 4
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "700fa6dd_8c636cef",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T05:45:50Z",
+      "side": 1,
+      "message": "i think, extracting username from request and storing it will be handy. But agree currently its not used, we can add when need arises.",
+      "parentUuid": "43e62563_a5140529",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24bc8122_9f9eee25",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 4
@@ -128,6 +176,30 @@
       "writtenOn": "2021-03-16T19:26:17Z",
       "side": 1,
       "message": "On an sse connection there is no response, right?  I wouldn\u0027t expect this to be here.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "353e007e_e53abd39",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T05:45:50Z",
+      "side": 1,
+      "message": "If request has some invalid data(Example: $filter Query parameter), we need to response response and it used for same.",
+      "parentUuid": "24bc8122_9f9eee25",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -174,6 +246,30 @@
       "writtenOn": "2021-03-16T19:26:17Z",
       "side": 1,
       "message": "This is an sse connection.  Why would it ever \"complete\" in the normal sense?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d34f45_2421bf9b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T05:45:50Z",
+      "side": 1,
+      "message": "Basically before starting the SSE event-stream, request need to be validated in terms of correctness( Example: Query parameters supplied as part of request is not correct,), need to respond and close the connection. So this call back is used to for the same.",
+      "parentUuid": "a4ac73c5_4923bf7a",
       "range": {
         "startLine": 78,
         "startChar": 0,
@@ -272,6 +368,30 @@
     },
     {
       "key": {
+        "uuid": "43413921_166ca8f8",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T05:45:50Z",
+      "side": 1,
+      "message": "Yes, We are reading the incoming data and then only we are closing the connection. I will try to update the comment.",
+      "parentUuid": "b6415a52_78af58dc",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 42
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "687cc818_0b30e458",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 4
@@ -329,6 +449,30 @@
       "writtenOn": "2021-03-16T19:26:17Z",
       "side": 1,
       "message": "SSE requests never \"complete\" they close.  This api seems incorrect.",
+      "range": {
+        "startLine": 210,
+        "startChar": 9,
+        "endLine": 210,
+        "endChar": 24
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7fde9f_2e712510",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T05:45:50Z",
+      "side": 1,
+      "message": "basically if request packet has some invalid data(Example: $filter query params wrong), Before we start the SSE connection stream, We need to complete the request - By sending error response and close the connection. This API does the same completes the Request(by sending error response) and close the connection.",
+      "parentUuid": "54d3f112_b536fd25",
       "range": {
         "startLine": 210,
         "startChar": 9,
