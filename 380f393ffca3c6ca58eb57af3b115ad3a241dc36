@@ -206,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "426d034b_960bc07a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-17T14:16:36Z",
+      "side": 1,
+      "message": "This is also OK  - Task completed with internal error",
+      "parentUuid": "fd7851fb_78176d8f",
+      "range": {
+        "startLine": 721,
+        "startChar": 34,
+        "endLine": 721,
+        "endChar": 45
+      },
+      "revId": "380f393ffca3c6ca58eb57af3b115ad3a241dc36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f217f48_ec65cd40",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
