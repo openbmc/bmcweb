@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "0e7290e2_62811835",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T15:38:17Z",
+      "side": 1,
+      "message": "The redfish API is effected, but you don\u0027t mention how.  That\u0027s what I was originally pointing out.\n\nIf you tested the webui, and a couple other tools and found no impact, please mention that.",
+      "parentUuid": "7df78130_dff5a81c",
+      "range": {
+        "startLine": 11,
+        "startChar": 52,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9472893d_7887955f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
