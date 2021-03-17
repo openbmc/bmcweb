@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d9977aec_2498b9e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "State and connBusy are two different things.\n - ConnBusy: It is used specifically  for tracking  \"async operation in progress\" or not( Any async operation is in progress which is making connection busy)\n\n  - State: It is used donate the actual state of connection and stages of state transition  Like Resolved, Connected, Idle, closed, retry etc..",
+      "parentUuid": "e0ec2b20_1c559f6e",
+      "range": {
+        "startLine": 17,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ed5a04f_943a5815",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fb0a9c2e_b8205ecf",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e594e3a_638dce81",
+      "range": {
+        "startLine": 37,
+        "startChar": 50,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83f2bcb9_164c6c16",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "7baba08a_76d90c1b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "Just to order the initializer list during construction. Anyway moved it back to original with change order of constructor initializer list.\nDone",
+      "parentUuid": "83f2bcb9_164c6c16",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 20
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efa9b9ec_b2ad3d71",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -106,6 +178,30 @@
       "writtenOn": "2021-03-16T11:05:06Z",
       "side": 1,
       "message": "Instead of keeping the connBusy in this class and checking in every function.\n\nHow about in every state function there should be a precondition like.\n\nIf state \u003d\u003d Idle || state \u003d \u003csome other state\u003e then allow otherwise not. I am hoping the intention to keep this var to not allow/server other event while the current once has not completed.",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0630dcfd_636361b2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "That is first approach we took but changed it later, because those two are two different things and also having it separate makes it simple instead of having may state.\n - ConnBusy: It is used specifically  for tracking  \"async operation in progress\" or not( example: The resolve/connect/write/read/close async operation is in progress which is making connection busy)\n\n  - State: It is used donate the actual state of connection Like Resolved, Connected, Idle, closed, retry etc..",
+      "parentUuid": "efa9b9ec_b2ad3d71",
       "range": {
         "startLine": 78,
         "startChar": 7,
@@ -152,6 +248,30 @@
       "writtenOn": "2021-03-09T10:38:39Z",
       "side": 1,
       "message": "We are directly calling the doConnect function here, Shouldn\u0027t we change the state and call handleConnState which should call the respective function depending on the state.\n\nWe did the same in the doConnect and recvMessage\n\nbut in the rest of the functions\n\n* Failure case: call the handleConnState\n* Success case: Call the next state function.",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa572a96_1ff61067",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "I agree, Our initial code does same. Everything is handled though handleConnState() API. But later changed. Let me check and move it back to handleConnState()",
+      "parentUuid": "8dc18322_90f43ceb",
       "range": {
         "startLine": 96,
         "startChar": 15,
@@ -259,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "0ec76254_0e78b759",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "Currently we are setting state to retry and following the fresh connection process. As Ed suggested, other approach of having connection class and implementation class separate may be better.\nAgree with Ratan. Can we move on with current approach?",
+      "parentUuid": "211930c1_47d1c100",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 45
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11c5237b_3ffe3a5d",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -306,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "57528350_053b8b9e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "Ratan, basically after write some data, we read response from webserver and confirm, Event is successfully delivered. So its confirming Event is successfully sent.\n\nEd, Will check status code",
+      "parentUuid": "df7c2427_4951cd5b",
+      "range": {
+        "startLine": 191,
+        "startChar": 19,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "084d361e_55453cde",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -329,6 +497,30 @@
     },
     {
       "key": {
+        "uuid": "3de1ac73_01c31f80",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "Basically when we exhaust all retries and the retryPOlicy is set to suspended/terminated, We should stop handleConnState()  keep state as suspended/terminated only.",
+      "parentUuid": "084d361e_55453cde",
+      "range": {
+        "startLine": 233,
+        "startChar": 12,
+        "endLine": 233,
+        "endChar": 38
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9684df99_424d10da",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -340,6 +532,30 @@
       "writtenOn": "2021-03-09T15:27:51Z",
       "side": 1,
       "message": "We set keepalive, but we don\u0027t seem to actually implement it properly.  I see no checking of the keep alive headers from the response.",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 29
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c069fd_d64091c2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-17T18:44:21Z",
+      "side": 1,
+      "message": "We are checking keep-alive response in recvMessage function and appropriately move connection state. Its done at line no: 203",
+      "parentUuid": "9684df99_424d10da",
       "range": {
         "startLine": 369,
         "startChar": 0,
