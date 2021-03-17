@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1271955d_05729bd9",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-17T07:10:49Z",
+      "side": 1,
+      "message": "I think there was a plan to remove std::regex from bmcweb, please look at why form the below issue:\nhttps://github.com/openbmc/bmcweb/issues/176",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 37
+      },
+      "revId": "16b1adba5b965c54171cbb458cb80379718a4b59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
