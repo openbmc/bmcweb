@@ -56,6 +56,52 @@
       "revId": "c1d1c72e86857fa43e4d6b48b6adf1c4337be11c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5372fc32_f3b737f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T16:15:28Z",
+      "side": 1,
+      "message": "Can you please test the other common browsers (firefox and safari) as well as test that the existing webuis (phosphor-webui and webui-vue) load properly?\n\nJust loading up the initial page should be plenty.  We tend to have weird behaviors around this kind of thing and websockets, so I want to make sure that\u0027s not broken.",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 67
+      },
+      "revId": "c1d1c72e86857fa43e4d6b48b6adf1c4337be11c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8065e0ed_a07933de",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T16:15:28Z",
+      "side": 1,
+      "message": "Can you please walk through these headers (in your commit message) and list why they\u0027re here.  Feel free to link to supporting documentation where it makes sense, but we need a much better statement for why OpenBMC needs these.  Also, some of them look wrong to me, but your commit message doesn\u0027t give me enough detail about what you\u0027re trying to accomplish to know how to help you.\n\nIf things have a default behavior (like report-uri or frame-ancestors), please don\u0027t explicitly set them to the default behavior.  We\u0027d rather take the browsers lead on those.\n\nform-action looks incorrect.  I wouldn\u0027t expect any form actions in the current webui code (all is done via xhr js).\nplugin-types looks wrong, I can\u0027t imagine where we\u0027d have PDF anywhere.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c1d1c72e86857fa43e4d6b48b6adf1c4337be11c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
