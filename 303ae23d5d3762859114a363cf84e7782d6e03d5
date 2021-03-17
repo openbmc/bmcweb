@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fe689f46_fc3c7eb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T19:58:30Z",
+      "side": 1,
+      "message": "\u003e State and connBusy are two different things.\n\u003e  - ConnBusy: It is used specifically  for tracking  \"async operation in progress\" or not( Any async operation is in progress which is making connection busy)\n\u003e \n\u003e   - State: It is used donate the actual state of connection and stages of state transition  Like Resolved, Connected, Idle, closed, retry etc..\n\nThere\u0027s no difference between those two.  Both are tracking the state of the connection.  \"Waiting for data\" is a perfect example of a state that the connection can be in.  in what I\u0027m requesting, \"Connected\" just becomes \"ConnectedWaitingForData\" and \"ConnectedSendingData\" which can still track the async state, but also keeps it the same as the error state.  I think that\u0027s simpler.",
+      "parentUuid": "d9977aec_2498b9e0",
+      "range": {
+        "startLine": 17,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ed5a04f_943a5815",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -202,6 +226,30 @@
       "side": 1,
       "message": "That is first approach we took but changed it later, because those two are two different things and also having it separate makes it simple instead of having may state.\n - ConnBusy: It is used specifically  for tracking  \"async operation in progress\" or not( example: The resolve/connect/write/read/close async operation is in progress which is making connection busy)\n\n  - State: It is used donate the actual state of connection Like Resolved, Connected, Idle, closed, retry etc..",
       "parentUuid": "efa9b9ec_b2ad3d71",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df3ac5d_87cc0415",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-17T19:58:30Z",
+      "side": 1,
+      "message": "See prior comment, I don\u0027t believe it makes it simpler, and makes it much easier to accidentally not put things in the right state on error conditions.",
+      "parentUuid": "0630dcfd_636361b2",
       "range": {
         "startLine": 78,
         "startChar": 7,
