@@ -22,6 +22,30 @@
       "revId": "905d4c5c160b285760eea25f5ea477e414c8b793",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0246526a_8df2a46a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 34
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-17T02:41:49Z",
+      "side": 1,
+      "message": "We should update `LocationIndicatorActive` by getting the status of the corresponding LED, so I will complete the following steps:\n\nTake cpu0 as an example:\n\n1. Update the associations.json and add `identify_led_group`.\n```\n{\n\t\"path\": \"system/chassis/motherboard/cpu0\",\n\t\"endpoints\":\n\t[\n\t\t{\n\t\t\t\"types\":\n\t\t\t{\n\t\t\t\t\"rType\": \"fru\",\n\t\t\t\t\"fType\": \"identify_led_group\"\n\t\t\t},\n\t\t\t\"paths\":\n\t\t\t[\n\t\t\t\t\"/xyz/openbmc_project/led/groups/cpu0_identify\"\n\t\t\t]\n\t\t}\n\t]\n}\n```\n\n2. Make sure `/xyz/openbmc_project/led/groups/cpu0_identify` is exists and works well.\n\n3. Get the `endpoints` property using ObjectMapper and get the object path of the corresponding LED.\n```\nbusctl get-property xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/identify_led_group xyz.openbmc_project.Association endpoints\nas 1 \"/xyz/openbmc_project/led/groups/cpu0_identify\"\n```\n\n4. Get `Asserted` property values and update `LocationIndicatorActive`\n```\nbusctl get-property xyz.openbmc_project.LED.GroupManager /xyz/openbmc_project/led/groups/cpu0_identify xyz.openbmc_project.Led.Group Asserted\nb false\n```",
+      "parentUuid": "29bab04d_68af5aed",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "905d4c5c160b285760eea25f5ea477e414c8b793",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
