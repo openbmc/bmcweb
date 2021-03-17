@@ -25,15 +25,22 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
 
     if (!bmcwebInsecureDisableXssPrevention)
     {
-        res.addHeader("Content-Security-Policy", "default-src 'none'; "
-                                                 "img-src 'self' data:; "
-                                                 "font-src 'self'; "
-                                                 "style-src 'self'; "
-                                                 "script-src 'self'; "
-                                                 "connect-src 'self' wss:");
+        res.addHeader("Content-Security-Policy",
+                      "default-src 'none'; "
+                      "img-src 'self' data:; "
+                      "font-src 'self'; "
+                      "style-src 'self'; "
+                      "script-src 'self'; "
+                      "connect-src 'self' wss:; "
+                      "child-src 'self'; "
+                      "form-action 'self'; "
+                      "frame-ancestors 'none'; "
+                      "plugin-types 'none'; "
+                      "base-uri 'self'  ");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
-        // https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
+        // https://stackoverflow.com/questions/18447970/content-security-polic
+        // y-data-not-working-for-base64-images-in-chrome-28
     }
     else
     {
@@ -44,7 +51,12 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "font-src *; "
                                                  "style-src *; "
                                                  "script-src *; "
-                                                 "connect-src *");
+                                                 "connect-src *; "
+                                                 "child-src *; "
+                                                 "form-action *; "
+                                                 "frame-ancestors *; "
+                                                 "plugin-types *; "
+                                                 "base-uri *");
 
         const std::string_view origin = req.getHeaderValue("Origin");
         res.addHeader(bf::access_control_allow_origin, origin);
