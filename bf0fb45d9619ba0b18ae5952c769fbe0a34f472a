@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "875f8433_cc9e550f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-03-17T14:29:30Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "d9e8b964_190552aa",
+      "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e93bed6c_34fe8958",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 18
