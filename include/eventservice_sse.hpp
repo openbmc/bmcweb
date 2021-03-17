@@ -23,16 +23,102 @@ static bool createSubscription(std::shared_ptr<crow::SseConnection>& conn,
     }
     BMCWEB_LOG_DEBUG << "Request query param size: " << req.urlParams.size();
 
+    // EventService SSE supports only "$filter" query param.
+    if (req.urlParams.size() > 1)
+    {
+        messages::invalidQueryFilter(res);
+        res.end();
+        return false;
+    }
+    std::string eventFormatType;
+    std::string queryFilters;
+    if (req.urlParams.size())
+    {
+        boost::urls::url_view::params_type::iterator it =
+            req.urlParams.find("$filter");
+        if (it == req.urlParams.end())
+        {
+            messages::invalidQueryFilter(res);
+            res.end();
+            return false;
+        }
+        queryFilters = it->value();
+    }
+    else
+    {
+        eventFormatType = "Event";
+    }
+
+    std::vector<std::string> msgIds;
+    std::vector<std::string> regPrefixes;
+    std::vector<std::string> mrdsArray;
+    if (!queryFilters.empty())
+    {
+        // Reading from query params.
+        bool status = readSSEQueryParams(queryFilters, eventFormatType, msgIds,
+                                         regPrefixes, mrdsArray);
+        if (!status)
+        {
+            messages::invalidObject(res, queryFilters);
+            res.end();
+            return false;
+        }
+
+        // RegsitryPrefix and messageIds are mutuly exclusive as per redfish
+        // specification.
+        if (regPrefixes.size() && msgIds.size())
+        {
+            messages::mutualExclusiveProperties(res, "RegistryPrefix",
+                                                "MessageId");
+            res.end();
+            return false;
+        }
+
+        if (!eventFormatType.empty())
+        {
+            if (std::find(supportedEvtFormatTypes.begin(),
+                          supportedEvtFormatTypes.end(),
+                          eventFormatType) == supportedEvtFormatTypes.end())
+            {
+                messages::propertyValueNotInList(res, eventFormatType,
+                                                 "EventFormatType");
+                res.end();
+                return false;
+            }
+        }
+        else
+        {
+            // If nothing specified, using default "Event"
+            eventFormatType = "Event";
+        }
+
+        if (!regPrefixes.empty())
+        {
+            for (const std::string& it : regPrefixes)
+            {
+                if (std::find(supportedRegPrefixes.begin(),
+                              supportedRegPrefixes.end(),
+                              it) == supportedRegPrefixes.end())
+                {
+                    messages::propertyValueNotInList(res, it, "RegistryPrefix");
+                    res.end();
+                    return false;
+                }
+            }
+        }
+    }
+
     std::shared_ptr<redfish::Subscription> subValue =
         std::make_shared<redfish::Subscription>(std::move(conn));
 
     // GET on this URI means, Its SSE subscriptionType.
-    subValue->subscriptionType = redfish::subscriptionTypeSSE;
-
-    // TODO: parse $filter query params and fill config.
+    subValue->subscriptionType = subscriptionTypeSSE;
     subValue->protocol = "Redfish";
     subValue->retryPolicy = "TerminateAfterRetries";
-    subValue->eventFormatType = "Event";
+    subValue->eventFormatType = eventFormatType;
+    subValue->registryMsgIds = msgIds;
+    subValue->registryPrefixes = regPrefixes;
+    subValue->metricReportDefinitions = mrdsArray;
 
     std::string id =
         redfish::EventServiceManager::getInstance().addSubscription(subValue,
