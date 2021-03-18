@@ -52,6 +52,24 @@
       "revId": "fb58d5d025fa9d57e16afed53c2c36b7b05f3d9a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfc65b04_c0d9a01e",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-18T21:13:36Z",
+      "side": 1,
+      "message": "Sure, it can be done in a separate commit. Letting Gunnar choose.",
+      "parentUuid": "26a23628_7de3b041",
+      "revId": "fb58d5d025fa9d57e16afed53c2c36b7b05f3d9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
