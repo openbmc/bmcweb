@@ -532,6 +532,21 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                     aResp->res.jsonValue["FirmwareRevision"] =
                         std::to_string(*value);
                 }
+                else if (property.first == "Present")
+                {
+                    const bool* value = std::get_if<bool>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for Dimm Presence";
+                        continue;
+                    }
+                    if (*value == false)
+                    {
+                        aResp->res.jsonValue["Status"]["State"] = "Absent";
+                    }
+                }
                 else if (property.first == "MemoryTotalWidth")
                 {
                     const uint16_t* value =
