@@ -236,6 +236,24 @@
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f170a7_c75b8434",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T18:21:13Z",
+      "side": 1,
+      "message": "\u003e \u003e I\u0027m not following this.  The group names contain the privileges for the groups.  If the user is in the admin group, it has admin privileges, operator group gets operator privileges, ect.  Why does that necessitate a call into phosphor-user-manager?\n\u003e \n\u003e We have two types of users.\n\u003e \n\u003e 1) Local user: During creation of the local user we give the privilege to the user as admin, opertaor etc.\n\u003e    NOTE: This privilege is nothing : In linux it is the group where the user lies.\n\u003e \n\u003e 2) LDAP user doesn\u0027t lie in group called priv admin, priv-opertaor which we made it for openbmc user management, we can not ask the ldap admin to create the user and tied the user with priv opertor or prive admin group.\n\u003e \n\u003e    Now in this case we need to map the LDAP grpup to the BMC privilege model. which we do it by having interface which maps the group to privilege model.There is a Dbus service for the same.\n\u003e \n\u003e    In redfish also we have the property called \"RemoteRole mapping\" for the same purpose where mapping rules that are used to convert the external account providers account information to the local Redfish role.\n\u003e \n\u003e So we have two methods to get the privilege of a user.\n\u003e \n\u003e If it is local user you can directly get the privilege of the user(by having Dbus call or Monitor the Dbus object) but if it is ldap user then we need to get the group id of the user from the LDAp server  and then find the privilege of the group by having Dbus call to the user manager..\n\nI was with you so far until this statement.  Why doesn\u0027t user manager just host an interface with the users group on it, then we\u0027re not changing any behavior based on whether or not the user is LDAP.\n\n\u003e \n\u003e I agree with your point that privilege should be fetched during authentication not for each request for the same session.\n\u003e \n\u003e This can be done if we keep the privilege in the in memory session object during authentication and each successive request will be matched against the privilege which is there in the in-memory session object.\n\nGreat.  We can certainly do that.",
+      "parentUuid": "53744024_c0b46369",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
