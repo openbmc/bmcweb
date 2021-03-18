@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c3f04410_1b554e63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-18T18:07:09Z",
+      "side": 1,
+      "message": "Neither of these commits explain *why* we are moving to default gateway on a \nEthernet interface level.",
+      "parentUuid": "875f8433_cc9e550f",
+      "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e93bed6c_34fe8958",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 18
@@ -192,6 +210,24 @@
       "side": 1,
       "message": "\"If this commit is any guide, following the spec is immaterial.\"\nI have no idea where you got that impression.  Immaterial implies that we ignore the spec, which has never been the case.  Weighing the impact of client implementations breaking with the specification itself is always something we\u0027ve done, and tried to tread softly.  I\u0027m sorry if you feel like you were uprightly judged or singled out, but there\u0027s no need to carry that attitude into other peoples patches.  If you have legitimate concerns where a working client would break because of this change, I\u0027d love to hear them, but that seems unlikely, given that a working client would have to be ignoring the payload entirely to function with the code as-is, so adding a success message seems really unlikely to break anything.\n\n\n\"The spec is explicitly allowed to be ignored in the event it may break existing behavior.\"\n\nUnlike the commit you linked, this change is very unlikely to break existing behavior.  It also happens in the golden path, and doesn\u0027t also require a broken client to make it happen.  That significantly changes the discussion, unless you have clients that are broken because of doing this?\n\n\n\nBack to the issue at hand, in a perfect world we would be putting a success message in all responses, but as Ratan says, the spec says \"should\" which means that it\u0027s not breaking to avoid putting it here.  I would prefer a success message, as gunnar suggested, but considering this code is no worse than the old code, I my opinion isn\u0027t very strong.",
       "parentUuid": "d0973295_ca95eac6",
+      "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80df4e62_493019cd",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-18T18:07:09Z",
+      "side": 1,
+      "message": "Even though only a \"should\", I think we should have a messages::success. \nAlso on a 200 OK, you must have a payload, it can be empty.. If we don\u0027t want to send a payload then need to use 204. \nhttps://restfulapi.net/http-status-200-ok/",
+      "parentUuid": "683e69e3_ee984bf4",
       "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
