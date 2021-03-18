@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "59b3ab09_8a334e7d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-18T07:42:54Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e0f36d4d_50e5e6d2",
+      "range": {
+        "startLine": 470,
+        "startChar": 26,
+        "endLine": 470,
+        "endChar": 48
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94511a78_1a90f4d9",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
@@ -354,6 +378,30 @@
       "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36924053_a8d9caab",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-18T07:42:54Z",
+      "side": 1,
+      "message": "Done. I removed the \"host\" and \"snmpTrapPort\" because they are not used in lambda.",
+      "parentUuid": "178e9fa3_9fd93c2e",
+      "range": {
+        "startLine": 476,
+        "startChar": 28,
+        "endLine": 476,
+        "endChar": 32
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
