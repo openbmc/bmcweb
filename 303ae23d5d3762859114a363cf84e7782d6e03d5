@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c1c6222f_aa84dd4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-18T12:50:00Z",
+      "side": 1,
+      "message": "Initially it was done most similar way, All states like connected/send/recv etc.. has \"InProgress\" tag attached states when associated async operation is in progress like connectInProgress, sendInProgress etc... But that is making little complex.(Example: Code has to verify for all \"\u003cxyz\u003eInProgress\" states, before proceeding call for next state transition. So bit of optimization made with this busy flag.\nIdeally both does job here but if it makes more sense to make under single state enum, I will change it accordingly.",
+      "parentUuid": "fe689f46_fc3c7eb2",
+      "range": {
+        "startLine": 17,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ed5a04f_943a5815",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "See prior comment, I don\u0027t believe it makes it simpler, and makes it much easier to accidentally not put things in the right state on error conditions.",
       "parentUuid": "0630dcfd_636361b2",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50403084_e64b9dfe",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-18T12:50:00Z",
+      "side": 1,
+      "message": "Replied on other place.",
+      "parentUuid": "7df3ac5d_87cc0415",
       "range": {
         "startLine": 78,
         "startChar": 7,
