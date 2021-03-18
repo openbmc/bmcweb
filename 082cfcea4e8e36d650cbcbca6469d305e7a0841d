@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6faced7d_982c4268",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T21:29:34Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, we should avoid these \"build a compile-time map, use it to do one lookup, then destroy it\" type patterns.  But this patchset didn\u0027t cause that, so it\u0027s fine.",
+      "range": {
+        "startLine": 1550,
+        "startChar": 0,
+        "endLine": 1557,
+        "endChar": 0
+      },
+      "revId": "082cfcea4e8e36d650cbcbca6469d305e7a0841d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
