@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9431ef80_bb78a951",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-18T14:30:50Z",
+      "side": 1,
+      "message": "I suggested because starts_with can also allow malicious content_type as \"multipart/form-datasomescriptlines\" . It just checks if the string passed starts with the mentioned substring",
+      "parentUuid": "f7ce360d_2312b2c4",
+      "range": {
+        "startLine": 363,
+        "startChar": 20,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "235c3968_06493d6a",
         "filename": "http/http_connection.hpp",
         "patchSetId": 36
