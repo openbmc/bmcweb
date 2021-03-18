@@ -212,6 +212,30 @@
       "revId": "fa42215575e069bf05a0c26262649760f00c1577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b80d34c1_e202e7e8",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-18T15:52:31Z",
+      "side": 1,
+      "message": "Probably best to explain this in the initial reply. \n\nIs the plan to do this in a later commit?",
+      "parentUuid": "d75690dc_67e0c8ff",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
