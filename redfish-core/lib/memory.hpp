@@ -472,6 +472,7 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 }
                 aResp->res.jsonValue["CapacityMiB"] = (*memorySize >> 10);
             }
+
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
 
@@ -531,6 +532,20 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                     }
                     aResp->res.jsonValue["FirmwareRevision"] =
                         std::to_string(*value);
+                }
+                else if (property.first == "Present")
+                {
+                    const bool* value = std::get_if<bool>(&property.second);
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    std::string state = "Enabled";
+                    if (*value == false)
+                    {
+                        state = "Absent";
+                    }
+                    aResp->res.jsonValue["Status"]["State"] = state;
                 }
                 else if (property.first == "MemoryTotalWidth")
                 {
