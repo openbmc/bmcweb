@@ -24,6 +24,7 @@
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <variant>
 
@@ -1848,6 +1849,97 @@ inline void setWDTProperties(const std::shared_ptr<AsyncResp>& aResp,
     }
 }
 
+inline void getSystemData(const std::shared_ptr<AsyncResp>& asyncResp)
+{
+    BMCWEB_LOG_DEBUG << "getSystemData enter";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#ComputerSystem.v1_13_0.ComputerSystem";
+    asyncResp->res.jsonValue["Name"] = "system";
+    asyncResp->res.jsonValue["Id"] = "system";
+    asyncResp->res.jsonValue["SystemType"] = "Physical";
+    asyncResp->res.jsonValue["Description"] = "Computer System";
+    asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+    asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
+        "Disabled";
+    asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+        uint64_t(0);
+    asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
+
+    asyncResp->res.jsonValue["Processors"] = {
+        {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
+    asyncResp->res.jsonValue["Memory"] = {
+        {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
+    asyncResp->res.jsonValue["Storage"] = {
+        {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
+
+    asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+        {"target", "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
+        {"@Redfish.ActionInfo", "/redfish/v1/Systems/system/ResetActionInfo"}};
+
+    asyncResp->res.jsonValue["LogServices"] = {
+        {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
+
+    asyncResp->res.jsonValue["Bios"] = {
+        {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
+
+    asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+        {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+
+    asyncResp->res.jsonValue["Status"] = {
+        {"Health", "OK"},
+        {"State", "Enabled"},
+    };
+
+    constexpr const std::array<const char*, 4> inventoryForSystems = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Cpu",
+        "xyz.openbmc_project.Inventory.Item.Drive",
+        "xyz.openbmc_project.Inventory.Item.StorageController"};
+
+    auto health = std::make_shared<HealthPopulate>(asyncResp);
+    crow::connections::systemBus->async_method_call(
+        [health](const boost::system::error_code ec,
+                 std::vector<std::string>& resp) {
+            if (ec)
+            {
+                // no inventory
+                return;
+            }
+
+            health->inventory = std::move(resp);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", int32_t(0),
+        inventoryForSystems);
+
+    health->populate();
+
+    getMainChassisId(asyncResp, [](const std::string& chassisId,
+                                   const std::shared_ptr<AsyncResp>& aRsp) {
+        aRsp->res.jsonValue["Links"]["Chassis"] = {
+            {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+    });
+
+    getLocationIndicatorActive(asyncResp);
+    // TODO (Gunnar): Remove IndicatorLED after enough time has passed
+    getIndicatorLedState(asyncResp);
+    getComputerSystem(asyncResp, health);
+    getHostState(asyncResp);
+    getBootProperties(asyncResp);
+    getBootProgress(asyncResp);
+    getPCIeDeviceList(asyncResp, "PCIeDevices");
+    getHostWatchdogTimer(asyncResp);
+    getPowerRestorePolicy(asyncResp);
+    getAutomaticRetry(asyncResp);
+    getLastResetTime(asyncResp);
+#ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
+    getProvisioningStatus(asyncResp);
+#endif
+    BMCWEB_LOG_DEBUG << "getSystemData exit";
+}
+
 /**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
@@ -1867,7 +1959,7 @@ class SystemsCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>&) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
@@ -1877,8 +1969,8 @@ class SystemsCollection : public Node
         res.jsonValue["Name"] = "Computer System Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string>& /*hostName*/) {
+            [asyncResp, req](const boost::system::error_code ec,
+                             const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
@@ -1893,6 +1985,12 @@ class SystemsCollection : public Node
                         {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                     count = ifaceArray.size();
                     return;
+                }
+                if (redfish::query_param::excuteQueryParamAll(req, asyncResp) ==
+                    redfish::query_param::EQueryParam_Only)
+                {
+                    asyncResp->res.clear();
+                    getSystemData(asyncResp);
                 }
             },
             "xyz.openbmc_project.Settings",
@@ -2085,91 +2183,8 @@ class Systems : public Node
     void doGet(crow::Response& res, const crow::Request&,
                const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_13_0.ComputerSystem";
-        res.jsonValue["Name"] = "system";
-        res.jsonValue["Id"] = "system";
-        res.jsonValue["SystemType"] = "Physical";
-        res.jsonValue["Description"] = "Computer System";
-        res.jsonValue["ProcessorSummary"]["Count"] = 0;
-        res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = uint64_t(0);
-        res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
-
-        res.jsonValue["Processors"] = {
-            {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
-        res.jsonValue["Memory"] = {
-            {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
-        res.jsonValue["Storage"] = {
-            {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
-
-        res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
-            {"target",
-             "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
-            {"@Redfish.ActionInfo",
-             "/redfish/v1/Systems/system/ResetActionInfo"}};
-
-        res.jsonValue["LogServices"] = {
-            {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
-
-        res.jsonValue["Bios"] = {
-            {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
-
-        res.jsonValue["Links"]["ManagedBy"] = {
-            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-
-        res.jsonValue["Status"] = {
-            {"Health", "OK"},
-            {"State", "Enabled"},
-        };
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
-        constexpr const std::array<const char*, 4> inventoryForSystems = {
-            "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.Cpu",
-            "xyz.openbmc_project.Inventory.Item.Drive",
-            "xyz.openbmc_project.Inventory.Item.StorageController"};
-
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
-        crow::connections::systemBus->async_method_call(
-            [health](const boost::system::error_code ec,
-                     std::vector<std::string>& resp) {
-                if (ec)
-                {
-                    // no inventory
-                    return;
-                }
-
-                health->inventory = std::move(resp);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
-            int32_t(0), inventoryForSystems);
-
-        health->populate();
-
-        getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                       const std::shared_ptr<AsyncResp>& aRsp) {
-            aRsp->res.jsonValue["Links"]["Chassis"] = {
-                {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-        });
-
-        getLocationIndicatorActive(asyncResp);
-        // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-        getIndicatorLedState(asyncResp);
-        getComputerSystem(asyncResp, health);
-        getHostState(asyncResp);
-        getBootProperties(asyncResp);
-        getBootProgress(asyncResp);
-        getPCIeDeviceList(asyncResp, "PCIeDevices");
-        getHostWatchdogTimer(asyncResp);
-        getPowerRestorePolicy(asyncResp);
-        getAutomaticRetry(asyncResp);
-        getLastResetTime(asyncResp);
-#ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
-        getProvisioningStatus(asyncResp);
-#endif
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        getSystemData(asyncResp);
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
