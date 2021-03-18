@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faeeba2a_849eb46e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "This is going to get all power supplies, not the power supplies assigned to this chassis.  I\u0027d expect to be looking for an association.\n\nAs written, this will duplicate the power supplies on every chassis.",
+      "range": {
+        "startLine": 169,
+        "startChar": 13,
+        "endLine": 169,
+        "endChar": 59
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72e13465_426f84c7",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "You don\u0027t check for 1, you check for !empty",
+      "range": {
+        "startLine": 192,
+        "startChar": 41,
+        "endLine": 192,
+        "endChar": 42
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3905b36_1ab0f8ce",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "Missing size check.",
+      "range": {
+        "startLine": 194,
+        "startChar": 23,
+        "endLine": 194,
+        "endChar": 27
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eeb6dbb_8b35798d",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "InternalError here?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 73
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab1f039_92beb9f2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "move to line 229 to avoid putting an empty array object into the error response if the error hits on line 226.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 68
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f63e4f_361eefa2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "undefined behavior.",
+      "range": {
+        "startLine": 280,
+        "startChar": 22,
+        "endLine": 280,
+        "endChar": 35
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a87cdf5_754f5c77",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "This utility function looks a little odd.  I would expect to just look for the interfaces directly, not try to find if the name exists THEN go search for the interfaces.  Said another way, this can be reduced to a single mapper call.",
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9937154b_03a41865",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "GetObject seems like a better choice here.",
+      "range": {
+        "startLine": 341,
+        "startChar": 45,
+        "endLine": 341,
+        "endChar": 60
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

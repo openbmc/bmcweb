@@ -670,6 +670,30 @@
     },
     {
       "key": {
+        "uuid": "e3641b95_92cf4001",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "I searched this wrong initially.  Fine as is.",
+      "parentUuid": "a567c80c_3fb63613",
+      "range": {
+        "startLine": 240,
+        "startChar": 50,
+        "endLine": 240,
+        "endChar": 67
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5dc8cd3d_65ed02fe",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -752,6 +776,30 @@
       "side": 1,
       "message": "It is a \"number\". \nWhich Redfish defines in DSP0266 as, section 9.4 (I am looking at version 1.11.0 of the spec/DSP0266) \"Primitive types\":\n\nA number with optional decimal point or exponent. Number properties may restrict the representation to an integer or a number with decimal point.",
       "parentUuid": "fa9b4316_4a562eda",
+      "range": {
+        "startLine": 250,
+        "startChar": 61,
+        "endLine": 250,
+        "endChar": 66
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ada40f0_692503e5",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T23:04:28Z",
+      "side": 1,
+      "message": "Makes sense, fine as is.",
+      "parentUuid": "f3c512d8_d955b455",
       "range": {
         "startLine": 250,
         "startChar": 61,
