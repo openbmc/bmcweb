@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d969c834_9cccfd8a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T22:36:39Z",
+      "side": 1,
+      "message": "This is going to change behavior if the present interface isn\u0027t available, which I don\u0027t believe it is on all implementations.\n\nI suspect you need to leave the code on 475 alone, and just set to absent if the interface exists and it\u0027s false.",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 547,
+        "endChar": 68
+      },
+      "revId": "8e642ba82033faeab723386c5cc95c9755598b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
