@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "178e9fa3_9fd93c2e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-18T06:32:11Z",
+      "side": 1,
+      "message": "Yes, std::string is not POD type, and we do not use it after the lambda, sowe can use std::move",
+      "parentUuid": "68729ddc_6f63825d",
+      "range": {
+        "startLine": 476,
+        "startChar": 28,
+        "endLine": 476,
+        "endChar": 32
+      },
+      "revId": "c0de60c9de8e7ba11f783af1abf88d2e0cdfb66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "204c07a4_5121b7f6",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
