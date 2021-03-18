@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "876018cf_10c9c87b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-18T10:23:04Z",
+      "side": 1,
+      "message": "Yes.\nDone",
+      "parentUuid": "65930e77_9e3ab851",
+      "range": {
+        "startLine": 723,
+        "startChar": 16,
+        "endLine": 724,
+        "endChar": 39
+      },
+      "revId": "9cabfa6c7fbe7df562b85aa3bc636e5201872e53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebd1bd89_27ef49a2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 21
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7ed770c1_36141d3a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-18T10:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebd1bd89_27ef49a2",
+      "range": {
+        "startLine": 758,
+        "startChar": 28,
+        "endLine": 758,
+        "endChar": 30
+      },
+      "revId": "9cabfa6c7fbe7df562b85aa3bc636e5201872e53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8cf3059_831573e5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 21
@@ -59,6 +107,30 @@
       "writtenOn": "2021-03-17T05:46:22Z",
       "side": 1,
       "message": "Nit : Can health be \"OK\" when present is false ?",
+      "range": {
+        "startLine": 774,
+        "startChar": 63,
+        "endLine": 774,
+        "endChar": 67
+      },
+      "revId": "9cabfa6c7fbe7df562b85aa3bc636e5201872e53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894d546f_0278d8e2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-18T10:23:04Z",
+      "side": 1,
+      "message": "Yes, `Present` is false does not mean that `Health` is Critical",
+      "parentUuid": "f8cf3059_831573e5",
       "range": {
         "startLine": 774,
         "startChar": 63,
