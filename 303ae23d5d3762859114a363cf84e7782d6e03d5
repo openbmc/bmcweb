@@ -332,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "1bb4a512_f10fda02",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-18T05:55:15Z",
+      "side": 1,
+      "message": "Yes. This change was done as per Ed\u0027s comment.",
+      "parentUuid": "fa572a96_1ff61067",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b349ffc7_4ee07702",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -439,6 +463,30 @@
       "side": 1,
       "message": "Currently we are setting state to retry and following the fresh connection process. As Ed suggested, other approach of having connection class and implementation class separate may be better.\nAgree with Ratan. Can we move on with current approach?",
       "parentUuid": "211930c1_47d1c100",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 45
+      },
+      "revId": "303ae23d5d3762859114a363cf84e7782d6e03d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "692d5922_3bf748fc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-18T05:55:15Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "0ec76254_0e78b759",
       "range": {
         "startLine": 148,
         "startChar": 0,
