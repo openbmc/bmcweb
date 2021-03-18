@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "2fdae5b5_136ca677",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-18T16:44:20Z",
+      "side": 1,
+      "message": "iequals gives case insensitive equals.\n\nTechnically the nefarious string you gave wouldn\u0027t be parsed properly.  A user would have to do\nmultipart/form-data;somescriptlines\n\nWhich, is actually legitimate in this header, as you\u0027re supposed to match the first type in the list, and ignore the rest.\n\nWith that said, we should be using the iso parser here.  I can fix that.",
+      "parentUuid": "9431ef80_bb78a951",
+      "range": {
+        "startLine": 363,
+        "startChar": 20,
+        "endLine": 363,
+        "endChar": 38
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "235c3968_06493d6a",
         "filename": "http/http_connection.hpp",
         "patchSetId": 36
