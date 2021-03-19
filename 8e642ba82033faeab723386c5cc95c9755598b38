@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2a8feee8_57d3c8c8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T18:23:13Z",
+      "side": 1,
+      "message": "So this should not happen. \nIf it does happen though, typically we have been internalError and bailing.\nThis is a critical error I think it makes sense to just return.",
+      "parentUuid": "4f8a5511_3cfde195",
+      "revId": "8e642ba82033faeab723386c5cc95c9755598b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d969c834_9cccfd8a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 1
