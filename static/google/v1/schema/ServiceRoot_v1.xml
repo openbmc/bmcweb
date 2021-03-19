@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Google Schema:  GoogleServiceRoot v1.0.0                                            -->
+<!--#                                                                                      -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx Version="1.0">
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GoogleServiceRoot">
+
+      <EntityType Name="ServiceRoot" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The GoogleServiceRoot schema describes the root of the Google Service, located at the '/google/v1' URI.  All other Resources accessible through the Google interface on this device are linked directly or indirectly from the Service Root."/>
+        <Annotation Term="OData.LongDescription" String="This Resource represents the root Google Service.  All values that this schema describes for Resources shall comply with the Google Specification-described requirements."/>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GoogleServiceRoot.v1_0_0">
+
+      <EntityContainer Name="ServiceContainer">
+        <Singleton Name="Service" Type="ServiceRoot.ServiceRoot"/>
+        <Singleton Name="JsonSchemas" Type="JsonSchemaFileCollection.JsonSchemaFileCollection"/>
+      </EntityContainer>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.ServiceRoot">
+        <Property Name="Version" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of the Google Service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the Google protocol version."/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
+        </Property>
+        <NavigationProperty Name="JsonSchemas" Type="JsonSchemaFileCollection.JsonSchemaFileCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of JSON Schema files."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type JsonSchemaFileCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
