@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "616291a8_a65363b0",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T14:20:51Z",
+      "side": 1,
+      "message": "Don\u0027t we want to be able to update the \"Destination\": \"snmp://192.168.31.89:162\" ?\n\nMaybe that can be a commit later?",
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
