@@ -130,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "4dc048b0_a2e70ea5",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74c7c479_fb6ede8a",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 68
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14e6dc20_2bedd1d9",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -435,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "176d3632_4ac7da9e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Yes,Not using chassisID is wrong. In the next patchset I\u0027m going to use association to determine which PS belongs to this chassisID, and that\u0027s going to use the chassisID.",
+      "parentUuid": "764d6155_26ef39c2",
+      "range": {
+        "startLine": 180,
+        "startChar": 52,
+        "endLine": 180,
+        "endChar": 61
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76de3f1c_a8645e21",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -446,6 +494,30 @@
       "writtenOn": "2021-02-21T21:20:26Z",
       "side": 1,
       "message": "This should be internal error, right?\n\n404 would be a subset of the check on line 196.",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 13
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a89562c9_360e75b4",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "I\u0027ve removed it.",
+      "parentUuid": "76de3f1c_a8645e21",
       "range": {
         "startLine": 202,
         "startChar": 0,
@@ -694,6 +766,30 @@
     },
     {
       "key": {
+        "uuid": "e6e92462_14d04bf7",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3641b95_92cf4001",
+      "range": {
+        "startLine": 240,
+        "startChar": 50,
+        "endLine": 240,
+        "endChar": 67
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dc8cd3d_65ed02fe",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -812,6 +908,30 @@
     },
     {
       "key": {
+        "uuid": "01d9362e_684eb172",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ada40f0_692503e5",
+      "range": {
+        "startLine": 250,
+        "startChar": 61,
+        "endLine": 250,
+        "endChar": 66
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8943e483_1f1ea809",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -823,6 +943,30 @@
       "writtenOn": "2021-02-21T21:20:26Z",
       "side": 1,
       "message": "common error #11",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 79
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe51e50_92252db6",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done. 404 has been Handled in the patchset6. \nBy the way, do we need to add a \"/\" after the @odata.id url? I see this in the COMMON_ERRORS.md, but none of the existing @odata.id url end in \"/\".",
+      "parentUuid": "8943e483_1f1ea809",
       "range": {
         "startLine": 304,
         "startChar": 0,
@@ -858,6 +1002,30 @@
     },
     {
       "key": {
+        "uuid": "655a2479_a6a110a0",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed124fd3_5c039c1b",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 321,
+        "endChar": 77
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82183cc9_ffdebbf2",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 4
@@ -878,6 +1046,30 @@
       "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74019146_a17937e5",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done. It has been removed",
+      "parentUuid": "82183cc9_ffdebbf2",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 40
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -939,6 +1131,30 @@
       "writtenOn": "2021-02-21T21:20:26Z",
       "side": 1,
       "message": "common error #11",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 61
+      },
+      "revId": "1a1a3540df75c966b2eeec3d61bbc1297035104b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bac10ba7_267fb889",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:00:59Z",
+      "side": 1,
+      "message": "Done. 404 has been Handled in the patchset6. \nBy the way, do we need to add a \"/\" after the @odata.id url? I see this in the COMMON_ERRORS.md, but none of the existing @odata.id url end in \"/\".",
+      "parentUuid": "28de7bbe_3222dd11",
       "range": {
         "startLine": 396,
         "startChar": 0,
