@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0d3daede_eb5713a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "nit: This part of code can be separated.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83e812cc_901375a1",
         "filename": "http/http_connection.hpp",
         "patchSetId": 36
@@ -97,6 +120,29 @@
     },
     {
       "key": {
+        "uuid": "aa627a3a_ed4f3798",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "nit: Not needed",
+      "range": {
+        "startLine": 365,
+        "startChar": 67,
+        "endLine": 365,
+        "endChar": 69
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "235c3968_06493d6a",
         "filename": "http/http_connection.hpp",
         "patchSetId": 36
@@ -113,6 +159,29 @@
         "startChar": 0,
         "endLine": 376,
         "endChar": 42
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91762a7c_e26106c0",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "Since its request data, we need to validate it to at begging. At least top of this if block. (Line no: 343)",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 17
       },
       "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -160,6 +229,145 @@
         "startChar": 21,
         "endLine": 123,
         "endChar": 39
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8169183_d3c32296",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "MIME types are not case sensitive (RFC 2045) right? Need to check them accordingly.",
+      "parentUuid": "139185d2_194e583f",
+      "range": {
+        "startLine": 123,
+        "startChar": 21,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d08c6bf_a6ae0a6f",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "Why is this been set here?",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 45
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e34690a_dccc7167",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "Is this always in lower case? Is this mandatory to be lower case?",
+      "range": {
+        "startLine": 139,
+        "startChar": 58,
+        "endLine": 139,
+        "endChar": 66
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f583f714_8809451a",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "same here?",
+      "range": {
+        "startLine": 143,
+        "startChar": 63,
+        "endLine": 143,
+        "endChar": 71
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e7151e2_51f43cdc",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "const crow::Request\u0026 reqIn",
+      "range": {
+        "startLine": 301,
+        "startChar": 20,
+        "endLine": 301,
+        "endChar": 40
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c33e48c_ed701cc6",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:55:16Z",
+      "side": 1,
+      "message": "not needed, Its already checked at the top",
+      "range": {
+        "startLine": 509,
+        "startChar": 8,
+        "endLine": 509,
+        "endChar": 21
       },
       "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
