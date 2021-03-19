@@ -83,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "eb764945_5951d2c6",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "Because this patchset was pushed before filename() existed.  Having to write this code was actually the reason I wrote filename in the first place.\n\nWill update on the next patchset.",
+      "parentUuid": "0d30888c_831a8493",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 1
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6bce3413_398cfb07",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 5
@@ -106,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "926f912b_f51919c9",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "This code hasn\u0027t changed in this patchset.  This seems like a good optimization for a future patchset if you\u0027d like to do it.",
+      "parentUuid": "6bce3413_398cfb07",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 64
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c7a9e3c_3be916e2",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 5
@@ -117,6 +165,30 @@
       "writtenOn": "2021-03-19T10:22:38Z",
       "side": 1,
       "message": "objects empty check should be above for for (const auto\u0026 objectPath : objects); Line no: 273",
+      "range": {
+        "startLine": 322,
+        "startChar": 15,
+        "endLine": 322,
+        "endChar": 35
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "301264d1_e03a9a17",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "This code also hasn\u0027t changed in this patchset, this would be a good optimization to make in the next patchset.",
+      "parentUuid": "7c7a9e3c_3be916e2",
       "range": {
         "startLine": 322,
         "startChar": 15,
@@ -349,6 +421,30 @@
     },
     {
       "key": {
+        "uuid": "f7ed22e7_1dbd9cfd",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "This was already what the old code did (which was reviewed) but this request seems reasonable.\n\nWill add.",
+      "parentUuid": "41589718_18e13016",
+      "range": {
+        "startLine": 72,
+        "startChar": 19,
+        "endLine": 72,
+        "endChar": 22
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2802a9d9_f585b88d",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
@@ -360,6 +456,30 @@
       "writtenOn": "2021-03-19T10:22:38Z",
       "side": 1,
       "message": "I think this can be private method.",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77009994_9d599293",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "2802a9d9_f585b88d",
       "range": {
         "startLine": 77,
         "startChar": 16,
@@ -395,6 +515,30 @@
     },
     {
       "key": {
+        "uuid": "cd3752d0_2b95d69b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "Because this patchset predates filename() being added.  Having to write the utility function was actually the reason I created filename in the first place.\n\nWill fix.",
+      "parentUuid": "7e65ccf4_66055430",
+      "range": {
+        "startLine": 121,
+        "startChar": 42,
+        "endLine": 121,
+        "endChar": 78
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6bcac7cc_3dec2565",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
@@ -406,6 +550,30 @@
       "writtenOn": "2021-03-19T10:22:38Z",
       "side": 1,
       "message": "very unlikely this can happen, but better add a error log for debugging purpose.",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 19
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f35836e_7bf1891d",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "Sure, I will treat this as a nit.  We don\u0027t have any policy where all errors need debug logging, and like you say, this is extremely unlikely (would require the dbus interfaces themselves to produce non-dbus compliant paths).",
+      "parentUuid": "6bcac7cc_3dec2565",
       "range": {
         "startLine": 124,
         "startChar": 12,
@@ -441,6 +609,30 @@
     },
     {
       "key": {
+        "uuid": "843c4095_a9d61222",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "See last 2 comments.  This code predates filename() but I will update.",
+      "parentUuid": "e6515750_5cc6e251",
+      "range": {
+        "startLine": 156,
+        "startChar": 42,
+        "endLine": 156,
+        "endChar": 78
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d78f272_00768b4f",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
@@ -452,6 +644,30 @@
       "writtenOn": "2021-03-19T10:22:38Z",
       "side": 1,
       "message": "I see in other places, If user is there and \"UserPrivilege\" is not found/error, we are filling roleMap with empty role. Lets be consistent.",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 192,
+        "endChar": 9
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f1a3dc_e0d47327",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "I\u0027m not quite following this comment.  Can you point to the other places?\n\nEmpty roles have the potential to be attack vectors, so I\u0027m not inclined to do that unless there\u0027s a good reason (and the code you\u0027re referring to should probably be changed).",
+      "parentUuid": "5d78f272_00768b4f",
       "range": {
         "startLine": 189,
         "startChar": 8,
@@ -487,6 +703,30 @@
     },
     {
       "key": {
+        "uuid": "9d5cd4e6_eeed1462",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "Because it\u0027s an error condition that has broken dbus APIs.  We should not attempt any recovery in the cases where dbus apis were not obeyed, it could lead to possible attack vectors.",
+      "parentUuid": "9be5dd68_0b3b0d5a",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 201,
+        "endChar": 19
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcbf1bc5_2402d2a5",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
@@ -510,6 +750,30 @@
     },
     {
       "key": {
+        "uuid": "76c8e6b7_7ec49be7",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "ACK, this came from the old code.",
+      "parentUuid": "fcbf1bc5_2402d2a5",
+      "range": {
+        "startLine": 249,
+        "startChar": 32,
+        "endLine": 249,
+        "endChar": 37
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbe50161_477e5aca",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
@@ -521,6 +785,30 @@
       "writtenOn": "2021-03-19T10:22:38Z",
       "side": 1,
       "message": "We need to check for UserGroups as well before adding users to this roleMap. Users which are not associated with \"redfish\" userGroups are not applicable to Redfish at all.",
+      "range": {
+        "startLine": 251,
+        "startChar": 20,
+        "endLine": 251,
+        "endChar": 48
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40a363c9_c3b69e03",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:01:02Z",
+      "side": 1,
+      "message": "the redfish user groups are checked in other places.  I\u0027d prefer we do that in one place.",
+      "parentUuid": "dbe50161_477e5aca",
       "range": {
         "startLine": 251,
         "startChar": 20,
