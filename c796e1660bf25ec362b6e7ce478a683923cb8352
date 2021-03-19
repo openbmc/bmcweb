@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "ad7373b4_7fe7c09d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T16:44:17Z",
+      "side": 1,
+      "message": "The Redfish API is meant to be human readable and machine consumable why they use JSON.",
+      "parentUuid": "8366ca91_732c0cd9",
+      "range": {
+        "startLine": 20,
+        "startChar": 63,
+        "endLine": 22,
+        "endChar": 7
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99b799d3_3e7808e3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -155,6 +179,30 @@
       "writtenOn": "2021-03-19T16:15:46Z",
       "side": 1,
       "message": "I\u0027m not sure how you came to this conclusion;  When systems that use hex post codes (with no asicc) publish anything in the ascii range, it will be converted incorrectly.  This seems like an issue.",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5839b04f_c67150d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T16:44:17Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "99b799d3_3e7808e3",
       "range": {
         "startLine": 26,
         "startChar": 18,
@@ -213,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "883d7b9e_3c28723b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T16:44:17Z",
+      "side": 1,
+      "message": "\"customers\" sound specific to companies that sell hardware, e.g. IBM. \nMaybe human clients?",
+      "parentUuid": "3cf0ce3b_0ac670cf",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32589067_050f83c1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -236,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "e84b9915_ca8ced0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T16:44:17Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "32589067_050f83c1",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 86
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1feb9f3c_a5b3ee75",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -247,6 +343,24 @@
       "writtenOn": "2021-03-19T16:15:46Z",
       "side": 1,
       "message": "This doesn\u0027t really answer the question i posed earlier.  This is an API, and the data is available, there\u0027s no reason to interpret it two different ways when the client is perfectly capable of doing the same conversion.",
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd31b57_3500d51b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T16:44:17Z",
+      "side": 1,
+      "message": "How does the client know to translate this to ASCII?\nFrom the current API, how would the webui know to translate this to ASCII?\nThis patch set presents the data in a more human readable fashion and solves the problem of the client knowing to translate this. I think it is fair that the API expose this as ASCII. I am not sure it should really be bmcweb doing the translation, but I think it is reasonable the API displays this in ASCII.",
+      "parentUuid": "1feb9f3c_a5b3ee75",
       "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
