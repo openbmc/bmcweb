@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/google/v1/$metadata",
+    "value": [
+        {
+            "kind": "Singleton",
+            "name": "$metadata",
+            "url": "/google/v1/$metadata"
+        },
+        {
+            "kind": "Singleton",
+            "name": "odata",
+            "url": "/google/v1/odata"
+        },
+        {
+            "kind": "Singleton",
+            "name": "Service",
+            "url": "/google/v1/"
+        },
+        {
+            "kind": "Singleton",
+            "name": "ServiceRoot",
+            "url": "/google/v1/ServiceRoot"
+        }
+    ]
+}
