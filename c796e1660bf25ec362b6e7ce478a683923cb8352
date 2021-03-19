@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "3478a748_b4dc6530",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:17:33Z",
+      "side": 1,
+      "message": "Seems like it would be high value and low effort if you wanted to implement that ManojKiran.  Feel free to propose something to the list.\n\nMy only concern would be making sure that the openbmc-specific dictionary is easily editable, and has someone maintaining it, as there are lots of acronyms that we might have to add.",
+      "parentUuid": "9f598377_1756ef2a",
+      "range": {
+        "startLine": 16,
+        "startChar": 40,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8366ca91_732c0cd9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
