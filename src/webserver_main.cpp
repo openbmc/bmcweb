@@ -5,6 +5,7 @@
 #include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <google/root_of_trust.hpp>
 #include <hostname_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
 #include <image_upload.hpp>
@@ -105,6 +106,10 @@ int main(int /*argc*/, char** /*argv*/)
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     crow::ibm_mc::requestRoutes(app);
     crow::ibm_mc_lock::Lock::getInstance();
+#endif
+
+#ifdef BMCWEB_ENABLE_GOOGLE_API
+    crow::google_rot::requestRoutes(app);
 #endif
 
     if (bmcwebInsecureDisableXssPrevention)
