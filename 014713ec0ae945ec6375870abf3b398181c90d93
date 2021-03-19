@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad64566c_02643974",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T18:24:34Z",
+      "side": 1,
+      "message": "nitpick: can you remove the -?\n\nhttps://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages\n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
