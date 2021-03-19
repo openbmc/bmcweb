@@ -61,6 +61,7 @@ feature_map = {
 'insecure-disable-ssl'            : '-DBMCWEB_INSECURE_DISABLE_SSL',
 'host-serial-socket'              : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
 'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
+'google-api'                      : '-DBMCWEB_ENABLE_GOOGLE_API',
 'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
 'basic-auth'                      : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
 'session-auth'                    : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
