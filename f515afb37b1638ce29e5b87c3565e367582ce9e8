@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77d53505_2da12cf2",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T15:34:55Z",
+      "side": 1,
+      "message": "I believe the mapper returns an errors if nothing is found with that path.  \n\nYou should catch the specific error and return 404 in that case, while keeping the \"otherwise 500\" behavior.\n\nSee: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37310/29..31/redfish-core/lib/memory.hpp",
+      "revId": "f515afb37b1638ce29e5b87c3565e367582ce9e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
