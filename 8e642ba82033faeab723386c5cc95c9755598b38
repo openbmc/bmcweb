@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "c787e116_b6b9e8bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T02:19:54Z",
+      "side": 1,
+      "message": "Great to see!",
+      "revId": "8e642ba82033faeab723386c5cc95c9755598b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a1cf4a4_01018fe4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T02:19:54Z",
+      "side": 1,
+      "message": "the newer way to do this is:\n if (value \u003d\u003d nullptr)\n {\n    messages::internalError(aResp-\u003eres);\n    return;\n }",
+      "revId": "8e642ba82033faeab723386c5cc95c9755598b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d969c834_9cccfd8a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 1
