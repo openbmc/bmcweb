@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aedcca94_f07d7554",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:15:27Z",
+      "side": 1,
+      "message": "Thank you. In the next patchset I will use association to determine which PS belongs to this chassisID.",
+      "parentUuid": "faeeba2a_849eb46e",
+      "range": {
+        "startLine": 169,
+        "startChar": 13,
+        "endLine": 169,
+        "endChar": 59
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72e13465_426f84c7",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7efafe8f_1556cb76",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:15:27Z",
+      "side": 1,
+      "message": "This annotation is not used for the if() below, but for a large portion of the code below. I realize it\u0027s in the wrong position and I\u0027ll fix it.",
+      "parentUuid": "72e13465_426f84c7",
+      "range": {
+        "startLine": 192,
+        "startChar": 41,
+        "endLine": 192,
+        "endChar": 42
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3905b36_1ab0f8ce",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2021-03-18T23:04:28Z",
       "side": 1,
       "message": "Missing size check.",
+      "range": {
+        "startLine": 194,
+        "startChar": 23,
+        "endLine": 194,
+        "endChar": 27
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07bed784_f9e8f278",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-19T11:15:27Z",
+      "side": 1,
+      "message": "Thanks, I\u0027ll fix it.",
+      "parentUuid": "a3905b36_1ab0f8ce",
       "range": {
         "startLine": 194,
         "startChar": 23,
