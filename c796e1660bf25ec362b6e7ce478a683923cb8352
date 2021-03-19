@@ -483,6 +483,24 @@
       "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeed7140_32edf5d4",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-03-19T17:54:33Z",
+      "side": 1,
+      "message": "This version is part of the \"MessageId\" field that gets added to every Redfish LogEntry. \n Unfortunately, in a lot of the backend implementation, this version string is hardcoded in the MessageId.  I think keeping the old versions in place will keep those implementations working, but I wanted to make sure we are aware of that issue when we decide to bump this revision.",
+      "parentUuid": "d480758c_47e4aee4",
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
