@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "c2857317_272de008",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T14:52:37Z",
+      "side": 1,
+      "message": "Looking for \"why\" we switched. \nI look at the commit message to tell me \"why\" this commit should go into bmcweb.",
+      "parentUuid": "4cfcbbec_d6dbf139",
+      "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e93bed6c_34fe8958",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 18
@@ -264,6 +282,24 @@
       "side": 1,
       "message": "\u003e Even though only a \"should\", I think we should have a messages::success.\nAs I told earlier it is not must\n\n\u003e Also on a 200 OK, you must have a payload, it can be empty.. If we don\u0027t want to send a payload then need to use 204. \nhttps://restfulapi.net/http-status-200-ok/\nYes, agree that we can send 204, But seems bigger activity now if we don\u0027t send 204 with empty response.",
       "parentUuid": "80df4e62_493019cd",
+      "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e68f3e25_ca33cc33",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T14:52:37Z",
+      "side": 1,
+      "message": "But it is incorrect if we don\u0027t have a payload with 200.\nIf we have an empty payload with 200 then I am fine here (would still prefer the success message) but if we don\u0027t have a payload at all this is wrong.",
+      "parentUuid": "1dfa6c9b_dbbe24b6",
       "revId": "bf0fb45d9619ba0b18ae5952c769fbe0a34f472a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true

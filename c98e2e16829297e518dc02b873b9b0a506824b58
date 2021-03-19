@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d20deeb_322869a8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T14:52:37Z",
+      "side": 1,
+      "message": "return here?",
+      "revId": "c98e2e16829297e518dc02b873b9b0a506824b58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5455eac0_b13cf55a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-19T14:52:37Z",
+      "side": 1,
+      "message": "Same here, do we need a return?",
+      "revId": "c98e2e16829297e518dc02b873b9b0a506824b58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
