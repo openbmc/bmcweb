@@ -60,6 +60,75 @@
     },
     {
       "key": {
+        "uuid": "0d30888c_831a8493",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "Nit: Any specific reason for not using sdbusplus API filename(). \n\nIn a way this utility API is useful for non dbs object paths.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 1
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bce3413_398cfb07",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "Move this down, after checking for ec. Lineno: 273",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 64
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c7a9e3c_3be916e2",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "objects empty check should be above for for (const auto\u0026 objectPath : objects); Line no: 273",
+      "range": {
+        "startLine": 322,
+        "startChar": 15,
+        "endLine": 322,
+        "endChar": 35
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1d78cca_1e895388",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
@@ -251,6 +320,213 @@
       "side": 1,
       "message": "\u003e \u003e I\u0027m not following this.  The group names contain the privileges for the groups.  If the user is in the admin group, it has admin privileges, operator group gets operator privileges, ect.  Why does that necessitate a call into phosphor-user-manager?\n\u003e \n\u003e We have two types of users.\n\u003e \n\u003e 1) Local user: During creation of the local user we give the privilege to the user as admin, opertaor etc.\n\u003e    NOTE: This privilege is nothing : In linux it is the group where the user lies.\n\u003e \n\u003e 2) LDAP user doesn\u0027t lie in group called priv admin, priv-opertaor which we made it for openbmc user management, we can not ask the ldap admin to create the user and tied the user with priv opertor or prive admin group.\n\u003e \n\u003e    Now in this case we need to map the LDAP grpup to the BMC privilege model. which we do it by having interface which maps the group to privilege model.There is a Dbus service for the same.\n\u003e \n\u003e    In redfish also we have the property called \"RemoteRole mapping\" for the same purpose where mapping rules that are used to convert the external account providers account information to the local Redfish role.\n\u003e \n\u003e So we have two methods to get the privilege of a user.\n\u003e \n\u003e If it is local user you can directly get the privilege of the user(by having Dbus call or Monitor the Dbus object) but if it is ldap user then we need to get the group id of the user from the LDAp server  and then find the privilege of the group by having Dbus call to the user manager..\n\nI was with you so far until this statement.  Why doesn\u0027t user manager just host an interface with the users group on it, then we\u0027re not changing any behavior based on whether or not the user is LDAP.\n\n\u003e \n\u003e I agree with your point that privilege should be fetched during authentication not for each request for the same session.\n\u003e \n\u003e This can be done if we keep the privilege in the in memory session object during authentication and each successive request will be matched against the privilege which is there in the in-memory session object.\n\nGreat.  We can certainly do that.",
       "parentUuid": "53744024_c0b46369",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41589718_18e13016",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "instead of empty string string, Isnt it better to make return code ad std::optional and return std::nullopt here?",
+      "range": {
+        "startLine": 72,
+        "startChar": 19,
+        "endLine": 72,
+        "endChar": 22
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2802a9d9_f585b88d",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "I think this can be private method.",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e65ccf4_66055430",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "Any specific reason for not using latest added sdbusplus API for extracting last node from object path(object_path::filename())?",
+      "range": {
+        "startLine": 121,
+        "startChar": 42,
+        "endLine": 121,
+        "endChar": 78
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bcac7cc_3dec2565",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "very unlikely this can happen, but better add a error log for debugging purpose.",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 19
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6515750_5cc6e251",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "sdbusplus object path, You can use objPath.filename()",
+      "range": {
+        "startLine": 156,
+        "startChar": 42,
+        "endLine": 156,
+        "endChar": 78
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d78f272_00768b4f",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "I see in other places, If user is there and \"UserPrivilege\" is not found/error, we are filling roleMap with empty role. Lets be consistent.",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 192,
+        "endChar": 9
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9be5dd68_0b3b0d5a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "If user is not found in roleMap, And see there is property changed for user(Unlikely), Why can\u0027t we add  new entry with fetched role along with username?",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 201,
+        "endChar": 19
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcbf1bc5_2402d2a5",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "You need to check for validity of name( empty check).",
+      "range": {
+        "startLine": 249,
+        "startChar": 32,
+        "endLine": 249,
+        "endChar": 37
+      },
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbe50161_477e5aca",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-19T10:22:38Z",
+      "side": 1,
+      "message": "We need to check for UserGroups as well before adding users to this roleMap. Users which are not associated with \"redfish\" userGroups are not applicable to Redfish at all.",
+      "range": {
+        "startLine": 251,
+        "startChar": 20,
+        "endLine": 251,
+        "endChar": 48
+      },
       "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
