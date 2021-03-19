@@ -46,6 +46,30 @@
       "revId": "6ab182f21bcc86183a5ade3aa630b6f7a47e7a6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c18b3a_29aec3d1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-19T13:53:28Z",
+      "side": 1,
+      "message": "@ravi, @gunnar: Seems what is being asked is changing the behavior of the API.\n\n During GET if there is an error during fetching of a property, As per the code above don\u0027t fetch other property. \n    I am not align with it what the spec says that we can get all the properties and have an extended info object which will tell the properties having an error.",
+      "parentUuid": "ed6c12f1_0e8cbd4f",
+      "range": {
+        "startLine": 329,
+        "startChar": 1,
+        "endLine": 332,
+        "endChar": 29
+      },
+      "revId": "6ab182f21bcc86183a5ade3aa630b6f7a47e7a6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
