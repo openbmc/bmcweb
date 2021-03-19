@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  GoogelServiceRoot v1.0.0                                            -->
+<!--#                                                                                      -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx Version="1.0">
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot">
+      <Annotation Term="Redfish.OwningEntity" String="Google"/>
+
+      <EntityType Name="ServiceRoot" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The ServiceRoot schema describes the root of the Redfish Service, located at the '/google/v1' URI.  All other Resources accessible through the Redfish interface on this device are linked directly or indirectly from the Service Root."/>
+        <Annotation Term="OData.LongDescription" String="This Resource represents the root Redfish Service.  All values that this schema describes for Resources shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/google/v1</String>
+            <String>/google/v1/</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="Google"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
+
+      <EntityContainer Name="ServiceContainer">
+        <Singleton Name="Service" Type="ServiceRoot.ServiceRoot"/>
+        <Singleton Name="JsonSchemas" Type="JsonSchemaFileCollection.JsonSchemaFileCollection"/>
+      </EntityContainer>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.ServiceRoot">
+        <Property Name="RedfishVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of the Redfish Google Service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the Redfish protocol version, as specified in the Protocol Version clause of the Redfish Specification, to which this Service conforms."/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
+        </Property>
+        <NavigationProperty Name="JsonSchemas" Type="JsonSchemaFileCollection.JsonSchemaFileCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of JSON Schema files."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type JsonSchemaFileCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Links" Type="ServiceRoot.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </EntityType>
+
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
