@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "cd019df8_d0d84f07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:59:39Z",
+      "side": 1,
+      "message": "I would agree the message portion is intended to be human readable, the message args really is only meant for automation.\n\nWith that said, my main concern is the comment on line 26;  If we can get that solved, I really have no problem with this, but I don\u0027t really see a path forward here that doesn\u0027t break non-ascii post codes.",
+      "parentUuid": "ad7373b4_7fe7c09d",
+      "range": {
+        "startLine": 20,
+        "startChar": 63,
+        "endLine": 22,
+        "endChar": 7
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99b799d3_3e7808e3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -285,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "666a87eb_e68754c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:59:39Z",
+      "side": 1,
+      "message": "I\u0027m less worried about the vernacular in this case, more worried about the idea that we\u0027re providing multiple interpretations of a code from an API surface.  \"humans\" would be fine for vernacular, but the point still exists that we\u0027re duplicating information in the API.",
+      "parentUuid": "883d7b9e_3c28723b",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32589067_050f83c1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -361,6 +409,24 @@
       "side": 1,
       "message": "How does the client know to translate this to ASCII?\nFrom the current API, how would the webui know to translate this to ASCII?\nThis patch set presents the data in a more human readable fashion and solves the problem of the client knowing to translate this. I think it is fair that the API expose this as ASCII. I am not sure it should really be bmcweb doing the translation, but I think it is reasonable the API displays this in ASCII.",
       "parentUuid": "1feb9f3c_a5b3ee75",
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d4d317f_8095e590",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T16:59:39Z",
+      "side": 1,
+      "message": "\u003e How does the client know to translate this to ASCII?\n\u003e From the current API, how would the webui know to translate this to ASCII?\n\nI don\u0027t have a great answer to this, but it\u0027ll definitely need answered, and this patchset doesn\u0027t answer the question either, it just blindly converts things.  Maybe \"if the CPU type is POWER\" would be a good strawman to use client side?  I\u0027m not a huge fan of that, but woudl get you what you\u0027re looking for.\n\nAn alternative would be to come up with a message type specific to Power CPUs, and leave the old message types alone.  That doesn\u0027t seem great either, but might be better than pushing this problem onto clients.\n\n\u003e This patch set presents the data in a more human readable fashion and solves the problem of the client knowing to translate this.\n\nWith respect, no, it doesn\u0027t.  It only \"solves\" it for systems that have ascii post codes.  It breaks things for systems that don\u0027t have ascii post codes, which is the majority of systems at this point.\n\n\u003e I think it is fair that the API expose this as ASCII. I am not sure it should really be bmcweb doing the translation, but I think it is reasonable the API displays this in ASCII.\n\nI have no problem with publishing ASCII, but in that case it should be the ONLY thing we publish.  We shouldn\u0027t publish both arguments, as it implies that the data is unique.",
+      "parentUuid": "edd31b57_3500d51b",
       "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
