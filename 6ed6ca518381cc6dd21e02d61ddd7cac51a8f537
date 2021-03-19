@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77e92cc0_47c92e57",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:26:50Z",
+      "side": 1,
+      "message": "https://www.boost.org/doc/libs/1_70_0/libs/beast/doc/html/beast/ref/boost__beast__http__param_list.html\n\nIs the boost code I was referring to.  It parses this the way the RFC expects.",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "929bdf93_0eb5881c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1794,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:26:50Z",
+      "side": 1,
+      "message": "both case insensitive, and contains seem wrong here.  I would expect exact matches on a properly parsed element.",
+      "range": {
+        "startLine": 1794,
+        "startChar": 24,
+        "endLine": 1794,
+        "endChar": 33
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19f86e29_e8ef771d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:26:50Z",
+      "side": 1,
+      "message": "See below, I\u0027m pretty sure this isn\u0027t human readable text.",
+      "range": {
+        "startLine": 1795,
+        "startChar": 41,
+        "endLine": 1795,
+        "endChar": 51
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8240aeff_a3fbd99e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1859,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:26:50Z",
+      "side": 1,
+      "message": "Also need to verify that size elements were read in.",
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92578b2f_0b955465",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:26:50Z",
+      "side": 1,
+      "message": "At this level, this isn\u0027t text.  I would\u0027ve expected octet-stream, and also to look for octet stream.\n\nin your use case is this human readable text?",
+      "range": {
+        "startLine": 1869,
+        "startChar": 58,
+        "endLine": 1869,
+        "endChar": 68
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca4f3a46_214e1bf9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:26:50Z",
+      "side": 1,
+      "message": "nit.  std::move() here to avoid the copy.",
+      "range": {
+        "startLine": 1871,
+        "startChar": 40,
+        "endLine": 1871,
+        "endChar": 46
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
