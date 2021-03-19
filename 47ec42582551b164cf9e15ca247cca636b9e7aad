@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eecb953c_dfc191bf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-19T20:17:59Z",
+      "side": 1,
+      "message": "This is redundant, there is no need to \"bail early\" when there\u0027s only two branches.  This whole statement can be deleted.",
+      "range": {
+        "startLine": 1402,
+        "startChar": 0,
+        "endLine": 1411,
+        "endChar": 0
+      },
+      "revId": "47ec42582551b164cf9e15ca247cca636b9e7aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
