@@ -236,6 +236,30 @@
       "revId": "fa42215575e069bf05a0c26262649760f00c1577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f7f8f58_dbc34b2b",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-20T17:58:47Z",
+      "side": 1,
+      "message": "What I don\u0027t like here, is that it\u0027s covering up the root cause.  The root of the problem here is that you\u0027re using the filesystem in a \"unit\" test, which is a general anti-pattern.  IMO, commit moves in the wrong direction by simply covering the issue up with a temp directory.  I\u0027d like to see some discussion on this \"future work\" and how this commit enables the future work, instead of going further down the incorrect path.\n\n\" I\u0027d like to see some discussion on why this was done originally....\"\n\nWas what I wrote a week ago, and I still haven\u0027t seen that.",
+      "parentUuid": "b80d34c1_e202e7e8",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
