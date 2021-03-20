@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "b0be6aa1_e565d742",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-20T06:16:39Z",
+      "side": 1,
+      "message": "hmm, i sort off agree. I did thought about it but Would that be a big problem as such, because customers/automation can look at only the field they are interested in ? \n\nLike u said in other comments, Then the only way i see to solve this issue to go by compile time flag and switch registries based on machine that the code is compiled for.",
+      "parentUuid": "5839b04f_c67150d7",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83ef1a4_49cb96af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -368,6 +392,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "32589067_050f83c1",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 86
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008ed641_07e24820",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-20T06:16:39Z",
+      "side": 1,
+      "message": "I think that standard redfish clients will only parse the data based on the Message registry version number.\n\nthe moment the client see the version number mismatch , it should not attempt to parse it right ? that way i dont think the clients are broken \u0026 they can upgrade to a newer version of the message registry and parse the new set of arguments.\n\nAnyways, i just asked this question as well in the redfish forum to get their view.",
+      "parentUuid": "e84b9915_ca8ced0f",
       "range": {
         "startLine": 36,
         "startChar": 0,
