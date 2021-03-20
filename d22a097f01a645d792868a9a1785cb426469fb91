@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cbe4d91_e586ef2e",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-20T18:07:45Z",
+      "side": 1,
+      "message": "I realized you copied this from a similar API, but please don\u0027t use res.end() in new code.  Instead, use the RAII compatible AsyncResp object.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "d22a097f01a645d792868a9a1785cb426469fb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00a3c60_331e7eca",
+        "filename": "meson.build",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-20T18:07:45Z",
+      "side": 1,
+      "message": "Can we just call this \"google-api\"?\n\nI don\u0027t really expect this to go outside root of trusts, but I think being less specific at this level makes more sense, I suspect if this is ever extended, we won\u0027t need this fine grained of control",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "d22a097f01a645d792868a9a1785cb426469fb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
