@@ -263,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "7a862562_a0afc67f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-20T17:42:10Z",
+      "side": 1,
+      "message": "\u003e hmm, i sort off agree. I did thought about it but Would that be a big problem as such, because customers/automation can look at only the field they are interested in ? \n\nAnd how would clients know to ignore the ascii post code on IBM systems?  How would clients know to switch 0.2 version of the post codes?  Wouldn\u0027t all the clients that were written against the 0.1 version of post codes now be broken?\n\n\u003e \n\u003e Like u said in other comments, Then the only way i see to solve this issue to go by compile time flag and switch registries based on machine that the code is compiled for.\n\nI said nothing about a compile time flag, and I don\u0027t really like that, as it really means that our dbus interfaces aren\u0027t expressive enough for this kind of thing, and they need improved.  I personally don\u0027t think this commit (as-written) is needed at all, because it\u0027s trying to build a standards based API, while creating an IBM-specific message, which seems like something we should be very careful about, and do with eyes open to compatibility between systems.\n\nIf we want to have human-readable text versions of post codes, that\u0027s a much bigger problem, and something we should sort out.",
+      "parentUuid": "b0be6aa1_e565d742",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83ef1a4_49cb96af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -428,6 +452,30 @@
     },
     {
       "key": {
+        "uuid": "d2899e74_cb2e5b21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-20T17:42:10Z",
+      "side": 1,
+      "message": "\u003e I think that standard redfish clients will only parse the data based on the Message registry version number.\n\u003e \n\u003e the moment the client see the version number mismatch , it should not attempt to parse it right ?\n\nThat\u0027s in no way how that works.  Message registry entries are supposed to be immutable and forward compatible.  If we want to make a breaking change, we can, but I don\u0027t really think this use case warrants it, or is worth breaking all the clients of this API to switch to another registry type.\n\n\u003e that way i dont think the clients are broken \u0026 they can upgrade to a newer version of the message registry and parse the new set of arguments.\n\nWe still haven\u0027t answered the question of how a client knows that the ascii version of the post code is useful.  I think how we determine that is going to drive more of this discussion.  Today I don\u0027t think we have any way to determine that either within OpenBMC or externally, and it\u0027s a non-trivial problem.\n\n\u003e \n\u003e Anyways, i just asked this question as well in the redfish forum to get their view.\n\nCool.  I appreciate you reaching out.  If you could link the discussion somewhere in this review (either a comment or commit message) it would help others to track the discussion.",
+      "parentUuid": "008ed641_07e24820",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 86
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1feb9f3c_a5b3ee75",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -546,6 +594,24 @@
       "side": 1,
       "message": "This version is part of the \"MessageId\" field that gets added to every Redfish LogEntry. \n Unfortunately, in a lot of the backend implementation, this version string is hardcoded in the MessageId.  I think keeping the old versions in place will keep those implementations working, but I wanted to make sure we are aware of that issue when we decide to bump this revision.",
       "parentUuid": "d480758c_47e4aee4",
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bf71b6_037b2cc7",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-20T17:42:10Z",
+      "side": 1,
+      "message": "The reason I bring it up here, is that we\u0027re modifying something in a backward incompatible way (changing the definition of an existing ID).  Not reving the version means that clients have no way to handle both cases, and have no indication that the registry has changed.\n\nTechnically we should be reving this every time we change this file in any way, or at minimum every time we do an official release.  I realize we haven\u0027t done that, but if we\u0027re only adding things, there\u0027s an almost zero chance that we break existing client code.\n\nJason does bring up a good point, it\u0027s too bad we weren\u0027t more DRY about the explicit MessageId version.  I wonder if that can be fixed, and only encode the messageId, and not the version in the backend log messages, so we can rev this when we change it.\n\nThoughts?",
+      "parentUuid": "aeed7140_32edf5d4",
       "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
