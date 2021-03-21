@@ -260,6 +260,30 @@
       "revId": "fa42215575e069bf05a0c26262649760f00c1577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b10d9f5_6566d5bd",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-21T04:05:24Z",
+      "side": 1,
+      "message": "I did not intend to cover up any comments/root cause. But did not understand that there should be a root cause solution for using the /tmp filesystem before this commit goes ahead.\n\nSent community email with title \"UnitTest using the /tmp file system\" to discuss the same.",
+      "parentUuid": "7f7f8f58_dbc34b2b",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
