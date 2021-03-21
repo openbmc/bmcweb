@@ -287,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "fe09aec1_953b66dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-21T04:49:26Z",
+      "side": 1,
+      "message": "\u003e And how would clients know to ignore the ascii post code on IBM systems?  How would clients know to switch 0.2 version of the post codes?  Wouldn\u0027t all the clients that were written against the 0.1 version of post codes now be broken?\n\nHow is any other schema different ? for example take the logservice schema - it has added CollectDiagnosticData property recently ? then how does the old redfish clients parse this ? is it not the similar case here ? Client first introspects the version number and then based on it , it will understand what items are expected.\n\nis this not the same thing , that we are trying to do here ?\n\n\u003e I said nothing about a compile time flag, and I don\u0027t really like that, as it really means that our dbus interfaces aren\u0027t expressive enough for this kind of thing, and they need improved.\n\n\u003e Maybe \"if the CPU type is POWER\" would be a good strawman to use client side?  I\u0027m not a huge fan of that, but woudl get you what you\u0027re looking for.\n\napologies,probably i did not understood it correct, did you meant that we need to look at a dbus property(CPU) and switch registries here ? rather than a compile time flag ?",
+      "parentUuid": "7a862562_a0afc67f",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83ef1a4_49cb96af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -464,6 +488,30 @@
       "side": 1,
       "message": "\u003e I think that standard redfish clients will only parse the data based on the Message registry version number.\n\u003e \n\u003e the moment the client see the version number mismatch , it should not attempt to parse it right ?\n\nThat\u0027s in no way how that works.  Message registry entries are supposed to be immutable and forward compatible.  If we want to make a breaking change, we can, but I don\u0027t really think this use case warrants it, or is worth breaking all the clients of this API to switch to another registry type.\n\n\u003e that way i dont think the clients are broken \u0026 they can upgrade to a newer version of the message registry and parse the new set of arguments.\n\nWe still haven\u0027t answered the question of how a client knows that the ascii version of the post code is useful.  I think how we determine that is going to drive more of this discussion.  Today I don\u0027t think we have any way to determine that either within OpenBMC or externally, and it\u0027s a non-trivial problem.\n\n\u003e \n\u003e Anyways, i just asked this question as well in the redfish forum to get their view.\n\nCool.  I appreciate you reaching out.  If you could link the discussion somewhere in this review (either a comment or commit message) it would help others to track the discussion.",
       "parentUuid": "008ed641_07e24820",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 86
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc53eb2_ee42e15d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-21T04:49:26Z",
+      "side": 1,
+      "message": "\u003e Cool.  I appreciate you reaching out.  If you could link the discussion somewhere in this review (either a comment or commit message) it would help others to track the discussion.\n\nI have already mentioned that in the commit message line number 41.",
+      "parentUuid": "d2899e74_cb2e5b21",
       "range": {
         "startLine": 36,
         "startChar": 0,
