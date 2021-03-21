@@ -568,6 +568,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa711a2_e3df5f66",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-21T20:49:47Z",
+      "side": 1,
+      "message": "\"Are you fine to have multiple D-bus calls for patching of multiple BIOS attributes?\"\n\nSimply put, no, as it makes this code very complex and have possible race conditions.\n\n\n\"void Manager::setAttributes(std::vector\u003cAttributeName , AttributeValue\u003e) -\u003e with this API caller doesn\u0027t bother about the type checking and multiple attributes can be set in one D-bus call.\"\n\nI\u0027m making some assumptions, as the type you put above isn\u0027t really valid.  I\u0027m assuming you means std::vector\u003cstd::pair\u003cstd::string, std::string\u003e\u003e.  That type would probably prevent updates of individual parameters, so that API doesn\u0027t look quite right either.  I would assume a single set version would be the right way to approach this, something similar to SetProperty, but accepting a string type that the backend could properly turn into the correct type.",
+      "parentUuid": "64bb760a_bb1efb10",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
