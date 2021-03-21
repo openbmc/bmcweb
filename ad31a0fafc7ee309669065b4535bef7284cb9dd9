@@ -16,6 +16,24 @@
       "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef6e2ea_57ed2df2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-21T09:09:22Z",
+      "side": 1,
+      "message": "\"Destination\" is read-only. We can\u0027t update it.",
+      "parentUuid": "616291a8_a65363b0",
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
