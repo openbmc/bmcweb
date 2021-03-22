@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1764845b_96e71098",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T20:58:20Z",
+      "side": 1,
+      "message": "nitpick: HTTP \nHere and below, up to you if you want to change. \n\n\"D-Bus\" also.",
+      "range": {
+        "startLine": 251,
+        "startChar": 26,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "4fdfdcdfe74bd6cc8d65654a7d59b77a2e26cf44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "994e86f6_1d4ecaa8",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T20:58:20Z",
+      "side": 1,
+      "message": "I am good here but above the document has these as bullets (\"-\")\nSee #5 and #6",
+      "revId": "4fdfdcdfe74bd6cc8d65654a7d59b77a2e26cf44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
