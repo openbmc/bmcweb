@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03d95c2a_87c17f85",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:23:23Z",
+      "side": 1,
+      "message": "magic numbers.\n\nI suspect this function isn\u0027t needed.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb914466_b3247b25",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3388,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:23:23Z",
+      "side": 1,
+      "message": "Please use the appropriate parser for this from the beast library",
+      "range": {
+        "startLine": 3387,
+        "startChar": 0,
+        "endLine": 3388,
+        "endChar": 47
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9adf06de_2071975d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3406,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:23:23Z",
+      "side": 1,
+      "message": "This forces post codes to take a specific form in the dbus paths.  I suspect this wont be compatible with non-ibm systems.  I would expect to not need this when looking up dbus.",
+      "range": {
+        "startLine": 3406,
+        "startChar": 8,
+        "endLine": 3406,
+        "endChar": 74
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a063ce_f5fefaa1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:23:23Z",
+      "side": 1,
+      "message": "See above, same thing.",
+      "range": {
+        "startLine": 3416,
+        "startChar": 0,
+        "endLine": 3416,
+        "endChar": 52
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03137f5b_02af39f5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3465,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:23:23Z",
+      "side": 1,
+      "message": "This isn\u0027t text/plain content.",
+      "range": {
+        "startLine": 3465,
+        "startChar": 58,
+        "endLine": 3465,
+        "endChar": 69
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
