@@ -398,6 +398,24 @@
     },
     {
       "key": {
+        "uuid": "dc123fdf_c1b6e410",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-22T09:12:38Z",
+      "side": 1,
+      "message": "\u003e I was with you so far until this statement.  Why doesn\u0027t user manager just host an interface with the users group on it, then we\u0027re not changing any behavior based on whether or not the user is LDAP.\n\nHoping we are on the same page,For LDAP users we don\u0027t have Dbus objects and the reason is LDAP notification is not supported so we can not update the Dbus objects regularly.\n\n\"Why doesn\u0027t user manager just host an interface with the users group on it\"\nI didn\u0027t get this.Can you explain bit more?\n\n\n\u003e Great.  We can certainly do that.\n\nIn that case for the local user : we will be getting the privilege from the Dbus object and updating the session object with the privilege.\n\nFor the LDAP user: if we don\u0027t find the user in the Dbus objects(as the Dbus objects are there only for local users) then we would be asking LDAP server to get the info about that user and get the privilege of the LDAP user and update the session object.\n\nAre you fine with it? We can push a commit for the same.",
+      "parentUuid": "90f170a7_c75b8434",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41589718_18e13016",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
