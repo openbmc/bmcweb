@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f6ad6d4_e0f92520",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T20:47:28Z",
+      "side": 1,
+      "message": "Design doc? \nOr something more explaining this feature.\n \nNote: I know /ibm/v1/ isn\u0027t the best documented :/ but hoping this can be better documented.",
+      "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
