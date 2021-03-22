@@ -22,6 +22,47 @@
       "revId": "648aa00e8e25d74b7e6a740e842584589cfbfee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb025f15_0c13cf4a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T20:37:35Z",
+      "side": 1,
+      "message": "+1. I think this should match other resourceNotFound.\nhttps://github.com/openbmc/bmcweb/search?q\u003dresourceNotFound\n\nSomething like:\n\n                messages::resourceNotFound(\n                    asyncResp-\u003eres,\"LogEntry\", entryId);",
+      "parentUuid": "13ced486_930e39ee",
+      "range": {
+        "startLine": 674,
+        "startChar": 32,
+        "endLine": 674,
+        "endChar": 63
+      },
+      "revId": "648aa00e8e25d74b7e6a740e842584589cfbfee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542f356d_32955d9d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T20:37:35Z",
+      "side": 1,
+      "message": "nitpick: \nI think this should be LogEntry.. \nSince the schema is LogEntry.\n            \"Message\": \"The requested resource of type %1 named \u0027%2\u0027 was not found.\",",
+      "revId": "648aa00e8e25d74b7e6a740e842584589cfbfee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
