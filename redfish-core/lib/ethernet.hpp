@@ -1212,6 +1212,7 @@ class EthernetInterface : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
+                messages::success(asyncResp->res);
             },
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
