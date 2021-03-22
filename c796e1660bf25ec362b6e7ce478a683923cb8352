@@ -311,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "5d7fc61c_c8794f12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:37:58Z",
+      "side": 1,
+      "message": "\u003e \u003e And how would clients know to ignore the ascii post code on IBM systems?  How would clients know to switch 0.2 version of the post codes?  Wouldn\u0027t all the clients that were written against the 0.1 version of post codes now be broken?\n\u003e \n\u003e How is any other schema different ? for example take the logservice schema - it has added CollectDiagnosticData property recently ?\n\nKey word here is added, not replaced.  Clients coded against the standard allow for new parameters to be added to schemas.  That\u0027s how this has been handled in the past.  Your code completely replaces things.\n\n\u003e then how does the old redfish clients parse this ? is it not the similar case here ?\n\nConsidering this will break clients, no, I don\u0027t think it\u0027s similar.\n\n\u003e Client first introspects the version number and then based on it , it will understand what items are expected.\n\nClients will generally be coded against a specific messageID.  The fact that you\u0027ve changed the messageId now breaks clients.\n\n\u003e \n\u003e is this not the same thing , that we are trying to do here ?\n\u003e \n\u003e \u003e I said nothing about a compile time flag, and I don\u0027t really like that, as it really means that our dbus interfaces aren\u0027t expressive enough for this kind of thing, and they need improved.\n\u003e \n\u003e \u003e Maybe \"if the CPU type is POWER\" would be a good strawman to use client side?  I\u0027m not a huge fan of that, but woudl get you what you\u0027re looking for.\n\u003e \n\u003e apologies,probably i did not understood it correct, did you meant that we need to look at a dbus property(CPU) and switch registries here ? rather than a compile time flag ?\n\nI\u0027m not really sure what to do here;  What you\u0027re trying to accomplish seems kind of incompatible with having a vendor-agnostic Redfish API, unless there was some way to switch between the implementations, or only add an extra message entry in the case of IBM systems, but considering dbus is manufacturer agnostic today, and doesn\u0027t define the interface in the way you\u0027re using it, this patchset is kind of dead in the water.\n\n\nI would recommend writing up some designs for a human readable post-code implementation, and see if we can get some community agreement on that.  I realize this is probably a lot more work than you were hoping for, but I don\u0027t see any way around it.",
+      "parentUuid": "fe09aec1_953b66dc",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83ef1a4_49cb96af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
