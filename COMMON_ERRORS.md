@@ -238,3 +238,36 @@ BMCWEB_ROUTE("/myendpoint/<str>",
 Note: A more general form of this rule is that no handler should ever return 500
 on a working system, and any cases where 500 is found, can immediately be
 assumed to be [a bug in either the system, or bmcweb.](https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#error-handling)
+
+### 12. Imprecise matching
+```C++
+void isInventoryPath(const std::string& path){
+    if (path.find("inventory")){
+        return true;
+    }
+    return false;
+}
+```
+When matching dbus paths, HTTP fields, interface names, care should be taken to
+avoid doing direct string containment matching.  Doing so can lead to errors
+where fan1 and fan11 both report to the same object, and cause behavior breaks
+in subtle ways.
+
+When using dbus paths, rely on the methods on sdbusplus::message::object\_path.
+When parsing HTTP field and lists, use the RFC7230 implementations from
+boost::beast.
+
+Other commonly misused methods are:
+boost::iequals.  Unless the standard you're implementing (as is the case in some
+HTTP fields) requires case insensitive comparisons, casing should be obeyed,
+especially when relying on user-driven data.
+
+- boost::starts\_with
+- boost::ends\_with
+- std::string::starts\_with
+- std::string::ends\_with
+- std::string::rfind
+
+The above methods tend to be misused to accept user data and parse various
+fields from it.  In practice, there tends to be better, purpose built methods
+for removing just the field you need.
