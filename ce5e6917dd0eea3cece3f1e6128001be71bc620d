@@ -616,6 +616,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d2a24e_7e70ccb3",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T16:58:44Z",
+      "side": 1,
+      "message": "\u003e \u003e I would assume a single set version would be the right way to approach this, something similar to SetProperty, but accepting a string type that the backend could properly turn into the correct type.\n\u003e \n\u003e That suggest you are looking for this API..\n\u003e https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L8\n\u003e \n\u003e If it is then I don\u0027t see what has to be reworked on the dbus backend.?\n\nThis patchset is still doing 2 calls instead of one.  I haven\u0027t looked the abovedbus  interface, but JUST looking at this commit I would assume that:\n1. The interface doesn\u0027t support setting params as a single step.\n2. The interface changes weren\u0027t made in this patchset.",
+      "parentUuid": "b287c891_7a7fd09a",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
