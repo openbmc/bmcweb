@@ -416,6 +416,24 @@
     },
     {
       "key": {
+        "uuid": "a998e8a4_a74bd178",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T16:33:10Z",
+      "side": 1,
+      "message": "\u003e \u003e I was with you so far until this statement.  Why doesn\u0027t user manager just host an interface with the users group on it, then we\u0027re not changing any behavior based on whether or not the user is LDAP.\n\u003e \n\u003e Hoping we are on the same page,For LDAP users we don\u0027t have Dbus objects and the reason is LDAP notification is not supported so we can not update the Dbus objects regularly.\n\nI\u0027m not sure why that would be required?  Just update it on a successful login, and that would be in line with how ldap is generally done.\n\n\u003e \n\u003e \"Why doesn\u0027t user manager just host an interface with the users group on it\"\n\u003e I didn\u0027t get this.Can you explain bit more?\n\u003e \n\u003e \n\u003e \u003e Great.  We can certainly do that.\n\u003e \n\u003e In that case for the local user : we will be getting the privilege from the Dbus object and updating the session object with the privilege.\n\u003e \n\u003e For the LDAP user: if we don\u0027t find the user in the Dbus objects(as the Dbus objects are there only for local users) then we would be asking LDAP server to get the info about that user and get the privilege of the LDAP user and update the session object.\n\nif by \"we\" above, you\u0027re talking about phosphor-user-manager, then yes, that would be fine.  I wouldn\u0027t expect any difference between a local user and an LDAP user in terms of bmcweb.  Phosphor-user-manager should provide the appropriate interfaces to make them look the same.\n\n\u003e \n\u003e Are you fine with it? We can push a commit for the same.",
+      "parentUuid": "dc123fdf_c1b6e410",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41589718_18e13016",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
