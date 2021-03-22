@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3089739d_af8283da",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-22T06:05:08Z",
+      "side": 1,
+      "message": "Sorry, @Ed, I do not think we should use boost code here, because it will parsed to `*` when it meets `*/*`, \n\nI tested and show my results:\n\n```\nfor (auto const\u0026 param : boost::beast::http::ext_list{\"aaa,*/*\"})\n{\n}\n\nparam.first \u003d aaa\nparam.first \u003d *\n\nfor (auto const\u0026 param : boost::beast::http::ext_list{\"aaa,bbb\"})\n{\n}\n\nparam.first \u003d aaa\nparam.first \u003d bbb\n```\n\nPlease correct me if I am wrong, thanks",
+      "parentUuid": "77e92cc0_47c92e57",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
