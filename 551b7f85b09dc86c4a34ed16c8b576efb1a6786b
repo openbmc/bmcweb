@@ -16,6 +16,24 @@
       "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77c15e17_4b986fc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-03-22T21:53:26Z",
+      "side": 1,
+      "message": "the design doc can be found here go/haven-on-redfish-options .",
+      "parentUuid": "3f6ad6d4_e0f92520",
+      "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
