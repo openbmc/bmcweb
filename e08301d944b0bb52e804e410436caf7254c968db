@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "726c8d45_b931fd08",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T23:01:33Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t this be something like task::error?  At a minimum we should log the error.\n\nI don\u0027t see this addressed",
+      "parentUuid": "bd2f3eab_ff6c992e",
+      "range": {
+        "startLine": 735,
+        "startChar": 23,
+        "endLine": 735,
+        "endChar": 40
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d354f00_fce02524",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "f8549198_754f2e0f",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a98f248_d77b98b1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T23:01:33Z",
+      "side": 1,
+      "message": "But then don\u0027t we need to escape on both sides?",
+      "parentUuid": "db009548_39701a4b",
       "range": {
         "startLine": 754,
         "startChar": 51,

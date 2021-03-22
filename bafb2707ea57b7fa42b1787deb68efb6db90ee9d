@@ -22,6 +22,29 @@
       "revId": "bafb2707ea57b7fa42b1787deb68efb6db90ee9d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd0a3ac6_ee19503d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-22T23:01:33Z",
+      "side": 1,
+      "message": "isn\u0027t this an error case as pointed out a comment in P17?",
+      "range": {
+        "startLine": 742,
+        "startChar": 17,
+        "endLine": 742,
+        "endChar": 48
+      },
+      "revId": "bafb2707ea57b7fa42b1787deb68efb6db90ee9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
