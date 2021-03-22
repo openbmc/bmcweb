@@ -592,6 +592,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b287c891_7a7fd09a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-22T09:26:52Z",
+      "side": 1,
+      "message": "\u003e I would assume a single set version would be the right way to approach this, something similar to SetProperty, but accepting a string type that the backend could properly turn into the correct type.\n\nThat suggest you are looking for this API..\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L8\n\nIf it is then I don\u0027t see what has to be reworked on the dbus backend.?",
+      "parentUuid": "0aa711a2_e3df5f66",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
