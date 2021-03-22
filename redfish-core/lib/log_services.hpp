@@ -662,10 +662,16 @@ inline void deleteDumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
                             const std::string& entryID,
                             const std::string& dumpType)
 {
-    auto respHandler = [asyncResp](const boost::system::error_code ec) {
+    auto respHandler = [asyncResp,
+                        entryID](const boost::system::error_code ec) {
         BMCWEB_LOG_DEBUG << "Dump Entry doDelete callback: Done";
         if (ec)
         {
+            if (ec.value() == EBADR)
+            {
+                messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+                return;
+            }
             BMCWEB_LOG_ERROR << "Dump (DBus) doDelete respHandler got error "
                              << ec;
             messages::internalError(asyncResp->res);
@@ -1681,10 +1687,17 @@ class DBusEventLogEntry : public Node
         dbus::utility::escapePathForDbus(entryID);
 
         // Process response from Logging service.
-        auto respHandler = [asyncResp](const boost::system::error_code ec) {
+        auto respHandler = [asyncResp,
+                            entryID](const boost::system::error_code ec) {
             BMCWEB_LOG_DEBUG << "EventLogEntry (DBus) doDelete callback: Done";
             if (ec)
             {
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                               entryID);
+                    return;
+                }
                 // TODO Handle for specific error code
                 BMCWEB_LOG_ERROR
                     << "EventLogEntry (DBus) doDelete respHandler got error "
