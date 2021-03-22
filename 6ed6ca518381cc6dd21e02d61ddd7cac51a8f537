@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "753bafef_07e03824",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-22T19:04:01Z",
+      "side": 1,
+      "message": "Done. As a workaround, we can still use the http iterators if we replace the \u0027/\u0027 with some other character. Looking at the http/detail/rfc7230.ipp boost file, seems we can use |, ^, `, etc, so choosing | since the iterators offer the advantage that they split out the \u0027;q\u003dX\u0027 string for us so we can do an exact compare of the type. Using ext_list since that\u0027s a comma-separated string which is the format of the Accept header.",
+      "parentUuid": "3089739d_af8283da",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
@@ -69,6 +93,30 @@
       "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "210d8541_3f4661b6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1794,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-22T19:04:01Z",
+      "side": 1,
+      "message": "Done. Yeah, using the boost iterators allows us to compare for an exact match now.",
+      "parentUuid": "929bdf93_0eb5881c",
+      "range": {
+        "startLine": 1794,
+        "startChar": 24,
+        "endLine": 1794,
+        "endChar": 33
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5a8605ed_4db5e7e6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-22T19:04:01Z",
+      "side": 1,
+      "message": "Done. Yeah, changed to octet-stream since that\u0027s the original source format.",
+      "parentUuid": "19f86e29_e8ef771d",
+      "range": {
+        "startLine": 1795,
+        "startChar": 41,
+        "endLine": 1795,
+        "endChar": 51
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8240aeff_a3fbd99e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
@@ -109,6 +181,24 @@
       "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ddef757_ad60c5fd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1859,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-22T19:04:01Z",
+      "side": 1,
+      "message": "Done. Agree.",
+      "parentUuid": "8240aeff_a3fbd99e",
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -135,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "bc295e9b_c78de710",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-22T19:04:01Z",
+      "side": 1,
+      "message": "Done. It\u0027s not text, changed to octet-stream, eoncded as base64.",
+      "parentUuid": "92578b2f_0b955465",
+      "range": {
+        "startLine": 1869,
+        "startChar": 58,
+        "endLine": 1869,
+        "endChar": 68
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca4f3a46_214e1bf9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
@@ -155,6 +269,30 @@
       "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a06c420a_9bd13fbe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-22T19:04:01Z",
+      "side": 1,
+      "message": "Done. Good point.",
+      "parentUuid": "ca4f3a46_214e1bf9",
+      "range": {
+        "startLine": 1871,
+        "startChar": 40,
+        "endLine": 1871,
+        "endChar": 46
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
