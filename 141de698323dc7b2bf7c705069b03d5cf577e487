@@ -46,6 +46,30 @@
       "revId": "141de698323dc7b2bf7c705069b03d5cf577e487",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c41fd365_7646f4db",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-22T17:09:56Z",
+      "side": 1,
+      "message": "Agreed.  This is fine as is, even if I don\u0027t like how verbose it is.",
+      "parentUuid": "38153268_91cb4279",
+      "range": {
+        "startLine": 980,
+        "startChar": 2,
+        "endLine": 982,
+        "endChar": 74
+      },
+      "revId": "141de698323dc7b2bf7c705069b03d5cf577e487",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
