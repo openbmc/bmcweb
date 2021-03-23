@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c02ad97b_3772bdbb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-23T02:06:22Z",
+      "side": 1,
+      "message": "I would vote LogEntry again.",
+      "range": {
+        "startLine": 1697,
+        "startChar": 64,
+        "endLine": 1697,
+        "endChar": 77
+      },
+      "revId": "c004c4c9e4c77a3940d3ac8a78f43b04bac7c99c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
