@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "22a04d6c_15c9e854",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-23T18:55:12Z",
+      "side": 1,
+      "message": "There\u0027s 4 different variants of the RFC7230 parser, ext_list, opt_token_list, param_list, and token_list.  I would expect one of them to have the correct behavior here, considering they\u0027re implemented for this use case.\n\nI have not looked at the differences between them, but I\u0027d be really surprised if they didn\u0027t have a way to parse out */*, assuming it\u0027s valid in the spec.",
+      "parentUuid": "753bafef_07e03824",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11

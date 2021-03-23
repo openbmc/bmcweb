@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3c0e8a9_0a95c06e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-23T18:55:12Z",
+      "side": 1,
+      "message": "Does token_list require this cheat as well?",
+      "revId": "88f7f7e6204914c2ed7144e7f160b559d4665570",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
