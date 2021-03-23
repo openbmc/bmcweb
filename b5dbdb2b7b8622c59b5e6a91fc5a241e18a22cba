@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6b248aea_fd822bbe",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-23T04:34:57Z",
+      "side": 1,
+      "message": "\u003e \u003e This is a registry, which means that it shouldn\u0027t be changing as the result of a dbus call, it should be fixed for a given system, which means it can simply be checked in as a static file, or multiple static files for the various configs we support, and should require calling no code (or possibly minimal code to select the right registry).\n\u003e \n\u003e I feel it is same as you are asking, Please find the following doc\n\u003e \n\u003e https://github.com/openbmc/docs/blob/master/designs/remote-bios-configuration.md\n\nThat design doc seems to not account for this issue at all.\n\n\u003e \n\u003e \u003e Considering this registry will be different between Intel, AMD, ARM and IBM systems, giving them them all the same name, namespace, and version seems like a problem when it comes to Redfish, as it is incorrect as two systems would report the same version and name for the attribute registry, but different available attributes.\n\u003e \n\u003e If I understand this that is what is meant by the spec, each vendor can have different attributes and the values. The Attribute Registry is specific to an implementation or product. The attributes and\n\u003e property names are not standardized.\n\nCorrect, but to quote myself from earlier \"giving them them all the same name, namespace, and version seems like a problem\"\n\n\u003e \n\u003e \n\u003e \u003e as it is incorrect as two systems would report the same version and name for the attribute registry, but different available attributes.\n\u003e \n\u003e I am hoping you are talking about the following properties which are common for all the systems as per in this commit.\n\u003e 1) \"Id\": \"BiosAttributeRegistry\"\n\u003e 2) \"Name\": \"BIOS Attribute Registry\",\n\n\nName, namespace (ie OwningEntity), and version are the problems here.\n\n\u003e \n\u003e I think we can ask the same in the redfish forum thread, Is this is hard requirement from Redfish wrt to the Name and version for different systems? I have opened a thread for the same.\n\u003e \n\u003e https://redfishforum.com/thread/455/bios-attribute-registry\n\u003e \n\u003e If yes this info may come from the Dbus (This is for which platform , which vendor).\n\nI think you\u0027ve misunderstood: two systems should not publish different message registries with the same name, namespace, and version.",
+      "parentUuid": "78d9c6e1_7469ee57",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 42
+      },
+      "revId": "b5dbdb2b7b8622c59b5e6a91fc5a241e18a22cba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd151e9b_4d9e8e4f",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 55
