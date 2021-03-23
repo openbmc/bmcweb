@@ -66,6 +66,9 @@ int main(int /*argc*/, char** /*argv*/)
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
+    crow::connections::systemBus =
+        std::make_shared<sdbusplus::asio::connection>(*io);
+
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
 
@@ -112,9 +115,6 @@ int main(int /*argc*/, char** /*argv*/)
     crow::login_routes::requestRoutes(app);
 
     setupSocket(app);
-
-    crow::connections::systemBus =
-        std::make_shared<sdbusplus::asio::connection>(*io);
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
     crow::nbd_proxy::requestRoutes(app);
