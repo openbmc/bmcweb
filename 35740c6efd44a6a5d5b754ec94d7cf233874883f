@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41d1b3aa_e4a355b9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "I think we can remove this method.\nWe do not need to check FanID",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 72
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b740b45d_fa109490",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "We need to use `GetObject` property to get the service name,\nand then get the `endpoints` property",
+      "range": {
+        "startLine": 223,
+        "startChar": 15,
+        "endLine": 223,
+        "endChar": 79
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c8b34e_81473e5b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "GetSubTreePaths",
+      "range": {
+        "startLine": 293,
+        "startChar": 45,
+        "endLine": 293,
+        "endChar": 55
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a9efa9d_35cd564b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "nit: move to L: 352",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 60
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f5ec73_27bb1009",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "Move to the getValidChassisID method",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 13
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f43eebd2_52036568",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "Are you sure ec.value() \u003d\u003d io_error when you calling GetSubTree failed?",
+      "range": {
+        "startLine": 414,
+        "startChar": 28,
+        "endLine": 414,
+        "endChar": 71
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f97f9162_8a6541fc",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "Please use sdbusplus::message::object_path::filename\n\n```\nauto path \u003d sdbusplus::message::object_path(objPath);\nconst std::string\u0026 fanType \u003d path.filename();\nif (fanType.empty())\n{\n    return;\n}\n\npath \u003d sdbusplus::message::object_path(objPath.substr(0, objPath.rfind(\u0027/\u0027)));\nconst std::string\u0026 fanName \u003d path.filename();\nif (fanName.empty())\n{\n    return;\n}\n```",
+      "range": {
+        "startLine": 474,
+        "startChar": 36,
+        "endLine": 494,
+        "endChar": 74
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a52467_82760524",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "I think you should to get `endpoints`\n\n```\n \"xyz.openbmc_project.ObjectMapper\",\n tempPath + \"/sensors\",\n \"org.freedesktop.DBus.Properties\", \"Get\",\n \"endpoints\"\n```",
+      "range": {
+        "startLine": 514,
+        "startChar": 28,
+        "endLine": 517,
+        "endChar": 41
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "911e7c3b_6065000e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "1. s/chassisPath/chassisId\n\n2. Could we check it in the getValidChassisID method? and Remove it?",
+      "range": {
+        "startLine": 567,
+        "startChar": 17,
+        "endLine": 567,
+        "endChar": 28
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863d0731_961c823b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 17
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6819dfe_71eca32d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T07:29:15Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 594,
+        "endChar": 67
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
