@@ -52,6 +52,24 @@
       "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "653d92fe_bf3e44e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-03-23T16:41:07Z",
+      "side": 1,
+      "message": "I thought commit messages will be on github and the design doc is internal.\n\nI update the commit message to include the go-link.",
+      "parentUuid": "f0318915_2ada8177",
+      "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
