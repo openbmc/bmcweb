@@ -434,6 +434,24 @@
     },
     {
       "key": {
+        "uuid": "90a8edc6_d6b3d67a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-23T12:59:47Z",
+      "side": 1,
+      "message": "\u003e if by \"we\" above, you\u0027re talking about phosphor-user-manager, then yes, that would be fine.  I wouldn\u0027t expect any difference between a local user and an LDAP user in terms of bmcweb.  Phosphor-user-manager should provide the appropriate interfaces to make them look the same.\n\nFor the same reason phosphor-user-manager provides the following interface. \n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/User/Manager.interface.yaml#L60\n\nHope I have not misunderstood you.",
+      "parentUuid": "a998e8a4_a74bd178",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41589718_18e13016",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
