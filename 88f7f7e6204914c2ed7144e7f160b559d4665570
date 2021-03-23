@@ -16,6 +16,24 @@
       "revId": "88f7f7e6204914c2ed7144e7f160b559d4665570",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dda9128_974ae76a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-23T20:46:44Z",
+      "side": 1,
+      "message": "Yeah, token_list is the same, it just prints the first \u0027*\u0027. Seems all iterators use the same parsing and don\u0027t handle the \u0027/\u0027.",
+      "parentUuid": "d3c0e8a9_0a95c06e",
+      "revId": "88f7f7e6204914c2ed7144e7f160b559d4665570",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "c0ae61c6_c51dd8f4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-23T20:46:44Z",
+      "side": 1,
+      "message": "Yeah, weird that they don\u0027t handle the \u0027/\u0027, seems their parsing is common. Didn\u0027t see anything in the issues page either, just a couple complains about param_list requiring the list to start with a semicolon since most fields don\u0027t start with that (https://github.com/boostorg/beast/issues/2096).",
+      "parentUuid": "22a04d6c_15c9e854",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
