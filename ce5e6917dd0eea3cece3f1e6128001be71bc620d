@@ -640,6 +640,30 @@
       "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaec5e63_851b6907",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-23T01:42:57Z",
+      "side": 1,
+      "message": "Requirement: How to do patching of multiple BIOS attributes from the bmcweb?\n\nDbus interface: https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml\n\nBIOS config doc: https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/29320/18/designs/remoteBIOSConfiguration.md\n\nTo support the above requirement we have two choices with the current Dbus interfaces\n\n1) Either do multiple Dbus calls by using this API.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L8\n\ncons: Multiple Dbus calls for each BIOS attribute.\n \n\n2) Do a single Dbus call by updating the following property \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L105\n\nCons:  2 D-bus calls (1 for getting the BaseBiosTable property and 1 for updating the pending attributes)\n\n\nAs per your comments above you don\u0027t like either option 1) or option 2).\n\nWhat is your view?",
+      "parentUuid": "23d2a24e_7e70ccb3",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 17
+      },
+      "revId": "ce5e6917dd0eea3cece3f1e6128001be71bc620d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
