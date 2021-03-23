@@ -70,6 +70,24 @@
       "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "716cc74a_b837ed15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-23T16:47:55Z",
+      "side": 1,
+      "message": "Some confusion, probably on my end. \nI think this should have a public design doc. \nSounds like go/haven-on-redfish-options is private? If it is public could you add the link?\n\nCould you create a OpenBMC design doc? Or document some other way?\nhttps://github.com/openbmc/docs/blob/master/designs/design-template.md",
+      "parentUuid": "653d92fe_bf3e44e4",
+      "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
