@@ -45,6 +45,30 @@
       "revId": "bafb2707ea57b7fa42b1787deb68efb6db90ee9d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de32eaae_16b172e6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-23T07:04:16Z",
+      "side": 1,
+      "message": "The task runs until we return task::completed (until the timer expires). So I have returned it this way (redfish-core/lib/task.hpp +276)\n\n\nSo i have just logged the error and returned !task::completed (as it is in the other instances in bmcweb)",
+      "parentUuid": "cd0a3ac6_ee19503d",
+      "range": {
+        "startLine": 742,
+        "startChar": 17,
+        "endLine": 742,
+        "endChar": 48
+      },
+      "revId": "bafb2707ea57b7fa42b1787deb68efb6db90ee9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

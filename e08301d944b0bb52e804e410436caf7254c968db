@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "9b9890c1_ec32571d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-23T07:04:16Z",
+      "side": 1,
+      "message": "The task runs until we return task::completed (until the timer expires). So I have returned it this way (redfish-core/lib/task.hpp +276)\n\n\nSo i have just logged the error and returned !task::completed (as it is in the other instances in bmcweb)",
+      "parentUuid": "726c8d45_b931fd08",
+      "range": {
+        "startLine": 735,
+        "startChar": 23,
+        "endLine": 735,
+        "endChar": 40
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d354f00_fce02524",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "But then don\u0027t we need to escape on both sides?",
       "parentUuid": "db009548_39701a4b",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c38e274_91f503f9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-03-23T07:04:16Z",
+      "side": 1,
+      "message": "\u003e on both sides\nsorry, didnt get you here.",
+      "parentUuid": "0a98f248_d77b98b1",
       "range": {
         "startLine": 754,
         "startChar": 51,
