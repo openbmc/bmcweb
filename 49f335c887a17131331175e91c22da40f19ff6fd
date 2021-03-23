@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f3b7a6f_cb8d88b0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-03-23T01:37:26Z",
+      "side": 1,
+      "message": "I agree - changed to handleAppliedConfigResponse. Please reopen again if that\u0027s not clear.",
+      "parentUuid": "1e89683d_f2131c64",
+      "range": {
+        "startLine": 990,
+        "startChar": 12,
+        "endLine": 990,
+        "endChar": 35
+      },
+      "revId": "49f335c887a17131331175e91c22da40f19ff6fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3fe84f2_acd07fe5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2021-03-22T03:04:50Z",
       "side": 1,
       "message": "Do you wanna handle the return message?",
+      "range": {
+        "startLine": 1254,
+        "startChar": 12,
+        "endLine": 1254,
+        "endChar": 18
+      },
+      "revId": "49f335c887a17131331175e91c22da40f19ff6fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67cfe1b1_0de9d0e7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-03-23T01:37:26Z",
+      "side": 1,
+      "message": "readJson automatically adds the error message to \"res\" if the json parsing fails, so we don\u0027t need to do anything extra.",
+      "parentUuid": "b3fe84f2_acd07fe5",
       "range": {
         "startLine": 1254,
         "startChar": 12,
@@ -68,6 +116,30 @@
       "revId": "49f335c887a17131331175e91c22da40f19ff6fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6832bb82_aab20bec",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-03-23T01:37:26Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "430df30e_18c42ab3",
+      "range": {
+        "startLine": 1272,
+        "startChar": 24,
+        "endLine": 1272,
+        "endChar": 30
+      },
+      "revId": "49f335c887a17131331175e91c22da40f19ff6fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
