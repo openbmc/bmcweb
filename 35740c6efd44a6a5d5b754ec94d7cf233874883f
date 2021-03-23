@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aa7a2228_4b4d395f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Since this parameter is at the end, is there no need for 404 verification?",
+      "parentUuid": "41d1b3aa_e4a355b9",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 72
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b740b45d_fa109490",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2021-03-23T07:29:15Z",
       "side": 1,
       "message": "We need to use `GetObject` property to get the service name,\nand then get the `endpoints` property",
+      "range": {
+        "startLine": 223,
+        "startChar": 15,
+        "endLine": 223,
+        "endChar": 79
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd20a0f4_18b0415c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "For the property of \"GetObject\",when want to call this method,\nneed to get the name of the path, in this case,\nneed to call async_method_call twice,\nwhy not call it once to get these two data at the same time？\n\nand I have completed the \"endpoints\" property changes.",
+      "parentUuid": "b740b45d_fa109490",
       "range": {
         "startLine": 223,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6ffdda45_681610c5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Same reason as above.",
+      "parentUuid": "14c8b34e_81473e5b",
+      "range": {
+        "startLine": 293,
+        "startChar": 45,
+        "endLine": 293,
+        "endChar": 55
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a9efa9d_35cd564b",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "10630e64_dcf1ce0b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a9efa9d_35cd564b",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 60
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5f5ec73_27bb1009",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2021-03-23T07:29:15Z",
       "side": 1,
       "message": "Move to the getValidChassisID method",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 13
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e44101_f946cf68",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Is it modified in the getValidFanID method?",
+      "parentUuid": "a5f5ec73_27bb1009",
       "range": {
         "startLine": 389,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "c86a275f_cf5a5a7b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "I will re-test before deciding to modify.",
+      "parentUuid": "f43eebd2_52036568",
+      "range": {
+        "startLine": 414,
+        "startChar": 28,
+        "endLine": 414,
+        "endChar": 71
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f97f9162_8a6541fc",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 7
@@ -160,6 +304,30 @@
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b009ec67_5ca6fbf8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f97f9162_8a6541fc",
+      "range": {
+        "startLine": 474,
+        "startChar": 36,
+        "endLine": 494,
+        "endChar": 74
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "b24eed94_ad202a56",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a52467_82760524",
+      "range": {
+        "startLine": 514,
+        "startChar": 28,
+        "endLine": 517,
+        "endChar": 41
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "911e7c3b_6065000e",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 7
@@ -197,6 +389,30 @@
       "writtenOn": "2021-03-23T07:29:15Z",
       "side": 1,
       "message": "1. s/chassisPath/chassisId\n\n2. Could we check it in the getValidChassisID method? and Remove it?",
+      "range": {
+        "startLine": 567,
+        "startChar": 17,
+        "endLine": 567,
+        "endChar": 28
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa5fae4_57649bca",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "Is it modified in the getValidFanID method?",
+      "parentUuid": "911e7c3b_6065000e",
       "range": {
         "startLine": 567,
         "startChar": 17,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "1cf85b66_90b13900",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "I don’t understand the reason for removal",
+      "parentUuid": "863d0731_961c823b",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 17
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6819dfe_71eca32d",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 7
@@ -243,6 +483,30 @@
       "writtenOn": "2021-03-23T07:29:15Z",
       "side": 1,
       "message": "Remove",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 594,
+        "endChar": 67
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b22be6be_3cc7eff9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-03-23T09:55:34Z",
+      "side": 1,
+      "message": "I don’t understand the reason for removal",
+      "parentUuid": "f6819dfe_71eca32d",
       "range": {
         "startLine": 594,
         "startChar": 12,
