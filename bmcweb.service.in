@@ -9,6 +9,8 @@ ExecReload=kill -s HUP $MAINPID
 ExecStart=@MESON_INSTALL_PREFIX@/bin/bmcweb
 Type=simple
 WorkingDirectory=/home/root
+Group=certificate-manager
+UMask=0007
 
 [Install]
 WantedBy=network.target
