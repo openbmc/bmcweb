@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec867cb6_43a3b703",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T02:37:51Z",
+      "side": 1,
+      "message": "\u003e magic numbers.\n\nAck.\n\n\u003e I suspect this function isn\u0027t needed.\n\nIt needs to check whether `str` is a number.\nsee: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41125/10/redfish-core/lib/log_services.hpp#3421",
+      "parentUuid": "03d95c2a_87c17f85",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb914466_b3247b25",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2bb0b775_9bc225ae",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3388,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T02:37:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb914466_b3247b25",
+      "range": {
+        "startLine": 3387,
+        "startChar": 0,
+        "endLine": 3388,
+        "endChar": 47
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adf06de_2071975d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2021-03-22T17:23:23Z",
       "side": 1,
       "message": "This forces post codes to take a specific form in the dbus paths.  I suspect this wont be compatible with non-ibm systems.  I would expect to not need this when looking up dbus.",
+      "range": {
+        "startLine": 3406,
+        "startChar": 8,
+        "endLine": 3406,
+        "endChar": 74
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18575aac_7be60912",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3406,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T02:37:51Z",
+      "side": 1,
+      "message": "Sorry, This is not IBM specific.\nThe post codes are stored in the form B\u003cBootNumber\u003e-\u003cPostCodeNumber\u003e.\nWe did not create `B1-1`, its already there since long time, and even x86 systems are using it.",
+      "parentUuid": "9adf06de_2071975d",
       "range": {
         "startLine": 3406,
         "startChar": 8,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "46b38767_a31526f5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3416,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T02:37:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5a063ce_f5fefaa1",
+      "range": {
+        "startLine": 3416,
+        "startChar": 0,
+        "endLine": 3416,
+        "endChar": 52
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03137f5b_02af39f5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 10
@@ -105,6 +201,30 @@
       "writtenOn": "2021-03-22T17:23:23Z",
       "side": 1,
       "message": "This isn\u0027t text/plain content.",
+      "range": {
+        "startLine": 3465,
+        "startChar": 58,
+        "endLine": 3465,
+        "endChar": 69
+      },
+      "revId": "aebcc38785d5263b6d8a40ed5c363cb7ef32a47b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485fb7ba_34aba20e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3465,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-23T02:37:51Z",
+      "side": 1,
+      "message": "Because the end result of `base64Encoding` is a plain string, and it is encoded\n`asyncResp-\u003eres.addHeader(\"Content-Transfer-Encoding\", \"Base64\")`",
+      "parentUuid": "03137f5b_02af39f5",
       "range": {
         "startLine": 3465,
         "startChar": 58,
