@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5046478_7804b4cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-24T09:55:05Z",
+      "side": 1,
+      "message": "Even for io-\u003epost() also we need to have io context right? Initially it is done when in EventService route but later its moved to webserver main. Since its requires io context, Moved it after systemBus init.",
+      "parentUuid": "4900df34_8719041b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a44554f_c319ee8f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-03-23T18:58:26Z",
       "side": 1,
       "message": "More details here:\n\nAlso, why was this missed last time when the other patchset was tested?  What is being done differently so the test can reproduce the failure.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3cd38ae_a5e3a06f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-24T09:55:05Z",
+      "side": 1,
+      "message": "This issue doesn\u0027t occur in normal scenario. It only occurs when there is event service config file along with already configured subscriptions. So it might have missed in that windows.\n\nI missed to catch this during review when original patchset was sent. :(",
+      "parentUuid": "8a44554f_c319ee8f",
       "range": {
         "startLine": 17,
         "startChar": 0,
