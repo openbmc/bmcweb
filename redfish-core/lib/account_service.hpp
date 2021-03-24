@@ -1435,9 +1435,27 @@ class AccountsCollection : public Node
         std::string password;
         std::optional<std::string> roleId("User");
         std::optional<bool> enabled = true;
-        if (!json_util::readJson(req, res, "UserName", username, "Password",
-                                 password, "RoleId", roleId, "Enabled",
-                                 enabled))
+        nlohmann::json jsonRequest;
+        if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+        {
+            BMCWEB_LOG_DEBUG << "Json value not readable";
+            return;
+        }
+        nlohmann::json* requestPtr = &jsonRequest;
+        auto membersIt = jsonRequest.find("Members");
+        if (membersIt != jsonRequest.end())
+        {
+            if (membersIt->size() != 1)
+            {
+                messages::createLimitReachedForResource(asyncResp->res);
+                return;
+            }
+            requestPtr = &membersIt[0];
+        }
+
+        if (!json_util::readJson(*requestPtr, res, "UserName", username,
+                                 "Password", password, "RoleId", roleId,
+                                 "Enabled", enabled))
         {
             return;
         }
