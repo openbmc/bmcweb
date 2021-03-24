@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "8f1030f4_4e5298ad",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-24T16:47:48Z",
+      "side": 1,
+      "message": "But in this context, the / isn\u0027t a token char, it\u0027s text.  I would expect it to pass the is_text check above the one you linked.....",
+      "parentUuid": "5acbb2db_e3881760",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
