@@ -20,6 +20,7 @@
 #include "registries/openbmc_message_registry.hpp"
 
 #include <sys/inotify.h>
+#include <systemd/sd-journal.h>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
@@ -772,7 +773,7 @@ class EventServiceManager
         return;
     }
 
-    void updateSubscriptionData()
+    void persistSubscriptionData()
     {
         // Persist the config and subscription data.
         nlohmann::json jsonData;
@@ -869,7 +870,7 @@ class EventServiceManager
 
         if (updateConfig)
         {
-            updateSubscriptionData();
+            persistSubscriptionData();
         }
 
         if (updateRetryCfg)
@@ -964,7 +965,7 @@ class EventServiceManager
 
         if (updateFile)
         {
-            updateSubscriptionData();
+            persistSubscriptionData();
         }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -977,6 +978,11 @@ class EventServiceManager
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
         subValue->updateRetryPolicy();
 
+        /* Log event for subscription addition */
+        sd_journal_send("MESSAGE=Event subscription added(Id: %s)", id.c_str(),
+                        "PRIORITY=%i", LOG_INFO, "REDFISH_MESSAGE_ID=%s",
+                        "OpenBMC.0.1.EventSubscriptionAdded",
+                        "REDFISH_MESSAGE_ARGS=%s", id.c_str(), NULL);
         return id;
     }
 
@@ -997,8 +1003,26 @@ class EventServiceManager
         {
             subscriptionsMap.erase(obj);
             updateNoOfSubscribersCount();
-            updateSubscriptionData();
+            persistSubscriptionData();
+            /* Log event for subscription delete. */
+            sd_journal_send("MESSAGE=Event subscription removed.(Id = %s)",
+                            id.c_str(), "PRIORITY=%i", LOG_INFO,
+                            "REDFISH_MESSAGE_ID=%s",
+                            "OpenBMC.0.1.EventSubscriptionRemoved",
+                            "REDFISH_MESSAGE_ARGS=%s", id.c_str(), NULL);
         }
+    }
+
+    void updateSubscription(const std::string& id)
+    {
+        persistSubscriptionData();
+
+        /* Log event for subscription delete. */
+        sd_journal_send("MESSAGE=Event subscription updated.(Id = %s)",
+                        id.c_str(), "PRIORITY=%i", LOG_INFO,
+                        "REDFISH_MESSAGE_ID=%s",
+                        "OpenBMC.0.1.EventSubscriptionUpdated",
+                        "REDFISH_MESSAGE_ARGS=%s", id.c_str(), NULL);
     }
 
     size_t getNumberOfSubscriptions()
