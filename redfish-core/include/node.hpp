@@ -50,6 +50,26 @@ class AsyncResp
  */
 class Node
 {
+  private:
+    bool redfishPreChecks(const crow::Request& req, crow::Response& res)
+    {
+        std::string_view odataHeader = req.getHeaderValue("OData-Version");
+        if (odataHeader.empty())
+        {
+            // Clients aren't required to provide odata version
+            return true;
+        }
+        if (odataHeader != "4.0")
+        {
+            res.result(boost::beast::http::status::precondition_failed);
+            res.end();
+            return false;
+        }
+
+        res.addHeader("OData-Version", "4.0");
+        return true;
+    }
+
   public:
     template <typename... Params>
     Node(App& app, std::string&& entityUrl, [[maybe_unused]] Params... paramsIn)
@@ -59,6 +79,10 @@ class Node
         get.methods(boost::beast::http::verb::get)(
             [this](const crow::Request& req, crow::Response& res,
                    Params... params) {
+                if (!redfishPreChecks(req, res))
+                {
+                    return;
+                }
                 std::vector<std::string> paramVec = {params...};
                 doGet(res, req, paramVec);
             });
@@ -68,6 +92,10 @@ class Node
         patch.methods(boost::beast::http::verb::patch)(
             [this](const crow::Request& req, crow::Response& res,
                    Params... params) {
+                if (!redfishPreChecks(req, res))
+                {
+                    return;
+                }
                 std::vector<std::string> paramVec = {params...};
                 doPatch(res, req, paramVec);
             });
@@ -77,6 +105,10 @@ class Node
         post.methods(boost::beast::http::verb::post)(
             [this](const crow::Request& req, crow::Response& res,
                    Params... params) {
+                if (!redfishPreChecks(req, res))
+                {
+                    return;
+                }
                 std::vector<std::string> paramVec = {params...};
                 doPost(res, req, paramVec);
             });
@@ -86,6 +118,10 @@ class Node
         put.methods(boost::beast::http::verb::put)(
             [this](const crow::Request& req, crow::Response& res,
                    Params... params) {
+                if (!redfishPreChecks(req, res))
+                {
+                    return;
+                }
                 std::vector<std::string> paramVec = {params...};
                 doPut(res, req, paramVec);
             });
@@ -95,6 +131,10 @@ class Node
         deleteR.methods(boost::beast::http::verb::delete_)(
             [this](const crow::Request& req, crow::Response& res,
                    Params... params) {
+                if (!redfishPreChecks(req, res))
+                {
+                    return;
+                }
                 std::vector<std::string> paramVec = {params...};
                 doDelete(res, req, paramVec);
             });

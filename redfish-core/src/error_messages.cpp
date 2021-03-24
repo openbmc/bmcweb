@@ -972,7 +972,7 @@ nlohmann::json preconditionFailed(void)
 
 void preconditionFailed(crow::Response& res)
 {
-    res.result(boost::beast::http::status::bad_request);
+    res.result(boost::beast::http::status::precondition_failed);
     addMessageToErrorJson(res.jsonValue, preconditionFailed());
 }
 
