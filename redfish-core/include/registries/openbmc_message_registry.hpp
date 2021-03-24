@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 190> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -414,6 +414,45 @@ constexpr std::array<MessageEntry, 187> registry = {
                      "OK",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"EventSubscriptionAdded",
+                 {
+                     "Indicates that an Event subscription with specific "
+                     "id was added.",
+                     "Event subscription with id %1 was added.",
+                     "OK",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"EventSubscriptionRemoved",
+                 {
+                     "Indicates that an Event subscription with specific "
+                     "id was removed.",
+                     "Event subscription with id %1 was removed.",
+                     "OK",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"EventSubscriptionUpdated",
+                 {
+                     "Indicates that an Event subscription with specific "
+                     " id was updated.",
+                     "Event subscription with id %1 was updated.",
+                     "OK",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
                      "None.",
                  }},
     MessageEntry{"FanInserted",
