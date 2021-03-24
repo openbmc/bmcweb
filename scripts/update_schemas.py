@@ -37,6 +37,11 @@ include_list = [
     'EventDestination',
     'EventDestinationCollection',
     'EventService',
+<<<<<<< Updated upstream
+    'FanCollection',
+=======
+>>>>>>> Stashed changes
+    'Fan',
     'IPAddresses',
     'JsonSchemaFile',
     'JsonSchemaFileCollection', #redfish/v1/JsonSchemas
