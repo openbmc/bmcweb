@@ -42,6 +42,29 @@
     },
     {
       "key": {
+        "uuid": "13958d38_3646c8b8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-24T18:05:44Z",
+      "side": 1,
+      "message": "Is it ok to default to \"Enabled\" ?",
+      "range": {
+        "startLine": 476,
+        "startChar": 54,
+        "endLine": 476,
+        "endChar": 63
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1031fd2_d25ed8ca",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
@@ -53,6 +76,30 @@
       "writtenOn": "2021-03-19T20:02:46Z",
       "side": 1,
       "message": "This is already the default, no need to set it again,\n\nI suspect line 548 needs to move into line 546, and become \n\naResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\"",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 50
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fa0c763_16feba96",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-03-24T18:05:44Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a1031fd2_d25ed8ca",
       "range": {
         "startLine": 543,
         "startChar": 0,
