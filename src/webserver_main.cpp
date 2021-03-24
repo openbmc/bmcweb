@@ -78,7 +78,7 @@ int main(int /*argc*/, char** /*argv*/)
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH
-    crow::redfish::requestRoutes(app);
+    redfish::requestRoutes(app);
     redfish::RedfishService redfish(app);
 
     // Create EventServiceManager instance and initialize Config
