@@ -335,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "b8822122_bf1d4675",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-03-24T14:04:20Z",
+      "side": 1,
+      "message": "\u003e Key word here is added, not replaced.  Clients coded against the standard allow for new parameters to be added to schemas.  That\u0027s how this has been handled in the past.  Your code completely replaces things.\n\nNo Ed, i think you misunderstood or did not catch up with my latest patch-set probably,My initial patch replaced the Message registry, but later i changed it to add new registry as per the redfish experts suggestion mentioned in the below link.\n\nhttps://redfishforum.com/thread/447/bumping-message-registry-backward-compatability\n\nIn the above link, i also asked on how existing clients are NOT broken by doing the said implementation.\n\nWith that said, the real concern that you rightly mentioned is displaying some junk ascii codes on Intel machines which might be misleading. Agree that this needs to be thought through \u0026 probably needs a bigger discussion and I would try to come up with a design document or change the existing document.",
+      "parentUuid": "5d7fc61c_c8794f12",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83ef1a4_49cb96af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
