@@ -2,8 +2,6 @@
 
 #include <app.hpp>
 
-namespace crow
-{
 namespace redfish
 {
 inline void requestRoutes(App& app)
@@ -16,4 +14,4 @@ inline void requestRoutes(App& app)
             });
 }
 } // namespace redfish
-} // namespace crow
+
