@@ -308,6 +308,30 @@
       "revId": "fa42215575e069bf05a0c26262649760f00c1577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c438fe6d_af318def",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-24T06:09:56Z",
+      "side": 1,
+      "message": "\u003eWhy are the unit tests interacting with the filesystem at all?  I would expect some mocks for the filesystem instead of trying to rely on temp directories.\n\nIt depends on case to case basis.\n\nIf we have some code which reads from the file and populate the in memory objects from it, then it is needed otherwise not.\n\nEg: Restoring of Dbus objects from the file system.\n\nHowever in this case I don\u0027t see that we are doing something else apart from creating the directory using std::filesyetem API..\n\nOur intent should not be to test the file system API, hence this test case doesn\u0027t make sense.",
+      "parentUuid": "3dc9f897_dbbb4246",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
