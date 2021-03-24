@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6e11a80_3edfc6dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "Add space",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b27201_9524c06b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3045,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "sensorJson",
+      "range": {
+        "startLine": 3045,
+        "startChar": 10,
+        "endLine": 3045,
+        "endChar": 21
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec55f55_e2f1becc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3047,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 3046,
+        "startChar": 1,
+        "endLine": 3047,
+        "endChar": 56
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3058182_81b547dc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3085,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 3085,
+        "startChar": 8,
+        "endLine": 3085,
+        "endChar": 49
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b51c017e_0c6db096",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "Where is it used?\nYou didn\u0027t assign a value again after you defined it on L: 3081?",
+      "range": {
+        "startLine": 3139,
+        "startChar": 20,
+        "endLine": 3139,
+        "endChar": 30
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7f9fff_150f25a3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3166,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "s/SensorsAsyncResp/sensorsAsyncResp",
+      "range": {
+        "startLine": 3166,
+        "startChar": 10,
+        "endLine": 3166,
+        "endChar": 26
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4cda5f6_f3656a1a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3228,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "ec",
+      "range": {
+        "startLine": 3228,
+        "startChar": 49,
+        "endLine": 3228,
+        "endChar": 50
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17483c39_43aafa5f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3238,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "```\nif (ec)\n{\n  if (e.value() \u003d\u003d EBADR)\n  {\n    messages::resourceNotFound(sensorsAsyncResp-\u003eres, \n                              \"ThermalMetrics\", sensorsAsyncResp-\u003echassisId);\n    return;\n   }\n\n  messages::internalError(sensorsAsyncResp-\u003eres);\n  return;\n}\n```\n\nAlso, need to check that ec is equal to EBADR？",
+      "range": {
+        "startLine": 3231,
+        "startChar": 16,
+        "endLine": 3238,
+        "endChar": 17
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04bcfacc_16a57f98",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3251,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "Do we really need to check `power`?",
+      "range": {
+        "startLine": 3248,
+        "startChar": 26,
+        "endLine": 3251,
+        "endChar": 39
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d9d4e9c_7011df18",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3297,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "s/SensorsAsyncResp/sensorsAsyncResp",
+      "range": {
+        "startLine": 3297,
+        "startChar": 10,
+        "endLine": 3297,
+        "endChar": 26
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa55223_c7e0126d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3372,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "```\nif (sensorType ！\u003d \"temperature\")\n{\n  BMCWEB_LOG_ERROR \u003c\u003c \"Unsure how to handle sensorType \" \u003c\u003c sensorType;\n  continue;\n}\n\nnlohmann::json\u0026 tempArray \u003d sensorsAsyncResp-\u003eres.jsonValue[\"TemperatureReadingsCelsius\"];\n```\n\nWhat do you think?",
+      "range": {
+        "startLine": 3361,
+        "startChar": 16,
+        "endLine": 3372,
+        "endChar": 0
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36866dfc_ea54e5f1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3378,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "nit: if (sensorJson)",
+      "range": {
+        "startLine": 3378,
+        "startChar": 16,
+        "endLine": 3378,
+        "endChar": 42
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "025479d4_4808dbd4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3459,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-03-24T08:03:18Z",
+      "side": 1,
+      "message": "s/SensorsAsyncResp/sensorsAsyncResp",
+      "range": {
+        "startLine": 3459,
+        "startChar": 10,
+        "endLine": 3459,
+        "endChar": 26
+      },
+      "revId": "5d05dac1d7cc222e1f6e994b2d67609b1d8b6b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
