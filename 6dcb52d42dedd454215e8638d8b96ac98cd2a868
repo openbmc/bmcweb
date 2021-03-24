@@ -142,6 +142,30 @@
       "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd35f492_c724877c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T14:03:35Z",
+      "side": 1,
+      "message": "There is also one more option, there can be two functions in different namespace:\n\nnamespace throwing {\n\n}\n\nnamespace nonthrowing {\n\n}\n\none of them can be inline, also version with exception is more useful in unit tests",
+      "parentUuid": "632f0b9c_6a0b310e",
+      "range": {
+        "startLine": 1373,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 17
+      },
+      "revId": "6dcb52d42dedd454215e8638d8b96ac98cd2a868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
