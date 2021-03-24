@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "5acbb2db_e3881760",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-24T16:36:46Z",
+      "side": 1,
+      "message": "Seems the \u0027/\u0027 would need to be added to the \u0027is_token_char\u0027 here: https://github.com/boostorg/beast/blob/50512cb5cd55e4e7dd51c13e5ff37a605a379e54/include/boost/beast/http/detail/rfc7230.ipp#L80\n\nOtherwise, the parsers stop when they encounter a \u0027/\u0027 because it\u0027s not a char, nor a delimiter like a comma or semicolon.",
+      "parentUuid": "c0ae61c6_c51dd8f4",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
