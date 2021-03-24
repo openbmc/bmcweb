@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "173b4c25_c9e33e76",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "984ae535_11ed44cd",
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdf5639c_dd057f66",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 56
@@ -163,6 +181,24 @@
       "revId": "9d09cc88875ecc787759acafff9101af802f9474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b65cf9f8_fb1692b4",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff2f3030_8dab01e0",
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -213,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "24892bb5_5c5f382b",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f2d21a6_1edaf130",
+      "range": {
+        "startLine": 143,
+        "startChar": 16,
+        "endLine": 143,
+        "endChar": 40
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b01e92e7_f20dda56",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 56
@@ -248,6 +308,30 @@
       "side": 1,
       "message": "Yes, you are right with it. I will remove it in next patchset",
       "parentUuid": "b01e92e7_f20dda56",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 56
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c780b73_da5e9415",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T13:32:44Z",
+      "side": 1,
+      "message": "I was not able to remove whole class. It is required to execute:\n        if (redfishSensors.empty())\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"MetricDefinition\", id);\n            return;\n        }\nAfter all sensors are collected, if there is no sensors it means page doesn\u0027t exist and it needs to be reported by error 404.",
+      "parentUuid": "e22d0889_89a3278a",
       "range": {
         "startLine": 145,
         "startChar": 16,
@@ -354,6 +438,30 @@
     },
     {
       "key": {
+        "uuid": "8908aea2_0e54ec0b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b83356d4_4d9dcdbc",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 14
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa2fc8dd_9b579d38",
         "filename": "redfish-core/lib/thermal.hpp",
         "patchSetId": 56
@@ -398,6 +506,30 @@
       "revId": "9d09cc88875ecc787759acafff9101af802f9474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eb3f4ab_1ad2b01a",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-24T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ad9cd86_47c4b963",
+      "range": {
+        "startLine": 51,
+        "startChar": 30,
+        "endLine": 51,
+        "endChar": 53
+      },
+      "revId": "9d09cc88875ecc787759acafff9101af802f9474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
