@@ -48,8 +48,9 @@ inline bool getAssignedPrivFromRole(std::string_view role,
 {
     if (role == "Administrator")
     {
-        privArray = {"Login", "ConfigureManager", "ConfigureUsers",
-                     "ConfigureSelf", "ConfigureComponents"};
+        privArray = {
+            "Login",         "ConfigureManager",    "ConfigureUsers",
+	    "ConfigureSelf", "ConfigureComponents", "OemOpenBMCPerformService"};
     }
     else if (role == "Operator")
     {
