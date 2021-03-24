@@ -576,7 +576,7 @@ class EventDestination : public Node
             subValue->updateRetryPolicy();
         }
 
-        EventServiceManager::getInstance().updateSubscriptionData();
+        EventServiceManager::getInstance().updateSubscription(params[0]);
     }
 
     void doDelete(crow::Response& res, const crow::Request&,
