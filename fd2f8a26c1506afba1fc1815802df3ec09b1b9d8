@@ -22,6 +22,30 @@
       "revId": "fd2f8a26c1506afba1fc1815802df3ec09b1b9d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99cac9ba_eada76b0",
+        "filename": "include/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-24T16:59:29Z",
+      "side": 1,
+      "message": "Fair point.\n\nFixed.",
+      "parentUuid": "886a563e_7ab91168",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "fd2f8a26c1506afba1fc1815802df3ec09b1b9d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
