@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "886a563e_7ab91168",
+        "filename": "include/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-24T15:52:36Z",
+      "side": 1,
+      "message": "Your call, I know we discussed this and I know long term we said we are trying to get rid of asyncResp,but I have left comments before that we prefer not using auto here. \nE.g. \n        std::shared_ptr\u003cAsyncResp\u003e asyncResp \u003d std::make_shared\u003cAsyncResp\u003e(res);",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "fd2f8a26c1506afba1fc1815802df3ec09b1b9d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
