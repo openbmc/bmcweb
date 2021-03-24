@@ -332,6 +332,30 @@
       "revId": "fa42215575e069bf05a0c26262649760f00c1577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eb59918_38d0bc33",
+        "filename": "redfish-core/ut/lock_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-03-24T09:15:31Z",
+      "side": 1,
+      "message": "Done.\nI have removed the test cases",
+      "parentUuid": "c438fe6d_af318def",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "fa42215575e069bf05a0c26262649760f00c1577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
