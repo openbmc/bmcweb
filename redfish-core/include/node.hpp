@@ -18,31 +18,15 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "privileges.hpp"
+#include "redfish_v1.hpp"
 
 #include <error_messages.hpp>
+#include <rf_async_resp.hpp>
 
 #include <vector>
 
 namespace redfish
 {
-
-/**
- * AsyncResp
- * Gathers data needed for response processing after async calls are done
- */
-class AsyncResp
-{
-  public:
-    AsyncResp(crow::Response& response) : res(response)
-    {}
-
-    ~AsyncResp()
-    {
-        res.end();
-    }
-
-    crow::Response& res;
-};
 
 /**
  * @brief  Abstract class used for implementing Redfish nodes.
