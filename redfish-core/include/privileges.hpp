@@ -34,19 +34,19 @@ enum class PrivilegeType
 };
 
 /** @brief A fixed array of compile time privileges  */
-constexpr std::array<const char*, 5> basePrivileges{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+constexpr std::array<const char*, 6> basePrivileges{
+    "Login",         "ConfigureManager", "ConfigureComponents",
+    "ConfigureSelf", "ConfigureUsers",   "OemOpenBMCPerformService"};
 
-constexpr const size_t basePrivilegeCount = basePrivileges.size();
+constexpr const size_t basePrivilegeCount = 5;
 
 /** @brief Max number of privileges per type  */
 constexpr const size_t maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
 static const std::array<std::string, maxPrivilegeCount> privilegeNames{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+    "Login",         "ConfigureManager", "ConfigureComponents",
+    "ConfigureSelf", "ConfigureUsers",   "OemOpenBMCPerformService"};
 
 /**
  * @brief Redfish privileges
@@ -155,7 +155,7 @@ class Privileges
         size_t endIndex = basePrivilegeCount;
         if (type == PrivilegeType::OEM)
         {
-            searchIndex = basePrivilegeCount - 1;
+            searchIndex = basePrivilegeCount;
             endIndex = privilegeNames.size();
         }
 
@@ -208,8 +208,12 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
     // Redfish privilege : Administrator
     if (userRole == "priv-admin")
     {
-        static Privileges admin{"Login", "ConfigureManager", "ConfigureSelf",
-                                "ConfigureUsers", "ConfigureComponents"};
+        static Privileges admin{"Login",
+                                "ConfigureManager",
+                                "ConfigureSelf",
+                                "ConfigureUsers",
+                                "ConfigureComponents",
+                                "OemOpenBMCPerformService"};
         return admin;
     }
     if (userRole == "priv-operator")

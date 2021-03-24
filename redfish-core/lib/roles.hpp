@@ -48,8 +48,9 @@ inline bool getAssignedPrivFromRole(std::string_view role,
 {
     if (role == "Administrator")
     {
-        privArray = {"Login", "ConfigureManager", "ConfigureUsers",
-                     "ConfigureSelf", "ConfigureComponents"};
+        privArray = {
+            "Login",         "ConfigureManager",    "ConfigureUsers",
+            "ConfigureSelf", "ConfigureComponents"};
     }
     else if (role == "Operator")
     {
@@ -58,6 +59,32 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     else if (role == "ReadOnly")
     {
         privArray = {"Login", "ConfigureSelf"};
+    }
+    else if (role == "NoAccess")
+    {
+        privArray = nlohmann::json::array();
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
+
+inline bool getOemPrivFromRole(std::string_view role,
+                               nlohmann::json& privArray)
+{
+    if (role == "Administrator")
+    {
+        privArray = {"OemOpenBMCPerformService"};
+    }
+    else if (role == "Operator")
+    {
+        privArray = nlohmann::json::array();
+    }
+    else if (role == "ReadOnly")
+    {
+        privArray = nlohmann::json::array();
     }
     else if (role == "NoAccess")
     {
@@ -103,12 +130,19 @@ class Roles : public Node
             res.end();
             return;
         }
+        nlohmann::json oemPrivArray = nlohmann::json::array();
+        if (false == getOemPrivFromRole(roleId, oemPrivArray))
+        {
+            messages::resourceNotFound(res, "Role", roleId);
+            res.end();
+            return;
+        }
 
         res.jsonValue = {
             {"@odata.type", "#Role.v1_2_2.Role"},
             {"Name", "User Role"},
             {"Description", roleId + " User Role"},
-            {"OemPrivileges", nlohmann::json::array()},
+            {"OemPrivileges", std::move(oemPrivArray)},
             {"IsPredefined", true},
             {"Id", roleId},
             {"RoleId", roleId},
