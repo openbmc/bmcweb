@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f71a41c_edaa65a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "This is not adequate tests.  Please simulate server failures, server timeouts, dns failures, and 400/500 server responses, as all take different paths through this code.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b2681f2_50276815",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used, and shadows other variables with the same name.  I\u0027m surprised the compiler didn\u0027t complain.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ac097e3_955322ec",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "At this point, we know that the resolve succeeded, we can call directly to doConnect, right?\n\nThis would also mean that we can just pass endpoints in as an argument to doConnect, rather than having to store it in this object, thus simplifying the state machine here.\n\nThis is the pattern that httpConnection follows, which I\u0027d like to keep at least in part, because we know it works.",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c9897e_db590bdd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "Still incorrect.",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 47
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b4b652_ad269be9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "Still need to check the resulting message for failures.",
+      "range": {
+        "startLine": 196,
+        "startChar": 18,
+        "endLine": 196,
+        "endChar": 37
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f79861d_5c6cb981",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "This doesn\u0027t transfer the response to anyone.....",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 53
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc5d2da5_299b1447",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T16:22:36Z",
+      "side": 1,
+      "message": "FWIW, I\u0027m really not liking this pattern of calling handleConnState() seemingly randomly, just to be able to get to another member method.  If we need to call another method, we can call it directly, the only connection state check we really need is for things being added to the output queue.\n\nWith that said, this was here before, so it\u0027s ok for the moment.",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 26
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
