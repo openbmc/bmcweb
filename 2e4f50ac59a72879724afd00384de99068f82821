@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "b78579f6_f0e9c8dd",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-25T23:23:07Z",
+      "side": 1,
+      "message": "\u003e SSE connection stream need to be established upon GET of SSE specific URI. So the request in such case will be as if normal get request to any other routes. So i only differentiating factor here is only URI itself. \n\u003e \n\u003e Can you please advise here for a way to differentiate SSE request from other GET requests. Thanks in advance.\n\nAny answer would be gotten by looking at the SSE RFC specification.  I don\u0027t have any great ideas here, but it for sure needs solved.  Maybe look into how something like Flask solved it?  Most of our interfaces are derivations of theirs.",
+      "parentUuid": "0a15f5dd_6baead6a",
+      "range": {
+        "startLine": 353,
+        "startChar": 20,
+        "endLine": 353,
+        "endChar": 46
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d27540_c22a3530",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 4
