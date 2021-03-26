@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30bdf664_36aec453",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-26T15:02:20Z",
+      "side": 1,
+      "message": "Maybe instead using tempArray rename it to assembliesArrayJson or sth similar? Right now it is not a temporary array because it is a part of a response",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3197789e_361c3be0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-26T15:02:20Z",
+      "side": 1,
+      "message": "Use assemblyIndex here to improve readability, same on 33 line",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 53
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0a35ffc_f9211413",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-26T15:02:20Z",
+      "side": 1,
+      "message": "Is it possible that size of the final \"Assemblies\" array can be different from the one set here?\nMaybe move setting \"Assemblies@odata.count\" to getAssemblyProperties() method for better readability",
+      "range": {
+        "startLine": 337,
+        "startChar": 48,
+        "endLine": 339,
+        "endChar": 75
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a924cc5_a3d5784e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-26T15:02:20Z",
+      "side": 1,
+      "message": "To not have duplicated it in 373 and 378 line you can move it to 252 line after creation of \"Assemblies\" array",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce82424d_cd6a4e43",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-26T15:02:20Z",
+      "side": 1,
+      "message": "Consider to use namespace for getChassis() that is specific for Assembly. Thanks to it getChassis name is not occupied",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d97bd9b3_59cd3526",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2021-03-26T15:02:20Z",
+      "side": 1,
+      "message": "Why not std::move()?",
+      "range": {
+        "startLine": 402,
+        "startChar": 26,
+        "endLine": 402,
+        "endChar": 37
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
