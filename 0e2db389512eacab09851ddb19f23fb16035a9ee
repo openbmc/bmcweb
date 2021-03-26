@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9036269_2fb7032d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T10:58:04Z",
+      "side": 1,
+      "message": "I don\u0027t think this \"resourceNotFound\" can handle the case of a bad fanId. Have you tested a bad fanId?",
+      "range": {
+        "startLine": 129,
+        "startChar": 30,
+        "endLine": 129,
+        "endChar": 46
+      },
+      "revId": "0e2db389512eacab09851ddb19f23fb16035a9ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63229786_e954fb27",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T10:58:04Z",
+      "side": 1,
+      "message": "I\u0027m a little confused. Why not use GetSubtree to get both ObjectPath and ServiceName like patchset8?",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 22
+      },
+      "revId": "0e2db389512eacab09851ddb19f23fb16035a9ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3138db4b_f8c63497",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 9
