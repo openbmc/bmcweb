@@ -166,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "1e15c810_93309c90",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6c31238_d8c50b2d",
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3263d93c_58c48a8f",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 15
@@ -198,6 +216,24 @@
       "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f71efa7b_5b38b5e5",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a2c9bb2_725849e2",
+      "revId": "9555cfa03bdc9037d0e9d8ce9180de45c1f2b15b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {

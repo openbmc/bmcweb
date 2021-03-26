@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "49602ecd_4d467d7f",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "In Patchset41, we used Association to determine whether PCIeSlot belongs to this chassis.\nThis function only checks if the input chassisID is correct, and I don\u0027t think it is necessary to return object_path",
+      "parentUuid": "faaef8c7_04de0adf",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 43
+      },
+      "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a28798a6_082facf5",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 27
@@ -45,6 +69,30 @@
       "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59fc8ea_35c81417",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a28798a6_082facf5",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 136,
+        "endChar": 17
+      },
+      "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a666ef5_b32696f6",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "In Patchset41, we used Association to determine whether PCIeSlot belongs to this chassis.",
+      "parentUuid": "93388b53_962100e1",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 40
+      },
+      "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "925194fc_1f7b0dc5",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 27
@@ -91,6 +163,30 @@
       "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c03763c_f2e3f6b0",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "In Patchset41, we used Association to determine whether PCIeSlot belongs to this chassis.",
+      "parentUuid": "925194fc_1f7b0dc5",
+      "range": {
+        "startLine": 272,
+        "startChar": 58,
+        "endLine": 272,
+        "endChar": 72
+      },
+      "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c83350b3_c52d5c1d",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "In Patchset41, we used Association to determine whether PCIeSlot belongs to this chassis.",
+      "parentUuid": "844b3a75_e9530904",
+      "range": {
+        "startLine": 273,
+        "startChar": 16,
+        "endLine": 279,
+        "endChar": 17
+      },
+      "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27d6e6e5_7a3ed739",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 27
@@ -137,6 +257,30 @@
       "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd9ec93f_c01d433e",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-26T09:28:06Z",
+      "side": 1,
+      "message": "In Patchset41, we used Association to determine whether PCIeSlot belongs to this chassis.",
+      "parentUuid": "27d6e6e5_7a3ed739",
+      "range": {
+        "startLine": 281,
+        "startChar": 16,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "9f6737313d67c2133b2c240f4c5202ea4599cc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
