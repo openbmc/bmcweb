@@ -871,6 +871,21 @@ inline void objectInterfacesToJson(
     {
         unit = "/ReadingCelsius"_json_pointer;
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+        std::string name;
+        const std::regex remove("_");
+        name = std::regex_replace(sensorName, remove, " ");
+        if (name.find("CPU") != std::string::npos)
+        {
+            sensorJson["PhysicalContext"] = "CPU";
+        }
+        else if (name.find("Inlet") != std::string::npos)
+        {
+            sensorJson["PhysicalContext"] = "Intake";
+        }
+        else
+        {
+            sensorJson["PhysicalContext"] = "SystemBoard";
+        }
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
