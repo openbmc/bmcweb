@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "7d50deb4_0ace7aa6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-26T16:58:17Z",
+      "side": 1,
+      "message": "Yeah, although doesn\u0027t seem the is_text is called anywhere in the code, maybe their parsing would need to be improved.",
+      "parentUuid": "8f1030f4_4e5298ad",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
