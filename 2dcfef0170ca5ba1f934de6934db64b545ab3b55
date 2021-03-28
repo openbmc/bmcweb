@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3d81d95b_66b71c14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:39:56Z",
+      "side": 1,
+      "message": "\u003e Even for io-\u003epost() also we need to have io context right?\n\nCorrect, but the IO context is explicitly the first thing we init in main() for this reason.\n\n\u003e Initially it is done when in EventService route but later its moved to webserver main. Since its requires io context, Moved it after systemBus init.\n\nPart of me wonders if we should just move the dbus init up to where the io_context is.  This isn\u0027t the first time this has bit us on initialization order.",
+      "parentUuid": "d5046478_7804b4cf",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a44554f_c319ee8f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -113,6 +137,53 @@
         "startChar": 0,
         "endLine": 17,
         "endChar": 31
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50012f2b_f3745b37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:39:56Z",
+      "side": 1,
+      "message": "Understood.",
+      "parentUuid": "1c02c142_cfaa8bb1",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c8d1619_37d29272",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:39:56Z",
+      "side": 1,
+      "message": "Should we just move this to line 66?  That seems like it would fix all init order problems, not just the event service ones.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 59
       },
       "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
