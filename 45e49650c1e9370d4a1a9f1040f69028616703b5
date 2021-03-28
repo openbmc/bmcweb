@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "12454d85_3d270d40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:45:47Z",
+      "side": 1,
+      "message": "Latest pastchset still says\n\"RedfishServiceValidator pass\"\n\nand I don\u0027t see specifics around what changed still.  I\u0027ll comment more on the newest patch.",
+      "parentUuid": "45b01951_2890aa59",
+      "range": {
+        "startLine": 11,
+        "startChar": 52,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "45e49650c1e9370d4a1a9f1040f69028616703b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9472893d_7887955f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2

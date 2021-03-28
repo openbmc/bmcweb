@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "027b3c0a_e6ed4338",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:45:47Z",
+      "side": 1,
+      "message": "Can you give a brief overview of what has changed?  I suspect giving an example here would be good, and pointing to the spec where it specifies that units should be X would be good.",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 11,
+        "endChar": 5
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078087e5_ce388f41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:45:47Z",
+      "side": 1,
+      "message": "In what way?  Can you add some more details here?  In your previous comment you mentioned that webui-vue is not effected, so clearly it\u0027s not \"all\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d9e57d6_6fd9f6fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:45:47Z",
+      "side": 1,
+      "message": "I would assume more testing needs to be done here.  Some combination of dumping the whole tree and verifying the changed properties actually changed?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 32
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae0efc7_ab02ac6b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:45:47Z",
+      "side": 1,
+      "message": "need to check for empty string on these returns.",
+      "range": {
+        "startLine": 940,
+        "startChar": 45,
+        "endLine": 940,
+        "endChar": 58
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf0e4c7_dfcabb19",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-28T20:45:47Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 941,
+        "startChar": 46,
+        "endLine": 941,
+        "endChar": 60
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
