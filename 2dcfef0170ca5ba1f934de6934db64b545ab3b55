@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6f9886fd_41fc7082",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-29T03:52:10Z",
+      "side": 1,
+      "message": "Moving systemBus init to above(As commented in other place), will make sure ip_context available at early stage and will address all issues.",
+      "parentUuid": "3d81d95b_66b71c14",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a44554f_c319ee8f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -179,6 +203,30 @@
       "writtenOn": "2021-03-28T20:39:56Z",
       "side": 1,
       "message": "Should we just move this to line 66?  That seems like it would fix all init order problems, not just the event service ones.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 59
+      },
+      "revId": "2dcfef0170ca5ba1f934de6934db64b545ab3b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42784bf1_3e611641",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-29T03:52:10Z",
+      "side": 1,
+      "message": "Agree. Will move it up so it covers all cases.",
+      "parentUuid": "2c8d1619_37d29272",
       "range": {
         "startLine": 112,
         "startChar": 0,
