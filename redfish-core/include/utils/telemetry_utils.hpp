@@ -13,8 +13,9 @@ constexpr const char* metricReportDefinitionUri =
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
 
-inline void getReportCollection(const std::shared_ptr<AsyncResp>& asyncResp,
-                                const std::string& uri)
+inline void
+    getReportCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& uri)
 {
     const std::array<const char*, 1> interfaces = {reportInterface};
 
