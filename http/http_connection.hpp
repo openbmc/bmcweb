@@ -356,7 +356,8 @@ class Connection :
                     res.completeRequestHandler = nullptr;
                     return;
                 }
-                handler->handle(*req, res);
+                auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
+                handler->handle(*req, asyncResp);
             }
             else
             {

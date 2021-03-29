@@ -31,7 +31,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
     return metricValues;
 }
 
-inline void fillReport(const std::shared_ptr<AsyncResp>& asyncResp,
+inline void fillReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& id,
                        const std::variant<TimestampReadings>& var)
 {
@@ -75,16 +75,15 @@ class MetricReportCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#MetricReportCollection.MetricReportCollection";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReports";
-        res.jsonValue["Name"] = "Metric Report Collection";
+        asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         telemetry::getReportCollection(asyncResp, telemetry::metricReportUri);
     }
 };
@@ -106,10 +105,10 @@ class MetricReport : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {

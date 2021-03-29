@@ -45,7 +45,7 @@ constexpr std::array<const char*, 2> processorInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Accelerator"};
 
 inline void
-    getCpuDataByInterface(const std::shared_ptr<AsyncResp>& aResp,
+    getCpuDataByInterface(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                           const InterfacesProperties& cpuInterfacesProperties)
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
@@ -152,7 +152,7 @@ inline void
     return;
 }
 
-inline void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
+inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                 const std::string& cpuId,
                                 const std::string& service,
                                 const std::string& objPath)
@@ -228,7 +228,7 @@ inline void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
+inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             const std::string& service,
                             const std::string& objPath)
 {
@@ -320,7 +320,7 @@ inline void getCpuAssetData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Asset");
 }
 
-inline void getCpuRevisionData(std::shared_ptr<AsyncResp> aResp,
+inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& service,
                                const std::string& objPath)
 {
@@ -356,10 +356,9 @@ inline void getCpuRevisionData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Revision");
 }
 
-inline void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
-                                        const std::string& acclrtrId,
-                                        const std::string& service,
-                                        const std::string& objPath)
+inline void getAcceleratorDataByService(
+    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& acclrtrId,
+    const std::string& service, const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
@@ -436,7 +435,7 @@ using OperatingConfigProperties = std::vector<std::pair<
  *                                      speed cores.
  */
 inline void highSpeedCoreIdsHandler(
-    const std::shared_ptr<AsyncResp>& aResp,
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     const BaseSpeedPrioritySettingsProperty& baseSpeedSettings)
 {
     // The D-Bus property does not indicate which bucket is the "high
@@ -475,7 +474,7 @@ inline void highSpeedCoreIdsHandler(
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getCpuConfigData(const std::shared_ptr<AsyncResp>& aResp,
+inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::string& cpuId,
                              const std::string& service,
                              const std::string& objPath)
@@ -585,7 +584,7 @@ inline void getCpuConfigData(const std::shared_ptr<AsyncResp>& aResp,
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getCpuLocationCode(std::shared_ptr<AsyncResp> aResp,
+inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& service,
                                const std::string& objPath)
 {
@@ -629,7 +628,7 @@ inline void getCpuLocationCode(std::shared_ptr<AsyncResp> aResp,
  *                                  successfully finding object.
  */
 template <typename Handler>
-inline void getProcessorObject(const std::shared_ptr<AsyncResp>& resp,
+inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                                const std::string& processorId,
                                Handler&& handler)
 {
@@ -698,7 +697,7 @@ inline void getProcessorObject(const std::shared_ptr<AsyncResp>& resp,
             "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
 }
 
-inline void getProcessorData(const std::shared_ptr<AsyncResp>& aResp,
+inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::string& processorId,
                              const std::string& objectPath,
                              const MapperServiceMap& serviceMap)
@@ -749,9 +748,10 @@ inline void getProcessorData(const std::shared_ptr<AsyncResp>& aResp,
  * @param[in]       service     D-Bus service name to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getOperatingConfigData(const std::shared_ptr<AsyncResp>& aResp,
-                                   const std::string& service,
-                                   const std::string& objPath)
+inline void
+    getOperatingConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& service,
+                           const std::string& objPath)
 {
     crow::connections::systemBus->async_method_call(
         [aResp](boost::system::error_code ec,
@@ -870,23 +870,21 @@ class OperatingConfigCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
 
         const std::string& cpuName = params[0];
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#OperatingConfigCollection.OperatingConfigCollection";
-        res.jsonValue["@odata.id"] = req.url;
-        res.jsonValue["Name"] = "Operating Config Collection";
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue["@odata.id"] = req.url;
+        asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
 
         // First find the matching CPU object so we know how to constrain our
         // search for related Config objects.
@@ -952,20 +950,18 @@ class OperatingConfig : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 2)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
 
         const std::string& cpuName = params[0];
         const std::string& configName = params[1];
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         // Ask for all objects implementing OperatingConfig so we can search for
         // one with a matching name
@@ -1037,15 +1033,15 @@ class ProcessorCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#ProcessorCollection.ProcessorCollection";
-        res.jsonValue["Name"] = "Processor Collection";
+        asyncResp->res.jsonValue["Name"] = "Processor Collection";
 
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors";
-        auto asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Processors";
 
         collection_util::getCollectionMembers(
             asyncResp, "/redfish/v1/Systems/system/Processors",
@@ -1076,24 +1072,22 @@ class Processor : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
         // impossible
         if (params.size() != 1)
         {
-            messages::internalError(res);
-
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
         const std::string& processorId = params[0];
-        res.jsonValue["@odata.type"] = "#Processor.v1_11_0.Processor";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#Processor.v1_11_0.Processor";
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getProcessorObject(asyncResp, processorId, getProcessorData);
     }

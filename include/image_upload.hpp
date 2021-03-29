@@ -17,14 +17,15 @@ namespace image_upload
 
 static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 
-inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
+inline void
+    uploadImageHandler(const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Only allow one FW update at a time
     if (fwUpdateMatcher != nullptr)
     {
-        res.addHeader("Retry-After", "30");
-        res.result(boost::beast::http::status::service_unavailable);
-        res.end();
+        asyncResp->res.addHeader("Retry-After", "30");
+        asyncResp->res.result(boost::beast::http::status::service_unavailable);
         return;
     }
     // Make this const static so it survives outside this method
@@ -33,7 +34,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
 
     timeout.expires_after(std::chrono::seconds(15));
 
-    auto timeoutHandler = [&res](const boost::system::error_code& ec) {
+    auto timeoutHandler = [asyncResp](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
         if (ec == boost::asio::error::operation_aborted)
         {
@@ -48,18 +49,17 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
             return;
         }
 
-        res.result(boost::beast::http::status::bad_request);
-        res.jsonValue = {
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.jsonValue = {
             {"data",
              {{"description",
                "Version already exists or failed to be extracted"}}},
             {"message", "400 Bad Request"},
             {"status", "error"}};
-        res.end();
     };
 
     std::function<void(sdbusplus::message::message&)> callback =
-        [&res](sdbusplus::message::message& m) {
+        [asyncResp](sdbusplus::message::message& m) {
             BMCWEB_LOG_DEBUG << "Match fired";
 
             sdbusplus::message::object_path path;
@@ -82,10 +82,9 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res)
                     leaf = path.str;
                 }
 
-                res.jsonValue = {
+                asyncResp->res.jsonValue = {
                     {"data", leaf}, {"message", "200 OK"}, {"status", "ok"}};
                 BMCWEB_LOG_DEBUG << "ending response";
-                res.end();
                 fwUpdateMatcher = nullptr;
             }
         };
@@ -111,14 +110,16 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/upload/image/<str>")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
-            [](const crow::Request& req, crow::Response& res,
-               const std::string&) { uploadImageHandler(req, res); });
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string&) { uploadImageHandler(req, asyncResp); });
 
     BMCWEB_ROUTE(app, "/upload/image")
         .privileges({"ConfigureComponents", "ConfigureManager"})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
-            [](const crow::Request& req, crow::Response& res) {
-                uploadImageHandler(req, res);
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                uploadImageHandler(req, asyncResp);
             });
 }
 } // namespace image_upload
