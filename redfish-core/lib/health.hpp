@@ -28,11 +28,11 @@ namespace redfish
 
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
-    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncRespIn) :
+    HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
         asyncResp(asyncRespIn), jsonStatus(asyncResp->res.jsonValue["Status"])
     {}
 
-    HealthPopulate(const std::shared_ptr<AsyncResp>& asyncRespIn,
+    HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                    nlohmann::json& status) :
         asyncResp(asyncRespIn),
         jsonStatus(status)
@@ -214,7 +214,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
-    std::shared_ptr<AsyncResp> asyncResp;
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     nlohmann::json& jsonStatus;
 
     // we store pointers to other HealthPopulate items so we can update their

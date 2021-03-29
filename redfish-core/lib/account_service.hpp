@@ -118,10 +118,9 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     return "";
 }
 
-inline void userErrorMessageHandler(const sd_bus_error* e,
-                                    const std::shared_ptr<AsyncResp>& asyncResp,
-                                    const std::string& newUser,
-                                    const std::string& username)
+inline void userErrorMessageHandler(
+    const sd_bus_error* e, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& newUser, const std::string& username)
 {
     if (e == nullptr)
     {
@@ -206,7 +205,7 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
  *
  */
 inline void handleRoleMapPatch(
-    const std::shared_ptr<AsyncResp>& asyncResp,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, LDAPRoleMapData>>& roleMapObjData,
     const std::string& serverType, const std::vector<nlohmann::json>& input)
 {
@@ -580,11 +579,11 @@ class AccountService : public Node
      * @param userName  userName to be filled from the given JSON.
      * @param password  password to be filled from the given JSON.
      */
-    void
-        parseLDAPAuthenticationJson(nlohmann::json input,
-                                    const std::shared_ptr<AsyncResp>& asyncResp,
-                                    std::optional<std::string>& username,
-                                    std::optional<std::string>& password)
+    void parseLDAPAuthenticationJson(
+        nlohmann::json input,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        std::optional<std::string>& username,
+        std::optional<std::string>& password)
     {
         std::optional<std::string> authType;
 
@@ -615,7 +614,8 @@ class AccountService : public Node
      */
 
     void parseLDAPServiceJson(
-        nlohmann::json input, const std::shared_ptr<AsyncResp>& asyncResp,
+        nlohmann::json input,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::optional<std::vector<std::string>>& baseDNList,
         std::optional<std::string>& userNameAttribute,
         std::optional<std::string>& groupsAttribute)
@@ -650,7 +650,7 @@ class AccountService : public Node
 
     void handleServiceAddressPatch(
         const std::vector<std::string>& serviceAddressList,
-        const std::shared_ptr<AsyncResp>& asyncResp,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& ldapServerElementName,
         const std::string& ldapConfigObject)
     {
@@ -690,10 +690,11 @@ class AccountService : public Node
      server(openLDAP/ActiveDirectory)
      */
 
-    void handleUserNamePatch(const std::string& username,
-                             const std::shared_ptr<AsyncResp>& asyncResp,
-                             const std::string& ldapServerElementName,
-                             const std::string& ldapConfigObject)
+    void
+        handleUserNamePatch(const std::string& username,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& ldapServerElementName,
+                            const std::string& ldapConfigObject)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, username,
@@ -723,10 +724,11 @@ class AccountService : public Node
      *        server(openLDAP/ActiveDirectory)
      */
 
-    void handlePasswordPatch(const std::string& password,
-                             const std::shared_ptr<AsyncResp>& asyncResp,
-                             const std::string& ldapServerElementName,
-                             const std::string& ldapConfigObject)
+    void
+        handlePasswordPatch(const std::string& password,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& ldapServerElementName,
+                            const std::string& ldapConfigObject)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, password,
@@ -757,7 +759,7 @@ class AccountService : public Node
      */
 
     void handleBaseDNPatch(const std::vector<std::string>& baseDNList,
-                           const std::shared_ptr<AsyncResp>& asyncResp,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& ldapServerElementName,
                            const std::string& ldapConfigObject)
     {
@@ -800,10 +802,11 @@ class AccountService : public Node
      server(openLDAP/ActiveDirectory)
      */
 
-    void handleUserNameAttrPatch(const std::string& userNameAttribute,
-                                 const std::shared_ptr<AsyncResp>& asyncResp,
-                                 const std::string& ldapServerElementName,
-                                 const std::string& ldapConfigObject)
+    void handleUserNameAttrPatch(
+        const std::string& userNameAttribute,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& ldapServerElementName,
+        const std::string& ldapConfigObject)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, userNameAttribute,
@@ -835,10 +838,11 @@ class AccountService : public Node
      server(openLDAP/ActiveDirectory)
      */
 
-    void handleGroupNameAttrPatch(const std::string& groupsAttribute,
-                                  const std::shared_ptr<AsyncResp>& asyncResp,
-                                  const std::string& ldapServerElementName,
-                                  const std::string& ldapConfigObject)
+    void handleGroupNameAttrPatch(
+        const std::string& groupsAttribute,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& ldapServerElementName,
+        const std::string& ldapConfigObject)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, groupsAttribute,
@@ -870,10 +874,11 @@ class AccountService : public Node
      server(openLDAP/ActiveDirectory)
      */
 
-    void handleServiceEnablePatch(bool serviceEnabled,
-                                  const std::shared_ptr<AsyncResp>& asyncResp,
-                                  const std::string& ldapServerElementName,
-                                  const std::string& ldapConfigObject)
+    void handleServiceEnablePatch(
+        bool serviceEnabled,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& ldapServerElementName,
+        const std::string& ldapConfigObject)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, serviceEnabled,
@@ -895,8 +900,9 @@ class AccountService : public Node
             ldapEnableInterface, "Enabled", std::variant<bool>(serviceEnabled));
     }
 
-    void handleAuthMethodsPatch(nlohmann::json& input,
-                                const std::shared_ptr<AsyncResp>& asyncResp)
+    void handleAuthMethodsPatch(
+        nlohmann::json& input,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         std::optional<bool> basicAuth;
         std::optional<bool> cookie;
@@ -999,7 +1005,7 @@ class AccountService : public Node
      */
 
     void handleLDAPPatch(nlohmann::json& input,
-                         const std::shared_ptr<AsyncResp>& asyncResp,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& serverType)
     {
         std::string dbusObjectPath;
@@ -1155,14 +1161,13 @@ class AccountService : public Node
             });
     }
 
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
         const persistent_data::AuthConfigMethods& authMethodsConfig =
             persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
                             "v1_5_0.AccountService"},
@@ -1255,11 +1260,10 @@ class AccountService : public Node
         getLDAPConfigData("ActiveDirectory", callback);
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
         std::optional<uint32_t> unlockTimeout;
         std::optional<uint16_t> lockoutThreshold;
         std::optional<uint16_t> minPasswordLength;
@@ -1269,7 +1273,7 @@ class AccountService : public Node
         std::optional<nlohmann::json> oemObject;
 
         if (!json_util::readJson(
-                req, res, "AccountLockoutDuration", unlockTimeout,
+                req, asyncResp->res, "AccountLockoutDuration", unlockTimeout,
                 "AccountLockoutThreshold", lockoutThreshold,
                 "MaxPasswordLength", maxPasswordLength, "MinPasswordLength",
                 minPasswordLength, "LDAP", ldapObject, "ActiveDirectory",
@@ -1294,13 +1298,13 @@ class AccountService : public Node
         }
 
         if (std::optional<nlohmann::json> oemOpenBMCObject;
-            oemObject &&
-            json_util::readJson(*oemObject, res, "OpenBMC", oemOpenBMCObject))
+            oemObject && json_util::readJson(*oemObject, asyncResp->res,
+                                             "OpenBMC", oemOpenBMCObject))
         {
             if (std::optional<nlohmann::json> authMethodsObject;
                 oemOpenBMCObject &&
-                json_util::readJson(*oemOpenBMCObject, res, "AuthMethods",
-                                    authMethodsObject))
+                json_util::readJson(*oemOpenBMCObject, asyncResp->res,
+                                    "AuthMethods", authMethodsObject))
             {
                 if (authMethodsObject)
                 {
@@ -1374,15 +1378,16 @@ class AccountsCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = {{"@odata.id", "/redfish/v1/AccountService/Accounts"},
-                         {"@odata.type", "#ManagerAccountCollection."
-                                         "ManagerAccountCollection"},
-                         {"Name", "Accounts Collection"},
-                         {"Description", "BMC User Accounts"}};
+        asyncResp->res.jsonValue = {
+            {"@odata.id", "/redfish/v1/AccountService/Accounts"},
+            {"@odata.type", "#ManagerAccountCollection."
+                            "ManagerAccountCollection"},
+            {"Name", "Accounts Collection"},
+            {"Description", "BMC User Accounts"}};
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, &req, this](const boost::system::error_code ec,
@@ -1426,18 +1431,17 @@ class AccountsCollection : public Node
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
         std::string username;
         std::string password;
         std::optional<std::string> roleId("User");
         std::optional<bool> enabled = true;
-        if (!json_util::readJson(req, res, "UserName", username, "Password",
-                                 password, "RoleId", roleId, "Enabled",
-                                 enabled))
+        if (!json_util::readJson(req, asyncResp->res, "UserName", username,
+                                 "Password", password, "RoleId", roleId,
+                                 "Enabled", enabled))
         {
             return;
         }
@@ -1554,11 +1558,10 @@ class ManagerAccount : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -1708,10 +1711,11 @@ class ManagerAccount : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -1723,9 +1727,9 @@ class ManagerAccount : public Node
         std::optional<bool> enabled;
         std::optional<std::string> roleId;
         std::optional<bool> locked;
-        if (!json_util::readJson(req, res, "UserName", newUserName, "Password",
-                                 password, "RoleId", roleId, "Enabled", enabled,
-                                 "Locked", locked))
+        if (!json_util::readJson(req, asyncResp->res, "UserName", newUserName,
+                                 "Password", password, "RoleId", roleId,
+                                 "Enabled", enabled, "Locked", locked))
         {
             return;
         }
@@ -1782,7 +1786,7 @@ class ManagerAccount : public Node
             *newUserName);
     }
 
-    void updateUserProperties(std::shared_ptr<AsyncResp> asyncResp,
+    void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                               const std::string& username,
                               std::optional<std::string> password,
                               std::optional<bool> enabled,
@@ -1916,10 +1920,10 @@ class ManagerAccount : public Node
             });
     }
 
-    void doDelete(crow::Response& res, const crow::Request&,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request&,
                   const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {

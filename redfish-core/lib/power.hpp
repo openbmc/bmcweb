@@ -39,121 +39,124 @@ class Power : public Node
 
   private:
     void setPowerCapOverride(
-        const std::shared_ptr<SensorsAsyncResp>& asyncResp,
+        const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         std::vector<nlohmann::json>& powerControlCollections)
     {
-        auto getChassisPath =
-            [asyncResp, powerControlCollections](
-                const std::optional<std::string>& chassisPath) mutable {
-                if (!chassisPath)
-                {
-                    BMCWEB_LOG_ERROR << "Don't find valid chassis path ";
-                    messages::resourceNotFound(asyncResp->res, "Chassis",
-                                               asyncResp->chassisId);
-                    return;
-                }
+        auto getChassisPath = [sensorsAsyncResp, powerControlCollections](
+                                  const std::optional<std::string>&
+                                      chassisPath) mutable {
+            if (!chassisPath)
+            {
+                BMCWEB_LOG_ERROR << "Don't find valid chassis path ";
+                messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
+                                           "Chassis",
+                                           sensorsAsyncResp->chassisId);
+                return;
+            }
 
-                if (powerControlCollections.size() != 1)
+            if (powerControlCollections.size() != 1)
+            {
+                BMCWEB_LOG_ERROR << "Don't support multiple hosts at present ";
+                messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
+                                           "Power", "PowerControl");
+                return;
+            }
+
+            auto& item = powerControlCollections[0];
+
+            std::optional<nlohmann::json> powerLimit;
+            if (!json_util::readJson(item, sensorsAsyncResp->asyncResp->res,
+                                     "PowerLimit", powerLimit))
+            {
+                return;
+            }
+            if (!powerLimit)
+            {
+                return;
+            }
+            std::optional<uint32_t> value;
+            if (!json_util::readJson(*powerLimit,
+                                     sensorsAsyncResp->asyncResp->res,
+                                     "LimitInWatts", value))
+            {
+                return;
+            }
+            if (!value)
+            {
+                return;
+            }
+            auto valueHandler = [value, sensorsAsyncResp](
+                                    const boost::system::error_code ec,
+                                    const SensorVariant& powerCapEnable) {
+                if (ec)
                 {
+                    messages::internalError(sensorsAsyncResp->asyncResp->res);
                     BMCWEB_LOG_ERROR
-                        << "Don't support multiple hosts at present ";
-                    messages::resourceNotFound(asyncResp->res, "Power",
-                                               "PowerControl");
+                        << "powerCapEnable Get handler: Dbus error " << ec;
+                    return;
+                }
+                // Check PowerCapEnable
+                const bool* b = std::get_if<bool>(&powerCapEnable);
+                if (b == nullptr)
+                {
+                    messages::internalError(sensorsAsyncResp->asyncResp->res);
+                    BMCWEB_LOG_ERROR << "Fail to get PowerCapEnable status ";
+                    return;
+                }
+                if (!(*b))
+                {
+                    messages::actionNotSupported(
+                        sensorsAsyncResp->asyncResp->res,
+                        "Setting LimitInWatts when PowerLimit "
+                        "feature is disabled");
+                    BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
                     return;
                 }
 
-                auto& item = powerControlCollections[0];
-
-                std::optional<nlohmann::json> powerLimit;
-                if (!json_util::readJson(item, asyncResp->res, "PowerLimit",
-                                         powerLimit))
-                {
-                    return;
-                }
-                if (!powerLimit)
-                {
-                    return;
-                }
-                std::optional<uint32_t> value;
-                if (!json_util::readJson(*powerLimit, asyncResp->res,
-                                         "LimitInWatts", value))
-                {
-                    return;
-                }
-                if (!value)
-                {
-                    return;
-                }
-                auto valueHandler = [value, asyncResp](
-                                        const boost::system::error_code ec,
-                                        const SensorVariant& powerCapEnable) {
-                    if (ec)
-                    {
-                        messages::internalError(asyncResp->res);
-                        BMCWEB_LOG_ERROR
-                            << "powerCapEnable Get handler: Dbus error " << ec;
-                        return;
-                    }
-                    // Check PowerCapEnable
-                    const bool* b = std::get_if<bool>(&powerCapEnable);
-                    if (b == nullptr)
-                    {
-                        messages::internalError(asyncResp->res);
-                        BMCWEB_LOG_ERROR
-                            << "Fail to get PowerCapEnable status ";
-                        return;
-                    }
-                    if (!(*b))
-                    {
-                        messages::actionNotSupported(
-                            asyncResp->res,
-                            "Setting LimitInWatts when PowerLimit "
-                            "feature is disabled");
-                        BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
-                        return;
-                    }
-
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec2) {
-                            if (ec2)
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Power Limit Set: Dbus error: " << ec2;
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.result(
-                                boost::beast::http::status::no_content);
-                        },
-                        "xyz.openbmc_project.Settings",
-                        "/xyz/openbmc_project/control/host0/power_cap",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
-                        std::variant<uint32_t>(*value));
-                };
                 crow::connections::systemBus->async_method_call(
-                    std::move(valueHandler), "xyz.openbmc_project.Settings",
+                    [sensorsAsyncResp](const boost::system::error_code ec2) {
+                        if (ec2)
+                        {
+                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                             << ec2;
+                            messages::internalError(
+                                sensorsAsyncResp->asyncResp->res);
+                            return;
+                        }
+                        sensorsAsyncResp->asyncResp->res.result(
+                            boost::beast::http::status::no_content);
+                    },
+                    "xyz.openbmc_project.Settings",
                     "/xyz/openbmc_project/control/host0/power_cap",
-                    "org.freedesktop.DBus.Properties", "Get",
-                    "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable");
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                    std::variant<uint32_t>(*value));
             };
-        getValidChassisPath(asyncResp, std::move(getChassisPath));
+            crow::connections::systemBus->async_method_call(
+                std::move(valueHandler), "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/control/host0/power_cap",
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable");
+        };
+        getValidChassisPath(sensorsAsyncResp, std::move(getChassisPath));
     }
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
             return;
         }
         const std::string& chassisName = params[0];
 
-        res.jsonValue["PowerControl"] = nlohmann::json::array();
+        asyncResp->res.jsonValue["PowerControl"] = nlohmann::json::array();
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::paths.at(sensors::node::power),
+            asyncResp, chassisName,
+            sensors::dbus::paths.at(sensors::node::power),
             sensors::node::power);
 
         getChassisData(sensorAsyncResp);
@@ -217,14 +220,15 @@ class Power : public Node
                         properties) {
                     if (ec)
                     {
-                        messages::internalError(sensorAsyncResp->res);
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
                         BMCWEB_LOG_ERROR
                             << "Power Limit GetAll handler: Dbus error " << ec;
                         return;
                     }
 
-                    nlohmann::json& tempArray =
-                        sensorAsyncResp->res.jsonValue["PowerControl"];
+                    nlohmann::json& tempArray = sensorAsyncResp->asyncResp->res
+                                                    .jsonValue["PowerControl"];
 
                     // Put multiple "sensors" into a single PowerControl, 0, so
                     // only create the first one
@@ -324,41 +328,43 @@ class Power : public Node
                 "xyz.openbmc_project.Inventory.Item.Board",
                 "xyz.openbmc_project.Inventory.Item.Chassis"});
     }
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
 
         const std::string& chassisName = params[0];
-        auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::paths.at(sensors::node::power),
+
+        auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
+            asyncResp, chassisName,
+            sensors::dbus::paths.at(sensors::node::power),
             sensors::node::power);
 
         std::optional<std::vector<nlohmann::json>> voltageCollections;
         std::optional<std::vector<nlohmann::json>> powerCtlCollections;
 
-        if (!json_util::readJson(req, asyncResp->res, "PowerControl",
-                                 powerCtlCollections, "Voltages",
-                                 voltageCollections))
+        if (!json_util::readJson(req, sensorAsyncResp->asyncResp->res,
+                                 "PowerControl", powerCtlCollections,
+                                 "Voltages", voltageCollections))
         {
             return;
         }
 
         if (powerCtlCollections)
         {
-            setPowerCapOverride(asyncResp, *powerCtlCollections);
+            setPowerCapOverride(sensorAsyncResp, *powerCtlCollections);
         }
         if (voltageCollections)
         {
             std::unordered_map<std::string, std::vector<nlohmann::json>>
                 allCollections;
             allCollections.emplace("Voltages", *std::move(voltageCollections));
-            checkAndDoSensorsOverride(asyncResp, allCollections);
+            checkAndDoSensorsOverride(sensorAsyncResp, allCollections);
         }
     }
 };

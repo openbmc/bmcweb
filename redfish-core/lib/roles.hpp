@@ -86,25 +86,26 @@ class Roles : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
+
             return;
         }
         const std::string& roleId = params[0];
         nlohmann::json privArray = nlohmann::json::array();
         if (false == getAssignedPrivFromRole(roleId, privArray))
         {
-            messages::resourceNotFound(res, "Role", roleId);
-            res.end();
+            messages::resourceNotFound(asyncResp->res, "Role", roleId);
+
             return;
         }
 
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.type", "#Role.v1_2_2.Role"},
             {"Name", "User Role"},
             {"Description", roleId + " User Role"},
@@ -114,7 +115,6 @@ class Roles : public Node
             {"RoleId", roleId},
             {"@odata.id", "/redfish/v1/AccountService/Roles/" + roleId},
             {"AssignedPrivileges", std::move(privArray)}};
-        res.end();
     }
 };
 
@@ -133,14 +133,15 @@ class RoleCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = {{"@odata.id", "/redfish/v1/AccountService/Roles"},
-                         {"@odata.type", "#RoleCollection.RoleCollection"},
-                         {"Name", "Roles Collection"},
-                         {"Description", "BMC User Roles"}};
+
+        asyncResp->res.jsonValue = {
+            {"@odata.id", "/redfish/v1/AccountService/Roles"},
+            {"@odata.type", "#RoleCollection.RoleCollection"},
+            {"Name", "Roles Collection"},
+            {"Description", "BMC User Roles"}};
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
