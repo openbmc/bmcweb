@@ -18,7 +18,7 @@ using ReadingParameters =
                            std::string, std::string>>;
 
 inline void fillReportDefinition(
-    const std::shared_ptr<AsyncResp>& asyncResp, const std::string& id,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
     const std::vector<
         std::pair<std::string, std::variant<std::string, bool, uint64_t,
                                             ReadingParameters>>>& ret)
@@ -113,16 +113,16 @@ class MetricReportDefinitionCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#MetricReportDefinitionCollection."
-                                       "MetricReportDefinitionCollection";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MetricReportDefinitionCollection."
+            "MetricReportDefinitionCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
-        res.jsonValue["Name"] = "Metric Definition Collection";
+        asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         telemetry::getReportCollection(asyncResp,
                                        telemetry::metricReportDefinitionUri);
     }
@@ -145,10 +145,10 @@ class MetricReportDefinition : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {

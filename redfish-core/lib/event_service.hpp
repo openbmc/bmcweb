@@ -51,11 +51,11 @@ class EventService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = {
+
+        asyncResp->res.jsonValue = {
             {"@odata.type", "#EventService.v1_5_0.EventService"},
             {"Id", "EventService"},
             {"Name", "Event Service"},
@@ -89,18 +89,19 @@ class EventService : public Node
             supportedSSEFilters;
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         std::optional<bool> serviceEnabled;
         std::optional<uint32_t> retryAttemps;
         std::optional<uint32_t> retryInterval;
 
-        if (!json_util::readJson(req, res, "ServiceEnabled", serviceEnabled,
-                                 "DeliveryRetryAttempts", retryAttemps,
-                                 "DeliveryRetryIntervalSeconds", retryInterval))
+        if (!json_util::readJson(req, asyncResp->res, "ServiceEnabled",
+                                 serviceEnabled, "DeliveryRetryAttempts",
+                                 retryAttemps, "DeliveryRetryIntervalSeconds",
+                                 retryInterval))
         {
             return;
         }
@@ -165,12 +166,11 @@ class SubmitTestEvent : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
         EventServiceManager::getInstance().sendTestEventLog();
-        res.result(boost::beast::http::status::no_content);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
 };
 
@@ -190,12 +190,11 @@ class EventDestinationCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.type",
              "#EventDestinationCollection.EventDestinationCollection"},
             {"@odata.id", "/redfish/v1/EventService/Subscriptions"},
@@ -216,10 +215,10 @@ class EventDestinationCollection : public Node
         }
     }
 
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
             maxNoOfSubscriptions)
@@ -240,7 +239,7 @@ class EventDestinationCollection : public Node
         std::optional<std::vector<nlohmann::json>> mrdJsonArray;
 
         if (!json_util::readJson(
-                req, res, "Destination", destUrl, "Context", context,
+                req, asyncResp->res, "Destination", destUrl, "Context", context,
                 "Protocol", protocol, "SubscriptionType", subscriptionType,
                 "EventFormatType", eventFormatType2, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
@@ -474,10 +473,11 @@ class EventDestination : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -488,13 +488,12 @@ class EventDestination : public Node
             EventServiceManager::getInstance().getSubscription(params[0]);
         if (subValue == nullptr)
         {
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
         const std::string& id = params[0];
 
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.type", "#EventDestination.v1_7_0.EventDestination"},
             {"Protocol", "Redfish"}};
         asyncResp->res.jsonValue["@odata.id"] =
@@ -522,10 +521,11 @@ class EventDestination : public Node
         asyncResp->res.jsonValue["MetricReportDefinitions"] = mrdJsonArray;
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -536,8 +536,7 @@ class EventDestination : public Node
             EventServiceManager::getInstance().getSubscription(params[0]);
         if (subValue == nullptr)
         {
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
@@ -545,7 +544,7 @@ class EventDestination : public Node
         std::optional<std::string> retryPolicy;
         std::optional<std::vector<nlohmann::json>> headers;
 
-        if (!json_util::readJson(req, res, "Context", context,
+        if (!json_util::readJson(req, asyncResp->res, "Context", context,
                                  "DeliveryRetryPolicy", retryPolicy,
                                  "HttpHeaders", headers))
         {
@@ -579,10 +578,10 @@ class EventDestination : public Node
         EventServiceManager::getInstance().updateSubscriptionData();
     }
 
-    void doDelete(crow::Response& res, const crow::Request&,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request&,
                   const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {
@@ -592,8 +591,7 @@ class EventDestination : public Node
 
         if (!EventServiceManager::getInstance().isSubscriptionExist(params[0]))
         {
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
         EventServiceManager::getInstance().deleteSubscription(params[0]);

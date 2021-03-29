@@ -136,7 +136,7 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     return "";
 }
 
-inline void dimmPropToHex(const std::shared_ptr<AsyncResp>& aResp,
+inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                           const char* key,
                           const std::pair<std::string, DimmProperty>& property)
 {
@@ -151,9 +151,9 @@ inline void dimmPropToHex(const std::shared_ptr<AsyncResp>& aResp,
     aResp->res.jsonValue[key] = (boost::format("0x%04x") % *value).str();
 }
 
-inline void
-    getPersistentMemoryProperties(const std::shared_ptr<AsyncResp>& aResp,
-                                  const DimmProperties& properties)
+inline void getPersistentMemoryProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const DimmProperties& properties)
 {
     for (const auto& property : properties)
     {
@@ -436,7 +436,7 @@ inline void
     }
 }
 
-inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
+inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& dimmId,
                                  const std::string& service,
                                  const std::string& objPath)
@@ -716,7 +716,7 @@ inline void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-inline void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
+inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& service,
                                  const std::string& path)
 {
@@ -800,7 +800,7 @@ inline void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
-inline void getDimmData(std::shared_ptr<AsyncResp> aResp,
+inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
@@ -886,13 +886,14 @@ class MemoryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
-        res.jsonValue["Name"] = "Memory Module Collection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Memory";
-        auto asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MemoryCollection.MemoryCollection";
+        asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Memory";
 
         collection_util::getCollectionMembers(
             asyncResp, "/redfish/v1/Systems/system/Memory",
@@ -922,23 +923,22 @@ class Memory : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
         // impossible
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
         const std::string& dimmId = params[0];
 
-        res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory/" + dimmId;
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getDimmData(asyncResp, dimmId);
     }
