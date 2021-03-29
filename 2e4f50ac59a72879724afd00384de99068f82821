@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "8aabe5a7_b066d1b2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-29T04:42:35Z",
+      "side": 1,
+      "message": "I did checked slask SSE implementation, W3C and widely available opensource examples, So there is no differentiating factor in request with normal GET request vs SSE uri. All places URI is used for routing the SSE request. So may be, we can maintain all SSE URI\u0027s in separate list and use it here. Do you agree?",
+      "parentUuid": "b78579f6_f0e9c8dd",
+      "range": {
+        "startLine": 353,
+        "startChar": 20,
+        "endLine": 353,
+        "endChar": 46
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d27540_c22a3530",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 4
