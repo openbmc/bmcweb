@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b9d3a06_a42a53a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-29T18:10:43Z",
+      "side": 1,
+      "message": "nit: in bmcweb**",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "07549c0960fd65695fcb817175f8d46f9a90d07f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90fa9234_d46a1923",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-29T18:10:43Z",
+      "side": 1,
+      "message": "Does not match the name",
+      "range": {
+        "startLine": 19,
+        "startChar": 20,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "07549c0960fd65695fcb817175f8d46f9a90d07f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9349ec2e_d0d55dd9",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-29T18:10:43Z",
+      "side": 1,
+      "message": "This seems fragile - What if the adapterId is found also in some other part of the string? Shouldn\u0027t we rather look specifically within a path segment?",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 42
+      },
+      "revId": "07549c0960fd65695fcb817175f8d46f9a90d07f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8cd5e32_3233b27d",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-29T18:10:43Z",
+      "side": 1,
+      "message": "This seems out of place?",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 7
+      },
+      "revId": "07549c0960fd65695fcb817175f8d46f9a90d07f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47c513ad_ddc9b3e2",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-29T18:10:43Z",
+      "side": 1,
+      "message": "nit: not",
+      "range": {
+        "startLine": 290,
+        "startChar": 21,
+        "endLine": 290,
+        "endChar": 23
+      },
+      "revId": "07549c0960fd65695fcb817175f8d46f9a90d07f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "669fbed4_b5fd4d96",
+        "filename": "static/redfish/v1/JsonSchemas/index.json",
+        "patchSetId": 10
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-29T18:10:43Z",
+      "side": 1,
+      "message": "Did you miss the change here?",
+      "revId": "07549c0960fd65695fcb817175f8d46f9a90d07f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
