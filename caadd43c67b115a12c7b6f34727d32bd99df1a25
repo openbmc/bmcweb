@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "413108e2_adbf0781",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-29T16:08:07Z",
+      "side": 1,
+      "message": "still magic numbers, a comment?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "caadd43c67b115a12c7b6f34727d32bd99df1a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
