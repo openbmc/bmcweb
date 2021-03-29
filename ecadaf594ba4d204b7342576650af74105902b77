@@ -22,6 +22,328 @@
       "revId": "ecadaf594ba4d204b7342576650af74105902b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b38fac6_7dc47d23",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Can we do this one param at a time.  $skip is going to have consequences of doing it this way (as a post processing step) that I\u0027d like to understand before we actually do that.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fcd576_a818b61e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Please invert this check to save horizontal space.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15c30ce_e83413d1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Please use the appropriate logging functions.",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821db0af_2f6f9237",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Why are we clearing the response here?\n\nI wonder if this kind of thing needs to be split up into pre-request checks and post-request checks, to avoid having to clear the container after we\u0027ve filled it.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9cbbbe2_435c316e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Invert this check similar to the above.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 9
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c87d5dd2_2ce76dce",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "This duplicates the lookup of the \"members\" key with line 49.  Please deduplicate it.",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 46
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09a96cf_d389fbe5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "How about \"Members contains more than one element, returning full collection.\"",
+      "range": {
+        "startLine": 52,
+        "startChar": 34,
+        "endLine": 52,
+        "endChar": 76
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f68172e_08a31ee2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Need to check for existence of this before using it.",
+      "range": {
+        "startLine": 58,
+        "startChar": 49,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ab3a68f_d6a09052",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "This is not the call you want to do.  clear() should only be called from http connection.  You probably want to just clear the json body, which would be something like res.jsonBody.clear()",
+      "range": {
+        "startLine": 59,
+        "startChar": 20,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "490b3005_41db8aa5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "I suspect we don\u0027t need a shared_ptr here.  A normal value type would be just fine.",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 69
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "568e5c51_2cab15cf",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Keep in mind, you\u0027ll need to test that privileges work correctly in this case.",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 45
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "565b8a55_a0d21408",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Don\u0027t use std::endl.",
+      "range": {
+        "startLine": 74,
+        "startChar": 55,
+        "endLine": 74,
+        "endChar": 64
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26541c08_f782a0c9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "One thing I had imagined was that the AsyncResp class and the Response class could be combined, which would save this kind of diff everywhere.\n\nNot necessarily something you need to tackle right away, but something to think about.",
+      "range": {
+        "startLine": 1882,
+        "startChar": 8,
+        "endLine": 1882,
+        "endChar": 22
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a160e12_3683cb03",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1889,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T18:02:15Z",
+      "side": 1,
+      "message": "Capturing this way is a bit dangerous on shutdown.  Ideally we\u0027d use the App overload for the registration handler, but because the Node class still exists, there isn\u0027t a great way to solve this, as the node class relies on inheritence.\n\nI\u0027m not sure how to avoid doing\n\nhttps://github.com/openbmc/bmcweb/issues/181\n\nas part of this, but at some point this becomes boiling the ocean.  Lets get the AsyncResp stuff executed in one patch, then lets look at what it would take to get the ONLY parameters supported.",
+      "range": {
+        "startLine": 1889,
+        "startChar": 13,
+        "endLine": 1889,
+        "endChar": 17
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
