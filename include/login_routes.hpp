@@ -19,8 +19,10 @@ namespace login_routes
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/login")
-        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
-                                                    crow::Response& res) {
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             std::string_view contentType = req.getHeaderValue("content-type");
             std::string_view username;
             std::string_view password;
@@ -38,8 +40,8 @@ inline void requestRoutes(App& app)
                 if (loginCredentials.is_discarded())
                 {
                     BMCWEB_LOG_DEBUG << "Bad json in request";
-                    res.result(boost::beast::http::status::bad_request);
-                    res.end();
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
                     return;
                 }
 
@@ -132,7 +134,8 @@ inline void requestRoutes(App& app)
                 bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
                 if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
                 {
-                    res.result(boost::beast::http::status::unauthorized);
+                    asyncResp->res.result(
+                        boost::beast::http::status::unauthorized);
                 }
                 else
                 {
@@ -151,7 +154,7 @@ inline void requestRoutes(App& app)
                         // structure, and doesn't actually look at the status
                         // code.
                         // TODO(ed).... Fix that upstream
-                        res.jsonValue = {
+                        asyncResp->res.jsonValue = {
                             {"data",
                              "User '" + std::string(username) + "' logged in"},
                             {"message", "200 OK"},
@@ -167,7 +170,7 @@ inline void requestRoutes(App& app)
                         // "set-cookie" string into the value header, and get
                         // the result we want, even though we are technicaly
                         // declaring two headers here.
-                        res.addHeader(
+                        asyncResp->res.addHeader(
                             "Set-Cookie",
                             "XSRF-TOKEN=" + session->csrfToken +
                                 "; SameSite=Strict; Secure\r\nSet-Cookie: "
@@ -178,25 +181,26 @@ inline void requestRoutes(App& app)
                     else
                     {
                         // if content type is json, assume json token
-                        res.jsonValue = {{"token", session->sessionToken}};
+                        asyncResp->res.jsonValue = {
+                            {"token", session->sessionToken}};
                     }
                 }
             }
             else
             {
                 BMCWEB_LOG_DEBUG << "Couldn't interpret password";
-                res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.result(boost::beast::http::status::bad_request);
             }
-            res.end();
         });
 
     BMCWEB_ROUTE(app, "/logout")
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req, crow::Response& res) {
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 auto& session = req.session;
                 if (session != nullptr)
                 {
-                    res.jsonValue = {
+                    asyncResp->res.jsonValue = {
                         {"data", "User '" + session->username + "' logged out"},
                         {"message", "200 OK"},
                         {"status", "ok"}};
@@ -204,7 +208,6 @@ inline void requestRoutes(App& app)
                     persistent_data::SessionStore::getInstance().removeSession(
                         session);
                 }
-                res.end();
                 return;
             });
 }

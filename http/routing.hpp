@@ -45,7 +45,9 @@ class BaseRule
         return {};
     }
 
-    virtual void handle(const Request&, Response&, const RoutingParams&) = 0;
+    virtual void handle(const Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>&,
+                        const RoutingParams&) = 0;
     virtual void handleUpgrade(const Request&, Response& res,
                                boost::asio::ip::tcp::socket&&)
     {
@@ -118,7 +120,7 @@ struct CallParams
     H1& handler;
     const RoutingParams& params;
     const Request& req;
-    Response& res;
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp;
 };
 
 template <typename F, int NInt, int NUint, int NDouble, int NString,
@@ -190,7 +192,7 @@ struct Call<F, NInt, NUint, NDouble, NString, black_magic::S<>,
     void operator()(F cparams)
     {
         cparams.handler(
-            cparams.req, cparams.res,
+            cparams.req, cparams.asyncResp,
             cparams.params.template get<typename Args1::type>(Args1::pos)...);
     }
 };
@@ -207,11 +209,10 @@ struct Wrapped
                 const Request&>::value,
             int>::type = 0)
     {
-        handler = [f = std::move(f)](const Request&, Response& res,
-                                     Args... args) {
-            res.result(f(args...));
-            res.end();
-        };
+        handler = [f = std::move(f)](
+                      const Request&,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      Args... args) { asyncResp->res.result(f(args...)); };
     }
 
     template <typename Req, typename... Args>
@@ -220,10 +221,11 @@ struct Wrapped
         ReqHandlerWrapper(Func fIn) : f(std::move(fIn))
         {}
 
-        void operator()(const Request& req, Response& res, Args... args)
+        void operator()(const Request& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        Args... args)
         {
-            res.result(f(req, args...));
-            res.end();
+            asyncResp->res.result(f(req, args...));
         }
 
         Func f;
@@ -238,7 +240,7 @@ struct Wrapped
                 const Request&>::value &&
                 !std::is_same<typename std::tuple_element<
                                   1, std::tuple<Args..., void, void>>::type,
-                              Response&>::value,
+                              const std::shared_ptr<bmcweb::AsyncResp>&>::value,
             int>::type = 0)
     {
         handler = ReqHandlerWrapper<Args...>(std::move(f));
@@ -259,7 +261,7 @@ struct Wrapped
                 const Request&>::value &&
                 std::is_same<typename std::tuple_element<
                                  1, std::tuple<Args..., void, void>>::type,
-                             Response&>::value,
+                             const std::shared_ptr<bmcweb::AsyncResp>&>::value,
             int>::type = 0)
     {
         handler = std::move(f);
@@ -268,8 +270,9 @@ struct Wrapped
     template <typename... Args>
     struct HandlerTypeHelper
     {
-        using type =
-            std::function<void(const crow::Request&, crow::Response&, Args...)>;
+        using type = std::function<void(
+            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
     };
@@ -277,24 +280,28 @@ struct Wrapped
     template <typename... Args>
     struct HandlerTypeHelper<const Request&, Args...>
     {
-        using type =
-            std::function<void(const crow::Request&, crow::Response&, Args...)>;
+        using type = std::function<void(
+            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
     };
 
     template <typename... Args>
-    struct HandlerTypeHelper<const Request&, Response&, Args...>
+    struct HandlerTypeHelper<const Request&,
+                             const std::shared_ptr<bmcweb::AsyncResp>&, Args...>
     {
-        using type =
-            std::function<void(const crow::Request&, crow::Response&, Args...)>;
+        using type = std::function<void(
+            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
     };
 
     typename HandlerTypeHelper<ArgsWrapped...>::type handler;
 
-    void operator()(const Request& req, Response& res,
+    void operator()(const Request& req,
+                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const RoutingParams& params)
     {
         detail::routing_handler_call_helper::Call<
@@ -302,7 +309,7 @@ struct Wrapped
             0, 0, 0, 0, typename HandlerTypeHelper<ArgsWrapped...>::args_type,
             black_magic::S<>>()(
             detail::routing_handler_call_helper::CallParams<decltype(handler)>{
-                handler, params, req, res});
+                handler, params, req, asyncResp});
     }
 };
 } // namespace routing_handler_call_helper
@@ -319,10 +326,11 @@ class WebSocketRule : public BaseRule
     void validate() override
     {}
 
-    void handle(const Request&, Response& res, const RoutingParams&) override
+    void handle(const Request&,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const RoutingParams&) override
     {
-        res.result(boost::beast::http::status::not_found);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::not_found);
     }
 
     void handleUpgrade(const Request& req, Response&,
@@ -460,10 +468,11 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         }
     }
 
-    void handle(const Request& req, Response& res,
+    void handle(const Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const RoutingParams& params) override
     {
-        erasedHandler(req, res, params);
+        erasedHandler(req, asyncResp, params);
     }
 
     template <typename Func>
@@ -480,7 +489,9 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     // enable_if Arg1 != request
 
     template <typename Func, unsigned... Indices>
-    std::function<void(const Request&, Response&, const RoutingParams&)>
+    std::function<void(const Request&,
+                       const std::shared_ptr<bmcweb::AsyncResp>&,
+                       const RoutingParams&)>
         wrap(Func f, std::integer_sequence<unsigned, Indices...>)
     {
         using function_t = crow::utility::function_traits<Func>;
@@ -509,7 +520,9 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     }
 
   private:
-    std::function<void(const Request&, Response&, const RoutingParams&)>
+    std::function<void(const Request&,
+                       const std::shared_ptr<bmcweb::AsyncResp>&,
+                       const RoutingParams&)>
         erasedHandler;
 };
 
@@ -550,11 +563,10 @@ class TaggedRule :
             "types: "
             "string, int, crow::response, nlohmann::json");
 
-        handler = [f = std::move(f)](const Request&, Response& res,
-                                     Args... args) {
-            res.result(f(args...));
-            res.end();
-        };
+        handler = [f = std::move(f)](
+                      const Request&,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      Args... args) { asyncResp->res.result(f(args...)); };
     }
 
     template <typename Func>
@@ -577,11 +589,10 @@ class TaggedRule :
             "types: "
             "string, int, crow::response,nlohmann::json");
 
-        handler = [f = std::move(f)](const crow::Request& req,
-                                     crow::Response& res, Args... args) {
-            res.result(f(req, args...));
-            res.end();
-        };
+        handler = [f = std::move(f)](
+                      const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      Args... args) { asyncResp->res.result(f(req, args...)); };
     }
 
     template <typename Func>
@@ -597,13 +608,16 @@ class TaggedRule :
                 black_magic::CallHelper<
                     Func, black_magic::S<crow::Request, Args...>>::value ||
                 black_magic::CallHelper<
-                    Func, black_magic::S<crow::Request, crow::Response&,
+                    Func, black_magic::S<crow::Request,
+                                         std::shared_ptr<bmcweb::AsyncResp>&,
                                          Args...>>::value,
             "Handler type is mismatched with URL parameters");
         static_assert(
-            std::is_same<void, decltype(f(std::declval<crow::Request>(),
-                                          std::declval<crow::Response&>(),
-                                          std::declval<Args>()...))>::value,
+            std::is_same<
+                void,
+                decltype(f(std::declval<crow::Request>(),
+                           std::declval<std::shared_ptr<bmcweb::AsyncResp>&>(),
+                           std::declval<Args>()...))>::value,
             "Handler function with response argument should have void "
             "return "
             "type");
@@ -618,18 +632,21 @@ class TaggedRule :
         (*this).template operator()<Func>(std::forward(f));
     }
 
-    void handle(const Request& req, Response& res,
+    void handle(const Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const RoutingParams& params) override
     {
         detail::routing_handler_call_helper::Call<
             detail::routing_handler_call_helper::CallParams<decltype(handler)>,
             0, 0, 0, 0, black_magic::S<Args...>, black_magic::S<>>()(
             detail::routing_handler_call_helper::CallParams<decltype(handler)>{
-                handler, params, req, res});
+                handler, params, req, asyncResp});
     }
 
   private:
-    std::function<void(const crow::Request&, crow::Response&, Args...)> handler;
+    std::function<void(const crow::Request&,
+                       const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
+        handler;
 };
 
 const int ruleSpecialRedirectSlash = 1;
@@ -1202,12 +1219,12 @@ class Router
         }
     }
 
-    void handle(Request& req, Response& res)
+    void handle(Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         if (static_cast<size_t>(req.method()) >= perMethods.size())
         {
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
         PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
@@ -1227,14 +1244,13 @@ class Router
                     p.trie.find(req.url);
                 if (found2.first > 0)
                 {
-                    res.result(boost::beast::http::status::method_not_allowed);
-                    res.end();
+                    asyncResp->res.result(
+                        boost::beast::http::status::method_not_allowed);
                     return;
                 }
             }
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
@@ -1247,21 +1263,22 @@ class Router
         {
             BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
                             << req.url;
-            res.result(boost::beast::http::status::moved_permanently);
+            asyncResp->res.result(
+                boost::beast::http::status::moved_permanently);
 
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
             {
-                res.addHeader("Location", std::string(req.url) + "/");
+                asyncResp->res.addHeader("Location",
+                                         std::string(req.url) + "/");
             }
             else
             {
-                res.addHeader("Location",
-                              (req.isSecure ? "https://" : "http://") +
-                                  std::string(req.getHeaderValue("Host")) +
-                                  std::string(req.url) + "/");
+                asyncResp->res.addHeader(
+                    "Location", (req.isSecure ? "https://" : "http://") +
+                                    std::string(req.getHeaderValue("Host")) +
+                                    std::string(req.url) + "/");
             }
-            res.end();
             return;
         }
 
@@ -1272,8 +1289,8 @@ class Router
                              << " with " << req.methodString() << "("
                              << static_cast<uint32_t>(req.method()) << ") / "
                              << rules[ruleIndex]->getMethods();
-            res.result(boost::beast::http::status::method_not_allowed);
-            res.end();
+            asyncResp->res.result(
+                boost::beast::http::status::method_not_allowed);
             return;
         }
 
@@ -1283,12 +1300,12 @@ class Router
 
         if (req.session == nullptr)
         {
-            rules[ruleIndex]->handle(req, res, found.second);
+            rules[ruleIndex]->handle(req, asyncResp, found.second);
             return;
         }
 
         crow::connections::systemBus->async_method_call(
-            [&req, &res, &rules, ruleIndex, found](
+            [&req, asyncResp, &rules, ruleIndex, found](
                 const boost::system::error_code ec,
                 std::map<std::string, std::variant<bool, std::string,
                                                    std::vector<std::string>>>
@@ -1296,9 +1313,8 @@ class Router
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-                    res.result(
+                    asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
-                    res.end();
                     return;
                 }
 
@@ -1328,9 +1344,8 @@ class Router
                 {
                     BMCWEB_LOG_ERROR
                         << "RemoteUser property missing or wrong type";
-                    res.result(
+                    asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
-                    res.end();
                     return;
                 }
                 bool remoteUser = *remoteUserPtr;
@@ -1355,9 +1370,8 @@ class Router
                         BMCWEB_LOG_ERROR
                             << "UserPasswordExpired property is expected for"
                                " local user but is missing or wrong type";
-                        res.result(
+                        asyncResp->res.result(
                             boost::beast::http::status::internal_server_error);
-                        res.end();
                         return;
                     }
                 }
@@ -1382,20 +1396,20 @@ class Router
 
                 if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
                 {
-                    res.result(boost::beast::http::status::forbidden);
+                    asyncResp->res.result(
+                        boost::beast::http::status::forbidden);
                     if (req.session->isConfigureSelfOnly)
                     {
                         redfish::messages::passwordChangeRequired(
-                            res, "/redfish/v1/AccountService/Accounts/" +
-                                     req.session->username);
+                            asyncResp->res,
+                            "/redfish/v1/AccountService/Accounts/" +
+                                req.session->username);
                     }
-                    res.end();
                     return;
                 }
 
                 req.userRole = userRole;
-
-                rules[ruleIndex]->handle(req, res, found.second);
+                rules[ruleIndex]->handle(req, asyncResp, found.second);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.Manager", "GetUserInfo",

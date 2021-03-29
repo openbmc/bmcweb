@@ -29,7 +29,7 @@ static constexpr char const* pcieDeviceInterface =
     "xyz.openbmc_project.PCIe.Device";
 
 static inline void
-    getPCIeDeviceList(const std::shared_ptr<AsyncResp>& asyncResp,
+    getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& name)
 {
     auto getPCIeMapCallback = [asyncResp, name](
@@ -89,10 +89,9 @@ class SystemPCIeDeviceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.jsonValue = {
             {"@odata.type", "#PCIeDeviceCollection.PCIeDeviceCollection"},
             {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices"},
@@ -121,10 +120,10 @@ class SystemPCIeDevice : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -209,10 +208,10 @@ class SystemPCIeFunctionCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -302,10 +301,10 @@ class SystemPCIeFunction : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 2)
         {
             messages::internalError(asyncResp->res);

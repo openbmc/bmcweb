@@ -37,30 +37,33 @@ class Thermal : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
+
             return;
         }
         const std::string& chassisName = params[0];
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::types.at(sensors::node::thermal),
+            asyncResp, chassisName,
+            sensors::dbus::types.at(sensors::node::thermal),
             sensors::node::thermal);
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
     }
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            res.end();
-            messages::internalError(res);
+
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -70,20 +73,21 @@ class Thermal : public Node
         std::unordered_map<std::string, std::vector<nlohmann::json>>
             allCollections;
 
-        auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, sensors::dbus::types.at(sensors::node::thermal),
+        auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
+            asyncResp, chassisName,
+            sensors::dbus::types.at(sensors::node::thermal),
             sensors::node::thermal);
 
-        if (!json_util::readJson(req, asyncResp->res, "Temperatures",
-                                 temperatureCollections, "Fans",
+        if (!json_util::readJson(req, sensorsAsyncResp->asyncResp->res,
+                                 "Temperatures", temperatureCollections, "Fans",
                                  fanCollections))
         {
             return;
         }
         if (!temperatureCollections && !fanCollections)
         {
-            messages::resourceNotFound(asyncResp->res, "Thermal",
-                                       "Temperatures / Voltages");
+            messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
+                                       "Thermal", "Temperatures / Voltages");
             return;
         }
         if (temperatureCollections)
@@ -96,7 +100,7 @@ class Thermal : public Node
             allCollections.emplace("Fans", *std::move(fanCollections));
         }
 
-        checkAndDoSensorsOverride(asyncResp, allCollections);
+        checkAndDoSensorsOverride(sensorsAsyncResp, allCollections);
     }
 };
 
