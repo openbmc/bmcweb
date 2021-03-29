@@ -44,8 +44,6 @@ constexpr char const* deleteAllInterface =
     "xyz.openbmc_project.Collection.DeleteAll";
 constexpr char const* crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
-constexpr char const* crashdumpRawPECIInterface =
-    "com.intel.crashdump.SendRawPeci";
 constexpr char const* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
@@ -2434,13 +2432,6 @@ class CrashdumpService : public Node
             {"#LogService.CollectDiagnosticData",
              {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
                          "Actions/LogService.CollectDiagnosticData"}}}};
-
-#ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
-        asyncResp->res.jsonValue["Actions"]["Oem"] = {
-            {"#Crashdump.SendRawPeci",
-             {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                         "Actions/Oem/Crashdump.SendRawPeci"}}}};
-#endif
     }
 };
 
@@ -2867,79 +2858,6 @@ class CrashdumpCollect : public Node
                 "CollectDiagnosticData");
             return;
         }
-    }
-};
-
-class SendRawPECI : public Node
-{
-  public:
-    SendRawPECI(App& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
-             "Crashdump.SendRawPeci/")
-    {
-        // Note: Deviated from redfish privilege registry for GET & HEAD
-        // method for security reasons.
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        std::vector<std::vector<uint8_t>> peciCommands;
-
-        if (!json_util::readJson(req, res, "PECICommands", peciCommands))
-        {
-            return;
-        }
-        uint32_t idx = 0;
-        for (auto const& cmd : peciCommands)
-        {
-            if (cmd.size() < 3)
-            {
-                std::string s("[");
-                for (auto const& val : cmd)
-                {
-                    if (val != *cmd.begin())
-                    {
-                        s += ",";
-                    }
-                    s += std::to_string(val);
-                }
-                s += "]";
-                messages::actionParameterValueFormatError(
-                    res, s, "PECICommands[" + std::to_string(idx) + "]",
-                    "SendRawPeci");
-                return;
-            }
-            idx++;
-        }
-        // Callback to return the Raw PECI response
-        auto sendRawPECICallback =
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::vector<uint8_t>>& resp) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "failed to process PECI commands ec: "
-                                     << ec.message();
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                asyncResp->res.jsonValue = {{"Name", "PECI Command Response"},
-                                            {"PECIResponse", resp}};
-            };
-        // Call the SendRawPECI command with the provided data
-        crow::connections::systemBus->async_method_call(
-            std::move(sendRawPECICallback), crashdumpObject, crashdumpPath,
-            crashdumpRawPECIInterface, "SendRawPeci", peciCommands);
     }
 };
 
