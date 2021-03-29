@@ -21,7 +21,7 @@ using ReadingParameters =
                            std::string, std::string>>;
 
 inline void fillReportDefinition(
-    const std::shared_ptr<AsyncResp>& asyncResp, const std::string& id,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
     const std::vector<
         std::pair<std::string, std::variant<std::string, bool, uint64_t,
                                             ReadingParameters>>>& ret)
@@ -217,7 +217,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
 }
 
 inline bool getChassisSensorNode(
-    const std::shared_ptr<AsyncResp>& asyncResp,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, std::vector<std::string>>>&
         metrics,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
@@ -257,8 +257,10 @@ inline bool getChassisSensorNode(
 class AddReport
 {
   public:
-    AddReport(AddReportArgs argsIn, std::shared_ptr<AsyncResp> asyncResp) :
-        asyncResp{std::move(asyncResp)}, args{std::move(argsIn)}
+    AddReport(AddReportArgs argsIn,
+              const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) :
+        asyncResp(asyncResp),
+        args{std::move(argsIn)}
     {}
     ~AddReport()
     {
@@ -340,7 +342,7 @@ class AddReport
     }
 
   private:
-    std::shared_ptr<AsyncResp> asyncResp;
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp;
     AddReportArgs args;
     boost::container::flat_map<std::string, std::string> uriToDbus{};
 };
@@ -362,26 +364,26 @@ class MetricReportDefinitionCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#MetricReportDefinitionCollection."
-                                       "MetricReportDefinitionCollection";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MetricReportDefinitionCollection."
+            "MetricReportDefinitionCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
-        res.jsonValue["Name"] = "Metric Definition Collection";
+        asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         telemetry::getReportCollection(asyncResp,
                                        telemetry::metricReportDefinitionUri);
     }
 
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         telemetry::AddReportArgs args;
-        if (!telemetry::getUserParameters(res, req, args))
+        if (!telemetry::getUserParameters(asyncResp->res, req, args))
         {
             return;
         }
@@ -434,10 +436,10 @@ class MetricReportDefinition : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {
@@ -474,10 +476,10 @@ class MetricReportDefinition : public Node
             telemetry::reportInterface);
     }
 
-    void doDelete(crow::Response& res, const crow::Request&,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request&,
                   const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);

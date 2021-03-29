@@ -23,7 +23,7 @@ namespace collection_util
  * @return void
  */
 inline void
-    getCollectionMembers(std::shared_ptr<AsyncResp> aResp,
+    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
                          const std::string& collectionPath,
                          const std::vector<const char*>& interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
