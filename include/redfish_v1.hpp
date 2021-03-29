@@ -8,9 +8,9 @@ inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/")
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&, crow::Response& res) {
-                res.jsonValue = {{"v1", "/redfish/v1/"}};
-                res.end();
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue = {{"v1", "/redfish/v1/"}};
             });
 }
 } // namespace redfish

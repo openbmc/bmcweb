@@ -22,7 +22,7 @@ namespace redfish
 {
 
 template <typename CallbackFunc>
-void getMainChassisId(std::shared_ptr<AsyncResp> asyncResp,
+void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
 {
     // Find managed chassis

@@ -17,11 +17,9 @@ class BiosService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Bios";
         asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
@@ -56,10 +54,9 @@ class BiosReset : public Node
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {

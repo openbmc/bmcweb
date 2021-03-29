@@ -54,8 +54,9 @@ static std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 /**
  * @brief Read all known properties from VM object interfaces
  */
-static void vmParseInterfaceObject(const DbusInterfaceType& interface,
-                                   const std::shared_ptr<AsyncResp>& aResp)
+static void
+    vmParseInterfaceObject(const DbusInterfaceType& interface,
+                           const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     const auto mountPointIface =
         interface.find("xyz.openbmc_project.VirtualMedia.MountPoint");
@@ -184,7 +185,7 @@ static nlohmann::json vmItemTemplate(const std::string& name,
 /**
  *  @brief Fills collection data
  */
-static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
+static void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                               const std::string& service,
                               const std::string& name)
 {
@@ -223,7 +224,7 @@ static void getVmResourceList(std::shared_ptr<AsyncResp> aResp,
 /**
  *  @brief Fills data for specific resource
  */
-static void getVmData(const std::shared_ptr<AsyncResp>& aResp,
+static void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                       const std::string& service, const std::string& name,
                       const std::string& resName)
 {
@@ -394,7 +395,8 @@ class VirtualMediaActionInsertMedia : public Node
      * @brief Function validate parameters of insert media request.
      *
      */
-    bool validateParams(crow::Response& res, std::string& imageUrl,
+    bool validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        std::string& imageUrl,
                         const std::optional<bool>& inserted,
                         const std::optional<std::string>& transferMethod,
                         const std::optional<std::string>& transferProtocolType)
@@ -405,7 +407,8 @@ class VirtualMediaActionInsertMedia : public Node
         {
             BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
 
-            messages::propertyValueFormatError(res, "<empty>", "Image");
+            messages::propertyValueFormatError(asyncResp->res, "<empty>",
+                                               "Image");
 
             return false;
         }
@@ -416,7 +419,7 @@ class VirtualMediaActionInsertMedia : public Node
             BMCWEB_LOG_ERROR
                 << "Request action optional parameter Inserted must be true.";
 
-            messages::actionParameterNotSupported(res, "Inserted",
+            messages::actionParameterNotSupported(asyncResp->res, "Inserted",
                                                   "InsertMedia");
 
             return false;
@@ -428,8 +431,8 @@ class VirtualMediaActionInsertMedia : public Node
             BMCWEB_LOG_ERROR << "Request action optional parameter "
                                 "TransferMethod must be Stream.";
 
-            messages::actionParameterNotSupported(res, "TransferMethod",
-                                                  "InsertMedia");
+            messages::actionParameterNotSupported(
+                asyncResp->res, "TransferMethod", "InsertMedia");
 
             return false;
         }
@@ -447,7 +450,7 @@ class VirtualMediaActionInsertMedia : public Node
                                 "contain specified protocol type from list: "
                                 "(smb, https).";
 
-            messages::resourceAtUriInUnknownFormat(res, imageUrl);
+            messages::resourceAtUriInUnknownFormat(asyncResp->res, imageUrl);
 
             return false;
         }
@@ -459,8 +462,8 @@ class VirtualMediaActionInsertMedia : public Node
                                 "must be provided with value from list: "
                                 "(CIFS, HTTPS).";
 
-            messages::propertyValueNotInList(res, *transferProtocolType,
-                                             "TransferProtocolType");
+            messages::propertyValueNotInList(
+                asyncResp->res, *transferProtocolType, "TransferProtocolType");
             return false;
         }
 
@@ -472,7 +475,7 @@ class VirtualMediaActionInsertMedia : public Node
                                 "contain specified protocol type or param "
                                 "TransferProtocolType must be provided.";
 
-            messages::resourceAtUriInUnknownFormat(res, imageUrl);
+            messages::resourceAtUriInUnknownFormat(asyncResp->res, imageUrl);
 
             return false;
         }
@@ -490,8 +493,8 @@ class VirtualMediaActionInsertMedia : public Node
                                     "provided with param imageUrl.";
 
                 messages::actionParameterValueTypeError(
-                    res, *transferProtocolType, "TransferProtocolType",
-                    "InsertMedia");
+                    asyncResp->res, *transferProtocolType,
+                    "TransferProtocolType", "InsertMedia");
 
                 return false;
             }
@@ -513,14 +516,13 @@ class VirtualMediaActionInsertMedia : public Node
      *
      * Analyzes POST body message before sends Reset request data to dbus.
      */
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-        auto aResp = std::make_shared<AsyncResp>(res);
-
         if (params.size() != 2)
         {
-            messages::internalError(res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -529,20 +531,21 @@ class VirtualMediaActionInsertMedia : public Node
 
         if (params[0] != "bmc")
         {
-            messages::resourceNotFound(res, "VirtualMedia.Insert", resName);
+            messages::resourceNotFound(asyncResp->res, "VirtualMedia.Insert",
+                                       resName);
 
             return;
         }
 
         crow::connections::systemBus->async_method_call(
-            [this, aResp{std::move(aResp)}, req,
+            [this, asyncResp, req,
              resName](const boost::system::error_code ec,
                       const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
                                      << ec;
-                    messages::internalError(aResp->res);
+                    messages::internalError(asyncResp->res);
 
                     return;
                 }
@@ -551,8 +554,8 @@ class VirtualMediaActionInsertMedia : public Node
 
                 crow::connections::systemBus->async_method_call(
                     [this, service, resName, req,
-                     aResp{aResp}](const boost::system::error_code ec,
-                                   ManagedObjectType& subtree) {
+                     asyncResp](const boost::system::error_code ec,
+                                ManagedObjectType& subtree) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -582,8 +585,8 @@ class VirtualMediaActionInsertMedia : public Node
                                     BMCWEB_LOG_DEBUG << "InsertMedia not "
                                                         "allowed in proxy mode";
                                     messages::resourceNotFound(
-                                        aResp->res, "VirtualMedia.InsertMedia",
-                                        resName);
+                                        asyncResp->res,
+                                        "VirtualMedia.InsertMedia", resName);
 
                                     return;
                                 }
@@ -605,7 +608,7 @@ class VirtualMediaActionInsertMedia : public Node
 
                                 // Read obligatory parameters (url of image)
                                 if (!json_util::readJson(
-                                        req, aResp->res, "Image", imageUrl,
+                                        req, asyncResp->res, "Image", imageUrl,
                                         "WriteProtected", writeProtected,
                                         "UserName", userName, "Password",
                                         password, "Inserted", inserted,
@@ -618,7 +621,7 @@ class VirtualMediaActionInsertMedia : public Node
                                 }
 
                                 bool paramsValid = validateParams(
-                                    aResp->res, imageUrl, inserted,
+                                    asyncResp->res, imageUrl, inserted,
                                     transferMethod, transferProtocolType);
 
                                 if (paramsValid == false)
@@ -628,7 +631,7 @@ class VirtualMediaActionInsertMedia : public Node
 
                                 // manager is irrelevant for VirtualMedia dbus
                                 // calls
-                                doMountVmLegacy(aResp, service, resName,
+                                doMountVmLegacy(asyncResp, service, resName,
                                                 imageUrl, !(*writeProtected),
                                                 std::move(*userName),
                                                 std::move(*password));
@@ -637,8 +640,8 @@ class VirtualMediaActionInsertMedia : public Node
                             }
                         }
                         BMCWEB_LOG_DEBUG << "Parent item not found";
-                        messages::resourceNotFound(aResp->res, "VirtualMedia",
-                                                   resName);
+                        messages::resourceNotFound(asyncResp->res,
+                                                   "VirtualMedia", resName);
                     },
                     service, "/xyz/openbmc_project/VirtualMedia",
                     "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -796,7 +799,7 @@ class VirtualMediaActionInsertMedia : public Node
      *
      * All BMC state properties will be retrieved before sending reset request.
      */
-    void doMountVmLegacy(const std::shared_ptr<AsyncResp>& asyncResp,
+    void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& service, const std::string& name,
                          const std::string& imageUrl, const bool rw,
                          std::string&& userName, std::string&& password)
@@ -895,14 +898,13 @@ class VirtualMediaActionEjectMedia : public Node
      *
      * Analyzes POST body message before sends Reset request data to dbus.
      */
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-        auto aResp = std::make_shared<AsyncResp>(res);
-
         if (params.size() != 2)
         {
-            messages::internalError(res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -911,20 +913,21 @@ class VirtualMediaActionEjectMedia : public Node
 
         if (params[0] != "bmc")
         {
-            messages::resourceNotFound(res, "VirtualMedia.Eject", resName);
+            messages::resourceNotFound(asyncResp->res, "VirtualMedia.Eject",
+                                       resName);
 
             return;
         }
 
         crow::connections::systemBus->async_method_call(
-            [this, aResp{std::move(aResp)}, req,
+            [this, asyncResp{std::move(asyncResp)}, req,
              resName](const boost::system::error_code ec,
                       const GetObjectType& getObjectType) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
                                      << ec;
-                    messages::internalError(aResp->res);
+                    messages::internalError(asyncResp->res);
 
                     return;
                 }
@@ -933,8 +936,8 @@ class VirtualMediaActionEjectMedia : public Node
 
                 crow::connections::systemBus->async_method_call(
                     [this, resName, service, req,
-                     aResp{aResp}](const boost::system::error_code ec,
-                                   ManagedObjectType& subtree) {
+                     asyncResp{asyncResp}](const boost::system::error_code ec,
+                                           ManagedObjectType& subtree) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -961,22 +964,24 @@ class VirtualMediaActionEjectMedia : public Node
                                 if (lastIndex != std::string::npos)
                                 {
                                     // Proxy mode
-                                    doVmAction(aResp, service, resName, false);
+                                    doVmAction(asyncResp, service, resName,
+                                               false);
                                 }
 
                                 lastIndex = path.rfind("Legacy");
                                 if (lastIndex != std::string::npos)
                                 {
                                     // Legacy mode
-                                    doVmAction(aResp, service, resName, true);
+                                    doVmAction(asyncResp, service, resName,
+                                               true);
                                 }
 
                                 return;
                             }
                         }
                         BMCWEB_LOG_DEBUG << "Parent item not found";
-                        messages::resourceNotFound(aResp->res, "VirtualMedia",
-                                                   resName);
+                        messages::resourceNotFound(asyncResp->res,
+                                                   "VirtualMedia", resName);
                     },
                     service, "/xyz/openbmc_project/VirtualMedia",
                     "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -992,7 +997,7 @@ class VirtualMediaActionEjectMedia : public Node
      *
      * All BMC state properties will be retrieved before sending reset request.
      */
-    void doVmAction(const std::shared_ptr<AsyncResp>& asyncResp,
+    void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::string& service, const std::string& name,
                     bool legacy)
     {
@@ -1053,16 +1058,16 @@ class VirtualMediaCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         // Check if there is required param, truly entering this shall be
         // impossible
         if (params.size() != 1)
         {
-            messages::internalError(res);
+            messages::internalError(asyncResp->res);
 
             return;
         }
@@ -1076,10 +1081,10 @@ class VirtualMediaCollection : public Node
             return;
         }
 
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#VirtualMediaCollection.VirtualMediaCollection";
-        res.jsonValue["Name"] = "Virtual Media Services";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["Name"] = "Virtual Media Services";
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/" + name + "/VirtualMedia";
 
         crow::connections::systemBus->async_method_call(
@@ -1128,22 +1133,19 @@ class VirtualMedia : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Check if there is required param, truly entering this shall be
         // impossible
         if (params.size() != 2)
         {
-            messages::internalError(res);
-
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
         const std::string& name = params[0];
         const std::string& resName = params[1];
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (name != "bmc")
         {
