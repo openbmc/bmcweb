@@ -23,21 +23,20 @@ class TelemetryService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#TelemetryService.v1_2_1.TelemetryService";
-        res.jsonValue["@odata.id"] = "/redfish/v1/TelemetryService";
-        res.jsonValue["Id"] = "TelemetryService";
-        res.jsonValue["Name"] = "Telemetry Service";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/TelemetryService";
+        asyncResp->res.jsonValue["Id"] = "TelemetryService";
+        asyncResp->res.jsonValue["Name"] = "Telemetry Service";
 
-        res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
+        asyncResp->res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
-        res.jsonValue["MetricReports"]["@odata.id"] =
+        asyncResp->res.jsonValue["MetricReports"]["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReports";
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
