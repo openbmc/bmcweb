@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8c2d778d_39341eb8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-29T06:34:15Z",
+      "side": 1,
+      "message": "You need to add proper commit message, why are you adding this. This is done to make redfish data compliance with OCP Server Mgmt Interfaces and specific to Thermal resources.",
+      "parentUuid": "b8aa5a53_25174b66",
+      "revId": "c237c2a6549f17716d008ff24ca29ff6eb74b23b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6612dd37_f5596f5e",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "45cfc96f_9992c66e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-29T06:34:15Z",
+      "side": 1,
+      "message": "Yes, I agree this is not correct way for doing this.\n\nAll sensors objects should be mapped to one of Physical Context(either by associations or by configuration properties on dbus object).",
+      "parentUuid": "6612dd37_f5596f5e",
+      "revId": "c237c2a6549f17716d008ff24ca29ff6eb74b23b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee4bea1e_c7de3957",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2021-03-26T14:23:29Z",
       "side": 1,
       "message": "But there is 42 of these, why is everything else defaulted to SystemBoard?\nhttp://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext",
+      "revId": "c237c2a6549f17716d008ff24ca29ff6eb74b23b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c689e5_911d4362",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-29T06:34:15Z",
+      "side": 1,
+      "message": "Hmmm This is added in common place but I think this is intended for Temperature sensors under Thermal schema alone to compliance with \"OCP Server Mgmt Interface v0.2.1.pdf\".\n\n\nAs per \"OCP Server Mgmt Interface v0.2.1.pdf\", Requirement for Thermal resource properties shows 3 types that is CPU, Intake and SystemBoard.",
+      "parentUuid": "ee4bea1e_c7de3957",
       "revId": "c237c2a6549f17716d008ff24ca29ff6eb74b23b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
