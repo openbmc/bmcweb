@@ -488,6 +488,24 @@
     },
     {
       "key": {
+        "uuid": "549aecaf_279da990",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-29T16:02:10Z",
+      "side": 1,
+      "message": "Correct, this is how most session systems pulling credentials from remote storage operate.",
+      "parentUuid": "c0ec1486_7086e36d",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41589718_18e13016",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
