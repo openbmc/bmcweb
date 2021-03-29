@@ -1,5 +1,6 @@
 #pragma once
 
+#include "async_resp.hpp"
 #include "http_request.hpp"
 #include "http_server.hpp"
 #include "logging.hpp"
@@ -51,7 +52,14 @@ class App
 
     void handle(Request& req, Response& res)
     {
-        router.handle(req, res);
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
+        router.handle(req, asyncResp);
+    }
+
+    void handle(Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        router.handle(req, asyncResp);
     }
 
     DynamicRule& routeDynamic(std::string&& rule)
