@@ -193,6 +193,30 @@
     },
     {
       "key": {
+        "uuid": "6cc9dd07_748a399d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-03-29T20:57:49Z",
+      "side": 1,
+      "message": "I submitted a PR to boost to handle the \u0027/\u0027 character: https://github.com/boostorg/beast/pull/2209",
+      "parentUuid": "7d50deb4_0ace7aa6",
+      "range": {
+        "startLine": 1789,
+        "startChar": 0,
+        "endLine": 1790,
+        "endChar": 47
+      },
+      "revId": "6ed6ca518381cc6dd21e02d61ddd7cac51a8f537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "929bdf93_0eb5881c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 11
