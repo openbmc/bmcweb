@@ -74,7 +74,6 @@ feature_map = {
 'redfish-cpu-log'                 : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
 'redfish-dbus-log'                : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
 'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
-'redfish-raw-peci'                : '-DBMCWEB_ENABLE_REDFISH_RAW_PECI',
 'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
 'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
 'insecure-sensor-override'        : '-DBMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE',
