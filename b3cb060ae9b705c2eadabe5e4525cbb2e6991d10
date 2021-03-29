@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "61f32674_0372eca0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-29T08:47:10Z",
+      "side": 1,
+      "message": "Done, it now behaves like in previous case version (no entry when cannot convert) + added log message.",
+      "parentUuid": "6ae0efc7_ab02ac6b",
+      "range": {
+        "startLine": 940,
+        "startChar": 45,
+        "endLine": 940,
+        "endChar": 58
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cf0e4c7_dfcabb19",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
@@ -114,6 +138,30 @@
       "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f14cddcc_e74f5f71",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-03-29T08:47:10Z",
+      "side": 1,
+      "message": "Done, it now behaves like in previous case version (no entry when cannot convert) + added log message.",
+      "parentUuid": "2cf0e4c7_dfcabb19",
+      "range": {
+        "startLine": 941,
+        "startChar": 46,
+        "endLine": 941,
+        "endChar": 60
+      },
+      "revId": "b3cb060ae9b705c2eadabe5e4525cbb2e6991d10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
