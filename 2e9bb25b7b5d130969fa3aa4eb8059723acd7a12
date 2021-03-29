@@ -470,6 +470,24 @@
     },
     {
       "key": {
+        "uuid": "c0ec1486_7086e36d",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-03-29T10:24:57Z",
+      "side": 1,
+      "message": "So if I am getting you correctly, you want that this interface needs to be done only at the login time not with every request.\n\u003d\u003e privilege should be fetched during authentication \n\u003d\u003e persist the privilege in the in memory session object.\n\u003d\u003e each successive request will be matched against the privilege which is there in the in-memory session object.",
+      "parentUuid": "19745a80_5b5b0037",
+      "revId": "2e9bb25b7b5d130969fa3aa4eb8059723acd7a12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41589718_18e13016",
         "filename": "include/sessions.hpp",
         "patchSetId": 5
