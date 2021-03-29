@@ -46,6 +46,30 @@
       "revId": "905d4c5c160b285760eea25f5ea477e414c8b793",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70e84490_060f718c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 34
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-29T03:44:38Z",
+      "side": 1,
+      "message": "I think Ed is asking for this to be added to the commit msg. \nMaybe a couple sentences.. E.g. \"A client would use the LocationIndicatorActive property to identify or locate the processor. This would be accomplished by PATCHing LocationIndicatorActive to true. The LED group manager, defined by the identify_led_group association, should then turn on the LED(s) associated with this processor. The LED(s) should then be turned off when LocationIndicatorActive is PATCHed to false.\"",
+      "parentUuid": "0246526a_8df2a46a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "905d4c5c160b285760eea25f5ea477e414c8b793",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
