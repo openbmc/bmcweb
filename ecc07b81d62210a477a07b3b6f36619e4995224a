@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7632035c_9431da73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-30T05:59:11Z",
+      "side": 1,
+      "message": "Lots of typos, and whitespace issues.  Please proofread your commit messages before pushing them.\n\nAlso, SDLC is not a public spec.  Please look through the existing guidelines documents we use (OWASP, ect) and find rooting for these changes.  OpenBMC is not a security authority, and we follow others (Mozilla and OWASP primarily) lead on web security.",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e951da7_c5e8a903",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-30T05:59:11Z",
+      "side": 1,
+      "message": "report-uri makes no sense when we don\u0027t have CSP reporting implemented.  This would be a separate feature, and not just a header change, for the moment, this is the default, so it can be removed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38428054_5af50867",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-30T05:59:11Z",
+      "side": 1,
+      "message": "Does owasp recommend these?  that\u0027s the authority we generally use.  We can certainly take other guidance, but I\u0027d like to avoid taking multiple guidance\u0027s.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 36
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f4ca3f5_cd184454",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-30T05:59:11Z",
+      "side": 1,
+      "message": "Not all comments addressed.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 43
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d475c57e_e49e2349",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-30T05:59:11Z",
+      "side": 1,
+      "message": "Considering we have no children, and have no forms, these are arguably less secure than default-src \u0027none\u0027\n\nPlease in your commit message talk through why each of these is needed, and point to the relevant documentation.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 44
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87f33e42_e1538cab",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-30T05:59:11Z",
+      "side": 1,
+      "message": "Please remove.  This doesn\u0027t need to go inline unless there\u0027s a strange case.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
