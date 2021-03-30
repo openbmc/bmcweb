@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f822d1b1_a1c65ed0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-30T10:15:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24a7a880_a64b20a4",
+      "revId": "1ac413793941d09a2cdb489c16fbbb0b90eb23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48b311f6_9fc1c0b7",
         "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "1ac413793941d09a2cdb489c16fbbb0b90eb23d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc3f9f4_3103b35e",
+        "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-03-30T10:15:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48b311f6_9fc1c0b7",
+      "revId": "1ac413793941d09a2cdb489c16fbbb0b90eb23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
