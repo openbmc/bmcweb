@@ -50,37 +50,56 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
 
-    // Added for future purpose. Once present and functional attributes added
-    // in busctl call, need to add actual logic to fetch original values.
-    bool present = false;
-    const bool functional = true;
-    auto health = std::make_shared<HealthPopulate>(aResp);
-    health->populate();
+    // Set the default value of state
+    aResp->res.jsonValue["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue["Status"]["Health"] = "OK";
 
     for (const auto& interface : cpuInterfacesProperties)
     {
         for (const auto& property : interface.second)
         {
-            if (property.first == "CoreCount")
+            if (property.first == "Present")
             {
-                const uint16_t* coresCount =
-                    std::get_if<uint16_t>(&property.second);
-                if (coresCount == nullptr)
+                const bool* cpuPresent = std::get_if<bool>(&property.second);
+                if (cpuPresent == nullptr)
                 {
                     // Important property not in desired type
                     messages::internalError(aResp->res);
                     return;
                 }
-                if (*coresCount == 0)
+                if (*cpuPresent == false)
                 {
                     // Slot is not populated, set status end return
                     aResp->res.jsonValue["Status"]["State"] = "Absent";
+                    aResp->res.jsonValue["Status"]["Health"] = "OK";
                     // HTTP Code will be set up automatically, just return
                     return;
                 }
                 aResp->res.jsonValue["Status"]["State"] = "Enabled";
-                present = true;
-                aResp->res.jsonValue["TotalCores"] = *coresCount;
+            }
+            else if (property.first == "Functional")
+            {
+                const bool* cpuFunctional = std::get_if<bool>(&property.second);
+                if (cpuFunctional != nullptr)
+                {
+                    if (*cpuFunctional == false)
+                    {
+                        aResp->res.jsonValue["Status"]["Health"] = "Critical";
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["Status"]["Health"] = "OK";
+                    }
+                }
+            }
+            else if (property.first == "CoreCount")
+            {
+                const uint16_t* coresCount =
+                    std::get_if<uint16_t>(&property.second);
+                if (coresCount != nullptr)
+                {
+                    aResp->res.jsonValue["TotalCores"] = *coresCount;
+                }
             }
             else if (property.first == "MaxSpeedInMhz")
             {
@@ -122,30 +141,11 @@ inline void
                 const uint64_t* value = std::get_if<uint64_t>(&property.second);
                 if (value != nullptr && *value != 0)
                 {
-                    present = true;
                     aResp->res
                         .jsonValue["ProcessorId"]["IdentificationRegisters"] =
                         boost::lexical_cast<std::string>(*value);
                 }
             }
-        }
-    }
-
-    if (present == false)
-    {
-        aResp->res.jsonValue["Status"]["State"] = "Absent";
-        aResp->res.jsonValue["Status"]["Health"] = "OK";
-    }
-    else
-    {
-        aResp->res.jsonValue["Status"]["State"] = "Enabled";
-        if (functional)
-        {
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
-        }
-        else
-        {
-            aResp->res.jsonValue["Status"]["Health"] = "Critical";
         }
     }
 
