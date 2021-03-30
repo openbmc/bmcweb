@@ -88,6 +88,24 @@
       "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ba8badc_d7b61c0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-03-30T21:05:15Z",
+      "side": 1,
+      "message": "I added the doc in this CL. Please take a look. Thank you.",
+      "parentUuid": "716cc74a_b837ed15",
+      "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
