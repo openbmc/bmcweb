@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8a009251_6e46206a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f71a41c_edaa65a0",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b2681f2_50276815",
         "filename": "http/http_client.hpp",
         "patchSetId": 18
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a72896e_dc132494",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b2681f2_50276815",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac097e3_955322ec",
         "filename": "http/http_client.hpp",
         "patchSetId": 18
@@ -59,6 +107,30 @@
       "writtenOn": "2021-03-25T16:22:36Z",
       "side": 1,
       "message": "At this point, we know that the resolve succeeded, we can call directly to doConnect, right?\n\nThis would also mean that we can just pass endpoints in as an argument to doConnect, rather than having to store it in this object, thus simplifying the state machine here.\n\nThis is the pattern that httpConnection follows, which I\u0027d like to keep at least in part, because we know it works.",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa28356a_bb7aac80",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "This is place we went back and forth but i see both side in either of approach. I prefer the approach of storing resolved endpoint on this object:\n\n It gives provision for some performance improvements. As i did observed Resolving host name is taking more time and may become bottle neck for some companies who is running slow processor. Keep this way, Makes doResolve isolated from connect. So it can be optimized in future.\nexample: \nIf Send/recv fails -\u003e Instead of starting from resolve, it can start from Connect.\nIf connect fails, Then it will start from Resolve.\n\nAlso with it all actions on connection are handlers via handleCOnnection(),",
+      "parentUuid": "3ac097e3_955322ec",
       "range": {
         "startLine": 107,
         "startChar": 16,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c525a2be_b948eb9f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "48c9897e_db590bdd",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 47
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4b4b652_ad269be9",
         "filename": "http/http_client.hpp",
         "patchSetId": 18
@@ -105,6 +201,30 @@
       "writtenOn": "2021-03-25T16:22:36Z",
       "side": 1,
       "message": "Still need to check the resulting message for failures.",
+      "range": {
+        "startLine": 196,
+        "startChar": 18,
+        "endLine": 196,
+        "endChar": 37
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa00890_4f4fab3c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "I tried to find some references for this but couldn\u0027t find. More ever, When i changed listener to return non success return code(other than 20x status code), I see its async_read failure and retry loop gets triggered. May be need to improve on this which can be taken as separate commit.\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":130] Connected to: xx.xx.xx.xx:5002\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":140] sendMessage(): xx.xx.xx.xx:5002\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":158] sendMessage() bytes transferred: 131\n(2021-03-30 18:24:44) [ERROR \"http_client.hpp\":183] recvMessage() failed: bad version\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":279] Attempt retry after 0 seconds. RetryCount \u003d 2",
+      "parentUuid": "b4b4b652_ad269be9",
       "range": {
         "startLine": 196,
         "startChar": 18,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "da296fcf_2fe7c8e8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f79861d_5c6cb981",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 53
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc5d2da5_299b1447",
         "filename": "http/http_client.hpp",
         "patchSetId": 18
@@ -160,6 +304,30 @@
       "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5da137f0_e4ebf120",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-03-30T18:41:01Z",
+      "side": 1,
+      "message": "Ok Ed, We can think of improvement here future commits. I will keep it my Todo list for future improvements.",
+      "parentUuid": "fc5d2da5_299b1447",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 26
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
