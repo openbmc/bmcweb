@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d3aa4ef9_5b5178e9",
+        "filename": "http/app.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "029e3459_fb54df5f",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b38fac6_7dc47d23",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2021-03-29T18:02:15Z",
       "side": 1,
       "message": "Can we do this one param at a time.  $skip is going to have consequences of doing it this way (as a post processing step) that I\u0027d like to understand before we actually do that.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a346ed8_7d9dabc4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Do you mean that only one parameter is allowed at a time?\nWhat I thought before was that multiple parameters may exist at the same time, and the combination of different parameters will have different effects. This is a very complicated job, and I haven\u0027t thought about how to deal with it. ONLY is a special parameter, because it is written in the manual that ONLY cannot appear with other parameters at the same time, so I chose to do this first.\nIf there is only one parameter at a time, the difficulty will be much lower.",
+      "parentUuid": "3b38fac6_7dc47d23",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5961ac68_7e446dfe",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3fcd576_a818b61e",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e15c30ce_e83413d1",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "ecadaf594ba4d204b7342576650af74105902b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfd1e838_48ab08be",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e15c30ce_e83413d1",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8816b8ae_057481bd",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "821db0af_2f6f9237",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9cbbbe2_435c316e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -137,6 +257,30 @@
       "revId": "ecadaf594ba4d204b7342576650af74105902b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d816d5_e98673f0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9cbbbe2_435c316e",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 9
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "c2bc3266_8ece83a0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c87d5dd2_2ce76dce",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 46
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f09a96cf_d389fbe5",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -183,6 +351,30 @@
       "revId": "ecadaf594ba4d204b7342576650af74105902b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86486d5b_35f681cc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09a96cf_d389fbe5",
+      "range": {
+        "startLine": 52,
+        "startChar": 34,
+        "endLine": 52,
+        "endChar": 76
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "f91e41c5_980c98c7",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f68172e_08a31ee2",
+      "range": {
+        "startLine": 58,
+        "startChar": 49,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ab3a68f_d6a09052",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -229,6 +445,30 @@
       "revId": "ecadaf594ba4d204b7342576650af74105902b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16926a7f_74fc7395",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ab3a68f_d6a09052",
+      "range": {
+        "startLine": 59,
+        "startChar": 20,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "3af129d5_5402da53",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "490b3005_41db8aa5",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 69
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "568e5c51_2cab15cf",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -266,6 +530,30 @@
       "writtenOn": "2021-03-29T18:02:15Z",
       "side": 1,
       "message": "Keep in mind, you\u0027ll need to test that privileges work correctly in this case.",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 45
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c2ecc41_ed72fc8d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand, can you explain it in detail?",
+      "parentUuid": "568e5c51_2cab15cf",
       "range": {
         "startLine": 62,
         "startChar": 19,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "ea73f0ee_62834c00",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "565b8a55_a0d21408",
+      "range": {
+        "startLine": 74,
+        "startChar": 55,
+        "endLine": 74,
+        "endChar": 64
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26541c08_f782a0c9",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 11
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "083602dd_a47bbdc4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "This also requires a lot of code changes, but this is not a very urgent matter. I will think about it.",
+      "parentUuid": "26541c08_f782a0c9",
+      "range": {
+        "startLine": 1882,
+        "startChar": 8,
+        "endLine": 1882,
+        "endChar": 22
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a160e12_3683cb03",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 11
@@ -335,6 +671,30 @@
       "writtenOn": "2021-03-29T18:02:15Z",
       "side": 1,
       "message": "Capturing this way is a bit dangerous on shutdown.  Ideally we\u0027d use the App overload for the registration handler, but because the Node class still exists, there isn\u0027t a great way to solve this, as the node class relies on inheritence.\n\nI\u0027m not sure how to avoid doing\n\nhttps://github.com/openbmc/bmcweb/issues/181\n\nas part of this, but at some point this becomes boiling the ocean.  Lets get the AsyncResp stuff executed in one patch, then lets look at what it would take to get the ONLY parameters supported.",
+      "range": {
+        "startLine": 1889,
+        "startChar": 13,
+        "endLine": 1889,
+        "endChar": 17
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c292ec6_7db735e3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1889,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-03-30T07:42:16Z",
+      "side": 1,
+      "message": "\u003e  Lets get the AsyncResp stuff executed in one patch, then lets look at what it would take to get the ONLY parameters supported.\n\nSorry, I didn\u0027t understand this.",
+      "parentUuid": "6a160e12_3683cb03",
       "range": {
         "startLine": 1889,
         "startChar": 13,
