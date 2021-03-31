@@ -1,6 +1,7 @@
 #include <systemd/sd-daemon.h>
 
 #include <app.hpp>
+#include <bmc_health.hpp>
 #include <boost/asio/io_context.hpp>
 #include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
@@ -133,6 +134,9 @@ int main(int /*argc*/, char** /*argv*/)
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
 #endif
+
+    // BMC Health
+    crow::bmc_health::requestRoutes(app);
 
     app.run();
     io->run();
