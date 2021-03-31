@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8c1747e_b74fe56a",
+        "filename": "include/bmc_health.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-03-31T23:20:11Z",
+      "side": 1,
+      "message": "Why can\u0027t these just be a sensor?\n\nhttps://redfish.dmtf.org/schemas/v1/Sensor.v1_2_0.json\n\nThere is a Percent for sensor. \n\n                \"Percent\": \"This value shall indicate a percentage measurement, in percent units, and the ReadingUnits value shall be `%`.\",\n\n\nIf these can\u0027t be sensor, have we asked Redfish to add these to the spec?",
+      "revId": "e0c873df2ea958765e8e9cecd1042eea60805d4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
