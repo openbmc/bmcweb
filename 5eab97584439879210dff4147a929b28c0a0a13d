@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc1cabf1_213204cc",
+        "filename": "include/async_resp.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "I\u0027m fine with this change, but please do it in another commit.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c14879c7_2ea57683",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0488309c_d0e8b712",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "For some reason I thought we already had this helper function somewhere.  Can you take a look, and deduplicate this logic with the existing chassis schemas?",
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b24d037_4fcfaa10",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Please use the redfish AsyncResp object.  I know you want to use the callback capability here, but that\u0027s something that\u0027s being removed in a patchset that\u0027s under review currently.",
+      "range": {
+        "startLine": 16,
+        "startChar": 50,
+        "endLine": 16,
+        "endChar": 56
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ed656a_ff7d5cbc",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "As a general rule, when writing generic callback methods like this, callback should always be called, including during failure paths.",
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dc17670_1af53075",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "std::string\u0026 please.",
+      "range": {
+        "startLine": 35,
+        "startChar": 23,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710e99cd_a4f543c0",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "This is a precondition that should be checked somewhere else, not in this method.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5750d1da_da18fcd9",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Don\u0027t use auto in this context.",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d87689_b7765b81",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Don\u0027t use auto in this context.",
+      "range": {
+        "startLine": 83,
+        "startChar": 14,
+        "endLine": 83,
+        "endChar": 18
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce4331e0_98b3f7d4",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "This check looks like it\u0027s trying to deduplicate, which we shouldn\u0027t do at this level.  If we have duplicate values, something else has gone wrong here.  I suspect all this can be deleted.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d085eda_a331b68a",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Please split this up.  At its lowest it is 5 scope levels deep.",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 23
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a60758_b1714d2e",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "I suspect this doesn\u0027t need to be here.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad678e8c_48b3db3d",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Please separate this into 2 distinct conditionals.",
+      "range": {
+        "startLine": 185,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 26
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7e0f362_bb8b3601",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Deduplicate with line 223.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 45
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f36932_a0d0c0b2",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Please don\u0027t use the callback mechanism here.  If you need your own RAII response type, please create it around redfish::AsyncResp.",
+      "range": {
+        "startLine": 223,
+        "startChar": 77,
+        "endLine": 228,
+        "endChar": 9
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d635acc_d75159c9",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:12:57Z",
+      "side": 1,
+      "message": "Please split this up.  3 levels of callback, and 9 levels of scope is too much for one block of code.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 14
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
