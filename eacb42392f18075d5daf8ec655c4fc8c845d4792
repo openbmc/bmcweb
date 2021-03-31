@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c3af8686_046f78ee",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:47:18Z",
+      "side": 1,
+      "message": "\u003e This is place we went back and forth but i see both side in either of approach. I prefer the approach of storing resolved endpoint on this object:\n\u003e \n\u003e  It gives provision for some performance improvements. As i did observed Resolving host name is taking more time and may become bottle neck for some companies who is running slow processor. Keep this way, Makes doResolve isolated from connect. So it can be optimized in future.\n\nI\u0027m not following that, any optimization could be done regardless of how the code is organized.  Also, at such time as the optimization is done, we could reorganize the code to make it simpler.\n\n\u003e example: \n\u003e If Send/recv fails -\u003e Instead of starting from resolve, it can start from Connect.\n\nI wouldn\u0027t be in favor of this.  This would have bad behavior for failover and load balancing, where a server may have failed, and need to call a different server, in which case resolve would be requred.\n\n\u003e If connect fails, Then it will start from Resolve.\n\u003e \n\u003e Also with it all actions on connection are handlers via handleCOnnection(),",
+      "parentUuid": "fa28356a_bb7aac80",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48c9897e_db590bdd",
         "filename": "http/http_client.hpp",
         "patchSetId": 18
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "I tried to find some references for this but couldn\u0027t find. More ever, When i changed listener to return non success return code(other than 20x status code), I see its async_read failure and retry loop gets triggered. May be need to improve on this which can be taken as separate commit.\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":130] Connected to: xx.xx.xx.xx:5002\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":140] sendMessage(): xx.xx.xx.xx:5002\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":158] sendMessage() bytes transferred: 131\n(2021-03-30 18:24:44) [ERROR \"http_client.hpp\":183] recvMessage() failed: bad version\n(2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":279] Attempt retry after 0 seconds. RetryCount \u003d 2",
       "parentUuid": "b4b4b652_ad269be9",
+      "range": {
+        "startLine": 196,
+        "startChar": 18,
+        "endLine": 196,
+        "endChar": 37
+      },
+      "revId": "eacb42392f18075d5daf8ec655c4fc8c845d4792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4e7fd0a_abbebd87",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-03-31T18:47:18Z",
+      "side": 1,
+      "message": "\u003e I tried to find some references for this but couldn\u0027t find.\n\nPlease look harder.  Http return codes are well documented.\n\n\u003e More ever, When i changed listener to return non success return code(other than 20x status code), I see its async_read failure and retry loop gets triggered. May be need to improve on this which can be taken as separate commit.\n\nThis would generally imply that your server is giving bad responses, or you\u0027re parsing those responses incorrectly.  This should be root caused before this commit merges.\n\nFeel free to stack another commit on top of this one, but this commit (which claims to fix retry handling) won\u0027t be merged until it\u0027s correct.\n\n\u003e (2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":130] Connected to: xx.xx.xx.xx:5002\n\u003e (2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":140] sendMessage(): xx.xx.xx.xx:5002\n\u003e (2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":158] sendMessage() bytes transferred: 131\n\u003e (2021-03-30 18:24:44) [ERROR \"http_client.hpp\":183] recvMessage() failed: bad version\n\u003e (2021-03-30 18:24:44) [DEBUG \"http_client.hpp\":279] Attempt retry after 0 seconds. RetryCount \u003d 2",
+      "parentUuid": "ffa00890_4f4fab3c",
       "range": {
         "startLine": 196,
         "startChar": 18,
