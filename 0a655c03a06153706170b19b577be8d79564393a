@@ -139,6 +139,30 @@
       "revId": "0a655c03a06153706170b19b577be8d79564393a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76cae49c_8b18579e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-01T19:57:05Z",
+      "side": 1,
+      "message": "If this change to ResetBIOSSettings is approved, there should probably be a config option to enable one or the other, because there are current systems that rely on the current FactoryReset interface, and if you change it, then those systems will break.",
+      "parentUuid": "d47a711a_07ef52b9",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 74
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

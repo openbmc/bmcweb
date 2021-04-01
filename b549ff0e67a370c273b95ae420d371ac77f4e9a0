@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "817a5bc8_64d2ccb0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-01T19:57:05Z",
+      "side": 1,
+      "message": "Is there an application that has implemented ResetBIOSSettings already?",
+      "revId": "b549ff0e67a370c273b95ae420d371ac77f4e9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
