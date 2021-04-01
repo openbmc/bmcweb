@@ -38,7 +38,8 @@ namespace redfish
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls
  */
-inline void doBMCGracefulRestart(const std::shared_ptr<AsyncResp>& asyncResp)
+inline void
+    doBMCGracefulRestart(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -66,7 +67,8 @@ inline void doBMCGracefulRestart(const std::shared_ptr<AsyncResp>& asyncResp)
         interfaceName, destProperty, dbusPropertyValue);
 }
 
-inline void doBMCForceRestart(const std::shared_ptr<AsyncResp>& asyncResp)
+inline void
+    doBMCForceRestart(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -114,13 +116,13 @@ class ManagerResetAction : public Node
      * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
      * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
      */
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Post Manager Reset.";
 
         std::string resetType;
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, asyncResp->res, "ResetType", resetType))
         {
@@ -174,13 +176,13 @@ class ManagerResetToDefaultsAction : public Node
      *
      * OpenBMC only supports ResetToDefaultsType "ResetAll".
      */
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Post ResetToDefaults.";
 
         std::string resetType;
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, asyncResp->res, "ResetToDefaultsType",
                                  resetType))
@@ -246,10 +248,10 @@ class ManagerResetActionInfo : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
             {"@odata.id", "/redfish/v1/Managers/bmc/ResetActionInfo"},
             {"Name", "Reset Action Info"},
@@ -259,7 +261,6 @@ class ManagerResetActionInfo : public Node
                {"Required", true},
                {"DataType", "String"},
                {"AllowableValues", {"GracefulRestart", "ForceRestart"}}}}}};
-        res.end();
     }
 };
 
@@ -274,11 +275,11 @@ static constexpr const char* stepwiseConfigurationIface =
 static constexpr const char* thermalModeIface =
     "xyz.openbmc_project.Control.ThermalMode";
 
-inline void asyncPopulatePid(const std::string& connection,
-                             const std::string& path,
-                             const std::string& currentProfile,
-                             const std::vector<std::string>& supportedProfiles,
-                             const std::shared_ptr<AsyncResp>& asyncResp)
+inline void
+    asyncPopulatePid(const std::string& connection, const std::string& path,
+                     const std::string& currentProfile,
+                     const std::vector<std::string>& supportedProfiles,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
 
     crow::connections::systemBus->async_method_call(
@@ -691,9 +692,10 @@ enum class CreatePIDRet
     patch
 };
 
-inline bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
-                                std::vector<nlohmann::json>& config,
-                                std::vector<std::string>& zones)
+inline bool
+    getZonesFromJsonReq(const std::shared_ptr<bmcweb::AsyncResp>& response,
+                        std::vector<nlohmann::json>& config,
+                        std::vector<std::string>& zones)
 {
     if (config.empty())
     {
@@ -762,7 +764,7 @@ inline const dbus::utility::ManagedItem*
 }
 
 inline CreatePIDRet createPidInterface(
-    const std::shared_ptr<AsyncResp>& response, const std::string& type,
+    const std::shared_ptr<bmcweb::AsyncResp>& response, const std::string& type,
     const nlohmann::json::iterator& it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
@@ -1155,7 +1157,7 @@ inline CreatePIDRet createPidInterface(
 struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 {
 
-    GetPIDValues(const std::shared_ptr<AsyncResp>& asyncRespIn) :
+    GetPIDValues(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
         asyncResp(asyncRespIn)
 
     {}
@@ -1325,13 +1327,13 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
     std::vector<std::string> supportedProfiles;
     std::string currentProfile;
     crow::openbmc_mapper::GetSubTreeType subtree;
-    std::shared_ptr<AsyncResp> asyncResp;
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
 };
 
 struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 {
 
-    SetPIDValues(const std::shared_ptr<AsyncResp>& asyncRespIn,
+    SetPIDValues(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                  nlohmann::json& data) :
         asyncResp(asyncRespIn)
     {
@@ -1494,9 +1496,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         {
             return;
         }
-
-        std::shared_ptr<AsyncResp> response = asyncResp;
-
+        std::shared_ptr<bmcweb::AsyncResp> response = asyncResp;
         if (profile)
         {
             if (std::find(supportedProfiles.begin(), supportedProfiles.end(),
@@ -1692,7 +1692,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
         }
     }
-    std::shared_ptr<AsyncResp> asyncResp;
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::vector<std::pair<std::string, std::optional<nlohmann::json>>>
         configuration;
     std::optional<std::string> profile;
@@ -1712,7 +1712,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
  * @param[in] path - object path
  * @return none
  */
-inline void getLocation(const std::shared_ptr<AsyncResp>& aResp,
+inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& connectionName,
                         const std::string& path)
 {
@@ -1764,37 +1764,39 @@ class Manager : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        res.jsonValue["@odata.type"] = "#Manager.v1_11_0.Manager";
-        res.jsonValue["Id"] = "bmc";
-        res.jsonValue["Name"] = "OpenBmc Manager";
-        res.jsonValue["Description"] = "Baseboard Management Controller";
-        res.jsonValue["PowerState"] = "On";
-        res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
-        res.jsonValue["ManagerType"] = "BMC";
-        res.jsonValue["UUID"] = systemd_utils::getUuid();
-        res.jsonValue["ServiceEntryPointUUID"] = uuid;
-        res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
+        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_11_0.Manager";
+        asyncResp->res.jsonValue["Id"] = "bmc";
+        asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
+        asyncResp->res.jsonValue["Description"] =
+            "Baseboard Management Controller";
+        asyncResp->res.jsonValue["PowerState"] = "On";
+        asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
+                                              {"Health", "OK"}};
+        asyncResp->res.jsonValue["ManagerType"] = "BMC";
+        asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
+        asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
+        asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
-        res.jsonValue["LogServices"] = {
+        asyncResp->res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
 
-        res.jsonValue["NetworkProtocol"] = {
+        asyncResp->res.jsonValue["NetworkProtocol"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
 
-        res.jsonValue["EthernetInterfaces"] = {
+        asyncResp->res.jsonValue["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
-        res.jsonValue["VirtualMedia"] = {
+        asyncResp->res.jsonValue["VirtualMedia"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 
         // default oem data
-        nlohmann::json& oem = res.jsonValue["Oem"];
+        nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
         oem["@odata.type"] = "#OemManager.Oem";
         oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
@@ -1806,7 +1808,7 @@ class Manager : public Node
         // Manager.Reset (an action) can be many values, OpenBMC only supports
         // BMC reboot.
         nlohmann::json& managerReset =
-            res.jsonValue["Actions"]["#Manager.Reset"];
+            asyncResp->res.jsonValue["Actions"]["#Manager.Reset"];
         managerReset["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
         managerReset["@Redfish.ActionInfo"] =
@@ -1816,30 +1818,30 @@ class Manager : public Node
         // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
         // on OpenBMC
         nlohmann::json& resetToDefaults =
-            res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
+            asyncResp->res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
         resetToDefaults["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
         resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
 
-        res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
+        asyncResp->res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
 
         // Fill in SerialConsole info
-        res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
-        res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
-        res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {"IPMI",
-                                                                   "SSH"};
+        asyncResp->res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
+        asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
+        asyncResp->res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {
+            "IPMI", "SSH"};
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info
-        res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
-        res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
-        res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
+        asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        asyncResp->res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] =
+            4;
+        asyncResp->res
+            .jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
 #endif // BMCWEB_ENABLE_KVM
 
-        res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
-        res.jsonValue["Links"]["ManagerForServers"] = {
+        asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
+        asyncResp->res.jsonValue["Links"]["ManagerForServers"] = {
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
-
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         health->isManagersHealth = true;
@@ -1853,14 +1855,16 @@ class Manager : public Node
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
 
-        getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                       const std::shared_ptr<AsyncResp>& aRsp) {
-            aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
-            aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
-                {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-            aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
-                {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
-        });
+        getMainChassisId(
+            asyncResp, [](const std::string& chassisId,
+                          const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] =
+                    1;
+                aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+                aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
+                    {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
+            });
 
         static bool started = false;
 
@@ -1995,15 +1999,15 @@ class Manager : public Node
                 "xyz.openbmc_project.Inventory.Item.Bmc"});
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>&) override
     {
         std::optional<nlohmann::json> oem;
         std::optional<nlohmann::json> links;
         std::optional<std::string> datetime;
-        std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
 
-        if (!json_util::readJson(req, response->res, "Oem", oem, "DateTime",
+        if (!json_util::readJson(req, asyncResp->res, "Oem", oem, "DateTime",
                                  datetime, "Links", links))
         {
             return;
@@ -2012,7 +2016,8 @@ class Manager : public Node
         if (oem)
         {
             std::optional<nlohmann::json> openbmc;
-            if (!redfish::json_util::readJson(*oem, res, "OpenBmc", openbmc))
+            if (!redfish::json_util::readJson(*oem, asyncResp->res, "OpenBmc",
+                                              openbmc))
             {
                 BMCWEB_LOG_ERROR
                     << "Illegal Property "
@@ -2023,7 +2028,8 @@ class Manager : public Node
             if (openbmc)
             {
                 std::optional<nlohmann::json> fan;
-                if (!redfish::json_util::readJson(*openbmc, res, "Fan", fan))
+                if (!redfish::json_util::readJson(*openbmc, asyncResp->res,
+                                                  "Fan", fan))
                 {
                     BMCWEB_LOG_ERROR
                         << "Illegal Property "
@@ -2034,7 +2040,7 @@ class Manager : public Node
                 }
                 if (fan)
                 {
-                    auto pid = std::make_shared<SetPIDValues>(response, *fan);
+                    auto pid = std::make_shared<SetPIDValues>(asyncResp, *fan);
                     pid->run();
                 }
             }
@@ -2042,33 +2048,34 @@ class Manager : public Node
         if (links)
         {
             std::optional<nlohmann::json> activeSoftwareImage;
-            if (!redfish::json_util::readJson(
-                    *links, res, "ActiveSoftwareImage", activeSoftwareImage))
+            if (!redfish::json_util::readJson(*links, asyncResp->res,
+                                              "ActiveSoftwareImage",
+                                              activeSoftwareImage))
             {
                 return;
             }
             if (activeSoftwareImage)
             {
                 std::optional<std::string> odataId;
-                if (!json_util::readJson(*activeSoftwareImage, res, "@odata.id",
-                                         odataId))
+                if (!json_util::readJson(*activeSoftwareImage, asyncResp->res,
+                                         "@odata.id", odataId))
                 {
                     return;
                 }
 
                 if (odataId)
                 {
-                    setActiveFirmwareImage(response, *odataId);
+                    setActiveFirmwareImage(asyncResp, *odataId);
                 }
             }
         }
         if (datetime)
         {
-            setDateTime(response, std::move(*datetime));
+            setDateTime(asyncResp, std::move(*datetime));
         }
     }
 
-    void getLastResetTime(const std::shared_ptr<AsyncResp>& aResp)
+    void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
     {
         BMCWEB_LOG_DEBUG << "Getting Manager Last Reset Time";
 
@@ -2111,7 +2118,7 @@ class Manager : public Node
      *
      * @return void
      */
-    void setActiveFirmwareImage(const std::shared_ptr<AsyncResp>& aResp,
+    void setActiveFirmwareImage(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& runningFirmwareTarget)
     {
         // Get the Id from /redfish/v1/UpdateService/FirmwareInventory/<Id>
@@ -2213,7 +2220,7 @@ class Manager : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
-    void setDateTime(std::shared_ptr<AsyncResp> aResp,
+    void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
                      std::string datetime) const
     {
         BMCWEB_LOG_DEBUG << "Set date time: " << datetime;
@@ -2282,18 +2289,18 @@ class ManagerCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
-        res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
-        res.jsonValue["@odata.type"] = "#ManagerCollection.ManagerCollection";
-        res.jsonValue["Name"] = "Manager Collection";
-        res.jsonValue["Members@odata.count"] = 1;
-        res.jsonValue["Members"] = {
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#ManagerCollection.ManagerCollection";
+        asyncResp->res.jsonValue["Name"] = "Manager Collection";
+        asyncResp->res.jsonValue["Members@odata.count"] = 1;
+        asyncResp->res.jsonValue["Members"] = {
             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-        res.end();
     }
 };
 } // namespace redfish

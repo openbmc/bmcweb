@@ -38,16 +38,17 @@ class StorageCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#StorageCollection.StorageCollection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage";
-        res.jsonValue["Name"] = "Storage Collection";
-        res.jsonValue["Members"] = {
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#StorageCollection.StorageCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Storage";
+        asyncResp->res.jsonValue["Name"] = "Storage Collection";
+        asyncResp->res.jsonValue["Members"] = {
             {{"@odata.id", "/redfish/v1/Systems/system/Storage/1"}}};
-        res.jsonValue["Members@odata.count"] = 1;
-        res.end();
+        asyncResp->res.jsonValue["Members@odata.count"] = 1;
     }
 };
 
@@ -66,16 +67,16 @@ class Storage : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
-        res.jsonValue["Name"] = "Storage";
-        res.jsonValue["Id"] = "1";
-        res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Storage/1";
+        asyncResp->res.jsonValue["Name"] = "Storage";
+        asyncResp->res.jsonValue["Id"] = "1";
+        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         health->populate();
 
@@ -289,10 +290,10 @@ class Drive : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -345,8 +346,9 @@ class Drive : public Node
                 }
 
                 getMainChassisId(
-                    asyncResp, [](const std::string& chassisId,
-                                  const std::shared_ptr<AsyncResp>& aRsp) {
+                    asyncResp,
+                    [](const std::string& chassisId,
+                       const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
                         aRsp->res.jsonValue["Links"]["Chassis"] = {
                             {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
                     });

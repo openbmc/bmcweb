@@ -143,16 +143,18 @@ inline void requestRoutes(App& app)
             }
 
             app.routeDynamic(webpath)(
-                [absolutePath, contentType,
-                 contentEncoding](const crow::Request&, crow::Response& res) {
+                [absolutePath, contentType, contentEncoding](
+                    const crow::Request&,
+                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                     if (contentType != nullptr)
                     {
-                        res.addHeader("Content-Type", contentType);
+                        asyncResp->res.addHeader("Content-Type", contentType);
                     }
 
                     if (contentEncoding != nullptr)
                     {
-                        res.addHeader("Content-Encoding", contentEncoding);
+                        asyncResp->res.addHeader("Content-Encoding",
+                                                 contentEncoding);
                     }
 
                     // res.set_header("Cache-Control", "public, max-age=86400");
@@ -160,15 +162,14 @@ inline void requestRoutes(App& app)
                     if (!inf)
                     {
                         BMCWEB_LOG_DEBUG << "failed to read file";
-                        res.result(
+                        asyncResp->res.result(
                             boost::beast::http::status::internal_server_error);
-                        res.end();
                         return;
                     }
 
-                    res.body() = {std::istreambuf_iterator<char>(inf),
-                                  std::istreambuf_iterator<char>()};
-                    res.end();
+                    asyncResp->res.body() = {
+                        std::istreambuf_iterator<char>(inf),
+                        std::istreambuf_iterator<char>()};
                 });
         }
     }
