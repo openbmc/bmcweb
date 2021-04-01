@@ -106,6 +106,24 @@
       "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8f4f85_fcfa43a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T18:18:57Z",
+      "side": 1,
+      "message": "Gunnar is right, this will need a public design doc following design-template.md.",
+      "parentUuid": "4ba8badc_d7b61c0f",
+      "revId": "551b7f85b09dc86c4a34ed16c8b576efb1a6786b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
