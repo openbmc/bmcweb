@@ -24,7 +24,6 @@
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
-#include <utils/query_param.hpp>
 
 #include <variant>
 
@@ -1862,7 +1861,7 @@ inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 class SystemsCollection : public Node
 {
   public:
-    SystemsCollection(App& app) : Node(app, "/redfish/v1/Systems/"), app(app)
+    SystemsCollection(App& app) : Node(app, "/redfish/v1/Systems/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1874,7 +1873,6 @@ class SystemsCollection : public Node
     }
 
   private:
-    App& app;
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const crow::Request& req,
                const std::vector<std::string>&) override
@@ -1885,9 +1883,8 @@ class SystemsCollection : public Node
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, &req,
-             this](const boost::system::error_code ec,
-                   const std::variant<std::string>& /*hostName*/) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
@@ -1902,8 +1899,6 @@ class SystemsCollection : public Node
                         {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                     count = ifaceArray.size();
                 }
-                redfish::query_param::excuteQueryParamAll(this->app, req,
-                                                          asyncResp);
             },
             "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",

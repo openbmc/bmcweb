@@ -295,7 +295,8 @@ class AddReport
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, name = args.name, uriToDbus = std::move(uriToDbus)](
+            [asyncResp = std::move(asyncResp), name = args.name,
+             uriToDbus = std::move(uriToDbus)](
                 const boost::system::error_code ec, const std::string&) {
                 if (ec == boost::system::errc::file_exists)
                 {
