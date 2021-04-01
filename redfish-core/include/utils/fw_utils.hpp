@@ -32,7 +32,7 @@ constexpr const char* bmcPurpose =
  * @return void
  */
 inline void
-    populateFirmwareInformation(const std::shared_ptr<AsyncResp>& aResp,
+    populateFirmwareInformation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& fwVersionPurpose,
                                 const std::string& activeVersionPropName,
                                 const bool populateLinkToImages)
@@ -324,7 +324,7 @@ inline std::string getRedfishFWHealth(const std::string& fwState)
  *
  * @return void
  */
-inline void getFwStatus(const std::shared_ptr<AsyncResp>& asyncResp,
+inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::shared_ptr<std::string>& swId,
                         const std::string& dbusSvc)
 {
@@ -382,8 +382,9 @@ inline void getFwStatus(const std::shared_ptr<AsyncResp>& asyncResp,
  * @param[i,o] asyncResp  Async response object
  * @param[i]   fwId       The firmware ID
  */
-inline void getFwUpdateableStatus(const std::shared_ptr<AsyncResp>& asyncResp,
-                                  const std::shared_ptr<std::string>& fwId)
+inline void
+    getFwUpdateableStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::shared_ptr<std::string>& fwId)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, fwId](const boost::system::error_code ec,

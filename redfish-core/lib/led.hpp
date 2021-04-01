@@ -31,7 +31,8 @@ namespace redfish
  * @return None.
  */
 // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-inline void getIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp)
+inline void
+    getIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
@@ -100,8 +101,9 @@ inline void getIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp)
  * @return None.
  */
 // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-inline void setIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp,
-                                 const std::string& ledState)
+inline void
+    setIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& ledState)
 {
     BMCWEB_LOG_DEBUG << "Set led groups";
     bool ledOn = false;
@@ -163,7 +165,8 @@ inline void setIndicatorLedState(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void getLocationIndicatorActive(const std::shared_ptr<AsyncResp>& aResp)
+inline void
+    getLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
     crow::connections::systemBus->async_method_call(
@@ -233,8 +236,9 @@ inline void getLocationIndicatorActive(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return None.
  */
-inline void setLocationIndicatorActive(const std::shared_ptr<AsyncResp>& aResp,
-                                       const bool ledState)
+inline void
+    setLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const bool ledState)
 {
     BMCWEB_LOG_DEBUG << "Set LocationIndicatorActive";
 

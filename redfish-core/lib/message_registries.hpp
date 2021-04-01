@@ -44,13 +44,13 @@ class MessageRegistryFileCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
 
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.type",
              "#MessageRegistryFileCollection.MessageRegistryFileCollection"},
             {"@odata.id", "/redfish/v1/Registries"},
@@ -62,8 +62,6 @@ class MessageRegistryFileCollection : public Node
               {{"@odata.id", "/redfish/v1/Registries/TaskEvent"}},
               {{"@odata.id", "/redfish/v1/Registries/ResourceEvent"}},
               {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
-
-        res.end();
     }
 };
 
@@ -83,13 +81,13 @@ class MessageRegistryFile : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -121,13 +119,12 @@ class MessageRegistryFile : public Node
         else
         {
             messages::resourceNotFound(
-                res, "#MessageRegistryFile.v1_1_0.MessageRegistryFile",
-                registry);
-            res.end();
+                asyncResp->res,
+                "#MessageRegistryFile.v1_1_0.MessageRegistryFile", registry);
             return;
         }
 
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.id", "/redfish/v1/Registries/" + registry},
             {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
             {"Name", registry + " Message Registry File"},
@@ -145,10 +142,8 @@ class MessageRegistryFile : public Node
 
         if (url != nullptr)
         {
-            res.jsonValue["Location"][0]["PublicationUri"] = url;
+            asyncResp->res.jsonValue["Location"][0]["PublicationUri"] = url;
         }
-
-        res.end();
     }
 };
 
@@ -169,13 +164,13 @@ class MessageRegistry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         if (params.size() != 2)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -223,30 +218,29 @@ class MessageRegistry : public Node
         else
         {
             messages::resourceNotFound(
-                res, "#MessageRegistryFile.v1_1_0.MessageRegistryFile",
-                registry);
-            res.end();
+                asyncResp->res,
+                "#MessageRegistryFile.v1_1_0.MessageRegistryFile", registry);
             return;
         }
 
         if (registry != registry1)
         {
-            messages::resourceNotFound(res, header->type, registry1);
-            res.end();
+            messages::resourceNotFound(asyncResp->res, header->type, registry1);
             return;
         }
 
-        res.jsonValue = {{"@Redfish.Copyright", header->copyright},
-                         {"@odata.type", header->type},
-                         {"Id", header->id},
-                         {"Name", header->name},
-                         {"Language", header->language},
-                         {"Description", header->description},
-                         {"RegistryPrefix", header->registryPrefix},
-                         {"RegistryVersion", header->registryVersion},
-                         {"OwningEntity", header->owningEntity}};
+        asyncResp->res.jsonValue = {
+            {"@Redfish.Copyright", header->copyright},
+            {"@odata.type", header->type},
+            {"Id", header->id},
+            {"Name", header->name},
+            {"Language", header->language},
+            {"Description", header->description},
+            {"RegistryPrefix", header->registryPrefix},
+            {"RegistryVersion", header->registryVersion},
+            {"OwningEntity", header->owningEntity}};
 
-        nlohmann::json& messageObj = res.jsonValue["Messages"];
+        nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
 
         // Go through the Message Registry and populate each Message
         for (const message_registries::MessageEntry* message : registryEntries)
@@ -271,7 +265,6 @@ class MessageRegistry : public Node
                 }
             }
         }
-        res.end();
     }
 };
 
