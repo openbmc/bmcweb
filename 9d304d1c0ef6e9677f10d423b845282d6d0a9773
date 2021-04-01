@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "452734fd_56a3264a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000064
+      },
+      "writtenOn": "2021-04-01T08:47:30Z",
+      "side": 1,
+      "message": "The server.pem contains sensitive key materials and shouldn\u0027t be world-accessible (considering 0007 umask).\nThe certificate-manager that watch for the certificate should have at least identical group as bmcweb (we can run it as \"bmcweb\" group instead).\nAnyway, I\u0027m going to split certificate-manager changes into two parts:\n1. refactor openbmc meta/individual repo to supply configs\n2. run certificate-manager services as non-root",
+      "parentUuid": "bf682bb0_8d15efa0",
+      "revId": "9d304d1c0ef6e9677f10d423b845282d6d0a9773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "218d5255_08282c5c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-03-29T16:21:24Z",
       "side": 1,
       "message": "Tested: ?",
+      "revId": "9d304d1c0ef6e9677f10d423b845282d6d0a9773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c67bf4be_c622038e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000064
+      },
+      "writtenOn": "2021-04-01T08:47:30Z",
+      "side": 1,
+      "message": "Tested with qemu on several platforms. I\u0027m going to put this change on hold for a while.",
+      "parentUuid": "218d5255_08282c5c",
       "revId": "9d304d1c0ef6e9677f10d423b845282d6d0a9773",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
