@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4efe48d2_a5af0941",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T03:25:35Z",
+      "side": 1,
+      "message": "No, i mean i\u0027d like to see:\n\n1. A commit to move the core to AsyncResp\n2. A commit to add only\n3. a commit to add skip\n\nSplitting it up this way significantly helps with finding regressions.",
+      "parentUuid": "3a346ed8_7d9dabc4",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3fcd576_a818b61e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -554,6 +578,30 @@
       "side": 1,
       "message": "I don\u0027t quite understand, can you explain it in detail?",
       "parentUuid": "568e5c51_2cab15cf",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 45
+      },
+      "revId": "ecadaf594ba4d204b7342576650af74105902b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c9430b5_9741b8a0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T03:25:35Z",
+      "side": 1,
+      "message": "You\u0027re re-calling handle() which (I don\u0027t actually remember, but suspect) this has the potential to bypass the authorization system.\n\nTo prove that doesn\u0027t work, you\u0027ll need to find something you don\u0027t have access to, and attempt to $only to access it.  You should see 403 unauthorized, although we\u0027ll have to figure out if that actually works in practice.",
+      "parentUuid": "5c2ecc41_ed72fc8d",
       "range": {
         "startLine": 62,
         "startChar": 19,
