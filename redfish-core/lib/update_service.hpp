@@ -60,9 +60,10 @@ static void activateImage(const std::string& objPath,
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
-static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
-                                   sdbusplus::message::message& m,
-                                   const crow::Request& req)
+static void
+    softwareInterfaceAdded(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           sdbusplus::message::message& m,
+                           const crow::Request& req)
 {
     std::vector<std::pair<
         std::string,
@@ -256,8 +257,9 @@ static void softwareInterfaceAdded(const std::shared_ptr<AsyncResp>& asyncResp,
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(
-    const std::shared_ptr<AsyncResp>& asyncResp, const crow::Request& req,
-    const std::string& url, int timeoutTimeSeconds = 10)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req, const std::string& url,
+    int timeoutTimeSeconds = 10)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
@@ -398,12 +400,12 @@ class UpdateServiceActionsSimpleUpdate : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
         std::optional<std::string> transferProtocol;
         std::string imageURI;
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         BMCWEB_LOG_DEBUG << "Enter UpdateService.SimpleUpdate doPost";
 
@@ -526,24 +528,24 @@ class UpdateService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
-        res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
-        res.jsonValue["Id"] = "UpdateService";
-        res.jsonValue["Description"] = "Service for Software Update";
-        res.jsonValue["Name"] = "Update Service";
-        res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#UpdateService.v1_4_0.UpdateService";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
+        asyncResp->res.jsonValue["Id"] = "UpdateService";
+        asyncResp->res.jsonValue["Description"] = "Service for Software Update";
+        asyncResp->res.jsonValue["Name"] = "Update Service";
+        asyncResp->res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
         // UpdateService cannot be disabled
-        res.jsonValue["ServiceEnabled"] = true;
-        res.jsonValue["FirmwareInventory"] = {
+        asyncResp->res.jsonValue["ServiceEnabled"] = true;
+        asyncResp->res.jsonValue["FirmwareInventory"] = {
             {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         // Update Actions object.
         nlohmann::json& updateSvcSimpleUpdate =
-            res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
+            asyncResp->res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
         updateSvcSimpleUpdate["target"] =
             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
         updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
@@ -551,12 +553,12 @@ class UpdateService : public Node
 #endif
         // Get the current ApplyTime value
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec,
-                    const std::variant<std::string>& applyTime) {
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::string>& applyTime) {
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    messages::internalError(aResp->res);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -569,16 +571,16 @@ class UpdateService : public Node
                 if (*s == "xyz.openbmc_project.Software.ApplyTime."
                           "RequestedApplyTimes.Immediate")
                 {
-                    aResp->res.jsonValue["HttpPushUriOptions"]
-                                        ["HttpPushUriApplyTime"]["ApplyTime"] =
-                        "Immediate";
+                    asyncResp->res
+                        .jsonValue["HttpPushUriOptions"]["HttpPushUriApplyTime"]
+                                  ["ApplyTime"] = "Immediate";
                 }
                 else if (*s == "xyz.openbmc_project.Software.ApplyTime."
                                "RequestedApplyTimes.OnReset")
                 {
-                    aResp->res.jsonValue["HttpPushUriOptions"]
-                                        ["HttpPushUriApplyTime"]["ApplyTime"] =
-                        "OnReset";
+                    asyncResp->res
+                        .jsonValue["HttpPushUriOptions"]["HttpPushUriApplyTime"]
+                                  ["ApplyTime"] = "OnReset";
                 }
             },
             "xyz.openbmc_project.Settings",
@@ -587,15 +589,14 @@ class UpdateService : public Node
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "doPatch...";
 
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
         std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJson(req, res, "HttpPushUriOptions",
+        if (!json_util::readJson(req, asyncResp->res, "HttpPushUriOptions",
                                  pushUriOptions))
         {
             return;
@@ -604,7 +605,7 @@ class UpdateService : public Node
         if (pushUriOptions)
         {
             std::optional<nlohmann::json> pushUriApplyTime;
-            if (!json_util::readJson(*pushUriOptions, res,
+            if (!json_util::readJson(*pushUriOptions, asyncResp->res,
                                      "HttpPushUriApplyTime", pushUriApplyTime))
             {
                 return;
@@ -613,8 +614,8 @@ class UpdateService : public Node
             if (pushUriApplyTime)
             {
                 std::optional<std::string> applyTime;
-                if (!json_util::readJson(*pushUriApplyTime, res, "ApplyTime",
-                                         applyTime))
+                if (!json_util::readJson(*pushUriApplyTime, asyncResp->res,
+                                         "ApplyTime", applyTime))
                 {
                     return;
                 }
@@ -667,12 +668,11 @@ class UpdateService : public Node
         }
     }
 
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "doPost...";
-
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req,
@@ -706,15 +706,14 @@ class SoftwareInventoryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#SoftwareInventoryCollection.SoftwareInventoryCollection";
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory";
-        res.jsonValue["Name"] = "Software Inventory Collection";
+        asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](
@@ -782,7 +781,7 @@ class SoftwareInventory : public Node
 
   private:
     /* Fill related item links (i.e. bmc, bios) in for inventory */
-    static void getRelatedItems(const std::shared_ptr<AsyncResp>& aResp,
+    static void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& purpose)
     {
         if (purpose == fw_util::bmcPurpose)
@@ -804,22 +803,21 @@ class SoftwareInventory : public Node
         }
     }
 
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
         if (params.size() != 1)
         {
-            messages::internalError(res);
-            res.end();
+            messages::internalError(asyncResp->res);
+
             return;
         }
 
         std::shared_ptr<std::string> swId =
             std::make_shared<std::string>(params[0]);
 
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory/" + *swId;
 
         crow::connections::systemBus->async_method_call(

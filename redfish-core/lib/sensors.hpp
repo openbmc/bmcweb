@@ -172,19 +172,21 @@ class SensorsAsyncResp
         const std::string dbusPath;
     };
 
-    SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
+    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisIdIn,
                      const std::vector<const char*>& typesIn,
                      const std::string_view& subNode) :
-        res(response),
+        asyncResp(asyncResp),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
     {}
 
     // Store extra data about sensor mapping and return it in callback
-    SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
+    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisIdIn,
                      const std::vector<const char*>& typesIn,
                      const std::string_view& subNode,
                      DataCompleteCb&& creationComplete) :
-        res(response),
+        asyncResp(asyncResp),
         chassisId(chassisIdIn), types(typesIn),
         chassisSubNode(subNode), metadata{std::vector<SensorData>()},
         dataComplete{std::move(creationComplete)}
@@ -192,18 +194,19 @@ class SensorsAsyncResp
 
     ~SensorsAsyncResp()
     {
-        if (res.result() == boost::beast::http::status::internal_server_error)
+        if (asyncResp->res.result() ==
+            boost::beast::http::status::internal_server_error)
         {
             // Reset the json object to clear out any data that made it in
             // before the error happened todo(ed) handle error condition with
             // proper code
-            res.jsonValue = nlohmann::json::object();
+            asyncResp->res.jsonValue = nlohmann::json::object();
         }
 
         if (dataComplete && metadata)
         {
             boost::container::flat_map<std::string, std::string> map;
-            if (res.result() == boost::beast::http::status::ok)
+            if (asyncResp->res.result() == boost::beast::http::status::ok)
             {
                 for (auto& sensor : *metadata)
                 {
@@ -211,10 +214,8 @@ class SensorsAsyncResp
                                               sensor.dbusPath));
                 }
             }
-            dataComplete(res.result(), map);
+            dataComplete(asyncResp->res.result(), map);
         }
-
-        res.end();
     }
 
     void addMetadata(const nlohmann::json& sensorObject,
@@ -242,7 +243,7 @@ class SensorsAsyncResp
         }
     }
 
-    crow::Response& res;
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     const std::string chassisId;
     const std::vector<const char*> types;
     const std::string chassisSubNode;
@@ -323,7 +324,7 @@ void getObjectsWithConnection(
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR
                 << "getObjectsWithConnection resp_handler: Dbus error " << ec;
             return;
@@ -416,7 +417,7 @@ inline void reduceSensorList(
     if ((allSensors == nullptr) || (activeSensors == nullptr))
     {
         messages::resourceNotFound(
-            sensorsAsyncResp->res, sensorsAsyncResp->chassisSubNode,
+            sensorsAsyncResp->asyncResp->res, sensorsAsyncResp->chassisSubNode,
             sensorsAsyncResp->chassisSubNode == sensors::node::thermal
                 ? "Temperatures"
                 : "Voltages");
@@ -464,7 +465,7 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
             {
                 BMCWEB_LOG_ERROR
                     << "getValidChassisPath respHandler DBUS error: " << ec;
-                messages::internalError(asyncResp->res);
+                messages::internalError(asyncResp->asyncResp->res);
                 return;
             }
 
@@ -517,7 +518,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         if (ec)
         {
             BMCWEB_LOG_ERROR << "getChassis respHandler DBUS error: " << ec;
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             return;
         }
 
@@ -540,46 +541,47 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         }
         if (chassisPath == nullptr)
         {
-            messages::resourceNotFound(sensorsAsyncResp->res, "Chassis",
-                                       sensorsAsyncResp->chassisId);
+            messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
+                                       "Chassis", sensorsAsyncResp->chassisId);
             return;
         }
 
         const std::string& chassisSubNode = sensorsAsyncResp->chassisSubNode;
         if (chassisSubNode == sensors::node::power)
         {
-            sensorsAsyncResp->res.jsonValue["@odata.type"] =
+            sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
                 "#Power.v1_5_2.Power";
         }
         else if (chassisSubNode == sensors::node::thermal)
         {
-            sensorsAsyncResp->res.jsonValue["@odata.type"] =
+            sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
                 "#Thermal.v1_4_0.Thermal";
-            sensorsAsyncResp->res.jsonValue["Fans"] = nlohmann::json::array();
-            sensorsAsyncResp->res.jsonValue["Temperatures"] =
+            sensorsAsyncResp->asyncResp->res.jsonValue["Fans"] =
+                nlohmann::json::array();
+            sensorsAsyncResp->asyncResp->res.jsonValue["Temperatures"] =
                 nlohmann::json::array();
         }
         else if (chassisSubNode == sensors::node::sensors)
         {
-            sensorsAsyncResp->res.jsonValue["@odata.type"] =
+            sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
                 "#SensorCollection.SensorCollection";
-            sensorsAsyncResp->res.jsonValue["Description"] =
+            sensorsAsyncResp->asyncResp->res.jsonValue["Description"] =
                 "Collection of Sensors for this Chassis";
-            sensorsAsyncResp->res.jsonValue["Members"] =
+            sensorsAsyncResp->asyncResp->res.jsonValue["Members"] =
                 nlohmann::json::array();
-            sensorsAsyncResp->res.jsonValue["Members@odata.count"] = 0;
+            sensorsAsyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
+                0;
         }
 
         if (chassisSubNode != sensors::node::sensors)
         {
-            sensorsAsyncResp->res.jsonValue["Id"] = chassisSubNode;
+            sensorsAsyncResp->asyncResp->res.jsonValue["Id"] = chassisSubNode;
         }
 
-        sensorsAsyncResp->res.jsonValue["@odata.id"] =
+        sensorsAsyncResp->asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId + "/" +
             chassisSubNode;
-        sensorsAsyncResp->res.jsonValue["Name"] = chassisSubNode;
-
+        sensorsAsyncResp->asyncResp->res.jsonValue["Name"] = chassisSubNode;
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
         crow::connections::systemBus->async_method_call(
@@ -591,7 +593,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                 {
                     if (e.value() != EBADR)
                     {
-                        messages::internalError(sensorsAsyncResp->res);
+                        messages::internalError(
+                            sensorsAsyncResp->asyncResp->res);
                         return;
                     }
                 }
@@ -600,7 +603,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                 if (nodeSensorList == nullptr)
                 {
                     messages::resourceNotFound(
-                        sensorsAsyncResp->res, sensorsAsyncResp->chassisSubNode,
+                        sensorsAsyncResp->asyncResp->res,
+                        sensorsAsyncResp->chassisSubNode,
                         sensorsAsyncResp->chassisSubNode ==
                                 sensors::node::thermal
                             ? "Temperatures"
@@ -664,7 +668,7 @@ void getObjectManagerPaths(
         BMCWEB_LOG_DEBUG << "getObjectManagerPaths respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "getObjectManagerPaths respHandler: DBus error "
                              << ec;
             return;
@@ -1180,7 +1184,8 @@ inline void populateFanRedundancy(
                         if (endpoints == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "Invalid association interface";
-                            messages::internalError(sensorsAsyncResp->res);
+                            messages::internalError(
+                                sensorsAsyncResp->asyncResp->res);
                             return;
                         }
 
@@ -1220,7 +1225,7 @@ inline void populateFanRedundancy(
                                     BMCWEB_LOG_ERROR
                                         << "Invalid redundancy interface";
                                     messages::internalError(
-                                        sensorsAsyncResp->res);
+                                        sensorsAsyncResp->asyncResp->res);
                                     return;
                                 }
 
@@ -1240,7 +1245,7 @@ inline void populateFanRedundancy(
                                         << "Invalid redundancy interface "
                                            "types";
                                     messages::internalError(
-                                        sensorsAsyncResp->res);
+                                        sensorsAsyncResp->asyncResp->res);
                                     return;
                                 }
                                 sdbusplus::message::object_path objectPath(
@@ -1250,7 +1255,7 @@ inline void populateFanRedundancy(
                                 {
                                     // this should be impossible
                                     messages::internalError(
-                                        sensorsAsyncResp->res);
+                                        sensorsAsyncResp->asyncResp->res);
                                     return;
                                 }
                                 std::replace(name.begin(), name.end(), '_',
@@ -1272,7 +1277,8 @@ inline void populateFanRedundancy(
                                 }
                                 std::vector<nlohmann::json> redfishCollection;
                                 const auto& fanRedfish =
-                                    sensorsAsyncResp->res.jsonValue["Fans"];
+                                    sensorsAsyncResp->asyncResp->res
+                                        .jsonValue["Fans"];
                                 for (const std::string& item : *collection)
                                 {
                                     sdbusplus::message::object_path path(item);
@@ -1301,7 +1307,7 @@ inline void populateFanRedundancy(
                                         BMCWEB_LOG_ERROR
                                             << "failed to find fan in schema";
                                         messages::internalError(
-                                            sensorsAsyncResp->res);
+                                            sensorsAsyncResp->asyncResp->res);
                                         return;
                                     }
                                 }
@@ -1311,7 +1317,7 @@ inline void populateFanRedundancy(
                                         ? collection->size() - *allowedFailures
                                         : 0;
                                 nlohmann::json& jResp =
-                                    sensorsAsyncResp->res
+                                    sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Redundancy"];
                                 jResp.push_back(
                                     {{"@odata.id",
@@ -1351,7 +1357,7 @@ inline void populateFanRedundancy(
 inline void
     sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    nlohmann::json& response = sensorsAsyncResp->res.jsonValue;
+    nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
     if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
@@ -1658,7 +1664,7 @@ static void getInventoryItemsData(
             {
                 BMCWEB_LOG_ERROR
                     << "getInventoryItemsData respHandler DBus error " << ec;
-                messages::internalError(sensorsAsyncResp->res);
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
                 return;
             }
 
@@ -1744,7 +1750,7 @@ static void getInventoryItemsConnections(
         BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR
                 << "getInventoryItemsConnections respHandler DBus error " << ec;
             return;
@@ -1828,7 +1834,7 @@ static void getInventoryItemAssociations(
         {
             BMCWEB_LOG_ERROR
                 << "getInventoryItemAssociations respHandler DBus error " << ec;
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             return;
         }
 
@@ -2009,7 +2015,7 @@ void getInventoryLedData(
                 {
                     BMCWEB_LOG_ERROR
                         << "getInventoryLedData respHandler DBus error " << ec;
-                    messages::internalError(sensorsAsyncResp->res);
+                    messages::internalError(sensorsAsyncResp->asyncResp->res);
                     return;
                 }
 
@@ -2106,7 +2112,7 @@ void getInventoryLeds(
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "getInventoryLeds respHandler DBus error "
                              << ec;
             return;
@@ -2205,7 +2211,7 @@ void getPowerSupplyAttributesData(
         {
             BMCWEB_LOG_ERROR
                 << "getPowerSupplyAttributesData respHandler DBus error " << ec;
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             return;
         }
 
@@ -2292,7 +2298,7 @@ void getPowerSupplyAttributes(
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->res);
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR
                 << "getPowerSupplyAttributes respHandler DBus error " << ec;
             return;
@@ -2535,7 +2541,7 @@ inline void getSensorData(
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "getManagedObjectsCb DBUS error: " << ec;
-                messages::internalError(sensorsAsyncResp->res);
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
                 return;
             }
             // Go through all objects and update response with sensor data
@@ -2580,11 +2586,11 @@ inline void getSensorData(
 
                 if (sensorSchema == sensors::node::sensors)
                 {
-                    sensorsAsyncResp->res.jsonValue["@odata.id"] =
+                    sensorsAsyncResp->asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId +
                         "/" + sensorsAsyncResp->chassisSubNode + "/" +
                         sensorName;
-                    sensorJson = &(sensorsAsyncResp->res.jsonValue);
+                    sensorJson = &(sensorsAsyncResp->asyncResp->res.jsonValue);
                 }
                 else
                 {
@@ -2627,7 +2633,7 @@ inline void getSensorData(
                     }
 
                     nlohmann::json& tempArray =
-                        sensorsAsyncResp->res.jsonValue[fieldName];
+                        sensorsAsyncResp->asyncResp->res.jsonValue[fieldName];
                     if (fieldName == "PowerControl")
                     {
                         if (tempArray.empty())
@@ -2760,7 +2766,8 @@ inline void
             processSensorList(sensorsAsyncResp, sensorNames);
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
-    sensorsAsyncResp->res.jsonValue["Redundancy"] = nlohmann::json::array();
+    sensorsAsyncResp->asyncResp->res.jsonValue["Redundancy"] =
+        nlohmann::json::array();
 
     // Get set of sensors in chassis
     getChassis(sensorsAsyncResp, std::move(getChassisCb));
@@ -2801,7 +2808,7 @@ inline bool findSensorNameUsingSensorPath(
 /**
  * @brief Entry point for overriding sensor values of given sensor
  *
- * @param res   response object
+ * @param sensorAsyncResp   response object
  * @param allCollections   Collections extract from sensors' request patch info
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
@@ -2833,8 +2840,9 @@ inline void setSensorsOverride(
         }
         for (auto& item : collectionItems.second)
         {
-            if (!json_util::readJson(item, sensorAsyncResp->res, "MemberId",
-                                     memberId, propertyValueName, value))
+            if (!json_util::readJson(item, sensorAsyncResp->asyncResp->res,
+                                     "MemberId", memberId, propertyValueName,
+                                     value))
             {
                 return;
             }
@@ -2859,7 +2867,7 @@ inline void setSensorsOverride(
                                                *sensorNames))
             {
                 BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
-                messages::resourceNotFound(sensorAsyncResp->res,
+                messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
                                            item.second.second, item.first);
                 return;
             }
@@ -2877,7 +2885,7 @@ inline void setSensorsOverride(
                         << objectsWithConnection.size() << " requested "
                         << overrideMap.size() << "\n";
                     messages::resourceNotFound(
-                        sensorAsyncResp->res,
+                        sensorAsyncResp->asyncResp->res,
                         sensorAsyncResp->chassisSubNode ==
                                 sensors::node::thermal
                             ? "Temperatures"
@@ -2891,7 +2899,8 @@ inline void setSensorsOverride(
                     std::string sensorName = path.filename();
                     if (sensorName.empty())
                     {
-                        messages::internalError(sensorAsyncResp->res);
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
                         return;
                     }
 
@@ -2900,7 +2909,8 @@ inline void setSensorsOverride(
                     {
                         BMCWEB_LOG_INFO << "Unable to find sensor object"
                                         << item.first << "\n";
-                        messages::internalError(sensorAsyncResp->res);
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
                         return;
                     }
                     crow::connections::systemBus->async_method_call(
@@ -2910,7 +2920,8 @@ inline void setSensorsOverride(
                                 BMCWEB_LOG_DEBUG
                                     << "setOverrideValueStatus DBUS error: "
                                     << ec;
-                                messages::internalError(sensorAsyncResp->res);
+                                messages::internalError(
+                                    sensorAsyncResp->asyncResp->res);
                                 return;
                             }
                         },
@@ -2952,7 +2963,7 @@ inline bool isOverridingAllowed(const std::string& manufacturingModeStatus)
  * @brief Entry point for Checking the manufacturing mode before doing sensor
  * override values of given sensor
  *
- * @param res   response object
+ * @param sensorAsyncResp   response object
  * @param allCollections   Collections extract from sensors' request patch info
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
@@ -2975,7 +2986,7 @@ inline void checkAndDoSensorsOverride(
                 BMCWEB_LOG_DEBUG
                     << "Error in querying GetSubTree with Object Mapper. "
                     << ec2;
-                messages::internalError(sensorAsyncResp->res);
+                messages::internalError(sensorAsyncResp->asyncResp->res);
                 return;
             }
 #ifdef BMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE
@@ -2989,7 +3000,7 @@ inline void checkAndDoSensorsOverride(
                 BMCWEB_LOG_WARNING
                     << "Overriding sensor value is not allowed - Internal "
                        "error in querying SpecialMode property.";
-                messages::internalError(sensorAsyncResp->res);
+                messages::internalError(sensorAsyncResp->asyncResp->res);
                 return;
             }
             const std::string& path = resp[0].first;
@@ -2999,7 +3010,7 @@ inline void checkAndDoSensorsOverride(
             {
                 BMCWEB_LOG_DEBUG
                     << "Path or service name is returned as empty. ";
-                messages::internalError(sensorAsyncResp->res);
+                messages::internalError(sensorAsyncResp->asyncResp->res);
                 return;
             }
 
@@ -3013,7 +3024,8 @@ inline void checkAndDoSensorsOverride(
                     {
                         BMCWEB_LOG_DEBUG
                             << "Error in querying Special mode property " << ec;
-                        messages::internalError(sensorAsyncResp->res);
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
                         return;
                     }
 
@@ -3024,7 +3036,8 @@ inline void checkAndDoSensorsOverride(
                     {
                         BMCWEB_LOG_DEBUG << "Sensor override mode is not "
                                             "Enabled. Returning ... ";
-                        messages::internalError(sensorAsyncResp->res);
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
                         return;
                     }
 
@@ -3041,7 +3054,7 @@ inline void checkAndDoSensorsOverride(
                                "Override the sensor value. ";
 
                         messages::actionNotSupported(
-                            sensorAsyncResp->res,
+                            sensorAsyncResp->asyncResp->res,
                             "Overriding of Sensor Value for non "
                             "manufacturing mode");
                         return;
@@ -3079,8 +3092,8 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
         mapComplete(boost::beast::http::status::bad_request, {});
         return;
     }
-
-    auto respBuffer = std::make_shared<crow::Response>();
+    crow::Response res;
+    auto respBuffer = std::make_shared<bmcweb::AsyncResp>(res);
     auto callback =
         [respBuffer, mapCompleteCb{std::move(mapComplete)}](
             const boost::beast::http::status status,
@@ -3088,7 +3101,7 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
                 uriToDbus) { mapCompleteCb(status, uriToDbus); };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
-        *respBuffer, chassis, pathIt->second, node, std::move(callback));
+        respBuffer, chassis, pathIt->second, node, std::move(callback));
     getChassisData(resp);
 }
 
@@ -3108,22 +3121,24 @@ class SensorCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
         if (params.size() != 1)
         {
             BMCWEB_LOG_DEBUG << "SensorCollection doGet param size < 1";
-            messages::internalError(res);
-            res.end();
+            messages::internalError(aResp->res);
+
             return;
         }
 
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
             std::make_shared<SensorsAsyncResp>(
-                res, chassisId, sensors::dbus::paths.at(sensors::node::sensors),
+                aResp, chassisId,
+                sensors::dbus::paths.at(sensors::node::sensors),
                 sensors::node::sensors);
 
         auto getChassisCb =
@@ -3133,7 +3148,7 @@ class SensorCollection : public Node
                 BMCWEB_LOG_DEBUG << "getChassisCb enter";
 
                 nlohmann::json& entriesArray =
-                    asyncResp->res.jsonValue["Members"];
+                    asyncResp->asyncResp->res.jsonValue["Members"];
                 for (auto& sensor : *sensorNames)
                 {
                     BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
@@ -3143,7 +3158,7 @@ class SensorCollection : public Node
                     if (sensorName.empty())
                     {
                         BMCWEB_LOG_ERROR << "Invalid sensor path: " << sensor;
-                        messages::internalError(asyncResp->res);
+                        messages::internalError(asyncResp->asyncResp->res);
                         return;
                     }
                     entriesArray.push_back(
@@ -3152,7 +3167,7 @@ class SensorCollection : public Node
                               asyncResp->chassisSubNode + "/" + sensorName}});
                 }
 
-                asyncResp->res.jsonValue["Members@odata.count"] =
+                asyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
                     entriesArray.size();
                 BMCWEB_LOG_DEBUG << "getChassisCb exit";
             };
@@ -3180,20 +3195,21 @@ class Sensor : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         BMCWEB_LOG_DEBUG << "Sensor doGet enter";
         if (params.size() != 2)
         {
             BMCWEB_LOG_DEBUG << "Sensor doGet param size < 2";
-            messages::internalError(res);
-            res.end();
+            messages::internalError(aResp->res);
+
             return;
         }
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
-            std::make_shared<SensorsAsyncResp>(res, chassisId,
+            std::make_shared<SensorsAsyncResp>(aResp, chassisId,
                                                std::vector<const char*>(),
                                                sensors::node::sensors);
 
@@ -3209,7 +3225,7 @@ class Sensor : public Node
                 BMCWEB_LOG_DEBUG << "respHandler1 enter";
                 if (ec)
                 {
-                    messages::internalError(asyncResp->res);
+                    messages::internalError(asyncResp->asyncResp->res);
                     BMCWEB_LOG_ERROR << "Sensor getSensorPaths resp_handler: "
                                      << "Dbus error " << ec;
                     return;
@@ -3239,8 +3255,8 @@ class Sensor : public Node
                 {
                     BMCWEB_LOG_ERROR << "Could not find path for sensor: "
                                      << sensorName;
-                    messages::resourceNotFound(asyncResp->res, "Sensor",
-                                               sensorName);
+                    messages::resourceNotFound(asyncResp->asyncResp->res,
+                                               "Sensor", sensorName);
                     return;
                 }
                 std::string_view sensorPath = (*it).first;
