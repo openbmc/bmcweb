@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "async_resp.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "privileges.hpp"
@@ -35,7 +36,8 @@ namespace redfish
 class Node
 {
   private:
-    bool redfishPreChecks(const crow::Request& req, crow::Response& res)
+    bool redfishPreChecks(const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         std::string_view odataHeader = req.getHeaderValue("OData-Version");
         if (odataHeader.empty())
@@ -45,12 +47,11 @@ class Node
         }
         if (odataHeader != "4.0")
         {
-            redfish::messages::preconditionFailed(res);
-            res.end();
+            redfish::messages::preconditionFailed(asyncResp->res);
             return false;
         }
 
-        res.addHeader("OData-Version", "4.0");
+        asyncResp->res.addHeader("OData-Version", "4.0");
         return true;
     }
 
@@ -61,66 +62,71 @@ class Node
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;
         get.methods(boost::beast::http::verb::get)(
-            [this](const crow::Request& req, crow::Response& res,
+            [this](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    Params... params) {
-                if (!redfishPreChecks(req, res))
+                if (!redfishPreChecks(req, asyncResp))
                 {
                     return;
                 }
                 std::vector<std::string> paramVec = {params...};
-                doGet(res, req, paramVec);
+                doGet(asyncResp, req, paramVec);
             });
 
         crow::DynamicRule& patch = app.routeDynamic(entityUrl.c_str());
         patchRule = &patch;
         patch.methods(boost::beast::http::verb::patch)(
-            [this](const crow::Request& req, crow::Response& res,
+            [this](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    Params... params) {
-                if (!redfishPreChecks(req, res))
+                if (!redfishPreChecks(req, asyncResp))
                 {
                     return;
                 }
                 std::vector<std::string> paramVec = {params...};
-                doPatch(res, req, paramVec);
+                doPatch(asyncResp, req, paramVec);
             });
 
         crow::DynamicRule& post = app.routeDynamic(entityUrl.c_str());
         postRule = &post;
         post.methods(boost::beast::http::verb::post)(
-            [this](const crow::Request& req, crow::Response& res,
+            [this](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    Params... params) {
-                if (!redfishPreChecks(req, res))
+                if (!redfishPreChecks(req, asyncResp))
                 {
                     return;
                 }
                 std::vector<std::string> paramVec = {params...};
-                doPost(res, req, paramVec);
+                doPost(asyncResp, req, paramVec);
             });
 
         crow::DynamicRule& put = app.routeDynamic(entityUrl.c_str());
         putRule = &put;
         put.methods(boost::beast::http::verb::put)(
-            [this](const crow::Request& req, crow::Response& res,
+            [this](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    Params... params) {
-                if (!redfishPreChecks(req, res))
+                if (!redfishPreChecks(req, asyncResp))
                 {
                     return;
                 }
                 std::vector<std::string> paramVec = {params...};
-                doPut(res, req, paramVec);
+                doPut(asyncResp, req, paramVec);
             });
 
         crow::DynamicRule& deleteR = app.routeDynamic(entityUrl.c_str());
         deleteRule = &deleteR;
         deleteR.methods(boost::beast::http::verb::delete_)(
-            [this](const crow::Request& req, crow::Response& res,
+            [this](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    Params... params) {
-                if (!redfishPreChecks(req, res))
+                if (!redfishPreChecks(req, asyncResp))
                 {
                     return;
                 }
                 std::vector<std::string> paramVec = {params...};
-                doDelete(res, req, paramVec);
+                doDelete(asyncResp, req, paramVec);
             });
     }
 
@@ -180,39 +186,34 @@ class Node
 
   protected:
     // Node is designed to be an abstract class, so doGet is pure virtual
-    virtual void doGet(crow::Response& res, const crow::Request&,
-                       const std::vector<std::string>&)
+    virtual void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const crow::Request&, const std::vector<std::string>&)
     {
-        res.result(boost::beast::http::status::method_not_allowed);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     }
 
-    virtual void doPatch(crow::Response& res, const crow::Request&,
-                         const std::vector<std::string>&)
+    virtual void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const crow::Request&, const std::vector<std::string>&)
     {
-        res.result(boost::beast::http::status::method_not_allowed);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     }
 
-    virtual void doPost(crow::Response& res, const crow::Request&,
-                        const std::vector<std::string>&)
+    virtual void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const crow::Request&, const std::vector<std::string>&)
     {
-        res.result(boost::beast::http::status::method_not_allowed);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     }
 
-    virtual void doPut(crow::Response& res, const crow::Request&,
-                       const std::vector<std::string>&)
+    virtual void doPut(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const crow::Request&, const std::vector<std::string>&)
     {
-        res.result(boost::beast::http::status::method_not_allowed);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     }
 
-    virtual void doDelete(crow::Response& res, const crow::Request&,
-                          const std::vector<std::string>&)
+    virtual void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const crow::Request&, const std::vector<std::string>&)
     {
-        res.result(boost::beast::http::status::method_not_allowed);
-        res.end();
+        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     }
 
     /* @brief Would the operation be allowed if the user did not have the

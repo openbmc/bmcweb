@@ -1,5 +1,7 @@
 #pragma once
 
+#include "http_response.hpp"
+
 #include <functional>
 
 namespace bmcweb
