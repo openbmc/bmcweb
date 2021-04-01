@@ -22,6 +22,76 @@
       "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36dfc3db_ca26867f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T19:09:46Z",
+      "side": 1,
+      "message": "Yeah, we should do that, but considering this loop already doesn\u0027t really do a good job of internal error, I\u0027m ok with this as is.",
+      "parentUuid": "c54b912d_f070ab90",
+      "range": {
+        "startLine": 329,
+        "startChar": 1,
+        "endLine": 330,
+        "endChar": 29
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9eeda75_28f21f5e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T19:09:46Z",
+      "side": 1,
+      "message": "Is this a valid ipv4 address?  It doesn\u0027t look like it.\n\nAlso please investigate why your testing didn\u0027t catch this.  The regex in the Redfish Service validator fails this string\n\nhttps://regex101.com/r/8vxyuW/1\n\nSo if you actually ran redfish service validtor on something that called this code, this should\u0027ve been seen right away;  Please debug why that didn\u0027t happen.  If service validator is broken, we\u0027d like to know.",
+      "range": {
+        "startLine": 334,
+        "startChar": 63,
+        "endLine": 334,
+        "endChar": 70
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c74edc3b_e5076d9e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T19:09:46Z",
+      "side": 1,
+      "message": "Is this a valid ipv6 address?",
+      "range": {
+        "startLine": 353,
+        "startChar": 41,
+        "endLine": 353,
+        "endChar": 56
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
