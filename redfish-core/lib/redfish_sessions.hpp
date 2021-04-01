@@ -41,7 +41,8 @@ class Sessions : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
         // Note that control also reaches here via doPost and doDelete.
@@ -51,28 +52,28 @@ class Sessions : public Node
 
         if (session == nullptr)
         {
-            messages::resourceNotFound(res, "Session", params[0]);
-            res.end();
+            messages::resourceNotFound(asyncResp->res, "Session", params[0]);
             return;
         }
 
-        res.jsonValue["Id"] = session->uniqueId;
-        res.jsonValue["UserName"] = session->username;
-        res.jsonValue["@odata.id"] =
+        asyncResp->res.jsonValue["Id"] = session->uniqueId;
+        asyncResp->res.jsonValue["UserName"] = session->username;
+        asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
-        res.jsonValue["@odata.type"] = "#Session.v1_3_0.Session";
-        res.jsonValue["Name"] = "User Session";
-        res.jsonValue["Description"] = "Manager User Session";
-        res.jsonValue["ClientOriginIPAddress"] = session->clientIp;
+        asyncResp->res.jsonValue["@odata.type"] = "#Session.v1_3_0.Session";
+        asyncResp->res.jsonValue["Name"] = "User Session";
+        asyncResp->res.jsonValue["Description"] = "Manager User Session";
+        asyncResp->res.jsonValue["ClientOriginIPAddress"] = session->clientIp;
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-        res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+        asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
             "#OemSession.v1_0_0.Session";
-        res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
+        asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ClientID"] =
+            session->clientId;
 #endif
-        res.end();
     }
 
-    void doDelete(crow::Response& res, const crow::Request& req,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request& req,
                   const std::vector<std::string>& params) override
     {
         // Need only 1 param which should be id of session to be deleted
@@ -82,8 +83,7 @@ class Sessions : public Node
             BMCWEB_LOG_ERROR << "Session DELETE has been called with invalid "
                                 "number of params";
 
-            messages::generalError(res);
-            res.end();
+            messages::generalError(asyncResp->res);
             return;
         }
 
@@ -93,8 +93,7 @@ class Sessions : public Node
 
         if (session == nullptr)
         {
-            messages::resourceNotFound(res, "Session", params[0]);
-            res.end();
+            messages::resourceNotFound(asyncResp->res, "Session", params[0]);
             return;
         }
 
@@ -108,14 +107,13 @@ class Sessions : public Node
             if (!isAllowedWithoutConfigureSelf(req))
             {
                 BMCWEB_LOG_WARNING << "DELETE Session denied access";
-                messages::insufficientPrivilege(res);
-                res.end();
+                messages::insufficientPrivilege(asyncResp->res);
                 return;
             }
         }
 
         // DELETE should return representation of object that will be removed
-        doGet(res, req, params);
+        doGet(asyncResp, req, params);
 
         persistent_data::SessionStore::getInstance().removeSession(session);
     }
@@ -145,55 +143,55 @@ class SessionCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
         std::vector<const std::string*> sessionIds =
             persistent_data::SessionStore::getInstance().getUniqueIds(
                 false, persistent_data::PersistenceType::TIMEOUT);
 
-        res.jsonValue["Members@odata.count"] = sessionIds.size();
-        res.jsonValue["Members"] = nlohmann::json::array();
+        asyncResp->res.jsonValue["Members@odata.count"] = sessionIds.size();
+        asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
         for (const std::string* uid : sessionIds)
         {
-            res.jsonValue["Members"].push_back(
+            asyncResp->res.jsonValue["Members"].push_back(
                 {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
         }
-        res.jsonValue["Members@odata.count"] = sessionIds.size();
-        res.jsonValue["@odata.type"] = "#SessionCollection.SessionCollection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
-        res.jsonValue["Name"] = "Session Collection";
-        res.jsonValue["Description"] = "Session Collection";
-        res.end();
+        asyncResp->res.jsonValue["Members@odata.count"] = sessionIds.size();
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#SessionCollection.SessionCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/SessionService/Sessions/";
+        asyncResp->res.jsonValue["Name"] = "Session Collection";
+        asyncResp->res.jsonValue["Description"] = "Session Collection";
     }
 
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
         std::string username;
         std::string password;
         std::optional<nlohmann::json> oemObject;
         std::string clientId;
-        if (!json_util::readJson(req, res, "UserName", username, "Password",
-                                 password, "Oem", oemObject))
+        if (!json_util::readJson(req, asyncResp->res, "UserName", username,
+                                 "Password", password, "Oem", oemObject))
         {
-            res.end();
             return;
         }
 
         if (password.empty() || username.empty() ||
-            res.result() != boost::beast::http::status::ok)
+            asyncResp->res.result() != boost::beast::http::status::ok)
         {
             if (username.empty())
             {
-                messages::propertyMissing(res, "UserName");
+                messages::propertyMissing(asyncResp->res, "UserName");
             }
 
             if (password.empty())
             {
-                messages::propertyMissing(res, "Password");
+                messages::propertyMissing(asyncResp->res, "Password");
             }
-            res.end();
 
             return;
         }
@@ -202,25 +200,24 @@ class SessionCollection : public Node
         bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
         if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
         {
-            messages::resourceAtUriUnauthorized(res, std::string(req.url),
+            messages::resourceAtUriUnauthorized(asyncResp->res,
+                                                std::string(req.url),
                                                 "Invalid username or password");
-            res.end();
-
             return;
         }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         if (oemObject)
         {
             std::optional<nlohmann::json> bmcOem;
-            if (!json_util::readJson(*oemObject, res, "OpenBMC", bmcOem))
+            if (!json_util::readJson(*oemObject, asyncResp->res, "OpenBMC",
+                                     bmcOem))
             {
-                res.end();
                 return;
             }
-            if (!json_util::readJson(*bmcOem, res, "ClientID", clientId))
+            if (!json_util::readJson(*bmcOem, asyncResp->res, "ClientID",
+                                     clientId))
             {
                 BMCWEB_LOG_ERROR << "Could not read ClientId";
-                res.end();
                 return;
             }
         }
@@ -231,17 +228,18 @@ class SessionCollection : public Node
             persistent_data::SessionStore::getInstance().generateUserSession(
                 username, req.ipAddress.to_string(), clientId,
                 persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
-        res.addHeader("X-Auth-Token", session->sessionToken);
-        res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
-                                      session->uniqueId);
-        res.result(boost::beast::http::status::created);
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+        asyncResp->res.addHeader("Location",
+                                 "/redfish/v1/SessionService/Sessions/" +
+                                     session->uniqueId);
+        asyncResp->res.result(boost::beast::http::status::created);
         if (session->isConfigureSelfOnly)
         {
             messages::passwordChangeRequired(
-                res,
+                asyncResp->res,
                 "/redfish/v1/AccountService/Accounts/" + session->username);
         }
-        memberSession.doGet(res, req, {session->uniqueId});
+        memberSession.doGet(asyncResp, req, {session->uniqueId});
     }
 
     /**
@@ -267,30 +265,30 @@ class SessionService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#SessionService.v1_0_2.SessionService";
-        res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
-        res.jsonValue["Name"] = "Session Service";
-        res.jsonValue["Id"] = "SessionService";
-        res.jsonValue["Description"] = "Session Service";
-        res.jsonValue["SessionTimeout"] =
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#SessionService.v1_0_2.SessionService";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
+        asyncResp->res.jsonValue["Name"] = "Session Service";
+        asyncResp->res.jsonValue["Id"] = "SessionService";
+        asyncResp->res.jsonValue["Description"] = "Session Service";
+        asyncResp->res.jsonValue["SessionTimeout"] =
             persistent_data::SessionStore::getInstance().getTimeoutInSeconds();
-        res.jsonValue["ServiceEnabled"] = true;
+        asyncResp->res.jsonValue["ServiceEnabled"] = true;
 
-        res.jsonValue["Sessions"] = {
+        asyncResp->res.jsonValue["Sessions"] = {
             {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-
-        res.end();
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::optional<int64_t> sessionTimeout;
-        if (!json_util::readJson(req, res, "SessionTimeout", sessionTimeout))
+        if (!json_util::readJson(req, asyncResp->res, "SessionTimeout",
+                                 sessionTimeout))
         {
             return;
         }
@@ -314,7 +312,8 @@ class SessionService : public Node
             else
             {
                 messages::propertyValueNotInList(
-                    res, std::to_string(*sessionTimeout), "SessionTimeOut");
+                    asyncResp->res, std::to_string(*sessionTimeout),
+                    "SessionTimeOut");
             }
         }
     }

@@ -38,8 +38,9 @@ namespace redfish
  *
  * @return None.
  */
-inline void updateDimmProperties(const std::shared_ptr<AsyncResp>& aResp,
-                                 const std::variant<bool>& dimmState)
+inline void
+    updateDimmProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::variant<bool>& dimmState)
 {
     const bool* isDimmFunctional = std::get_if<bool>(&dimmState);
     if (isDimmFunctional == nullptr)
@@ -72,8 +73,9 @@ inline void updateDimmProperties(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void modifyCpuPresenceState(const std::shared_ptr<AsyncResp>& aResp,
-                                   const std::variant<bool>& cpuPresenceState)
+inline void
+    modifyCpuPresenceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::variant<bool>& cpuPresenceState)
 {
     const bool* isCpuPresent = std::get_if<bool>(&cpuPresenceState);
 
@@ -108,7 +110,7 @@ inline void modifyCpuPresenceState(const std::shared_ptr<AsyncResp>& aResp,
  * @return None.
  */
 inline void
-    modifyCpuFunctionalState(const std::shared_ptr<AsyncResp>& aResp,
+    modifyCpuFunctionalState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::variant<bool>& cpuFunctionalState)
 {
     const bool* isCpuFunctional = std::get_if<bool>(&cpuFunctionalState);
@@ -145,7 +147,7 @@ inline void
  * @return None.
  */
 inline void
-    getComputerSystem(const std::shared_ptr<AsyncResp>& aResp,
+    getComputerSystem(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                       const std::shared_ptr<HealthPopulate>& systemHealth)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
@@ -613,7 +615,7 @@ inline void
  *
  * @return None.
  */
-inline void getHostState(const std::shared_ptr<AsyncResp>& aResp)
+inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host information.";
     crow::connections::systemBus->async_method_call(
@@ -741,7 +743,7 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
  *
  * @return Integer error code.
  */
-inline int assignBootParameters(const std::shared_ptr<AsyncResp>& aResp,
+inline int assignBootParameters(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& rfSource,
                                 std::string& bootSource, std::string& bootMode)
 {
@@ -799,7 +801,7 @@ inline int assignBootParameters(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void getBootProgress(const std::shared_ptr<AsyncResp>& aResp)
+inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
@@ -902,7 +904,7 @@ inline void getBootProgress(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return None.
  */
-inline void getBootMode(const std::shared_ptr<AsyncResp>& aResp,
+inline void getBootMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& bootDbusObj)
 {
     crow::connections::systemBus->async_method_call(
@@ -966,7 +968,7 @@ inline void getBootMode(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void getBootSource(const std::shared_ptr<AsyncResp>& aResp,
+inline void getBootSource(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                           bool oneTimeEnabled)
 {
     std::string bootDbusObj =
@@ -1018,7 +1020,7 @@ inline void getBootSource(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void getBootProperties(const std::shared_ptr<AsyncResp>& aResp)
+inline void getBootProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get boot information.";
 
@@ -1059,7 +1061,7 @@ inline void getBootProperties(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return None.
  */
-inline void getLastResetTime(const std::shared_ptr<AsyncResp>& aResp)
+inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Getting System Last Reset Time";
 
@@ -1102,7 +1104,7 @@ inline void getLastResetTime(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return None.
  */
-inline void getAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp)
+inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
@@ -1193,7 +1195,8 @@ inline void getAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return None.
  */
-inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
+inline void
+    getPowerRestorePolicy(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get power restore policy";
 
@@ -1252,7 +1255,7 @@ inline void getPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return Integer error code.
  */
-inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
+inline void setBootModeOrSource(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                 bool oneTimeEnabled,
                                 const std::optional<std::string>& bootSource,
                                 const std::optional<std::string>& bootEnable)
@@ -1373,9 +1376,10 @@ inline void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  *
  * @return Integer error code.
  */
-inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
-                                    std::optional<std::string> bootSource,
-                                    std::optional<std::string> bootEnable)
+inline void
+    setBootSourceProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            std::optional<std::string> bootSource,
+                            std::optional<std::string> bootEnable)
 {
     BMCWEB_LOG_DEBUG << "Set boot information.";
 
@@ -1416,7 +1420,7 @@ inline void setBootSourceProperties(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void setAssetTag(const std::shared_ptr<AsyncResp>& aResp,
+inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& assetTag)
 {
     crow::connections::systemBus->async_method_call(
@@ -1493,7 +1497,7 @@ inline void setAssetTag(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void setAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp,
+inline void setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                               const std::string& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
@@ -1542,8 +1546,9 @@ inline void setAutomaticRetry(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
-                                  const std::string& policy)
+inline void
+    setPowerRestorePolicy(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& policy)
 {
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
 
@@ -1590,7 +1595,7 @@ inline void setPowerRestorePolicy(const std::shared_ptr<AsyncResp>& aResp,
  *
  * @return None.
  */
-inline void getProvisioningStatus(std::shared_ptr<AsyncResp> aResp)
+inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     crow::connections::systemBus->async_method_call(
@@ -1723,7 +1728,8 @@ inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
  *
  * @return None.
  */
-inline void getHostWatchdogTimer(const std::shared_ptr<AsyncResp>& aResp)
+inline void
+    getHostWatchdogTimer(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
@@ -1794,7 +1800,7 @@ inline void getHostWatchdogTimer(const std::shared_ptr<AsyncResp>& aResp)
  *
  * @return None.
  */
-inline void setWDTProperties(const std::shared_ptr<AsyncResp>& aResp,
+inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::optional<bool> wdtEnable,
                              const std::optional<std::string>& wdtTimeOutAction)
 {
@@ -1867,18 +1873,18 @@ class SystemsCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
-        res.jsonValue["Name"] = "Computer System Collection";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
+        asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::variant<std::string>& /*hostName*/) {
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
@@ -1892,7 +1898,6 @@ class SystemsCollection : public Node
                     ifaceArray.push_back(
                         {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                     count = ifaceArray.size();
-                    return;
                 }
             },
             "xyz.openbmc_project.Settings",
@@ -1921,13 +1926,13 @@ class SystemActionsReset : public Node
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         std::string resetType;
-        if (!json_util::readJson(req, res, "ResetType", resetType))
+        if (!json_util::readJson(req, asyncResp->res, "ResetType", resetType))
         {
             return;
         }
@@ -1974,7 +1979,8 @@ class SystemActionsReset : public Node
         }
         else
         {
-            messages::actionParameterUnknown(res, "Reset", resetType);
+            messages::actionParameterUnknown(asyncResp->res, "Reset",
+                                             resetType);
             return;
         }
 
@@ -2034,7 +2040,7 @@ class SystemActionsReset : public Node
     /**
      * Function transceives data with dbus directly.
      */
-    void doNMI(const std::shared_ptr<AsyncResp>& asyncResp)
+    void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         constexpr char const* serviceName =
             "xyz.openbmc_project.Control.Host.NMI";
@@ -2070,7 +2076,7 @@ class Systems : public Node
     Systems(App& app) : Node(app, "/redfish/v1/Systems/system/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
@@ -2082,48 +2088,50 @@ class Systems : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_13_0.ComputerSystem";
-        res.jsonValue["Name"] = "system";
-        res.jsonValue["Id"] = "system";
-        res.jsonValue["SystemType"] = "Physical";
-        res.jsonValue["Description"] = "Computer System";
-        res.jsonValue["ProcessorSummary"]["Count"] = 0;
-        res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = uint64_t(0);
-        res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#ComputerSystem.v1_13_0.ComputerSystem";
+        asyncResp->res.jsonValue["Name"] = "system";
+        asyncResp->res.jsonValue["Id"] = "system";
+        asyncResp->res.jsonValue["SystemType"] = "Physical";
+        asyncResp->res.jsonValue["Description"] = "Computer System";
+        asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+        asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
+            "Disabled";
+        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+            uint64_t(0);
+        asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
+            "Disabled";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
-        res.jsonValue["Processors"] = {
+        asyncResp->res.jsonValue["Processors"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
-        res.jsonValue["Memory"] = {
+        asyncResp->res.jsonValue["Memory"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
-        res.jsonValue["Storage"] = {
+        asyncResp->res.jsonValue["Storage"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
 
-        res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+        asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
             {"target",
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
             {"@Redfish.ActionInfo",
              "/redfish/v1/Systems/system/ResetActionInfo"}};
 
-        res.jsonValue["LogServices"] = {
+        asyncResp->res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
-        res.jsonValue["Bios"] = {
+        asyncResp->res.jsonValue["Bios"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
 
-        res.jsonValue["Links"]["ManagedBy"] = {
+        asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
 
-        res.jsonValue["Status"] = {
+        asyncResp->res.jsonValue["Status"] = {
             {"Health", "OK"},
             {"State", "Enabled"},
         };
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
         constexpr const std::array<const char*, 4> inventoryForSystems = {
             "xyz.openbmc_project.Inventory.Item.Dimm",
             "xyz.openbmc_project.Inventory.Item.Cpu",
@@ -2149,11 +2157,12 @@ class Systems : public Node
 
         health->populate();
 
-        getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                       const std::shared_ptr<AsyncResp>& aRsp) {
-            aRsp->res.jsonValue["Links"]["Chassis"] = {
-                {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-        });
+        getMainChassisId(
+            asyncResp, [](const std::string& chassisId,
+                          const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                aRsp->res.jsonValue["Links"]["Chassis"] = {
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+            });
 
         getLocationIndicatorActive(asyncResp);
         // TODO (Gunnar): Remove IndicatorLED after enough time has passed
@@ -2172,7 +2181,8 @@ class Systems : public Node
 #endif
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>&) override
     {
         std::optional<bool> locationIndicatorActive;
@@ -2181,10 +2191,9 @@ class Systems : public Node
         std::optional<nlohmann::json> wdtTimerProps;
         std::optional<std::string> assetTag;
         std::optional<std::string> powerRestorePolicy;
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(
-                req, res, "IndicatorLED", indicatorLed,
+                req, asyncResp->res, "IndicatorLED", indicatorLed,
                 "LocationIndicatorActive", locationIndicatorActive, "Boot",
                 bootProps, "WatchdogTimer", wdtTimerProps, "PowerRestorePolicy",
                 powerRestorePolicy, "AssetTag", assetTag))
@@ -2192,7 +2201,7 @@ class Systems : public Node
             return;
         }
 
-        res.result(boost::beast::http::status::no_content);
+        asyncResp->res.result(boost::beast::http::status::no_content);
 
         if (assetTag)
         {
@@ -2246,9 +2255,9 @@ class Systems : public Node
         if (indicatorLed)
         {
             setIndicatorLedState(asyncResp, *indicatorLed);
-            res.addHeader(boost::beast::http::field::warning,
-                          "299 - \"IndicatorLED is deprecated. Use "
-                          "LocationIndicatorActive instead.\"");
+            asyncResp->res.addHeader(boost::beast::http::field::warning,
+                                     "299 - \"IndicatorLED is deprecated. Use "
+                                     "LocationIndicatorActive instead.\"");
         }
 
         if (powerRestorePolicy)
@@ -2284,10 +2293,10 @@ class SystemResetActionInfo : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        res.jsonValue = {
+        asyncResp->res.jsonValue = {
             {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
             {"@odata.id", "/redfish/v1/Systems/system/ResetActionInfo"},
             {"Name", "Reset Action Info"},
@@ -2299,7 +2308,6 @@ class SystemResetActionInfo : public Node
                {"AllowableValues",
                 {"On", "ForceOff", "ForceOn", "ForceRestart", "GracefulRestart",
                  "GracefulShutdown", "PowerCycle", "Nmi"}}}}}};
-        res.end();
     }
 };
 } // namespace redfish

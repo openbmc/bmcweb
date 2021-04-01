@@ -181,8 +181,8 @@ static bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
     return true;
 }
 
-static bool getSkipParam(crow::Response& res, const crow::Request& req,
-                         uint64_t& skip)
+static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const crow::Request& req, uint64_t& skip)
 {
     boost::urls::url_view::params_type::iterator it =
         req.urlParams.find("$skip");
@@ -194,8 +194,8 @@ static bool getSkipParam(crow::Response& res, const crow::Request& req,
         if (skipParam.empty() || *ptr != '\0')
         {
 
-            messages::queryParameterValueTypeError(res, std::string(skipParam),
-                                                   "$skip");
+            messages::queryParameterValueTypeError(
+                asyncResp->res, std::string(skipParam), "$skip");
             return false;
         }
     }
@@ -203,8 +203,8 @@ static bool getSkipParam(crow::Response& res, const crow::Request& req,
 }
 
 static constexpr const uint64_t maxEntriesPerPage = 1000;
-static bool getTopParam(crow::Response& res, const crow::Request& req,
-                        uint64_t& top)
+static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const crow::Request& req, uint64_t& top)
 {
     boost::urls::url_view::params_type::iterator it =
         req.urlParams.find("$top");
@@ -215,15 +215,15 @@ static bool getTopParam(crow::Response& res, const crow::Request& req,
         top = std::strtoul(topParam.c_str(), &ptr, 10);
         if (topParam.empty() || *ptr != '\0')
         {
-            messages::queryParameterValueTypeError(res, std::string(topParam),
-                                                   "$top");
+            messages::queryParameterValueTypeError(
+                asyncResp->res, std::string(topParam), "$top");
             return false;
         }
         if (top < 1U || top > maxEntriesPerPage)
         {
 
             messages::queryParameterOutOfRange(
-                res, std::to_string(top), "$top",
+                asyncResp->res, std::to_string(top), "$top",
                 "1-" + std::to_string(maxEntriesPerPage));
             return false;
         }
@@ -311,8 +311,10 @@ static bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
-static bool getTimestampFromID(crow::Response& res, const std::string& entryID,
-                               uint64_t& timestamp, uint64_t& index)
+static bool
+    getTimestampFromID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& entryID, uint64_t& timestamp,
+                       uint64_t& index)
 {
     if (entryID.empty())
     {
@@ -335,17 +337,17 @@ static bool getTimestampFromID(crow::Response& res, const std::string& entryID,
         }
         catch (std::invalid_argument&)
         {
-            messages::resourceMissingAtURI(res, entryID);
+            messages::resourceMissingAtURI(asyncResp->res, entryID);
             return false;
         }
         catch (std::out_of_range&)
         {
-            messages::resourceMissingAtURI(res, entryID);
+            messages::resourceMissingAtURI(asyncResp->res, entryID);
             return false;
         }
         if (pos != indexStr.size())
         {
-            messages::resourceMissingAtURI(res, entryID);
+            messages::resourceMissingAtURI(asyncResp->res, entryID);
             return false;
         }
     }
@@ -357,17 +359,17 @@ static bool getTimestampFromID(crow::Response& res, const std::string& entryID,
     }
     catch (std::invalid_argument&)
     {
-        messages::resourceMissingAtURI(res, entryID);
+        messages::resourceMissingAtURI(asyncResp->res, entryID);
         return false;
     }
     catch (std::out_of_range&)
     {
-        messages::resourceMissingAtURI(res, entryID);
+        messages::resourceMissingAtURI(asyncResp->res, entryID);
         return false;
     }
     if (pos != tsStr.size())
     {
-        messages::resourceMissingAtURI(res, entryID);
+        messages::resourceMissingAtURI(asyncResp->res, entryID);
         return false;
     }
     return true;
@@ -398,8 +400,9 @@ static bool
     return !redfishLogFiles.empty();
 }
 
-inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
-                                   const std::string& dumpType)
+inline void
+    getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& dumpType)
 {
     std::string dumpPath;
     if (dumpType == "BMC")
@@ -529,9 +532,9 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
-                             const std::string& entryID,
-                             const std::string& dumpType)
+inline void
+    getDumpEntryById(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& entryID, const std::string& dumpType)
 {
     std::string dumpPath;
     if (dumpType == "BMC")
@@ -659,7 +662,7 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void deleteDumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
+inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& entryID,
                             const std::string& dumpType)
 {
@@ -687,11 +690,11 @@ inline void deleteDumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void createDumpTaskCallback(const crow::Request& req,
-                                   const std::shared_ptr<AsyncResp>& asyncResp,
-                                   const uint32_t& dumpId,
-                                   const std::string& dumpPath,
-                                   const std::string& dumpType)
+inline void
+    createDumpTaskCallback(const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const uint32_t& dumpId, const std::string& dumpPath,
+                           const std::string& dumpType)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
         [dumpId, dumpPath, dumpType](
@@ -740,10 +743,9 @@ inline void createDumpTaskCallback(const crow::Request& req,
     task->payload.emplace(req);
 }
 
-inline void createDump(crow::Response& res, const crow::Request& req,
-                       const std::string& dumpType)
+inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const crow::Request& req, const std::string& dumpType)
 {
-    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
     std::string dumpPath;
     if (dumpType == "BMC")
@@ -831,11 +833,12 @@ inline void createDump(crow::Response& res, const crow::Request& req,
         "xyz.openbmc_project.Dump.Create", "CreateDump");
 }
 
-inline void clearDump(crow::Response& res, const std::string& dumpType)
+inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& dumpType)
 {
     std::string dumpTypeLowerCopy =
         std::string(boost::algorithm::to_lower_copy(dumpType));
-    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
     crow::connections::systemBus->async_method_call(
         [asyncResp, dumpType](const boost::system::error_code ec,
                               const std::vector<std::string>& subTreePaths) {
@@ -921,10 +924,9 @@ class SystemLogServiceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
@@ -998,11 +1000,9 @@ class EventLogService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog";
         asyncResp->res.jsonValue["@odata.type"] =
@@ -1038,10 +1038,9 @@ class JournalEventLogClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         // Clear the EventLog by deleting the log files
         std::vector<std::filesystem::path> redfishLogFiles;
@@ -1185,17 +1184,17 @@ class JournalEventLogEntryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         uint64_t skip = 0;
         uint64_t top = maxEntriesPerPage; // Show max entries by default
-        if (!getSkipParam(asyncResp->res, req, skip))
+        if (!getSkipParam(asyncResp, req, skip))
         {
             return;
         }
-        if (!getTopParam(asyncResp->res, req, top))
+        if (!getTopParam(asyncResp, req, top))
         {
             return;
         }
@@ -1288,10 +1287,11 @@ class JournalEventLogEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -1363,10 +1363,9 @@ class DBusEventLogEntryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
@@ -1544,10 +1543,11 @@ class DBusEventLogEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -1668,10 +1668,10 @@ class DBusEventLogEntry : public Node
             "org.freedesktop.DBus.Properties", "GetAll", "");
     }
 
-    void doPatch(crow::Response& res, const crow::Request& req,
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {
@@ -1682,7 +1682,7 @@ class DBusEventLogEntry : public Node
 
         std::optional<bool> resolved;
 
-        if (!json_util::readJson(req, res, "Resolved", resolved))
+        if (!json_util::readJson(req, asyncResp->res, "Resolved", resolved))
         {
             return;
         }
@@ -1709,13 +1709,12 @@ class DBusEventLogEntry : public Node
         }
     }
 
-    void doDelete(crow::Response& res, const crow::Request&,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request&,
                   const std::vector<std::string>& params) override
     {
 
         BMCWEB_LOG_DEBUG << "Do delete single event entries.";
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {
@@ -1777,10 +1776,10 @@ class DBusEventLogEntryDownload : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -1902,10 +1901,10 @@ class BMCLogServiceCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
@@ -1946,10 +1945,10 @@ class BMCJournalLogService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.id"] =
@@ -2041,18 +2040,19 @@ class BMCJournalLogEntryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         static constexpr const long maxEntriesPerPage = 1000;
         uint64_t skip = 0;
         uint64_t top = maxEntriesPerPage; // Show max entries by default
-        if (!getSkipParam(asyncResp->res, req, skip))
+        if (!getSkipParam(asyncResp, req, skip))
         {
             return;
         }
-        if (!getTopParam(asyncResp->res, req, top))
+        if (!getTopParam(asyncResp, req, top))
         {
             return;
         }
@@ -2145,10 +2145,11 @@ class BMCJournalLogEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -2158,7 +2159,7 @@ class BMCJournalLogEntry : public Node
         // Convert the unique ID back to a timestamp to find the entry
         uint64_t ts = 0;
         uint64_t index = 0;
-        if (!getTimestampFromID(asyncResp->res, entryID, ts, index))
+        if (!getTimestampFromID(asyncResp, entryID, ts, index))
         {
             return;
         }
@@ -2231,10 +2232,9 @@ class BMCDumpService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Dump";
@@ -2275,10 +2275,9 @@ class BMCDumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
@@ -2309,10 +2308,11 @@ class BMCDumpEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -2321,10 +2321,11 @@ class BMCDumpEntry : public Node
         getDumpEntryById(asyncResp, params[0], "BMC");
     }
 
-    void doDelete(crow::Response& res, const crow::Request&,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request&,
                   const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -2352,10 +2353,11 @@ class BMCDumpCreate : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        createDump(res, req, "BMC");
+        createDump(asyncResp, req, "BMC");
     }
 };
 
@@ -2377,10 +2379,10 @@ class BMCDumpClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
-        clearDump(res, "BMC");
+        clearDump(asyncResp, "BMC");
     }
 };
 
@@ -2400,10 +2402,9 @@ class SystemDumpService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Dump";
@@ -2445,10 +2446,9 @@ class SystemDumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
@@ -2479,10 +2479,11 @@ class SystemDumpEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -2491,10 +2492,11 @@ class SystemDumpEntry : public Node
         getDumpEntryById(asyncResp, params[0], "System");
     }
 
-    void doDelete(crow::Response& res, const crow::Request&,
+    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const crow::Request&,
                   const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -2522,10 +2524,11 @@ class SystemDumpCreate : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        createDump(res, req, "System");
+        createDump(asyncResp, req, "System");
     }
 };
 
@@ -2547,10 +2550,10 @@ class SystemDumpClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
-        clearDump(res, "System");
+        clearDump(asyncResp, "System");
     }
 };
 
@@ -2575,10 +2578,10 @@ class CrashdumpService : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         // Copy over the static data to include the entries added by SubRoute
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump";
@@ -2621,10 +2624,9 @@ class CrashdumpClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
@@ -2640,9 +2642,9 @@ class CrashdumpClear : public Node
     }
 };
 
-static void logCrashdumpEntry(const std::shared_ptr<AsyncResp>& asyncResp,
-                              const std::string& logID,
-                              nlohmann::json& logEntryJson)
+static void
+    logCrashdumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& logID, nlohmann::json& logEntryJson)
 {
     auto getStoredLogCallback =
         [asyncResp, logID, &logEntryJson](
@@ -2717,10 +2719,10 @@ class CrashdumpEntryCollection : public Node
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         auto getLogEntriesCallback = [asyncResp](
@@ -2801,10 +2803,11 @@ class CrashdumpEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
@@ -2836,10 +2839,11 @@ class CrashdumpFile : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 2)
         {
             messages::internalError(asyncResp->res);
@@ -2937,10 +2941,10 @@ class CrashdumpCollect : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request& req,
                 const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         std::string diagnosticDataType;
         std::string oemDiagnosticDataType;
@@ -3053,12 +3057,11 @@ class DBusLogServiceActionsClear : public Node
      * The Clear Log actions does not require any parameter.The action deletes
      * all entries found in the Entries collection for this Log Service.
      */
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Do delete all entries.";
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         // Process response from Logging service.
         auto respHandler = [asyncResp](const boost::system::error_code ec) {
             BMCWEB_LOG_DEBUG << "doClearLog resp_handler callback: Done";
@@ -3102,10 +3105,9 @@ class PostCodesLogService : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
-               const std::vector<std::string>&) override
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&, const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices/PostCodes"},
@@ -3140,12 +3142,11 @@ class PostCodesClear : public Node
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request&,
-                const std::vector<std::string>&) override
+    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const crow::Request&, const std::vector<std::string>&) override
     {
         BMCWEB_LOG_DEBUG << "Do delete all postcodes entries.";
 
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Make call to post-code service to request clear all
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
@@ -3167,7 +3168,7 @@ class PostCodesClear : public Node
 };
 
 static void fillPostCodeEntry(
-    const std::shared_ptr<AsyncResp>& aResp,
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     const boost::container::flat_map<
         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
@@ -3285,7 +3286,7 @@ static void fillPostCodeEntry(
     }
 }
 
-static void getPostCodeForEntry(const std::shared_ptr<AsyncResp>& aResp,
+static void getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const uint16_t bootIndex,
                                 const uint64_t codeIndex)
 {
@@ -3319,7 +3320,7 @@ static void getPostCodeForEntry(const std::shared_ptr<AsyncResp>& aResp,
         bootIndex);
 }
 
-static void getPostCodeForBoot(const std::shared_ptr<AsyncResp>& aResp,
+static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const uint16_t bootIndex,
                                const uint16_t bootCount,
                                const uint64_t entryCount, const uint64_t skip,
@@ -3376,8 +3377,9 @@ static void getPostCodeForBoot(const std::shared_ptr<AsyncResp>& aResp,
         bootIndex);
 }
 
-static void getCurrentBootNumber(const std::shared_ptr<AsyncResp>& aResp,
-                                 const uint64_t skip, const uint64_t top)
+static void
+    getCurrentBootNumber(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const uint64_t skip, const uint64_t top)
 {
     uint64_t entryCount = 0;
     crow::connections::systemBus->async_method_call(
@@ -3422,10 +3424,10 @@ class PostCodesEntryCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request& req,
                const std::vector<std::string>&) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
@@ -3439,11 +3441,11 @@ class PostCodesEntryCollection : public Node
 
         uint64_t skip = 0;
         uint64_t top = maxEntriesPerPage; // Show max entries by default
-        if (!getSkipParam(asyncResp->res, req, skip))
+        if (!getSkipParam(asyncResp, req, skip))
         {
             return;
         }
-        if (!getTopParam(asyncResp->res, req, top))
+        if (!getTopParam(asyncResp, req, top))
         {
             return;
         }
@@ -3469,10 +3471,11 @@ class PostCodesEntry : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request&,
+    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const crow::Request&,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
