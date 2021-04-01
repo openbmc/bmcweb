@@ -22,6 +22,115 @@
       "revId": "f43d83870e7bc0a42ef4d88e08bc3c199b36c024",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8be7c0a2_ea25cdb2",
+        "filename": "include/google/root_of_trust.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T21:03:50Z",
+      "side": 1,
+      "message": "This file doesn\u0027t belong here.  It goes in the docs repo.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 54
+      },
+      "revId": "f43d83870e7bc0a42ef4d88e08bc3c199b36c024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048f3112_f526f116",
+        "filename": "include/google/root_of_trust.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T21:03:50Z",
+      "side": 1,
+      "message": "Might want to rephrase to \"that are not in the redfish standard yet\"\n\nYou might also want to mention that there are working groups dedicated to this already, and you\u0027re checking it in as a google namespaced thing to make sure to not conflict with those working groups.",
+      "range": {
+        "startLine": 16,
+        "startChar": 81,
+        "endLine": 16,
+        "endChar": 140
+      },
+      "revId": "f43d83870e7bc0a42ef4d88e08bc3c199b36c024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "effaaf2a_65a4320d",
+        "filename": "include/google/root_of_trust.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T21:03:50Z",
+      "side": 1,
+      "message": "nit: Technically these are rest based APIs",
+      "range": {
+        "startLine": 19,
+        "startChar": 138,
+        "endLine": 19,
+        "endChar": 145
+      },
+      "revId": "f43d83870e7bc0a42ef4d88e08bc3c199b36c024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40a37f01_c9284393",
+        "filename": "include/google/root_of_trust.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T21:03:50Z",
+      "side": 1,
+      "message": "?  Not sure what this means.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "f43d83870e7bc0a42ef4d88e08bc3c199b36c024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9fe7bd_870515c4",
+        "filename": "include/google/root_of_trust.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-01T21:03:50Z",
+      "side": 1,
+      "message": "You might also want to point out that this is similar to what ibm/v1 has done.",
+      "revId": "f43d83870e7bc0a42ef4d88e08bc3c199b36c024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
