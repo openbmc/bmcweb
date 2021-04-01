@@ -213,6 +213,30 @@
       "revId": "8863cc642c059adeaedc4aef0d994059c5276bb2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421bb838_7869dce2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-04-01T03:00:35Z",
+      "side": 1,
+      "message": "\u003e The standard has an example MIB in it for hosting redfish events over SNMP.\nWe are not using SNMP to send redfish events.There are multiple  ways to send the events 1) Redfish 2) SNMP.\n\nI got your intent that can we use these MIB? I am having some doubt regarding mibs which I can ask by opening a issue.\n\n\u003e https://github.com/DMTF/Redfish/tree/master/MIB\n\nThis is a private repo,Is the MIB not released, How the client gets this MIB which is receiving the trap?\n\n\nThanks Ed for pointing it out, when we wrote the MIB https://github.com/openbmc/phosphor-snmp/tree/master/mibs, these(DMTF) mibs were not introduced, These got introduced later.",
+      "parentUuid": "b9e2ed8e_2b213eb0",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "8863cc642c059adeaedc4aef0d994059c5276bb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
