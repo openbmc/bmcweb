@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "d9b55939_184bf76b",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "There is none like this, there is one similar (getValidChassisPath), but instead of collection we get only current chassis path.",
+      "parentUuid": "0488309c_d0e8b712",
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b24d037_4fcfaa10",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -82,6 +100,30 @@
     },
     {
       "key": {
+        "uuid": "2529518e_dc44a8fc",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6b24d037_4fcfaa10",
+      "range": {
+        "startLine": 16,
+        "startChar": 50,
+        "endLine": 16,
+        "endChar": 56
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7ed656a_ff7d5cbc",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -96,6 +138,24 @@
       "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77e4ecb5_c801ce73",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7ed656a_ff7d5cbc",
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "6c04f1aa_6e2742ca",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dc17670_1af53075",
+      "range": {
+        "startLine": 35,
+        "startChar": 23,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "710e99cd_a4f543c0",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -145,6 +229,30 @@
     },
     {
       "key": {
+        "uuid": "483f7dde_c8fd7c03",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "710e99cd_a4f543c0",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5750d1da_da18fcd9",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -156,6 +264,30 @@
       "writtenOn": "2021-03-31T18:12:57Z",
       "side": 1,
       "message": "Don\u0027t use auto in this context.",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7ef33bd_0f42febe",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "This is structural binding, as far as I know only auto can be used with it.",
+      "parentUuid": "5750d1da_da18fcd9",
       "range": {
         "startLine": 69,
         "startChar": 15,
@@ -191,6 +323,30 @@
     },
     {
       "key": {
+        "uuid": "c3b1b794_a0422ccf",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65d87689_b7765b81",
+      "range": {
+        "startLine": 83,
+        "startChar": 14,
+        "endLine": 83,
+        "endChar": 18
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce4331e0_98b3f7d4",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -202,6 +358,30 @@
       "writtenOn": "2021-03-31T18:12:57Z",
       "side": 1,
       "message": "This check looks like it\u0027s trying to deduplicate, which we shouldn\u0027t do at this level.  If we have duplicate values, something else has gone wrong here.  I suspect all this can be deleted.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93185f6e_90e3065d",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "If we consider whole collection there are no duplicates, but here we are trying to create list of parents with no duplicates. This check needs to stay to ensure that output is correct.",
+      "parentUuid": "ce4331e0_98b3f7d4",
       "range": {
         "startLine": 85,
         "startChar": 0,
@@ -237,6 +417,30 @@
     },
     {
       "key": {
+        "uuid": "21dbdbcf_66cdf3a4",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d085eda_a331b68a",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 23
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45a60758_b1714d2e",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -257,6 +461,30 @@
       "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ce58b3c_58ad6b3e",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "45a60758_b1714d2e",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -283,6 +511,30 @@
     },
     {
       "key": {
+        "uuid": "e9af48be_b6487d25",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad678e8c_48b3db3d",
+      "range": {
+        "startLine": 185,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 26
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7e0f362_bb8b3601",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -306,6 +558,30 @@
     },
     {
       "key": {
+        "uuid": "4a01a282_6540c75a",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7e0f362_bb8b3601",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 45
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9f36932_a0d0c0b2",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 64
@@ -317,6 +593,30 @@
       "writtenOn": "2021-03-31T18:12:57Z",
       "side": 1,
       "message": "Please don\u0027t use the callback mechanism here.  If you need your own RAII response type, please create it around redfish::AsyncResp.",
+      "range": {
+        "startLine": 223,
+        "startChar": 77,
+        "endLine": 228,
+        "endChar": 9
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "664483d4_cf90cb62",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "We are doing several retrieveUriToDbusMap on different sensors, only when all finish we can tell if requested page exists.\n\nCreated new RAII type around redfish::AsyncResp.",
+      "parentUuid": "c9f36932_a0d0c0b2",
       "range": {
         "startLine": 223,
         "startChar": 77,
@@ -349,6 +649,30 @@
       "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67db2b5c_12c72beb",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-02T13:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d635acc_d75159c9",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 14
+      },
+      "revId": "5eab97584439879210dff4147a929b28c0a0a13d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
