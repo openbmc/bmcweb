@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "4be07428_45effd8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-02T20:43:07Z",
+      "side": 1,
+      "message": "Please don\u0027t wrap your commits by hand, or if you do, please obey  50/72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8743f0ba_56f9c77b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-02T20:43:07Z",
+      "side": 1,
+      "message": "HealthPopulate seems to be how we handle this properly in other places.  Why wouldn\u0027t we use that here?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 73
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7afc26ad_b9d97ae7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-02T20:43:07Z",
+      "side": 1,
+      "message": "How does it handle other things?  Are we missing an interface?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfcc351e_6562e315",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
