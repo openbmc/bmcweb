@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8640a291_0dfc91c8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-04-02T05:32:07Z",
+      "side": 1,
+      "message": "+1, This is not a valid address and validator should have been caught this.",
+      "parentUuid": "d9eeda75_28f21f5e",
+      "range": {
+        "startLine": 334,
+        "startChar": 63,
+        "endLine": 334,
+        "endChar": 70
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c74edc3b_e5076d9e",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 24
@@ -83,6 +107,30 @@
       "writtenOn": "2021-04-01T19:09:46Z",
       "side": 1,
       "message": "Is this a valid ipv6 address?",
+      "range": {
+        "startLine": 353,
+        "startChar": 41,
+        "endLine": 353,
+        "endChar": 56
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ec32601_0cd285d8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-04-02T05:32:07Z",
+      "side": 1,
+      "message": "Ed, This seems valid.\nAn IPv6 (Normal) address has the following format: y : y : y : y : y : y : y : y where y is called a segment and can be any hexadecimal value between 0 and FFFF. The segments are separated by colons",
+      "parentUuid": "c74edc3b_e5076d9e",
       "range": {
         "startLine": 353,
         "startChar": 41,
