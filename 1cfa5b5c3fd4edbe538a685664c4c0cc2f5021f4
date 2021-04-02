@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b6552042_b2f6a923",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-02T06:02:36Z",
+      "side": 1,
+      "message": "What happens if this is a bad fanID. Please test it and post the results here.",
+      "range": {
+        "startLine": 76,
+        "startChar": 105,
+        "endLine": 76,
+        "endChar": 111
+      },
+      "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e874698f_399af1b1",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 12
