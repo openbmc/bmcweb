@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "93e701fe_d922abf7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-04-02T07:50:11Z",
+      "side": 1,
+      "message": "I have ran validator with gateway configured, sorry i missed running validator with default values, that\u0027s why could not catch in my testing.\n\nfixed it and ran validator with default values",
+      "parentUuid": "8640a291_0dfc91c8",
+      "range": {
+        "startLine": 334,
+        "startChar": 63,
+        "endLine": 334,
+        "endChar": 70
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c74edc3b_e5076d9e",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 24
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Ed, This seems valid.\nAn IPv6 (Normal) address has the following format: y : y : y : y : y : y : y : y where y is called a segment and can be any hexadecimal value between 0 and FFFF. The segments are separated by colons",
       "parentUuid": "c74edc3b_e5076d9e",
+      "range": {
+        "startLine": 353,
+        "startChar": 41,
+        "endLine": 353,
+        "endChar": 56
+      },
+      "revId": "aebe6ed39146fca85b699b2aedfa4137361e2c08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda99056_f66d859f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-04-02T07:50:11Z",
+      "side": 1,
+      "message": "yes its valid ipv6 address",
+      "parentUuid": "1ec32601_0cd285d8",
       "range": {
         "startLine": 353,
         "startChar": 41,
