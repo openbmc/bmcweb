@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfcc351e_6562e315",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-02T15:42:39Z",
+      "side": 1,
+      "message": "should the default be true ?\n    bool present \u003d true ;",
+      "range": {
+        "startLine": 53,
+        "startChar": 19,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "641e0be7_c9a714a2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-02T15:42:39Z",
+      "side": 1,
+      "message": "I think we should either \n\n1) Use these and line 153 - 169.\nE.g. \n    bool present \u003d true;\n    bool functional \u003d true;\n\n...\n\n      if (property.first \u003d\u003d \"Present\")\n      {\n          const bool* cpuPresent \u003d std::get_if\u003cbool\u003e(\u0026property.second);\n          if (cpuPresent \u003d\u003d nullptr)\n          {\n               // Important property not in desired type\n               messages::internalError(aResp-\u003eres);\n               return;\n           }\n     present \u003d *cpuPresent; \n      }\n\n\n...\n\n    if (present \u003d\u003d false)\n    {\n        aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n        aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";\n    }\n    else\n    {\n        aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n        if (functional)\n        {\n            aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";\n        }\n        else\n        {\n            aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"Critical\";\n        }\n    }\n\n\n2) Get rid of these and just set like you are in the else if \nE.g.\n  // Defaults \n  aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n  aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";\n\n...\n\n            if (property.first \u003d\u003d \"Present\")\n            {\n                const bool* cpuPresent \u003d std::get_if\u003cbool\u003e(\u0026property.second);\n                if (cpuPresent \u003d\u003d nullptr)\n                {\n                    // Important property not in desired type\n                    messages::internalError(aResp-\u003eres);\n                    return;\n                }\n\n                if (*cpuPresent \u003d\u003d false)\n                {\n                    // Slot is not populated\n                    aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n                 }\n           }\n            else if (property.first \u003d\u003d \"Functional\")\n            {\n                const bool* cpuFunctional \u003d std::get_if\u003cbool\u003e(\u0026property.second);\n                if (cpuFunctional !\u003d nullptr)\n                {\n                    if (*cpuFunctional \u003d\u003d false)\n                    {\n                        aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"Critical\";\n\n                    }\n                }\n            }",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 27
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a803e88_8fc9fc8d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-02T15:42:39Z",
+      "side": 1,
+      "message": "I don\u0027t think we should return here.",
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
