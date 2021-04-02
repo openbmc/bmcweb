@@ -216,22 +216,22 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     return true;
 }
 
-inline bool getChassisSensorNode(
+inline bool getItemSensorNode(
     const std::shared_ptr<AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, std::vector<std::string>>>&
         metrics,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
-    for (const auto& [id, uris] : metrics)
+    for (const auto& [_, uris] : metrics)
     {
         for (size_t i = 0; i < uris.size(); i++)
         {
             const std::string& uri = uris[i];
-            std::string chassis;
+            std::string id;
             std::string node;
 
             if (!boost::starts_with(uri, "/redfish/v1/Chassis/") ||
-                !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
+                !dbus::utility::getNthStringFromPath(uri, 3, id) ||
                 !dbus::utility::getNthStringFromPath(uri, 4, node))
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
@@ -248,7 +248,7 @@ inline bool getChassisSensorNode(
                 node.pop_back();
             }
 
-            matched.emplace(std::move(chassis), std::move(node));
+            matched.emplace(std::move(id), std::move(node));
         }
     }
     return true;
@@ -387,19 +387,18 @@ class MetricReportDefinitionCollection : public Node
         }
 
         boost::container::flat_set<std::pair<std::string, std::string>>
-            chassisSensors;
-        if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
-                                             chassisSensors))
+            itemSensors;
+        if (!telemetry::getItemSensorNode(asyncResp, args.metrics, itemSensors))
         {
             return;
         }
 
         auto addReportReq =
             std::make_shared<telemetry::AddReport>(std::move(args), asyncResp);
-        for (const auto& [chassis, sensorType] : chassisSensors)
+        for (const auto& [item, sensorType] : itemSensors)
         {
             retrieveUriToDbusMap(
-                chassis, sensorType,
+                item, sensorType,
                 [asyncResp, addReportReq](
                     const boost::beast::http::status status,
                     const boost::container::flat_map<std::string, std::string>&
