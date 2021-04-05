@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8169bc97_b5a96006",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-05T17:14:10Z",
+      "side": 1,
+      "message": "Will Correct it",
+      "parentUuid": "7632035c_9431da73",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e951da7_c5e8a903",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "17bc8ede_a93b665d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-05T17:14:10Z",
+      "side": 1,
+      "message": "Will remove it as it needs separate implementation",
+      "parentUuid": "9e951da7_c5e8a903",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38428054_5af50867",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4ce90c_b336632d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-05T17:14:10Z",
+      "side": 1,
+      "message": "Checked the OWASP it also refers to w3c specification \nhttps://owasp.org/www-community/controls/Content_Security_Policy",
+      "parentUuid": "38428054_5af50867",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 36
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
