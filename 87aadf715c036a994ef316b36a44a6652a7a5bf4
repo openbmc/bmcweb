@@ -172,6 +172,23 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5dfd8d_0bffd943",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-05T18:16:27Z",
+      "side": 1,
+      "message": "Should add a check for if no Chassis/Board\u0027s found. \n\nE.g. \n// No adapter objects found by mapper\n                if (ec.value() \u003d\u003d boost::system::errc::io_error)\n                {\n                    messages::resourceNotFound(\n....\n                    return;\n                }",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
