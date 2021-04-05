@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba955796_55063163",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T19:33:01Z",
+      "side": 1,
+      "message": "Considering there\u0027s still whitespace violations, no.... you haven\u0027t resolved all the comments.  I shouldn\u0027t have to mention this twice.  (3 times if you count telling you that missed comments the first time around).",
+      "range": {
+        "startLine": 15,
+        "startChar": 71,
+        "endLine": 15,
+        "endChar": 72
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
