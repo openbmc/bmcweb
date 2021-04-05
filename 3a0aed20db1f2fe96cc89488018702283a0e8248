@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "f70f33eb_2cd91049",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-05T14:13:23Z",
+      "side": 1,
+      "message": "HealthPopulate is only used by some resources, I think more resources don\u0027t use it than use it. :/ \n\nI don\u0027t see HealthPopulate looking at OperationalStatus, Operational Status is mentioned in the design though\nhttps://github.com/openbmc/docs/blob/919a7b6816a5f16aa72d298e81e0756d95d5031e/designs/redfish-health-rolllup.md#proposed-design\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/32304979b404c24e32f195d08c667e65b9b34695/xyz/openbmc_project/State/Decorator/OperationalStatus.interface.yaml\n\nIf we decide to use HealthPopulate \n1. It should be updated to look at OperationalStatus, the doc probably needs some updates as well. \n2. We should move all resources to using it \n3. It probably makes sense that this be StatusPopulate / status.hpp and handles State as well as Health, HealthRollup.\n\nI kind of feel fixing up HealthPopulate is beyond this commit.",
+      "parentUuid": "8743f0ba_56f9c77b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 73
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7afc26ad_b9d97ae7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
