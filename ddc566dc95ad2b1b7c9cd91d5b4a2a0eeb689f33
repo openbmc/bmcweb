@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "d1672cb9_212f2e08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T19:37:12Z",
+      "side": 1,
+      "message": "Please comment on why default-src: none isn\u0027t effective here (I expect it is, and this header is unneeded).",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ac7fa29_5767cdcb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T19:37:12Z",
+      "side": 1,
+      "message": "Please test with form-action \u0027none\u0027 and report your findings.  I don\u0027t believe the UI uses form actions anywhere (although I\u0027m happy to be wrong).",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba955796_55063163",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -18,6 +64,29 @@
         "startChar": 71,
         "endLine": 15,
         "endChar": 72
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d03314_9364a650",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T19:37:12Z",
+      "side": 1,
+      "message": "Please test better than this.  Verifying the header got attached is not an effective test.  Please verify both UIs still boot and function as designed, especially surrounding firmware update.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 70
       },
       "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
