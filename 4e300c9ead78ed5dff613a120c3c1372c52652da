@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "704f6845_00435a72",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T16:21:34Z",
+      "side": 1,
+      "message": "?  Bad merge?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "4e300c9ead78ed5dff613a120c3c1372c52652da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2973b114_e0fe1758",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3457,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T16:21:34Z",
+      "side": 1,
+      "message": "These aren\u0027t guaranteed by the interface to be plain text, right?\n\nAlso, please deduplicate this block with the other block that you copied this from.",
+      "range": {
+        "startLine": 3457,
+        "startChar": 56,
+        "endLine": 3457,
+        "endChar": 66
+      },
+      "revId": "4e300c9ead78ed5dff613a120c3c1372c52652da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "912bfe00_b80db27e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3486,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T16:21:34Z",
+      "side": 1,
+      "message": "Please use from_chars here.  it\u0027s easier to use properly, and removes the need for the check on 3478",
+      "range": {
+        "startLine": 3486,
+        "startChar": 59,
+        "endLine": 3486,
+        "endChar": 63
+      },
+      "revId": "4e300c9ead78ed5dff613a120c3c1372c52652da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28606938_ecdc55f0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T16:21:34Z",
+      "side": 1,
+      "message": "Same here.  From chars.",
+      "range": {
+        "startLine": 3493,
+        "startChar": 52,
+        "endLine": 3493,
+        "endChar": 56
+      },
+      "revId": "4e300c9ead78ed5dff613a120c3c1372c52652da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "237b4d52_c827f606",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T16:21:34Z",
+      "side": 1,
+      "message": "Potential underflow.  Fix your range check.",
+      "range": {
+        "startLine": 3517,
+        "startChar": 63,
+        "endLine": 3517,
+        "endChar": 67
+      },
+      "revId": "4e300c9ead78ed5dff613a120c3c1372c52652da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268e92e4_7bf6fe49",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3523,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T16:21:34Z",
+      "side": 1,
+      "message": "This is not plaintext.",
+      "range": {
+        "startLine": 3523,
+        "startChar": 58,
+        "endLine": 3523,
+        "endChar": 68
+      },
+      "revId": "4e300c9ead78ed5dff613a120c3c1372c52652da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
