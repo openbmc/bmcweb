@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "cdb9ca06_7d098de7",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-05T19:31:42Z",
+      "side": 1,
+      "message": "\u003e The default-src doesn\u0027t apply for form-action: \n\nFair point on that;  I would assume it does apply to child-src, so that\u0027s incorrect.\n\n\u003e I am no expert here, but aren\u0027t forms used when uploading files\n\nWhile we use forms, so far as I\u0027m aware, we don\u0027t use form actions, we use javascript onclick handlers (someone correct me if I\u0027m wrong), which I would assume wouldn\u0027t be effected by CSP.\n\nWith that said, if the current UI can\u0027t run with \"form-action \u0027none\u0027\", then I\u0027m ok with this, but I suspect it should.",
+      "parentUuid": "2df3835a_b00cb444",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 44
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87f33e42_e1538cab",
         "filename": "include/security_headers.hpp",
         "patchSetId": 3
