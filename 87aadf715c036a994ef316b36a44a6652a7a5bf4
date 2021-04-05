@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "87368bfb_3b72cc7d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-04-05T15:20:07Z",
+      "side": 1,
+      "message": "Since we are not making any change to this \u0027tempArray\u0027, hope capturing by reference here is not needed.\nSame for line numbers: 142, 178",
+      "range": {
+        "startLine": 55,
+        "startChar": 40,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0a35ffc_f9211413",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
