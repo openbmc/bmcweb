@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ed3561d5_4282e7a4",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-05T19:25:23Z",
+      "side": 1,
+      "message": "report-uri is removed as it is separate implementation",
+      "parentUuid": "4f4ca3f5_cd184454",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 43
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d475c57e_e49e2349",
         "filename": "include/security_headers.hpp",
         "patchSetId": 3
@@ -213,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "2df3835a_b00cb444",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-05T19:25:23Z",
+      "side": 1,
+      "message": "Added information why these directives are added in Commit message, and also added the link for OWASP documentation,  followed best practices guidelines https://owasp.org/www-project-secure-headers/",
+      "parentUuid": "d475c57e_e49e2349",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 44
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87f33e42_e1538cab",
         "filename": "include/security_headers.hpp",
         "patchSetId": 3
@@ -233,6 +281,30 @@
       "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544a64ee_de196bba",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-05T19:25:23Z",
+      "side": 1,
+      "message": "removed the line",
+      "parentUuid": "87f33e42_e1538cab",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "ecc07b81d62210a477a07b3b6f36619e4995224a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
