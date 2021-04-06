@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12e90ffc_a251296c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:25:47Z",
+      "side": 1,
+      "message": "Can you explain the associations and how you get the sensors ? \nmaybe a link to https://github.com/openbmc/docs/blob/919a7b6816a5f16aa72d298e81e0756d95d5031e/architecture/sensor-architecture.md#association-type-2-linking-a-low-level-hardware-item-to-its-sensors",
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5383a3fd_2d36fccc",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:25:47Z",
+      "side": 1,
+      "message": "If we don\u0027t have xyz.openbmc_project.Inventory.Item.Fan Mapper will return boost::system::errc::io_error correct? \nShouldn\u0027t that be a 404 ?",
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387a96e8_fccdfb02",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:25:47Z",
+      "side": 1,
+      "message": "What if that fan wasn\u0027t found?\n\nasyncResp-\u003eres.clear();\nmessages::resourceNotFound(asyncResp-\u003eres, \"fan\", fanId); ?",
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42bddb8a_98a7dc47",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:25:47Z",
+      "side": 1,
+      "message": "Why are you looking in /xyz/openbmc_project/sensors for the Fan Inventory Item (xyz.openbmc_project.Inventory.Item.Fan) ?\n\nI would expect we find the fan inventory items (getFanInfo)\nthen look for the associations to the fan sensors?\nhttps://github.com/openbmc/docs/blob/919a7b6816a5f16aa72d298e81e0756d95d5031e/architecture/sensor-architecture.md#association-type-2-linking-a-low-level-hardware-item-to-its-sensors\n\nWhat am I missing?",
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a046ed_1124bb80",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:25:47Z",
+      "side": 1,
+      "message": "Does getFanInventoryItem make more sense?",
+      "range": {
+        "startLine": 453,
+        "startChar": 16,
+        "endLine": 453,
+        "endChar": 26
+      },
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c679ff_ce860ea1",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:25:47Z",
+      "side": 1,
+      "message": "I don\u0027t see why this is a sibling call to getFanInfo ?\n\nI would expect we find the fan inventory items (getFanInfo)\nthen look for the associations to the fan sensors (e.g. Fan speed)?",
+      "range": {
+        "startLine": 455,
+        "startChar": 16,
+        "endLine": 455,
+        "endChar": 27
+      },
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
