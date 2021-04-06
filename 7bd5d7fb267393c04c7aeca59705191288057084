@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "692f9a19_c8849194",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-04-06T09:23:57Z",
+      "side": 1,
+      "message": "Do you want to check the wrong dimmID? It isn\u0027t work.\nWhen using PATCH to modify non-existent memory, no error was reported. (There is no memory labeled dimm1 on my test machine)\n\n  curl -k -H \"X-Auth-Token: $token\" -X PATCH -d\u0027{\"LocationIndicatorActive\":true}\u0027 https://${bmc}/redfish/v1/Systems/system/Memory/dimm1\n\nThere is no response.",
+      "range": {
+        "startLine": 1079,
+        "startChar": 16,
+        "endLine": 1080,
+        "endChar": 77
+      },
+      "revId": "7bd5d7fb267393c04c7aeca59705191288057084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
