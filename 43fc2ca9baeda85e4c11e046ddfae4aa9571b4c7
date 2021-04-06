@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c175f608_fc3b6219",
+        "filename": "redfish-core/include/utils/sensors_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-06T20:16:46Z",
+      "side": 1,
+      "message": "Can you comment on the reasoning of creating this new filter? Just trying to understand the advantages from the original code.",
+      "revId": "43fc2ca9baeda85e4c11e046ddfae4aa9571b4c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ff0329_3a742af5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-06T20:16:46Z",
+      "side": 1,
+      "message": "CI flagging alignment:\n+                        : sensorsAsyncResp-\u003enode \u003d\u003d sensors::node::power\n+                            ? \"Voltages\"\n+                            : \"Sensors\");",
+      "revId": "43fc2ca9baeda85e4c11e046ddfae4aa9571b4c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a5f1c3d_ee4e5850",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-04-06T20:16:46Z",
+      "side": 1,
+      "message": "Can you comment why the change from \u0027sensorJson\u0027 to sensorJson[\"Name\"], sensorJson[\"@odata.id\"] was needed?",
+      "revId": "43fc2ca9baeda85e4c11e046ddfae4aa9571b4c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
