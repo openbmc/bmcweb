@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c2f55d3d_c19b1333",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-06T10:05:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4be07428_45effd8b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8743f0ba_56f9c77b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f0aa31af_896ea82f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-06T10:05:33Z",
+      "side": 1,
+      "message": "Just like Gunnar said above.\nIn health.hpp, it use associations to determine health status(https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/health.hpp#L191). \nSo it need a daemon to create a new association path (such as :\n/xyz/openbmc_project/inventory/system/chassis/motherboard/powersupply0/critical). I saw the callback_manager in the initial commit of redfish_health_rollup.md on gerrit: https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/21380/7/designs/redfish_health_rollup.md#76 . But it\u0027s Intel-specific, Other machines don\u0027t have daemon like this.\nSo the health.hpp can\u0027t handle this OperationalStatus.",
+      "parentUuid": "7afc26ad_b9d97ae7",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfcc351e_6562e315",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -115,6 +163,30 @@
       "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56658ef6_c397c9cb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-06T10:05:33Z",
+      "side": 1,
+      "message": "Removed it",
+      "parentUuid": "cfcc351e_6562e315",
+      "range": {
+        "startLine": 53,
+        "startChar": 19,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "37ad9c56_3ba5e211",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-06T10:05:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "641e0be7_c9a714a2",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 27
+      },
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a803e88_8fc9fc8d",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -152,6 +248,24 @@
       "writtenOn": "2021-04-02T15:42:39Z",
       "side": 1,
       "message": "I don\u0027t think we should return here.",
+      "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac308956_4030e1b3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-06T10:05:33Z",
+      "side": 1,
+      "message": "Other attributes are not needed when the CPU isn\u0027t present. So I think we should return here.",
+      "parentUuid": "5a803e88_8fc9fc8d",
       "revId": "3a0aed20db1f2fe96cc89488018702283a0e8248",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
