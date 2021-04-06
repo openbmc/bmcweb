@@ -70,6 +70,40 @@
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67829aba_bc782fa9",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2021-04-06T18:31:31Z",
+      "side": 1,
+      "message": "If the power supply doesn\u0027t implement the OperationalStatus interface, it would hit line 94 and return an internalFailure to the request?  I wonder instead if it should just set the health to OK since it doesn\u0027t know it isn\u0027t OK.",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1ea6fd7_9793f45e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2021-04-06T18:31:31Z",
+      "side": 1,
+      "message": "Is the effiencyRating an optional property?  If so, then just don\u0027t need to add it if the interface isn\u0027t there?",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
