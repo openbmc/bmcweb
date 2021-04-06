@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "9e20a268_ca0da678",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-06T19:07:37Z",
+      "side": 1,
+      "message": "What if you don\u0027t have \n                \"xyz.openbmc_project.Inventory.Item.Vrm\",\n                \"xyz.openbmc_project.Inventory.Item.Tpm\",\n                \"xyz.openbmc_project.Inventory.Item.Panel\",\n                \"xyz.openbmc_project.Inventory.Item.Battery\"\nMapper will return boost::system::errc::io_error correct?\nShould we then return an empty array of assemblies ?\nE.g. \nChassis has a link to \n/redfish/v1/Chassis/\u003cchassisId\u003e/Assembly\nBut calling /redfish/v1/Chassis/\u003cchassisId\u003e/Assembly returns a 500 now if it can\u0027t find any Vrm/Tpm/Panel/Battery Inventory Items. This would be a validator error.",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87368bfb_3b72cc7d",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
