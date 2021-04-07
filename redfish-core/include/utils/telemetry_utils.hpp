@@ -62,12 +62,13 @@ inline void
         interfaces);
 }
 
-inline std::string getDbusReportPath(const std::string& id)
+inline sdbusplus::message::object_path getDbusReportPath(const std::string& id)
 {
-    std::string path =
-        "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/" + id;
-    dbus::utility::escapePathForDbus(path);
-    return path;
+    sdbusplus::message::object_path path(
+        "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/");
+
+    path /= id;
+    return path.str;
 }
 
 } // namespace telemetry

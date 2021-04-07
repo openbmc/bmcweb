@@ -205,11 +205,13 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
+    sdbusplus::message::object_path efacePath("/xyz/openbmc_project/network/");
+    efacePath /= ethifaceId;
     for (auto& objpath : dbusData)
     {
         for (auto& ifacePair : objpath.second)
         {
-            if (objpath.first == "/xyz/openbmc_project/network/" + ethifaceId)
+            if (objpath.first == efacePath)
             {
                 idFound = true;
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
@@ -1144,7 +1146,8 @@ class EthernetInterface : public Node
         domainname = (fqdn).substr(pos + 1);
         hostname = (fqdn).substr(0, pos);
 
-        if (!isHostnameValid(hostname) || !isDomainnameValid(domainname))
+        if (!dbus::utility::isHostnameValid(hostname) ||
+            !isDomainnameValid(domainname))
         {
             messages::propertyValueFormatError(asyncResp->res, fqdn, "FQDN");
             return;
@@ -1152,23 +1155,6 @@ class EthernetInterface : public Node
 
         handleHostnamePatch(hostname, asyncResp);
         handleDomainnamePatch(ifaceId, domainname, asyncResp);
-    }
-
-    bool isHostnameValid(const std::string& hostname)
-    {
-        // A valid host name can never have the dotted-decimal form (RFC 1123)
-        if (std::all_of(hostname.begin(), hostname.end(), ::isdigit))
-        {
-            return false;
-        }
-        // Each label(hostname/subdomains) within a valid FQDN
-        // MUST handle host names of up to 63 characters (RFC 1123)
-        // labels cannot start or end with hyphens (RFC 952)
-        // labels can start with numbers (RFC 1123)
-        const std::regex pattern(
-            "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
-
-        return std::regex_match(hostname, pattern);
     }
 
     bool isDomainnameValid(const std::string& domainname)

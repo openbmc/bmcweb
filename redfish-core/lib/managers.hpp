@@ -352,7 +352,6 @@ inline void
                         return;
                     }
                     std::string name = *namePtr;
-                    dbus::utility::escapePathForDbus(name);
 
                     auto findProfiles = intfPair.second.find("Profiles");
                     if (findProfiles != intfPair.second.end())
@@ -572,14 +571,13 @@ inline void
                                 }
                                 auto& data = (*config)[propertyPair.first];
                                 data = nlohmann::json::array();
-                                for (std::string itemCopy : *inputs)
+                                for (const std::string& input : *inputs)
                                 {
-                                    dbus::utility::escapePathForDbus(itemCopy);
                                     data.push_back(
                                         {{"@odata.id",
                                           "/redfish/v1/Managers/bmc#/Oem/"
                                           "OpenBmc/Fan/FanZones/" +
-                                              itemCopy}});
+                                              input}});
                                 }
                             }
                             // todo(james): may never happen, but this
