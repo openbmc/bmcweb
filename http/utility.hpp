@@ -8,7 +8,6 @@
 #include <cstdint>
 #include <cstring>
 #include <functional>
-#include <regex>
 #include <stdexcept>
 #include <string>
 #include <tuple>

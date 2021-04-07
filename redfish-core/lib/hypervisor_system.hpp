@@ -770,8 +770,9 @@ class HypervisorInterface : public Node
         }
     }
 
-    void handleHostnamePatch(const std::string& hostName,
-                             const std::shared_ptr<AsyncResp>& asyncResp)
+    void
+        handleHostnamePatch(const std::string& hostName,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         if (!dbus::utility::isHostnameValid(hostName))
         {
