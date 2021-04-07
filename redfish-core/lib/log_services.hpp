@@ -1553,8 +1553,10 @@ class DBusEventLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        std::string entryID = params[0];
-        dbus::utility::escapePathForDbus(entryID);
+        const std::string& entryID = params[0];
+        sdbusplus::message::object_path path(
+            "/xyz/openbmc_project/logging/entry/");
+        path /= entryID;
 
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
@@ -1663,8 +1665,7 @@ class DBusEventLogEntry : public Node
                         std::to_string(*id);
                 }
             },
-            "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "xyz.openbmc_project.Logging", path.str,
             "org.freedesktop.DBus.Properties", "GetAll", "");
     }
 
@@ -1678,7 +1679,10 @@ class DBusEventLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        std::string entryId = params[0];
+        const std::string& entryID = params[0];
+        sdbusplus::message::object_path path(
+            "/xyz/openbmc_project/logging/entry/");
+        path /= entryID;
 
         std::optional<bool> resolved;
 
@@ -1693,7 +1697,7 @@ class DBusEventLogEntry : public Node
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp, resolved,
-                 entryId](const boost::system::error_code ec) {
+                 entryID](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1701,8 +1705,7 @@ class DBusEventLogEntry : public Node
                         return;
                     }
                 },
-                "xyz.openbmc_project.Logging",
-                "/xyz/openbmc_project/logging/entry/" + entryId,
+                "xyz.openbmc_project.Logging", path.str,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Logging.Entry", "Resolved",
                 std::variant<bool>(*resolved));
@@ -1721,9 +1724,10 @@ class DBusEventLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        std::string entryID = params[0];
-
-        dbus::utility::escapePathForDbus(entryID);
+        const std::string& entryID = params[0];
+        sdbusplus::message::object_path path(
+            "/xyz/openbmc_project/logging/entry/");
+        path /= entryID;
 
         // Process response from Logging service.
         auto respHandler = [asyncResp,
@@ -1751,8 +1755,7 @@ class DBusEventLogEntry : public Node
 
         // Make call to Logging service to request Delete Log
         crow::connections::systemBus->async_method_call(
-            respHandler, "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryID,
+            respHandler, "xyz.openbmc_project.Logging", path.str,
             "xyz.openbmc_project.Object.Delete", "Delete");
     }
 };
@@ -1808,9 +1811,10 @@ class DBusEventLogEntryDownload : public Node
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
-
-        std::string entryID = params[0];
-        dbus::utility::escapePathForDbus(entryID);
+        const std::string& entryID = params[0];
+        sdbusplus::message::object_path path(
+            "/xyz/openbmc_project/logging/entry/");
+        path /= entryID;
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, entryID](const boost::system::error_code ec,
@@ -1876,8 +1880,7 @@ class DBusEventLogEntryDownload : public Node
                 asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
                 asyncResp->res.body() = std::move(output);
             },
-            "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "xyz.openbmc_project.Logging", path.str,
             "xyz.openbmc_project.Logging.Entry", "GetEntry");
     }
 };

@@ -770,26 +770,10 @@ class HypervisorInterface : public Node
         }
     }
 
-    bool isHostnameValid(const std::string& hostName)
+    void handleHostnamePatch(const std::string& hostName,
+                             const std::shared_ptr<AsyncResp>& asyncResp)
     {
-        // As per RFC 1123
-        // Allow up to 255 characters
-        if (hostName.length() > 255)
-        {
-            return false;
-        }
-        // Validate the regex
-        const std::regex pattern(
-            "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
-
-        return std::regex_match(hostName, pattern);
-    }
-
-    void
-        handleHostnamePatch(const std::string& hostName,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-    {
-        if (!isHostnameValid(hostName))
+        if (!dbus::utility::isHostnameValid(hostName))
         {
             messages::propertyValueFormatError(asyncResp->res, hostName,
                                                "HostName");

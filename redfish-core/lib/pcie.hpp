@@ -180,10 +180,12 @@ class SystemPCIeDevice : public Node
                     {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
                                       device + "/PCIeFunctions"}};
             };
-        std::string escapedPath = std::string(pciePath) + "/" + device;
-        dbus::utility::escapePathForDbus(escapedPath);
+
+        sdbusplus::message::object_path path(pciePath);
+        path /= device;
+
         crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+            std::move(getPCIeDeviceCallback), pcieService, path.str,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
     }
 };
@@ -274,10 +276,12 @@ class SystemPCIeFunctionCollection : public Node
                 asyncResp->res.jsonValue["PCIeFunctions@odata.count"] =
                     pcieFunctionList.size();
             };
-        std::string escapedPath = std::string(pciePath) + "/" + device;
-        dbus::utility::escapePathForDbus(escapedPath);
+
+        sdbusplus::message::object_path path(pciePath);
+        path /= device;
+
         crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+            std::move(getPCIeDeviceCallback), pcieService, path.str,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
     }
 };
@@ -417,10 +421,10 @@ class SystemPCIeFunction : public Node
                 asyncResp->res.jsonValue["SubsystemVendorId"] = *property;
             }
         };
-        std::string escapedPath = std::string(pciePath) + "/" + device;
-        dbus::utility::escapePathForDbus(escapedPath);
+        sdbusplus::message::object_path path(pciePath);
+        path /= device;
         crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+            std::move(getPCIeDeviceCallback), pcieService, path.str,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
     }
 };

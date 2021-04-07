@@ -118,6 +118,7 @@ class MetricReport : public Node
 
         const std::string& id = params[0];
         const std::string reportPath = telemetry::getDbusReportPath(id);
+
         crow::connections::systemBus->async_method_call(
             [asyncResp, id, reportPath](const boost::system::error_code& ec) {
                 if (ec.value() == EBADR ||

@@ -259,38 +259,33 @@ class EventDestinationCollection : public Node
             }
         }
 
-        // Validate the URL using regex expression
-        // Format: <protocol>://<host>:<port>/<uri>
-        // protocol: http/https
-        // host: Exclude ' ', ':', '#', '?'
-        // port: Empty or numeric value with ':' separator.
-        // uri: Start with '/' and Exclude '#', ' '
-        //      Can include query params(ex: '/event?test=1')
-        // TODO: Need to validate hostname extensively(as per rfc)
-        const std::regex urlRegex(
-            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
-        std::cmatch match;
-        if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+        std::string uriProto;
+        std::string host;
+        std::string port;
+        std::string path;
+        try
         {
-            messages::propertyValueFormatError(asyncResp->res, destUrl,
-                                               "Destination");
-            return;
-        }
-
-        std::string uriProto = std::string(match[1].first, match[1].second);
-        if (uriProto == "http")
-        {
+            boost::urls::url_view url(destUrl);
+            uriProto = url.scheme();
+            if (uriProto == "http")
+            {
 #ifndef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
+                messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                   "Destination");
+                return;
+#endif
+            }
+            port = url.port();
+            host = url.encoded_host();
+            path = url.encoded_path();
+        }
+        catch (const boost::urls::parse_error& e)
+        {
             messages::propertyValueFormatError(asyncResp->res, destUrl,
                                                "Destination");
             return;
-#endif
         }
 
-        std::string host = std::string(match[2].first, match[2].second);
-        std::string port = std::string(match[3].first, match[3].second);
-        std::string path = std::string(match[4].first, match[4].second);
         if (port.empty())
         {
             if (uriProto == "http")
