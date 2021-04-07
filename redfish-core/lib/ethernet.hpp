@@ -205,11 +205,13 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                          EthernetInterfaceData& ethData)
 {
     bool idFound = false;
+    sdbusplus::message::object_path efacePath("/xyz/openbmc_project/network/");
+    efacePath /= ethifaceId;
     for (auto& objpath : dbusData)
     {
         for (auto& ifacePair : objpath.second)
         {
-            if (objpath.first == "/xyz/openbmc_project/network/" + ethifaceId)
+            if (objpath.first == efacePath)
             {
                 idFound = true;
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")

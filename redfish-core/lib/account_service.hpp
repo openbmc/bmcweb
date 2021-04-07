@@ -1793,14 +1793,16 @@ class ManagerAccount : public Node
                               std::optional<std::string> roleId,
                               std::optional<bool> locked)
     {
-        std::string dbusObjectPath = "/xyz/openbmc_project/user/" + username;
-        dbus::utility::escapePathForDbus(dbusObjectPath);
+
+        sdbusplus::message::object_path dbusObjectPath(
+            "/xyz/openbmc_project/user/");
+        dbusObjectPath /= username;
 
         dbus::utility::checkDbusPathExists(
             dbusObjectPath,
-            [dbusObjectPath(std::move(dbusObjectPath)), username,
-             password(std::move(password)), roleId(std::move(roleId)), enabled,
-             locked, asyncResp{std::move(asyncResp)}](int rc) {
+            [dbusObjectPath, username, password(std::move(password)),
+             roleId(std::move(roleId)), enabled, locked,
+             asyncResp{std::move(asyncResp)}](int rc) {
                 if (!rc)
                 {
                     messages::resourceNotFound(
@@ -1847,8 +1849,7 @@ class ManagerAccount : public Node
                             messages::success(asyncResp->res);
                             return;
                         },
-                        "xyz.openbmc_project.User.Manager",
-                        dbusObjectPath.c_str(),
+                        "xyz.openbmc_project.User.Manager", dbusObjectPath.str,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes", "UserEnabled",
                         std::variant<bool>{*enabled});
@@ -1879,8 +1880,7 @@ class ManagerAccount : public Node
                             }
                             messages::success(asyncResp->res);
                         },
-                        "xyz.openbmc_project.User.Manager",
-                        dbusObjectPath.c_str(),
+                        "xyz.openbmc_project.User.Manager", dbusObjectPath.str,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes", "UserPrivilege",
                         std::variant<std::string>{priv});
@@ -1910,8 +1910,7 @@ class ManagerAccount : public Node
                             messages::success(asyncResp->res);
                             return;
                         },
-                        "xyz.openbmc_project.User.Manager",
-                        dbusObjectPath.c_str(),
+                        "xyz.openbmc_project.User.Manager", dbusObjectPath.str,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes",
                         "UserLockedForFailedAttempt",
