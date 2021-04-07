@@ -2182,8 +2182,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& dumpId) {
-                std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
-                if (!std::regex_match(dumpId, validFilename))
+                if (!isValidFilename(dumpId))
                 {
                     asyncResp->res.result(
                         boost::beast::http::status::bad_request);
@@ -2222,8 +2221,9 @@ inline void requestRoutes(App& app)
                     // Filename should be in alphanumeric, dot and underscore
                     // Its based on phosphor-debug-collector application
                     // dumpfile format
-                    std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
-                    if (!std::regex_match(dumpFileName, dumpFileRegex))
+                    if (dumpFileName.find_first_not_of(
+                            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX"
+                            "YZ._") != std::string::npos)
                     {
                         BMCWEB_LOG_ERROR << "Invalid dump filename "
                                          << dumpFileName;

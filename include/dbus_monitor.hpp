@@ -161,8 +161,6 @@ inline void requestRoutes(App& app)
             std::string objectManagerMatchString;
             std::string propertiesMatchString;
             std::string objectManagerInterfacesMatchString;
-            // These regexes derived on the rules here:
-            // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
 
             for (const auto& thisPath : *paths)
             {
