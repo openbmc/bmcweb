@@ -73,6 +73,23 @@
     },
     {
       "key": {
+        "uuid": "232a0b90_f7fada2f",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-07T14:52:42Z",
+      "side": 1,
+      "message": "if (value \u003d\u003d nullptr)\n  {\n     messages::internalError(aResp-\u003eres);\n      return;\n   }\n   assemblyData[propertyName] \u003d *value;\n\nIs preferred",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67829aba_bc782fa9",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 8
@@ -119,6 +136,40 @@
       "writtenOn": "2021-04-06T18:31:31Z",
       "side": 1,
       "message": "Is the effiencyRating an optional property?  If so, then just don\u0027t need to add it if the interface isn\u0027t there?",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1471396_633eb4eb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-07T14:52:42Z",
+      "side": 1,
+      "message": "if (value \u003d\u003d nullptr)\n  {\n     messages::internalError(aResp-\u003eres);\n      return;\n   }\n....\n\nIs preferred",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff8cc01_5bf76d3d",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-07T14:52:42Z",
+      "side": 1,
+      "message": "This is a different way to do this. Why set the 404, then clear it? Why not only set the 404 if we can\u0027t find the powersupply.",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
