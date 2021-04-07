@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "868b921d_02c5c5a6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-07T01:59:49Z",
+      "side": 0,
+      "message": "Can you put the code move in its own commit?  I\u0027m having trouble reading through and seeing just the things you changed.  Initially I thought this was just a code rearrangement it looks like some things have changed in the meantime.\n\nps, sorry to make you do this, I normally don\u0027t, but this commit is non-trivial if it\u0027s included in the code rearrangement, and we need to make sure the filter parts are correct.",
+      "revId": "a8c4ce95bd2f4fee4544a57ed86ace3e257c9f24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
