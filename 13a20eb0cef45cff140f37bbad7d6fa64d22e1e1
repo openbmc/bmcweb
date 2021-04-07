@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cf509a9_6b30a6f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-07T11:32:30Z",
+      "side": 1,
+      "message": "The Asserted property of LED Group D-Bus object pointed to by \"identify_led_group\" is then set to \"true\". LED Manager, would then do what is needed for that group.",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e784cfea_ddb1472a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-07T11:32:30Z",
+      "side": 1,
+      "message": "The Asserted property of LED Group D-Bus object should be turned off when the \"LocationIndicatorActive\" is PATCHed to \"false\"",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e131834_c974f057",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-07T11:32:30Z",
+      "side": 1,
+      "message": "hmm.. why are we returning if the PATCH value is [false] ?.. Isn\u0027t it what we are supposed to update ?",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc3bf008_62d038e4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-07T11:32:30Z",
+      "side": 1,
+      "message": "hmm confused why we have Item.Cpu and Item.Accelerator ?",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
