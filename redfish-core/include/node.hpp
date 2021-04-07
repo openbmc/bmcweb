@@ -19,6 +19,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "privileges.hpp"
+#include "query_param.hpp"
 #include "redfish_v1.hpp"
 
 #include <error_messages.hpp>
