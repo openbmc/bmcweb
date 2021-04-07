@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "bf9f551f_1ba9b8a3",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-07T05:40:08Z",
+      "side": 1,
+      "message": "hmm.. why is it default Critical ?.. If something is not known, then it has to be [OK]. If an error is found later, then the PS code would set the OperationalStatus and that should result in PS health to be set to Critical.",
+      "parentUuid": "67829aba_bc782fa9",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1ea6fd7_9793f45e",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 8
