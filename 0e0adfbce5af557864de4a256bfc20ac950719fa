@@ -122,6 +122,29 @@
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bee3443b_d1fb0595",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-07T06:46:00Z",
+      "side": 1,
+      "message": "Can the following method be used for verification ？\n\nasyncResp-\u003eres.clear();\nmessages::resourceNotFound(asyncResp-\u003eres, \"fan\", fanId); \n\nSo you don’t have to create a new function.",
+      "range": {
+        "startLine": 534,
+        "startChar": 16,
+        "endLine": 535,
+        "endChar": 67
+      },
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
