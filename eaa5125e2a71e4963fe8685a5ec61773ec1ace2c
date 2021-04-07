@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "add0f1ef_7ff20737",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-07T17:16:44Z",
+      "side": 1,
+      "message": "I\u0027d like to keep it, although I agree, it should be log level DEBUG.",
+      "parentUuid": "aa627a3a_ed4f3798",
+      "range": {
+        "startLine": 365,
+        "startChar": 67,
+        "endLine": 365,
+        "endChar": 69
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "235c3968_06493d6a",
         "filename": "http/http_connection.hpp",
         "patchSetId": 36
@@ -177,6 +201,30 @@
       "writtenOn": "2021-03-19T10:55:16Z",
       "side": 1,
       "message": "Since its request data, we need to validate it to at begging. At least top of this if block. (Line no: 343)",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 17
+      },
+      "revId": "eaa5125e2a71e4963fe8685a5ec61773ec1ace2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1317476_3a25f9cb",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-07T17:16:44Z",
+      "side": 1,
+      "message": "I\u0027m not following this comment, can you expand?  The parser does validate the body from the beginning.  I\u0027m not sure what the pre-parser completed check on line 343 has to do with MIME parsing.",
+      "parentUuid": "91762a7c_e26106c0",
       "range": {
         "startLine": 360,
         "startChar": 0,
