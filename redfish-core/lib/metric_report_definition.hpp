@@ -470,7 +470,7 @@ class MetricReportDefinition : public Node
 
                 telemetry::fillReportDefinition(asyncResp, id, ret);
             },
-            telemetry::service, telemetry::getDbusReportPath(id),
+            telemetry::service, telemetry::getDbusReportPath(id).str,
             "org.freedesktop.DBus.Properties", "GetAll",
             telemetry::reportInterface);
     }
@@ -486,7 +486,8 @@ class MetricReportDefinition : public Node
         }
 
         const std::string& id = params[0];
-        const std::string reportPath = telemetry::getDbusReportPath(id);
+        const sdbusplus::message::object_path reportPath =
+            telemetry::getDbusReportPath(id);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, id](const boost::system::error_code ec) {
@@ -510,8 +511,8 @@ class MetricReportDefinition : public Node
 
                 asyncResp->res.result(boost::beast::http::status::no_content);
             },
-            telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
-            "Delete");
+            telemetry::service, reportPath.str,
+            "xyz.openbmc_project.Object.Delete", "Delete");
     }
 };
 } // namespace redfish

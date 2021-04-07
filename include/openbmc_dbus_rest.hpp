@@ -25,7 +25,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <regex>
 #include <utility>
 
 namespace crow
@@ -2063,6 +2062,27 @@ inline void handleDBusUrl(const crow::Request& req,
     setErrorResponse(asyncResp->res,
                      boost::beast::http::status::method_not_allowed,
                      methodNotAllowedDesc, methodNotAllowedMsg);
+}
+
+inline bool isValidFilename(const std::string_view fname)
+{
+    if (fname.empty())
+    {
+        return false;
+    }
+    if (fname[0] == '.')
+    {
+        return false;
+    }
+
+    for (char c : fname)
+    {
+        if (!isalnum(c) && c != '-' && c != ' ')
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 inline void requestRoutes(App& app)

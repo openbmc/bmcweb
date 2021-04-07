@@ -1,4 +1,6 @@
 #pragma once
+#include <systemd/sd-bus.h>
+
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
@@ -161,9 +163,6 @@ inline void requestRoutes(App& app)
             std::string objectManagerInterfacesMatchString;
             // These regexes derived on the rules here:
             // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
-            std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
-            std::regex validInterface(
-                "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
 
             for (const auto& thisPath : *paths)
             {
@@ -175,7 +174,7 @@ inline void requestRoutes(App& app)
                     conn.close();
                     return;
                 }
-                if (!std::regex_match(*thisPathString, validPath))
+                if (!sd_bus_object_path_is_valid(thisPathString->c_str()))
                 {
                     BMCWEB_LOG_ERROR << "Invalid path name " << *thisPathString;
                     conn.close();
@@ -206,7 +205,7 @@ inline void requestRoutes(App& app)
                     // interface
                     for (const std::string& interface : thisSession.interfaces)
                     {
-                        if (!std::regex_match(interface, validInterface))
+                        if (!sd_bus_interface_name_is_valid(interface.c_str()))
                         {
                             BMCWEB_LOG_ERROR << "Invalid interface name "
                                              << interface;
