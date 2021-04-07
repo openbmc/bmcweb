@@ -1883,8 +1883,9 @@ class SystemsCollection : public Node
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, &req](const boost::system::error_code ec,
-                              const std::variant<std::string>& /*hostName*/) {
+            [asyncResp, &req,
+             this](const boost::system::error_code ec,
+                   const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();
@@ -1899,6 +1900,8 @@ class SystemsCollection : public Node
                         {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
                     count = ifaceArray.size();
                 }
+                redfish::query_param::excuteQueryParamAll(this->app, req,
+                                                          asyncResp);
             },
             "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",

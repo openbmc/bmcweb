@@ -20,6 +20,7 @@
 #include "http_response.hpp"
 #include "privileges.hpp"
 #include "redfish_v1.hpp"
+#include "utils/query_param.hpp"
 
 #include <error_messages.hpp>
 #include <rf_async_resp.hpp>
