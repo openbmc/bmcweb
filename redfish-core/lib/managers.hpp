@@ -351,7 +351,6 @@ inline void asyncPopulatePid(const std::string& connection,
                         return;
                     }
                     std::string name = *namePtr;
-                    dbus::utility::escapePathForDbus(name);
 
                     auto findProfiles = intfPair.second.find("Profiles");
                     if (findProfiles != intfPair.second.end())
@@ -573,7 +572,6 @@ inline void asyncPopulatePid(const std::string& connection,
                                 data = nlohmann::json::array();
                                 for (std::string itemCopy : *inputs)
                                 {
-                                    dbus::utility::escapePathForDbus(itemCopy);
                                     data.push_back(
                                         {{"@odata.id",
                                           "/redfish/v1/Managers/bmc#/Oem/"

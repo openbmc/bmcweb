@@ -44,12 +44,6 @@ using ManagedItem = std::pair<
     boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, DbusVariantType>>>;
 
-inline void escapePathForDbus(std::string& path)
-{
-    const std::regex reg("[^A-Za-z0-9_/]");
-    std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
-}
-
 // gets the string N strings deep into a path
 // i.e.  /0th/1st/2nd/3rd
 inline bool getNthStringFromPath(const std::string& path, int index,
