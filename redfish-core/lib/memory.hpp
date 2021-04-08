@@ -19,7 +19,6 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/format.hpp>
-#include <node.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
 
@@ -880,83 +879,46 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
 }
 
-class MemoryCollection : public Node
+inline void requestRoutesMemoryCollection(App& app)
 {
-  public:
-    /*
-     * Default Constructor
-     */
-    MemoryCollection(App& app) : Node(app, "/redfish/v1/Systems/system/Memory/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#MemoryCollection.MemoryCollection";
-        asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory";
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#MemoryCollection.MemoryCollection";
+                asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Memory";
 
-        collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Memory",
-            {"xyz.openbmc_project.Inventory.Item.Dimm"});
-    }
-};
+                collection_util::getCollectionMembers(
+                    asyncResp, "/redfish/v1/Systems/system/Memory",
+                    {"xyz.openbmc_project.Inventory.Item.Dimm"});
+            });
+}
 
-class Memory : public Node
+inline void requestRoutesMemory(App& app)
 {
-  public:
-    /*
-     * Default Constructor
-     */
-    Memory(App& app) :
-        Node(app, "/redfish/v1/Systems/system/Memory/<str>/", std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
-        // Check if there is required param, truly entering this shall be
-        // impossible
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        const std::string& dimmId = params[0];
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& dimmId) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#Memory.v1_11_0.Memory";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Memory/" + dimmId;
 
-        asyncResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory/" + dimmId;
-
-        getDimmData(asyncResp, dimmId);
-    }
-};
+                getDimmData(asyncResp, dimmId);
+            });
+}
 
 } // namespace redfish
