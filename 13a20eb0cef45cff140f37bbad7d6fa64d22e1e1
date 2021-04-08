@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b8ecfb87_6a9d44af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-08T02:36:48Z",
+      "side": 1,
+      "message": "See：\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/34//COMMIT_MSG#10\n\n@Vishwa\nWhat do you think?",
+      "parentUuid": "2cf509a9_6b30a6f7",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e784cfea_ddb1472a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 38
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-07T11:32:30Z",
       "side": 1,
       "message": "The Asserted property of LED Group D-Bus object should be turned off when the \"LocationIndicatorActive\" is PATCHed to \"false\"",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27f3da53_a29e1907",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-08T02:36:48Z",
+      "side": 1,
+      "message": "as above",
+      "parentUuid": "e784cfea_ddb1472a",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "69c7af7e_6c625359",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-08T02:36:48Z",
+      "side": 1,
+      "message": "Sorry, here is a pointer, not value\n\nlike:\nif (locationIndicatorActive \u003d\u003d nullptr)\n{\n  return;\n}",
+      "parentUuid": "6e131834_c974f057",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc3bf008_62d038e4",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 38
@@ -64,6 +118,24 @@
       "writtenOn": "2021-04-07T11:32:30Z",
       "side": 1,
       "message": "hmm confused why we have Item.Cpu and Item.Accelerator ?",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bebe7a4_b9a88997",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-08T02:36:48Z",
+      "side": 1,
+      "message": "In the comments a long time ago, I remember @Gunnar suggested adding the `Accelerator` interface.",
+      "parentUuid": "bc3bf008_62d038e4",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
