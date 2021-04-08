@@ -1296,8 +1296,7 @@ class Router
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-                    res.result(
-                        boost::beast::http::status::internal_server_error);
+                    res.result(boost::beast::http::status::forbidden);
                     res.end();
                     return;
                 }
