@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "487c5f4f_49e7de85",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30bdf664_36aec453",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3197789e_361c3be0",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0f38e74b_895d41a2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3197789e_361c3be0",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 53
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e20a268_ca0da678",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -59,6 +107,24 @@
       "writtenOn": "2021-04-06T19:07:37Z",
       "side": 1,
       "message": "What if you don\u0027t have \n                \"xyz.openbmc_project.Inventory.Item.Vrm\",\n                \"xyz.openbmc_project.Inventory.Item.Tpm\",\n                \"xyz.openbmc_project.Inventory.Item.Panel\",\n                \"xyz.openbmc_project.Inventory.Item.Battery\"\nMapper will return boost::system::errc::io_error correct?\nShould we then return an empty array of assemblies ?\nE.g. \nChassis has a link to \n/redfish/v1/Chassis/\u003cchassisId\u003e/Assembly\nBut calling /redfish/v1/Chassis/\u003cchassisId\u003e/Assembly returns a 500 now if it can\u0027t find any Vrm/Tpm/Panel/Battery Inventory Items. This would be a validator error.",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be9491bf_fb251661",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Please let me know if I am understanding it correctly.\nYou mean to say that there is entry in association json file but that inventory does not implement the interface or the inventoryPath does not exist at all?",
+      "parentUuid": "9e20a268_ca0da678",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -135,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "783791b2_fe5ea50b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0a35ffc_f9211413",
+      "range": {
+        "startLine": 337,
+        "startChar": 48,
+        "endLine": 339,
+        "endChar": 75
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a924cc5_a3d5784e",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -152,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "3d33358d_bef562db",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a924cc5_a3d5784e",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce82424d_cd6a4e43",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -166,6 +274,24 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6001f81_aebcc3db",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce82424d_cd6a4e43",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "19313031_4b841d04",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d97bd9b3_59cd3526",
+      "range": {
+        "startLine": 402,
+        "startChar": 26,
+        "endLine": 402,
+        "endChar": 37
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5dfd8d_0bffd943",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -203,6 +353,24 @@
       "writtenOn": "2021-04-05T18:16:27Z",
       "side": 1,
       "message": "Should add a check for if no Chassis/Board\u0027s found. \n\nE.g. \n// No adapter objects found by mapper\n                if (ec.value() \u003d\u003d boost::system::errc::io_error)\n                {\n                    messages::resourceNotFound(\n....\n                    return;\n                }",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc19157_03dcc126",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T06:39:44Z",
+      "side": 1,
+      "message": "We have already handled that.\nIf chassis/board is not found the call to mapper will return 0. Hence the for loop will not execute and it will jump to line 435.\nI also tested the same,\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X GET https://${bmc}/redfish/v1/Chassis/chassis/Assembly/\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type Chassis named chassis was not found.\",\n        \"MessageArgs\": [\n          \"Chassis\",\n          \"chassis\"\n        ],\n        \"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.ResourceNotFound\",\n    \"message\": \"The requested resource of type Chassis named chassis was not found.\"\n  }\n}",
+      "parentUuid": "ac5dfd8d_0bffd943",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
