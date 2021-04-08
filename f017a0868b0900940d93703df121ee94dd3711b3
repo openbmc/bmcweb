@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c4a72c2_d9db0788",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-08T14:39:52Z",
+      "side": 1,
+      "message": "If there isn\u0027t any \n        \"xyz.openbmc_project.Inventory.Item.Board\",\n        \"xyz.openbmc_project.Inventory.Item.Chassis\"\nmapper returns an error right? \nShouldn\u0027t that be a 404 and not an internal error? \nNote: this is probably pretty uncommon\n\nE.g. maybe something like \n BMCWEB_LOG_ERROR \u003c\u003c \"getValidChassisID respHandler DBUS error: \"\n// No Chassis objects found \nif (ec.value() \u003d\u003d boost::system::errc::io_error)\n{\ncallback(\"\");\n}\n           \n messages::internalError(asyncResp-\u003eres);\n return;",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5243b9cb_cefa8543",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-08T14:39:52Z",
+      "side": 1,
+      "message": "What if the system doesn\u0027t have any \n\"xyz.openbmc_project.Inventory.Item.PCIeSlot\"\nmapper returns an error right?\n\nThen this would return a internalError and there is already a link in Chassis in PCIeSlots.. \nI think this would be a validator error for a Chassis without \"xyz.openbmc_project.Inventory.Item.PCIeSlot\"",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
