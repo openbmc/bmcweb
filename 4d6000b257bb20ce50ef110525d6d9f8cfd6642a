@@ -53,6 +53,29 @@
     },
     {
       "key": {
+        "uuid": "16ae0ef2_4ae9bbcf",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:22:12Z",
+      "side": 1,
+      "message": "Other than that, you still need to check that the fanID belongs to the chassisID.\nfor example:\nWe have two chassises: chassis1 and chassis2. \nChassis1 has fan1 and fan2, Chassis2 has fan3 and fan4.\nIf the request is /redfish/v1/Chassis/chassis1/ThermalSubsystem/Fans/fan4/ , you should return 404.",
+      "range": {
+        "startLine": 235,
+        "startChar": 16,
+        "endLine": 235,
+        "endChar": 34
+      },
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42bddb8a_98a7dc47",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 13
