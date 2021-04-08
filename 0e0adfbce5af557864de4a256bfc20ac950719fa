@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "bbcfac3d_229228e8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:20:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "232a0b90_f7fada2f",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67829aba_bc782fa9",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 8
@@ -125,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "3a4ff998_b69927ee",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:20:39Z",
+      "side": 1,
+      "message": "Done， Set the default value to \"OK\".",
+      "parentUuid": "bf9f551f_1ba9b8a3",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1ea6fd7_9793f45e",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 8
@@ -139,6 +175,24 @@
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab154332_4f3156da",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:20:39Z",
+      "side": 1,
+      "message": "Done, I\u0027ve removed the \"internalError\".",
+      "parentUuid": "b1ea6fd7_9793f45e",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -159,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "507f2142_32486c7b",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:20:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1471396_633eb4eb",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eff8cc01_5bf76d3d",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 8
@@ -176,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "61679e25_1de95045",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:20:39Z",
+      "side": 1,
+      "message": "Because it\u0027s inside a lambda, so we can\u0027t break the for{}(line 313).\nSo we can\u0027t set the 404 after \"for{}\" has ended.",
+      "parentUuid": "eff8cc01_5bf76d3d",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bee3443b_d1fb0595",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 8
@@ -187,6 +277,30 @@
       "writtenOn": "2021-04-07T06:46:00Z",
       "side": 1,
       "message": "Can the following method be used for verification ？\n\nasyncResp-\u003eres.clear();\nmessages::resourceNotFound(asyncResp-\u003eres, \"fan\", fanId); \n\nSo you don’t have to create a new function.",
+      "range": {
+        "startLine": 534,
+        "startChar": 16,
+        "endLine": 535,
+        "endChar": 67
+      },
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9067e315_8df1f631",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-08T06:20:39Z",
+      "side": 1,
+      "message": "No. Because the judgment is in a lambda, so we can\u0027t set 404 after the \"for{}\" ends.",
+      "parentUuid": "bee3443b_d1fb0595",
       "range": {
         "startLine": 534,
         "startChar": 16,
