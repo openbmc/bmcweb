@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8fe28fb_0889d6c8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-08T18:35:23Z",
+      "side": 1,
+      "message": "We don\u0027t use this.. Can we only display this if the xyz.openbmc_project.BIOSConfig.Password interface is there?",
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
