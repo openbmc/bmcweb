@@ -17,7 +17,6 @@
 
 #include "health.hpp"
 #include "led.hpp"
-#include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <utils/collection.hpp>
@@ -157,398 +156,382 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
 
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
+ *  Functions triggers appropriate requests on DBus
  */
-class ChassisCollection : public Node
+inline void requestRoutesChassisCollection(App& app)
 {
-  public:
-    ChassisCollection(App& app) : Node(app, "/redfish/v1/Chassis/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ChassisCollection.ChassisCollection";
+                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
+                asyncResp->res.jsonValue["Name"] = "Chassis Collection";
 
-  private:
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ChassisCollection.ChassisCollection";
-        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
-        asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-
-        collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Chassis",
-            {"xyz.openbmc_project.Inventory.Item.Board",
-             "xyz.openbmc_project.Inventory.Item.Chassis"});
-    }
-};
+                collection_util::getCollectionMembers(
+                    asyncResp, "/redfish/v1/Chassis",
+                    {"xyz.openbmc_project.Inventory.Item.Board",
+                     "xyz.openbmc_project.Inventory.Item.Chassis"});
+            });
+}
 
 /**
  * Chassis override class for delivering Chassis Schema
+ * Functions triggers appropriate requests on DBus
  */
-class Chassis : public Node
+inline void requestRoutesChassis(App& app)
 {
-  public:
-    Chassis(App& app) : Node(app, "/redfish/v1/Chassis/<str>/", std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
+        .privileges({"Login"})
+        .methods(
+            boost::beast::http::verb::get)([](const crow::Request&,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& chassisId) {
+            const std::array<const char*, 2> interfaces = {
+                "xyz.openbmc_project.Inventory.Item.Board",
+                "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-  private:
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
-        const std::array<const char*, 2> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis"};
-
-        // Check if there is required param, truly entering this shall be
-        // impossible.
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        const std::string& chassisId = params[0];
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, chassisId(std::string(chassisId))](
-                const boost::system::error_code ec,
-                const crow::openbmc_mapper::GetSubTreeType& subtree) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                // Iterate over all retrieved ObjectPaths.
-                for (const std::pair<
-                         std::string,
-                         std::vector<
-                             std::pair<std::string, std::vector<std::string>>>>&
-                         object : subtree)
-                {
-                    const std::string& path = object.first;
-                    const std::vector<
-                        std::pair<std::string, std::vector<std::string>>>&
-                        connectionNames = object.second;
-
-                    if (!boost::ends_with(path, chassisId))
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, chassisId(std::string(chassisId))](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
                     {
-                        continue;
+                        messages::internalError(asyncResp->res);
+                        return;
                     }
-
-                    auto health = std::make_shared<HealthPopulate>(asyncResp);
-
-                    crow::connections::systemBus->async_method_call(
-                        [health](const boost::system::error_code ec2,
-                                 std::variant<std::vector<std::string>>& resp) {
-                            if (ec2)
-                            {
-                                return; // no sensors = no failures
-                            }
-                            std::vector<std::string>* data =
-                                std::get_if<std::vector<std::string>>(&resp);
-                            if (data == nullptr)
-                            {
-                                return;
-                            }
-                            health->inventory = std::move(*data);
-                        },
-                        "xyz.openbmc_project.ObjectMapper",
-                        path + "/all_sensors",
-                        "org.freedesktop.DBus.Properties", "Get",
-                        "xyz.openbmc_project.Association", "endpoints");
-
-                    health->populate();
-
-                    if (connectionNames.size() < 1)
+                    // Iterate over all retrieved ObjectPaths.
+                    for (const std::pair<
+                             std::string,
+                             std::vector<std::pair<std::string,
+                                                   std::vector<std::string>>>>&
+                             object : subtree)
                     {
-                        BMCWEB_LOG_ERROR << "Got 0 Connection names";
-                        continue;
-                    }
+                        const std::string& path = object.first;
+                        const std::vector<
+                            std::pair<std::string, std::vector<std::string>>>&
+                            connectionNames = object.second;
 
-                    asyncResp->res.jsonValue["@odata.type"] =
-                        "#Chassis.v1_14_0.Chassis";
-                    asyncResp->res.jsonValue["@odata.id"] =
-                        "/redfish/v1/Chassis/" + chassisId;
-                    asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-                    asyncResp->res.jsonValue["ChassisType"] = "RackMount";
-                    asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] = {
-                        {"target", "/redfish/v1/Chassis/" + chassisId +
-                                       "/Actions/Chassis.Reset"},
-                        {"@Redfish.ActionInfo", "/redfish/v1/Chassis/" +
-                                                    chassisId +
-                                                    "/ResetActionInfo"}};
-                    asyncResp->res.jsonValue["PCIeDevices"] = {
-                        {"@odata.id",
-                         "/redfish/v1/Systems/system/PCIeDevices"}};
-
-                    const std::string& connectionName =
-                        connectionNames[0].first;
-
-                    const std::vector<std::string>& interfaces2 =
-                        connectionNames[0].second;
-                    const std::array<const char*, 2> hasIndicatorLed = {
-                        "xyz.openbmc_project.Inventory.Item.Panel",
-                        "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
-
-                    for (const char* interface : hasIndicatorLed)
-                    {
-                        if (std::find(interfaces2.begin(), interfaces2.end(),
-                                      interface) != interfaces2.end())
+                        if (!boost::ends_with(path, chassisId))
                         {
-                            getIndicatorLedState(asyncResp);
-                            getLocationIndicatorActive(asyncResp);
-                            break;
+                            continue;
                         }
-                    }
 
-                    const std::string locationInterface =
-                        "xyz.openbmc_project.Inventory.Decorator.LocationCode";
-                    if (std::find(interfaces2.begin(), interfaces2.end(),
-                                  locationInterface) != interfaces2.end())
-                    {
+                        auto health =
+                            std::make_shared<HealthPopulate>(asyncResp);
+
+                        crow::connections::systemBus->async_method_call(
+                            [health](
+                                const boost::system::error_code ec2,
+                                std::variant<std::vector<std::string>>& resp) {
+                                if (ec2)
+                                {
+                                    return; // no sensors = no failures
+                                }
+                                std::vector<std::string>* data =
+                                    std::get_if<std::vector<std::string>>(
+                                        &resp);
+                                if (data == nullptr)
+                                {
+                                    return;
+                                }
+                                health->inventory = std::move(*data);
+                            },
+                            "xyz.openbmc_project.ObjectMapper",
+                            path + "/all_sensors",
+                            "org.freedesktop.DBus.Properties", "Get",
+                            "xyz.openbmc_project.Association", "endpoints");
+
+                        health->populate();
+
+                        if (connectionNames.size() < 1)
+                        {
+                            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                            continue;
+                        }
+
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#Chassis.v1_14_0.Chassis";
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Chassis/" + chassisId;
+                        asyncResp->res.jsonValue["Name"] = "Chassis Collection";
+                        asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+                        asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] =
+                            {{"target", "/redfish/v1/Chassis/" + chassisId +
+                                            "/Actions/Chassis.Reset"},
+                             {"@Redfish.ActionInfo", "/redfish/v1/Chassis/" +
+                                                         chassisId +
+                                                         "/ResetActionInfo"}};
+                        asyncResp->res.jsonValue["PCIeDevices"] = {
+                            {"@odata.id",
+                             "/redfish/v1/Systems/system/PCIeDevices"}};
+
+                        const std::string& connectionName =
+                            connectionNames[0].first;
+
+                        const std::vector<std::string>& interfaces2 =
+                            connectionNames[0].second;
+                        const std::array<const char*, 2> hasIndicatorLed = {
+                            "xyz.openbmc_project.Inventory.Item.Panel",
+                            "xyz.openbmc_project.Inventory.Item.Board."
+                            "Motherboard"};
+
+                        for (const char* interface : hasIndicatorLed)
+                        {
+                            if (std::find(interfaces2.begin(),
+                                          interfaces2.end(),
+                                          interface) != interfaces2.end())
+                            {
+                                getIndicatorLedState(asyncResp);
+                                getLocationIndicatorActive(asyncResp);
+                                break;
+                            }
+                        }
+
+                        const std::string locationInterface =
+                            "xyz.openbmc_project.Inventory.Decorator."
+                            "LocationCode";
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      locationInterface) != interfaces2.end())
+                        {
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp, chassisId(std::string(chassisId))](
+                                    const boost::system::error_code ec,
+                                    const std::variant<std::string>& property) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "DBUS response error for "
+                                               "Location";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+
+                                    const std::string* value =
+                                        std::get_if<std::string>(&property);
+                                    if (value == nullptr)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "Null value returned "
+                                               "for locaton code";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    asyncResp->res
+                                        .jsonValue["Location"]["PartLocation"]
+                                                  ["ServiceLabel"] = *value;
+                                },
+                                connectionName, path,
+                                "org.freedesktop.DBus.Properties", "Get",
+                                locationInterface, "LocationCode");
+                        }
+
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, chassisId(std::string(chassisId))](
-                                const boost::system::error_code ec,
-                                const std::variant<std::string>& property) {
-                                if (ec)
+                                const boost::system::error_code /*ec2*/,
+                                const std::vector<
+                                    std::pair<std::string, VariantType>>&
+                                    propertiesList) {
+                                for (const std::pair<std::string, VariantType>&
+                                         property : propertiesList)
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "DBUS response error for Location";
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-
-                                const std::string* value =
-                                    std::get_if<std::string>(&property);
-                                if (value == nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG << "Null value returned "
-                                                        "for locaton code";
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                asyncResp->res
-                                    .jsonValue["Location"]["PartLocation"]
-                                              ["ServiceLabel"] = *value;
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "Get",
-                            locationInterface, "LocationCode");
-                    }
-
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, chassisId(std::string(chassisId))](
-                            const boost::system::error_code /*ec2*/,
-                            const std::vector<std::pair<
-                                std::string, VariantType>>& propertiesList) {
-                            for (const std::pair<std::string, VariantType>&
-                                     property : propertiesList)
-                            {
-                                // Store DBus properties that are also Redfish
-                                // properties with same name and a string value
-                                const std::string& propertyName =
-                                    property.first;
-                                if ((propertyName == "PartNumber") ||
-                                    (propertyName == "SerialNumber") ||
-                                    (propertyName == "Manufacturer") ||
-                                    (propertyName == "Model"))
-                                {
-                                    const std::string* value =
-                                        std::get_if<std::string>(
-                                            &property.second);
-                                    if (value != nullptr)
+                                    // Store DBus properties that are also
+                                    // Redfish properties with same name and a
+                                    // string value
+                                    const std::string& propertyName =
+                                        property.first;
+                                    if ((propertyName == "PartNumber") ||
+                                        (propertyName == "SerialNumber") ||
+                                        (propertyName == "Manufacturer") ||
+                                        (propertyName == "Model"))
                                     {
-                                        asyncResp->res.jsonValue[propertyName] =
-                                            *value;
+                                        const std::string* value =
+                                            std::get_if<std::string>(
+                                                &property.second);
+                                        if (value != nullptr)
+                                        {
+                                            asyncResp->res
+                                                .jsonValue[propertyName] =
+                                                *value;
+                                        }
                                     }
                                 }
+                                asyncResp->res.jsonValue["Name"] = chassisId;
+                                asyncResp->res.jsonValue["Id"] = chassisId;
+                                asyncResp->res.jsonValue["Thermal"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId + "/Thermal"}};
+                                // Power object
+                                asyncResp->res.jsonValue["Power"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId + "/Power"}};
+                                // SensorCollection
+                                asyncResp->res.jsonValue["Sensors"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId + "/Sensors"}};
+                                asyncResp->res.jsonValue["Status"] = {
+                                    {"State", "Enabled"},
+                                };
+
+                                asyncResp->res
+                                    .jsonValue["Links"]["ComputerSystems"] = {
+                                    {{"@odata.id",
+                                      "/redfish/v1/Systems/system"}}};
+                                asyncResp->res.jsonValue["Links"]["ManagedBy"] =
+                                    {{{"@odata.id",
+                                       "/redfish/v1/Managers/bmc"}}};
+                                getChassisState(asyncResp);
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "GetAll",
+                            "xyz.openbmc_project.Inventory.Decorator.Asset");
+                        return;
+                    }
+
+                    // Couldn't find an object with that name.  return an error
+                    messages::resourceNotFound(
+                        asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/inventory", 0, interfaces);
+
+            getPhysicalSecurityData(asyncResp);
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
+        .privileges({"ConfigureComponents"})
+        .methods(
+            boost::beast::http::verb::
+                patch)([](const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& param) {
+            std::optional<bool> locationIndicatorActive;
+            std::optional<std::string> indicatorLed;
+
+            if (param.empty())
+            {
+                return;
+            }
+
+            if (!json_util::readJson(
+                    req, asyncResp->res, "LocationIndicatorActive",
+                    locationIndicatorActive, "IndicatorLED", indicatorLed))
+            {
+                return;
+            }
+
+            // TODO (Gunnar): Remove IndicatorLED after enough time has passed
+            if (!locationIndicatorActive && !indicatorLed)
+            {
+                return; // delete this when we support more patch properties
+            }
+            if (indicatorLed)
+            {
+                asyncResp->res.addHeader(
+                    boost::beast::http::field::warning,
+                    "299 - \"IndicatorLED is deprecated. Use "
+                    "LocationIndicatorActive instead.\"");
+            }
+
+            const std::array<const char*, 2> interfaces = {
+                "xyz.openbmc_project.Inventory.Item.Board",
+                "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+            const std::string& chassisId = param;
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, chassisId, locationIndicatorActive, indicatorLed](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    // Iterate over all retrieved ObjectPaths.
+                    for (const std::pair<
+                             std::string,
+                             std::vector<std::pair<std::string,
+                                                   std::vector<std::string>>>>&
+                             object : subtree)
+                    {
+                        const std::string& path = object.first;
+                        const std::vector<
+                            std::pair<std::string, std::vector<std::string>>>&
+                            connectionNames = object.second;
+
+                        if (!boost::ends_with(path, chassisId))
+                        {
+                            continue;
+                        }
+
+                        if (connectionNames.size() < 1)
+                        {
+                            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                            continue;
+                        }
+
+                        const std::vector<std::string>& interfaces3 =
+                            connectionNames[0].second;
+
+                        const std::array<const char*, 2> hasIndicatorLed = {
+                            "xyz.openbmc_project.Inventory.Item.Panel",
+                            "xyz.openbmc_project.Inventory.Item.Board."
+                            "Motherboard"};
+                        bool indicatorChassis = false;
+                        for (const char* interface : hasIndicatorLed)
+                        {
+                            if (std::find(interfaces3.begin(),
+                                          interfaces3.end(),
+                                          interface) != interfaces3.end())
+                            {
+                                indicatorChassis = true;
+                                break;
                             }
-                            asyncResp->res.jsonValue["Name"] = chassisId;
-                            asyncResp->res.jsonValue["Id"] = chassisId;
-                            asyncResp->res.jsonValue["Thermal"] = {
-                                {"@odata.id", "/redfish/v1/Chassis/" +
-                                                  chassisId + "/Thermal"}};
-                            // Power object
-                            asyncResp->res.jsonValue["Power"] = {
-                                {"@odata.id", "/redfish/v1/Chassis/" +
-                                                  chassisId + "/Power"}};
-                            // SensorCollection
-                            asyncResp->res.jsonValue["Sensors"] = {
-                                {"@odata.id", "/redfish/v1/Chassis/" +
-                                                  chassisId + "/Sensors"}};
-                            asyncResp->res.jsonValue["Status"] = {
-                                {"State", "Enabled"},
-                            };
-
-                            asyncResp->res
-                                .jsonValue["Links"]["ComputerSystems"] = {
-                                {{"@odata.id", "/redfish/v1/Systems/system"}}};
-                            asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
-                                {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-                            getChassisState(asyncResp);
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "GetAll",
-                        "xyz.openbmc_project.Inventory.Decorator.Asset");
-                    return;
-                }
-
-                // Couldn't find an object with that name.  return an error
-                messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", 0, interfaces);
-
-        getPhysicalSecurityData(asyncResp);
-    }
-
-    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                 const crow::Request& req,
-                 const std::vector<std::string>& params) override
-    {
-        std::optional<bool> locationIndicatorActive;
-        std::optional<std::string> indicatorLed;
-
-        if (params.size() != 1)
-        {
-            return;
-        }
-
-        if (!json_util::readJson(req, asyncResp->res, "LocationIndicatorActive",
-                                 locationIndicatorActive, "IndicatorLED",
-                                 indicatorLed))
-        {
-            return;
-        }
-
-        // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-        if (!locationIndicatorActive && !indicatorLed)
-        {
-            return; // delete this when we support more patch properties
-        }
-        if (indicatorLed)
-        {
-            asyncResp->res.addHeader(boost::beast::http::field::warning,
-                                     "299 - \"IndicatorLED is deprecated. Use "
-                                     "LocationIndicatorActive instead.\"");
-        }
-
-        const std::array<const char*, 2> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis"};
-
-        const std::string& chassisId = params[0];
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, chassisId, locationIndicatorActive, indicatorLed](
-                const boost::system::error_code ec,
-                const crow::openbmc_mapper::GetSubTreeType& subtree) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                // Iterate over all retrieved ObjectPaths.
-                for (const std::pair<
-                         std::string,
-                         std::vector<
-                             std::pair<std::string, std::vector<std::string>>>>&
-                         object : subtree)
-                {
-                    const std::string& path = object.first;
-                    const std::vector<
-                        std::pair<std::string, std::vector<std::string>>>&
-                        connectionNames = object.second;
-
-                    if (!boost::ends_with(path, chassisId))
-                    {
-                        continue;
+                        }
+                        if (locationIndicatorActive)
+                        {
+                            if (indicatorChassis)
+                            {
+                                setLocationIndicatorActive(
+                                    asyncResp, *locationIndicatorActive);
+                            }
+                            else
+                            {
+                                messages::propertyUnknown(
+                                    asyncResp->res, "LocationIndicatorActive");
+                            }
+                        }
+                        if (indicatorLed)
+                        {
+                            if (indicatorChassis)
+                            {
+                                setIndicatorLedState(asyncResp, *indicatorLed);
+                            }
+                            else
+                            {
+                                messages::propertyUnknown(asyncResp->res,
+                                                          "IndicatorLED");
+                            }
+                        }
+                        return;
                     }
 
-                    if (connectionNames.size() < 1)
-                    {
-                        BMCWEB_LOG_ERROR << "Got 0 Connection names";
-                        continue;
-                    }
-
-                    const std::vector<std::string>& interfaces3 =
-                        connectionNames[0].second;
-
-                    const std::array<const char*, 2> hasIndicatorLed = {
-                        "xyz.openbmc_project.Inventory.Item.Panel",
-                        "xyz.openbmc_project.Inventory.Item.Board."
-                        "Motherboard"};
-                    bool indicatorChassis = false;
-                    for (const char* interface : hasIndicatorLed)
-                    {
-                        if (std::find(interfaces3.begin(), interfaces3.end(),
-                                      interface) != interfaces3.end())
-                        {
-                            indicatorChassis = true;
-                            break;
-                        }
-                    }
-                    if (locationIndicatorActive)
-                    {
-                        if (indicatorChassis)
-                        {
-                            setLocationIndicatorActive(
-                                asyncResp, *locationIndicatorActive);
-                        }
-                        else
-                        {
-                            messages::propertyUnknown(
-                                asyncResp->res, "LocationIndicatorActive");
-                        }
-                    }
-                    if (indicatorLed)
-                    {
-                        if (indicatorChassis)
-                        {
-                            setIndicatorLedState(asyncResp, *indicatorLed);
-                        }
-                        else
-                        {
-                            messages::propertyUnknown(asyncResp->res,
-                                                      "IndicatorLED");
-                        }
-                    }
-                    return;
-                }
-
-                messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", 0, interfaces);
-    }
-};
+                    messages::resourceNotFound(
+                        asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/inventory", 0, interfaces);
+        });
+}
 
 inline void
     doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -613,98 +596,67 @@ inline void
 /**
  * ChassisResetAction class supports the POST method for the Reset
  * action.
+ * Function handles POST method request.
+ * Analyzes POST body before sending Reset request data to D-Bus.
  */
-class ChassisResetAction : public Node
+
+inline void requestRoutesChassisResetAction(App& app)
 {
-  public:
-    ChassisResetAction(App& app) :
-        Node(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/",
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/")
+        .privileges({"ConfigureComponents"})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string&) {
+                BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
 
-  private:
-    /**
-     * Function handles POST method request.
-     * Analyzes POST body before sending Reset request data to D-Bus.
-     */
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
-        BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
+                std::string resetType;
 
-        std::string resetType;
+                if (!json_util::readJson(req, asyncResp->res, "ResetType",
+                                         resetType))
+                {
+                    return;
+                }
 
-        if (!json_util::readJson(req, asyncResp->res, "ResetType", resetType))
-        {
-            return;
-        }
+                if (resetType != "PowerCycle")
+                {
+                    BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
+                                     << resetType;
+                    messages::actionParameterNotSupported(
+                        asyncResp->res, resetType, "ResetType");
 
-        if (resetType != "PowerCycle")
-        {
-            BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
-                             << resetType;
-            messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                                  "ResetType");
-
-            return;
-        }
-        doChassisPowerCycle(asyncResp);
-    }
-};
+                    return;
+                }
+                doChassisPowerCycle(asyncResp);
+            });
+}
 
 /**
  * ChassisResetActionInfo derived class for delivering Chassis
  * ResetType AllowableValues using ResetInfo schema.
  */
-class ChassisResetActionInfo : public Node
+inline void requestRoutesChassisResetActionInfo(App& app)
 {
-  public:
-    /*
-     * Default Constructor
-     */
-    ChassisResetActionInfo(App& app) :
-        Node(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/", std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisId)
 
-  private:
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        const std::string& chassisId = params[0];
-
-        asyncResp->res.jsonValue = {
-            {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-            {"@odata.id",
-             "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"},
-            {"Name", "Reset Action Info"},
-            {"Id", "ResetActionInfo"},
-            {"Parameters",
-             {{{"Name", "ResetType"},
-               {"Required", true},
-               {"DataType", "String"},
-               {"AllowableValues", {"PowerCycle"}}}}}};
-    }
-};
+            {
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+                    {"@odata.id",
+                     "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"},
+                    {"Name", "Reset Action Info"},
+                    {"Id", "ResetActionInfo"},
+                    {"Parameters",
+                     {{{"Name", "ResetType"},
+                       {"Required", true},
+                       {"DataType", "String"},
+                       {"AllowableValues", {"PowerCycle"}}}}}};
+            });
+}
 
 } // namespace redfish

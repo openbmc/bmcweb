@@ -15,71 +15,56 @@
 */
 #pragma once
 
-#include "node.hpp"
-
 #include <utils/systemd_utils.hpp>
 
 namespace redfish
 {
 
-class ServiceRoot : public Node
+inline void requestRoutesServiceRoot(App& app)
 {
-  public:
-    ServiceRoot(App& app) : Node(app, "/redfish/v1/")
-    {
-        uuid = persistent_data::getConfig().systemUuid;
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {}},
-            {boost::beast::http::verb::head, {}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
+    std::string uuid; // TODO fix this
+    BMCWEB_ROUTE(app, "/redfish/v1/")
+        .privileges({})
+        .methods(boost::beast::http::verb::get)(
+            [uuid](const crow::Request&,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ServiceRoot.v1_5_0.ServiceRoot";
+                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
+                asyncResp->res.jsonValue["Id"] = "RootService";
+                asyncResp->res.jsonValue["Name"] = "Root Service";
+                asyncResp->res.jsonValue["RedfishVersion"] = "1.9.0";
+                asyncResp->res.jsonValue["Links"]["Sessions"] = {
+                    {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+                asyncResp->res.jsonValue["AccountService"] = {
+                    {"@odata.id", "/redfish/v1/AccountService"}};
+                asyncResp->res.jsonValue["Chassis"] = {
+                    {"@odata.id", "/redfish/v1/Chassis"}};
+                asyncResp->res.jsonValue["JsonSchemas"] = {
+                    {"@odata.id", "/redfish/v1/JsonSchemas"}};
+                asyncResp->res.jsonValue["Managers"] = {
+                    {"@odata.id", "/redfish/v1/Managers"}};
+                asyncResp->res.jsonValue["SessionService"] = {
+                    {"@odata.id", "/redfish/v1/SessionService"}};
+                asyncResp->res.jsonValue["Managers"] = {
+                    {"@odata.id", "/redfish/v1/Managers"}};
+                asyncResp->res.jsonValue["Systems"] = {
+                    {"@odata.id", "/redfish/v1/Systems"}};
+                asyncResp->res.jsonValue["Registries"] = {
+                    {"@odata.id", "/redfish/v1/Registries"}};
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ServiceRoot.v1_5_0.ServiceRoot";
-        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
-        asyncResp->res.jsonValue["Id"] = "RootService";
-        asyncResp->res.jsonValue["Name"] = "Root Service";
-        asyncResp->res.jsonValue["RedfishVersion"] = "1.9.0";
-        asyncResp->res.jsonValue["Links"]["Sessions"] = {
-            {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-        asyncResp->res.jsonValue["AccountService"] = {
-            {"@odata.id", "/redfish/v1/AccountService"}};
-        asyncResp->res.jsonValue["Chassis"] = {
-            {"@odata.id", "/redfish/v1/Chassis"}};
-        asyncResp->res.jsonValue["JsonSchemas"] = {
-            {"@odata.id", "/redfish/v1/JsonSchemas"}};
-        asyncResp->res.jsonValue["Managers"] = {
-            {"@odata.id", "/redfish/v1/Managers"}};
-        asyncResp->res.jsonValue["SessionService"] = {
-            {"@odata.id", "/redfish/v1/SessionService"}};
-        asyncResp->res.jsonValue["Managers"] = {
-            {"@odata.id", "/redfish/v1/Managers"}};
-        asyncResp->res.jsonValue["Systems"] = {
-            {"@odata.id", "/redfish/v1/Systems"}};
-        asyncResp->res.jsonValue["Registries"] = {
-            {"@odata.id", "/redfish/v1/Registries"}};
-
-        asyncResp->res.jsonValue["UpdateService"] = {
-            {"@odata.id", "/redfish/v1/UpdateService"}};
-        asyncResp->res.jsonValue["UUID"] = uuid;
-        asyncResp->res.jsonValue["CertificateService"] = {
-            {"@odata.id", "/redfish/v1/CertificateService"}};
-        asyncResp->res.jsonValue["Tasks"] = {
-            {"@odata.id", "/redfish/v1/TaskService"}};
-        asyncResp->res.jsonValue["EventService"] = {
-            {"@odata.id", "/redfish/v1/EventService"}};
-        asyncResp->res.jsonValue["TelemetryService"] = {
-            {"@odata.id", "/redfish/v1/TelemetryService"}};
-    }
-
-    std::string uuid;
-};
+                asyncResp->res.jsonValue["UpdateService"] = {
+                    {"@odata.id", "/redfish/v1/UpdateService"}};
+                asyncResp->res.jsonValue["UUID"] = uuid;
+                asyncResp->res.jsonValue["CertificateService"] = {
+                    {"@odata.id", "/redfish/v1/CertificateService"}};
+                asyncResp->res.jsonValue["Tasks"] = {
+                    {"@odata.id", "/redfish/v1/TaskService"}};
+                asyncResp->res.jsonValue["EventService"] = {
+                    {"@odata.id", "/redfish/v1/EventService"}};
+                asyncResp->res.jsonValue["TelemetryService"] = {
+                    {"@odata.id", "/redfish/v1/TelemetryService"}};
+            });
+}
 
 } // namespace redfish
