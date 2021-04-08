@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6de7101a_504ccf29",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-08T18:08:34Z",
+      "side": 1,
+      "message": "Sunny posted \"In case the interface is not found, GetSubTree call will return with subtree size 0 and no dbus error will be thrown in this case.\". I need to test this but this might be fine as is.",
+      "parentUuid": "0c4a72c2_d9db0788",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5243b9cb_cefa8543",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 51
