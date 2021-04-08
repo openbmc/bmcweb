@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "789b4ed3_9cdebee6",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-08T17:58:30Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we check the ec and if it is a permission error then set to forbidden? \nEverything else could be a internal error ?",
+      "revId": "9c3610b034501667fcf2f87d115b71e589ca63b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
