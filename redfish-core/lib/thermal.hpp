@@ -15,93 +15,70 @@
 */
 #pragma once
 
-#include "node.hpp"
 #include "sensors.hpp"
 
 namespace redfish
 {
 
-class Thermal : public Node
+inline void requestRoutesThermal(App& app)
 {
-  public:
-    Thermal(App& app) :
-        Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisName) {
+                auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
+                    asyncResp, chassisName,
+                    sensors::dbus::paths.at(sensors::node::thermal),
+                    sensors::node::thermal);
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
+                // TODO Need to get Chassis Redundancy information.
+                getChassisData(sensorAsyncResp);
+            });
 
-            return;
-        }
-        const std::string& chassisName = params[0];
-        auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            asyncResp, chassisName,
-            sensors::dbus::paths.at(sensors::node::thermal),
-            sensors::node::thermal);
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
+        .privileges({"ConfigureManager"})
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisName) {
+                std::optional<std::vector<nlohmann::json>>
+                    temperatureCollections;
+                std::optional<std::vector<nlohmann::json>> fanCollections;
+                std::unordered_map<std::string, std::vector<nlohmann::json>>
+                    allCollections;
 
-        // TODO Need to get Chassis Redundancy information.
-        getChassisData(sensorAsyncResp);
-    }
-    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                 const crow::Request& req,
-                 const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
+                auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
+                    asyncResp, chassisName,
+                    sensors::dbus::paths.at(sensors::node::thermal),
+                    sensors::node::thermal);
 
-            messages::internalError(asyncResp->res);
-            return;
-        }
+                if (!json_util::readJson(req, sensorsAsyncResp->asyncResp->res,
+                                         "Temperatures", temperatureCollections,
+                                         "Fans", fanCollections))
+                {
+                    return;
+                }
+                if (!temperatureCollections && !fanCollections)
+                {
+                    messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
+                                               "Thermal",
+                                               "Temperatures / Voltages");
+                    return;
+                }
+                if (temperatureCollections)
+                {
+                    allCollections.emplace("Temperatures",
+                                           *std::move(temperatureCollections));
+                }
+                if (fanCollections)
+                {
+                    allCollections.emplace("Fans", *std::move(fanCollections));
+                }
 
-        const std::string& chassisName = params[0];
-        std::optional<std::vector<nlohmann::json>> temperatureCollections;
-        std::optional<std::vector<nlohmann::json>> fanCollections;
-        std::unordered_map<std::string, std::vector<nlohmann::json>>
-            allCollections;
-
-        auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
-            asyncResp, chassisName,
-            sensors::dbus::paths.at(sensors::node::thermal),
-            sensors::node::thermal);
-
-        if (!json_util::readJson(req, sensorsAsyncResp->asyncResp->res,
-                                 "Temperatures", temperatureCollections, "Fans",
-                                 fanCollections))
-        {
-            return;
-        }
-        if (!temperatureCollections && !fanCollections)
-        {
-            messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
-                                       "Thermal", "Temperatures / Voltages");
-            return;
-        }
-        if (temperatureCollections)
-        {
-            allCollections.emplace("Temperatures",
-                                   *std::move(temperatureCollections));
-        }
-        if (fanCollections)
-        {
-            allCollections.emplace("Fans", *std::move(fanCollections));
-        }
-
-        checkAndDoSensorsOverride(sensorsAsyncResp, allCollections);
-    }
-};
+                checkAndDoSensorsOverride(sensorsAsyncResp, allCollections);
+            });
+}
 
 } // namespace redfish
