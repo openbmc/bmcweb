@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "91b7779c_9cc2c88d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T20:38:57Z",
+      "side": 1,
+      "message": "+1, although forbidden is the wrong code here.  Nothing except for the router or auth checks should be setting forbidden.",
+      "parentUuid": "789b4ed3_9cdebee6",
+      "revId": "9c3610b034501667fcf2f87d115b71e589ca63b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2872465e_0c9f416c",
         "filename": "http/routing.hpp",
         "patchSetId": 1
@@ -53,6 +71,30 @@
       "writtenOn": "2021-04-08T19:07:07Z",
       "side": 1,
       "message": "I\u0027m not familiar with the standards for certificate-based authentication.  Would 401 (Unauthorized) be more appropriate because BMCWeb is unable to determine the identity of the user?  That\u0027s the same response for someone who tries to use an API without valid credentials.",
+      "range": {
+        "startLine": 1299,
+        "startChar": 51,
+        "endLine": 1299,
+        "endChar": 57
+      },
+      "revId": "9c3610b034501667fcf2f87d115b71e589ca63b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a53f9f8_e295fb29",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T20:38:57Z",
+      "side": 1,
+      "message": "This has nothing to do with authentication, so the correct thing to do here is what gunnar suggested, check the return code, if it\u0027s not found, return 404, if it\u0027s another error, return 500.",
+      "parentUuid": "2872465e_0c9f416c",
       "range": {
         "startLine": 1299,
         "startChar": 51,
