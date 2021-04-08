@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6167665b_aff289dc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "nit: can you please make this a loop and a string match?  That\u0027s what it will need to be when we get more than just only supported, so we should just plan for that now, even though this is perfectly fine for single param lookup it is today.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd88f20_ab944936",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "We should probably check the return code before continuing.  If the collection is returning an error (which admittedly is unlikely) we should allow that to pass through and not override it.",
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff209d15_a135a502",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "Nit, not sure what the T stands for here.",
+      "range": {
+        "startLine": 34,
+        "startChar": 38,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ffd31d_4a36e7ab",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "use the .begin() iterator to do this check and deference, rather than size() and operator[].  there are cases where what you\u0027ve written can fail (ie, if the value is a string).",
+      "range": {
+        "startLine": 40,
+        "startChar": 38,
+        "endLine": 40,
+        "endChar": 63
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3516cf7_94cecfd4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "value() throws if it\u0027s the wrong type.  Please see common errors doc for more details on why this is bad.\n\nPlease use get_ptr\u003cint64_t\u003e to do your comparison, also checking for null.",
+      "range": {
+        "startLine": 40,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17096753_5c448eed",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "?  Don\u0027t we want to keep our session for the new request?",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "835dea28_01608e4d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T16:59:09Z",
+      "side": 1,
+      "message": "Unnecessary.  Remove.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 11
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
