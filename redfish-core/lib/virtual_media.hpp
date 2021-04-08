@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>

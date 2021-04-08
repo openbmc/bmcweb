@@ -17,6 +17,7 @@
 
 #include "async_resp.hpp"
 
+#include <app.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
