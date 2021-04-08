@@ -16,6 +16,110 @@
       "revId": "49ef048c661530a84767a72e799ea95e495a406a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c69ac2b4_ba45968d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T19:44:17Z",
+      "side": 1,
+      "message": "+1  The BiosChangePassword also needs to handle 404 properly.",
+      "parentUuid": "c8fe28fb_0889d6c8",
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1196fd11_b38677ce",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T19:44:17Z",
+      "side": 1,
+      "message": "Nit, please declare each of these on their own line.",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 59
+      },
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab0c3ab_c78da781",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T19:44:17Z",
+      "side": 1,
+      "message": "These checks should be done in the BIOS daemon, with appropriate return codes, not in bmcweb.",
+      "range": {
+        "startLine": 620,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 9
+      },
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b847637_ceb1bd99",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T19:44:17Z",
+      "side": 1,
+      "message": "Please enumerate your possible error conditions better.  Presumably some options should return \"actionParameterUnknown\", others should return 404.",
+      "range": {
+        "startLine": 640,
+        "startChar": 20,
+        "endLine": 640,
+        "endChar": 22
+      },
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f79ac85_0d33c8bc",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T19:44:17Z",
+      "side": 1,
+      "message": "As written this will return 200 with no payload, you either need to return success() or 204 no payload.",
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
