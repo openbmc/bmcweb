@@ -2,6 +2,7 @@
 
 #include "node.hpp"
 
+#include <app.hpp>
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
 
@@ -34,28 +35,22 @@ constexpr char const* authorityObjectPath =
  * actions available to manage certificates and links to where certificates
  * are installed.
  */
-class CertificateService : public Node
-{
-  public:
-    CertificateService(App& app) : Node(app, "/redfish/v1/CertificateService/")
-    {
+
         // TODO: Issue#61 No entries are available for Certificate
         // service at https://www.dmtf.org/standards/redfish
         // "redfish standard registries". Need to modify after DMTF
         // publish Privilege details for certificate service
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+class CertificateService
+{
+  public:
+    CertificateService(App& app)
     {
+      BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::get)
+      ([](const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+      {
         asyncResp->res.jsonValue = {
             {"@odata.type", "#CertificateService.v1_0_0.CertificateService"},
             {"@odata.id", "/redfish/v1/CertificateService"},
@@ -73,8 +68,10 @@ class CertificateService : public Node
         asyncResp->res.jsonValue["Actions"]["#CertificateService.GenerateCSR"] =
             {{"target", "/redfish/v1/CertificateService/Actions/"
                         "CertificateService.GenerateCSR"}};
+
+       });
     }
-}; // CertificateService
+};
 
 /**
  * @brief Find the ID specified in the URL
@@ -230,27 +227,16 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * Action to Generate CSR
  */
-class CertificateActionGenerateCSR : public Node
+class CertificateActionGenerateCSR
 {
   public:
-    CertificateActionGenerateCSR(App& app) :
-        Node(app, "/redfish/v1/CertificateService/Actions/"
-                  "CertificateService.GenerateCSR/")
+    CertificateActionGenerateCSR(App& app)
     {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
+      BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::post)(
+      [](const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void
+      {
         static const int rsaKeyBitLength = 2048;
 
         // Required parameters
@@ -481,8 +467,9 @@ class CertificateActionGenerateCSR : public Node
             *optInitials, *optKeyBitLength, *optKeyCurveId,
             *optKeyPairAlgorithm, *optKeyUsage, organization,
             organizationalUnit, state, *optSurname, *optUnstructuredName);
-    }
-}; // CertificateActionGenerateCSR
+    });
+  }
+};
 
 /**
  * @brief Parse and update Certificate Issue/Subject property
@@ -669,27 +656,16 @@ using GetObjectType =
 /**
  * Action to replace an existing certificate
  */
-class CertificateActionsReplaceCertificate : public Node
+class CertificateActionsReplaceCertificate
 {
   public:
-    CertificateActionsReplaceCertificate(App& app) :
-        Node(app, "/redfish/v1/CertificateService/Actions/"
-                  "CertificateService.ReplaceCertificate/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
+    CertificateActionsReplaceCertificate(App& app)
+      {
+        BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate/")
+        .privileges({"ConfigureComponents"})
+        .methods(boost::beast::http::verb::post)(
+          [](const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+        {
         std::string certificate;
         nlohmann::json certificateUri;
         std::optional<std::string> certificateType = "PEM";
@@ -788,37 +764,26 @@ class CertificateActionsReplaceCertificate : public Node
             },
             service, objectPath, certs::certReplaceIntf, "Replace",
             certFile->getCertFilePath());
-    }
-}; // CertificateActionsReplaceCertificate
+   });
+  }
+};
 
 /**
  * Certificate resource describes a certificate used to prove the identity
  * of a component, account or service.
  */
-class HTTPSCertificate : public Node
+
+class HTTPSCertificate
 {
   public:
-    HTTPSCertificate(App& app) :
-        Node(app,
-             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"
-             "<str>/",
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-
-        if (params.size() != 1)
+   HTTPSCertificate(App& app)
+   {
+     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/<str>/")
+     .privileges({"ConfigureComponents"})
+     .methods(boost::beast::http::verb::get)(
+      [] (const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& param) -> void
+     {
+        if (param.empty())
         {
             messages::internalError(asyncResp->res);
             return;
@@ -834,31 +799,23 @@ class HTTPSCertificate : public Node
         objectPath += std::to_string(id);
         getCertificateProperties(asyncResp, objectPath, certs::httpsServiceName,
                                  id, certURL, "HTTPS Certificate");
-    }
-
-}; // namespace redfish
+    });
+  }
+};
 
 /**
  * Collection of HTTPS certificates
  */
-class HTTPSCertificateCollection : public Node
+class HTTPSCertificateCollection
 {
   public:
-    HTTPSCertificateCollection(App& app) :
-        Node(app,
-             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
+    HTTPSCertificateCollection(App& app)
+      {
+         BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
+        .privileges({"ConfigureComponents"})
+        .methods(boost::beast::http::verb::get)(
+        [](const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+        {
         asyncResp->res.jsonValue = {
             {"@odata.id",
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"},
@@ -894,12 +851,13 @@ class HTTPSCertificateCollection : public Node
             },
             certs::httpsServiceName, certs::httpsObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");
-    }
+    });
 
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
+     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
+     .privileges({"ConfigureComponents"})
+     .methods(boost::beast::http::verb::post)(
+     [] (const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+     {
         BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
 
         asyncResp->res.jsonValue = {{"Name", "HTTPS Certificate"},
@@ -946,33 +904,25 @@ class HTTPSCertificateCollection : public Node
             },
             certs::httpsServiceName, certs::httpsObjectPath,
             certs::certInstallIntf, "Install", certFile->getCertFilePath());
-    }
+    });
+  }
 }; // HTTPSCertificateCollection
 
 /**
  * The certificate location schema defines a resource that an administrator
  * can use in order to locate all certificates installed on a given service.
  */
-class CertificateLocations : public Node
+class CertificateLocations
 {
   public:
-    CertificateLocations(App& app) :
-        Node(app, "/redfish/v1/CertificateService/CertificateLocations/")
+    CertificateLocations(App& app)
     {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue = {
+      BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::get)(
+      [this] (const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+      {
+         asyncResp->res.jsonValue = {
             {"@odata.id",
              "/redfish/v1/CertificateService/CertificateLocations"},
             {"@odata.type",
@@ -996,6 +946,7 @@ class CertificateLocations : public Node
         getCertificateLocations(
             asyncResp, "/redfish/v1/Managers/bmc/Truststore/Certificates/",
             certs::authorityObjectPath, certs::authorityServiceName);
+      });
     }
     /**
      * @brief Retrieve the certificates installed list and append to the
@@ -1039,28 +990,22 @@ class CertificateLocations : public Node
             },
             service, path, certs::dbusObjManagerIntf, "GetManagedObjects");
     }
+
 }; // CertificateLocations
 
 /**
  * Collection of LDAP certificates
  */
-class LDAPCertificateCollection : public Node
+class LDAPCertificateCollection
 {
   public:
-    LDAPCertificateCollection(App& app) :
-        Node(app, "/redfish/v1/AccountService/LDAP/Certificates/")
+    LDAPCertificateCollection(App& app)
     {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
+      BMCWEB_ROUTE(app,"/redfish/v1/AccountService/LDAP/Certificates/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::get)(
+      [] (const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+      {
         asyncResp->res.jsonValue = {
             {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
             {"@odata.type", "#CertificateCollection.CertificateCollection"},
@@ -1096,13 +1041,13 @@ class LDAPCertificateCollection : public Node
             },
             certs::ldapServiceName, certs::ldapObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");
-    }
+      });
 
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
-
+      BMCWEB_ROUTE(app,"/redfish/v1/AccountService/LDAP/Certificates/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::post)(
+      [] (const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+      {
         std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
 
         if (certFileBody.empty())
@@ -1143,34 +1088,24 @@ class LDAPCertificateCollection : public Node
             },
             certs::ldapServiceName, certs::ldapObjectPath,
             certs::certInstallIntf, "Install", certFile->getCertFilePath());
-    }
+    });
+  }
 }; // LDAPCertificateCollection
 
 /**
  * Certificate resource describes a certificate used to prove the identity
  * of a component, account or service.
  */
-class LDAPCertificate : public Node
+class LDAPCertificate
 {
   public:
-    LDAPCertificate(App& app) :
-        Node(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/",
-             std::string())
+    LDAPCertificate(App& app)
     {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
-               const std::vector<std::string>&) override
-    {
-
+      BMCWEB_ROUTE(app,"/redfish/v1/AccountService/LDAP/Certificates/<str>/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::get)(
+      [] (const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& )
+      {
         long id = getIDFromURL(req.url);
         if (id < 0)
         {
@@ -1186,29 +1121,23 @@ class LDAPCertificate : public Node
         objectPath += std::to_string(id);
         getCertificateProperties(asyncResp, objectPath, certs::ldapServiceName,
                                  id, certURL, "LDAP Certificate");
+      });
     }
 }; // LDAPCertificate
 /**
  * Collection of TrustStoreCertificate certificates
  */
-class TrustStoreCertificateCollection : public Node
+class TrustStoreCertificateCollection
 {
   public:
-    TrustStoreCertificateCollection(App& app) :
-        Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
+    TrustStoreCertificateCollection(App& app)
     {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue = {
+      BMCWEB_ROUTE(app,"/redfish/v1/Managers/bmc/Truststore/Certificates/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::get)(
+      [] (const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+      {
+            asyncResp->res.jsonValue = {
             {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
             {"@odata.type", "#CertificateCollection.CertificateCollection"},
             {"Name", "TrustStore Certificates Collection"},
@@ -1242,13 +1171,12 @@ class TrustStoreCertificateCollection : public Node
             },
             certs::authorityServiceName, certs::authorityObjectPath,
             certs::dbusObjManagerIntf, "GetManagedObjects");
-    }
-
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
-
+      });
+      BMCWEB_ROUTE(app,"/redfish/v1/Managers/bmc/Truststore/Certificates/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::post)(
+      [] (const crow::Request& req,  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+      {
         std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
 
         if (certFileBody.empty())
@@ -1289,34 +1217,24 @@ class TrustStoreCertificateCollection : public Node
             },
             certs::authorityServiceName, certs::authorityObjectPath,
             certs::certInstallIntf, "Install", certFile->getCertFilePath());
-    }
+    });
+  }
 }; // TrustStoreCertificateCollection
 
 /**
  * Certificate resource describes a certificate used to prove the identity
  * of a component, account or service.
  */
-class TrustStoreCertificate : public Node
+class TrustStoreCertificate
 {
   public:
-    TrustStoreCertificate(App& app) :
-        Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/",
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
-               const std::vector<std::string>&) override
-    {
-
+   TrustStoreCertificate(App& app)
+   {
+      BMCWEB_ROUTE(app,"/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::get)(
+      [] (const crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string)
+      {
         long id = getIDFromURL(req.url);
         if (id < 0)
         {
@@ -1335,14 +1253,13 @@ class TrustStoreCertificate : public Node
         getCertificateProperties(asyncResp, objectPath,
                                  certs::authorityServiceName, id, certURL,
                                  "TrustStore Certificate");
-    }
-
-    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                  const crow::Request& req,
-                  const std::vector<std::string>& params) override
-    {
-
-        if (params.size() != 1)
+      });
+      BMCWEB_ROUTE(app,"/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
+      .privileges({"ConfigureComponents"})
+      .methods(boost::beast::http::verb::delete_)(
+      [] (const crow::Request& req,  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string param)
+      {
+        if (param.empty())
         {
             messages::internalError(asyncResp->res);
             return;
@@ -1376,6 +1293,7 @@ class TrustStoreCertificate : public Node
             },
             certs::authorityServiceName, certPath, certs::objDeleteIntf,
             "Delete");
-    }
+    });
+  }
 }; // TrustStoreCertificate
 } // namespace redfish

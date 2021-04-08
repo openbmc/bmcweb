@@ -175,18 +175,16 @@ class RedfishService
             std::make_unique<MessageRegistryFileCollection>(app));
         nodes.emplace_back(std::make_unique<MessageRegistryFile>(app));
         nodes.emplace_back(std::make_unique<MessageRegistry>(app));
-        nodes.emplace_back(std::make_unique<CertificateService>(app));
-        nodes.emplace_back(
-            std::make_unique<CertificateActionsReplaceCertificate>(app));
-        nodes.emplace_back(std::make_unique<CertificateLocations>(app));
-        nodes.emplace_back(std::make_unique<HTTPSCertificateCollection>(app));
-        nodes.emplace_back(std::make_unique<HTTPSCertificate>(app));
-        nodes.emplace_back(std::make_unique<LDAPCertificateCollection>(app));
-        nodes.emplace_back(std::make_unique<LDAPCertificate>(app));
-        nodes.emplace_back(std::make_unique<CertificateActionGenerateCSR>(app));
-        nodes.emplace_back(
-            std::make_unique<TrustStoreCertificateCollection>(app));
-        nodes.emplace_back(std::make_unique<TrustStoreCertificate>(app));
+        *m_CertificateService = CertificateService(app);
+        *m_CertificateActionsReplaceCertificate = CertificateActionsReplaceCertificate(app);
+        *m_CertificateLocations = CertificateLocations(app);
+        *m_HTTPSCertificateCollection = HTTPSCertificateCollection(app);
+            //m_m_HTTPSCertificate = HTTPSCertificate(app);
+        *m_LDAPCertificateCollection = LDAPCertificateCollection(app);
+        *m_LDAPCertificate = LDAPCertificate(app);
+        *m_CertificateActionGenerateCSR = CertificateActionGenerateCSR(app);
+        *m_TrustStoreCertificateCollection = TrustStoreCertificateCollection(app);
+        *m_TrustStoreCertificate = TrustStoreCertificate(app);
         nodes.emplace_back(std::make_unique<SystemPCIeFunctionCollection>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeDeviceCollection>(app));
@@ -226,6 +224,18 @@ class RedfishService
 
   private:
     std::vector<std::unique_ptr<Node>> nodes;
+    CertificateActionsReplaceCertificate* m_CertificateActionsReplaceCertificate;
+    CertificateService* m_CertificateService;
+    CertificateActionGenerateCSR* m_CertificateActionGenerateCSR;
+    HTTPSCertificateCollection* m_HTTPSCertificateCollection;
+    HTTPSCertificate* m_HTTPSCertificate;
+    CertificateLocations* m_CertificateLocations;
+    LDAPCertificateCollection* m_LDAPCertificateCollection;
+    LDAPCertificate* m_LDAPCertificate;
+    TrustStoreCertificateCollection* m_TrustStoreCertificateCollection;
+    TrustStoreCertificate* m_TrustStoreCertificate;
+
+
 };
 
 } // namespace redfish
