@@ -1,6 +1,5 @@
 #pragma once
 
-#include "node.hpp"
 #include "utils/telemetry_utils.hpp"
 
 namespace redfish
@@ -59,85 +58,43 @@ inline void fillReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 } // namespace telemetry
 
-class MetricReportCollection : public Node
+inline void requestRoutesMetricReportCollection(App& app)
 {
-  public:
-    MetricReportCollection(App& app) :
-        Node(app, "/redfish/v1/TelemetryService/MetricReports/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#MetricReportCollection.MetricReportCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/TelemetryService/MetricReports";
+                asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#MetricReportCollection.MetricReportCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/TelemetryService/MetricReports";
-        asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
+                telemetry::getReportCollection(asyncResp,
+                                               telemetry::metricReportUri);
+            });
+}
 
-        telemetry::getReportCollection(asyncResp, telemetry::metricReportUri);
-    }
-};
-
-class MetricReport : public Node
+inline void requestRoutesMetricReport(App& app)
 {
-  public:
-    MetricReport(App& app) :
-        Node(app, "/redfish/v1/TelemetryService/MetricReports/<str>/",
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
-
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
-
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        const std::string& id = params[0];
-        const std::string reportPath = telemetry::getDbusReportPath(id);
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, id, reportPath](const boost::system::error_code& ec) {
-                if (ec.value() == EBADR ||
-                    ec == boost::system::errc::host_unreachable)
-                {
-                    messages::resourceNotFound(asyncResp->res, "MetricReport",
-                                               id);
-                    return;
-                }
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
+        .privileges({"ConfigureManager"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& id) {
+                const std::string reportPath = telemetry::getDbusReportPath(id);
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, id](
-                        const boost::system::error_code ec,
-                        const std::variant<telemetry::TimestampReadings>& ret) {
+                    [asyncResp, id,
+                     reportPath](const boost::system::error_code& ec) {
+                        if (ec.value() == EBADR ||
+                            ec == boost::system::errc::host_unreachable)
+                        {
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "MetricReport", id);
+                            return;
+                        }
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
@@ -145,14 +102,27 @@ class MetricReport : public Node
                             return;
                         }
 
-                        telemetry::fillReport(asyncResp, id, ret);
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp,
+                             id](const boost::system::error_code ec,
+                                 const std::variant<
+                                     telemetry::TimestampReadings>& ret) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "respHandler DBus error " << ec;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                telemetry::fillReport(asyncResp, id, ret);
+                            },
+                            telemetry::service, reportPath,
+                            "org.freedesktop.DBus.Properties", "Get",
+                            telemetry::reportInterface, "Readings");
                     },
-                    telemetry::service, reportPath,
-                    "org.freedesktop.DBus.Properties", "Get",
-                    telemetry::reportInterface, "Readings");
-            },
-            telemetry::service, reportPath, telemetry::reportInterface,
-            "Update");
-    }
-};
+                    telemetry::service, reportPath, telemetry::reportInterface,
+                    "Update");
+            });
+}
 } // namespace redfish
