@@ -19,6 +19,7 @@
 #include "dbus_utility.hpp"
 #include "redfish_util.hpp"
 
+#include <app.hpp>
 #include <variant>
 
 namespace redfish

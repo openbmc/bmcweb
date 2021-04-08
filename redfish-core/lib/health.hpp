@@ -21,6 +21,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 
+#include <app.hpp>
 #include <variant>
 
 namespace redfish
