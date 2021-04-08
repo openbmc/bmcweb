@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "95a551da_243a093c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-08T19:51:42Z",
+      "side": 1,
+      "message": "Also, in this case \"we\" means Power based systems in this case. any BIOS target for sure needs to be optional dependent on dbus interfaces existing.",
+      "parentUuid": "c69ac2b4_ba45968d",
+      "revId": "49ef048c661530a84767a72e799ea95e495a406a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1196fd11_b38677ce",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 3
