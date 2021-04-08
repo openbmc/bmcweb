@@ -1,6 +1,5 @@
 #pragma once
 
-#include "node.hpp"
 #include "sensors.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
@@ -347,171 +346,140 @@ class AddReport
 };
 } // namespace telemetry
 
-class MetricReportDefinitionCollection : public Node
+inline void requestRoutesMetricReportDefinitionCollection(App& app)
 {
-  public:
-    MetricReportDefinitionCollection(App& app) :
-        Node(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#MetricReportDefinitionCollection."
+                    "MetricReportDefinitionCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/TelemetryService/MetricReportDefinitions";
+                asyncResp->res.jsonValue["Name"] =
+                    "Metric Definition Collection";
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#MetricReportDefinitionCollection."
-            "MetricReportDefinitionCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/TelemetryService/MetricReportDefinitions";
-        asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
+                telemetry::getReportCollection(
+                    asyncResp, telemetry::metricReportDefinitionUri);
+            });
 
-        telemetry::getReportCollection(asyncResp,
-                                       telemetry::metricReportDefinitionUri);
-    }
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
+        .privileges({"ConfigureManager"})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                telemetry::AddReportArgs args;
+                if (!telemetry::getUserParameters(asyncResp->res, req, args))
+                {
+                    return;
+                }
 
-    void doPost(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const crow::Request& req,
-                const std::vector<std::string>&) override
-    {
-        telemetry::AddReportArgs args;
-        if (!telemetry::getUserParameters(asyncResp->res, req, args))
-        {
-            return;
-        }
+                boost::container::flat_set<std::pair<std::string, std::string>>
+                    chassisSensors;
+                if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
+                                                     chassisSensors))
+                {
+                    return;
+                }
 
-        boost::container::flat_set<std::pair<std::string, std::string>>
-            chassisSensors;
-        if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
-                                             chassisSensors))
-        {
-            return;
-        }
+                auto addReportReq = std::make_shared<telemetry::AddReport>(
+                    std::move(args), asyncResp);
+                for (const auto& [chassis, sensorType] : chassisSensors)
+                {
+                    retrieveUriToDbusMap(
+                        chassis, sensorType,
+                        [asyncResp, addReportReq](
+                            const boost::beast::http::status status,
+                            const boost::container::flat_map<
+                                std::string, std::string>& uriToDbus) {
+                            if (status != boost::beast::http::status::ok)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Failed to retrieve URI to dbus "
+                                       "sensors map with err "
+                                    << static_cast<unsigned>(status);
+                                return;
+                            }
+                            addReportReq->insert(uriToDbus);
+                        });
+                }
+            });
+}
 
-        auto addReportReq =
-            std::make_shared<telemetry::AddReport>(std::move(args), asyncResp);
-        for (const auto& [chassis, sensorType] : chassisSensors)
-        {
-            retrieveUriToDbusMap(
-                chassis, sensorType,
-                [asyncResp, addReportReq](
-                    const boost::beast::http::status status,
-                    const boost::container::flat_map<std::string, std::string>&
-                        uriToDbus) {
-                    if (status != boost::beast::http::status::ok)
-                    {
-                        BMCWEB_LOG_ERROR << "Failed to retrieve URI to dbus "
-                                            "sensors map with err "
-                                         << static_cast<unsigned>(status);
-                        return;
-                    }
-                    addReportReq->insert(uriToDbus);
-                });
-        }
-    }
-};
-
-class MetricReportDefinition : public Node
+inline void requestRoutesMetricReportDefinition(App& app)
 {
-  public:
-    MetricReportDefinition(App& app) :
-        Node(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-    }
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
+        .privileges({"ConfigureManager"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& id) {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, id](
+                        const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string,
+                            std::variant<std::string, bool, uint64_t,
+                                         telemetry::ReadingParameters>>>& ret) {
+                        if (ec.value() == EBADR ||
+                            ec == boost::system::errc::host_unreachable)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res, "MetricReportDefinition", id);
+                            return;
+                        }
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
+                        telemetry::fillReportDefinition(asyncResp, id, ret);
+                    },
+                    telemetry::service, telemetry::getDbusReportPath(id),
+                    "org.freedesktop.DBus.Properties", "GetAll",
+                    telemetry::reportInterface);
+            });
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
+        .privileges({"ConfigureManager"})
+        .methods(boost::beast::http::verb::delete_)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& id)
 
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
+            {
+                const std::string reportPath = telemetry::getDbusReportPath(id);
 
-        const std::string& id = params[0];
-        crow::connections::systemBus->async_method_call(
-            [asyncResp,
-             id](const boost::system::error_code ec,
-                 const std::vector<std::pair<
-                     std::string, std::variant<std::string, bool, uint64_t,
-                                               telemetry::ReadingParameters>>>&
-                     ret) {
-                if (ec.value() == EBADR ||
-                    ec == boost::system::errc::host_unreachable)
-                {
-                    messages::resourceNotFound(asyncResp->res,
-                                               "MetricReportDefinition", id);
-                    return;
-                }
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, id](const boost::system::error_code ec) {
+                        /*
+                         * boost::system::errc and std::errc are missing value
+                         * for EBADR error that is defined in Linux.
+                         */
+                        if (ec.value() == EBADR)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res, "MetricReportDefinition", id);
+                            return;
+                        }
 
-                telemetry::fillReportDefinition(asyncResp, id, ret);
-            },
-            telemetry::service, telemetry::getDbusReportPath(id),
-            "org.freedesktop.DBus.Properties", "GetAll",
-            telemetry::reportInterface);
-    }
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
 
-    void doDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                  const crow::Request&,
-                  const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        const std::string& id = params[0];
-        const std::string reportPath = telemetry::getDbusReportPath(id);
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, id](const boost::system::error_code ec) {
-                /*
-                 * boost::system::errc and std::errc are missing value for
-                 * EBADR error that is defined in Linux.
-                 */
-                if (ec.value() == EBADR)
-                {
-                    messages::resourceNotFound(asyncResp->res,
-                                               "MetricReportDefinition", id);
-                    return;
-                }
-
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                asyncResp->res.result(boost::beast::http::status::no_content);
-            },
-            telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
-            "Delete");
-    }
-};
+                        asyncResp->res.result(
+                            boost::beast::http::status::no_content);
+                    },
+                    telemetry::service, reportPath,
+                    "xyz.openbmc_project.Object.Delete", "Delete");
+            });
+}
 } // namespace redfish
