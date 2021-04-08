@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>

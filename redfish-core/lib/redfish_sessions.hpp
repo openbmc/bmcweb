@@ -19,6 +19,8 @@
 #include "node.hpp"
 #include "persistent_data.hpp"
 
+#include <app.hpp>
+
 namespace redfish
 {
 
