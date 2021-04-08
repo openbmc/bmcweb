@@ -18,7 +18,6 @@
 #include "health.hpp"
 
 #include <boost/container/flat_map.hpp>
-#include <node.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
@@ -851,246 +850,174 @@ inline void
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig");
 }
 
-class OperatingConfigCollection : public Node
+inline void requestRoutesOperatingConfigCollection(App& app)
 {
-  public:
-    OperatingConfigCollection(App& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/",
-             std::string())
-    {
-        // Defined by Redfish spec privilege registry
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
 
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& cpuName) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#OperatingConfigCollection.OperatingConfigCollection";
+                asyncResp->res.jsonValue["@odata.id"] = req.url;
+                asyncResp->res.jsonValue["Name"] =
+                    "Operating Config Collection";
 
-        const std::string& cpuName = params[0];
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#OperatingConfigCollection.OperatingConfigCollection";
-        asyncResp->res.jsonValue["@odata.id"] = req.url;
-        asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
+                // First find the matching CPU object so we know how to
+                // constrain our search for related Config objects.
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp,
+                     cpuName](const boost::system::error_code ec,
+                              const std::vector<std::string>& objects) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
+                                               << ec.message();
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
 
-        // First find the matching CPU object so we know how to constrain our
-        // search for related Config objects.
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, cpuName](const boost::system::error_code ec,
-                                 const std::vector<std::string>& objects) {
-                if (ec)
-                {
-                    BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
-                                       << ec.message();
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+                        for (const std::string& object : objects)
+                        {
+                            if (!boost::ends_with(object, cpuName))
+                            {
+                                continue;
+                            }
 
-                for (const std::string& object : objects)
-                {
-                    if (!boost::ends_with(object, cpuName))
+                            // Not expected that there will be multiple matching
+                            // CPU objects, but if there are just use the first
+                            // one.
+
+                            // Use the common search routine to construct the
+                            // Collection of all Config objects under this CPU.
+                            collection_util::getCollectionMembers(
+                                asyncResp,
+                                "/redfish/v1/Systems/system/Processors/" +
+                                    cpuName + "/OperatingConfigs",
+                                {"xyz.openbmc_project.Inventory.Item.Cpu."
+                                 "OperatingConfig"},
+                                object.c_str());
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                    "/xyz/openbmc_project/inventory", 0,
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Control.Processor."
+                        "CurrentOperatingConfig"});
+            });
+}
+
+inline void requestRoutesOperatingConfig(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/")
+        .privileges({"Login"})
+        .methods(
+            boost::beast::http::verb::get)([](const crow::Request& req,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& cpuName,
+                                              const std::string& configName) {
+            // Ask for all objects implementing OperatingConfig so we can search
+            // for one with a matching name
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, cpuName, configName,
+                 reqUrl{req.url}](boost::system::error_code ec,
+                                  const MapperGetSubTreeResponse& subtree) {
+                    if (ec)
                     {
-                        continue;
+                        BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
+                                           << ec.message();
+                        messages::internalError(asyncResp->res);
+                        return;
                     }
-
-                    // Not expected that there will be multiple matching CPU
-                    // objects, but if there are just use the first one.
-
-                    // Use the common search routine to construct the Collection
-                    // of all Config objects under this CPU.
-                    collection_util::getCollectionMembers(
-                        asyncResp,
-                        "/redfish/v1/Systems/system/Processors/" + cpuName +
-                            "/OperatingConfigs",
-                        {"xyz.openbmc_project.Inventory.Item.Cpu."
-                         "OperatingConfig"},
-                        object.c_str());
-                    return;
-                }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{"xyz.openbmc_project.Control.Processor."
-                                       "CurrentOperatingConfig"});
-    }
-};
-
-class OperatingConfig : public Node
-{
-  public:
-    OperatingConfig(App& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/"
-             "<str>/",
-             std::string(), std::string())
-    {
-        // Defined by Redfish spec privilege registry
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-        if (params.size() != 2)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        const std::string& cpuName = params[0];
-        const std::string& configName = params[1];
-
-        // Ask for all objects implementing OperatingConfig so we can search for
-        // one with a matching name
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, cpuName, configName,
-             reqUrl{req.url}](boost::system::error_code ec,
-                              const MapperGetSubTreeResponse& subtree) {
-                if (ec)
-                {
-                    BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
-                                       << ec.message();
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                const std::string expectedEnding = cpuName + '/' + configName;
-                for (const auto& [objectPath, serviceMap] : subtree)
-                {
-                    // Ignore any configs without matching cpuX/configY
-                    if (!boost::ends_with(objectPath, expectedEnding) ||
-                        serviceMap.empty())
+                    const std::string expectedEnding =
+                        cpuName + '/' + configName;
+                    for (const auto& [objectPath, serviceMap] : subtree)
                     {
-                        continue;
+                        // Ignore any configs without matching cpuX/configY
+                        if (!boost::ends_with(objectPath, expectedEnding) ||
+                            serviceMap.empty())
+                        {
+                            continue;
+                        }
+
+                        nlohmann::json& json = asyncResp->res.jsonValue;
+                        json["@odata.type"] =
+                            "#OperatingConfig.v1_0_0.OperatingConfig";
+                        json["@odata.id"] = reqUrl;
+                        json["Name"] = "Processor Profile";
+                        json["Id"] = configName;
+
+                        // Just use the first implementation of the object - not
+                        // expected that there would be multiple matching
+                        // services
+                        getOperatingConfigData(
+                            asyncResp, serviceMap.begin()->first, objectPath);
+                        return;
                     }
+                    messages::resourceNotFound(asyncResp->res,
+                                               "OperatingConfig", configName);
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/inventory", 0,
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"});
+        });
+}
 
-                    nlohmann::json& json = asyncResp->res.jsonValue;
-                    json["@odata.type"] =
-                        "#OperatingConfig.v1_0_0.OperatingConfig";
-                    json["@odata.id"] = reqUrl;
-                    json["Name"] = "Processor Profile";
-                    json["Id"] = configName;
-
-                    // Just use the first implementation of the object - not
-                    // expected that there would be multiple matching services
-                    getOperatingConfigData(asyncResp, serviceMap.begin()->first,
-                                           objectPath);
-                    return;
-                }
-                messages::resourceNotFound(asyncResp->res, "OperatingConfig",
-                                           configName);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"});
-    }
-};
-
-class ProcessorCollection : public Node
+inline void requestRoutesProcessorCollection(App& app)
 {
-  public:
-    /*
-     * Default Constructor
-     */
-    ProcessorCollection(App& app) :
-        Node(app, "/redfish/v1/Systems/system/Processors/")
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
-    {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ProcessorCollection.ProcessorCollection";
-        asyncResp->res.jsonValue["Name"] = "Processor Collection";
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ProcessorCollection.ProcessorCollection";
+                asyncResp->res.jsonValue["Name"] = "Processor Collection";
 
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Processors";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Processors";
 
-        collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Processors",
-            std::vector<const char*>(processorInterfaces.begin(),
-                                     processorInterfaces.end()));
-    }
-};
+                collection_util::getCollectionMembers(
+                    asyncResp, "/redfish/v1/Systems/system/Processors",
+                    std::vector<const char*>(processorInterfaces.begin(),
+                                             processorInterfaces.end()));
+            });
+}
 
-class Processor : public Node
+inline void requestRoutesProcessor(App& app)
 {
-  public:
-    /*
-     * Default Constructor
-     */
-    Processor(App& app) :
-        Node(app, "/redfish/v1/Systems/system/Processors/<str>/", std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
     /**
      * Functions triggers appropriate requests on DBus
      */
-    void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&,
-               const std::vector<std::string>& params) override
-    {
-        // Check if there is required param, truly entering this shall be
-        // impossible
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        const std::string& processorId = params[0];
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#Processor.v1_11_0.Processor";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Processors/" + processorId;
 
-        getProcessorObject(asyncResp, processorId, getProcessorData);
-    }
-};
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
+        .privileges({"Login"})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& processorId) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#Processor.v1_11_0.Processor";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Processors/" + processorId;
+
+                getProcessorObject(asyncResp, processorId, getProcessorData);
+            });
+}
 
 } // namespace redfish

@@ -16,8 +16,6 @@
 #ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 #pragma once
 
-#include <node.hpp>
-
 namespace redfish
 {
 
