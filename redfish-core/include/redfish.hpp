@@ -155,8 +155,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
         nodes.emplace_back(std::make_unique<SystemResetActionInfo>(app));
-        nodes.emplace_back(std::make_unique<BiosService>(app));
-        nodes.emplace_back(std::make_unique<BiosReset>(app));
+        requestRoutesBiosService(app);
+        requestRoutesBiosReset(app);
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
         nodes.emplace_back(std::make_unique<VirtualMedia>(app));
         nodes.emplace_back(std::make_unique<VirtualMediaCollection>(app));
@@ -175,18 +175,18 @@ class RedfishService
             std::make_unique<MessageRegistryFileCollection>(app));
         nodes.emplace_back(std::make_unique<MessageRegistryFile>(app));
         nodes.emplace_back(std::make_unique<MessageRegistry>(app));
-        nodes.emplace_back(std::make_unique<CertificateService>(app));
-        nodes.emplace_back(
-            std::make_unique<CertificateActionsReplaceCertificate>(app));
-        nodes.emplace_back(std::make_unique<CertificateLocations>(app));
-        nodes.emplace_back(std::make_unique<HTTPSCertificateCollection>(app));
-        nodes.emplace_back(std::make_unique<HTTPSCertificate>(app));
-        nodes.emplace_back(std::make_unique<LDAPCertificateCollection>(app));
-        nodes.emplace_back(std::make_unique<LDAPCertificate>(app));
-        nodes.emplace_back(std::make_unique<CertificateActionGenerateCSR>(app));
-        nodes.emplace_back(
-            std::make_unique<TrustStoreCertificateCollection>(app));
-        nodes.emplace_back(std::make_unique<TrustStoreCertificate>(app));
+
+        requestRoutesCertificateService(app);
+        requestRoutesCertificateActionGenerateCSR(app);
+        requestRoutesCertificateActionsReplaceCertificate(app);
+        requestRoutesHTTPSCertificate(app);
+        requestRoutesHTTPSCertificateCollection(app);
+        requestRoutesCertificateLocations(app);
+        requestRoutesLDAPCertificateCollection(app);
+        requestRoutesLDAPCertificate(app);
+        requestRoutesTrustStoreCertificateCollection(app);
+        requestRoutesTrustStoreCertificate(app);
+
         nodes.emplace_back(std::make_unique<SystemPCIeFunctionCollection>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeDeviceCollection>(app));
