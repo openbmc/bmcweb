@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9dfbbb79_653dbd9a",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-04-09T20:15:29Z",
+      "side": 1,
+      "message": "I could not find any examples of the nodes vector being used. But I thought might have missed it.\nI will remove the pointers.",
+      "parentUuid": "a0074155_d85943b4",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 51
+      },
+      "revId": "5fa584ffa78c529d419e3c742f5f890629c115d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51f03b9a_f9eb0ebc",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-09T18:35:37Z",
       "side": 1,
       "message": "I had imagined these classes would go away entirely, in lieu of simple \"request\" style method calls, like you see in main() for all non-redfish resources.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "5fa584ffa78c529d419e3c742f5f890629c115d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99c2d599_74b607d2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-04-09T20:15:29Z",
+      "side": 1,
+      "message": "Sounds good, I can put them in a inlined function requestRoutes(App\u0026 app).\n\nI am glad I only did one file",
+      "parentUuid": "51f03b9a_f9eb0ebc",
       "range": {
         "startLine": 44,
         "startChar": 0,
