@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac6eae9_11717f84",
+        "filename": "redfish-core/include/rf_async_resp.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-09T01:30:30Z",
+      "side": 1,
+      "message": "Now we are using bmcweb::AsyncResp. Should we delete this?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "a8c4ce95bd2f4fee4544a57ed86ace3e257c9f24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
