@@ -111,6 +111,29 @@
     },
     {
       "key": {
+        "uuid": "a52491d3_b042c3ea",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-09T22:22:42Z",
+      "side": 1,
+      "message": "FYI, there\u0027s more things that need to be done to update a url in a request.  You\u0027ll need to do them.   We should probably encapsulate that in a url() method to be able to set it and parse it in one step.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17096753_5c448eed",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 22
@@ -146,6 +169,30 @@
       "side": 1,
       "message": "Yes,we need to keep our session for the new request.\nBut there is a problem：The type of req is const, but we need to modify the url.My current solution proved to be unworkable.\nI think there are two other solutions to this problem:\n1.Remove const in the incoming parameters \"req\" of all interfaces.\n2. You once said: \n\"One thing I had imagined was that the AsyncResp class and the Response class could be combined, which would save this kind of diff everywhere.\nNot necessarily something you need to tackle right away, but something to think about\".\n\nWhich do you think is more appropriate? Or do you have other ideas?",
       "parentUuid": "17096753_5c448eed",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e1fd2f_05d59dad",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-09T22:22:42Z",
+      "side": 1,
+      "message": "\u003e Yes,we need to keep our session for the new request.\n\u003e But there is a problem：The type of req is const, but we need to modify the url.My current solution proved to be unworkable.\n\u003e I think there are two other solutions to this problem:\n\u003e 1.Remove const in the incoming parameters \"req\" of all interfaces.\n\nI don\u0027t really want to do that.\n\n\u003e 2. You once said: \n\u003e \"One thing I had imagined was that the AsyncResp class and the Response class could be combined, which would save this kind of diff everywhere.\n\u003e Not necessarily something you need to tackle right away, but something to think about\".\n\u003e \n\u003e Which do you think is more appropriate? Or do you have other ideas?\n\nI\u0027m really not following.  I have no real problem with making a copy of the Request, because this is really a new request.\n\nAm I missing something, can we just delete this line and it should be all good?",
+      "parentUuid": "8a45a938_1be51fe7",
       "range": {
         "startLine": 53,
         "startChar": 8,
