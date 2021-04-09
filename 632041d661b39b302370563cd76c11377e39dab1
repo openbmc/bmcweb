@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab9d74b1_b15c251e",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-04-09T22:38:27Z",
+      "side": 1,
+      "message": "I did not change this code other then the indentation, git diff is very confused here.",
+      "revId": "632041d661b39b302370563cd76c11377e39dab1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26c578d0_df1ddc5a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-04-09T22:38:27Z",
+      "side": 1,
+      "message": "I had to put this after getCertificateLocations",
+      "range": {
+        "startLine": 938,
+        "startChar": 12,
+        "endLine": 938,
+        "endChar": 45
+      },
+      "revId": "632041d661b39b302370563cd76c11377e39dab1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
