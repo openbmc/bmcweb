@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0074155_d85943b4",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-09T18:35:37Z",
+      "side": 1,
+      "message": "none of these pointers look used.  Do we need them at all?",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 51
+      },
+      "revId": "5fa584ffa78c529d419e3c742f5f890629c115d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51f03b9a_f9eb0ebc",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-09T18:35:37Z",
+      "side": 1,
+      "message": "I had imagined these classes would go away entirely, in lieu of simple \"request\" style method calls, like you see in main() for all non-redfish resources.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "5fa584ffa78c529d419e3c742f5f890629c115d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
