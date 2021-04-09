@@ -94,6 +94,30 @@
       "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de8a3b6_bbf9d10e",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-04-09T18:46:42Z",
+      "side": 1,
+      "message": "Hi Ratan,\nBelow are some supporting docs to use this way to log RedFish events.\n\nhttps://lists.ozlabs.org/pipermail/openbmc/2020-May/021879.html\nhttps://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in-bmcweb.md\n\nWe have only 2 ways to log RedFish events.\n\nphosphor::logging::log\u003clog::level\u003e(\n        \"journal text\",\n        phosphor::logging::entry(\"REDFISH_MESSAGE_ID\u003d%s\",\n        \"ResourceEvent.1.0.ResourceErrorThresholdExceeded\"),\n        phosphor::logging::entry(\"REDFISH_MESSAGE_ARGS\u003d%s,%d\",\n        \"Property Name\", propertyValue));\nor\n\nsd_journal_send(\"MESSAGE\u003d%s\", \"journal text\", \"PRIORITY\u003d%i\", \u003cLOG_LEVEL\u003e,\n                \"REDFISH_MESSAGE_ID\u003d%s\",\n                \"ResourceEvent.1.0.ResourceErrorThresholdExceeded\",\n                \"REDFISH_MESSAGE_ARGS\u003d%s,%d\", \"Property Name\",\n                propertyValue, NULL);\n\nPlease comment on this.\n\nThanks",
+      "parentUuid": "59bbb884_0feea291",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
