@@ -205,6 +205,30 @@
     },
     {
       "key": {
+        "uuid": "9fcc128a_5329795d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-10T01:36:50Z",
+      "side": 1,
+      "message": "\u003e I\u0027m really not following.  I have no real problem with making a copy of the Request, because this is really a new request.\nBut here, the new request is a temporary variable.\nWhen we call app.handle(), DBUS will be called in the code behind. When processing the return result of DBUS, the current function excuteQueryParamAll will return and the temporary variables will be released. Because req is not shared_ptr, and the transfer of req uses \u0026, we will not be able to continue to use new requests in the callback function of DBUS.",
+      "parentUuid": "a9e1fd2f_05d59dad",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "835dea28_01608e4d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 22
