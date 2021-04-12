@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "05c04cf2_940affd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-12T19:19:51Z",
+      "side": 1,
+      "message": "\"future enhancements\" is cryptic and unhelpful in the context of this patchset.  Once those enhancements come, feel free to push a patch to add child-src, but for the moment, there\u0027s no reason it\u0027s needed.",
+      "parentUuid": "12cc6e8a_f349da51",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ac7fa29_5767cdcb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "af39e0b2_b0c77e14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-12T19:19:51Z",
+      "side": 1,
+      "message": "You should look into \"principle of least privilege\"\n\nBasically, if the application doesn\u0027t explicitly need s privilege to function, it should be set to the most restricted values.",
+      "parentUuid": "67298a21_cf092cc7",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba955796_55063163",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Figured out it is the Issue with web editor, will configure correctly will not have issues next time onwards",
       "parentUuid": "ba955796_55063163",
+      "range": {
+        "startLine": 15,
+        "startChar": 71,
+        "endLine": 15,
+        "endChar": 72
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "154a5f74_bbad6bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-12T19:19:51Z",
+      "side": 1,
+      "message": "Glad you figured it out;",
+      "parentUuid": "fc5fb729_71705b23",
       "range": {
         "startLine": 15,
         "startChar": 71,

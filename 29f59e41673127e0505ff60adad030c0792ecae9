@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52145754_99c10711",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-12T19:19:51Z",
+      "side": 1,
+      "message": "As was pointed out previously, please remove this line;  This setting is less secure than what was there previously.  If you find a feature that requires this, please add it separately, while pointing to the feature that requires it.",
+      "range": {
+        "startLine": 34,
+        "startChar": 48,
+        "endLine": 34,
+        "endChar": 69
+      },
+      "revId": "29f59e41673127e0505ff60adad030c0792ecae9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3a2841_9b8d68ad",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-12T19:19:51Z",
+      "side": 1,
+      "message": "As we discussed (and as you tested) form-action \u0027none\u0027 is more restrictive here.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 71
+      },
+      "revId": "29f59e41673127e0505ff60adad030c0792ecae9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
