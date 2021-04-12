@@ -188,6 +188,30 @@
       "revId": "a26fd094974b9a4c298579173bde5e48a8c0541e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daae09db_31e3f94d",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-12T03:58:27Z",
+      "side": 1,
+      "message": "Feel free to take that up with DMTF if you don\u0027t like that they require the version number to be reved any time when the registry changes, and you\u0027d like to see the spec changed in that regard.  Because we\u0027ve now had a formal OpenBMC release since this registry was created, this version will need to be incremented when we change this registry.\n\nUnless I\u0027m missing something, I\u0027m reading your request as \"Is it ok to merge code that disobeys the Redfish spec in this case?\" to which the answer would be no, we need to solve the version problem first, or get DMTF to drop the requirements around the versioning rules.\n\nIf you think this still obeys the letter of the specification in this regard, happy to talk about getting this merged, but as written, I don\u0027t believe it does, which make this patchset a non-starter.",
+      "parentUuid": "2351553b_79d1f2ac",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "a26fd094974b9a4c298579173bde5e48a8c0541e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
