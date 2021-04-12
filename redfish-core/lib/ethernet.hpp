@@ -720,10 +720,9 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void
-    updateIPv4DefaultGateway(const std::string& ifaceId,
-                             const std::string& gateway,
-                             const std::shared_ptr<AsyncResp>& asyncResp)
+inline void updateIPv4DefaultGateway(
+    const std::string& ifaceId, const std::string& gateway,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
