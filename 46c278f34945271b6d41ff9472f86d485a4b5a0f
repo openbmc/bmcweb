@@ -253,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "085f2193_5290944f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-12T05:53:00Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e I\u0027m really not following.  I have no real problem with making a copy of the Request, because this is really a new request.\n\u003e \u003e But here, the new request is a temporary variable.\n\u003e \u003e When we call app.handle(), DBUS will be called in the code behind. When processing the return result of DBUS, the current function excuteQueryParamAll will return and the temporary variables will be released. Because req is not shared_ptr, and the transfer of req uses \u0026, we will not be able to continue to use new requests in the callback function of DBUS.\n\u003e \n\u003e Technically any such usage of req after the first handler is a bit of an anti-pattern.  I\u0027ve been hoping to scrub the codebase of cases of that for a long time.  For things that need access to the req object, they should be  making the appropriate copies of it in their lambda., not relying on req to stay alive past the first return caller.\n\nDo you mean to use value capture to get req in lambda and use mutable?",
+      "parentUuid": "0da45f7e_d3e79f0d",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "835dea28_01608e4d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 22
