@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0174ed8a_554064d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-12T10:43:26Z",
+      "side": 1,
+      "message": "Yes,I will do that.",
+      "parentUuid": "1b18be9a_b3aad894",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c4a72c2_d9db0788",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 51
@@ -51,6 +69,24 @@
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd38f4c_5fea670d",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-12T10:43:26Z",
+      "side": 1,
+      "message": "Yes, Sunny\u0027s comment is correct.",
+      "parentUuid": "6de7101a_504ccf29",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "b9898659_f47260b1",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-12T10:43:26Z",
+      "side": 1,
+      "message": "Done. Sunny\u0027s comment is correct.",
+      "parentUuid": "074d7f97_3036d955",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd5b990b_7d201cf8",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 51
@@ -109,6 +163,30 @@
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "298c01ac_124809cf",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-12T10:43:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd5b990b_7d201cf8",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 41
+      },
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
