@@ -723,7 +723,7 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
 inline void
     updateIPv4DefaultGateway(const std::string& ifaceId,
                              const std::string& gateway,
-                             const std::shared_ptr<AsyncResp>& asyncResp)
+                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
