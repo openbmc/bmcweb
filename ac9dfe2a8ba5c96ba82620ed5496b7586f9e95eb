@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9188d3d_be44dea9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:44:57Z",
+      "side": 1,
+      "message": "Can you update with the name, if we are indeed going with associations?\n\nOr I guess you are waiting on https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468/4/architecture/dbus-inventory.md ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 26,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "ac9dfe2a8ba5c96ba82620ed5496b7586f9e95eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
