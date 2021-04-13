@@ -21,6 +21,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
+#include "../lib/fan.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
@@ -76,6 +77,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SessionService>(app));
         nodes.emplace_back(std::make_unique<EthernetCollection>(app));
         nodes.emplace_back(std::make_unique<EthernetInterface>(app));
+        nodes.emplace_back(std::make_unique<Fan>(app));
+        nodes.emplace_back(std::make_unique<FanCollection>(app));
         nodes.emplace_back(std::make_unique<Thermal>(app));
         nodes.emplace_back(std::make_unique<ThermalSubsystem>(app));
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
