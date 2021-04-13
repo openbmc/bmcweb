@@ -47,11 +47,17 @@ class Thermal : public Node
 
             return;
         }
+
+        auto thermal = sensors::dbus::paths.find(sensors::node::thermal);
+        if (thermal == sensors::dbus::paths.end())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
         const std::string& chassisName = params[0];
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            asyncResp, chassisName,
-            sensors::dbus::paths.at(sensors::node::thermal),
-            sensors::node::thermal);
+            asyncResp, chassisName, thermal->second, sensors::node::thermal);
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
@@ -67,6 +73,13 @@ class Thermal : public Node
             return;
         }
 
+        auto thermal = sensors::dbus::paths.find(sensors::node::thermal);
+        if (thermal == sensors::dbus::paths.end())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
         const std::string& chassisName = params[0];
         std::optional<std::vector<nlohmann::json>> temperatureCollections;
         std::optional<std::vector<nlohmann::json>> fanCollections;
@@ -74,9 +87,7 @@ class Thermal : public Node
             allCollections;
 
         auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
-            asyncResp, chassisName,
-            sensors::dbus::paths.at(sensors::node::thermal),
-            sensors::node::thermal);
+            asyncResp, chassisName, thermal->second, sensors::node::thermal);
 
         if (!json_util::readJson(req, sensorsAsyncResp->asyncResp->res,
                                  "Temperatures", temperatureCollections, "Fans",
