@@ -79,6 +79,40 @@
       "revId": "edba06bb873155f7104868fc27c246e2c425a372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54cb2fa_dc9879f7",
+        "filename": "static/redfish/v1/JsonSchemas/index.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T18:15:56Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this get bumped?",
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "808012ec_2624c8a6",
+        "filename": "static/redfish/v1/JsonSchemas/index.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T18:15:56Z",
+      "side": 1,
+      "message": "Where is port?",
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
