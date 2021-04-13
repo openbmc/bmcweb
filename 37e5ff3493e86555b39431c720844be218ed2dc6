@@ -22,6 +22,30 @@
       "revId": "37e5ff3493e86555b39431c720844be218ed2dc6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb959be4_7a2f1212",
+        "filename": "include/ibm/utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-04-13T02:00:09Z",
+      "side": 1,
+      "message": "Huh?  owner_all seems right to me.\nPer Posix, execute permission for a directory allows searches through that directory: https://en.cppreference.com/w/cpp/filesystem/perms and\nThe management_console_rest.hpp code uses std::filesystem_directory_iterator which requires X (search) permission.",
+      "parentUuid": "68f45ab4_9356c0ed",
+      "range": {
+        "startLine": 32,
+        "startChar": 68,
+        "endLine": 32,
+        "endChar": 77
+      },
+      "revId": "37e5ff3493e86555b39431c720844be218ed2dc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
