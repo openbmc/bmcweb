@@ -34,6 +34,69 @@
       "revId": "fc75a1cbeeecb9262ab11f0d71ba0da3c928e330",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7f1795_c600c624",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-13T20:01:57Z",
+      "side": 1,
+      "message": "I know some of this is mentioned in the bug, but you might mention that this commit drops 60 lines of boilerplate for only doing one set of schemas.  That\u0027s a good answer to \"Why\" this commit exists, which is always good to include in your commit message.",
+      "revId": "fc75a1cbeeecb9262ab11f0d71ba0da3c928e330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "915e274f_0ab0680d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-13T20:01:57Z",
+      "side": 1,
+      "message": "const std::string\u0026\n\nInterestingly, this is what\u0027s currently failing you in the build.",
+      "range": {
+        "startLine": 1255,
+        "startChar": 21,
+        "endLine": 1255,
+        "endChar": 32
+      },
+      "revId": "fc75a1cbeeecb9262ab11f0d71ba0da3c928e330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8df3ae1_42cecd35",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-13T20:01:57Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 15,
+        "endLine": 1281,
+        "endChar": 38
+      },
+      "revId": "fc75a1cbeeecb9262ab11f0d71ba0da3c928e330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
