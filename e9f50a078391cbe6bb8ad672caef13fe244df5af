@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d03dd72_bdfdc66d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:42:16Z",
+      "side": 1,
+      "message": "Not sure this is needed since you set above",
+      "revId": "e9f50a078391cbe6bb8ad672caef13fe244df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6fd185e_5aa2ff9a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:42:16Z",
+      "side": 1,
+      "message": "Why return?",
+      "range": {
+        "startLine": 75,
+        "startChar": 1,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "e9f50a078391cbe6bb8ad672caef13fe244df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "548c181a_d799b696",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:42:16Z",
+      "side": 1,
+      "message": "why is this needed if you set above?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 7
+      },
+      "revId": "e9f50a078391cbe6bb8ad672caef13fe244df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3e38d5_4e3ec3b6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:42:16Z",
+      "side": 1,
+      "message": "Can you do like you did above?\n\n                if (cpuFunctional \u003d\u003d nullptr)\n                {\n                    messages::internalError(aResp-\u003eres);\n                    return;\n                }\n                if (*cpuFunctional \u003d\u003d false)\n                {\n                    aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"Critical\";\n                }",
+      "revId": "e9f50a078391cbe6bb8ad672caef13fe244df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce4b035_58704794",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:42:16Z",
+      "side": 1,
+      "message": "Why is this needed if you set above?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "e9f50a078391cbe6bb8ad672caef13fe244df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c728312_04355259",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-13T13:42:16Z",
+      "side": 1,
+      "message": "Can you keep the                 \nif (coresCount \u003d\u003d nullptr)\n     {\n\n          messages::internalError(aResp-\u003eres);\n          return;\n    }\n\n          aResp-\u003eres.jsonValue[\"TotalCores\"] \u003d *coresCount;",
+      "revId": "e9f50a078391cbe6bb8ad672caef13fe244df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
