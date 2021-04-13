@@ -110,46 +110,47 @@ inline const char* toReadingType(const std::string& sensorType)
     return "";
 }
 
-inline const char* toReadingUnits(const std::string& sensorType)
+inline const char* toReadingUnits(const std::string& readingType)
 {
-    if (sensorType == "voltage")
+    if (readingType == "Voltage")
     {
         return "V";
     }
-    if (sensorType == "power")
+    if (readingType == "Power")
     {
         return "W";
     }
-    if (sensorType == "current")
+    if (readingType == "Current")
     {
         return "A";
     }
-    if (sensorType == "fan_tach")
+    if (readingType == "Rotational")
     {
         return "RPM";
     }
-    if (sensorType == "temperature")
+    if (readingType == "Temperature")
     {
         return "Cel";
     }
-    if (sensorType == "fan_pwm" || sensorType == "utilization")
+    if (readingType == "Percent")
     {
         return "%";
     }
-    if (sensorType == "altitude")
+    if (readingType == "Altitude")
     {
         return "m";
     }
-    if (sensorType == "airflow")
+    if (readingType == "AirFlow")
     {
         return "cft_i/min";
     }
-    if (sensorType == "energy")
+    if (readingType == "EnergyJoules")
     {
         return "J";
     }
     return "";
 }
+
 } // namespace sensors
 
 /**
@@ -952,11 +953,11 @@ inline void objectInterfacesToJson(
             sensorJson["ReadingType"] = readingType;
         }
 
-        const std::string& readingUnits = sensors::toReadingUnits(sensorType);
+        const std::string& readingUnits = sensors::toReadingUnits(readingType);
         if (readingUnits.empty())
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
-                             << sensorType;
+                             << readingType;
         }
         else
         {
