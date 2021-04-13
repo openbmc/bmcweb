@@ -16,6 +16,24 @@
       "revId": "fc75a1cbeeecb9262ab11f0d71ba0da3c928e330",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7be6f14_b66f0289",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-04-13T17:55:09Z",
+      "side": 1,
+      "message": "Thanks for the heads up.\nI will definitely add more to the commit message, once we know this is the path we want to go down.",
+      "parentUuid": "025547ab_b119801c",
+      "revId": "fc75a1cbeeecb9262ab11f0d71ba0da3c928e330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
