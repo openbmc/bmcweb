@@ -49,20 +49,6 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
-static constexpr const char* redfishEventLogDir = "/var/log";
-static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-static constexpr const size_t iEventSize = sizeof(inotify_event);
-static int inotifyFd = -1;
-static int dirWatchDesc = -1;
-static int fileWatchDesc = -1;
-
-// <ID, timestamp, RedfishLogId, registryPrefix, MessageId, MessageArgs>
-using EventLogObjectsType =
-    std::tuple<std::string, std::string, std::string, std::string, std::string,
-               std::vector<std::string>>;
-
 namespace message_registries
 {
 inline boost::beast::span<const MessageEntry>
@@ -82,7 +68,24 @@ inline boost::beast::span<const MessageEntry>
     }
     return boost::beast::span<const MessageEntry>(openbmc::registry);
 }
+} // namespace message_registries
 
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
+static constexpr const char* redfishEventLogDir = "/var/log";
+static constexpr const char* redfishEventLogFile = "/var/log/redfish";
+static constexpr const size_t iEventSize = sizeof(inotify_event);
+static int inotifyFd = -1;
+static int dirWatchDesc = -1;
+static int fileWatchDesc = -1;
+
+// <ID, timestamp, RedfishLogId, registryPrefix, MessageId, MessageArgs>
+using EventLogObjectsType =
+    std::tuple<std::string, std::string, std::string, std::string, std::string,
+               std::vector<std::string>>;
+
+namespace message_registries
+{
 static const Message*
     getMsgFromRegistry(const std::string& messageKey,
                        const boost::beast::span<const MessageEntry>& registry)
