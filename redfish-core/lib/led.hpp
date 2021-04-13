@@ -336,7 +336,7 @@ inline void getLocationIndicatorActive(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 break;
             }
         },
-        "xyz.openbmc_project.ObjectMapper", objPath + "/identify_led_group",
+        "xyz.openbmc_project.ObjectMapper", objPath + "/fault_led_group",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Association", "endpoints");
 }
@@ -397,7 +397,7 @@ inline void setLocationIndicatorActive(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 break;
             }
         },
-        "xyz.openbmc_project.ObjectMapper", objPath + "/identify_led_group",
+        "xyz.openbmc_project.ObjectMapper", objPath + "/fault_led_group",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Association", "endpoints");
 }
