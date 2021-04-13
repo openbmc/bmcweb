@@ -395,6 +395,7 @@ class EventDestinationCollection : public Node
             subValue->resourceTypes = *resTypes;
         }
 
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         if (msgIds)
         {
             std::vector<std::string> registryPrefix;
@@ -444,6 +445,7 @@ class EventDestinationCollection : public Node
                     return;
                 }
             }
+#endif
 
             subValue->registryMsgIds = *msgIds;
         }
