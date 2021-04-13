@@ -134,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "19dd2139_5e4730b1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-13T08:14:32Z",
+      "side": 1,
+      "message": "\u003e FYI, there\u0027s more things that need to be done to update a url in a request.  You\u0027ll need to do them.   We should probably encapsulate that in a url() method to be able to set it and parse it in one step.\n\nYes, there is also a problem here, and I haven\u0027t thought of a solution yet.\nHere we copied a new request called reqS, but how should we modify reqS.url? The new url here is a temporary variable. If reqS.url references this temporary variable, then the temporary variable will be released after the function ends, and reqS.url cannot be used.",
+      "parentUuid": "a52491d3_b042c3ea",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17096753_5c448eed",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 22
