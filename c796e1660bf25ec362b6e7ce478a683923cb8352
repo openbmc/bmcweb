@@ -359,6 +359,30 @@
     },
     {
       "key": {
+        "uuid": "b06c49d3_d23e44c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-13T18:05:13Z",
+      "side": 1,
+      "message": "\u003e \u003e Key word here is added, not replaced.  Clients coded against the standard allow for new parameters to be added to schemas.  That\u0027s how this has been handled in the past.  Your code completely replaces things.\n\u003e \n\u003e No Ed, i think you misunderstood or did not catch up with my latest patch-set probably,My initial patch replaced the Message registry, but later i changed it to add new registry as per the redfish experts suggestion mentioned in the below link.\n\nI\u0027ve pointed out where you replaced an implementation.  I could still be misunderstanding, but I don\u0027t think so.  While you\u0027ve done the right thing in the message registry, you\u0027ve done a backward incompatible thing in the implementation itself.\n\nWhat I would recommend is:\n1. write a quick python script to dump POST codes using the current mechanism.  Make sure it checks MessageRegistry IDs (like a conforming implementation should).  Bonus points for checking this script in as an example in scripts.\n2. Apply your patch.\n3. Rerun your script and make sure it still works.  Today, it won\u0027t.\n\n\u003e \n\u003e https://redfishforum.com/thread/447/bumping-message-registry-backward-compatability\n\u003e \n\u003e In the above link, i also asked on how existing clients are NOT broken by doing the said implementation.\n\u003e \n\u003e With that said, the real concern that you rightly mentioned is displaying some junk ascii codes on Intel machines which might be misleading.\n\nThis is one concern, the lack of backward compatibility is a larger concern.\n\n\u003e Agree that this needs to be thought through \u0026 probably needs a bigger discussion and I would try to come up with a design document or change the existing document.\n\n👍",
+      "parentUuid": "b8822122_bf1d4675",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c796e1660bf25ec362b6e7ce478a683923cb8352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83ef1a4_49cb96af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7

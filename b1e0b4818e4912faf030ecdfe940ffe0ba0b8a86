@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fa8687b_bd45ed89",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-13T18:05:13Z",
+      "side": 1,
+      "message": "When I say you replaced things, this is what I mean.",
+      "range": {
+        "startLine": 3116,
+        "startChar": 0,
+        "endLine": 3117,
+        "endChar": 72
+      },
+      "revId": "b1e0b4818e4912faf030ecdfe940ffe0ba0b8a86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
