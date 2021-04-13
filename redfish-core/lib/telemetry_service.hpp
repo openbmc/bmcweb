@@ -32,6 +32,8 @@ class TelemetryService : public Node
         asyncResp->res.jsonValue["Id"] = "TelemetryService";
         asyncResp->res.jsonValue["Name"] = "Telemetry Service";
 
+        asyncResp->res.jsonValue["MetricDefinitions"]["@odata.id"] =
+            "/redfish/v1/TelemetryService/MetricDefinitions";
         asyncResp->res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
         asyncResp->res.jsonValue["MetricReports"]["@odata.id"] =
