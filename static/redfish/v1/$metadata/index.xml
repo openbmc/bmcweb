@@ -731,6 +731,13 @@
         <edmx:Include Namespace="EventService.v1_7_0"/>
         <edmx:Include Namespace="EventService.v1_7_1"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/Fan_v1.xml">
+        <edmx:Include Namespace="Fan"/>
+        <edmx:Include Namespace="Fan.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/FanCollection_v1.xml">
+        <edmx:Include Namespace="FanCollection"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/IPAddresses_v1.xml">
         <edmx:Include Namespace="IPAddresses"/>
         <edmx:Include Namespace="IPAddresses.v1_0_0"/>
