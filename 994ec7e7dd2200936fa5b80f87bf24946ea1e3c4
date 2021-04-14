@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1606717e_adcf3bb1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T17:53:17Z",
+      "side": 1,
+      "message": "I am failing to understand why this way is specific to only DIMM and CPU does not have this ?\n\nAnd why does it not apply to Patch ?.. May be I am missing something fundamental.",
+      "revId": "994ec7e7dd2200936fa5b80f87bf24946ea1e3c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
