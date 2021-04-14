@@ -215,6 +215,24 @@
       "revId": "edba06bb873155f7104868fc27c246e2c425a372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "081cdb99_2e3dddb2",
+        "filename": "static/redfish/v1/JsonSchemas/index.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-14T12:02:08Z",
+      "side": 1,
+      "message": "Also, for other schemas when I included the schema name in scripts/update_schemas.py and executed the script, folders for those respective schema were created under  \n\"static/redfish/v1/JsonSchemas/\" path but the same did not happen in case of ports as no folder is created for ports after running the script.",
+      "parentUuid": "8c8c7856_b91ba577",
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
