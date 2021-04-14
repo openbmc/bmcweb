@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "bf128c6e_3e98e23f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-04-14T06:22:30Z",
+      "side": 1,
+      "message": "yes, removed.",
+      "parentUuid": "fed116c3_46a914dd",
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13958d38_3646c8b8",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
@@ -53,6 +71,30 @@
       "writtenOn": "2021-03-24T18:05:44Z",
       "side": 1,
       "message": "Is it ok to default to \"Enabled\" ?",
+      "range": {
+        "startLine": 476,
+        "startChar": 54,
+        "endLine": 476,
+        "endChar": 63
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f6d25b_9acafd2f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-04-14T06:22:30Z",
+      "side": 1,
+      "message": "yes for now, Don\u0027t want to change behavior if the present interface isn\u0027t available for which current code doesn\u0027t exist.",
+      "parentUuid": "13958d38_3646c8b8",
       "range": {
         "startLine": 476,
         "startChar": 54,
@@ -100,6 +142,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "a1031fd2_d25ed8ca",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 50
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e1977c_fee613b4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-04-14T06:22:30Z",
+      "side": 1,
+      "message": "Done, thanks Ed.",
+      "parentUuid": "1fa0c763_16feba96",
       "range": {
         "startLine": 543,
         "startChar": 0,
