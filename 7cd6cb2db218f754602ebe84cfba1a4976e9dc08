@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3f28071c_f2be1489",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-14T06:52:51Z",
+      "side": 1,
+      "message": "Yes, this is the resource of the fan rotor. Because our machine is a dual-rotor fan, the resource of the fan rotor is displayed. If it is a single-rotor fan, then the resource related to the fan Fan0 is obtained.",
+      "parentUuid": "dda1a97b_21815703",
+      "revId": "7cd6cb2db218f754602ebe84cfba1a4976e9dc08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1523f04_49feb9e6",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 17
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-14T06:03:32Z",
       "side": 1,
       "message": "Thanks.. Is it possible to break this and have a separate commit ONLY for GET and PATCH of LocationIndicatorActive with appropriate commit messages and test results ?",
+      "revId": "7cd6cb2db218f754602ebe84cfba1a4976e9dc08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ddbf468_58546290",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-14T06:52:51Z",
+      "side": 1,
+      "message": "Ok,I will do it.",
+      "parentUuid": "c1523f04_49feb9e6",
       "revId": "7cd6cb2db218f754602ebe84cfba1a4976e9dc08",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
