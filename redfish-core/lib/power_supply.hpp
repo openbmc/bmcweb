@@ -537,6 +537,62 @@ class PowerSupply : public Node
 
                         // Get power supply efficiency ratings
                         getEfficiencyRatings(asyncResp);
+
+                        getLocationIndicatorActive(asyncResp,
+                                                   validPowerSupplyPath);
+                    };
+                getValidPowerSupplyID(asyncResp, chassisID, powerSupplyID,
+                                      std::move(getPowerSupplyID));
+            };
+        redfish::chassis_utils::getValidChassisID(asyncResp, chassisID,
+                                                  std::move(getChassisID));
+    }
+
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        if (params.size() != 2)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::optional<bool> locationIndicatorActive;
+        if (!json_util::readJson(req, asyncResp->res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        if (!locationIndicatorActive)
+        {
+            return;
+        }
+
+        bool active = *locationIndicatorActive;
+
+        const std::string& chassisID = params[0];
+        const std::string& powerSupplyID = params[1];
+
+        auto getChassisID =
+            [asyncResp, chassisID, powerSupplyID,
+             active](const std::optional<std::string>& validChassisID) {
+                if (!validChassisID)
+                {
+                    BMCWEB_LOG_ERROR << "Not a valid chassis ID:" << chassisID;
+                    messages::resourceNotFound(asyncResp->res, "Chassis",
+                                               chassisID);
+                    return;
+                }
+
+                auto getPowerSupplyID =
+                    [asyncResp, chassisID, powerSupplyID,
+                     active](const std::string& validPowerSupplyPath,
+                             [[maybe_unused]] const std::string&
+                                 validPowerSupplyService) {
+                        setLocationIndicatorActive(
+                            asyncResp, validPowerSupplyPath, active);
                     };
                 // Get the correct Path and Service that match the input
                 // parameters
