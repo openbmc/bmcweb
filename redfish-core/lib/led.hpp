@@ -277,6 +277,77 @@ inline void
  *
  * @param[in] aResp     Shared pointer for generating response message.
  * @param[in] objPath   Object path
+ * @param[in] jsonInput Input json
+ *
+ * @return None.
+ */
+inline void getLocationIndicatorActive(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                       const std::string& objPath,
+                                       nlohmann::json& jsonInput)
+{
+    BMCWEB_LOG_DEBUG << "Get location indicator active";
+
+    nlohmann::json& jsonIn = jsonInput["LocationIndicatorActive"];
+
+    crow::connections::systemBus->async_method_call(
+        [objPath, &jsonIn, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error, ec: " << ec.value();
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::vector<std::string>* endpoints =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (endpoints == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "No endpoints, skipping get location "
+                                    "indicator active";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (const auto& endpoint : *endpoints)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [aResp, &jsonIn](const boost::system::error_code ec,
+                                     const std::variant<bool> asserted) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "async_method_call failed with ec "
+                                << ec.value();
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+
+                        const bool* ledOn = std::get_if<bool>(&asserted);
+                        if (!ledOn)
+                        {
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        jsonIn = *ledOn;
+                    },
+                    "xyz.openbmc_project.LED.GroupManager", endpoint,
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Led.Group", "Asserted");
+                break;
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/fault_led_group",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Retrieves identify led group properties over D-Bus
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] objPath   Object path
  *
  * @return None.
  */
