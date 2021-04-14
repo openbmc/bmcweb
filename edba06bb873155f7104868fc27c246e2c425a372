@@ -113,6 +113,24 @@
       "revId": "edba06bb873155f7104868fc27c246e2c425a372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8c7856_b91ba577",
+        "filename": "static/redfish/v1/JsonSchemas/index.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-14T05:27:54Z",
+      "side": 1,
+      "message": "Including port here does not populate the port folder under \u003cstatic/redfish/v1/JsonSchemas/\u003e. I tried that.\nAlso, it worked fine and validator also got passed without the inclusion so I did not included that.\n\nAlso your comment on patch set 1\n\"\nPort can only be at the following location: \nhttps://redfish.dmtf.org/schemas/v1/Port_v1.xml\n\"\n\nI thought you were also pointing towards this. Let me know if I misunderstood.",
+      "parentUuid": "808012ec_2624c8a6",
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
