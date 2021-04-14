@@ -253,10 +253,24 @@ static void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     continue;
                 }
 
+                // "Legacy"/"Proxy"
+                auto mode = item.first.parent_path();
+                // "VirtualMedia"
+                auto type = mode.parent_path();
+                if (mode.filename().empty() || type.filename().empty())
+                {
+                    continue;
+                }
+
+                if (type.filename() != "VirtualMedia")
+                {
+                    continue;
+                }
+
                 aResp->res.jsonValue = vmItemTemplate(name, resName);
 
                 // Check if dbus path is Legacy type
-                if (thispath.find("VirtualMedia/Legacy") != std::string::npos)
+                if (mode.filename() == "Legacy")
                 {
                     aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                         ["target"] =
