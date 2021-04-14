@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d87545f3_cb2cf483",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-14T15:17:53Z",
+      "side": 1,
+      "message": "Reading the commit msg, I think Available should be used to determine UnavailableOffline. \n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/e5ccf3abb7465cdda099f942c128cbac98bc0a9d\n\n\n        \"State\": {\n            \"enum\": [\n                \"Enabled\",\n                \"Disabled\",\n                \"StandbyOffline\",\n                \"StandbySpare\",\n                \"InTest\",\n                \"Starting\",\n                \"Absent\",\n                \"UnavailableOffline\",  \u003c--- This state\n                \"Deferring\",\n                \"Quiesced\",\n                \"Updating\",\n                \"Qualified\"\n            ],\n            \"enumDescriptions\": {\n                \"Absent\": \"This function or resource is either not present or detected.\",\n                \"Deferring\": \"The element does not process any commands but queues new requests.\",\n                \"Disabled\": \"This function or resource is disabled.\",\n                \"Enabled\": \"This function or resource is enabled.\",\n                \"InTest\": \"This function or resource is undergoing testing, or is in the process of capturing information for debugging.\",\n                \"Qualified\": \"The element quality is within the acceptable range of operation.\",\n                \"Quiesced\": \"The element is enabled but only processes a restricted set of commands.\",\n                \"StandbyOffline\": \"This function or resource is enabled but awaits an external action to activate it.\",\n                \"StandbySpare\": \"This function or resource is part of a redundancy set and awaits a failover or other external action to activate it.\",\n                \"Starting\": \"This function or resource is starting.\",\n                \"UnavailableOffline\": \"This function or resource is present but cannot be used.\",\n                \"Updating\": \"The element is updating and might be unavailable or degraded.\"\n            },",
+      "revId": "f0b7141487dd78f654694b41630b16edc2f11853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "922f6bf4_953ac39b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-14T15:17:53Z",
+      "side": 1,
+      "message": "Don\u0027t we use present to determine this?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/32304979b404c24e32f195d08c667e65b9b34695/xyz/openbmc_project/Inventory/Item.interface.yaml#L9",
+      "revId": "f0b7141487dd78f654694b41630b16edc2f11853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
