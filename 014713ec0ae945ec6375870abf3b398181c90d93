@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "b603ae29_b919d533",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-04-14T14:03:22Z",
+      "side": 1,
+      "message": "Updated. Added dependent patch for review.\nThanks!",
+      "parentUuid": "72f6d25b_9acafd2f",
+      "range": {
+        "startLine": 476,
+        "startChar": 54,
+        "endLine": 476,
+        "endChar": 63
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1031fd2_d25ed8ca",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
