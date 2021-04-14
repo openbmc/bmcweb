@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a59a7cc9_c9cec9c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-14T06:06:06Z",
+      "side": 1,
+      "message": "Agreed, removed the child-src",
+      "parentUuid": "05c04cf2_940affd4",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ac7fa29_5767cdcb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -141,6 +165,30 @@
       "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8625d011_e410301d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-14T06:06:06Z",
+      "side": 1,
+      "message": "Set to none",
+      "parentUuid": "af39e0b2_b0c77e14",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -215,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "d7d05988_2741d2a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-14T06:06:06Z",
+      "side": 1,
+      "message": "Resolved all white spaces",
+      "parentUuid": "154a5f74_bbad6bc0",
+      "range": {
+        "startLine": 15,
+        "startChar": 71,
+        "endLine": 15,
+        "endChar": 72
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90d03314_9364a650",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -259,6 +331,30 @@
       "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f730e278_01b8723e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-04-14T06:06:06Z",
+      "side": 1,
+      "message": "Tests are passed on both UI",
+      "parentUuid": "f567b2b0_39bdfdb1",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 70
+      },
+      "revId": "ddc566dc95ad2b1b7c9cd91d5b4a2a0eeb689f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
