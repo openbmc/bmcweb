@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e327eaa_29634569",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "It is listed above: smbios-mdr repo, cpuinfoapp application",
+      "parentUuid": "ab7330dd_edbeee76",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc292991_82c2e4b1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-14T17:29:36Z",
       "side": 1,
       "message": "I would\u0027ve assumed one of these error codes would be not found.\n\nMost things tend to check something like:\nif (ec.value() \u003d\u003d boost::system::errc::host_unreachable)\n\nBut we\u0027re wildly inconsistent here, so you\u0027ll likely need to check what return code your service returns.",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "617cca53_bfe67e42",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "At this point, ObjectMapper already told us this service/object/interface exists, so my reasoning is that any other D-Bus error is a Redfish internalError. What other Redfish error would we return if the service doesn\u0027t exist even though it did just a second ago? Especially since you suggested below that the service not existing should result in an internalError?",
+      "parentUuid": "dc292991_82c2e4b1",
       "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e28dd122_ed73c6f8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "I don\u0027t think it should be 404 - as we already established at this point in the code that the Redfish object exists. My reasoning for propertyUnknown is that it\u0027s more useful than internalError - as explained in the comment, the property would not be shown if the user GETs the object. But I will change to internalError if you prefer.",
+      "parentUuid": "d5e5c61a_3abcc171",
+      "range": {
+        "startLine": 954,
+        "startChar": 18,
+        "endLine": 954,
+        "endChar": 33
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da555b6c_ba676dd6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -70,6 +130,30 @@
       "writtenOn": "2021-04-14T17:29:36Z",
       "side": 1,
       "message": "Please see and participate in the discussions on this topic of associations versus dbus path hierarchy.  It\u0027s not clear this is a good design pattern to use in general, and if it\u0027s something you need, you should weigh in.",
+      "range": {
+        "startLine": 970,
+        "startChar": 7,
+        "endLine": 970,
+        "endChar": 78
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68e0dea6_31cc7b44",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "Where is the discussion? I don\u0027t see anything on the mailing list?",
+      "parentUuid": "da555b6c_ba676dd6",
       "range": {
         "startLine": 970,
         "startChar": 7,
@@ -116,6 +200,30 @@
       "writtenOn": "2021-04-14T17:29:36Z",
       "side": 1,
       "message": "This is generally not how you would check for 404, as it requires two blocking transactions.  You would normally check the return codes to the patch call.",
+      "range": {
+        "startLine": 1250,
+        "startChar": 0,
+        "endLine": 1252,
+        "endChar": 27
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01722c66_5c823a34",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "The question of whether the resource exists is totally separate from whether the PATCH is valid - that\u0027s why I added getProcessorObject. And it doesn\u0027t add any transactions - we would have to do an ObjectMapper lookup to find the backend to handle the PATCH anyway - this just does it upfront in a \"complete\" way to determine whether the resource really exists at all.",
+      "parentUuid": "310100e0_5178b8a3",
       "range": {
         "startLine": 1250,
         "startChar": 0,

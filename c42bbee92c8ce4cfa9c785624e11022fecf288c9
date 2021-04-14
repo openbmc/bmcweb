@@ -149,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "21d80dbe_e4a2df75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "closing stale comment",
+      "parentUuid": "ad7d9197_4490e7a6",
+      "revId": "c42bbee92c8ce4cfa9c785624e11022fecf288c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c250c6f_dc0d1e12",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -217,6 +235,30 @@
       "revId": "c42bbee92c8ce4cfa9c785624e11022fecf288c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb9ccbc_21253bdd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-14T20:01:10Z",
+      "side": 1,
+      "message": "closing stale comment",
+      "parentUuid": "2a0eb9c8_b9a6c284",
+      "range": {
+        "startLine": 780,
+        "startChar": 9,
+        "endLine": 780,
+        "endChar": 36
+      },
+      "revId": "c42bbee92c8ce4cfa9c785624e11022fecf288c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
