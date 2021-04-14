@@ -22,6 +22,30 @@
       "revId": "ac9dfe2a8ba5c96ba82620ed5496b7586f9e95eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "918d6a61_c8c6528f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-14T01:32:44Z",
+      "side": 1,
+      "message": "Right now, we did not use the method of association, but by intercepting the last one `/` getting the core name.\n\nI think we can review this way now, and I will push a new patch after we update the association.json file.",
+      "parentUuid": "c9188d3d_be44dea9",
+      "range": {
+        "startLine": 12,
+        "startChar": 26,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "ac9dfe2a8ba5c96ba82620ed5496b7586f9e95eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
