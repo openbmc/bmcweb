@@ -397,6 +397,22 @@ inline void requestRoutes(App& app)
                         // If the socket file exists (i.e. after bmcweb crash),
                         // we cannot reuse it.
                         std::remove((*socketValue).c_str());
+                        std::filesystem::path socketPath(*socketValue);
+                        if (!std::filesystem::exists(socketPath.parent_path()))
+                        {
+                            try
+                            {
+                                std::filesystem::create_directories(
+                                    socketPath.parent_path());
+                            }
+                            catch (const std::exception& ec)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Error creating directory for socket. "
+                                    << ec.what();
+                                return;
+                            }
+                        }
 
                         sessions[&conn] = std::make_shared<NbdProxyServer>(
                             conn, *socketValue, *endpointValue,
