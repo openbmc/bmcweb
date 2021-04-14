@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95af8a8d_29a084bc",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-14T08:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d1d597f_7645cb41",
+      "range": {
+        "startLine": 168,
+        "startChar": 62,
+        "endLine": 168,
+        "endChar": 72
+      },
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67f7bbfc_f3cbcd78",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 12
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3c1721eb_0cd4ee2b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-14T08:36:51Z",
+      "side": 1,
+      "message": "In case we do not have \"xyz.openbmc_project.Inventory.Item.Connector\", GetSubTreePaths will return 0 instead of \"boost::system::errc::io_error\". So in that case loop at line 184 will not execute resulting in an empty array instead of an error.\n\nAs you raised the concern, I re-verified the scenario.",
+      "parentUuid": "67f7bbfc_f3cbcd78",
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "605e451b_1dc29a30",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 12
@@ -56,6 +98,24 @@
       "revId": "edba06bb873155f7104868fc27c246e2c425a372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059d26e2_ced56fea",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-14T08:36:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "605e451b_1dc29a30",
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -79,6 +139,30 @@
       "revId": "edba06bb873155f7104868fc27c246e2c425a372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229edf7d_336a00e1",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-14T08:36:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2080579d_9b1b708b",
+      "range": {
+        "startLine": 272,
+        "startChar": 19,
+        "endLine": 272,
+        "endChar": 78
+      },
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
