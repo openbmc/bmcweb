@@ -256,7 +256,8 @@ static void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 aResp->res.jsonValue = vmItemTemplate(name, resName);
 
                 // Check if dbus path is Legacy type
-                if (thispath.find("VirtualMedia/Legacy") != std::string::npos)
+                if (item.first.parent_path().str.find("VirtualMedia/Legacy") !=
+                    std::string::npos)
                 {
                     aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                         ["target"] =
