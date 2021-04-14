@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab7330dd_edbeee76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "Can you give a pointer to the backend that you used?",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc292991_82c2e4b1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "I would\u0027ve assumed one of these error codes would be not found.\n\nMost things tend to check something like:\nif (ec.value() \u003d\u003d boost::system::errc::host_unreachable)\n\nBut we\u0027re wildly inconsistent here, so you\u0027ll likely need to check what return code your service returns.",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e5c61a_3abcc171",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "This isn\u0027t quite right.  Property Unknown would be for when the user provided a property we don\u0027t understand or know how to handle.  I suspect this should be 404 or internal error.",
+      "range": {
+        "startLine": 954,
+        "startChar": 18,
+        "endLine": 954,
+        "endChar": 33
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da555b6c_ba676dd6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "Please see and participate in the discussions on this topic of associations versus dbus path hierarchy.  It\u0027s not clear this is a good design pattern to use in general, and if it\u0027s something you need, you should weigh in.",
+      "range": {
+        "startLine": 970,
+        "startChar": 7,
+        "endLine": 970,
+        "endChar": 78
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eebd5c92_8a455db6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "FYI, this method is going away in lieu of sdbusplus::message::object_path::operator/\n\nThere\u0027s also discussion on this going on in the forums.  You might want to weigh in there.",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 53
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "310100e0_5178b8a3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "This is generally not how you would check for 404, as it requires two blocking transactions.  You would normally check the return codes to the patch call.",
+      "range": {
+        "startLine": 1250,
+        "startChar": 0,
+        "endLine": 1252,
+        "endChar": 27
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82463be_3788243c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-14T17:29:36Z",
+      "side": 1,
+      "message": "Please do this parsing at the higher scope.  This allows passing a much smaller payload into the lambda.",
+      "range": {
+        "startLine": 1258,
+        "startChar": 0,
+        "endLine": 1266,
+        "endChar": 21
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
