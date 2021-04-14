@@ -397,6 +397,17 @@ inline void requestRoutes(App& app)
                         // If the socket file exists (i.e. after bmcweb crash),
                         // we cannot reuse it.
                         std::remove((*socketValue).c_str());
+                        std::filesystem::path socketPath(*socketValue);
+                        std::error_code fsErr;
+                        if (!std::filesystem::exists(socketPath.parent_path(),
+                                                     fsErr))
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "VirtualMedia socket directory not present. "
+                                << socketPath.parent_path();
+                            conn.close("Unable to create unix socket");
+                            return;
+                        }
 
                         sessions[&conn] = std::make_shared<NbdProxyServer>(
                             conn, *socketValue, *endpointValue,
