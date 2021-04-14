@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "20837805_787f9710",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T09:39:59Z",
+      "side": 1,
+      "message": "\u003e fan0_0 and fan0_1 are equivalent to fan0, \n\u003e fan1_0 and fan1_1 are equivalent to fan1.\n\nOkay.. So. on my system, I have these : \n\n├─/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\n├─/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/fan0_0\n└─/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/fan0_1\n\n....\n\nIf I have to READ(GET) / WRITE(PATCH) the LED associated with \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\", how will I be able to do it ?.\n\nThe associations that are present are : \n\n/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/identify_led_group --\u003e /xyz/openbmc_project/led/groups/fan0_identify\n\n/xyz/openbmc_project/led/groups/fan0_identify/identify_inventory_object --\u003e /xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\n\nDo you have a test case that you could update the commit message with ?.. ( May be this can be in a commit message that moves  the LocationIndicatorActive support to a new commit ?",
+      "parentUuid": "46234c01_175e0485",
+      "revId": "7cd6cb2db218f754602ebe84cfba1a4976e9dc08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1523f04_49feb9e6",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 17
