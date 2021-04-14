@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccca5f63_a17a7663",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-04-14T14:34:32Z",
+      "side": 1,
+      "message": "Try catch blocks are not entertained in bmcweb code.",
+      "range": {
+        "startLine": 403,
+        "startChar": 28,
+        "endLine": 414,
+        "endChar": 29
+      },
+      "revId": "c1db0df639b4033c4866c74ac21526a21859ebc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71aa25d7_668e3944",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-04-14T14:34:32Z",
+      "side": 1,
+      "message": "Creating the directory required for unix domain socket is virtual-media service responsibility ( It does created while starting the service).  The bmcweb service is consumer of MountPoints properties exposed by virtual-media service. So force creating directory here is kind of work around but actual RC lies why its not created by VirtualMeida and what other consequences if those mountPoints are exposed over dbus but having these kind of environment issues?",
+      "range": {
+        "startLine": 401,
+        "startChar": 24,
+        "endLine": 415,
+        "endChar": 25
+      },
+      "revId": "c1db0df639b4033c4866c74ac21526a21859ebc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
