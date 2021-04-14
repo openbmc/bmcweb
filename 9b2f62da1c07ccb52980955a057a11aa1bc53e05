@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd8913b7_f8e5b6cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T06:04:49Z",
+      "side": 1,
+      "message": "Thanks.. Is it possible to break this and have a separate commit ONLY for GET and PATCH of LocationIndicatorActive with appropriate commit messages and test results ?",
+      "revId": "9b2f62da1c07ccb52980955a057a11aa1bc53e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
