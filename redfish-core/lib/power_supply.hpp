@@ -1,5 +1,7 @@
 #pragma once
 
+#include "led.hpp"
+
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -467,6 +469,7 @@ inline void
         }
 
         getEfficiencyPercent(asyncResp);
+        getLocationIndicatorActive(asyncResp, powerSupplyPath);
     };
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(asyncResp, *validChassisPath, chassisId,
@@ -489,6 +492,60 @@ inline void
         std::bind_front(doPowerSupplyGet, asyncResp, chassisId, powerSupplyId));
 }
 
+inline void
+    doPatchPowerSupply(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::optional<bool> locationIndicatorActive,
+                       const std::string& /* service */,
+                       const std::string& powerSupplyPath,
+                       const std::vector<std::string>& /* interfaces */)
+{
+    if (locationIndicatorActive)
+    {
+        setLocationIndicatorActive(asyncResp, powerSupplyPath,
+                                   *locationIndicatorActive);
+    }
+}
+
+inline void
+    handlePowerSupplyPatch(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& chassisId,
+                           const std::string& powerSupplyId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::optional<bool> locationIndicatorActive;
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "LocationIndicatorActive",
+                                  locationIndicatorActive))
+    {
+        return;
+    }
+
+    auto respHandler =
+        [asyncResp, chassisId, powerSupplyId, locationIndicatorActive](
+            const std::optional<std::string>& validChassisPath) {
+        if (!validChassisPath)
+        {
+            BMCWEB_LOG_ERROR << "Not a valid chassis ID" << chassisId;
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+            return;
+        }
+
+        // Get the correct power supply Path that match the input parameters
+        getValidPowerSupplyPath(asyncResp, *validChassisPath, chassisId,
+                                powerSupplyId,
+                                std::bind_front(doPatchPowerSupply, asyncResp,
+                                                locationIndicatorActive));
+    };
+
+    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
+                                                std::bind_front(respHandler));
+}
+
 inline void requestRoutesPowerSupply(App& app)
 {
     BMCWEB_ROUTE(
@@ -496,6 +553,12 @@ inline void requestRoutesPowerSupply(App& app)
         .privileges(redfish::privileges::getPowerSupply)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePowerSupplyGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Chassis/<str>/PowerSubsystem/PowerSupplies/<str>/")
+        .privileges(redfish::privileges::patchPowerSupply)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handlePowerSupplyPatch, std::ref(app)));
 }
 
 } // namespace redfish
