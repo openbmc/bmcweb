@@ -257,6 +257,11 @@ inline void getFanInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                                                 asyncResp,
                                                                 connectionName,
                                                                 fanPath);
+                                                            // Get fan location
+                                                            // indicator state
+                                                            getLocationIndicatorActive(
+                                                                asyncResp,
+                                                                fanPath);
                                                         }
                                                     },
                                                     "xyz.openbmc_project."
@@ -612,6 +617,132 @@ class Fan : public Node
             asyncResp->res.jsonValue["@odata.id"] = newPath + fanId + "/";
             // Get fan inventory item
             getFanInventoryItem(asyncResp, chassisId, fanId);
+        };
+        redfish::chassis_utils::getValidChassisID(asyncResp, chassisId,
+                                                  std::move(getChassisId));
+    }
+
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        if (params.size() != 2)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::optional<bool> locationIndicatorActive;
+        if (!json_util::readJson(req, asyncResp->res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        if (!locationIndicatorActive)
+        {
+            return;
+        }
+
+        bool active = *locationIndicatorActive;
+
+        const std::string& chassisId = params[0];
+        const std::string& fanId = params[1];
+
+        auto getChassisId = [asyncResp, chassisId, fanId,
+                             active](const std::optional<std::string>&
+                                         validChassisId) {
+            if (!validChassisId)
+            {
+                BMCWEB_LOG_ERROR << "Not a valid chassis Id:" << chassisId;
+                messages::resourceNotFound(asyncResp->res, "Chassis",
+                                           chassisId);
+                return;
+            }
+
+            const std::array<std::string, 1> sensorInterfaces = {
+                "xyz.openbmc_project.Sensor.Value"};
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, fanId,
+                 active](const boost::system::error_code ec,
+                         const std::vector<std::string>& subtreepaths) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error";
+                        if (ec.value() == boost::system::errc::io_error)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res,
+                                "fan inventory item,fanId = ", fanId);
+                            return;
+                        }
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    for (const auto& tempsubtreepath : subtreepaths)
+                    {
+                        sdbusplus::message::object_path path(tempsubtreepath);
+                        const std::string& leaf = path.filename();
+                        if (leaf.empty())
+                        {
+                            continue;
+                        }
+                        if (leaf == fanId)
+                        {
+                            const std::string& tempPath =
+                                tempsubtreepath + "/inventory";
+
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp, fanId, active](
+                                    const boost::system::error_code ec,
+                                    const std::variant<
+                                        std::vector<std::string>>& property) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "DBUS response error";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    auto* values =
+                                        std::get_if<std::vector<std::string>>(
+                                            &property);
+                                    if (values == nullptr)
+                                    {
+                                        // illegal property
+                                        BMCWEB_LOG_DEBUG << "No endpoints, "
+                                                            "skipping get fan ";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    for (const auto& fanPath : *values)
+                                    {
+                                        // Set the Fan
+                                        // LocationIndicatorActive
+                                        setLocationIndicatorActive(
+                                            asyncResp, fanPath, active);
+                                    }
+                                },
+                                "xyz.openbmc_project.ObjectMapper", tempPath,
+                                "org.freedesktop.DBus.Properties", "Get",
+                                "xyz.openbmc_project.Association", "endpoints");
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "This is not a fan-related sensor  " << leaf;
+                            continue;
+                        }
+                        return;
+                    }
+                    asyncResp->res.clear();
+                    messages::resourceNotFound(asyncResp->res, "fan", fanId);
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                "/xyz/openbmc_project/sensors", 0, sensorInterfaces);
         };
         redfish::chassis_utils::getValidChassisID(asyncResp, chassisId,
                                                   std::move(getChassisId));
