@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3e932ae_7fef376e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 46
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T10:34:56Z",
+      "side": 1,
+      "message": "A client would do the GET operation on `LocationIndicatorActive` property to know the current state of the said LED group status.\n\nTo locate or identify a CPU, client would do PATCH operation on `LocationIndicatorActive` property. When this is done, bmcweb looks at the associated LED Group D-Bus object which is pointed to by `identify_led_group` association of the Inventory D-Bus object and then sets the Asserted property of the LED Group D-Bus object.\n\nIf the PATCH value is [true], the Asserted property of LED Group D-Bus object is set to [true]. If not, it\u0027s set to [false]\n\nLED GroupManager would then do what is needed as a response to getting the group Asserted property set. It can be turning [on] one or more LEDs or turning them [off].",
+      "revId": "662cbbe4cdaa1350f0c96567c41445b8f651b521",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
