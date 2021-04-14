@@ -140,6 +140,24 @@
     },
     {
       "key": {
+        "uuid": "dbb863fe_9a1da381",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T16:38:37Z",
+      "side": 1,
+      "message": "Thanks.. So. for 1119, if client sends a request without patch data .. correct ?",
+      "parentUuid": "2aa5bbd4_2d93f1ff",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "643fa1ae_3488a3e6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 47
@@ -169,6 +187,24 @@
       "side": 1,
       "message": "cpu0 !\u003d cpu1 would be an example",
       "parentUuid": "643fa1ae_3488a3e6",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0462c3_1f541ede",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T16:38:37Z",
+      "side": 1,
+      "message": "ahh.. I forgot we are looping through.. yeah. thanks",
+      "parentUuid": "6ea782aa_8a1c6836",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
