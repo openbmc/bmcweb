@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feba91d6_ed53a300",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "Is there any BMCWEB_LOG needed here ?",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e481f9e4_f81ef5e6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "We should be using ObjectMapper: getService since it fails if a particular LED Group D-Bus object is not implemented by LED.GroupManager",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db3f9fd9_5914cedf",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "should we be using Patch instead of Set because this is bmcweb ?",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438f1187_51dd76b2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "Please use the mapper :: getService",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "951fd953_9876aa5e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "should we have BMCWEB_LOG ?",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f83c6d_e9231fdf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "LOG ?.. also, what error case does this map to ?",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643fa1ae_3488a3e6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-14T13:17:48Z",
+      "side": 1,
+      "message": "in what cases name !\u003d cpuId gets into ?",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
