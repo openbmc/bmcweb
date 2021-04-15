@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ca16a24_e37cde01",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-15T06:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f54754d_28cf3c92",
+      "revId": "d74a165f4e83402acf456a6d61556dffc6695420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0e9f55c_c459a020",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 56
@@ -33,6 +51,24 @@
       "revId": "d74a165f4e83402acf456a6d61556dffc6695420",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6050a6_1eb08c13",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-15T06:55:12Z",
+      "side": 1,
+      "message": "It\u0027s not an error if we come here. Here is a filter for all slots. This slot may belong to another chassisID.",
+      "parentUuid": "a0e9f55c_c459a020",
+      "revId": "d74a165f4e83402acf456a6d61556dffc6695420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "823132dc_ea90b2fc",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-15T06:55:12Z",
+      "side": 1,
+      "message": "We push a {} to the tempArray, and We add content to the propertyData at line 213.",
+      "parentUuid": "9e0059db_9bc74c42",
+      "revId": "d74a165f4e83402acf456a6d61556dffc6695420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94f0ee30_f5c44a7e",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 56
@@ -64,6 +118,24 @@
       "writtenOn": "2021-04-14T07:51:00Z",
       "side": 1,
       "message": "So, where is this indexed by numbers ?.",
+      "revId": "d74a165f4e83402acf456a6d61556dffc6695420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877e1379_5008c4e1",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-15T06:55:12Z",
+      "side": 1,
+      "message": "Which index?",
+      "parentUuid": "94f0ee30_f5c44a7e",
       "revId": "d74a165f4e83402acf456a6d61556dffc6695420",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
