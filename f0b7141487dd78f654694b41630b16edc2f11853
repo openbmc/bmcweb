@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2b59cbef_c3d1abf9",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:47:23Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d87545f3_cb2cf483",
+      "revId": "f0b7141487dd78f654694b41630b16edc2f11853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "922f6bf4_953ac39b",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
@@ -30,6 +48,47 @@
       "writtenOn": "2021-04-14T15:17:53Z",
       "side": 1,
       "message": "Don\u0027t we use present to determine this?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/32304979b404c24e32f195d08c667e65b9b34695/xyz/openbmc_project/Inventory/Item.interface.yaml#L9",
+      "revId": "f0b7141487dd78f654694b41630b16edc2f11853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a26016_b0fc7c6d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:47:23Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "922f6bf4_953ac39b",
+      "revId": "f0b7141487dd78f654694b41630b16edc2f11853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e7b383_3527d853",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:47:23Z",
+      "side": 1,
+      "message": "Please remove.  We can assume this is the default if the param isn\u0027t available.  (as gunnar mentioned above)",
+      "range": {
+        "startLine": 548,
+        "startChar": 0,
+        "endLine": 551,
+        "endChar": 21
+      },
       "revId": "f0b7141487dd78f654694b41630b16edc2f11853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
