@@ -1760,7 +1760,7 @@ inline void
                     if (!state)
                     {
                         messages::internalError(aResp->res);
-                        continue;
+                        return;
                     }
 
                     hostWatchdogTimer["FunctionEnabled"] = *state;
@@ -1772,14 +1772,14 @@ inline void
                     if (!s)
                     {
                         messages::internalError(aResp->res);
-                        continue;
+                        return;
                     }
 
                     std::string action = dbusToRfWatchdogAction(*s);
                     if (action.empty())
                     {
                         messages::internalError(aResp->res);
-                        continue;
+                        return;
                     }
                     hostWatchdogTimer["TimeoutAction"] = action;
                 }
