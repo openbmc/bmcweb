@@ -46,6 +46,30 @@
       "revId": "9d723398a9fb903b7db1b63f2332284a079963ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def6bc2e_9b20401b",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:26:58Z",
+      "side": 1,
+      "message": "Seems ok to me.  The key here is that we\u0027re using the filename() api with exact matching, not find, which would be incorrect in some cases.",
+      "parentUuid": "7775b8cb_bc723915",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 79
+      },
+      "revId": "9d723398a9fb903b7db1b63f2332284a079963ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
