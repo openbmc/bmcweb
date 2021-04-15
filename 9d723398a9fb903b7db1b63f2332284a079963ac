@@ -22,6 +22,30 @@
       "revId": "9d723398a9fb903b7db1b63f2332284a079963ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7775b8cb_bc723915",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2021-04-15T09:59:05Z",
+      "side": 1,
+      "message": "There is a following part, that has to be run for both legacy and proxy mode. Just this single item has to be added for legacy. \n\nI think sth like this will implement your concept (if I understood it correctly):\n    auto mode \u003d item.first.parent_path();\n    auto type \u003d mode.parent_path();\n    if (mode.filename().empty() || type.filename().empty())\n        continue; -\u003e here comes unexpected paths\n    if (mode.filename() \u003d\u003d \"Legacy\")\n        aResp-\u003eres.jsonValue \u003d ...\n    ...common part...",
+      "parentUuid": "1e915263_5f133672",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 79
+      },
+      "revId": "9d723398a9fb903b7db1b63f2332284a079963ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
