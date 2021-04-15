@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "d20ce9e2_f96cacd1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-04-15T17:40:05Z",
+      "side": 1,
+      "message": "Moved back to Present. I saw PrettyName, but wasn\u0027t really able to recall existing one so used Availability.\nThanks Gunnar 😊",
+      "parentUuid": "c0024fa6_8cd35d4b",
+      "range": {
+        "startLine": 536,
+        "startChar": 44,
+        "endLine": 536,
+        "endChar": 51
+      },
+      "revId": "014713ec0ae945ec6375870abf3b398181c90d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1031fd2_d25ed8ca",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
