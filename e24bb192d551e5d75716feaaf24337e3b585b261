@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "98c89e0c_94055ba2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T07:33:18Z",
+      "side": 1,
+      "message": "I will push a new patch in the next commit",
+      "parentUuid": "c5872416_5985f9d3",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db3f9fd9_5914cedf",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 47
