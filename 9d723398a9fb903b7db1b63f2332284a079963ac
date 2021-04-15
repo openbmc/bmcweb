@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e915263_5f133672",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T00:36:38Z",
+      "side": 1,
+      "message": "if (thispath.filename() !\u003d \"Legacy\"){\n    continue;\n}\nthispath \u003d thispath.parent_path();\nif (thisPath.filename() !\u003d \"VirtualMedia\"){\n    continue;\n}\n\nThat way there\u0027s no issues if / gets escaped into the vm path.\n\nApologies, I should\u0027ve caught this in my testing, but I don\u0027t have a VM capable system.",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 79
+      },
+      "revId": "9d723398a9fb903b7db1b63f2332284a079963ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
