@@ -239,7 +239,7 @@ class Storage : public Node
                                     {
                                         // illegal property
                                         messages::internalError(asyncResp->res);
-                                        continue;
+                                        return;
                                     }
                                     object[propertyName] = *value;
                                 }
@@ -385,7 +385,7 @@ class Drive : public Node
                                 {
                                     // illegal property
                                     messages::internalError(asyncResp->res);
-                                    continue;
+                                    return;
                                 }
                                 asyncResp->res.jsonValue[propertyName] = *value;
                             }
