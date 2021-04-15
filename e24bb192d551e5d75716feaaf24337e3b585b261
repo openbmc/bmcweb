@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "26e9727d_435bf592",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-15T09:35:54Z",
+      "side": 1,
+      "message": "I am fine with new commit for Mapper.. ( not sure what maintainers want tho ). But, we would need to handle Item.\u003c$item\u003e OR Associations.Definitions",
+      "parentUuid": "98c89e0c_94055ba2",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db3f9fd9_5914cedf",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 47
