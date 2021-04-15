@@ -22,6 +22,29 @@
       "revId": "a391eb87056520946761d3e3705f83d77c41b721",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9758e2b1_ec7c302a",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:41:52Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md.  This is one of the documented common errors.",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 79
+      },
+      "revId": "a391eb87056520946761d3e3705f83d77c41b721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
