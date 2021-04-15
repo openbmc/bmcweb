@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f20c1b81_ea66f9a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-15T00:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e327eaa_29634569",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc292991_82c2e4b1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -256,6 +274,30 @@
       "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b0163b_0e4bffe9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-15T00:05:49Z",
+      "side": 1,
+      "message": "Done, but for context I did it that way so it would be easier to add more PATCHable properties in the future.",
+      "parentUuid": "f82463be_3788243c",
+      "range": {
+        "startLine": 1258,
+        "startChar": 0,
+        "endLine": 1266,
+        "endChar": 21
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
