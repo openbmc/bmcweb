@@ -16,6 +16,24 @@
       "revId": "994ec7e7dd2200936fa5b80f87bf24946ea1e3c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae0d1bb5_3de63c4e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:31:43Z",
+      "side": 1,
+      "message": "Both DIMM and CPU are the same\nsee: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/47/redfish-core/lib/processor.hpp#1103\n\nMaybe I am not following",
+      "parentUuid": "1606717e_adcf3bb1",
+      "revId": "994ec7e7dd2200936fa5b80f87bf24946ea1e3c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
