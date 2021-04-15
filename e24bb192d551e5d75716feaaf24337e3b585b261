@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "15af6db6_a3de8121",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feba91d6_ed53a300",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e481f9e4_f81ef5e6",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 47
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-14T13:17:48Z",
       "side": 1,
       "message": "We should be using ObjectMapper: getService since it fails if a particular LED Group D-Bus object is not implemented by LED.GroupManager",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d71d687_95336785",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "Sorry, I do not think we need to use getService here.\nYes, Logically, it is necessary to obtain ServiceName through GetObject\nBut if we get the serviceName through GetObject by nesting again, I think this is a tedious process, not to mention, for all LED-related interfaces, we can hard-code serviceName (xyz.openbmc_project.LED.GroupManager), and return if it fails. 500 error.\n\nlike L:84, 89, 148, 154, 220, 225, 261,268\n\nIf you disagree, I think I can push a new patch to fix these issues together\n\n@Gunnar, What do you think?",
+      "parentUuid": "e481f9e4_f81ef5e6",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "e59eba03_9cc84b0e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39279fa7_008930b6",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "438f1187_51dd76b2",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 47
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-14T13:17:48Z",
       "side": 1,
       "message": "Please use the mapper :: getService",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985e6df6_ce25169f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "As above",
+      "parentUuid": "438f1187_51dd76b2",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -102,6 +174,24 @@
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc159e2b_8e1baf41",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "951fd953_9876aa5e",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -158,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "6b1957e4_40b7ac27",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "Correct",
+      "parentUuid": "dbb863fe_9a1da381",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "643fa1ae_3488a3e6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 47
@@ -208,6 +316,24 @@
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b9149a_824c3be7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-15T03:32:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ef0462c3_1f541ede",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
