@@ -34,6 +34,24 @@
       "revId": "994ec7e7dd2200936fa5b80f87bf24946ea1e3c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70324e08_646edfed",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-15T05:35:56Z",
+      "side": 1,
+      "message": "hmm.. I am not sure I understood. What I am saying is this : \n\nThe issue that is there for DIMM ( Associations.Definitions OR Item.Dimm ), is also there for CPU ( Associations.DEfinitions OR Item.Cpu ). So, we need to have this for CPU also.\n\nAlso, I believe we need this for PATCH also since we are again looking at GetSubTree with more than 1 interfaces.\n\n\n------------\n\nWe could really do the other thing  ( I think it makes it simple )\n\n- Let Processor and Dimm only look for Inventory.Item.Cpu / Item.Dimm\n- getLocationIndicatorActive and setLocationIndicatorActive can use Associations.Definitions and filter by D-Bus object path. When it is done this way, then it is for SURE that the D-Bus object is CPU -and- is implementing Associations + Item.Cpu\n\nand the same applies to Dimm.",
+      "parentUuid": "ae0d1bb5_3de63c4e",
+      "revId": "994ec7e7dd2200936fa5b80f87bf24946ea1e3c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
