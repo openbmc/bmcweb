@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "42c05137_ee578b8e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "Wow, I\u0027m blind.  Sorry about that;  Fine as is.  Note to self, 30 reviews in a day is too much.",
+      "parentUuid": "f20c1b81_ea66f9a0",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc292991_82c2e4b1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "At this point, ObjectMapper already told us this service/object/interface exists, so my reasoning is that any other D-Bus error is a Redfish internalError. What other Redfish error would we return if the service doesn\u0027t exist even though it did just a second ago? Especially since you suggested below that the service not existing should result in an internalError?",
       "parentUuid": "dc292991_82c2e4b1",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52295ed4_f8cd535e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "\u003e At this point, ObjectMapper already told us this service/object/interface exists, so my reasoning is that any other D-Bus error is a Redfish internalError.\n\n\nThe trick here is that the mapper is an OR of the interfaces, not an AND, so in theory, you could\u0027ve just written to an interface that doesn\u0027t exist on this particular service.  It\u0027s unlikely, but something that\u0027s happened in practice before.\n\n\u003e What other Redfish error would we return if the service doesn\u0027t exist even though it did just a second ago?\n\nThis is less a case of the service not existing, but more a case of the service didn\u0027t have the interfaces you thought it does.  With that said, as I read this with fresh eyes, I\u0027m not super worried about this case.\n\n\u003e Especially since you suggested below that the service not existing should result in an internalError?\n\nI did?  If the service doesn\u0027t exist, it should be 404.",
+      "parentUuid": "617cca53_bfe67e42",
       "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -125,6 +161,30 @@
       "side": 1,
       "message": "I don\u0027t think it should be 404 - as we already established at this point in the code that the Redfish object exists. My reasoning for propertyUnknown is that it\u0027s more useful than internalError - as explained in the comment, the property would not be shown if the user GETs the object. But I will change to internalError if you prefer.",
       "parentUuid": "d5e5c61a_3abcc171",
+      "range": {
+        "startLine": 954,
+        "startChar": 18,
+        "endLine": 954,
+        "endChar": 33
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760b6728_10a62988",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think it should be 404 - as we already established at this point in the code that the Redfish object exists. My reasoning for propertyUnknown is that it\u0027s more useful than internalError\n\nDisagree there.  PropertyUnknown implies that there is a correct property that the user could\u0027ve set, which in this case there isn\u0027t.  OpenBMC has failed internally to meet its own dbus interface and there\u0027s nothing a user can do to correct it, which is the definition of internal error.  You\u0027re right, this should not be 404 if I\u0027m reading the code right.\n\n\u003e - as explained in the comment, the property would not be shown if the user GETs the object. But I will change to internalError if you prefer.\n\nPlease do.",
+      "parentUuid": "e28dd122_ed73c6f8",
       "range": {
         "startLine": 954,
         "startChar": 18,
@@ -207,6 +267,30 @@
     },
     {
       "key": {
+        "uuid": "b80578b1_bfad03a3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "\u003e FYI, this method is going away in lieu of sdbusplus::message::object_path::operator/\n\u003e \n\u003e There\u0027s also discussion on this going on in the forums.  You might want to weigh in there.\n\nPS, I realize that this wasn\u0027t the \"old way\" at the time the patchet was written.  I\u0027m not super worried about it, but just be aware if the regex removal patch lands before this one.",
+      "parentUuid": "eebd5c92_8a455db6",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 53
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "310100e0_5178b8a3",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -242,6 +326,30 @@
       "side": 1,
       "message": "The question of whether the resource exists is totally separate from whether the PATCH is valid - that\u0027s why I added getProcessorObject. And it doesn\u0027t add any transactions - we would have to do an ObjectMapper lookup to find the backend to handle the PATCH anyway - this just does it upfront in a \"complete\" way to determine whether the resource really exists at all.",
       "parentUuid": "310100e0_5178b8a3",
+      "range": {
+        "startLine": 1250,
+        "startChar": 0,
+        "endLine": 1252,
+        "endChar": 27
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b350ac9e_2dc4179d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "\u003e The question of whether the resource exists is totally separate from whether the PATCH is valid - that\u0027s why I added getProcessorObject. And it doesn\u0027t add any transactions - we would have to do an ObjectMapper lookup to find the backend to handle the PATCH anyway - this just does it upfront in a \"complete\" way to determine whether the resource really exists at all.\n\nThat\u0027s a fair point.  I guess I usually see this pattern used with direct access to daemons, but you\u0027re right in this case.  Fine as is.",
+      "parentUuid": "01722c66_5c823a34",
       "range": {
         "startLine": 1250,
         "startChar": 0,
@@ -298,6 +406,30 @@
       "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe9e5ab0_5f37e796",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "Understood, but one transition that\u0027ll have to happen at some point is reducing the scope lifetime of the req object itself to the first callback handler, so we can support more connections and things like http2 in parallel.  The fewer things that follow this pattern, the fewer things that will need fixed, although I realize that it requires passing values through the lambda, which can be onerous.",
+      "parentUuid": "a7b0163b_0e4bffe9",
+      "range": {
+        "startLine": 1258,
+        "startChar": 0,
+        "endLine": 1266,
+        "endChar": 21
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

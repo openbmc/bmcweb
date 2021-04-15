@@ -167,6 +167,24 @@
     },
     {
       "key": {
+        "uuid": "58323558_e79363b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T17:00:45Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, I don\u0027t think we really look at the resolved tag for this kind of thing, so no need to go through closing all the old patchset ones, but if it help you keep track, feel free to use it.",
+      "parentUuid": "21d80dbe_e4a2df75",
+      "revId": "c42bbee92c8ce4cfa9c785624e11022fecf288c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c250c6f_dc0d1e12",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
