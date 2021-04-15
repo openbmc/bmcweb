@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "51f40e47_7dfc6210",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-15T02:15:56Z",
+      "side": 1,
+      "message": "I have resubmitted the support for LocationIndicatorActive,\nSee the link below,\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/42210\n\nDo you mean that with another version, it can be satisfied\nthat it can READ(GET) / WRITE(PATCH) the LED associated with \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\"?\n\nBut in this case, the realization of a single-rotor fan can be done, because a single fan has only one rotor, and only one speed, only one fanId, and no conflict.\n\nFor a dual-rotor fan, the speeds of the two rotors need to be obtained separately, although the asset information is the same. Regarding the positioning light, do the two rotors in a single fan have the same positioning light?\nThe problem encountered is,\nIf you implement READ(GET) / WRITE(PATCH) the LED associated with \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\" then the url is https://${bmc}/redfish/v1/Chassis/chassisId /ThermalSubsystem/Fans/fan0/\nHow to define the speed under this url at this time, there are two speeds, so the above functions have not been implemented before.\n\nMaybe it can be implemented like this， adding an overload, or an association,\nWhen implementing READ(GET) / WRITE(PATCH) the LED associated with \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\"\nRedirect to READ(GET) / WRITE(PATCH) the LED associated with \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/fan0_0\",\nBut adding this is not a bit redundant.",
+      "parentUuid": "20837805_787f9710",
+      "revId": "7cd6cb2db218f754602ebe84cfba1a4976e9dc08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1523f04_49feb9e6",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 17
