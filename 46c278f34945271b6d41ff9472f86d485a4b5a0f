@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "5f8f2cb9_69805ff4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:36:27Z",
+      "side": 1,
+      "message": "\u003e \u003e FYI, there\u0027s more things that need to be done to update a url in a request.  You\u0027ll need to do them.   We should probably encapsulate that in a url() method to be able to set it and parse it in one step.\n\u003e \n\u003e Yes, there is also a problem here, and I haven\u0027t thought of a solution yet.\n\u003e Here we copied a new request called reqS, but how should we modify reqS.url?\n\nI had kind of imagined we\u0027d create a new Request from scratch (not a copy), and copy only the headers over.\n\nreq.setUrl() should be created, and should do the logic here:\nhttps://github.com/openbmc/bmcweb/blob/c47b845812c16495803a858a7bc63f5511daf27d/http/http_connection.hpp#L549\n\n\u003e The new url here is a temporary variable. If reqS.url references this temporary variable, then the temporary variable will be released after the function ends, and reqS.url cannot be used.\n\n\nIf you do the above suggestion, this ownership problem will go away.  req-\u003eurlView will still point at req-\u003etarget() which has the same lifetime as req, and means that you can use url beyond the destruction of this method.",
+      "parentUuid": "19dd2139_5e4730b1",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17096753_5c448eed",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 22
@@ -403,6 +427,30 @@
       "side": 1,
       "message": "\u003e \u003e \u003e I\u0027m really not following.  I have no real problem with making a copy of the Request, because this is really a new request.\n\u003e \u003e But here, the new request is a temporary variable.\n\u003e \u003e When we call app.handle(), DBUS will be called in the code behind. When processing the return result of DBUS, the current function excuteQueryParamAll will return and the temporary variables will be released. Because req is not shared_ptr, and the transfer of req uses \u0026, we will not be able to continue to use new requests in the callback function of DBUS.\n\u003e \n\u003e Technically any such usage of req after the first handler is a bit of an anti-pattern.  I\u0027ve been hoping to scrub the codebase of cases of that for a long time.  For things that need access to the req object, they should be  making the appropriate copies of it in their lambda., not relying on req to stay alive past the first return caller.\n\nDo you mean to use value capture to get req in lambda and use mutable?",
       "parentUuid": "0da45f7e_d3e79f0d",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742c6ecb_36bd3743",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-15T16:36:27Z",
+      "side": 1,
+      "message": "No, I mean any parsing of the request that needs done needs to be done in the first callback, so we can destroy the req after we return from the first handler.",
+      "parentUuid": "085f2193_5290944f",
       "range": {
         "startLine": 53,
         "startChar": 8,
