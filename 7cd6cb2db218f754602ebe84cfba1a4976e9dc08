@@ -127,6 +127,24 @@
     },
     {
       "key": {
+        "uuid": "9ae1bab3_d55e8035",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-15T05:40:11Z",
+      "side": 1,
+      "message": "The LED is associated with Inventory object and hence it must be /system/chassis/motherboard/fan0 and not specific to Rotor.\n\nAlso, do we have 3 different resources for Fan with 2 rotors  ?\n\nExample: \n\n- For the Fan itself\n- For rotor-0\n- For rotor-1\n\nCould you see the Fan and PS implementations that is already existing for v3 ?.. I think it handles that case.",
+      "parentUuid": "51f40e47_7dfc6210",
+      "revId": "7cd6cb2db218f754602ebe84cfba1a4976e9dc08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1523f04_49feb9e6",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 17
