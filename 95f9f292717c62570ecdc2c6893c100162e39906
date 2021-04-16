@@ -16,6 +16,24 @@
       "revId": "95f9f292717c62570ecdc2c6893c100162e39906",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da23b877_f3f85a0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2021-04-16T10:12:52Z",
+      "side": 1,
+      "message": "Hi @Ed  \u0026 @Gunnar,\n\nReason for this change. \n\nIPMI is still used by many Data center management tools, even though Redfish adoption is in progress. In order to maintain the compatibility, and still rely on Redfish in terms of security. It is essential to query all active session of all interfaces through Redfish (not only Redfish, but IPMI etc.). Hence listing the IPMI sessions through Redfish session schema provides a way for management software monitoring to understand known / unknown sessions in the BMC and take suitable action from security point of it.\n\nHope this clarifies. Let me know if you have any other clarification, in terms of why.",
+      "parentUuid": "e3dbcf45_db7f6e82",
+      "revId": "95f9f292717c62570ecdc2c6893c100162e39906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
