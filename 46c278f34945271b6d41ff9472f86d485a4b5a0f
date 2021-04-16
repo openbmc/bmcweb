@@ -320,6 +320,30 @@
     },
     {
       "key": {
+        "uuid": "1f6f755a_8b31c0eb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-16T07:42:35Z",
+      "side": 1,
+      "message": "\u003e If you do the above suggestion, this ownership problem will go away.  req-\u003eurlView will still \u003e point at req-\u003etarget() which has the same lifetime as req, and means that you can use url \u003e \u003e \u003e beyond the destruction of this method.\n\nDo you mean ‘reqS-\u003eurlView will still point at req-\u003etarget() which has the same lifetime as req’? But req-\u003etarget() is not the url required for the second request.\nMaybe I didn\u0027t understand what you mean.",
+      "parentUuid": "232c7c21_c9a80dc4",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "46c278f34945271b6d41ff9472f86d485a4b5a0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17096753_5c448eed",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 22

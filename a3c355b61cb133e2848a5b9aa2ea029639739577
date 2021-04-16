@@ -590,6 +590,30 @@
     },
     {
       "key": {
+        "uuid": "242b2af4_122272d3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-16T07:42:35Z",
+      "side": 1,
+      "message": "I think this can make the program return faster",
+      "parentUuid": "86c1636e_702e519f",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 5
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e3d29de_3a6c48da",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 24
@@ -601,6 +625,30 @@
       "writtenOn": "2021-04-16T05:24:53Z",
       "side": 1,
       "message": "Please don\u0027t separate this check.  We will need to loop over the query params in the future.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcf984b6_11ab02b8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-16T07:42:35Z",
+      "side": 1,
+      "message": "I think we should first confirm that all parameters are valid, and then execute.",
+      "parentUuid": "2e3d29de_3a6c48da",
       "range": {
         "startLine": 66,
         "startChar": 0,
@@ -889,6 +937,30 @@
       "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1e617a_20eb129f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-16T07:42:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e1b84331_46b14ae9",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 23
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
