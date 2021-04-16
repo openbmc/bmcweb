@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "53bfde09_28f0b7c7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-16T02:47:24Z",
+      "side": 1,
+      "message": "Since you check urlParams and parameters in the excuteQueryParamAll method, I do not think you need to overload this method, does make sense?",
+      "parentUuid": "00c78271_d5328d9e",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f09c5823_02063f40",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 24
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "d7a7bab3_ecd91a3b",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-16T02:47:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e35068ad_46e57a4a",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 62
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0aa1b531_bc1dd14f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 24
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "Yes, this is a common method, all parameters will be processed in it. I will make a distinction inside. But now there is only one parameter, and I haven\u0027t figured out how to deal with it. When I do the second parameter, I will modify it again.",
       "parentUuid": "0aa1b531_bc1dd14f",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a69cf92_9411170a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-16T02:47:24Z",
+      "side": 1,
+      "message": "I know what you mean.\nBut I think you need to rename this method in the currect commit, instead of refactoring it later, such as processAllParam(sorry, here is an example, I have no idea 😊)",
+      "parentUuid": "b2f9c0b2_e778c9b7",
       "range": {
         "startLine": 59,
         "startChar": 5,
@@ -366,6 +438,30 @@
       "side": 1,
       "message": "These should be put in a new method.",
       "parentUuid": "32adc7c7_6065770b",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 5
+      },
+      "revId": "a3c355b61cb133e2848a5b9aa2ea029639739577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "726b5f0d_755f58d1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-16T02:47:24Z",
+      "side": 1,
+      "message": "If you refactor these codes, like:\n```\nvoid processAllParam()\n{\n    if (req.urlParams.empty())\n    {\n        return;\n    }\n\t\n    if (!checkparameters(req, aResp))\n    {\n        return;\n    }\n\t\n\tif ()\n\t{\n\t    porcessOnly();\n\t}\n\t\n\tif ()\n\t{\n\t    processSelect();\n\t}\n\t\n\t... ...\n\n}\n```\n\nSo I think these codes need to move to the processOnly() method, Right?",
+      "parentUuid": "b90b5386_09199f43",
       "range": {
         "startLine": 71,
         "startChar": 0,
