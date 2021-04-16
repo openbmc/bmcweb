@@ -199,6 +199,7 @@ inline X509* loadCert(const std::string& filePath)
         X509_free(cert);
         return nullptr;
     }
+    BIO_free(certFileBio);
     return cert;
 }
 
