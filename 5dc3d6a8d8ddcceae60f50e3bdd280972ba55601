@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e0b27a86_079f8745",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-04-16T14:12:23Z",
+      "side": 1,
+      "message": "nit: Better to use \"Invalid login attempted on HTTPS\"\n\nSame change need to be done in register entry as well.",
+      "range": {
+        "startLine": 80,
+        "startChar": 25,
+        "endLine": 80,
+        "endChar": 72
+      },
+      "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6fb2222_e2dd14c3",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 6
