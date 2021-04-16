@@ -2757,7 +2757,8 @@ inline void processSensorList(
 inline void
     getChassisData(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    BMCWEB_LOG_DEBUG << "getChassisData enter";
+    BMCWEB_LOG_DEBUG << "getChassisData enter: "
+                     << sensorsAsyncResp->asyncResp->res.jsonValue;
     auto getChassisCb =
         [sensorsAsyncResp](
             const std::shared_ptr<boost::container::flat_set<std::string>>&
@@ -3092,16 +3093,16 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
         mapComplete(boost::beast::http::status::bad_request, {});
         return;
     }
-    crow::Response res;
-    auto respBuffer = std::make_shared<bmcweb::AsyncResp>(res);
+
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>(*res);
     auto callback =
-        [respBuffer, mapCompleteCb{std::move(mapComplete)}](
+        [asyncResp, mapCompleteCb{std::move(mapComplete)}](
             const boost::beast::http::status status,
             const boost::container::flat_map<std::string, std::string>&
                 uriToDbus) { mapCompleteCb(status, uriToDbus); };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
-        respBuffer, chassis, pathIt->second, node, std::move(callback));
+        asyncResp, chassis, pathIt->second, node, std::move(callback));
     getChassisData(resp);
 }
 
