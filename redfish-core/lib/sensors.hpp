@@ -3092,16 +3092,17 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
         mapComplete(boost::beast::http::status::bad_request, {});
         return;
     }
-    crow::Response res;
-    auto respBuffer = std::make_shared<bmcweb::AsyncResp>(res);
+
+    auto res = std::make_shared<crow::Response>();
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>(*res);
     auto callback =
-        [respBuffer, mapCompleteCb{std::move(mapComplete)}](
+        [res, asyncResp, mapCompleteCb{std::move(mapComplete)}](
             const boost::beast::http::status status,
             const boost::container::flat_map<std::string, std::string>&
                 uriToDbus) { mapCompleteCb(status, uriToDbus); };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
-        respBuffer, chassis, pathIt->second, node, std::move(callback));
+        asyncResp, chassis, pathIt->second, node, std::move(callback));
     getChassisData(resp);
 }
 
