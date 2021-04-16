@@ -118,6 +118,30 @@
       "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2fb5c94_81464d90",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-04-16T14:10:50Z",
+      "side": 1,
+      "message": "This code needs to be wrapped inside compile flag (#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES)\n\nwe have two methods today for Redfish EventLogs.\n 1)  Logging messages to journal with specific \"REDFISH_MESSAGE_ID\" and that will be monitored by rsyslog and extracted to file. \n 2)  Logging all redfish event logs to specific log service and extract from there which IBM uses today.\n\nSo today #1 uses above said compile flag so we need to wrap it around that flag.",
+      "parentUuid": "1de8a3b6_bbf9d10e",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "5dc3d6a8d8ddcceae60f50e3bdd280972ba55601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
