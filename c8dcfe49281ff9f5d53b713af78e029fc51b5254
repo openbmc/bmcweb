@@ -101,6 +101,40 @@
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d00d6a_0d8d2cff",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T13:04:48Z",
+      "side": 1,
+      "message": "hmm.. we do need objectPath as expected by setLocationIndicatorActive.. So, how is this working ?.. May be I am confused.",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477a6658_b29e5c92",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T13:04:48Z",
+      "side": 1,
+      "message": "We need objectPath right ?",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
