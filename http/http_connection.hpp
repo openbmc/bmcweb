@@ -282,9 +282,6 @@ class Connection :
 
         startDeadline(0);
 
-        // Fetch the client IP address
-        readClientIp();
-
         // TODO(ed) Abstract this to a more clever class with the idea of an
         // asynchronous "start"
         if constexpr (std::is_same_v<Adaptor,
@@ -310,6 +307,9 @@ class Connection :
     void handle()
     {
         cancelDeadlineTimer();
+
+        // Fetch the client IP address
+        readClientIp();
 
         bool isInvalidRequest = false;
 
