@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "f9cdbc2a_f8151eb5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-19T22:25:18Z",
+      "side": 1,
+      "message": "\u003e The trick here is that the mapper is an OR of the interfaces, not an AND, so in theory, you could\u0027ve just written to an interface that doesn\u0027t exist on this particular service.\n\nThe code checks that the specific interface is returned by the mapper - so barring a bug in the mapper the interface absolutely existed at some point. I don\u0027t think there are any additional errors to handle here.",
+      "parentUuid": "52295ed4_f8cd535e",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5e5c61a_3abcc171",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -194,6 +212,30 @@
       "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4411065b_0a1d2702",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-19T22:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "760b6728_10a62988",
+      "range": {
+        "startLine": 954,
+        "startChar": 18,
+        "endLine": 954,
+        "endChar": 33
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "b50c090c_0104696e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-19T22:25:18Z",
+      "side": 1,
+      "message": "Switched to using object_path::operator/ - not a problem",
+      "parentUuid": "b80578b1_bfad03a3",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 53
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "310100e0_5178b8a3",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -359,6 +425,30 @@
       "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b2258a3_22e0077d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-19T22:25:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b350ac9e_2dc4179d",
+      "range": {
+        "startLine": 1250,
+        "startChar": 0,
+        "endLine": 1252,
+        "endChar": 27
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
