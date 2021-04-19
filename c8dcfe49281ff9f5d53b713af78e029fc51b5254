@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcd94460_bb7b2c0b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T12:33:02Z",
+      "side": 1,
+      "message": "hmm.. I see this is just ONE.. However, in the GetSubTree, we seem to be looking for \n\nDimm || PersistentMemory.Partition",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05342f39_76926935",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T12:33:02Z",
+      "side": 1,
+      "message": "This comment has references to CPU.. seems a copy-paste from prior commit ?.. Please fix the comment",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6d46be_7bf81615",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T12:33:02Z",
+      "side": 1,
+      "message": "std::find_first_of returns an iterator if there are more than 1 matches, and in that case, we need to walk the iterator.",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d89c0851_e577220b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T12:33:02Z",
+      "side": 1,
+      "message": "residues from cpu commit",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f61f56c4_1174cfa1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T12:33:02Z",
+      "side": 1,
+      "message": "same comment as in getDimm",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a300794b_899e9220",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-19T12:33:02Z",
+      "side": 1,
+      "message": "setDimmData only cares about Associations.Definition.. So, we won\u0027d need to add Item.Dimm here.\n\nOR, are there any other patchable  properties for DIMM resource ?",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
