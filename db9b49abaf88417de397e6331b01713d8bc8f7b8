@@ -286,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "b6f03e82_929a1037",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-04-19T22:33:49Z",
+      "side": 1,
+      "message": "I would like to get this merged asap - any chance I can be grandfathered in with the current d-bus structure before waiting for any discussion to be resolved?\n\nIf no, what if I also post patchsets on top of this that switch to an association-style d-bus structure? I don\u0027t think associations make this feature better, but I\u0027ll do whatever it takes.",
+      "parentUuid": "68e0dea6_31cc7b44",
+      "range": {
+        "startLine": 970,
+        "startChar": 7,
+        "endLine": 970,
+        "endChar": 78
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eebd5c92_8a455db6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
