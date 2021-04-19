@@ -46,6 +46,30 @@
       "revId": "f6c46ac237e754bd2d7b9e14008faa3dca76db1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53c6c8f1_4cbaa62e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3097,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-19T07:21:22Z",
+      "side": 1,
+      "message": "I see that now, but that doesn\u0027t work, because the completion function on the new Response won\u0027t be bound to the connection, so it will effectively do nothing in this case\n\nNow, I will fully admit, I\u0027m not sure what\u0027s going on in this code, it seems to be breaking a lot of conventions around use of the Response object (ie, constructing your own isn\u0027t generally allowed).",
+      "parentUuid": "0e78fd8e_65d004b1",
+      "range": {
+        "startLine": 3097,
+        "startChar": 0,
+        "endLine": 3097,
+        "endChar": 50
+      },
+      "revId": "f6c46ac237e754bd2d7b9e14008faa3dca76db1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
