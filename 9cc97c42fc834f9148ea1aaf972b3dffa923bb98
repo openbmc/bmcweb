@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8ae94c49_854e334c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "57cb580f_bada47c4",
+      "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be4bd7f6_f107eae5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-19T13:05:42Z",
       "side": 1,
       "message": "hmm.. Are there any patchable properties in processor schema besides LocationIndicatorActive ?. If there are none, then we don\u0027t need this 2 way.\n\nThat said, I still see this is a useful feature to have incase something comes up tomorrow.",
+      "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d03f047e_57b9cb02",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:25Z",
+      "side": 1,
+      "message": "At least so far, we only have LocationIndicatorActive, but I don’t know if it will increase in the future",
+      "parentUuid": "be4bd7f6_f107eae5",
       "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "36de8142_98ae6514",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "76a9e9c6_bca55a25",
+      "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36043019_6aab6ff4",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "024b8190_cfecb567",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "36043019_6aab6ff4",
+      "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "291ecfb7_25189fd8",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
@@ -84,6 +156,24 @@
       "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59844deb_c8a71ec4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "291ecfb7_25189fd8",
+      "revId": "9cc97c42fc834f9148ea1aaf972b3dffa923bb98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
