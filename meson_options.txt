@@ -41,5 +41,3 @@ option ('insecure-disable-auth', type : 'feature', value : 'disabled', descripti
 option ('insecure-disable-xss', type : 'feature', value : 'disabled', description : 'Disable XSS preventions')
 option ('insecure-tftp-update', type : 'feature', value : 'disabled', description : '''Enable TFTP based firmware update transactions through Redfish UpdateService.SimpleUpdate.''')
 option ('insecure-push-style-notification',type : 'feature', value : 'disabled', description : 'Enable HTTP push style eventing feature')
-option ('validate-unsecure-feature', type : 'feature', value : 'disabled', description : '''Enables unsecure features required by validation. Note: mustbe turned off for production images.''')
-option ('insecure-sensor-override', type : 'feature', value : 'disabled', description : 'Enables Sensor override feature without any check.')
