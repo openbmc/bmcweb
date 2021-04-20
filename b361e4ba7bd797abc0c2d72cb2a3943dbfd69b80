@@ -46,6 +46,30 @@
       "revId": "b361e4ba7bd797abc0c2d72cb2a3943dbfd69b80",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c7cfd1_5d193311",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-20T03:32:25Z",
+      "side": 1,
+      "message": "The task I\u0027m doing depends on this commit, so I tested this commit and run into core dump failure. Can you test here again?",
+      "parentUuid": "f900f261_af98de19",
+      "range": {
+        "startLine": 274,
+        "startChar": 20,
+        "endLine": 274,
+        "endChar": 80
+      },
+      "revId": "b361e4ba7bd797abc0c2d72cb2a3943dbfd69b80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
