@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "67e218da_7bc33654",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Yes, the prerequisite to find all interfaces is that `xyz.openbmc_project.Inventory.Item.Dimm` must exist, So here is only ONE",
+      "parentUuid": "dcd94460_bb7b2c0b",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05342f39_76926935",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 39
@@ -33,6 +51,24 @@
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ea6f919_4f1df74a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "05342f39_76926935",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "29e7e7fc_3551ced3",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee6d46be_7bf81615",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d89c0851_e577220b",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 39
@@ -67,6 +121,24 @@
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ecf09eb_fed75dec",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d89c0851_e577220b",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "246aeedc_2215c7b8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f61f56c4_1174cfa1",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a300794b_899e9220",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 39
@@ -98,6 +188,24 @@
       "writtenOn": "2021-04-19T12:33:02Z",
       "side": 1,
       "message": "setDimmData only cares about Associations.Definition.. So, we won\u0027d need to add Item.Dimm here.\n\nOR, are there any other patchable  properties for DIMM resource ?",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "867c1365_26492254",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "\u003e setDimmData only cares about Associations.Definition.. So, we won\u0027d need to add Item.Dimm here.\n\nI do not think so, logicaly, the premise for us to obtain all interfaces is to include xyz.openbmc_project.Inventory.Item.Dimm",
+      "parentUuid": "a300794b_899e9220",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "31a1dcc9_079b1f7c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Sorry, This is wrong, Updated.",
+      "parentUuid": "f8d00d6a_0d8d2cff",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "477a6658_b29e5c92",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 39
@@ -135,6 +261,24 @@
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a099ee_cd652e3c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-20T08:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "477a6658_b29e5c92",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
