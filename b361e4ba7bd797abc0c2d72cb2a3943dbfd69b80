@@ -70,6 +70,30 @@
       "revId": "b361e4ba7bd797abc0c2d72cb2a3943dbfd69b80",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60563cf_3a8b0079",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-20T10:10:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5c7cfd1_5d193311",
+      "range": {
+        "startLine": 274,
+        "startChar": 20,
+        "endLine": 274,
+        "endChar": 80
+      },
+      "revId": "b361e4ba7bd797abc0c2d72cb2a3943dbfd69b80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
