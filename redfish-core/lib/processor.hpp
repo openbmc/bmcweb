@@ -19,6 +19,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
@@ -555,6 +556,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 highSpeedCoreIdsHandler(aResp, *baseSpeedList);
                             }
                         },
+                        // TODO: don't assume the config is on the same service
                         service, dbusPath, "org.freedesktop.DBus.Properties",
                         "Get",
                         "xyz.openbmc_project.Inventory.Item.Cpu."
@@ -963,26 +965,54 @@ inline void patchAppliedOperatingConfig(
         return;
     }
 
-    // This assumes that the config object is a direct child of the cpu object
-    // on D-Bus. This is slightly more strict than the GET path, which assumes
-    // any descendant rather than child. But we need to ensure the value written
-    // to AppliedConfig is a valid path, so this just encodes any invalid chars.
     std::string configBaseName = appliedConfigUri.substr(expectedPrefix.size());
-    sdbusplus::message::object_path configPath(cpuObjectPath);
-    configPath /= configBaseName;
 
-    BMCWEB_LOG_INFO << "Setting config to " << configPath.str;
+    // Get the list of associated config objects
+    using EndpointsType = std::vector<std::string>;
+    sdbusplus::asio::getProperty<EndpointsType>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        cpuObjectPath + "/operating_configs", "xyz.openbmc_project.Association",
+        "endpoints",
+        [resp, configBaseName, service = *controlService, appliedConfigUri,
+         cpuObjectPath](boost::system::error_code ec,
+                        const EndpointsType& endpoints) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error: " << ec.message();
+                messages::internalError(resp->res);
+                return;
+            }
 
-    // Set the property, with handler to check error responses
-    crow::connections::systemBus->async_method_call(
-        [resp, appliedConfigUri](boost::system::error_code ec,
-                                 sdbusplus::message::message& msg) {
-            handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
-        },
-        *controlService, cpuObjectPath, "org.freedesktop.DBus.Properties",
-        "Set", "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "AppliedConfig",
-        std::variant<sdbusplus::message::object_path>(std::move(configPath)));
+            // Look for an associated object with a basename matching the
+            // basename of the PATCHed URI.
+            for (const std::string& config : endpoints)
+            {
+                sdbusplus::message::object_path configPath(config);
+                if (configPath.filename() == configBaseName)
+                {
+                    BMCWEB_LOG_INFO << "Setting config to " << configPath.str;
+
+                    // Set the property, with handler to check error responses
+                    crow::connections::systemBus->async_method_call(
+                        [resp,
+                         appliedConfigUri](boost::system::error_code ec,
+                                           sdbusplus::message::message& msg) {
+                            handleAppliedConfigResponse(resp, appliedConfigUri,
+                                                        ec, msg);
+                        },
+                        service, cpuObjectPath,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Control.Processor."
+                        "CurrentOperatingConfig",
+                        "AppliedConfig",
+                        std::variant<sdbusplus::message::object_path>(
+                            std::move(configPath)));
+                    return;
+                }
+            }
+            messages::propertyValueIncorrect(
+                resp->res, "AppliedOperatingConfig", appliedConfigUri);
+        });
 }
 
 class OperatingConfigCollection : public Node
@@ -1043,15 +1073,48 @@ class OperatingConfigCollection : public Node
                     // Not expected that there will be multiple matching CPU
                     // objects, but if there are just use the first one.
 
-                    // Use the common search routine to construct the Collection
-                    // of all Config objects under this CPU.
-                    collection_util::getCollectionMembers(
-                        asyncResp,
-                        "/redfish/v1/Systems/system/Processors/" + cpuName +
-                            "/OperatingConfigs",
-                        {"xyz.openbmc_project.Inventory.Item.Cpu."
-                         "OperatingConfig"},
-                        object.c_str());
+                    std::string endpointPath(object);
+                    endpointPath += "/operating_configs";
+
+                    BMCWEB_LOG_DEBUG << "Looking for associations on "
+                                     << endpointPath;
+
+                    using EndpointsType = std::vector<std::string>;
+                    sdbusplus::asio::getProperty<EndpointsType>(
+                        *crow::connections::systemBus,
+                        "xyz.openbmc_project.ObjectMapper", endpointPath,
+                        "xyz.openbmc_project.Association", "endpoints",
+                        [asyncResp, cpuName](boost::system::error_code ec,
+                                             const EndpointsType& endpoints) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_DEBUG << "DBUS response error: "
+                                                 << ec.message();
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            std::string collectionPath =
+                                "/redfish/v1/Systems/system/Processors/" +
+                                cpuName + "/OperatingConfigs/";
+                            nlohmann::json& members =
+                                asyncResp->res.jsonValue["Members"];
+                            members = nlohmann::json::array();
+
+                            for (const auto& object : endpoints)
+                            {
+                                sdbusplus::message::object_path path(object);
+                                std::string leaf = path.filename();
+                                if (leaf.empty())
+                                {
+                                    continue;
+                                }
+                                std::string newPath = collectionPath + leaf;
+                                members.push_back(
+                                    {{"@odata.id", std::move(newPath)}});
+                            }
+                            asyncResp->res.jsonValue["Members@odata.count"] =
+                                members.size();
+                        });
                     return;
                 }
             },
