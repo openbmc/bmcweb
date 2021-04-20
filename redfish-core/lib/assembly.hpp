@@ -1,5 +1,7 @@
 #pragma once
 
+#include "led.hpp"
+
 #include <utils/json_utils.hpp>
 
 #include <variant>
@@ -189,6 +191,11 @@ inline void
                         }
                     }
                 }
+
+                nlohmann::json& assemblyArray =
+                    aResp->res.jsonValue["Assemblies"];
+                nlohmann::json& assemblyData = assemblyArray.at(assemblyIndex);
+                getLocationIndicatorActive(aResp, assembly, assemblyData);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -205,6 +212,38 @@ inline void
 }
 
 /**
+ * @brief Set location indicator for the assemblies associated to given chassis
+ * @param[in] aResp - Shared pointer for asynchronous calls.
+ * @param[in] chassis - Chassis the assemblies are associated with.
+ * @param[in] assemblies - list of all the assemblies associated with the
+ * chassis.
+ * @param[in] req - The request data
+ * @return None.
+ */
+inline void setAssemblylocationIndicators(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassis, const std::vector<std::string>& assemblies,
+    const std::map<std::string, bool>& locationIndicatorActiveMap)
+{
+    BMCWEB_LOG_DEBUG
+        << "Set locationIndicator for assembly associated to chassis ="
+        << chassis;
+
+    std::size_t assemblyIndex = 0;
+    for (const auto& assembly : assemblies)
+    {
+        auto iter =
+            locationIndicatorActiveMap.find(std::to_string(assemblyIndex));
+
+        if (iter != locationIndicatorActiveMap.end())
+        {
+            setLocationIndicatorActive(asyncResp, assembly, iter->second);
+        }
+        assemblyIndex++;
+    }
+}
+
+/**
  * @brief Api to check if the assemblies fetched from association Json is also
  * implemented in the system. In case the interface for that assembly is not
  * found update the list and fetch properties for only implemented assemblies.
@@ -212,15 +251,19 @@ inline void
  * @param[in] chassisPath - Chassis the assemblies are associated with.
  * @param[in] assemblies - list of all the assemblies associated with the
  * chassis.
+ * @param[in] setLocationIndicatorActiveFlag - The doPatch flag.
+ * @param[in] req - The request data.
  * @return None.
  */
-inline void
-    checkAssemblyInterface(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                           const std::string& chassisPath,
-                           std::vector<std::string>& assemblies)
+inline void checkAssemblyInterface(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::string& chassisPath, std::vector<std::string>& assemblies,
+    const bool& setLocationIndicatorActiveFlag,
+    const std::map<std::string, bool>& locationIndicatorActiveMap)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp, chassisPath, assemblies](
+        [aResp, chassisPath, assemblies, setLocationIndicatorActiveFlag,
+         locationIndicatorActiveMap](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -262,7 +305,17 @@ inline void
                 std::sort(updatedAssemblyList.begin(),
                           updatedAssemblyList.end());
 
-                getAssemblyProperties(aResp, chassisPath, updatedAssemblyList);
+                if (setLocationIndicatorActiveFlag)
+                {
+                    setAssemblylocationIndicators(aResp, chassisPath,
+                                                  updatedAssemblyList,
+                                                  locationIndicatorActiveMap);
+                }
+                else
+                {
+                    getAssemblyProperties(aResp, chassisPath,
+                                          updatedAssemblyList);
+                }
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -282,12 +335,14 @@ inline void
  * @param[in] aResp - Shared pointer for asynchronous calls.
  * @param[in] chassisPath - Chassis to which the assemblies are
  * associated.
- *
+ * @param[in] setLocationIndicatorActiveFlag - The doPatch flag.
+ * @param[in] req - The request data.
  * @return None.
  */
-inline void
-    getAssemblyEndpoints(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                         const std::string& chassisPath)
+inline void getAssemblyEndpoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::string& chassisPath, const bool& setLocationIndicatorActiveFlag,
+    const std::map<std::string, bool>& locationIndicatorActiveMap)
 {
 
     BMCWEB_LOG_DEBUG << "Get assembly endpoints";
@@ -298,9 +353,10 @@ inline void
     // if there is assembly association, look
     // for endpoints
     crow::connections::systemBus->async_method_call(
-        [aResp,
-         chassisPath](const boost::system::error_code ec,
-                      const std::variant<std::vector<std::string>>& endpoints) {
+        [aResp, chassisPath, setLocationIndicatorActiveFlag,
+         locationIndicatorActiveMap](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& endpoints) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response "
@@ -321,7 +377,9 @@ inline void
             std::vector<std::string> sortedAssemblyList = *assemblyList;
             std::sort(sortedAssemblyList.begin(), sortedAssemblyList.end());
 
-            checkAssemblyInterface(aResp, chassisPath, sortedAssemblyList);
+            checkAssemblyInterface(aResp, chassisPath, sortedAssemblyList,
+                                   setLocationIndicatorActiveFlag,
+                                   locationIndicatorActiveMap);
             return;
         },
         "xyz.openbmc_project.ObjectMapper", assemblyPath,
@@ -334,12 +392,15 @@ inline void
  * @param[in] aResp - Shared pointer for asynchronous calls.
  * @param[in] chassisPath - Chassis to which the assemblies are
  * associated.
- *
+ * @param[in] setLocationIndicatorActiveFlag - The doPatch flag.
+ * @param[in] req - The request data.
  * @return None.
  */
 inline void checkForAssemblyAssociations(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-    const std::string& chassisPath, const std::string& service)
+    const std::string& chassisPath, const std::string& service,
+    const bool& setLocationIndicatorActiveFlag,
+    const std::map<std::string, bool>& locationIndicatorActiveMap)
 {
     BMCWEB_LOG_DEBUG << "Check for assembly association";
 
@@ -347,9 +408,10 @@ inline void checkForAssemblyAssociations(
         std::vector<std::tuple<std::string, std::string, std::string>>;
 
     crow::connections::systemBus->async_method_call(
-        [aResp,
-         chassisPath](const boost::system::error_code ec,
-                      const std::variant<associationList>& associations) {
+        [aResp, chassisPath, setLocationIndicatorActiveFlag,
+         locationIndicatorActiveMap](
+            const boost::system::error_code ec,
+            const std::variant<associationList>& associations) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -382,7 +444,9 @@ inline void checkForAssemblyAssociations(
 
             if (isAssmeblyAssociation)
             {
-                getAssemblyEndpoints(aResp, chassisPath);
+                getAssemblyEndpoints(aResp, chassisPath,
+                                     setLocationIndicatorActiveFlag,
+                                     locationIndicatorActiveMap);
             }
         },
         service, chassisPath, "org.freedesktop.DBus.Properties", "Get",
@@ -394,11 +458,14 @@ inline void checkForAssemblyAssociations(
  * @param[in] aResp - Shared pointer for asynchronous calls.
  * @param[in] chassisPath - Chassis to which the assemblies are
  * associated.
- *
+ * @param[in] setLocationIndicatorActiveFlag - The doPatch flag.
+ * @param[in] req - The request data.
  * @return None.
  */
-inline void checkAssociation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                             const std::string& chassisPath)
+inline void checkAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::string& chassisPath, const bool& setLocationIndicatorActiveFlag,
+    const std::map<std::string, bool>& locationIndicatorActiveMap)
 {
     BMCWEB_LOG_DEBUG << "Check chassis for association";
 
@@ -411,12 +478,16 @@ inline void checkAssociation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         return;
     }
 
-    aResp->res.jsonValue["Assemblies"] = nlohmann::json::array();
-    aResp->res.jsonValue["Assemblies@odata.count"] = 0;
+    if (!setLocationIndicatorActiveFlag)
+    {
+        aResp->res.jsonValue["Assemblies"] = nlohmann::json::array();
+        aResp->res.jsonValue["Assemblies@odata.count"] = 0;
+    }
 
     // check if this chassis hosts any association
     crow::connections::systemBus->async_method_call(
-        [aResp, chassisPath](
+        [aResp, chassisPath, setLocationIndicatorActiveFlag,
+         locationIndicatorActiveMap](
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 object) {
@@ -434,8 +505,10 @@ inline void checkAssociation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     if (interface ==
                         "xyz.openbmc_project.Association.Definitions")
                     {
-                        checkForAssemblyAssociations(aResp, chassisPath,
-                                                     serviceName);
+                        checkForAssemblyAssociations(
+                            aResp, chassisPath, serviceName,
+                            setLocationIndicatorActiveFlag,
+                            locationIndicatorActiveMap);
                         return;
                     }
                 }
@@ -455,18 +528,23 @@ namespace assembly
  * @param[in] aResp - Shared pointer for asynchronous calls.
  * @param[in] chassisID - Chassis to which the assemblies are
  * associated.
- *
+ * @param[in] setLocationIndicatorActiveFlag - The doPatch flag.
+ * @param[in] req - The request data.
  * @return None.
  */
-inline void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                       const std::string& chassisID)
+inline void getChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::string& chassisID, const bool& setLocationIndicatorActiveFlag,
+    const std::map<std::string, bool>& locationIndicatorActiveMap = {})
 {
     BMCWEB_LOG_DEBUG << "Get chassis path";
 
     // get the chassis path
     crow::connections::systemBus->async_method_call(
-        [aResp, chassisID](const boost::system::error_code ec,
-                           const std::vector<std::string>& chassisPaths) {
+        [aResp, chassisID, setLocationIndicatorActiveFlag,
+         locationIndicatorActiveMap](
+            const boost::system::error_code ec,
+            const std::vector<std::string>& chassisPaths) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -486,14 +564,18 @@ inline void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     continue;
                 }
 
-                aResp->res.jsonValue["@odata.type"] =
-                    "#Assembly.v1_3_0.Assembly";
-                aResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Chassis/" + chassisID + "/Assembly";
-                aResp->res.jsonValue["Name"] = "Assembly Collection";
-                aResp->res.jsonValue["Id"] = "Assembly";
+                if (!setLocationIndicatorActiveFlag)
+                {
+                    aResp->res.jsonValue["@odata.type"] =
+                        "#Assembly.v1_3_0.Assembly";
+                    aResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Chassis/" + chassisID + "/Assembly";
+                    aResp->res.jsonValue["Name"] = "Assembly Collection";
+                    aResp->res.jsonValue["Id"] = "Assembly";
+                }
 
-                checkAssociation(aResp, path);
+                checkAssociation(aResp, path, setLocationIndicatorActiveFlag,
+                                 locationIndicatorActiveMap);
                 return;
             }
 
@@ -523,8 +605,55 @@ inline void requestRoutesAssembly(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& chassisId) {
+                const bool setLocationIndicatorActiveFlag = false;
+
                 BMCWEB_LOG_DEBUG << "chassis =" << chassisId;
-                assembly::getChassis(asyncResp, chassisId);
+                assembly::getChassis(asyncResp, chassisId,
+                                     setLocationIndicatorActiveFlag);
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisID) {
+                const bool setLocationIndicatorActiveFlag = true;
+
+                BMCWEB_LOG_DEBUG << "Chassis = " << chassisID;
+
+                std::optional<std::vector<nlohmann::json>> assemblyData;
+                if (!json_util::readJson(req, asyncResp->res, "Assemblies",
+                                         assemblyData))
+                {
+                    return;
+                }
+                if (!assemblyData)
+                {
+                    return;
+                }
+
+                std::vector<nlohmann::json> items = std::move(*assemblyData);
+                std::map<std::string, bool> locationIndicatorActiveMap;
+
+                for (auto& item : items)
+                {
+                    bool locationIndicatorActive = false;
+                    std::string memberId;
+
+                    if (!json_util::readJson(
+                            item, asyncResp->res, "LocationIndicatorActive",
+                            locationIndicatorActive, "MemberId", memberId))
+                    {
+                        return;
+                    }
+                    locationIndicatorActiveMap[memberId] =
+                        locationIndicatorActive;
+                }
+
+                assembly::getChassis(asyncResp, chassisID,
+                                     setLocationIndicatorActiveFlag,
+                                     locationIndicatorActiveMap);
             });
 }
 } // namespace redfish
