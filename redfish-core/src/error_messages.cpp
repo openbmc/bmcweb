@@ -2111,7 +2111,7 @@ nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
 {
     return nlohmann::json{
         {"@odata.type", "/redfish/v1/$metadata#Message.v1_1_1.Message"},
-        {"MessageId", "OpenBMC.0.1.0.InvalidUpload"},
+        {"MessageId", "OpenBMC.0.1.1.InvalidUpload"},
         {"Message", "Invalid file uploaded to " + arg1 + ": " + arg2 + "."},
         {"MessageArgs", {arg1, arg2}},
         {"MessageSeverity", "Warning"},

@@ -73,13 +73,13 @@ static const Message* getMessageFromRegistry(
 static const Message* getMessage(const std::string_view& messageID)
 {
     // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
+    // RegistryName.MajorVersion.MinorVersion.SubMinorVersion.MessageKey, so
+    // parse it to find the right Message
     std::vector<std::string> fields;
-    fields.reserve(4);
+    fields.reserve(5);
     boost::split(fields, messageID, boost::is_any_of("."));
     std::string& registryName = fields[0];
-    std::string& messageKey = fields[3];
+    std::string& messageKey = fields[4];
 
     // Find the right registry and check it for the MessageKey
     if (std::string(base::header.registryPrefix) == registryName)
@@ -3176,7 +3176,7 @@ static void fillPostCodeEntry(
 {
     // Get the Message from the MessageRegistry
     const message_registries::Message* message =
-        message_registries::getMessage("OpenBMC.0.1.BIOSPOSTCode");
+        message_registries::getMessage("OpenBMC.0.1.1.BIOSPOSTCode");
 
     uint64_t currentCodeIndex = 0;
     nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
@@ -3278,7 +3278,7 @@ static void fillPostCodeEntry(
                        {"Name", "POST Code Log Entry"},
                        {"Id", postcodeEntryID},
                        {"Message", std::move(msg)},
-                       {"MessageId", "OpenBMC.0.1.BIOSPOSTCode"},
+                       {"MessageId", "OpenBMC.0.1.1.BIOSPOSTCode"},
                        {"MessageArgs", std::move(messageArgs)},
                        {"EntryType", "Event"},
                        {"Severity", std::move(severity)},

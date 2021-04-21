@@ -444,7 +444,7 @@ class Subscription
                         {"EventType", "Event"},
                         {"Severity", "OK"},
                         {"Message", "Generated test event"},
-                        {"MessageId", "OpenBMC.0.1.TestEventLog"},
+                        {"MessageId", "OpenBMC.0.1.1.TestEventLog"},
                         {"MessageArgs", nlohmann::json::array()},
                         {"EventTimestamp", crow::utility::dateTimeNow()},
                         {"Context", customText}};
