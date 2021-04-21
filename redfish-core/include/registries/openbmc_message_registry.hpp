@@ -21,12 +21,12 @@ namespace redfish::message_registries::openbmc
 const Header header = {
     "Copyright 2018 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.1.0",
+    "OpenBMC.0.2.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.1.0",
+    "0.2.0",
     "OpenBMC",
 };
 constexpr std::array<MessageEntry, 187> registry = {
@@ -186,16 +186,17 @@ constexpr std::array<MessageEntry, 187> registry = {
                      },
                      "None.",
                  }},
-    MessageEntry{"BIOSPOSTCode",
-                 {
-                     "BIOS Power-On Self-Test Code received",
-                     "Boot Count: %1: TS Offset: %2; POST Code: %3",
-                     "OK",
-                     "OK",
-                     3,
-                     {"number", "number", "number"},
-                     "None.",
-                 }},
+    MessageEntry{
+        "BIOSPOSTCode",
+        {
+            "BIOS Power-On Self-Test Code received",
+            "Boot Count: %1; Time Stamp Offset: %2 seconds; POST Code: %3",
+            "OK",
+            "OK",
+            3,
+            {"number", "number", "number"},
+            "None.",
+        }},
     MessageEntry{"BIOSPOSTError",
                  {
                      "Indicates BIOS POST has encountered an error.",
