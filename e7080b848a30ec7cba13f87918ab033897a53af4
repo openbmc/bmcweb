@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd32e14d_6c26819b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-21T05:08:08Z",
+      "side": 1,
+      "message": "So apart from api checkAssemblyInterface where actually setAssemblylocationIndicators is being called, all the intermediate api\u0027s in the route are overloaded just to carry the parameter \"locationIndicatorActiveMap\". \nIf the above statement holds true, \nthen instead of duplicating so much code for carrying parameter can we just modify the existing methods like getChassis, getAssembliesLinkedToChassis, checkAssemblyInterface  to carry a flag/indicator to suggest if it called via get or patch and variable \"const crow::Request\u0026 req\" as parameter so that if it is a patch call this extraction of data can take place at that point where actually \"setAssemblylocationIndicators\" is getting called?",
+      "range": {
+        "startLine": 897,
+        "startChar": 8,
+        "endLine": 923,
+        "endChar": 9
+      },
+      "revId": "e7080b848a30ec7cba13f87918ab033897a53af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
