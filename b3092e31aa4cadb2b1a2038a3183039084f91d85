@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "8bb66fe8_0dd86b24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-21T19:59:05Z",
+      "side": 1,
+      "message": "Nit, technically this is the OpenBMC message registry, and the BiosPostCode message id.",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cd2eccb_f2a80a14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-21T19:59:05Z",
+      "side": 1,
+      "message": "weird spacing?",
+      "range": {
+        "startLine": 12,
+        "startChar": 42,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64e3bef1_a4d16a28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-21T19:59:05Z",
+      "side": 1,
+      "message": "More details needed here.  I agree with you, but seeing as how someone wrote this code initially, clearly there\u0027s some dissent, so lets get the position written clearly.",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "427ebb47_c795fb03",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2

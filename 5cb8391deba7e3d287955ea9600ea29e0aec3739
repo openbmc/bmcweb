@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "a3e3e582_2c956e30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-21T19:59:05Z",
+      "side": 1,
+      "message": "I agree, but this should be mentioned in the commit message.",
+      "parentUuid": "a9f4ef63_0cab7028",
+      "revId": "5cb8391deba7e3d287955ea9600ea29e0aec3739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bfd270e_e1feec82",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
