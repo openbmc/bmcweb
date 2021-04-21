@@ -3176,7 +3176,7 @@ static void fillPostCodeEntry(
 {
     // Get the Message from the MessageRegistry
     const message_registries::Message* message =
-        message_registries::getMessage("OpenBMC.0.1.BIOSPOSTCode");
+        message_registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
 
     uint64_t currentCodeIndex = 0;
     nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
@@ -3278,7 +3278,7 @@ static void fillPostCodeEntry(
                        {"Name", "POST Code Log Entry"},
                        {"Id", postcodeEntryID},
                        {"Message", std::move(msg)},
-                       {"MessageId", "OpenBMC.0.1.BIOSPOSTCode"},
+                       {"MessageId", "OpenBMC.0.2.BIOSPOSTCode"},
                        {"MessageArgs", std::move(messageArgs)},
                        {"EntryType", "Event"},
                        {"Severity", std::move(severity)},
