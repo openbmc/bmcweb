@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9bbdc8d_77b81222",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-21T02:14:15Z",
+      "side": 1,
+      "message": "I overloaded your APIs and made some minor changes to suit doPatch. These APIs have one more parameter than your API.  Parameter：“locationIndicatorActiveMap”.",
+      "parentUuid": "01cd24df_734ecc76",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 734,
+        "endChar": 1
+      },
+      "revId": "749ffa381397882e1ec06d5edb4b70d36af35e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63767dc9_e3179a41",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2021-04-20T10:17:27Z",
       "side": 1,
       "message": "This api is also defined at line 746 under namespace. Also why this api is part of this commit? It is already there in the commit implementing assembly.hpp.\nI think you should rebase your commit on top of commit\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39574",
+      "revId": "749ffa381397882e1ec06d5edb4b70d36af35e8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d1cd42_1532f62d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-21T02:14:15Z",
+      "side": 1,
+      "message": "I overloaded your api(line746) and made some minor changes to suit doPatch. Here is one more parameter than line 746.  Parameter：“locationIndicatorActiveMap”.",
+      "parentUuid": "63767dc9_e3179a41",
       "revId": "749ffa381397882e1ec06d5edb4b70d36af35e8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
