@@ -189,7 +189,7 @@ constexpr std::array<MessageEntry, 187> registry = {
     MessageEntry{"BIOSPOSTCode",
                  {
                      "BIOS Power-On Self-Test Code received",
-                     "Boot Count: %1: TS Offset: %2; POST Code: %3",
+                     "Boot Count: %1; Time Stamp Offset: %2 seconds; POST Code: %3",
                      "OK",
                      "OK",
                      3,
