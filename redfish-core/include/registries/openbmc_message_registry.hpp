@@ -186,16 +186,17 @@ constexpr std::array<MessageEntry, 187> registry = {
                      },
                      "None.",
                  }},
-    MessageEntry{"BIOSPOSTCode",
-                 {
-                     "BIOS Power-On Self-Test Code received",
-                     "Boot Count: %1: TS Offset: %2; POST Code: %3",
-                     "OK",
-                     "OK",
-                     3,
-                     {"number", "number", "number"},
-                     "None.",
-                 }},
+    MessageEntry{
+        "BIOSPOSTCode",
+        {
+            "BIOS Power-On Self-Test Code received",
+            "Boot Count: %1; Time Stamp Offset: %2 seconds; POST Code: %3",
+            "OK",
+            "OK",
+            3,
+            {"number", "number", "number"},
+            "None.",
+        }},
     MessageEntry{"BIOSPOSTError",
                  {
                      "Indicates BIOS POST has encountered an error.",
