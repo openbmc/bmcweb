@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feb12662_a1135939",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-21T03:33:57Z",
+      "side": 1,
+      "message": "Validator ?",
+      "revId": "6b9dde6d290a54cc4193f82e9aff525a1624196e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cffc754_8a2ef313",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-21T03:33:57Z",
+      "side": 1,
+      "message": "I don\u0027t see this in the spec: \nhttps://redfish.dmtf.org/schemas/v1/Thermal.v1_7_0.json",
+      "range": {
+        "startLine": 16,
+        "startChar": 51,
+        "endLine": 16,
+        "endChar": 58
+      },
+      "revId": "6b9dde6d290a54cc4193f82e9aff525a1624196e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
