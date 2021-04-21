@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bfd270e_e1feec82",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-21T17:28:51Z",
+      "side": 1,
+      "message": "Was this a mistake?  I don\u0027t see it called out in the commit message.  It does make things consistent, so I approve of this change.",
+      "range": {
+        "startLine": 192,
+        "startChar": 36,
+        "endLine": 192,
+        "endChar": 37
+      },
+      "revId": "5cb8391deba7e3d287955ea9600ea29e0aec3739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
