@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "32cab0a0_f14410ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-22T15:10:06Z",
+      "side": 1,
+      "message": "I\u0027m looking for details on why this would cause customer confusion.  is it because it\u0027s short?  Is it because it\u0027s abbreviated?  Is it because it uses capital letters?  Is it because T doesn\u0027t render into certain languages?\n\n\n\nIdeally, the next time someone tries to check in an abbreviation, I\u0027d like to be able to point to this commit and say \"no, some took issues with that in the past, and here\u0027s why\"",
+      "parentUuid": "a579590c_d6642474",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "427ebb47_c795fb03",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2

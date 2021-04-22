@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4941a598_0f8a6107",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-22T15:10:06Z",
+      "side": 1,
+      "message": "Nit.  This makes it sound like the GUI team would cause customer confusion, which, while not always untrue, I\u0027m assuming isn\u0027t what you meant in this case.\n\nStill needs \"why\" this would be confusing.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "b0a19469852846c69f9c3123504ec0ef6b222fd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63546dda_6c9d61e1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
