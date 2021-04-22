@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "21b0a26d_a4d1477e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-04-22T19:57:28Z",
+      "side": 1,
+      "message": "How should I handle this check in this case?\nCan you provide me some help of how I should resolve this problem.",
+      "parentUuid": "8a3a6ab2_aabfdd17",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19e90649_cae64297",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
