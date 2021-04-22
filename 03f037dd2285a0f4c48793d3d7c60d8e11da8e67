@@ -106,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "b28283a5_75d9bf07",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-04-22T19:26:30Z",
+      "side": 1,
+      "message": "This part of code is trying to describe \"BootSourceOverrideEnabled\u003dDisabled\" state.\nCurrently there is no interface in the Settings object that can provide such functionality.\nSo the code that was here before used a logic that if the \"BootSourceOverrideTarget\" equals \"None\" (\u003dis in the default state) then \"BootSourceOverrideEnabled\" should be reported as \"Disabled\".\nIf we add Legacy/EFI selector to this context, we can report \"BootSourceOverrideTarget\u003dDisabled\" only when both \"BootSourceOverrideTarget\u003dNone\" and \"BootSourceOverrideMode\u003dUEFI\" (as it is our new default state).",
+      "parentUuid": "19e90649_cae64297",
+      "range": {
+        "startLine": 1031,
+        "startChar": 0,
+        "endLine": 1031,
+        "endChar": 31
+      },
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d83340f_336e5417",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
