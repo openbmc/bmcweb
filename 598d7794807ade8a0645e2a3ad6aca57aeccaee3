@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "412c4626_a523ae2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "This is not necessarily true... The fan FRU\u0027s (/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1) Functional property of \"false\" does not definitively mean that each of its rotors are also non-functional.\n\nThe fan FRU represents how the system\u0027s manufacturer wants to represent when that FRU is not functional. This may or may not mean that, in the case of dual rotor fans, each of the rotors are nonfunctional since it may take both rotors to be nonfunctional for the FRU to be nonfunctional OR a single nonfunctional rotor in a dual rotor fan could mean the FRU is nonfunctional.",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdaf7c04_0089db73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Similarly to what I described above... The fan FRU being functional, could still mean that one of its rotors are nonfunctional if the system manufacturer chose to design the use of dual rotor fans that way.",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d978aff_26c9f026",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "`getFanSpeedPercent` is filled in with the fan\u0027s feedback RPM, which is not a %. Should this be renamed or used in a different Redfish attribute?",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5530921_42ee94fd",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "This code is difficult to follow and it would be helpful to consider renaming this to reflect that its the sensors subtree paths.",
+      "range": {
+        "startLine": 124,
+        "startChar": 56,
+        "endLine": 124,
+        "endChar": 68
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f126db93_7ba68484",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Consider renaming this as well to be something like \"sensorPath\".",
+      "range": {
+        "startLine": 138,
+        "startChar": 29,
+        "endLine": 138,
+        "endChar": 44
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6723493_c9dc7c32",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Consider renaming this variable, I was initially confused over what appending \"/inventory\" to the sensors path was for.",
+      "range": {
+        "startLine": 148,
+        "startChar": 20,
+        "endLine": 149,
+        "endChar": 54
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f076e87d_dd0fce36",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Shouldnt this be a `continue` to the next chassisName?",
+      "range": {
+        "startLine": 187,
+        "startChar": 36,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885d04a0_fa7d278f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "It seems like this could have just been defined in the lamdba in which it\u0027s used?",
+      "range": {
+        "startLine": 191,
+        "startChar": 55,
+        "endLine": 191,
+        "endChar": 68
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35739e2_5a7c1f60",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Thanks, having this variable name helps describe what\u0027s being looped on.",
+      "range": {
+        "startLine": 216,
+        "startChar": 57,
+        "endLine": 216,
+        "endChar": 64
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4e67bd_99e04932",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "From the debug log statement, it doesnt seem this was intended to be included immediately after the chassisId. I see \"fan \u003d \" was included in a similar debug entry in `getFanInventoryItem()`",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 42
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "086e2a6d_db57fce3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Subtree of what? It\u0027d be helpful to give a better variable name describing its a subtree of sensors.",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 313,
+        "endChar": 23
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740e7cf9_a5dfd519",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "What\u0027s the need of this instead of just using `objectPath`?",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 61
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a97a6ce_2bcd6447",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "Shouldnt this be a `continue` to the next chassisName?",
+      "range": {
+        "startLine": 382,
+        "startChar": 36,
+        "endLine": 382,
+        "endChar": 43
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d951cc6_b4dc53ad",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-22T20:16:18Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with redfish, but why does this exist for Fan but not for the FanCollection? They seem to be similar and this is the initial implementation of them both.",
+      "range": {
+        "startLine": 736,
+        "startChar": 8,
+        "endLine": 736,
+        "endChar": 46
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
