@@ -1,4 +1,5 @@
 #pragma once
+#include "query_param.hpp"
 
 #include <boost/container/flat_map.hpp>
 
@@ -14,25 +15,29 @@ namespace collection_util
  * @brief Populate the collection "Members" from a GetSubTreePaths search of
  *        inventory
  *
- * @param[i,o] aResp  Async response object
- * @param[i]   collectionPath  Redfish collection path which is used for the
+ * @param[in] app  app object
+ * @param[in] req  request object
+ * @param[in,out] aResp  Async response object
+ * @param[in]   collectionPath  Redfish collection path which is used for the
  *             Members Redfish Path
- * @param[i]   interfaces  List of interfaces to constrain the GetSubTree search
+ * @param[in]   interfaces  List of interfaces to constrain the GetSubTree
+ * search
  * @param[in]  subtree     D-Bus base path to constrain search to.
  *
  * @return void
  */
 inline void
-    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
+    getCollectionMembers(crow::App& app, const crow::Request& req,
+                         std::shared_ptr<bmcweb::AsyncResp> aResp,
                          const std::string& collectionPath,
                          const std::vector<const char*>& interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
 {
     BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
     crow::connections::systemBus->async_method_call(
-        [collectionPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::vector<std::string>& objects) {
+        [collectionPath, aResp{std::move(aResp)}, &app,
+         req](const boost::system::error_code ec,
+              const std::vector<std::string>& objects) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -56,6 +61,7 @@ inline void
                 members.push_back({{"@odata.id", std::move(newPath)}});
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
+            query_param::processAllParam(app, req, aResp);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",

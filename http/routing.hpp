@@ -1305,11 +1305,11 @@ class Router
         }
 
         crow::connections::systemBus->async_method_call(
-            [&req, asyncResp, &rules, ruleIndex, found](
+            [req, asyncResp, &rules, ruleIndex, found](
                 const boost::system::error_code ec,
                 std::map<std::string, std::variant<bool, std::string,
                                                    std::vector<std::string>>>
-                    userInfo) {
+                    userInfo) mutable {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
