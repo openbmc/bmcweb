@@ -177,15 +177,17 @@ class ChassisCollection : public Node
      * Functions triggers appropriate requests on DBus
      */
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         asyncResp->res.jsonValue["@odata.type"] =
             "#ChassisCollection.ChassisCollection";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-
+        asyncResp->res.jsonValue["ProtocolFeaturesSupported"] = {
+            {"OnlyMemberQuery", true}};
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Chassis",
+            app, req, asyncResp, "/redfish/v1/Chassis",
             {"xyz.openbmc_project.Inventory.Item.Board",
              "xyz.openbmc_project.Inventory.Item.Chassis"});
     }
