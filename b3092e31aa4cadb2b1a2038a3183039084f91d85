@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "d3abbc07_fd36bc00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000281
+      },
+      "writtenOn": "2021-04-22T15:56:42Z",
+      "side": 1,
+      "message": "Thank you, Manoj for updating the commit. This change came from testing with users that were asking what is TS offset. When it was explained, the next question was what the format was, is it seconds?\n\nThis is the why behind the change. i think the commit message is clear about user confusion, I just wanted to share a little more detail.",
+      "parentUuid": "48241dd8_7443c39f",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "427ebb47_c795fb03",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
