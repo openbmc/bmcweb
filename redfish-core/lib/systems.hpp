@@ -1874,17 +1874,15 @@ class SystemsCollection : public Node
 
   private:
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
-               const std::vector<std::string>&) override
+               const crow::Request&, const std::vector<std::string>&) override
     {
         asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
-
         crow::connections::systemBus->async_method_call(
-            [asyncResp, &req](const boost::system::error_code ec,
-                              const std::variant<std::string>& /*hostName*/) {
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
                 ifaceArray = nlohmann::json::array();

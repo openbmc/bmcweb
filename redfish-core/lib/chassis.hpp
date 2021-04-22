@@ -183,7 +183,6 @@ class ChassisCollection : public Node
             "#ChassisCollection.ChassisCollection";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-
         collection_util::getCollectionMembers(
             asyncResp, "/redfish/v1/Chassis",
             {"xyz.openbmc_project.Inventory.Item.Board",
