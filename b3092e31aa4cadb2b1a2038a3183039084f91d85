@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "48241dd8_7443c39f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-04-22T15:42:56Z",
+      "side": 1,
+      "message": "Understood, thanks for explaining. Updated the commit message.",
+      "parentUuid": "32cab0a0_f14410ff",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "427ebb47_c795fb03",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
