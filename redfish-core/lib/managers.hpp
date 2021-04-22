@@ -2290,7 +2290,8 @@ class ManagerCollection : public Node
 
   private:
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
@@ -2301,6 +2302,7 @@ class ManagerCollection : public Node
         asyncResp->res.jsonValue["Members@odata.count"] = 1;
         asyncResp->res.jsonValue["Members"] = {
             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+        query_param::processAllParam(app, req, asyncResp);
     }
 };
 } // namespace redfish

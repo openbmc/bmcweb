@@ -889,8 +889,9 @@ class OperatingConfigCollection : public Node
         // First find the matching CPU object so we know how to constrain our
         // search for related Config objects.
         crow::connections::systemBus->async_method_call(
-            [asyncResp, cpuName](const boost::system::error_code ec,
-                                 const std::vector<std::string>& objects) {
+            [asyncResp, cpuName, this,
+             req](const boost::system::error_code ec,
+                  const std::vector<std::string>& objects) {
                 if (ec)
                 {
                     BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
@@ -912,7 +913,7 @@ class OperatingConfigCollection : public Node
                     // Use the common search routine to construct the Collection
                     // of all Config objects under this CPU.
                     collection_util::getCollectionMembers(
-                        asyncResp,
+                        this->app, req, asyncResp,
                         "/redfish/v1/Systems/system/Processors/" + cpuName +
                             "/OperatingConfigs",
                         {"xyz.openbmc_project.Inventory.Item.Cpu."
@@ -1034,7 +1035,8 @@ class ProcessorCollection : public Node
      * Functions triggers appropriate requests on DBus
      */
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         asyncResp->res.jsonValue["@odata.type"] =
             "#ProcessorCollection.ProcessorCollection";
@@ -1044,7 +1046,7 @@ class ProcessorCollection : public Node
             "/redfish/v1/Systems/system/Processors";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Processors",
+            app, req, asyncResp, "/redfish/v1/Systems/system/Processors",
             std::vector<const char*>(processorInterfaces.begin(),
                                      processorInterfaces.end()));
     }

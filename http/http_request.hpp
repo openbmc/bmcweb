@@ -75,6 +75,14 @@ struct Request
     {
         return req.keep_alive();
     }
+
+    void setUrl(const std::string& target)
+    {
+        req.target(s);
+        urlView = boost::urls::url_view(req.target());
+        url = urlView.encoded_url();
+        urlParams = urlView.params();
+    }
 };
 
 } // namespace crow
