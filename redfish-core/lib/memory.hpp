@@ -902,7 +902,8 @@ class MemoryCollection : public Node
      * Functions triggers appropriate requests on DBus
      */
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         asyncResp->res.jsonValue["@odata.type"] =
             "#MemoryCollection.MemoryCollection";
@@ -911,7 +912,7 @@ class MemoryCollection : public Node
             "/redfish/v1/Systems/system/Memory";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Memory",
+            app, req, asyncResp, "/redfish/v1/Systems/system/Memory",
             {"xyz.openbmc_project.Inventory.Item.Dimm"});
     }
 };

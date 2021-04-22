@@ -1279,12 +1279,13 @@ nlohmann::json actionParameterNotSupported(const std::string& arg1,
                        "request if the operation failed."}};
 }
 
-void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
-                                 const std::string& arg2)
+void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
+                                 std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterNotSupported(arg1, arg2));
+    addMessageToErrorJson(
+        res.jsonValue,
+        actionParameterNotSupported(std::string(arg1), std::string(arg2)));
 }
 
 /**
@@ -1945,13 +1946,13 @@ nlohmann::json queryParameterValueFormatError(const std::string& arg1,
          "resubmit the request if the operation failed."}};
 }
 
-void queryParameterValueFormatError(crow::Response& res,
-                                    const std::string& arg1,
-                                    const std::string& arg2)
+void queryParameterValueFormatError(crow::Response& res, std::string_view arg1,
+                                    std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          queryParameterValueFormatError(arg1, arg2));
+    addMessageToErrorJson(
+        res.jsonValue,
+        queryParameterValueFormatError(std::string(arg1), std::string(arg2)));
 }
 
 /**
