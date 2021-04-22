@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b4c0b60_d91dd095",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-04-22T18:54:54Z",
+      "side": 1,
+      "message": "This is all asynch stuff, are we really guaranteed that getBootType() has completed by the time we get here?",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d83340f_336e5417",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-04-22T18:54:54Z",
+      "side": 1,
+      "message": "In case someone just directly tries to write this, and it\u0027s unsupported, should probably have some code like this (host_unreachable is what\u0027s returned when the D-Bus API is not found):\n\n                      if (ec.value() \u003d\u003d boost::asio::error::host_unreachable)\n                      {\n                          messages::resourceNotFound(asyncResp-\u003eres, \"Set\",\n                                                     \"BootType\");\n                          return;\n                      }\n  \n                      messages::internalError(asyncResp-\u003eres);\n                      return;",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
