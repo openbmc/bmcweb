@@ -1309,7 +1309,7 @@ class Router
                 const boost::system::error_code ec,
                 std::map<std::string, std::variant<bool, std::string,
                                                    std::vector<std::string>>>
-                    userInfo) {
+                    userInfo) mutable {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";

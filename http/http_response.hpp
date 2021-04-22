@@ -1,4 +1,5 @@
 #pragma once
+#include "http_request.hpp"
 #include "logging.hpp"
 #include "nlohmann/json.hpp"
 
@@ -72,6 +73,11 @@ struct Response
     bool isCompleted() const noexcept
     {
         return completed;
+    }
+
+    void setCompleted(bool b)
+    {
+        completed = b;
     }
 
     std::string& body()

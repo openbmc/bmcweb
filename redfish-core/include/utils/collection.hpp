@@ -1,4 +1,5 @@
 #pragma once
+#include "query_param.hpp"
 
 #include <boost/container/flat_map.hpp>
 
@@ -14,10 +15,13 @@ namespace collection_util
  * @brief Populate the collection "Members" from a GetSubTreePaths search of
  *        inventory
  *
- * @param[i,o] aResp  Async response object
- * @param[i]   collectionPath  Redfish collection path which is used for the
+ * @param[in] app  app object
+ * @param[in] req  request object
+ * @param[in,out] aResp  Async response object
+ * @param[in]   collectionPath  Redfish collection path which is used for the
  *             Members Redfish Path
- * @param[i]   interfaces  List of interfaces to constrain the GetSubTree search
+ * @param[in]   interfaces  List of interfaces to constrain the GetSubTree
+ * search
  * @param[in]  subtree     D-Bus base path to constrain search to.
  *
  * @return void
