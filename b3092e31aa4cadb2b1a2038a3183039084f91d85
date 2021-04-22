@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b596362a_dca63d9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-04-22T02:38:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8bb66fe8_0dd86b24",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cd2eccb_f2a80a14",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98618052_6aba4f43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-04-22T02:38:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cd2eccb_f2a80a14",
+      "range": {
+        "startLine": 12,
+        "startChar": 42,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a579590c_d6642474",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-04-22T02:38:08Z",
+      "side": 1,
+      "message": "I added details as much as possible, can you tell what else exactly you are looking for ? i can add that as well.",
+      "parentUuid": "64e3bef1_a4d16a28",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "427ebb47_c795fb03",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
@@ -82,6 +154,24 @@
       "writtenOn": "2021-04-21T18:32:48Z",
       "side": 1,
       "message": "I thought the units (I believe seconds) for the Time Stamp Offset were also to be added.",
+      "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d37c077_3dd4bcf7",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-04-22T02:38:08Z",
+      "side": 1,
+      "message": "sure , added the time unit as well.",
+      "parentUuid": "427ebb47_c795fb03",
       "revId": "b3092e31aa4cadb2b1a2038a3183039084f91d85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
