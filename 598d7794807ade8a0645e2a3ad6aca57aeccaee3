@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1599d89e_3e7005ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "I understand what you said, when describing this aspect, there are aspects that are ignored in expression. This is only a description from the code level, and ignores the actual work of the fan.\n\nWhat I want to express here is to manually modify the two rotors corresponding to /xyz/openbmc_project/inventory/system/chassis/motherboard/fan2 https://${bmc}/redfish/v1/Chassis/chassis/ThermalSubsystem/Fans When the Functional property of /fan2_0/ and https://${bmc}/redfish/v1/Chassis/chassis/ThermalSubsystem/Fans/fan2_0 is changed to FALSE,\nWhat actually changed is the Functional property of /xyz/openbmc_project/inventory/system/chassis/motherboard/fan2,\n\nHowever, this may lead to a situation that is, if one of the rotors is non-functional, causing the entire fan to be non-functional, then it appears that both rotors are non-functional, but this is unavoidable. In D -The functional properties of the two rotors (fan2_0, fan2_1) in the bus are also associated with the corresponding fans (fan2), unless the two rotors are completely isolated when D-bus is implemented, which is unscientific.\nIf it is a single-rotor fan, you don’t need to consider these.",
+      "parentUuid": "412c4626_a523ae2e",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdaf7c04_0089db73",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-22T20:16:18Z",
       "side": 1,
       "message": "Similarly to what I described above... The fan FRU being functional, could still mean that one of its rotors are nonfunctional if the system manufacturer chose to design the use of dual rotor fans that way.",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e5a59a6_88a9ddfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "As above,this is an impact on the D-bus layer and manually changing the data in the D-bus, and on the data obtained in bmcweb/redfish.\nIn reality, a single rotor in a dual-rotor fan is non-functional, and the resulting situation should be considered separately from this.",
+      "parentUuid": "cdaf7c04_0089db73",
       "range": {
         "startLine": 195,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e4f6a33f_10d53bb1",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "This is described in Redfish Schema Supplement (2020.4), using SpeedPercent for generalization.",
+      "parentUuid": "9d978aff_26c9f026",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5530921_42ee94fd",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -91,6 +163,30 @@
       "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde8f57e_1da8c6d5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5530921_42ee94fd",
+      "range": {
+        "startLine": 124,
+        "startChar": 56,
+        "endLine": 124,
+        "endChar": 68
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6bfa9cee_40996122",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f126db93_7ba68484",
+      "range": {
+        "startLine": 138,
+        "startChar": 29,
+        "endLine": 138,
+        "endChar": 44
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6723493_c9dc7c32",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7d8e076f_098e3fbc",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6723493_c9dc7c32",
+      "range": {
+        "startLine": 148,
+        "startChar": 20,
+        "endLine": 149,
+        "endChar": 54
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f076e87d_dd0fce36",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -151,6 +295,30 @@
       "writtenOn": "2021-04-22T20:16:18Z",
       "side": 1,
       "message": "Shouldnt this be a `continue` to the next chassisName?",
+      "range": {
+        "startLine": 187,
+        "startChar": 36,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea68b69_a2987b6c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "There should be only one association chassis obtained by a fan.",
+      "parentUuid": "f076e87d_dd0fce36",
       "range": {
         "startLine": 187,
         "startChar": 36,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "1219fb31_8a422a9d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "885d04a0_fa7d278f",
+      "range": {
+        "startLine": 191,
+        "startChar": 55,
+        "endLine": 191,
+        "endChar": 68
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b35739e2_5a7c1f60",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -197,6 +389,30 @@
       "writtenOn": "2021-04-22T20:16:18Z",
       "side": 1,
       "message": "Thanks, having this variable name helps describe what\u0027s being looped on.",
+      "range": {
+        "startLine": 216,
+        "startChar": 57,
+        "endLine": 216,
+        "endChar": 64
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65f793c_e5d979cd",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Okay, similar names are being modified.",
+      "parentUuid": "b35739e2_5a7c1f60",
       "range": {
         "startLine": 216,
         "startChar": 57,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "a5fe047a_7105f3f8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd4e67bd_99e04932",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 42
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "086e2a6d_db57fce3",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -252,6 +492,30 @@
       "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7987853_83655e0c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "086e2a6d_db57fce3",
+      "range": {
+        "startLine": 313,
+        "startChar": 16,
+        "endLine": 313,
+        "endChar": 23
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "3f7714dd_200127ff",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "740e7cf9_a5dfd519",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 61
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a97a6ce_2bcd6447",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "c7ff4a65_c7a3ca58",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "Above on.",
+      "parentUuid": "3a97a6ce_2bcd6447",
+      "range": {
+        "startLine": 382,
+        "startChar": 36,
+        "endLine": 382,
+        "endChar": 43
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d951cc6_b4dc53ad",
         "filename": "static/redfish/v1/$metadata/index.xml",
         "patchSetId": 22
@@ -312,6 +624,30 @@
       "writtenOn": "2021-04-22T20:16:18Z",
       "side": 1,
       "message": "I\u0027m not familiar with redfish, but why does this exist for Fan but not for the FanCollection? They seem to be similar and this is the initial implementation of them both.",
+      "range": {
+        "startLine": 736,
+        "startChar": 8,
+        "endLine": 736,
+        "endChar": 46
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67be832e_b496adea",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T08:05:08Z",
+      "side": 1,
+      "message": "This is automatically generated by the script.",
+      "parentUuid": "7d951cc6_b4dc53ad",
       "range": {
         "startLine": 736,
         "startChar": 8,
