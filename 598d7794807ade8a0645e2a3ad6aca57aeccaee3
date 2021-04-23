@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a0eaa29_7a4cf7e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Ok, this is more of a question to the expectation that\u0027s represented in Redfish then when it comes to a fan\u0027s functional state...should it be representing the fan FRU or each individual fan rotor?\n\nNot looking for you to have to determine this, but would like clarification from the Redfish experts on this review to weigh in.",
+      "parentUuid": "1599d89e_3e7005ae",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdaf7c04_0089db73",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "8ccd855b_8c9090d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e5a59a6_88a9ddfe",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d978aff_26c9f026",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -140,6 +188,30 @@
       "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df41778_1d9da23f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e4f6a33f_10d53bb1",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -331,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "fca98a3b_2790f478",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Is that guaranteed though? Seems that if there\u0027s only one endpoint that a `continue` would function the same as the return in that case, but a `continue` could handle checking more than one endpoint if there ever were more.",
+      "parentUuid": "0ea68b69_a2987b6c",
+      "range": {
+        "startLine": 187,
+        "startChar": 36,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "885d04a0_fa7d278f",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -422,6 +518,30 @@
       "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3125238_3c83b825",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c65f793c_e5d979cd",
+      "range": {
+        "startLine": 216,
+        "startChar": 57,
+        "endLine": 216,
+        "endChar": 64
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -590,6 +710,30 @@
     },
     {
       "key": {
+        "uuid": "e32a2175_85cc0306",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Ok, something like this was where I was thinking there appears to be possible areas of improvement with the lambda functions.",
+      "parentUuid": "9a9a713d_c578aa0f",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 61
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a97a6ce_2bcd6447",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -625,6 +769,30 @@
       "side": 1,
       "message": "Above on.",
       "parentUuid": "3a97a6ce_2bcd6447",
+      "range": {
+        "startLine": 382,
+        "startChar": 36,
+        "endLine": 382,
+        "endChar": 43
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8185f041_0233db5f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Same reply as above.",
+      "parentUuid": "c7ff4a65_c7a3ca58",
       "range": {
         "startLine": 382,
         "startChar": 36,
@@ -681,6 +849,30 @@
       "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e54e2d5_4cd8d1a1",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2021-04-23T16:37:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "67be832e_b496adea",
+      "range": {
+        "startLine": 736,
+        "startChar": 8,
+        "endLine": 736,
+        "endChar": 46
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
