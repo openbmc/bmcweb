@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "36344924_e311ed09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-23T17:43:21Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 7,
+        "startChar": 33,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "6b9dde6d290a54cc4193f82e9aff525a1624196e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58509765_0bae9171",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-23T17:43:21Z",
+      "side": 1,
+      "message": "It is not under OEM though.. And before we add OEM, we require asking Redfish to add: https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "6b9dde6d290a54cc4193f82e9aff525a1624196e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "feb12662_a1135939",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -35,6 +81,29 @@
         "startChar": 51,
         "endLine": 16,
         "endChar": 58
+      },
+      "revId": "6b9dde6d290a54cc4193f82e9aff525a1624196e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba1ba9c_fb5e0fd0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-23T17:43:21Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 16,
+        "startChar": 105,
+        "endLine": 16,
+        "endChar": 111
       },
       "revId": "6b9dde6d290a54cc4193f82e9aff525a1624196e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
