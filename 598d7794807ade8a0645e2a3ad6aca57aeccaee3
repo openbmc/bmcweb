@@ -566,6 +566,30 @@
     },
     {
       "key": {
+        "uuid": "9a9a713d_c578aa0f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-23T09:39:23Z",
+      "side": 1,
+      "message": "The following call is an asynchronous method, if objectPath is not re-declared, it will be invalid.",
+      "parentUuid": "3f7714dd_200127ff",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 61
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a97a6ce_2bcd6447",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
