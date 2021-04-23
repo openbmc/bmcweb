@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5705219f_b8ac56dc",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 68
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-23T12:08:12Z",
+      "side": 1,
+      "message": "type would be:\nboost::container::flat_map\u003cstd::string_view, std::vector\u003cconst char*\u003e\u003e::const_iterator\n\nI renamed thermal to thermalPaths.",
+      "parentUuid": "b7a518aa_3c811f6e",
+      "revId": "969ab0edc04d57fb773d9fd852c211791c91d202",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5e85d32_9dfb1faa",
         "filename": "redfish-core/lib/thermal.hpp",
         "patchSetId": 68
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-22T21:16:18Z",
       "side": 1,
       "message": "The type may be good here as it isn\u0027t clear what \u0027thermal\u0027 is.",
+      "revId": "969ab0edc04d57fb773d9fd852c211791c91d202",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d62db7b_81e19215",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 68
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-23T12:08:12Z",
+      "side": 1,
+      "message": "type would be:\nboost::container::flat_map\u003cstd::string_view, std::vector\u003cconst char*\u003e\u003e::const_iterator\n\nI renamed thermal to thermalPaths.",
+      "parentUuid": "a5e85d32_9dfb1faa",
       "revId": "969ab0edc04d57fb773d9fd852c211791c91d202",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
