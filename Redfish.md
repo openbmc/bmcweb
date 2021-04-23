@@ -56,7 +56,7 @@ Fields common to all schemas
 ##### AccountCollection
 
 - Description
-- Members@odata.count
+- Members<span></span>@odata.count
 - Members
 
 #### /redfish/v1/AccountService/Accounts/{ManagerAccountId}
@@ -73,7 +73,7 @@ Fields common to all schemas
 ##### RoleCollection
 
 - Description
-- Members@odata.count
+- Members<span></span>@odata.count
 - Members
   - By default will contain 3 roles, "Administrator", "Operator", and "ReadOnly"
 
@@ -96,7 +96,7 @@ Fields common to all schemas
 #### /redfish/v1/Chassis
 ##### ChassisCollection
 
-- Members@odata.count
+- Members<span></span>@odata.count
 - Members
 
 #### /redfish/v1/Chassis/{ChassisId}
@@ -240,7 +240,7 @@ PowerControl Voltages PowerSupplies Redundancy
 #### /redfish/v1/Managers
 ##### ManagerCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 
 #### /redfish/v1/Managers/bmc
 ##### Manager
@@ -265,7 +265,7 @@ PowerControl Voltages PowerSupplies Redundancy
 #### /redfish/v1/Managers/bmc/EthernetInterfaces
 ##### EthernetInterfaceCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 - Description
 
 #### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}
@@ -304,7 +304,7 @@ the other.
 #### /redfish/v1/Managers/bmc/LogServices
 ##### LogServiceCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 - Description
 
 #### /redfish/v1/Managers/bmc/LogServices/RedfishLog
@@ -337,15 +337,15 @@ the other.
 ##### MessageRegistryFileCollection
 - Members
   - Should support Base, CommonMessages, and EventingMessages
-- Members@odata.count
+- Members<span></span>@odata.count
 - Description
 
 #### /redfish/v1/Registries/{MessageRegistryFileId}
 ##### MessageRegistryFile
 - Location
 - Description
-- Location@odata.count
-- Languages@odata.count
+- Location<span></span>@odata.count
+- Languages<span></span>@odata.count
 - Languages
 - Registry
 
@@ -361,7 +361,7 @@ the other.
 #### /redfish/v1/SessionService/Sessions
 ##### SessionCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 - Description
 
 
@@ -369,7 +369,7 @@ the other.
 ##### ComputerSystemCollection
 - Members
   - Should support one system
-- Members@odata.count
+- Members<span></span>@odata.count
 
 #### /redfish/v1/Systems/system
 ##### ComputerSystem
@@ -411,7 +411,7 @@ the other.
 #### /redfish/v1/Systems/system/LogServices/SEL/Entries
 ##### LogEntryCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 - Description
 - @odata.nextLink
 
@@ -429,7 +429,7 @@ the other.
 #### /redfish/v1/Systems/system/Memory
 ##### MemoryCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 
 #### /redfish/v1/Systems/system/Memory/{MemoryId}
 ##### Memory
@@ -462,7 +462,7 @@ the other.
 ##### ProcessorCollection
 - Members
   - Should Support CPU1 and CPU2 for dual socket systems
-- Members@odata.count
+- Members<span></span>@odata.count
 
 #### /redfish/v1/Systems/system/Processors/{ProcessorId}
 ##### Processor
@@ -481,7 +481,7 @@ the other.
 #### /redfish/v1/Systems/system/Storage
 ##### StorageCollection
 - Members
-- Members@odata.count
+- Members<span></span>@odata.count
 
 #### /redfish/v1/Systems/system/Storage/{StorageId}
 ##### Storage
@@ -497,7 +497,7 @@ the other.
 ##### SoftwareInventoryCollection
 - Members
 - Should Support BMC, ME, CPLD and BIOS
-- Members@odata.count
+- Members<span></span>@odata.count
 
 #### /redfish/v1/UpdateService/FirmwareInventory/{SoftwareInventoryId}
 ##### SoftwareInventory
