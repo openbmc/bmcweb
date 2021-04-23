@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86f7fa73_6ab1d7c1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-23T15:59:19Z",
+      "side": 0,
+      "message": "Don\u0027t we use this for ClientOriginIPAddress?\n\nWhich the definition of ClientOriginIPAddress is \"This property shall contain the IP address of the client that created the session.\"\n\nMight need 2 properties here? The origin IP Address of the session for use in ClientOriginIPAddress and a request IP address?\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/redfish_sessions.hpp#L66",
+      "revId": "9a128eb3fc3008f802974360e98de6495ed1a66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
