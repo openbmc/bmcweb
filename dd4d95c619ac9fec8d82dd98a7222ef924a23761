@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "525c64f5_915bc688",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "Also, I think you need to add some wrong URL test case.",
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a5c6f9d_0f79ad6b",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "const std::string_view\u0026 url?",
+      "range": {
+        "startLine": 79,
+        "startChar": 16,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024f1a87_27d55668",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "nit: `No found Members.`",
+      "range": {
+        "startLine": 66,
+        "startChar": 29,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "645367f8_1621778c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "nit: `No found odata.id`.\n\nAlso, Do we need to return an error here? I am not sure.",
+      "range": {
+        "startLine": 86,
+        "startChar": 29,
+        "endLine": 86,
+        "endChar": 47
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab50ca5_34bfd574",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "I think we can remove this method, Correct?",
+      "range": {
+        "startLine": 99,
+        "startChar": 3,
+        "endLine": 102,
+        "endChar": 5
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06efd5c9_cc5ea48d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "What will happen if we define a URL as follows:\n\n`https://${bmc}/redfish/v1/Systems?only?skip`\n\u0026\n`https://${bmc}/redfish/v1/Systems?onlyabc`",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 58
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786fac68_7e66677e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2306,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-25T03:02:51Z",
+      "side": 1,
+      "message": "Could you point out where the definition is?",
+      "range": {
+        "startLine": 2306,
+        "startChar": 14,
+        "endLine": 2306,
+        "endChar": 29
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
