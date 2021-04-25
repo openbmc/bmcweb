@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5f58c75f_3537c70a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d8d6dcf_5a40a33d",
+      "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9516833d_66cb29d8",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 24
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "812a8b01_f21f4bf0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9516833d_66cb29d8",
+      "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fedc82f_6ee01755",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 24
@@ -47,6 +83,30 @@
       "writtenOn": "2021-04-23T15:41:55Z",
       "side": 1,
       "message": "This is pretty far indented making it hard to read",
+      "range": {
+        "startLine": 253,
+        "startChar": 60,
+        "endLine": 261,
+        "endChar": 73
+      },
+      "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db6f864a_7b1425c1",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Has been modified.",
+      "parentUuid": "8fedc82f_6ee01755",
       "range": {
         "startLine": 253,
         "startChar": 60,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "52b0d89c_a5d0f2aa",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1dd737_67382ca0",
+      "range": {
+        "startLine": 568,
+        "startChar": 3,
+        "endLine": 568,
+        "endChar": 23
+      },
+      "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e495e6e3_36702cb1",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 24
@@ -102,6 +186,30 @@
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95e8f621_3d7581a4",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e495e6e3_36702cb1",
+      "range": {
+        "startLine": 623,
+        "startChar": 3,
+        "endLine": 623,
+        "endChar": 23
+      },
+      "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

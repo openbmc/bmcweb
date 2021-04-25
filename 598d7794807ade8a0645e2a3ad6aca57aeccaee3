@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "54f40ba6_83974ffa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "In https://redfish.dmtf.org/redfish/mockups/v1/1018,\nthe realization here seems to be the fan rotor.\nBut this is just my guess.",
+      "parentUuid": "1a0eaa29_7a4cf7e3",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdaf7c04_0089db73",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
@@ -427,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "f5705e6d_7d9ebdf3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Yes, a fan belongs to only one chassis, but this is not considered enough. I will submit it again for the handling of \u003e1.",
+      "parentUuid": "fca98a3b_2790f478",
+      "range": {
+        "startLine": 187,
+        "startChar": 36,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "885d04a0_fa7d278f",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -734,6 +782,30 @@
     },
     {
       "key": {
+        "uuid": "cf5a6dd0_2d295c35",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Yes, the asynchronous situation may need to be considered more.",
+      "parentUuid": "e32a2175_85cc0306",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 61
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a97a6ce_2bcd6447",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 22
@@ -793,6 +865,30 @@
       "side": 1,
       "message": "Same reply as above.",
       "parentUuid": "c7ff4a65_c7a3ca58",
+      "range": {
+        "startLine": 382,
+        "startChar": 36,
+        "endLine": 382,
+        "endChar": 43
+      },
+      "revId": "598d7794807ade8a0645e2a3ad6aca57aeccaee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9baeae68_07d9066d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-25T08:53:07Z",
+      "side": 1,
+      "message": "Above on.",
+      "parentUuid": "8185f041_0233db5f",
       "range": {
         "startLine": 382,
         "startChar": 36,
