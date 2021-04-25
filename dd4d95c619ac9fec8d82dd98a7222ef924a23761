@@ -42,6 +42,52 @@
     },
     {
       "key": {
+        "uuid": "4044da01_895ff95e",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-25T19:41:13Z",
+      "side": 1,
+      "message": "This is going to have ownership issues.  You need to set req.target to this string, then use it as a reference here.",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81a3601_271326ea",
+        "filename": "http/routing.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-25T19:41:13Z",
+      "side": 1,
+      "message": "Still incorrect.",
+      "range": {
+        "startLine": 1308,
+        "startChar": 13,
+        "endLine": 1308,
+        "endChar": 16
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "024f1a87_27d55668",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 27
@@ -81,6 +127,29 @@
         "startChar": 29,
         "endLine": 86,
         "endChar": 47
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fcce060_fc0a5e1e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-25T19:41:13Z",
+      "side": 1,
+      "message": "Rather than this, I suspect you want to make a completely new request (not a copy of req) then simply copy the headers over.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 33
       },
       "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
