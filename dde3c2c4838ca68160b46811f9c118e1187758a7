@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf277b2b_487fb7ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "Property for processor --\u003e This is not for processor. It is for Fans.",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd0cce3_36204235",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "Looks like the commit msg was copied from the LocationIndicatorActive for CPU ?.. Please fix the entire commit message to depict fans",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b477ae78_8a29e6d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "Please have the result of \"busctl get-property\" here",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cd66f88_ffdf969c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "please have the result of \"busctl get-property\" here",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49651be1_1c801925",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "typo : Section",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89d9a243_9f58aafa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "Do you have identify_led_group of the Fan pointing to this fan2_fault -or- fan2_identify ?",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71940a81_dfb3512f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "I believe this is far too away and making it hard to read ( at least in the Gerrit review.. when I open in the edit mode, it\u0027s somewhat better .. but it\u0027s getting too deeply nested )\n\nAlso in this way, how is it reflecting the value on both the rotors ?. I understand it has been captured in the commit msg.. but just wondering how..\n\nAlso, for CPU and DIMM commits.. we went by Associations.Definitions and also had the getDimmObject + getDimmData and setDimmObject + setDimmData\n\ndon\u0027t we need that followed here ?\n\nExample: I have these for Sensor.Values\n\n   array [\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan0_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan0_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan1_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan1_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan2_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan2_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan3_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan3_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan4_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan4_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan5_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan5_1\"\n      string \"/xyz/openbmc_project/sensors/temperature/Ambient_0_Temp\"\n      string \"/xyz/openbmc_project/sensors/temperature/Ambient_Virtual_Temp\"\n      string \"/xyz/openbmc_project/sensors/temperature/PCIE_0_Temp\"\n      string \"/xyz/openbmc_project/sensors/temperature/PCIE_1_Temp\"\n      string \"/xyz/openbmc_project/sensors/utilization/CPU\"\n      string \"/xyz/openbmc_project/sensors/utilization/Memory\"",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f89ff8d_4491bbe7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "may need a BMCWEB_DEBUG here ?",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4891d264_f740a29c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T10:50:01Z",
+      "side": 1,
+      "message": "skipping get fan ?.. this seems not right ?",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
