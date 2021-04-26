@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0be9bc57_fff8f623",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:29:59Z",
+      "side": 1,
+      "message": "? Typically the Id is more like the last segment of the URI. \nCan this be ThermalSubsystem? \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L2097",
+      "range": {
+        "startLine": 50,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "22efab5519a8af154b27d5ed87c7ef65a95d3263",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
