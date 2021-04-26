@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0330c975_da09f4e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:00:18Z",
+      "side": 1,
+      "message": "For both Set and Get, please have the result from \"busctl get-property\"",
+      "revId": "2b4f785a10038a808a3617979dc79f3dee040266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89333d77_4c763739",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:00:18Z",
+      "side": 1,
+      "message": "Please add cases where we set the property using \"busctl set-property\" and then capture both busctl and the redfish results in commit msg",
+      "revId": "2b4f785a10038a808a3617979dc79f3dee040266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4c339c_ae26e16a",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:00:18Z",
+      "side": 1,
+      "message": "may need BMCWEB_DEBUG ?",
+      "revId": "2b4f785a10038a808a3617979dc79f3dee040266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f11b586_16711cdd",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:00:18Z",
+      "side": 1,
+      "message": "this is looking a lot different than what I had seen for CPU and DIMM.. Don\u0027t we have a need to do that here ?",
+      "revId": "2b4f785a10038a808a3617979dc79f3dee040266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
