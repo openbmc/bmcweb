@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38588122_d0fddaf7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "What are these mapped ?.. I mean, D-Bus objects .. \n\nAlso, please capture the busctl get-property along with this",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97e0ecf5_4d62d62e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "What are these mapped to ?.. Please have tests where `busctl set-property` is used and capture both busctl and this redfish here.\n\nAlso please have different tests for slot 0 and 1",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6cd30c0_2071038e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "This is the service name right ?\n\ndbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetObject  string:\"/xyz/openbmc_project/led/groups/fan1_identify\"  array:string:\"xyz.openbmc_project.Led.Group\"\nmethod return time\u003d1619438623.614174 sender\u003d:1.24 -\u003e destination\u003d:1.231 serial\u003d3736 reply_serial\u003d2\n   array [\n\n      dict entry(\n         string \"xyz.openbmc_project.LED.GroupManager\"\n         array [\n            string \"org.freedesktop.DBus.Introspectable\"\n            string \"org.freedesktop.DBus.Peer\"\n            string \"org.freedesktop.DBus.Properties\"\n            string \"xyz.openbmc_project.Led.Group\"\n         ]\n      )\n   ]",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70781102_b81a1c4b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "It\u0027s not Object",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c7de822_6d0f09a9",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "Is this acceptable vs some static data member ?",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "203c729d_27017715",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "we need Associations.Definitions as in CPU / DIMM ?",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e326f4b_83272f5d",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "I have seen rest all bmcweb codes leave a line spacing between these",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c063709_fb81a472",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T12:08:01Z",
+      "side": 1,
+      "message": "I would prefer a more meaningful variable name than \u0027i\u0027 as it\u0027s hard to follow variables with \u0027I/j/k\u0027",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
