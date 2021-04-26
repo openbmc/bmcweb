@@ -136,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "faa1b928_ccf27b14",
+        "filename": "http/routing.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-26T19:11:12Z",
+      "side": 1,
+      "message": "A Request object should never be copied in the course of getting a response.  We might create a new request, but as-written, this is a copy.",
+      "parentUuid": "37e2a2cf_ebe3ab62",
+      "range": {
+        "startLine": 1308,
+        "startChar": 13,
+        "endLine": 1308,
+        "endChar": 16
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "024f1a87_27d55668",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 27
@@ -253,6 +277,30 @@
     },
     {
       "key": {
+        "uuid": "b6aa9280_d0bbe6e4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-26T19:11:12Z",
+      "side": 1,
+      "message": "\u003e No, what I want is a copy of req, and then change things that need to be changed (such as headers). \n\nNo, you don\u0027t, because the request might include a body which would make no sense if forwarding this to the next level.\n\n\u003eI don’t know much about req. If I create a new req, I don’t know which values should be modified to make it work.\n\nuri will need to be new, headers will need to be copied into the new request.  Request is a pretty simple object, most things are just helpers around the boost functions, and an end handler, which we talked about on discord.",
+      "parentUuid": "375bedb0_39d303ac",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dab50ca5_34bfd574",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 27
@@ -300,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "7390827d_3156a2a5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-26T19:11:12Z",
+      "side": 1,
+      "message": "No, I would like to see them done in a single method call.",
+      "parentUuid": "4639488b_71254fa5",
+      "range": {
+        "startLine": 99,
+        "startChar": 3,
+        "endLine": 102,
+        "endChar": 5
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06efd5c9_cc5ea48d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 27
@@ -335,6 +407,30 @@
       "side": 1,
       "message": "1. Only is special, it cannot be used with other parameters at the same time.\n2. Unsupported parameters will return error.\nThis is why checkParameters should be kept. The parameters have been checked in this method.",
       "parentUuid": "06efd5c9_cc5ea48d",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 58
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a8490b_19e82da8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-26T19:11:12Z",
+      "side": 1,
+      "message": "\u003e 1. Only is special, it cannot be used with other parameters at the same time.\n\nNot quite true, it can\u0027t be used with other filtering params, but it might be completely legal to have other params in the request.\n\n\u003e 2. Unsupported parameters will return error.\n\nMy understanding is that this isn\u0027t in line with the HTTP spec, unsupported parameters should have no effect, we should only return an error if the parameters conflict.\n\n\u003e This is why checkParameters should be kept. The parameters have been checked in this method.",
+      "parentUuid": "94bed73a_353fd6fb",
       "range": {
         "startLine": 103,
         "startChar": 4,
