@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af6bb542_1299fc06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T17:05:26Z",
+      "side": 1,
+      "message": "I think I support this commit but can you explain a bit more why in the commit msg? E.g. \"Removed OEM, this will be handled via...\"\nCan you explain a bit more how a user will handle this being remove or the lack of users of this ? E.g. \"This is unlikely to break any users because..\"\n\nThese were added here: \nhttps://github.com/openbmc/bmcweb/commit/70d1d0aa05e3e07bb98564a2d2d3b702b18a1582\nhttps://github.com/openbmc/bmcweb/commit/91e130a365a0d3b93357e6efa0a5be8a0b53c6d1\n\nI added the author and some of the original reviewers.",
+      "revId": "2000ea5dccc577e8fe7a40660bfc2fa69bd46978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
