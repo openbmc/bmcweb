@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f7e87852_840fd78b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T07:40:13Z",
+      "side": 1,
+      "message": "Looks like this is how it\u0027s there in original Processor also.. so, ignore my comment.",
+      "parentUuid": "9333faed_6818cde0",
+      "revId": "2c34a98ee01b33a23ee51ea2cdd160d3d57b3ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0348fad8_a58c43d8",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 42
