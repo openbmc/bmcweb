@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "056c11bd_b62bafaa",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-26T07:54:57Z",
+      "side": 1,
+      "message": "\u003e I was asking if we can change active --\u003e locationIndicatorActive ?\n\nI agree this way.",
+      "parentUuid": "4f3a34de_ab424278",
+      "revId": "bd739e93affbec3f57f284f01f27ba11b039162c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5413c947_694c7bd8",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 61
