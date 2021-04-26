@@ -249,8 +249,8 @@ class Chassis : public Node
                     const std::vector<
                         std::pair<std::string, std::vector<std::string>>>&
                         connectionNames = object.second;
-
-                    if (!boost::ends_with(path, chassisId))
+                    sdbusplus::message::object_path objPath(path);
+                    if (objPath.filename() != chassisId)
                     {
                         continue;
                     }
