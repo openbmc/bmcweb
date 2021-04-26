@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9333faed_6818cde0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T06:12:09Z",
+      "side": 1,
+      "message": "Please fix the comments../redfish///Memory/cpu0 is not mapping to anything.",
+      "revId": "2c34a98ee01b33a23ee51ea2cdd160d3d57b3ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0348fad8_a58c43d8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T06:12:09Z",
+      "side": 1,
+      "message": "please fix the comments",
+      "revId": "2c34a98ee01b33a23ee51ea2cdd160d3d57b3ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
