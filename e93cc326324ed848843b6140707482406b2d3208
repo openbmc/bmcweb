@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74b9e619_7fe7a110",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "Please include what Inventory is contained in this assembly and also capture the busctl get-property of the Led-Dbus object for a mapped Inventory item",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd79279c_1d9fd74c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "Please include what Inventory is contained in this assembly and also capture the busctl set-property of the Led-Dbus object for a mapped Inventory item",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4937127c_ec9ee482",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "I am a little confused why is LocationIndicatorActive tied to Decorator.Asset ..",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096d1b9d_bbad88dd",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "setLocationIndicatorActive ?",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "787c312b_058cb81d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "hmm and we don\u0027t need Associations.Definitions ?.\n \nI must say I am greatly confused by assemblies :)",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ff0231_8d4aee0d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "Activate --\u003e Active",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac33f122_c88408ba",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "it needs to be getLocaionIndicatorActive. But if it\u0027s const here, how are we populating the value into this variable ?",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25dd7dc1_2460ddf2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "h,, why is it referencing setLocationIndicatorActive ?",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddcb0e68_70e7c18a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:29:49Z",
+      "side": 1,
+      "message": "hmm.. why is it referencing setLocationIndicatorActive directly ?.. don\u0027t we have anything else that is patchable ?\n\nAlso, we need to check the !readJson() and other usual checks that we do as part of PATCH",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
