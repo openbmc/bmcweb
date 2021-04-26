@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2a862069_e182e271",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-26T07:42:31Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "5e6c8dc1_8c128a84",
+      "revId": "bd739e93affbec3f57f284f01f27ba11b039162c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63a5b537_dd61a741",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 61
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-26T07:01:38Z",
       "side": 1,
       "message": "May be call active --\u003e LocationIndicatorActive so its clear ?\n\nbtw, if there are more patchable properties, then we may need a template here ?.. I guess, whoever that has a need in the future will do it and this is okay for now.. just my view.",
+      "revId": "bd739e93affbec3f57f284f01f27ba11b039162c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89910457_6efc9301",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-26T07:42:31Z",
+      "side": 1,
+      "message": "No, it should be like the getProcessorData method here, we do not need a template.",
+      "parentUuid": "63a5b537_dd61a741",
       "revId": "bd739e93affbec3f57f284f01f27ba11b039162c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "bd739e93affbec3f57f284f01f27ba11b039162c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc20d201_052d5a58",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-26T07:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5413c947_694c7bd8",
+      "revId": "bd739e93affbec3f57f284f01f27ba11b039162c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
