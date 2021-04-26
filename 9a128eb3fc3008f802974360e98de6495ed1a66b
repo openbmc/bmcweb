@@ -34,6 +34,24 @@
       "revId": "9a128eb3fc3008f802974360e98de6495ed1a66b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "602c6317_5e05b539",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-26T20:13:48Z",
+      "side": 0,
+      "message": "\"Don\u0027t we use this for ClientOriginIPAddress?\"\nYes, but I think that\u0027s ok, because we\u0027re still calling this on line 309, which will always be called before any handler is run, so I wouldn\u0027t expect anything to break.\n\nI think this patchset is ok mostly as-is, if there\u0027s something broken, lets get that figured out, but this looks like it would only fix things.",
+      "parentUuid": "e0a3a7a0_298f45ca",
+      "revId": "9a128eb3fc3008f802974360e98de6495ed1a66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
