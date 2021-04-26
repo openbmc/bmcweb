@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7bc817f_cb6e74c9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "Ideally this would be (this is the more common way) \n\n            if (value \u003d\u003d nullptr)\n            {\n                messages::internalError(asyncResp-\u003eres);\n                return;\n            }\n            if (*value \u003d\u003d false)\n             {\n                  asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n             }",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35e67c93_adaa2115",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "Ideally this would be \n\n            if (value \u003d\u003d nullptr)\n            {\n                messages::internalError(asyncResp-\u003eres);\n                return;\n            }",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "932312cd_f0622c66",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "Not sure if this else is really needed.. \nI.e. I don\u0027t see much value in the debug log in this else",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ddba84_8261881d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_DEBUG  ?",
+      "range": {
+        "startLine": 211,
+        "startChar": 20,
+        "endLine": 211,
+        "endChar": 37
+      },
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00d18b84_4cb86432",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "Again, this else really needed?",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8649ff87_43bf0ef8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_DEBUG ?",
+      "range": {
+        "startLine": 277,
+        "startChar": 20,
+        "endLine": 277,
+        "endChar": 37
+      },
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365eebed_8acaa149",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-26T20:27:05Z",
+      "side": 1,
+      "message": "Like above (lines 367 - 372) would be better.. It is what is more common in bmcweb\n                        if (values \u003d\u003d nullptr)\n                        {\n                            messages::internalError(asyncResp-\u003eres);\n                            return;\n                        }",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 37
+      },
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
