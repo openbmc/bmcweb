@@ -53,6 +53,58 @@
     },
     {
       "key": {
+        "uuid": "69b23e4a_8c7cecdd",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:34:12Z",
+      "side": 1,
+      "message": "Also getLocationIndicatorActive has aResp and objectPath.. where is this fitting into ?",
+      "parentUuid": "4937127c_ec9ee482",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da8a4b9_83bad759",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:34:12Z",
+      "side": 1,
+      "message": "don\u0027t we check for number of input data ?",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6f0f6a_8e6b46cb",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-04-26T11:34:12Z",
+      "side": 1,
+      "message": "const auto\u0026 ?",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "096d1b9d_bbad88dd",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
