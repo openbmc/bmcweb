@@ -533,6 +533,30 @@
     },
     {
       "key": {
+        "uuid": "41bee845_d83df700",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-27T23:07:17Z",
+      "side": 1,
+      "message": "\u003e \u003e \n\u003e \u003e Not quite true, it can\u0027t be used with other filtering params, but it might be completely legal to have other params in the request.\n\u003e \n\u003e In the description of only in the document：\n\u003e Services should return the HTTP 400 Bad Request with the QueryCombinationInvalid message from the Base Message Registry if only is being combined with other query parameters.\n\nThat should really be \"other redfish query parameters\" but because it\u0027s in the redfish spec, they don\u0027t have to clarify, because they own the definition of all query parameters.\n\nI re-read the http RFC, and I didn\u0027t see mention of what I thought, which was unknown query params should be ignored.  I guess this is fine as is.\n\n\u003e \u003e \n\u003e \u003e My understanding is that this isn\u0027t in line with the HTTP spec, unsupported parameters should have no effect, we should only return an error if the parameters conflict.\n\u003e \u003e \n\u003e The description in the document：\n\u003e The HTTP 501 Not Implemented status code for any unsupported query parameters that start with $",
+      "parentUuid": "c76cefe1_49b67e62",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 58
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "786fac68_7e66677e",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 27
