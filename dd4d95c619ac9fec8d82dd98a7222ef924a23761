@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba8bc2a4_c5459191",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-27T01:27:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "525c64f5_915bc688",
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a5c6f9d_0f79ad6b",
         "filename": "http/http_request.hpp",
         "patchSetId": 27
@@ -39,6 +57,30 @@
       "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30e3079_61f22412",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-27T01:27:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1a5c6f9d_0f79ad6b",
+      "range": {
+        "startLine": 79,
+        "startChar": 16,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +222,30 @@
       "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df1f6c5_190c026f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-27T01:27:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "024f1a87_27d55668",
+      "range": {
+        "startLine": 66,
+        "startChar": 29,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -443,6 +509,30 @@
     },
     {
       "key": {
+        "uuid": "c76cefe1_49b67e62",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-27T01:27:47Z",
+      "side": 1,
+      "message": "\u003e \n\u003e Not quite true, it can\u0027t be used with other filtering params, but it might be completely legal to have other params in the request.\n\nIn the description of only in the document：\nServices should return the HTTP 400 Bad Request with the QueryCombinationInvalid message from the Base Message Registry if only is being combined with other query parameters.\n\u003e \n\u003e My understanding is that this isn\u0027t in line with the HTTP spec, unsupported parameters should have no effect, we should only return an error if the parameters conflict.\n\u003e \nThe description in the document：\nThe HTTP 501 Not Implemented status code for any unsupported query parameters that start with $",
+      "parentUuid": "c5a8490b_19e82da8",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 58
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "786fac68_7e66677e",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 27
@@ -463,6 +553,30 @@
       "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b96af400_65aa447a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2306,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-27T01:27:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "786fac68_7e66677e",
+      "range": {
+        "startLine": 2306,
+        "startChar": 14,
+        "endLine": 2306,
+        "endChar": 29
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
