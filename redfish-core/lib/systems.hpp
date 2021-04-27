@@ -654,7 +654,7 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                                "TransitioningToRunning")
                 {
                     aResp->res.jsonValue["PowerState"] = "PoweringOn";
-                    aResp->res.jsonValue["Status"]["State"] = "Disabled";
+                    aResp->res.jsonValue["Status"]["State"] = "Starting";
                 }
                 else if (*s == "xyz.openbmc_project.State.Host.HostState."
                                "TransitioningToOff")
