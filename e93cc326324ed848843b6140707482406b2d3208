@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "4f5ae3ee_56944761",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-27T03:40:31Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "69b23e4a_8c7cecdd",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7da8a4b9_83bad759",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -139,6 +157,24 @@
     },
     {
       "key": {
+        "uuid": "24c90b16_69109bc4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-27T03:40:31Z",
+      "side": 1,
+      "message": "Assmebly.Definitions is already getting checked at line 525. This method is just a re-check that what is mentioned in the Association.json is also implemented in the system.",
+      "parentUuid": "787c312b_058cb81d",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21ff0231_8d4aee0d",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -167,6 +203,24 @@
       "writtenOn": "2021-04-26T11:29:49Z",
       "side": 1,
       "message": "it needs to be getLocaionIndicatorActive. But if it\u0027s const here, how are we populating the value into this variable ?",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec855ed_64c00def",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-27T03:40:31Z",
+      "side": 1,
+      "message": "I think this is just a flag to indicate that when doGet is called and when do Patch is getting called. I am ok with this being a const as this is not supposed to be modified later on.",
+      "parentUuid": "ac33f122_c88408ba",
       "revId": "e93cc326324ed848843b6140707482406b2d3208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
