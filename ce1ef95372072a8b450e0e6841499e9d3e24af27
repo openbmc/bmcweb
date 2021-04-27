@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "72d7b922_b509988a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Ok, I will modify it.",
+      "parentUuid": "b7bc817f_cb6e74c9",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35e67c93_adaa2115",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 26
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7756a807_56fc74b8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Ok, I will modify it.",
+      "parentUuid": "35e67c93_adaa2115",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "932312cd_f0622c66",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 26
@@ -47,6 +83,24 @@
       "writtenOn": "2021-04-26T20:27:05Z",
       "side": 1,
       "message": "Not sure if this else is really needed.. \nI.e. I don\u0027t see much value in the debug log in this else",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7c46f9e_a5551e96",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Through \"all_sensors\" under /redfish/v1/Chassis/\u003cId\u003e/Sensors,\nall sensor related data can be obtained.\nThis is added to deal with data that is not fan-related.",
+      "parentUuid": "932312cd_f0622c66",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "6b1f115d_b84f0acd",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Is the priority of log here so low?",
+      "parentUuid": "69ddba84_8261881d",
+      "range": {
+        "startLine": 211,
+        "startChar": 20,
+        "endLine": 211,
+        "endChar": 37
+      },
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00d18b84_4cb86432",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 26
@@ -87,6 +165,24 @@
       "writtenOn": "2021-04-26T20:27:05Z",
       "side": 1,
       "message": "Again, this else really needed?",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3166fb_a5ef3458",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Yes, same as above.",
+      "parentUuid": "00d18b84_4cb86432",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "1f0cde16_b5da300d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Is the priority of log here so low?",
+      "parentUuid": "8649ff87_43bf0ef8",
+      "range": {
+        "startLine": 277,
+        "startChar": 20,
+        "endLine": 277,
+        "endChar": 37
+      },
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "365eebed_8acaa149",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 26
@@ -127,6 +247,30 @@
       "writtenOn": "2021-04-26T20:27:05Z",
       "side": 1,
       "message": "Like above (lines 367 - 372) would be better.. It is what is more common in bmcweb\n                        if (values \u003d\u003d nullptr)\n                        {\n                            messages::internalError(asyncResp-\u003eres);\n                            return;\n                        }",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 37
+      },
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c94e23a9_45145a2c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T06:53:20Z",
+      "side": 1,
+      "message": "Ok, I will modify it.",
+      "parentUuid": "365eebed_8acaa149",
       "range": {
         "startLine": 404,
         "startChar": 0,
