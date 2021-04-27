@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaa27af0_943e7348",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T07:53:02Z",
+      "side": 1,
+      "message": "This does not include all the data under \n\"xyz.openbmc_project.Inventory.Decorator.Asset\", \nfor example:BuildDate,SubModel.\nThese data are not processed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5058dc6_9f611c9f",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T07:53:02Z",
+      "side": 1,
+      "message": "Would it be better if the default state is enabled?\nSo if an implementation doesn\u0027t have this property, it defaults to Enabled.\nE.g. like https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41415",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 59
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6839592_c8b2bf28",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-04-27T07:53:02Z",
+      "side": 1,
+      "message": "I have a question. There is only one subtree obtained through \"xyz.openbmc_project.Control.PowerSupplyAttributes\". \nIs there only one subtree obtained by only one power supply EfficiencyPercent, \nor two or more power supply EfficiencyPercent There is only one subtree.",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
