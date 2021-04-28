@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "c3cec1a7_430bdd22",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-04-28T15:25:40Z",
+      "side": 1,
+      "message": "If both are really needed then you\u0027ll need to embed the asynch call within the other asynch call and execute this logic in the callback at the bottom of the stack that has both variables figured out.",
+      "parentUuid": "21b0a26d_a4d1477e",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19e90649_cae64297",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
