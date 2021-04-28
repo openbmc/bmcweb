@@ -70,6 +70,30 @@
       "revId": "22efab5519a8af154b27d5ed87c7ef65a95d3263",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77f7ade9_b30cd717",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-04-28T01:59:25Z",
+      "side": 1,
+      "message": "Ah...you mean that there just should be \n {\"Id\", \"ThermalSubsystem\"};\nIs it?",
+      "parentUuid": "22c493fc_cbf8ddf8",
+      "range": {
+        "startLine": 50,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "22efab5519a8af154b27d5ed87c7ef65a95d3263",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
