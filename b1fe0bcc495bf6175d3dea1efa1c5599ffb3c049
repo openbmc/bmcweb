@@ -22,6 +22,30 @@
       "revId": "b1fe0bcc495bf6175d3dea1efa1c5599ffb3c049",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ef684a1_2ece9464",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-28T10:30:14Z",
+      "side": 1,
+      "message": "hum.. But we should return after InternalError instead of continue:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/42274",
+      "parentUuid": "8a8e8d47_79705f97",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 27
+      },
+      "revId": "b1fe0bcc495bf6175d3dea1efa1c5599ffb3c049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
