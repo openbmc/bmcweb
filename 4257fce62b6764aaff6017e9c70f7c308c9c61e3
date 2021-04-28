@@ -48,6 +48,64 @@
     },
     {
       "key": {
+        "uuid": "bcfcc934_2ca7f128",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-28T12:36:18Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d5058dc6_9f611c9f",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 59
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bae5334_75e39dac",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-28T12:36:18Z",
+      "side": 1,
+      "message": "ideally this would be  \n                   if (value \u003d\u003d nullptr)\n                    {\n                        messages::internalError(asyncResp-\u003eres);\n                        return;\n                    }\n                if (*value \u003d\u003d false)\n                {\n    asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n                }",
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d896ea3_8f59dec4",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-28T12:36:18Z",
+      "side": 1,
+      "message": "ideally this would be  \n                   if (value \u003d\u003d nullptr)\n                    {\n                        messages::internalError(asyncResp-\u003eres);\n                        return;\n                    }\n                if (*value \u003d\u003d false)\n                {\n                    asyncResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"Critical\";\n                }",
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6839592_c8b2bf28",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 11
