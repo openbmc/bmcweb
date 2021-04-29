@@ -46,6 +46,30 @@
       "revId": "b1fe0bcc495bf6175d3dea1efa1c5599ffb3c049",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6222d14e_b95b7070",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-29T21:07:15Z",
+      "side": 1,
+      "message": "Yeah, I agree with Chicago here.. Set an internal Error and bail, don\u0027t keep going. This should not happen though.",
+      "parentUuid": "2ef684a1_2ece9464",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 27
+      },
+      "revId": "b1fe0bcc495bf6175d3dea1efa1c5599ffb3c049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
