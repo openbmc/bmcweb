@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5922dc17_ce45220b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38588122_d0fddaf7",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97e0ecf5_4d62d62e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff83e838_5032404e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97e0ecf5_4d62d62e",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "50515d6a_5ce97a9f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "e6cd30c0_2071038e",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70781102_b81a1c4b",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "2a1acac7_4d53e42b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70781102_b81a1c4b",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c7de822_6d0f09a9",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 6
@@ -81,6 +153,24 @@
       "writtenOn": "2021-04-26T12:08:01Z",
       "side": 1,
       "message": "Is this acceptable vs some static data member ?",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a839ea2_d14f4386",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "I don\u0027t think we can use static data member. \nWe need to change its value in lambda and continue to use it outside of lambda.",
+      "parentUuid": "7c7de822_6d0f09a9",
       "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "c9c426cb_85ce0063",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Yes, Check associations on line 497.",
+      "parentUuid": "203c729d_27017715",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e326f4b_83272f5d",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 6
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "58bd5a95_9eae0c10",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e326f4b_83272f5d",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c063709_fb81a472",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 6
@@ -135,6 +261,24 @@
       "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec1dcdca_14d03bb4",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T10:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c063709_fb81a472",
+      "revId": "d13674cf6dd6664d687088fcebde44ad74e4a0b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
