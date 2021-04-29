@@ -16,6 +16,64 @@
       "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea964b14_5acf1646",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-04-29T18:16:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3e8eff4e_ef1405b7",
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e50d202_7af1ea55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-04-29T18:16:39Z",
+      "side": 1,
+      "message": "It\u0027s not really about being consistent, it\u0027s just about being correct. We caught this when we did hypervisor but missed it with system. So better wording would be just \"If the HostState is TransitioningToRunning, Redfish response should indicate Starting\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e9ab4b9_6842f80f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-04-29T18:16:39Z",
+      "side": 1,
+      "message": "...and verified it showed Starting?",
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
