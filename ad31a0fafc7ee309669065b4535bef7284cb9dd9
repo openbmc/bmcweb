@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2afe90b_62bfc3d3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T21:59:31Z",
+      "side": 1,
+      "message": "Nit.... this is isn\u0027t really a \"default\" anymore.",
+      "range": {
+        "startLine": 335,
+        "startChar": 56,
+        "endLine": 335,
+        "endChar": 67
+      },
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68acaf31_129e124c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T21:59:31Z",
+      "side": 1,
+      "message": "nit.  Please initialize to 0, even though you set it on the next line.",
+      "range": {
+        "startLine": 461,
+        "startChar": 21,
+        "endLine": 461,
+        "endChar": 33
+      },
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f856d5bb_7aa3cfd5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T21:59:31Z",
+      "side": 1,
+      "message": "nit: You need to explicitly set fmt \u003d\u003d fixed here, otherwise scientific notation is allowed",
+      "range": {
+        "startLine": 464,
+        "startChar": 55,
+        "endLine": 464,
+        "endChar": 56
+      },
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf9d9915_b798a9df",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T21:59:31Z",
+      "side": 1,
+      "message": "snmpTrapPort is a uint16_t, this check now does nothing.",
+      "range": {
+        "startLine": 472,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 13
+      },
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934abfda_1f6850d1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T21:59:31Z",
+      "side": 1,
+      "message": "I\u0027d much rather this be a lookup based on the actual id.  For example, if redfish ids got the ID rf_\u003cuid\u003e and snmp got snmp_\u003cuid\u003e bmcweb wouldnt\u0027 need to persist them at all, and wouldn\u0027t suffer from cross protocol bugs.",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 52
+      },
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46693d8c_bf5b5630",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T21:59:31Z",
+      "side": 1,
+      "message": "EventServiceManager has no ownership of this subscription, therefore it shouldn\u0027t be persisting a subscription here.  We should be also reading subscriptions from dbus for the doGet.\n\nImagine the bug where:\nCreate SNMP subscription over Redfish\nDelete SNMP subscription over IPMI/Dbus\nSNMP subscription still shows up in redfish\n\nLooking at your code, that\u0027s a bug with how it\u0027s currently written",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 502,
+        "endChar": 38
+      },
+      "revId": "ad31a0fafc7ee309669065b4535bef7284cb9dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "616291a8_a65363b0",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 16
