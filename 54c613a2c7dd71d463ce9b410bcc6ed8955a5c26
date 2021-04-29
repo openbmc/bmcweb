@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7236103f_bf056d05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001081
+      },
+      "writtenOn": "2021-04-29T18:36:09Z",
+      "side": 1,
+      "message": "Updated with your recommendation.",
+      "parentUuid": "ea964b14_5acf1646",
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e50d202_7af1ea55",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -60,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "32cea028_288b2bed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001081
+      },
+      "writtenOn": "2021-04-29T18:36:09Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "6e50d202_7af1ea55",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e9ab4b9_6842f80f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -74,6 +116,24 @@
       "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c7d4bc_fd00eb2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001081
+      },
+      "writtenOn": "2021-04-29T18:36:09Z",
+      "side": 1,
+      "message": "Yes. Clarified in testing section.",
+      "parentUuid": "9e9ab4b9_6842f80f",
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
