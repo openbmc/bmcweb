@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b5b39376_68761736",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b9e619_7fe7a110",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd79279c_1d9fd74c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "e93cc326324ed848843b6140707482406b2d3208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53323508_2879a60c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd79279c_1d9fd74c",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "c97cbcc8_5013bfb1",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "Done. Moved getLocationIndicatorActive to another location.",
+      "parentUuid": "4f5ae3ee_56944761",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7da8a4b9_83bad759",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -103,6 +157,24 @@
       "revId": "e93cc326324ed848843b6140707482406b2d3208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0438c4b8_c76028e3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "We check in Line 653",
+      "parentUuid": "7da8a4b9_83bad759",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -123,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "8953470d_2909af74",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "We can\u0027t use const hear, no matching function for call to \u0027readJson(const nlohmann::basic_json\u003c\u003e\u0026 ...",
+      "parentUuid": "8d6f0f6a_8e6b46cb",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "096d1b9d_bbad88dd",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -137,6 +227,24 @@
       "revId": "e93cc326324ed848843b6140707482406b2d3208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "835c9290_7759bb5c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "096d1b9d_bbad88dd",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "fc9b0c9d_57463994",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21ff0231_8d4aee0d",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac33f122_c88408ba",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -227,6 +353,24 @@
     },
     {
       "key": {
+        "uuid": "1d4c5cb6_37b6e3ec",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "Yes, Sunny is right.",
+      "parentUuid": "aec855ed_64c00def",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25dd7dc1_2460ddf2",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -244,6 +388,24 @@
     },
     {
       "key": {
+        "uuid": "6be1239f_deea2f95",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "\"setLocationIndicatorActive\" is a flag, We need to use this flag to judge whether it is doget or dopatch（line 354）",
+      "parentUuid": "25dd7dc1_2460ddf2",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddcb0e68_70e7c18a",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 5
@@ -255,6 +417,24 @@
       "writtenOn": "2021-04-26T11:29:49Z",
       "side": 1,
       "message": "hmm.. why is it referencing setLocationIndicatorActive directly ?.. don\u0027t we have anything else that is patchable ?\n\nAlso, we need to check the !readJson() and other usual checks that we do as part of PATCH",
+      "revId": "e93cc326324ed848843b6140707482406b2d3208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da81e9d4_3fa3525b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-29T11:16:39Z",
+      "side": 1,
+      "message": "According to the schema， we don\u0027t have Other things that is patchable.\nwe check the !readJson() in line 252",
+      "parentUuid": "ddcb0e68_70e7c18a",
       "revId": "e93cc326324ed848843b6140707482406b2d3208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
