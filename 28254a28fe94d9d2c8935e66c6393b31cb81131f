@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a66ecb9_3af88af3",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "common utils namespaces should go in a file more aptly named.",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 15
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fb2004c_551cbc15",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "This is a pattern we intentionally removed from other contexts because it was error prone.  It definitely doesn\u0027t belong in something that\u0027s specific to metric_definition.hpp.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec60e54_f69d9fe1",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "Please comment on the discussions on discord and the mailing list.  This might be going away, and I\u0027d like to understand the impact on this patchset in terms of dependencies.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e48fee9_14358c02",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "This is moving a sensor type dbus property directly into a redfish odata ID.  Don\u0027t we need some kind of converstion?",
+      "range": {
+        "startLine": 124,
+        "startChar": 45,
+        "endLine": 124,
+        "endChar": 60
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f63d4e_02921697",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "please read the common errors doc.  This method is explicitly banned by name.",
+      "range": {
+        "startLine": 134,
+        "startChar": 40,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e3abf92_6583d53b",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "Please declare your lambdas in the scope they\u0027re used.  Given the capture list (only asyncresp) there is no need to declare this here.\n\nI suspect the lambda on line 193 will also need to be rolled into a separate method just for code cleanliness.",
+      "range": {
+        "startLine": 175,
+        "startChar": 13,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8c7c8c_2993b7d9",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T18:35:51Z",
+      "side": 1,
+      "message": "Can we get this portion in a new patchset?  I suspect it\u0027s going to need a separate test plan.",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 35
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
