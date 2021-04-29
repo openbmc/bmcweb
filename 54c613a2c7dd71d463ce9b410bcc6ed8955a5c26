@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e8eff4e_ef1405b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-29T17:54:09Z",
+      "side": 1,
+      "message": "We follow https://chris.beams.io/posts/git-commit/ for commit msgs \n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how\n\nMaybe something more like: \"Redfish: Update Powering On Status State\"",
+      "revId": "54c613a2c7dd71d463ce9b410bcc6ed8955a5c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
