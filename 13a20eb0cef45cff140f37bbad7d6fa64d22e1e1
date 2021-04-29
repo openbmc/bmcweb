@@ -72,6 +72,29 @@
     },
     {
       "key": {
+        "uuid": "ed20ad93_fd4fff44",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:27:27Z",
+      "side": 1,
+      "message": "This is going to get location indicator for all interfaces, not just processors.  I suspect you need to do this in two steps, figure out if this is a processor, THEN if it\u0027s a processor, call getLocationIndicatorActive on the path.",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 750,
+        "endChar": 13
+      },
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e131834_c974f057",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 38
@@ -154,6 +177,29 @@
       "side": 1,
       "message": "A Processor in Redfish is more than just a CPU. \n\nFrom https://redfish.dmtf.org/schemas/v1/Processor.v1_11_0.json\n\n        \"ProcessorType\": {\n            \"enum\": [\n                \"CPU\",\n                \"GPU\",\n                \"FPGA\",\n                \"DSP\",\n                \"Accelerator\",\n                \"Core\",\n                \"Thread\",\n                \"OEM\"\n            ],\n            \"enumDescriptions\": {\n                \"Accelerator\": \"An accelerator.\",\n                \"CPU\": \"A CPU.\",\n                \"Core\": \"A core in a processor.\",\n                \"DSP\": \"A DSP.\",\n                \"FPGA\": \"An FPGA.\",\n                \"GPU\": \"A GPU.\",\n                \"OEM\": \"An OEM-defined processing unit.\",\n                \"Thread\": \"A thread in a processor.\"\n            },",
       "parentUuid": "1bebe7a4_b9a88997",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e89f5b5_f4fd05c1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:27:27Z",
+      "side": 1,
+      "message": "This is an OR, not an AND.  Your code on line 1179 is treating it as an AND, and not checking to see if this is a CPU before setting the elements.\n\nPut another way, as written, I could set a Chassis indicator LED through this interface.",
+      "range": {
+        "startLine": 1200,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 61
+      },
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
