@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "981b911c_5902df4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "Please update https://github.com/openbmc/bmcweb/blob/master/Redfish.md",
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c272ff_008c48f0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "typo in variable name.",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d32a0c_2433974f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "Please avoid auto here.",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc088e05_3dd5d981",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "Please don\u0027t capture these by reference.  Please look them up at a lower scope.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66590c96_35c77104",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 267,
+        "startChar": 49,
+        "endLine": 267,
+        "endChar": 63
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff57c5e_9b4b71cb",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "Isn\u0027t this just a failure?  That seems like something we shouldn\u0027t be covering up.",
+      "range": {
+        "startLine": 267,
+        "startChar": 67,
+        "endLine": 269,
+        "endChar": 25
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293dead9_b3bb05cf",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "See old comment, this needs split up.",
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "380cb0bb_a2fb489a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "Declare variables in the scope they\u0027re used, also please use sdbusplus::message::object_path operator/ to assemble this path.",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 50
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9587e150_d6febc7a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 330,
+        "startChar": 39,
+        "endLine": 330,
+        "endChar": 47
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c3862f_e5f3793f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "?  Isn\u0027t this requiring the path to be named \"assembly\"?  I would\u0027ve expected something like sortedAssemblyList[0]?",
+      "range": {
+        "startLine": 433,
+        "startChar": 44,
+        "endLine": 433,
+        "endChar": 56
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fac3dd7_e83b3a4b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "Shouldn\u0027t everything be in this namespace?",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 9
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d648bbe_824dd564",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:19:19Z",
+      "side": 1,
+      "message": "This seems like something we should abstract and have in common with the chassis handlers.  There\u0027s already talk of removing board from this list, and I\u0027d like to see it be somewhat common.\n\nThere\u0027s also a similar helper function in one of the telemetry patches.  Please look into that.",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 1
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
