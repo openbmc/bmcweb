@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "8fd06b15_b968afaf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "BTW, this is a great commit message.  It\u0027s clear, concise, talks through what you want to use this for, doesn\u0027t just reword what\u0027s already in the specification, but talks through the OpenBMC implementation.\n\nGood job.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 9
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69cc67e4_690a5a58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "Considering the validator pushes warnings on empty properties, I find it really hard to believe that you ran it without any warnings popping up.  You might want to mention this in your commit message.",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7542d84_0bec9163",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "That looks wrong.  Might want to go debug.",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 31
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30bdf664_36aec453",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -178,6 +247,23 @@
     },
     {
       "key": {
+        "uuid": "4e2a2a50_de2fea83",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "Please split this function up.  There are places that go to 10 scopes deep in a single method, which we should avoid where possible.",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0a35ffc_f9211413",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -257,6 +343,46 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d60527f_3db95034",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "Set to 0 in multiple places?",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 75
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66550149_cb94b512",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "Looks incorrect?",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
@@ -371,6 +497,52 @@
       "side": 1,
       "message": "We have already handled that.\nIf chassis/board is not found the call to mapper will return 0. Hence the for loop will not execute and it will jump to line 435.\nI also tested the same,\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X GET https://${bmc}/redfish/v1/Chassis/chassis/Assembly/\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type Chassis named chassis was not found.\",\n        \"MessageArgs\": [\n          \"Chassis\",\n          \"chassis\"\n        ],\n        \"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.ResourceNotFound\",\n    \"message\": \"The requested resource of type Chassis named chassis was not found.\"\n  }\n}",
       "parentUuid": "ac5dfd8d_0bffd943",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a5b2d4f_1ac6586e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "I suspect this should be using GetObject.\n\nRemember to escape chassisId.",
+      "range": {
+        "startLine": 440,
+        "startChar": 45,
+        "endLine": 440,
+        "endChar": 60
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ff95ef_441d516e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-29T22:05:53Z",
+      "side": 1,
+      "message": "please don\u0027t use res.end in new code.  Declare the asyncresp at the beginning.",
+      "range": {
+        "startLine": 476,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 22
+      },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
