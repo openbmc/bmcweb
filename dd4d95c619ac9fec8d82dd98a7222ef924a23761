@@ -367,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "89fe1fbc_6e271adf",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-04-29T01:30:03Z",
+      "side": 1,
+      "message": "\u003e \n\u003e No, you don\u0027t, because the request might include a body which would make no sense if forwarding this to the next level.\n\u003e \nI know that the request contains a body, but isn\u0027t that the core content of req? We need a body to construct the Request.\nRequest(\n         boost::beast::http::request\u003cboost::beast::http::string_body\u003e\u0026 reqIn):\n         req(reqIn),\n         fields(reqIn.base()), body(reqIn.body())\n     {}\n\n\u003e \n\u003e uri will need to be new, headers will need to be copied into the new request.  Request is a pretty simple object, most things are just helpers around the boost functions, and an end handler, which we talked about on discord.\nI don\u0027t understand what headers should be and where do they come from.Can you explain it in detail? Or where is the relevant documentation?",
+      "parentUuid": "b6aa9280_d0bbe6e4",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "dd4d95c619ac9fec8d82dd98a7222ef924a23761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dab50ca5_34bfd574",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 27
