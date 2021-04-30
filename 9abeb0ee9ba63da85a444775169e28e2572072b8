@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d40c9629_8a92a340",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "+1, as alternative you can save reference to Members field\nauto/nlohmann::json/nlohmann::json::array\u0026 members \u003d sessionAsyncResp-\u003eres.jsonValue[\"Members\"];",
+      "parentUuid": "60812dcd_e1c574a4",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 73
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d2e40bf_458fec1e",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 10
@@ -48,6 +72,75 @@
     },
     {
       "key": {
+        "uuid": "973d23d8_71f2f200",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "since this is pointer we should check it is valid so:\nif (uid \u0026\u0026 uid-\u003elength() !\u003d 0)",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55ce788e_8579bb53",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "end should not be called manually, it is called in destructor of AsyncResp class",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 32
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64473e06_773445dc",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "nit: you don\u0027t need type information in your variable name, just name it ipmiSessions\n\nType information is on the right side of expression, no need to duplicate it.",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dcfe0734_470d2267",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 10
@@ -64,6 +157,53 @@
         "startChar": 51,
         "endLine": 74,
         "endChar": 63
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3bebb6_2e869cf3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "+1, make_shared performs \u0027shared_ptr\u003cstd::vector\u003cstd::string\u003e\u003e\u003e(new std::vector\u003cstd::string\u003e\u003e(ipmiSessions))\u0027 you can as well call make_shared with no args it should produce same result, new vector with no content.",
+      "parentUuid": "dcfe0734_470d2267",
+      "range": {
+        "startLine": 74,
+        "startChar": 51,
+        "endLine": 74,
+        "endChar": 63
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5595f0c8_5a8f8eb4",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "nit: small performance optimization, you can move your shared ptr\nsessionSharedPtr \u003d std::move(sessionSharedPtr)",
+      "range": {
+        "startLine": 77,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 43
       },
       "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -110,6 +250,53 @@
         "startChar": 39,
         "endLine": 136,
         "endChar": 48
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb16cdc_f68dbff2",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "You can use sdbusplus::asio::getProperty, it saves some lines of code and handles variant in a correct way. In case property is different type that uint8_t will produce default variand with 0u inside. sdbusplus::asio::getProperty will return variant with no type set and execute callback with error_code set instead",
+      "parentUuid": "409cbc52_9ef934d4",
+      "range": {
+        "startLine": 136,
+        "startChar": 39,
+        "endLine": 136,
+        "endChar": 48
+      },
+      "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aca9353a_f56f560b",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T08:32:01Z",
+      "side": 1,
+      "message": "Why create new asyncResp? There is one already passed in doGet parameter, also it shadows parameter name",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 299,
+        "endChar": 36
       },
       "revId": "9abeb0ee9ba63da85a444775169e28e2572072b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
