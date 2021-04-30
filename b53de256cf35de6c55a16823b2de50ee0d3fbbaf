@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a706f08a_978e81b9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-30T16:56:19Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "23d8e3f7_b7c1df87",
+      "revId": "b53de256cf35de6c55a16823b2de50ee0d3fbbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67040994_0695cf7c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -30,6 +48,29 @@
       "writtenOn": "2021-04-30T16:37:49Z",
       "side": 1,
       "message": "I think this change will break anyone using the current format without the SubMinorVersion.  It would be good to make this change in a backward-compatible way and give time for all existing Redfish messages to be updated.",
+      "revId": "b53de256cf35de6c55a16823b2de50ee0d3fbbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1367ce8_d6fb7587",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-30T16:56:19Z",
+      "side": 1,
+      "message": "It should also be noted, this code is unsafe as written.  We need to be range checking the resulting vector of version pieces.  Please add that as part of your commit.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 40
+      },
       "revId": "b53de256cf35de6c55a16823b2de50ee0d3fbbaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
