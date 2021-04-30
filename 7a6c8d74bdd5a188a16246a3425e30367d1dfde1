@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35db5a05_9fc7e72f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-30T16:48:35Z",
+      "side": 1,
+      "message": "In the future, try to focus on what the intent of the patch is.  I can see the file you modified and the method you modified in the diff.  With that said, writing commit messages for typo fixes are hard.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 65
+      },
+      "revId": "7a6c8d74bdd5a188a16246a3425e30367d1dfde1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e308c2_405e5100",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-04-30T16:48:35Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, this code is totally wrong for big endian machines when compared to the comment.  This should be using something like big_to_native.",
+      "range": {
+        "startLine": 673,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 24
+      },
+      "revId": "7a6c8d74bdd5a188a16246a3425e30367d1dfde1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
