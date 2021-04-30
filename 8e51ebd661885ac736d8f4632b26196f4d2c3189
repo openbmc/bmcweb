@@ -34,6 +34,24 @@
       "revId": "8e51ebd661885ac736d8f4632b26196f4d2c3189",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5898262_e234a4bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-04-30T15:54:18Z",
+      "side": 1,
+      "message": "I edited the commit message on Gerrit website and saved it.",
+      "parentUuid": "4d145937_bd389fd2",
+      "revId": "8e51ebd661885ac736d8f4632b26196f4d2c3189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
