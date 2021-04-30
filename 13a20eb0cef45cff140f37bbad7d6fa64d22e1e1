@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "202e1c37_2107a83d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-30T02:59:58Z",
+      "side": 1,
+      "message": "I have updated it int he new patch",
+      "parentUuid": "ed20ad93_fd4fff44",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 750,
+        "endChar": 13
+      },
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e131834_c974f057",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 38
@@ -194,6 +218,30 @@
       "writtenOn": "2021-04-29T22:27:27Z",
       "side": 1,
       "message": "This is an OR, not an AND.  Your code on line 1179 is treating it as an AND, and not checking to see if this is a CPU before setting the elements.\n\nPut another way, as written, I could set a Chassis indicator LED through this interface.",
+      "range": {
+        "startLine": 1200,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 61
+      },
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "384966fe_1a2da81d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-04-30T02:59:58Z",
+      "side": 1,
+      "message": "I have updated it in the new patch",
+      "parentUuid": "2e89f5b5_f4fd05c1",
       "range": {
         "startLine": 1200,
         "startChar": 0,
