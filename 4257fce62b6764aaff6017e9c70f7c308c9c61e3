@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6b12aac5_8c1d3446",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:49Z",
+      "side": 1,
+      "message": "The BuildDate and SubModel are not in the powersupply schema.",
+      "parentUuid": "aaa27af0_943e7348",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5058dc6_9f611c9f",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 11
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "f7433144_c88e023f",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcfcc934_2ca7f128",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 59
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bae5334_75e39dac",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 11
@@ -89,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "ddc52622_5a923006",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bae5334_75e39dac",
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d896ea3_8f59dec4",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 11
@@ -103,6 +169,24 @@
       "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13bf4e6c_ae1415f6",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d896ea3_8f59dec4",
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -126,6 +210,30 @@
       "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02df175b_c6ff92e4",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:49Z",
+      "side": 1,
+      "message": "There is only one EfficiencyPercent, see line 119. \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L2313",
+      "parentUuid": "e6839592_c8b2bf28",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
