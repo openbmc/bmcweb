@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc235bc0_814d0f77",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "Instead of adding comments everywhere you can write self commenting code, that\u0027s better approach since commends are easy to be ignored by others and become out of date.\n\nAs an example you can do something like this:\nconst bool endsWithDesiredDimmName \u003d !name.empty() \u0026\u0026 name \u003d\u003d dimId;\nif (endsWithDesiredDimmName) {\n  continue;\n}",
+      "range": {
+        "startLine": 859,
+        "startChar": 16,
+        "endLine": 862,
+        "endChar": 51
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78036665_b0e75560",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "Same here, in this case found can be renamed to:\nbool isAnyDimmSpecificInterfaceFound;",
+      "range": {
+        "startLine": 867,
+        "startChar": 21,
+        "endLine": 870,
+        "endChar": 49
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d4c388_c18c749d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "nit: Code should be clear enough so comments about what is done could be removed. Comments explaining why something is done are nice to have.\n\nMy suggestion would be to make it shorter and refer to specific line.\n\nhandler(...);\nreturn; // We assume that all interfaces we want to process must be on same object path.",
+      "range": {
+        "startLine": 888,
+        "startChar": 16,
+        "endLine": 891,
+        "endChar": 51
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dc80bb8_b119ad69",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "That should not be needed here. If someone needs to see what is done in getLocationIndicatorActive he needs to take a look inside. Comment soon might be out of date, function could be renamed and no one will update the comment here.",
+      "range": {
+        "startLine": 940,
+        "startChar": 12,
+        "endLine": 942,
+        "endChar": 52
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2929938_9abe937e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "Same comment as above but different function call. This looks like something is wrong here. Do we have two function that does same thing? Or someone didn\u0027t update comment.\n\nThis proves that comments are sometimes confusing and can be incorrect.",
+      "range": {
+        "startLine": 960,
+        "startChar": 0,
+        "endLine": 962,
+        "endChar": 56
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9635d843_1007a1aa",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "Looking at getDimmObject and setDimmObject setLocationIndicatorActive and getLocationIndicatorActive probably contains same level of code duplication.",
+      "range": {
+        "startLine": 963,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 42
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4361b4a9_ea8c8662",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T06:58:05Z",
+      "side": 1,
+      "message": "Code duplication.\n\nThis whole function looks like getDimmObject, but with predefined handler and different interfaces passed to async_method_call. Maybe this one can call getDimmObject with setDimmData callback.",
+      "range": {
+        "startLine": 979,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 19
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
