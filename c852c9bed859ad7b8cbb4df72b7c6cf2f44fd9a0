@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de672d95_0ab88321",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T11:03:01Z",
+      "side": 1,
+      "message": "This set and get function are very similar. You can create third one with callback as parameter, in this one can handle assigning value to asyncResp, in set you will pass callback which sets property. If in the future you will add also call to ObjectMapper you will only have to change one place instead of two.",
+      "range": {
+        "startLine": 283,
+        "startChar": 12,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59ea76d2_eb944c02",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T11:03:01Z",
+      "side": 1,
+      "message": "You can use sdbusplus::asio::getProperty\u003cT\u003e instead this part will be covered there.\n\nAlso this condition will be always false because variant have always type set.\n\nIf you use getProperty\u003cT\u003e and pass incorrect T then ec will be passed to callback. Here you will silently get valid std::vector with size 0.",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d812b03_dda769f2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T11:03:01Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 25
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5de319e_d57beadd",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T11:03:01Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 0
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daca3120_293b3e06",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T11:03:01Z",
+      "side": 1,
+      "message": "You can use sdbusplus::asio::setProperty instead",
+      "range": {
+        "startLine": 385,
+        "startChar": 16,
+        "endLine": 400,
+        "endChar": 22
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
