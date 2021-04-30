@@ -134,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "2ee98146_b69f22b4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-30T14:02:57Z",
+      "side": 1,
+      "message": "This was suggested by Gunnar to check for the implementation of those interfaces as well.\nI would like him to weigh him here.",
+      "parentUuid": "bff57c5e_9b4b71cb",
+      "range": {
+        "startLine": 267,
+        "startChar": 67,
+        "endLine": 269,
+        "endChar": 25
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "293dead9_b3bb05cf",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
