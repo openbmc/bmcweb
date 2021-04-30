@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ba21b9d_b16024cb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T07:50:19Z",
+      "side": 1,
+      "message": "No need for this comment, comment also seems to state obvious and can be removed.",
+      "range": {
+        "startLine": 541,
+        "startChar": 24,
+        "endLine": 541,
+        "endChar": 68
+      },
+      "revId": "5aba73d8c0c738d461a34f2267cd32d8c0388f9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c70881_2b76b95b",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T07:50:19Z",
+      "side": 1,
+      "message": "Is this needed? I think that getValidPowerSupplyID covers everything mentioned in comment. If not maybe it needs to be renamed. Still if you need more detail how getValidaPowerSupplyID works you should go see implementation. Comment can be out of date, code is tested and is updated all the time.",
+      "range": {
+        "startLine": 545,
+        "startChar": 16,
+        "endLine": 546,
+        "endChar": 29
+      },
+      "revId": "5aba73d8c0c738d461a34f2267cd32d8c0388f9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e88728f_64c4d911",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T07:50:19Z",
+      "side": 1,
+      "message": "This doesn\u0027t introduce anything new. I can see it from the code.",
+      "range": {
+        "startLine": 592,
+        "startChar": 16,
+        "endLine": 593,
+        "endChar": 61
+      },
+      "revId": "5aba73d8c0c738d461a34f2267cd32d8c0388f9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f50f498_e4456ba1",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T07:50:19Z",
+      "side": 1,
+      "message": "try using attribute instead, for example:\n\nint test(int a, [[maybe_unused]] int b) {\n    return a;\n}",
+      "range": {
+        "startLine": 599,
+        "startChar": 24,
+        "endLine": 599,
+        "endChar": 54
+      },
+      "revId": "5aba73d8c0c738d461a34f2267cd32d8c0388f9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
