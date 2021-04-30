@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0219df43_5193bc4c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "Done, removed it.",
+      "parentUuid": "016f56ed_dcc7abab",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 56
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5baaced6_e13618bf",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-30T07:34:56Z",
       "side": 1,
       "message": "I don\u0027t see any places where you modify it. It looks like it should be const\u0026",
+      "range": {
+        "startLine": 307,
+        "startChar": 4,
+        "endLine": 307,
+        "endChar": 40
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904b5dc5_60697436",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "This is in the parent commit:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39574/32/redfish-core/lib/assembly.hpp#239\n\n@Sunnny Can you address this comment.",
+      "parentUuid": "5baaced6_e13618bf",
       "range": {
         "startLine": 307,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "80c791ea_0b437e74",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "Since the async function is used in bmcweb, So we need to put \"set\", \"get\" or a callback in the   checkAssemblyInterface.",
+      "parentUuid": "0d85d13f_0e1fb872",
+      "range": {
+        "startLine": 355,
+        "startChar": 18,
+        "endLine": 356,
+        "endChar": 66
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d00653ba_ed1bda35",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2021-04-30T07:34:56Z",
       "side": 1,
       "message": "Passing simple types as const\u0026 is less efficient. You pass more data and introduce indirection. Compiler usually have more ways to optimize something passed via copy it is safe to assume that if you pass small data via copy compiler will produce more efficient code.",
+      "range": {
+        "startLine": 387,
+        "startChar": 36,
+        "endLine": 387,
+        "endChar": 74
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e5a540_ed85bb26",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "Thanks, I understand what you said. \nIn bmcweb, const\u0026 is more used in this case. I just want to keep the same style as the other code in bmcweb. If it has to be changed, please let me know. Thank you.",
+      "parentUuid": "d00653ba_ed1bda35",
       "range": {
         "startLine": 387,
         "startChar": 36,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "82bffdbb_cedcac6a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "This is in the parent commit.\n@Sunnny Can you address this comment. Thanks",
+      "parentUuid": "d71fe9b9_4da98d28",
+      "range": {
+        "startLine": 426,
+        "startChar": 20,
+        "endLine": 428,
+        "endChar": 21
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd7fb10a_a21b5725",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 6
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9d870615_8a151aac",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "This is in the parent commit.\n@Sunnny Can you address this comment. Thanks",
+      "parentUuid": "bd7fb10a_a21b5725",
+      "range": {
+        "startLine": 466,
+        "startChar": 32,
+        "endLine": 467,
+        "endChar": 33
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c8382f0_1530a1a4",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 6
@@ -151,6 +295,30 @@
       "writtenOn": "2021-04-30T07:34:56Z",
       "side": 1,
       "message": "This one looks like obvious comment that can be removed",
+      "range": {
+        "startLine": 468,
+        "startChar": 36,
+        "endLine": 469,
+        "endChar": 52
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb12c57a_8ea8b878",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-04-30T09:57:12Z",
+      "side": 1,
+      "message": "This is in the parent commit.\n@Sunnny Can you address this comment. Thanks",
+      "parentUuid": "4c8382f0_1530a1a4",
       "range": {
         "startLine": 468,
         "startChar": 36,
