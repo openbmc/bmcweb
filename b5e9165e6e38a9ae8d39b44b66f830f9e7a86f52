@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b6e070b2_6a9987a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-04-30T08:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9b24eb6_b65196d8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb65bc75_6becdc79",
         "filename": "/COMMIT_MSG",
         "patchSetId": 19
@@ -60,6 +84,30 @@
       "writtenOn": "2021-04-19T20:04:42Z",
       "side": 1,
       "message": "This seems incomplete based on the code.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 90
+      },
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f99fe7dc_df899045",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-04-30T08:51:39Z",
+      "side": 1,
+      "message": "these are two interfaces added in this commit",
+      "parentUuid": "eb65bc75_6becdc79",
       "range": {
         "startLine": 13,
         "startChar": 0,
