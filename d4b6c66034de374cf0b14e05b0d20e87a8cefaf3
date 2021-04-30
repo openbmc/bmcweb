@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0041dc8_b378d445",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-30T14:02:21Z",
+      "side": 0,
+      "message": "why loose the digit?",
+      "range": {
+        "startLine": 2114,
+        "startChar": 34,
+        "endLine": 2114,
+        "endChar": 36
+      },
+      "revId": "d4b6c66034de374cf0b14e05b0d20e87a8cefaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

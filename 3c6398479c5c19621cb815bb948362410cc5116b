@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "819a18be_ff9eac7d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-30T14:02:21Z",
+      "side": 1,
+      "message": "Bonus points to whoever adds this to the registry (unless I am missing it)",
+      "range": {
+        "startLine": 447,
+        "startChar": 51,
+        "endLine": 447,
+        "endChar": 63
+      },
+      "revId": "3c6398479c5c19621cb815bb948362410cc5116b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6183141e_fac7f430",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3179,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-30T14:02:21Z",
+      "side": 1,
+      "message": "For consistency I wish this had an 3 digits too.",
+      "range": {
+        "startLine": 3179,
+        "startChar": 48,
+        "endLine": 3179,
+        "endChar": 52
+      },
+      "revId": "3c6398479c5c19621cb815bb948362410cc5116b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
