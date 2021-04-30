@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "54354efa_7ff23c38",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-30T14:12:57Z",
+      "side": 1,
+      "message": "\u003e The BuildDate and SubModel are not in the powersupply schema.\n+1. \nhttps://redfish.dmtf.org/schemas/v1/PowerSupply.v1_0_0.json",
+      "parentUuid": "6b12aac5_8c1d3446",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "4257fce62b6764aaff6017e9c70f7c308c9c61e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5058dc6_9f611c9f",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 11
