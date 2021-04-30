@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b14c2875_f9996ded",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-30T18:55:23Z",
+      "side": 1,
+      "message": "Then all our MessageIds are wrong\nE.g. \n      \"MessageId\": \"Base.1.8.1.PropertyValueFormatError\",\nAnd I feel this rule conflicts with Redfish\u0027s registries.\n\nhttps://redfish.dmtf.org/registries/Base.1.9.0.json",
+      "parentUuid": "23d8e3f7_b7c1df87",
+      "revId": "b53de256cf35de6c55a16823b2de50ee0d3fbbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67040994_0695cf7c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
