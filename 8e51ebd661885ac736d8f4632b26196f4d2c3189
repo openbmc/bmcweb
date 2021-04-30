@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66eb5a07_77607a4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-04-30T14:31:08Z",
+      "side": 1,
+      "message": "Welcome Ali! \nKnowing this is your first commit, doesn\u0027t help the commit, please remove. \nInstead you could add detail about what comments these are / where they are located the code.\n\n\nE.g. \"These comments were part of the /ibm/v1/ locks.\"",
+      "revId": "8e51ebd661885ac736d8f4632b26196f4d2c3189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
