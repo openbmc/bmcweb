@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "bdf19482_92629309",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T10:35:27Z",
+      "side": 1,
+      "message": "From const correctness point of view function with check in name should only get and check something. In bmcweb it is common to use getSomething([] {\n  setSomething();\n});\n\nBut it is correct, get only gets something, callback passed to get changes something. Here you are breaking this rule.\n\nIt would be better to make it a get method and pass callback which will set something for doPatch or performs additional get for doGet.",
+      "parentUuid": "80c791ea_0b437e74",
+      "range": {
+        "startLine": 355,
+        "startChar": 18,
+        "endLine": 356,
+        "endChar": 66
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d00653ba_ed1bda35",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 6
@@ -187,6 +211,30 @@
       "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ab67d5_2f08ea4e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T10:35:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e4e5a540_ed85bb26",
+      "range": {
+        "startLine": 387,
+        "startChar": 36,
+        "endLine": 387,
+        "endChar": 74
+      },
+      "revId": "d26048ffe2399954317507c66a0cd38ba53e9d1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
