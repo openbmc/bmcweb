@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c689e99_4d978db5",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-04-30T10:42:24Z",
+      "side": 1,
+      "message": "nit: Name getPowerSupplyID could be more precise if we rename it to, getPowerSupplyIdHandler or setLocationIndicatorActive.\n\nWe are calling getPowerSupplyId but this lambda is a handler which performs setLocationIndicatorActive, so in my opinion we should name it based on code inside handler instead.",
+      "range": {
+        "startLine": 589,
+        "startChar": 21,
+        "endLine": 589,
+        "endChar": 38
+      },
+      "revId": "897ea4cfd7a763c2a16abd9080124ce646633550",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
