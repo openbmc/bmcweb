@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb579a69_25ed9fcf",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-01T07:50:04Z",
+      "side": 1,
+      "message": "Yes, I know what your mean.\nBut according to the context, and this patch has been a long time, I don’t want to change this logic again.\nThanks 😊",
+      "parentUuid": "de672d95_0ab88321",
+      "range": {
+        "startLine": 283,
+        "startChar": 12,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59ea76d2_eb944c02",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-30T11:03:01Z",
       "side": 1,
       "message": "You can use sdbusplus::asio::getProperty\u003cT\u003e instead this part will be covered there.\n\nAlso this condition will be always false because variant have always type set.\n\nIf you use getProperty\u003cT\u003e and pass incorrect T then ec will be passed to callback. Here you will silently get valid std::vector with size 0.",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f537e820_452bb298",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-01T07:50:04Z",
+      "side": 1,
+      "message": "Yes.\nBut we have never used `sdbusplus::asio:connection` this way, this should be a logical change.\nI think this part can be optimized in the future",
+      "parentUuid": "59ea76d2_eb944c02",
       "range": {
         "startLine": 301,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e22e41b2_abd7fe83",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-01T07:50:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d812b03_dda769f2",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 25
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5de319e_d57beadd",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d01620f0_abbb6e44",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-01T07:50:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5de319e_d57beadd",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 0
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "daca3120_293b3e06",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
@@ -114,6 +210,30 @@
       "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fcd0c04_4c46bd09",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-01T07:50:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "daca3120_293b3e06",
+      "range": {
+        "startLine": 385,
+        "startChar": 16,
+        "endLine": 400,
+        "endChar": 22
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
