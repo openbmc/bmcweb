@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d31746f_66629902",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc235bc0_814d0f77",
+      "range": {
+        "startLine": 859,
+        "startChar": 16,
+        "endLine": 862,
+        "endChar": 51
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78036665_b0e75560",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 49
@@ -45,6 +69,30 @@
       "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f47b224_c95dce45",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78036665_b0e75560",
+      "range": {
+        "startLine": 867,
+        "startChar": 21,
+        "endLine": 870,
+        "endChar": 49
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ef168b6d_962c4851",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "65d4c388_c18c749d",
+      "range": {
+        "startLine": 888,
+        "startChar": 16,
+        "endLine": 891,
+        "endChar": 51
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dc80bb8_b119ad69",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 49
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e8d4dce0_45ccc986",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1dc80bb8_b119ad69",
+      "range": {
+        "startLine": 940,
+        "startChar": 12,
+        "endLine": 942,
+        "endChar": 52
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2929938_9abe937e",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 49
@@ -105,6 +201,30 @@
       "writtenOn": "2021-04-30T06:58:05Z",
       "side": 1,
       "message": "Same comment as above but different function call. This looks like something is wrong here. Do we have two function that does same thing? Or someone didn\u0027t update comment.\n\nThis proves that comments are sometimes confusing and can be incorrect.",
+      "range": {
+        "startLine": 960,
+        "startChar": 0,
+        "endLine": 962,
+        "endChar": 56
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8beb29a7_8b52d437",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "Thanks, removed",
+      "parentUuid": "e2929938_9abe937e",
       "range": {
         "startLine": 960,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7804aaf9_4022b62a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "About this issue, I think we can discuss with @Gunnar and @Ed",
+      "parentUuid": "9635d843_1007a1aa",
+      "range": {
+        "startLine": 963,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 42
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4361b4a9_ea8c8662",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 49
@@ -151,6 +295,30 @@
       "writtenOn": "2021-04-30T06:58:05Z",
       "side": 1,
       "message": "Code duplication.\n\nThis whole function looks like getDimmObject, but with predefined handler and different interfaces passed to async_method_call. Maybe this one can call getDimmObject with setDimmData callback.",
+      "range": {
+        "startLine": 979,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 19
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4c4e0a_f4e5f017",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-02T00:08:15Z",
+      "side": 1,
+      "message": "Yes, But logically, I don’t think it can be merged together.",
+      "parentUuid": "4361b4a9_ea8c8662",
       "range": {
         "startLine": 979,
         "startChar": 0,
