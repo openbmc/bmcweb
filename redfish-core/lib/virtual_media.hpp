@@ -635,7 +635,7 @@ class VirtualMediaActionInsertMedia : public Node
                                 }
 
                                 bool paramsValid = validateParams(
-                                    asyncResp->res, imageUrl, inserted,
+                                    asyncResp, imageUrl, inserted,
                                     transferMethod, transferProtocolType);
 
                                 if (paramsValid == false)
