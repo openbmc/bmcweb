@@ -29,7 +29,7 @@ const Header header = {
     "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 190> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -284,6 +284,39 @@ constexpr std::array<MessageEntry, 187> registry = {
                      "OK",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"BMCTimeUpdatedViaHost",
+                 {
+                     "Indicates that BMC time has been set via Host.",
+                     "BMC time has been set via Host. "
+                     "Date Time is set to %1 from %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {"string", "string"},
+                     "None.",
+                 }},
+    MessageEntry{"BMCTimeUpdatedManually",
+                 {
+                     "Indicates that BMC time has been set Manually.",
+                     "BMC time has been set Manually. "
+                     "Date Time is set to %1 from %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {"string", "string"},
+                     "None.",
+                 }},
+    MessageEntry{"BMCTimeUpdatedViaNTP",
+                 {
+                     "Indicates that BMC time has been set via NTP.",
+                     "BMC time has been set via NTP. "
+                     "Date Time is set to %1 from %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {"string", "string"},
                      "None.",
                  }},
     MessageEntry{"ChassisIntrusionDetected",
