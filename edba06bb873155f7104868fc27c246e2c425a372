@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c4050eae_2caf4623",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T22:10:43Z",
+      "side": 1,
+      "message": "looks wrong?  I thought the validator throws warnings on this.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 12
+      },
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d1d597f_7645cb41",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 12
@@ -163,6 +186,29 @@
       "revId": "edba06bb873155f7104868fc27c246e2c425a372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb54408a_69c871bf",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T22:10:43Z",
+      "side": 1,
+      "message": "This is almost certainly wrong.",
+      "range": {
+        "startLine": 309,
+        "startChar": 8,
+        "endLine": 309,
+        "endChar": 37
+      },
+      "revId": "edba06bb873155f7104868fc27c246e2c425a372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
