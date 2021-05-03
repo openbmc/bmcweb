@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "793c0c8f_6f9cbbfe",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-03T06:53:08Z",
+      "side": 1,
+      "message": "Why Can\u0027t we use auto with vector of strings?",
+      "parentUuid": "84d32a0c_2433974f",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc088e05_3dd5d981",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
