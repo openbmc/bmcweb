@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "9f4a8b5c_a8a18f4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:15:49Z",
+      "side": 1,
+      "message": "One sentence is rarely enough detail for a commit message.\n\nAlso, please don\u0027t wrap your lines by hand.  Use 50/72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "835c93df_c683c65d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:15:49Z",
+      "side": 1,
+      "message": "Please see the other thread.  SubmitTestEvent doesn\u0027t match the Redfish spec and needs fixed.",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bbafe43_8f43d63e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:15:49Z",
+      "side": 1,
+      "message": "As written, this sounds like a bug.  Without a common root certificate, this should\u0027ve failed.\n\nPlease add bad certificate testing to your test procedures.",
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d497d27c_40cb476b",
         "filename": "http/http_client.hpp",
         "patchSetId": 39
@@ -13,6 +76,30 @@
       "writtenOn": "2021-05-03T17:07:44Z",
       "side": 1,
       "message": "There is more that needs to be done than this to construct a secure SSL context.  Cipher suites is one obvious thing that was missed, but SNI hostname verification also seems to have been missed.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 76
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c67f92_208eee99",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:15:49Z",
+      "side": 1,
+      "message": "You also have forgotten to set ctx.set_verify_mode(ssl::verify_server);",
+      "parentUuid": "d497d27c_40cb476b",
       "range": {
         "startLine": 68,
         "startChar": 0,
