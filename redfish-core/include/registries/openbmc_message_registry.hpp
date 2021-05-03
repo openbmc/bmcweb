@@ -63,17 +63,17 @@
 namespace redfish::registries::openbmc
 {
 const Header header = {
-    "Copyright 2022 OpenBMC. All rights reserved.",
+    "Copyright 2023 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.4.0",
+    "OpenBMC.0.5.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.4.0",
+    "0.5.0",
     "OpenBMC",
 };
-constexpr std::array registry = {
+constexpr std::array<MessageEntry, 190> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -314,6 +314,39 @@ constexpr std::array registry = {
                      "OK",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"BMCTimeUpdatedViaHost",
+                 {
+                     "Indicates that BMC time has been set via Host.",
+                     "BMC time has been set via Host. "
+                     "Date Time is set to %1 from %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {"string", "string"},
+                     "None.",
+                 }},
+    MessageEntry{"BMCTimeUpdatedManually",
+                 {
+                     "Indicates that BMC time has been set Manually.",
+                     "BMC time has been set Manually. "
+                     "Date Time is set to %1 from %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {"string", "string"},
+                     "None.",
+                 }},
+    MessageEntry{"BMCTimeUpdatedViaNTP",
+                 {
+                     "Indicates that BMC time has been set via NTP.",
+                     "BMC time has been set via NTP. "
+                     "Date Time is set to %1 from %2.",
+                     "OK",
+                     "OK",
+                     2,
+                     {"string", "string"},
                      "None.",
                  }},
     MessageEntry{"ChassisIntrusionDetected",
