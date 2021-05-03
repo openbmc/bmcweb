@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "60aec8c1_538a196c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-05-03T01:29:21Z",
+      "side": 1,
+      "message": "Add verification steps in patchset 5.",
+      "parentUuid": "e42b4f16_e64f16a9",
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c12cabb5_19a76458",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 3
@@ -128,6 +146,30 @@
     },
     {
       "key": {
+        "uuid": "a0180b4b_1e474da4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-05-03T01:29:21Z",
+      "side": 1,
+      "message": "Restore to redfish namespace",
+      "parentUuid": "c12cabb5_19a76458",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 3
+      },
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63dce6e6_53fc98d5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 3
@@ -148,6 +190,30 @@
       "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de3e6961_84e430a0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-05-03T01:29:21Z",
+      "side": 1,
+      "message": "This function will move to the Subscription struct under persistent_data namespace.",
+      "parentUuid": "63dce6e6_53fc98d5",
+      "range": {
+        "startLine": 1318,
+        "startChar": 8,
+        "endLine": 1318,
+        "endChar": 31
+      },
+      "revId": "c15085f97199a2214265bc09d670c9a5aff102c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
