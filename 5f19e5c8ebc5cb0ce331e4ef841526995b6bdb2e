@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d497d27c_40cb476b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "There is more that needs to be done than this to construct a secure SSL context.  Cipher suites is one obvious thing that was missed, but SNI hostname verification also seems to have been missed.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 76
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43cefcc5_c160f993",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "handshake timeouts seem to have been forgotten here.\n\nconn.expires_after doesn\u0027t work in this context.",
+      "range": {
+        "startLine": 152,
+        "startChar": 17,
+        "endLine": 152,
+        "endChar": 32
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6ca6c4_d3eaea10",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "not this patchset, but size_t can be passed by value.",
+      "range": {
+        "startLine": 180,
+        "startChar": 42,
+        "endLine": 180,
+        "endChar": 49
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1bde33a_85b34c11",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "Please just remove the variable like we don in other places.  bmcweb doesn\u0027t use boost::ignore_unused.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 51
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "036850b2_c8631db4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "Still wrong (as was mentioned on your other patchsets).",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 27
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2cd57e_b6d74e6e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "????  Why are we adding a timer to close?",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 53
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8e39aa3_ca87b11a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "My understanding is that this isn\u0027t needed.  You can just call close.",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 39
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "056c1483_c3a96097",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "Please deduplicate this with the block on 294.",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 13
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef4003bd_87ec82dd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-03T17:07:44Z",
+      "side": 1,
+      "message": "Does it make more sense to have this as an enum class?  That makes it a lot less likely for this client to be called incorrectly.",
+      "range": {
+        "startLine": 463,
+        "startChar": 24,
+        "endLine": 463,
+        "endChar": 51
+      },
+      "revId": "5f19e5c8ebc5cb0ce331e4ef841526995b6bdb2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
