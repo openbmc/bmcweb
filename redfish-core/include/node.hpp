@@ -57,9 +57,7 @@ class Node
 
   public:
     template <typename... Params>
-    Node(App& app, std::string&& entityUrl,
-         [[maybe_unused]] Params... paramsIn) :
-        app(app)
+    Node(App& app, std::string&& entityUrl, [[maybe_unused]] Params... paramsIn)
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;
@@ -187,7 +185,6 @@ class Node
     crow::DynamicRule* deleteRule = nullptr;
 
   protected:
-    App& app;
     // Node is designed to be an abstract class, so doGet is pure virtual
     virtual void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const crow::Request&, const std::vector<std::string>&)
