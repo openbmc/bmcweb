@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7925a9df_e10cf001",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-04T15:58:58Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, this shouldn\u0027t be here.  This file is for the base registry, and this implies that we\u0027re using custom registries as return codes, which I don\u0027t think we\u0027re allowed to do.\n\nNot an issue with this patchset, but something to fix.",
+      "range": {
+        "startLine": 2103,
+        "startChar": 0,
+        "endLine": 2120,
+        "endChar": 0
+      },
+      "revId": "6954e47d1016178d227db98d6168f35a168fef13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
