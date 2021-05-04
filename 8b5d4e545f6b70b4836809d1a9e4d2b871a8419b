@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "93b8009f_9f522e8f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c272ff_008c48f0",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84d32a0c_2433974f",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
@@ -112,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "4d37eae8_6d93af21",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cc088e05_3dd5d981",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66590c96_35c77104",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
@@ -132,6 +180,30 @@
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac6eac6_8346d7af",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66590c96_35c77104",
+      "range": {
+        "startLine": 267,
+        "startChar": 49,
+        "endLine": 267,
+        "endChar": 63
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -247,6 +319,24 @@
     },
     {
       "key": {
+        "uuid": "6638bca7_bdd7105f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "293dead9_b3bb05cf",
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "380cb0bb_a2fb489a",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
@@ -270,6 +360,30 @@
     },
     {
       "key": {
+        "uuid": "9a0e4f8f_cf363e82",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "380cb0bb_a2fb489a",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 50
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9587e150_d6febc7a",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
@@ -290,6 +404,30 @@
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1649e82_e2811007",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9587e150_d6febc7a",
+      "range": {
+        "startLine": 330,
+        "startChar": 39,
+        "endLine": 330,
+        "endChar": 47
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -339,6 +477,30 @@
     },
     {
       "key": {
+        "uuid": "72e7c47e_474f0629",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "I did not do that because I don\u0027t see any other schema following that. So just to maintain consistency across implementations.\nIncluded this api under namespace to distinguish it from being assumed as a general utility method.",
+      "parentUuid": "5fac3dd7_e83b3a4b",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 9
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d648bbe_824dd564",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 32
@@ -350,6 +512,30 @@
       "writtenOn": "2021-04-29T22:19:19Z",
       "side": 1,
       "message": "This seems like something we should abstract and have in common with the chassis handlers.  There\u0027s already talk of removing board from this list, and I\u0027d like to see it be somewhat common.\n\nThere\u0027s also a similar helper function in one of the telemetry patches.  Please look into that.",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 1
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed3403ed_604cffd8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-04T13:58:35Z",
+      "side": 1,
+      "message": "Are you are pointing to \"./redfish-core/lib/redfish_util.hpp:25:void getMainChassisId\" api?\nIf yes then that api only looks for Main chassis i.e. at index 0 of the subtree received.\n\nWhere as here I am looping around all the chassis object that is found, implementing the interfaces.\nLet me know I am understanding your comments correctly.",
+      "parentUuid": "4d648bbe_824dd564",
       "range": {
         "startLine": 509,
         "startChar": 0,
