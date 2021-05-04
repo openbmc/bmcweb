@@ -7,6 +7,7 @@
 #include "logging.hpp"
 #include "timer_queue.hpp"
 #include "utility.hpp"
+#include "utils/query_param.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
@@ -64,7 +65,7 @@ class Connection :
                detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
         handler(handlerIn), getCachedDateStr(getCachedDateStrF),
-        timerQueue(timerQueueIn)
+        timerQueue(timerQueueIn), processParam(handlerIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
@@ -408,6 +409,13 @@ class Connection :
 
     void completeRequest()
     {
+        if (req->method() == boost::beast::http::verb::get)
+        {
+            if (!processParam.processAllParam(*req, res))
+            {
+                return;
+            }
+        }
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
@@ -782,6 +790,8 @@ class Connection :
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;
+
+    redfish::query_param::ProcessParam<Handler> processParam;
 
     using std::enable_shared_from_this<
         Connection<Adaptor, Handler>>::shared_from_this;

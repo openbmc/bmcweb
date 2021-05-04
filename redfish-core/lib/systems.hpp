@@ -1874,7 +1874,7 @@ class SystemsCollection : public Node
 
   private:
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request& req,
+               const crow::Request&,
                const std::vector<std::string>&) override
     {
         asyncResp->res.jsonValue["@odata.type"] =
@@ -1883,7 +1883,7 @@ class SystemsCollection : public Node
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, &req](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code ec,
                               const std::variant<std::string>& /*hostName*/) {
                 nlohmann::json& ifaceArray =
                     asyncResp->res.jsonValue["Members"];
