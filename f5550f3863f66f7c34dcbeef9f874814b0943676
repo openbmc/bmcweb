@@ -85,6 +85,23 @@
       "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be007ce2_8cbf056a",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-04T17:03:12Z",
+      "side": 1,
+      "message": "Wish we had ArgDescriptions in our registries like Redfish. https://redfish.dmtf.org/registries/Base.1.9.0.json\nBeyond this review, can ignore",
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
