@@ -102,6 +102,24 @@
       "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467bcd8f_49c3a2f1",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-04T17:23:09Z",
+      "side": 1,
+      "message": "ArgDescriptions should be pretty straightforward to add to this.  I\u0027d be in full support if that\u0027s something you wanted to add.",
+      "parentUuid": "be007ce2_8cbf056a",
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
