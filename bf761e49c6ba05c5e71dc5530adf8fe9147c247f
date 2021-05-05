@@ -62,6 +62,29 @@
       "revId": "bf761e49c6ba05c5e71dc5530adf8fe9147c247f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca37b45_7d0e509b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T17:17:35Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s worth mentioning.....  because I still think this patchset is good as is, but we should probably group up these methods where appropriate.",
+      "range": {
+        "startLine": 818,
+        "startChar": 12,
+        "endLine": 818,
+        "endChar": 51
+      },
+      "revId": "bf761e49c6ba05c5e71dc5530adf8fe9147c247f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
