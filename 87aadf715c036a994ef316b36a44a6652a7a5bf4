@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "515c7c28_f9e9c194",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8fd06b15_b968afaf",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 9
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69cc67e4_690a5a58",
         "filename": "/COMMIT_MSG",
         "patchSetId": 27
@@ -45,6 +69,30 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b4a6f78_c4da44b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "I have mentioned that in the patch set 33.",
+      "parentUuid": "69cc67e4_690a5a58",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +245,24 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "044f5dc1_682211e5",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "This has been implemented in following patch sets",
+      "parentUuid": "be9491bf_fb251661",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -387,6 +453,30 @@
     },
     {
       "key": {
+        "uuid": "566bcf76_fd93f965",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d60527f_3db95034",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 75
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66550149_cb94b512",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -401,6 +491,24 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b278a20_b05134a1",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "66550149_cb94b512",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -521,6 +629,24 @@
     },
     {
       "key": {
+        "uuid": "7179ce23_bbadd861",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "Can we close this?",
+      "parentUuid": "4cc19157_03dcc126",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a5b2d4f_1ac6586e",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -532,6 +658,30 @@
       "writtenOn": "2021-04-29T22:05:53Z",
       "side": 1,
       "message": "I suspect this should be using GetObject.\n\nRemember to escape chassisId.",
+      "range": {
+        "startLine": 440,
+        "startChar": 45,
+        "endLine": 440,
+        "endChar": 60
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1f5612e_9598ddbc",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-05T05:13:14Z",
+      "side": 1,
+      "message": "Get object will return me the services, with interfaces that will implement any object path. Whereas here I am only looking for object paths with the same chassis ID I am interested in.\n\nFound this serving the purpose.\nIs there something I am missing? Please let me know.",
+      "parentUuid": "9a5b2d4f_1ac6586e",
       "range": {
         "startLine": 440,
         "startChar": 45,
