@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09bcd72d_7642880f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "this is the http connection layer.  It should have no knowledge of redfish, as it supports multiple HTTP protocols today.\n\nThe correct way to do this would be to override the Response object completion handler.",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 9
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f43ed24_735ae8f6",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "Please make it so the connection class calls this so we\u0027re not duplicating code.",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 15
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d69d056a_9df8ec9f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "res.end() already sets this, it doesn\u0027t need to be set externally.",
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791b54ac_bf73ca12",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "handler shouldn\u0027t be taken by raw pointer  Handler\u0026\u0026 with move semantics is probably what you want here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6881c5ce_64a40505",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "I really don\u0027t like the duplication of logic between checkParameters and this method.  If we\u0027re going to parse it anyway, lets parse it into a struct.   Something like\n\nstruct RedfishQueryParams{\n    bool isOnly;\n    bool isExpand;\n}\n\nThen have the prototype of checkParameters change to\n\nstd::optional\u003cRedfishQueryParams\u003e checkParamters(req);\n\nthat way, we avoid the duplication of code, and later on in the method, we can simply do something like\n\n\nif (queryParams.isOnly){\n    // Process only.\n}",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166fffe6_ac54111e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "this check seems unnecessary.  if no params are there, we should still return true, right?\n\nI suspect once the earlier comment is addressed this check will completely go away.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb077d9_8e3b19d3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "This needs to be done at a higher scope.  Once we know that we\u0027re doing an \"only\" request, we should be able to clear out the res object.  We shouldn\u0027t need to do it in every error path.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 38
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a73b30_969b277c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 63,
+        "startChar": 9,
+        "endLine": 63,
+        "endChar": 20
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf43190_7770b835",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "This routine needs to check if the response errored out before trying to operate on it.  If any error is present in res, we shouldn\u0027t be trying to parse it.",
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4882a17_1c711268",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "This needs an error attached to it if someone tries to call this on a non collection.",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 52
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798274c0_048975d6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "If this is changed to !\u003d, it can be combined with the previous condition.",
+      "range": {
+        "startLine": 79,
+        "startChar": 30,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c25925c2_e006a72c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "Please create a new request object, don\u0027t reuse the existing one.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 11
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a99f5e_e9af4078",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-05T16:35:03Z",
+      "side": 1,
+      "message": "This isn\u0027t needed.  Use the completion handler on request to do the \"after the request is complete\" work.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
