@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f0f94289_a606d8f8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-05T06:48:34Z",
+      "side": 1,
+      "message": "I think it is worth to remove this code duplication, but we can wait and see what bmcweb maintainers think about it.\n\nAlso if fixed related to setProperty/getProperty are applied this code duplication become a bit smaller.",
+      "parentUuid": "cb579a69_25ed9fcf",
+      "range": {
+        "startLine": 283,
+        "startChar": 12,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59ea76d2_eb944c02",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
