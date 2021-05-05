@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7666be0f_f09d43c6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-05T06:31:01Z",
+      "side": 1,
+      "message": "crow::connections::systemBus is an sdbusplus::asio::connection object",
+      "parentUuid": "f537e820_452bb298",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d812b03_dda769f2",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
