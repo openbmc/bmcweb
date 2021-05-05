@@ -328,6 +328,30 @@
       "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cafb7a3_34545280",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-05T06:49:49Z",
+      "side": 1,
+      "message": "consider something like this:\n\nvoid setDimmObject(...) {\n  getDimmInventoryItem(..., [...](...) {\n    setDimmData(...);\n  });\n}\n\nvoid getDimmObject(...) {\n  getDimmInventoryItem(..., [...](...) {\n    getDimmData(...);\n  });\n}\n\nset/get are still separated and there is getDimmInventoryItem which only performs get (you can pass callback which does something else like set, but that\u0027s something common in bmcweb also there doesn\u0027t seem to be other way around it when we are dealing with async_calls)",
+      "parentUuid": "de4c4e0a_f4e5f017",
+      "range": {
+        "startLine": 979,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 19
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
