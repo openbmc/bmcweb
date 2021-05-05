@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "24b416a4_a032bbb4",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-05T02:12:08Z",
+      "side": 1,
+      "message": "This was discussed on discord. If you are okay, can we remove and we will add \"PrettyName\" for Redfish Name later for all resources? https://github.com/openbmc/bmcweb/issues/204\n\nAnother choice is you push patches adding \"PrettyName\" for Redfish Name in commits on top of this change (i.e. implement 204 now on top of this change)\n\nDiscord conversation: \nGunnarM\n@edtanous Shouldn\u0027t we be using \"PrettyName\" for Redfish Name?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/495981805244269650bee13d1ee8f13543b2bc5a/xyz/openbmc_project/Inventory/Item.interface.yaml#L5\n\nedtanous\nWe haven\u0027t been in the past.  Whether or not we \"should\" is a different story.\n\nGunnarM\nI would argue we should. What is wrong with starting with this commit?\n\nedtanous\nbecause consistency is a good thing?\nif we\u0027re going to start relying on it, I\u0027d like to see that done for processors and memory as well.\nbut then we get to the \"entity-manager doesn\u0027t implement that part of the interface\" funness\nat least.... I think it doesn\u0027t\nI\u0027d have to look",
+      "parentUuid": "77d06c16_ab7468e4",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 31
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0471b252_f9cbde7e",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 14
