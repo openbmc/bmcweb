@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d40db876_db6dd6d7",
+        "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-06T15:13:27Z",
+      "side": 1,
+      "message": "const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 aResp",
+      "revId": "5bdbff5027f98c8901950e6bff8846d92bb03ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b288725_e3b6f3f5",
+        "filename": "redfish-core/lib/oem/ibm/lamp_test.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-06T15:13:27Z",
+      "side": 1,
+      "message": "const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 aResp",
+      "revId": "5bdbff5027f98c8901950e6bff8846d92bb03ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
