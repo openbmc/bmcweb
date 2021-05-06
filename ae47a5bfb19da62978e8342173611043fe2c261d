@@ -308,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "34b53411_df621b18",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-06T11:08:49Z",
+      "side": 1,
+      "message": "Sure, I will mark it as resolved, because I added same comment in different review.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/58/redfish-core/lib/led.hpp#283",
+      "parentUuid": "7804aaf9_4022b62a",
+      "range": {
+        "startLine": 963,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 42
+      },
+      "revId": "ae47a5bfb19da62978e8342173611043fe2c261d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4361b4a9_ea8c8662",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 49
