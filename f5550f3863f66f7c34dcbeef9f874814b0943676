@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "e97a20b8_0e1288ea",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-06T22:42:30Z",
+      "side": 1,
+      "message": "I see it the other way, that the user is more likely to want to know when the time was changed, but not why. So it\u0027s better to have a converged message.",
+      "parentUuid": "87878c3e_ed340372",
+      "range": {
+        "startLine": 290,
+        "startChar": 63,
+        "endLine": 290,
+        "endChar": 74
+      },
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d2169c4_73ec027a",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
@@ -218,6 +242,29 @@
         "startChar": 31,
         "endLine": 291,
         "endChar": 35
+      },
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd8a9e91_420e4e4c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-06T22:42:30Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be more useful to log the previous time from just before the update? The event will have an associated timestamp which will be the new time (i think), so putting the new time in the message doesn\u0027t add any value. By logging the \"previous\" time just before the update, we can calculate when the 1970-era events actually happened.",
+      "range": {
+        "startLine": 292,
+        "startChar": 22,
+        "endLine": 292,
+        "endChar": 47
       },
       "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
