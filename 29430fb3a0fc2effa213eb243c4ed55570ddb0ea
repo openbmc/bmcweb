@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c89fd4b6_89921172",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T15:36:55Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "29430fb3a0fc2effa213eb243c4ed55570ddb0ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df2fb89_c5bafeb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T15:36:55Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, see what i did with the hypervisor one.  This is just a bad pattern in those files, and the \"this\" capture doesn\u0027t actually get used for any per-member data.  The class methods can be simply moved to normal methods.",
+      "range": {
+        "startLine": 31,
+        "startChar": 61,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "29430fb3a0fc2effa213eb243c4ed55570ddb0ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8beb9ccf_f1920989",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T15:36:55Z",
+      "side": 1,
+      "message": "Considering you\u0027ve done the bulk of the work, and even without complete removal of the Node class, this is already better in terms of binary size, I think this is ok for the time being.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 60
+      },
+      "revId": "29430fb3a0fc2effa213eb243c4ed55570ddb0ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8f8964_b09d82cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T15:36:55Z",
+      "side": 1,
+      "message": "Redfish service validator run as well please.",
+      "revId": "29430fb3a0fc2effa213eb243c4ed55570ddb0ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
