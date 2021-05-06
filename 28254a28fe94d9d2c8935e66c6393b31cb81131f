@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "905f3190_74e55225",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-06T14:10:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a66ecb9_3af88af3",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 15
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fb2004c_551cbc15",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 70
@@ -189,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ad96ba47_ecada81e",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-06T14:10:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4f63d4e_02921697",
+      "range": {
+        "startLine": 134,
+        "startChar": 40,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e3abf92_6583d53b",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 70
@@ -209,6 +257,30 @@
       "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b8938c_c1d00d08",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-06T14:10:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3abf92_6583d53b",
+      "range": {
+        "startLine": 175,
+        "startChar": 13,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
