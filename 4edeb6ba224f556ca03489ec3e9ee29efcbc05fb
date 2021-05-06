@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "074c9135_3112aea6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-06T23:00:11Z",
+      "side": 1,
+      "message": "is this space a typo? I don\u0027t see it like that in any other redfish logging instances",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "4edeb6ba224f556ca03489ec3e9ee29efcbc05fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
