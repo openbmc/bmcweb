@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8cc68c11_209066f6",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T15:56:19Z",
+      "side": 1,
+      "message": "Not put Redfish specific code in a non-redfish specific layer.",
+      "parentUuid": "e3c40a56_2e124d32",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 9
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f43ed24_735ae8f6",
         "filename": "http/http_request.hpp",
         "patchSetId": 36
