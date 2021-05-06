@@ -170,7 +170,11 @@ class RedfishService
         nodes.emplace_back(std::make_unique<DBusEventLogEntry>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntryDownload>(app));
 #endif
-
+#ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
+        nodes.emplace_back(std::make_unique<SystemHostLogger>(app));
+        nodes.emplace_back(std::make_unique<SystemHostLoggerCollection>(app));
+        nodes.emplace_back(std::make_unique<SystemHostLoggerLogEntry>(app));
+#endif
         nodes.emplace_back(
             std::make_unique<MessageRegistryFileCollection>(app));
         nodes.emplace_back(std::make_unique<MessageRegistryFile>(app));
