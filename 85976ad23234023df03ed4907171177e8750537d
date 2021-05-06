@@ -680,6 +680,30 @@
     },
     {
       "key": {
+        "uuid": "ad74f133_34d49f05",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:18:18Z",
+      "side": 1,
+      "message": "I want to be VERY explicit about what we\u0027re forwarding in this case, because we should never forward a request body, which is what you\u0027re doing here.\n\nAlso, in the future, we may support root level patch (ie patching depth resources from service root) which will require us to forumulate a new body on the new request, which will mean we can\u0027t just copy it.  I\u0027d prefer to not rework it when that happens.",
+      "parentUuid": "d94697f6_3ab369b0",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 11
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8a99f5e_e9af4078",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -715,6 +739,30 @@
       "side": 1,
       "message": "I may not understand. Do you mean to process the parameters in Response\u0027s completeRequestHandler() or res.end()? which one?",
       "parentUuid": "d8a99f5e_e9af4078",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8c94d7_a926b447",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:18:18Z",
+      "side": 1,
+      "message": "res.end() essentially calls completeRequestHandler directly.  That is your mechanism for running code after the request is done, and keeping a request alive.",
+      "parentUuid": "03c444bc_2506f47b",
       "range": {
         "startLine": 93,
         "startChar": 0,
