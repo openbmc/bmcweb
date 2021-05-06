@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23cce238_906d9278",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T23:07:41Z",
+      "side": 0,
+      "message": "Right here is where it\u0027s initialized.\n\nJust remove the variable entirely and just read it from the config every time.  I\u0027m not sure why they cached it here, the config is already in cache anyway.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "ffed87b5ad1797ca966d030e7f97977028d258fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
