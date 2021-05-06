@@ -2058,13 +2058,9 @@ class BMCJournalLogEntryCollection : public Node
             "#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of BMC Journal Entries";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries";
         nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
 
