@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b5de3fa8_366643ea",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-06T00:59:42Z",
+      "side": 1,
+      "message": "Yes, You are right.\nLet us wait and see what bmcweb maintainers think.\nI will push a new patch if maintainer agree with this idea.\nThanks a lot.",
+      "parentUuid": "f0f94289_a606d8f8",
+      "range": {
+        "startLine": 283,
+        "startChar": 12,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59ea76d2_eb944c02",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "crow::connections::systemBus is an sdbusplus::asio::connection object",
       "parentUuid": "f537e820_452bb298",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d87d576_a0ba6dcb",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-06T00:59:42Z",
+      "side": 1,
+      "message": "Could we use `sdbusplus::asio::connection` in the next commit?\nBecause we need to update many places and we do not want to change this logic in this commit.\nThanks",
+      "parentUuid": "7666be0f_f09d43c6",
       "range": {
         "startLine": 301,
         "startChar": 12,
