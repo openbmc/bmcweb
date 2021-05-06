@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "e1b0e74e_8df6fb2b",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:02:01Z",
+      "side": 1,
+      "message": "Then deduplicate the last 3 lines in a separate method please.",
+      "parentUuid": "0d547b04_c9e124a8",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 15
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d69d056a_9df8ec9f",
         "filename": "http/http_response.hpp",
         "patchSetId": 36
@@ -202,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "b2c95e9d_68f4347c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:02:01Z",
+      "side": 1,
+      "message": "You shouldn\u0027t be sharing ownership of a single handler between two classes.  That relies on a bad ownership model.",
+      "parentUuid": "d465fd3a_1026d172",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6881c5ce_64a40505",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -237,6 +285,30 @@
       "side": 1,
       "message": "Ok, I will modify it. But I think there is no difference between using a struct or not.",
       "parentUuid": "6881c5ce_64a40505",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b05974_d0ec88a0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:02:01Z",
+      "side": 1,
+      "message": "The difference is that we only parse the request args once.",
+      "parentUuid": "ea2633f5_7104c68c",
       "range": {
         "startLine": 23,
         "startChar": 13,
@@ -425,6 +497,24 @@
     },
     {
       "key": {
+        "uuid": "44acefdd_519191e7",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:02:01Z",
+      "side": 1,
+      "message": "if (response.resultInt() \u003c 200 || response.resultInt() \u003e\u003d 400){\n    return;\n}",
+      "parentUuid": "6511607f_464682cd",
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4882a17_1c711268",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -460,6 +550,30 @@
       "side": 1,
       "message": "Sorry, I did not understand. Do you mean to use BMCWEB_LOG_ERROR to output errors? Or add error information in res.jsonValue?",
       "parentUuid": "a4882a17_1c711268",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 52
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a242067e_1a1b81f4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-06T16:02:01Z",
+      "side": 1,
+      "message": "No, I mean you should be using one of the redfish error codes on the Response object.",
+      "parentUuid": "07eb629d_dd8d9ced",
       "range": {
         "startLine": 68,
         "startChar": 12,
