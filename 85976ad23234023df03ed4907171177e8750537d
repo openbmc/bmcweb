@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e3c40a56_2e124d32",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "I don\u0027t really understand what I should do.",
+      "parentUuid": "09bcd72d_7642880f",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 9
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f43ed24_735ae8f6",
         "filename": "http/http_request.hpp",
         "patchSetId": 36
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-05T16:35:03Z",
       "side": 1,
       "message": "Please make it so the connection class calls this so we\u0027re not duplicating code.",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 15
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d547b04_c9e124a8",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "This is not exactly the same as the connection class. In the connection class, we already have req.target(), we only need to set req-\u003eurlView, req-\u003eurl and req-\u003eurlParams, but in setUrl(), we first need to set the target.",
+      "parentUuid": "9f43ed24_735ae8f6",
       "range": {
         "startLine": 79,
         "startChar": 9,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "ab65c53a_9bc24cbe",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "The key to the problem is where to call processAllParam(), let\u0027s discuss it here:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38952/36/redfish-core/include/utils/query_param.hpp#93",
+      "parentUuid": "d69d056a_9df8ec9f",
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "791b54ac_bf73ca12",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -76,6 +142,30 @@
       "writtenOn": "2021-05-05T16:35:03Z",
       "side": 1,
       "message": "handler shouldn\u0027t be taken by raw pointer  Handler\u0026\u0026 with move semantics is probably what you want here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d465fd3a_1026d172",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "But the handler is also used in the connection class. If I use Handler\u0026\u0026 to move the ownership of the handler, the connection class cannot use it.",
+      "parentUuid": "791b54ac_bf73ca12",
       "range": {
         "startLine": 17,
         "startChar": 17,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ea2633f5_7104c68c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "Ok, I will modify it. But I think there is no difference between using a struct or not.",
+      "parentUuid": "6881c5ce_64a40505",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "166fffe6_ac54111e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "36b601a0_ec83cc1d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "166fffe6_ac54111e",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bb077d9_8e3b19d3",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -145,6 +283,30 @@
       "writtenOn": "2021-05-05T16:35:03Z",
       "side": 1,
       "message": "This needs to be done at a higher scope.  Once we know that we\u0027re doing an \"only\" request, we should be able to clear out the res object.  We shouldn\u0027t need to do it in every error path.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 38
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d08c4a4_ae770c2a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "No, if the resource has more than one member, res.jsonValue.clear() should not be used at this time.",
+      "parentUuid": "3bb077d9_8e3b19d3",
       "range": {
         "startLine": 54,
         "startChar": 0,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "1bcf24af_83ed6a5c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62a73b30_969b277c",
+      "range": {
+        "startLine": 63,
+        "startChar": 9,
+        "endLine": 63,
+        "endChar": 20
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bf43190_7770b835",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "6511607f_464682cd",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t understand what the error you said is, can you give me an example?",
+      "parentUuid": "2bf43190_7770b835",
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4882a17_1c711268",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -208,6 +412,30 @@
       "writtenOn": "2021-05-05T16:35:03Z",
       "side": 1,
       "message": "This needs an error attached to it if someone tries to call this on a non collection.",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 52
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07eb629d_dd8d9ced",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "Sorry, I did not understand. Do you mean to use BMCWEB_LOG_ERROR to output errors? Or add error information in res.jsonValue?",
+      "parentUuid": "a4882a17_1c711268",
       "range": {
         "startLine": 68,
         "startChar": 12,
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "6ffdc539_c88e1e9c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "798274c0_048975d6",
+      "range": {
+        "startLine": 79,
+        "startChar": 30,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c25925c2_e006a72c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -266,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "d94697f6_3ab369b0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "To be honest, I did not find any problem with reusing the existing req, I think it is easier than creating a new req.",
+      "parentUuid": "c25925c2_e006a72c",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 11
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8a99f5e_e9af4078",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -277,6 +553,30 @@
       "writtenOn": "2021-05-05T16:35:03Z",
       "side": 1,
       "message": "This isn\u0027t needed.  Use the completion handler on request to do the \"after the request is complete\" work.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03c444bc_2506f47b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-06T07:09:16Z",
+      "side": 1,
+      "message": "I may not understand. Do you mean to process the parameters in Response\u0027s completeRequestHandler() or res.end()? which one?",
+      "parentUuid": "d8a99f5e_e9af4078",
       "range": {
         "startLine": 93,
         "startChar": 0,
