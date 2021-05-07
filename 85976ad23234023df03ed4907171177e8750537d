@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1e659586_d1c18b61",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cc68c11_209066f6",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 9
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f43ed24_735ae8f6",
         "filename": "http/http_request.hpp",
         "patchSetId": 36
@@ -141,6 +165,30 @@
       "revId": "85976ad23234023df03ed4907171177e8750537d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69cf9df6_f3380f70",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1b0e74e_8df6fb2b",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 15
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -250,6 +298,30 @@
     },
     {
       "key": {
+        "uuid": "70773041_8210ee9c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2c95e9d_68f4347c",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6881c5ce_64a40505",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -318,6 +390,30 @@
       "revId": "85976ad23234023df03ed4907171177e8750537d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "827fc794_07fe3b74",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4b05974_d0ec88a0",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -515,6 +611,24 @@
     },
     {
       "key": {
+        "uuid": "c184e4f7_78113120",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44acefdd_519191e7",
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4882a17_1c711268",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 36
@@ -583,6 +697,30 @@
       "revId": "85976ad23234023df03ed4907171177e8750537d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9227ae0b_b83667eb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a242067e_1a1b81f4",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 52
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -763,6 +901,30 @@
       "side": 1,
       "message": "res.end() essentially calls completeRequestHandler directly.  That is your mechanism for running code after the request is done, and keeping a request alive.",
       "parentUuid": "03c444bc_2506f47b",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "85976ad23234023df03ed4907171177e8750537d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d414d384_38fad329",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-07T09:25:48Z",
+      "side": 1,
+      "message": "I modified it in the new patch 40, please review.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38952/40",
+      "parentUuid": "5f8c94d7_a926b447",
       "range": {
         "startLine": 93,
         "startChar": 0,
