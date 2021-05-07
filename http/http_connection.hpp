@@ -546,8 +546,7 @@ class Connection :
 
                 try
                 {
-                    req->urlView = boost::urls::url_view(req->target());
-                    req->url = req->urlView.encoded_path();
+                    req->setUrlInfo();
                 }
                 catch (std::exception& p)
                 {

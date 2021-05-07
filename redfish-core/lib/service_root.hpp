@@ -65,6 +65,8 @@ inline void requestRoutesServiceRoot(App& app)
                     {"@odata.id", "/redfish/v1/EventService"}};
                 asyncResp->res.jsonValue["TelemetryService"] = {
                     {"@odata.id", "/redfish/v1/TelemetryService"}};
+                asyncResp->res.jsonValue["ProtocolFeaturesSupported"] = {
+                    {"OnlyMemberQuery", true}};
             });
 }
 
