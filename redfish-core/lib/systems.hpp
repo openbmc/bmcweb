@@ -19,6 +19,7 @@
 #include "led.hpp"
 #include "pcie.hpp"
 #include "redfish_util.hpp"
+#include "utils/query_param.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
@@ -2425,8 +2426,9 @@ inline void requestRoutesSystemsCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
         .privileges(redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& /*req*/,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                redfish::query_param::setUpRedfishRoute(app, req, asyncResp);
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ComputerSystemCollection.ComputerSystemCollection";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
