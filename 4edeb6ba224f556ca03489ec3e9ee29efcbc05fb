@@ -22,6 +22,30 @@
       "revId": "4edeb6ba224f556ca03489ec3e9ee29efcbc05fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89d457dc_e554ebf2",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-05-07T06:02:56Z",
+      "side": 1,
+      "message": "Yes, its typo mistake. Fixed now.",
+      "parentUuid": "074c9135_3112aea6",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "4edeb6ba224f556ca03489ec3e9ee29efcbc05fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
