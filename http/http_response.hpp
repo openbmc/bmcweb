@@ -76,6 +76,11 @@ struct Response
         return completed;
     }
 
+    void setCompleted(bool b)
+    {
+        completed = b;
+    }
+
     std::string& body()
     {
         return stringResponse->body();
@@ -134,6 +139,16 @@ struct Response
     bool isAlive()
     {
         return isAliveHelper && isAliveHelper();
+    }
+
+    void addHandler(std::function<void()>&& handler)
+    {
+        completeRequestHandler = std::move(handler);
+    }
+
+    auto getHandler()
+    {
+        return completeRequestHandler;
     }
 
   private:
