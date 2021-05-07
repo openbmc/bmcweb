@@ -588,8 +588,8 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
 nlohmann::json actionParameterNotSupported(const std::string& arg1,
                                            const std::string& arg2);
 
-void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
-                                 const std::string& arg2);
+void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
+                                 std::string_view arg2);
 
 /**
  * @brief Formats SourceDoesNotSupportProtocol message into JSON
@@ -876,12 +876,11 @@ void accountNotModified(crow::Response& res);
  *
  * @returns Message QueryParameterValueFormatError formatted to JSON */
 
-nlohmann::json queryParameterValueFormatError(const std::string& arg1,
-                                              const std::string& arg2);
+nlohmann::json queryParameterValueFormatError(std::string_view arg1,
+                                              std::string_view arg2);
 
-void queryParameterValueFormatError(crow::Response& res,
-                                    const std::string& arg1,
-                                    const std::string& arg2);
+void queryParameterValueFormatError(crow::Response& res, std::string_view arg1,
+                                    std::string_view arg2);
 
 /**
  * @brief Formats PropertyMissing message into JSON

@@ -338,8 +338,7 @@ class Connection :
                         << " " << thisReq.ipAddress;
         try
         {
-            thisReq.urlView = boost::urls::url_view(thisReq.target());
-            thisReq.url = thisReq.urlView.encoded_path();
+            thisReq.setUrlInfo();
         }
         catch (std::exception& p)
         {
@@ -557,7 +556,6 @@ class Connection :
                 {
                     BMCWEB_LOG_ERROR << p.what();
                 }
-
                 boost::asio::ip::address ip;
                 if (getClientIp(ip))
                 {
@@ -575,14 +573,14 @@ class Connection :
 
                     req->urlParams = req->urlView.params();
 
-#ifdef BMCWEB_ENABLE_DEBUG
+                    //#ifdef BMCWEB_ENABLE_DEBUG
                     std::string paramList = "";
                     for (const auto param : req->urlParams)
                     {
                         paramList += param->key() + " " + param->value() + " ";
                     }
                     BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
-#endif
+                    //#endif
                 }
                 else
                 {
