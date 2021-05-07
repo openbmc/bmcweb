@@ -14,11 +14,13 @@ namespace crow
 
 template <typename Adaptor, typename Handler>
 class Connection;
+class App;
 
 struct Response
 {
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
+    friend class crow::App;
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
 
@@ -116,6 +118,14 @@ struct Response
             BMCWEB_LOG_ERROR << "Response was ended twice";
             return;
         }
+        if (processParamHandler)
+        {
+            if (processParamHandler())
+            {
+                return;
+            }
+            processParamHandler = nullptr;
+        }
         completed = true;
         BMCWEB_LOG_DEBUG << "calling completion handler";
         if (completeRequestHandler)
@@ -140,6 +150,7 @@ struct Response
     bool completed{};
     std::function<void()> completeRequestHandler;
     std::function<bool()> isAliveHelper;
+    std::function<bool()> processParamHandler;
 
     // In case of a JSON object, set the Content-Type header
     void jsonMode()
