@@ -7,6 +7,7 @@
 #include "privileges.hpp"
 #include "routing.hpp"
 #include "utility.hpp"
+#include "utils/query_param.hpp"
 
 #include <chrono>
 #include <cstdint>
@@ -53,6 +54,16 @@ class App
     void handle(Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
+        if (asyncResp->res.processParamHandler == nullptr)
+        {
+            auto processParam =
+                std::make_shared<redfish::query_param::ProcessParam>(
+                    router, asyncResp->res);
+            asyncResp->res.processParamHandler = [&req,
+                                                  processParam]() -> bool {
+                return processParam->processAllParam(req);
+            };
+        }
         router.handle(req, asyncResp);
     }
 
