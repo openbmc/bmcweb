@@ -20,6 +20,7 @@
 #include "http_response.hpp"
 #include "privileges.hpp"
 #include "redfish_v1.hpp"
+#include "utils/query_param.hpp"
 
 #include <error_messages.hpp>
 #include <rf_async_resp.hpp>
@@ -57,20 +58,29 @@ class Node
 
   public:
     template <typename... Params>
-    Node(App& app, std::string&& entityUrl,
-         [[maybe_unused]] Params... paramsIn) :
-        app(app)
+    Node(App& app, std::string&& entityUrl, [[maybe_unused]] Params... paramsIn)
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;
         get.methods(boost::beast::http::verb::get)(
-            [this](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   Params... params) {
+            [&app, this](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         Params... params) {
                 if (!redfishPreChecks(req, asyncResp))
                 {
                     return;
                 }
+                if (asyncResp->res.processParamHandler == nullptr)
+                {
+                    auto processParam =
+                        std::make_shared<query_param::ProcessParam>(
+                            app, asyncResp->res);
+                    asyncResp->res.processParamHandler =
+                        [&req, processParam]() -> bool {
+                        return processParam->processAllParam(req);
+                    };
+                }
+
                 std::vector<std::string> paramVec = {params...};
                 doGet(asyncResp, req, paramVec);
             });
@@ -187,7 +197,6 @@ class Node
     crow::DynamicRule* deleteRule = nullptr;
 
   protected:
-    App& app;
     // Node is designed to be an abstract class, so doGet is pure virtual
     virtual void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const crow::Request&, const std::vector<std::string>&)
