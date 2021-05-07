@@ -116,6 +116,14 @@ struct Response
             BMCWEB_LOG_ERROR << "Response was ended twice";
             return;
         }
+        if (processParamHandler)
+        {
+            if (processParamHandler())
+            {
+                return;
+            }
+            processParamHandler = nullptr;
+        }
         completed = true;
         BMCWEB_LOG_DEBUG << "calling completion handler";
         if (completeRequestHandler)
@@ -135,6 +143,9 @@ struct Response
     {
         return isAliveHelper && isAliveHelper();
     }
+
+  public:
+    std::function<bool()> processParamHandler;
 
   private:
     bool completed{};

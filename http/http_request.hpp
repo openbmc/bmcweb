@@ -20,7 +20,7 @@ struct Request
 {
     boost::beast::http::request<boost::beast::http::string_body>& req;
     boost::beast::http::fields& fields;
-    std::string_view url{};
+    std::string url{};
     boost::urls::url_view urlView{};
     boost::urls::url_view::params_type urlParams{};
     bool isSecure{false};
@@ -77,6 +77,22 @@ struct Request
     bool keepAlive() const
     {
         return req.keep_alive();
+    }
+
+    void setTarget(const std::string& target)
+    {
+        req.target(target);
+        setUrlInfo();
+    }
+
+    void setUrlInfo()
+    {
+        urlView = boost::urls::url_view(req.target());
+        url = urlView.encoded_path();
+        if (session)
+        {
+            urlParams = urlView.params();
+        }
     }
 };
 
