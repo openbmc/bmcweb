@@ -216,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "fa38046a_4375de8a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-07T06:52:34Z",
+      "side": 1,
+      "message": "In my opinion introducing this new utility function in review could be helpful, it will save some coding and potential errors. If we decide to either always async_method_call or getPropert\u003cT\u003e we might never move forward. Anyway I\u0027m not the one who decides this.\n\nI just want to clarify one think, is it forbidden to use getProperty\u003cT\u003e in bmcweb?\n\nAlso if you are going to stay with async_method_call you need to change every variant to include std::monostate as first argument otherwise if your type on dbus is different you will end up with value which might be hard to debug. So you need to change std::variant\u003cbool\u003e to std::variant\u003cstd::monostate, bool\u003e.\n\nChange will be visible in case of. property on dbus is type uint64_t with value 42.\n- You are attempting to async_method_call(\"Properties\", \"Get\", std::variant\u003cint64_t\u003e) result will be variant with int64_t with value 0.\n- You are attempting to async_method_call(\"Properties\", \"Get\", std::variant\u003cstd::monostate, int64_t\u003e) result will be variant with std::monostate.\nCaches where type matches type in variant will be not affected.",
+      "parentUuid": "9e6d1cca_898e4977",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d812b03_dda769f2",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
