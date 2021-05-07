@@ -237,6 +237,15 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
   endif
 endif
 
+
+     add_project_arguments([
+       '-DBMCWEB_ENABLE_LOGGING',
+       '-DBMCWEB_ENABLE_DEBUG'
+       ],
+      language : 'cpp')
+
+
+
 # Set Compiler Security flags
 
 security_flags = [
