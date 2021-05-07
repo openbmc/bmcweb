@@ -144,6 +144,24 @@
     },
     {
       "key": {
+        "uuid": "529c67cd_8041018a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-07T17:03:47Z",
+      "side": 1,
+      "message": "\u003e \u003e The trick here is that the mapper is an OR of the interfaces, not an AND, so in theory, you could\u0027ve just written to an interface that doesn\u0027t exist on this particular service.\n\u003e \n\u003e The code checks that the specific interface is returned by the mapper - so barring a bug in the mapper the interface absolutely existed at some point. I don\u0027t think there are any additional errors to handle here.\n\nOr a service that has shut down in the middle of running, which has happened in the past.\n\nWith that said, if you really don\u0027t want to change it, I\u0027m not that worried about it.",
+      "parentUuid": "f9cdbc2a_f8151eb5",
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5e5c61a_3abcc171",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 14
@@ -297,6 +315,30 @@
       "writtenOn": "2021-04-19T22:33:49Z",
       "side": 1,
       "message": "I would like to get this merged asap - any chance I can be grandfathered in with the current d-bus structure before waiting for any discussion to be resolved?\n\nIf no, what if I also post patchsets on top of this that switch to an association-style d-bus structure? I don\u0027t think associations make this feature better, but I\u0027ll do whatever it takes.",
+      "parentUuid": "68e0dea6_31cc7b44",
+      "range": {
+        "startLine": 970,
+        "startChar": 7,
+        "endLine": 970,
+        "endChar": 78
+      },
+      "revId": "db9b49abaf88417de397e6331b01713d8bc8f7b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97fe71dc_4fb66075",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-07T17:03:47Z",
+      "side": 1,
+      "message": "It happened on discord as well as a design doc that got written.",
       "parentUuid": "68e0dea6_31cc7b44",
       "range": {
         "startLine": 970,
