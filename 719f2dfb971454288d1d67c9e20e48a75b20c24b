@@ -22,6 +22,30 @@
       "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1284e673_f52acc46",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3292,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-08T07:44:18Z",
+      "side": 1,
+      "message": "I tested it and ran Redfish validator passed.\n\nAlso, it looks similar to what EventLog does\n```\n   {\n      \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/98\",\n      \"@odata.type\": \"#LogEntry.v1_8_0.LogEntry\",\n      \"AdditionalDataURI\": \"/redfish/v1/Systems/system/LogServices/EventLog/attachment/98\",\n      \"Created\": \"2021-05-04T07:21:48+00:00\",\n      \"EntryType\": \"Event\",\n      \"Id\": \"98\",\n      \"Message\": \"xyz.openbmc_project.State.Chassis.Error.PowerOnFailure\",\n      \"Modified\": \"2021-05-04T07:21:48+00:00\",\n      \"Name\": \"System Event Log Entry\",\n      \"Resolved\": false,\n      \"Severity\": \"Critical\"\n    }\n```\n\nSo, You mean that the URI should be something like `/redfish/v1/Systems/system/LogServices/PostCodes/Entries/\u003cpostcodeEntryID\u003e/attachment`?",
+      "parentUuid": "a56dbca9_3959c715",
+      "range": {
+        "startLine": 3291,
+        "startChar": 16,
+        "endLine": 3292,
+        "endChar": 31
+      },
+      "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
