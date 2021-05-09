@@ -46,6 +46,30 @@
       "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12dfdff8_76112993",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-09T20:16:19Z",
+      "side": 1,
+      "message": "\u003e I tested it and ran Redfish validator passed.\n\u003e \n\nRedfish validator just walks the URI tree.  It doesn\u0027t have tests for this failure.\n\n\u003e Also, it looks similar to what EventLog does\n\u003e ```\n\u003e    {\n\u003e       \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/98\",\n\u003e       \"@odata.type\": \"#LogEntry.v1_8_0.LogEntry\",\n\u003e       \"AdditionalDataURI\": \"/redfish/v1/Systems/system/LogServices/EventLog/attachment/98\",\n\u003e       \"Created\": \"2021-05-04T07:21:48+00:00\",\n\u003e       \"EntryType\": \"Event\",\n\u003e       \"Id\": \"98\",\n\u003e       \"Message\": \"xyz.openbmc_project.State.Chassis.Error.PowerOnFailure\",\n\u003e       \"Modified\": \"2021-05-04T07:21:48+00:00\",\n\u003e       \"Name\": \"System Event Log Entry\",\n\u003e       \"Resolved\": false,\n\u003e       \"Severity\": \"Critical\"\n\u003e     }\n\u003e ```\n\nYep, that one looks wrong too.  I\u0027ll add it to my list to go fix.\n\n\u003e \n\u003e So, You mean that the URI should be something like `/redfish/v1/Systems/system/LogServices/PostCodes/Entries/\u003cpostcodeEntryID\u003e/attachment`?\n\nCorrect.",
+      "parentUuid": "1284e673_f52acc46",
+      "range": {
+        "startLine": 3291,
+        "startChar": 16,
+        "endLine": 3292,
+        "endChar": 31
+      },
+      "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
