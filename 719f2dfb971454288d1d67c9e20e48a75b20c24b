@@ -94,6 +94,30 @@
       "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8211b76_0f34fa06",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3292,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-10T17:38:07Z",
+      "side": 1,
+      "message": "\u003e This looks incorrect.  The uri of the additional data should be a dependent of the @odata.id that\u0027s set above. \n\nIt isn\u0027t a Redfish defined URI but agree what is in 12, /redfish/v1/Systems/system/LogServices/PostCodes/Entries/\u003cpostcodeEntryID\u003e/attachment, is more correct. \nI didn\u0027t find a REST best practice but it makes sense this is a child. \n\nI have wondered though if these should even be in the Redfish tree. What if redfish comes out with an attachment schema (yeah I know unlikely) at \n/redfish/v1/Systems/system/LogServices/{LogServiceId}/Entries/{LogEntryId}/attachment (or /redfish/v1/Systems/system/LogServices/{LogServiceId}/Entries/{LogEntryId}/{new id}), suddenly this conflicts. \n \nThese are OEM format. I wonder if /attachments/PostCodes/\u003cpost code id\u003e makes more sense. \n\nAnyway beyond this discussion.",
+      "parentUuid": "4c7abdb9_d0dc8489",
+      "range": {
+        "startLine": 3291,
+        "startChar": 16,
+        "endLine": 3292,
+        "endChar": 31
+      },
+      "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
