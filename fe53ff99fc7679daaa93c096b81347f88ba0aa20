@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cc38774_8a4fcc21",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "If we\u0027re checking for a specific service name, there\u0027s no need to call the mapper, just call xyz.openbmc_project.Network.SNMP directly.",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d51fb7_2fc47603",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 555,
+        "startChar": 15,
+        "endLine": 555,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12bfc9c0_08feac4f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "This shouldn\u0027t need to be checked, right?  If there is no error code, we can assume this is populated.",
+      "range": {
+        "startLine": 576,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3436abb9_68de9e89",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "This needs urlencode called on it before it can be put into a uri.",
+      "range": {
+        "startLine": 590,
+        "startChar": 64,
+        "endLine": 590,
+        "endChar": 70
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc67a7d_255d0857",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "Please move this to its own method.",
+      "range": {
+        "startLine": 555,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 30
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9673a612_8e87dc04",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "Move this whole branch to its own method please.",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba0715e_f8ffd0c8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "?  Won\u0027t this return resourcenotFound for everything?",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 0
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca4609e_2bcba6f8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "Why is this check here?",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 25
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d72ced6b_0c0d5a08",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "nit, there\u0027s no need to construct a new string here;  Do what you did in the delete handler and just snip snmp from the front of the string.",
+      "range": {
+        "startLine": 693,
+        "startChar": 59,
+        "endLine": 693,
+        "endChar": 74
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41b0538_1275e6fd",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "This is incorrect.  Please don\u0027t clear the response, as it clear error messages that might have accumulated.",
+      "range": {
+        "startLine": 700,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 47
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecab3b19_119fa28c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "We\u0027re 7 scopes deep here.  This needs split up.",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 66
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d147b181_e86adfda",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "Please do this on a different line.  Passing an iterator to operator +\u003d is a little odd, even if it technically works.",
+      "range": {
+        "startLine": 902,
+        "startChar": 16,
+        "endLine": 902,
+        "endChar": 34
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96fd74fe_00552678",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T15:56:38Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 908,
+        "startChar": 51,
+        "endLine": 908,
+        "endChar": 58
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
