@@ -78,7 +78,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 // Note, this is not a very useful Variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
-using VariantType = std::variant<bool, std::string, uint64_t, uint32_t>;
+using VariantType = std::variant<bool, std::string, uint64_t, uint32_t, double>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,
@@ -470,6 +470,90 @@ inline void requestRoutesChassis(App& app)
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Item.Chassis");
+
+                        // Chassis physical dimensions
+                        const std::string dimensionInterface =
+                            "xyz.openbmc_project.Inventory.Decorator.Dimension";
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      dimensionInterface) != interfaces2.end())
+                        {
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp](
+                                    const boost::system::error_code ec,
+                                    const std::vector<
+                                        std::pair<std::string, VariantType>>&
+                                        propertiesList) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "DBUS response error for "
+                                               "Chassis dimensions";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    for (const std::pair<std::string,
+                                                         VariantType>&
+                                             property : propertiesList)
+                                    {
+                                        const std::string& propertyName =
+                                            property.first;
+                                        if (propertyName == "Height")
+                                        {
+                                            const double* value =
+                                                std::get_if<double>(
+                                                    &property.second);
+                                            if (value == nullptr)
+                                            {
+                                                BMCWEB_LOG_DEBUG
+                                                    << "Null value returned "
+                                                       "for Height";
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                                return;
+                                            }
+                                            asyncResp->res
+                                                .jsonValue["HeightMm"] = *value;
+                                        }
+                                        else if (propertyName == "Width")
+                                        {
+                                            const double* value =
+                                                std::get_if<double>(
+                                                    &property.second);
+                                            if (value == nullptr)
+                                            {
+                                                BMCWEB_LOG_DEBUG
+                                                    << "Null value returned "
+                                                       "for Width";
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                                return;
+                                            }
+                                            asyncResp->res
+                                                .jsonValue["WidthMm"] = *value;
+                                        }
+                                        else if (propertyName == "Depth")
+                                        {
+                                            const double* value =
+                                                std::get_if<double>(
+                                                    &property.second);
+                                            if (value == nullptr)
+                                            {
+                                                BMCWEB_LOG_DEBUG
+                                                    << "Null value returned "
+                                                       "for Depth";
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                                return;
+                                            }
+                                            asyncResp->res
+                                                .jsonValue["DepthMm"] = *value;
+                                        }
+                                    }
+                                },
+                                connectionName, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                dimensionInterface);
+                        }
 
                         return;
                     }
