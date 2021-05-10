@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dd920f1_8c3ef0b6",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-10T02:52:53Z",
+      "side": 1,
+      "message": "I have some doubts about this, whether this state should be followed by a function to judge whether the state of this resource is correct, rather than being constant.",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "88a6f9b9ccdc6e561a379dbb67245400d14439f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
