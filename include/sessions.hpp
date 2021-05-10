@@ -74,6 +74,23 @@ struct UserRoleMap
         return it->second;
     }
 
+    void insertLDAPUserRoleFromDbus(const std::string& userName,
+                                    const std::string& role)
+    {
+        if (userName.empty() || role.empty())
+        {
+            return;
+        }
+
+        auto res = roleMap.emplace(userName, role);
+        if (res.second == false)
+        {
+            BMCWEB_LOG_ERROR << "Insertion of the user=\"" << userName
+                             << "\" in the roleMap failed.";
+            return;
+        }
+    }
+
     std::string extractUserRole(const InterfacesPropType& interfacesProperties)
     {
         auto iface = interfacesProperties.find(userAttrIface);
@@ -269,6 +286,7 @@ struct UserSession
     std::string csrfToken;
     std::string clientId;
     std::string clientIp;
+    std::string userRole;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence{PersistenceType::TIMEOUT};
     bool cookieAuth = false;
@@ -321,6 +339,10 @@ struct UserSession
             else if (element.key() == "username")
             {
                 userSession->username = *thisValue;
+            }
+            else if (element.key() == "user_role")
+            {
+                userSession->userRole = *thisValue;
             }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             else if (element.key() == "client_id")
@@ -438,7 +460,7 @@ class SessionStore
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
         const boost::asio::ip::address& clientIp,
-        const std::string_view clientId,
+        const std::string_view clientId, const std::string_view userRole,
         PersistenceType persistence = PersistenceType::TIMEOUT,
         bool isConfigureSelfOnly = false)
     {
@@ -491,8 +513,8 @@ class SessionStore
         auto session = std::make_shared<UserSession>(UserSession{
             uniqueId, sessionToken, std::string(username), csrfToken,
             std::string(clientId), redfish::ip_util::toString(clientIp),
-            std::chrono::steady_clock::now(), persistence, false,
-            isConfigureSelfOnly});
+            std::string(userRole), std::chrono::steady_clock::now(),
+            persistence, false, isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
