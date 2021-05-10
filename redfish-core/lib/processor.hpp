@@ -81,6 +81,44 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Common.UUID", "UUID");
 }
 
+/**
+ * @brief Fill out firmware version info of a accelerator by
+ * requesting data from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void
+    getProcessorFirmwareVersion(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                const std::string& service,
+                                const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get Processor firmware version";
+    crow::connections::systemBus->async_method_call(
+        [objPath,
+         aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::variant<std::string>& property) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for "
+                                    "Processor firmware version";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string* value = std::get_if<std::string>(&property);
+            if (value == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Processor firmware version value error";
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["FirmwareVersion"] = *value;
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Software.Version", "Version");
+}
+
 inline void
     getCpuDataByInterface(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                           const InterfacesProperties& cpuInterfacesProperties)
@@ -738,14 +776,15 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 7>{
+        std::array<const char*, 8>{
             "xyz.openbmc_project.Common.UUID",
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Decorator.Revision",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Decorator.LocationCode",
             "xyz.openbmc_project.Inventory.Item.Accelerator",
-            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
+            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+            "xyz.openbmc_project.Software.Version"});
 }
 
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -790,6 +829,10 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
                 getProcessorUUID(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Software.Version")
+            {
+                getProcessorFirmwareVersion(aResp, serviceName, objectPath);
             }
         }
     }
