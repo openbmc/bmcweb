@@ -604,7 +604,7 @@ inline void requestRoutesEventDestination(App& app)
             subValue->updateRetryPolicy();
         }
 
-        EventServiceManager::getInstance().updateSubscriptionData();
+        EventServiceManager::getInstance().updateSubscription(param);
         });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR

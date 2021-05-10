@@ -401,6 +401,42 @@ constexpr std::array registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{
+        "EventSubscriptionAdded",
+        {
+            "Indicates that an Event subscription with specific id was added.",
+            "Event subscription with id %1 was added.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "EventSubscriptionRemoved",
+        {
+            "Indicates that an Event subscription with specific id was removed.",
+            "Event subscription with id %1 was removed.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "EventSubscriptionUpdated",
+        {
+            "Indicates that an Event subscription with specific id was updated.",
+            "Event subscription with id %1 was updated.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{"FanInserted",
                  {
                      "Indicates that a system fan has been inserted.",
