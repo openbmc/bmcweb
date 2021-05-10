@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3f1d9088_212497a4",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T18:14:23Z",
+      "side": 1,
+      "message": "ToDo: Addition of PrettyName to all the inventory items.\nTill then removing this part of code.",
+      "parentUuid": "24b416a4_a032bbb4",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 31
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0471b252_f9cbde7e",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 14
@@ -69,6 +93,30 @@
       "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ba2ad9_22803cbf",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T18:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0471b252_f9cbde7e",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 0
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "a6c21bc5_57778f6e",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T18:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50420609_ccc41743",
+      "range": {
+        "startLine": 128,
+        "startChar": 31,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e2ee1b8_04ae9ba7",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 14
@@ -106,6 +178,30 @@
       "writtenOn": "2021-05-03T22:10:43Z",
       "side": 1,
       "message": "Is connector equivalent to port in this context?  Port in Redfish I believe is intending to implement a network port, whereas the inventory item Connector interface is less specific.  I suspect we probably need to discuss this, as this is going to have some impacts on the interfaces.  I suspect we\u0027re going to need to use a more specific API here, as there will definitely be changes when the Cables API comes in the next revision.",
+      "range": {
+        "startLine": 151,
+        "startChar": 48,
+        "endLine": 151,
+        "endChar": 57
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf4e1f54_92d9889b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T18:14:23Z",
+      "side": 1,
+      "message": "Marked it as a Todo till we conclude on this.",
+      "parentUuid": "2e2ee1b8_04ae9ba7",
       "range": {
         "startLine": 151,
         "startChar": 48,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "4b4eb9bd_9877df0e",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T18:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76da408f_002c5039",
+      "range": {
+        "startLine": 315,
+        "startChar": 19,
+        "endLine": 315,
+        "endChar": 78
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0392ff3_8eefe01b",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 14
@@ -161,6 +281,30 @@
       "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "094b06b2_bafb6544",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T18:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0392ff3_8eefe01b",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 48
+      },
+      "revId": "6543f463f39b15dba61ed1009a1be67867d7ab27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
