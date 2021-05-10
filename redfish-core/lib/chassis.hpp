@@ -78,7 +78,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 // Note, this is not a very useful Variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
-using VariantType = std::variant<bool, std::string, uint64_t, uint32_t>;
+using VariantType = std::variant<bool, std::string, uint64_t, uint32_t, double>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,
@@ -457,6 +457,36 @@ class Chassis : public Node
                             },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.Common.UUID", "UUID");
+
+                    // Chassis physical dimensions
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](
+                            const boost::system::error_code /*ec2*/,
+                            const std::vector<std::pair<
+                                std::string, VariantType>>& propertiesList) {
+                            for (const std::pair<std::string, VariantType>&
+                                     property : propertiesList)
+                            {
+                                // Store DBus properties that are also Redfish
+                                // properties with same name and a string value
+                                const std::string& propertyName =
+                                    property.first;
+                                if ((propertyName == "HeightMm") ||
+                                    (propertyName == "WidthMm") ||
+                                    (propertyName == "DepthMm"))
+                                {
+                                    const double* value =
+                                        std::get_if<double>(&property.second);
+                                    if (value != nullptr)
+                                    {
+                                        asyncResp->res.jsonValue[propertyName] =
+                                            *value;
+                                    }
+                                }
+                            }
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "GetAll", "xyz.openbmc_project.Inventory.Decorator.Dimension");
 
                     return;
                 }
