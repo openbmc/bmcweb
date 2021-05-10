@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e856abde_47f95fdd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-10T17:24:35Z",
+      "side": 1,
+      "message": "Check ec?",
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ff204c_ac38c41d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-10T17:24:35Z",
+      "side": 1,
+      "message": "This should not be nullptr, can we follow like getCpuLocationCode and set internalError if nullptr. \n\nE.g. \n\n            if (ec)\n            {\n                BMCWEB_LOG_DEBUG \u003c\u003c \"DBUS response error\";\n                messages::internalError(aResp-\u003eres);\n                return;\n            }\n            const std::string* value \u003d std::get_if\u003cstd::string\u003e(\u0026property);\n            if (value \u003d\u003d nullptr)\n            {\n                // illegal value\n                BMCWEB_LOG_DEBUG \u003c\u003c \"Location code value error\";\n                messages::internalError(aResp-\u003eres);\n                return;\n            }\n                aResp-\u003eres\n                    .jsonValue[\"ProcessorId\"][\"ProtectedIdentificationNumber\"] \u003d\n                *value;",
+      "range": {
+        "startLine": 628,
+        "startChar": 22,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b86ce4_c3972360",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-10T17:24:35Z",
+      "side": 1,
+      "message": "We typically don\u0027t check for empty. Is there a reason this would be empty?\n\nSee https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38044",
+      "range": {
+        "startLine": 628,
+        "startChar": 34,
+        "endLine": 628,
+        "endChar": 45
+      },
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
