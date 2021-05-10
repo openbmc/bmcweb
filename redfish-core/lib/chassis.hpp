@@ -64,6 +64,54 @@ inline std::string getChassisType(const std::string& chassisType)
 }
 
 /**
+ * @brief Fill out power limits info of a chassis by
+ * requesting data from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getChassisPowerLimits(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                  const std::string& service,
+                                  const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get chassis power limits";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::variant<size_t>>>&
+                propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for "
+                                    "Chassis power limits";
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const std::pair<std::string, std::variant<size_t>>& property :
+                 propertiesList)
+            {
+                const std::string& propertyName = property.first;
+                if ((propertyName == "MinPowerWatts") ||
+                    (propertyName == "MaxPowerWatts"))
+                {
+                    const size_t* value = std::get_if<size_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for power limits";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue[propertyName] = *value;
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Decorator.PowerLimit");
+}
+
+/**
  * @brief Retrieves chassis state properties over dbus
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
@@ -586,6 +634,17 @@ inline void requestRoutesChassis(App& app)
                         {
                             getChassisDimensions(asyncResp, connectionName,
                                                  path);
+                        }
+
+                        // Chassis power limits
+                        const std::string powerInterface =
+                            "xyz.openbmc_project.Inventory.Decorator."
+                            "PowerLimit";
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      powerInterface) != interfaces2.end())
+                        {
+                            getChassisPowerLimits(asyncResp, connectionName,
+                                                  path);
                         }
 
                         return;
