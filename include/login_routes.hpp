@@ -139,51 +139,107 @@ inline void requestRoutes(App& app)
                 }
                 else
                 {
-                    std::string unsupportedClientId = "";
-                    auto session =
-                        persistent_data::SessionStore::getInstance()
-                            .generateUserSession(
-                                username, req.ipAddress.to_string(),
-                                unsupportedClientId,
-                                persistent_data::PersistenceType::TIMEOUT,
-                                isConfigureSelfOnly);
+                    auto getUserInfoCallback =
+                        [req, asyncResp, username, isConfigureSelfOnly,
+                         looksLikePhosphorRest](
+                            boost::system::error_code ec,
+                            const std::vector<std::pair<
+                                std::string,
+                                std::variant<bool, std::string,
+                                             std::vector<std::string>>>>&
+                                userInfo) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "GetUserInfo failed, ignoring";
+                                asyncResp->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                return;
+                            }
+                            std::string userRole{};
 
-                    if (looksLikePhosphorRest)
-                    {
-                        // Phosphor-Rest requires a very specific login
-                        // structure, and doesn't actually look at the status
-                        // code.
-                        // TODO(ed).... Fix that upstream
-                        asyncResp->res.jsonValue = {
-                            {"data",
-                             "User '" + std::string(username) + "' logged in"},
-                            {"message", "200 OK"},
-                            {"status", "ok"}};
+                            for (const std::pair<
+                                     std::string,
+                                     std::variant<bool, std::string,
+                                                  std::vector<std::string>>>&
+                                     property : userInfo)
+                            {
+                                const std::string& propertyName =
+                                    property.first;
 
-                        // Hack alert.  Boost beast by default doesn't let you
-                        // declare multiple headers of the same name, and in
-                        // most cases this is fine.  Unfortunately here we need
-                        // to set the Session cookie, which requires the
-                        // httpOnly attribute, as well as the XSRF cookie, which
-                        // requires it to not have an httpOnly attribute. To get
-                        // the behavior we want, we simply inject the second
-                        // "set-cookie" string into the value header, and get
-                        // the result we want, even though we are technicaly
-                        // declaring two headers here.
-                        asyncResp->res.addHeader(
-                            "Set-Cookie",
-                            "XSRF-TOKEN=" + session->csrfToken +
-                                "; SameSite=Strict; Secure\r\nSet-Cookie: "
-                                "SESSION=" +
-                                session->sessionToken +
-                                "; SameSite=Strict; Secure; HttpOnly");
-                    }
-                    else
-                    {
-                        // if content type is json, assume json token
-                        asyncResp->res.jsonValue = {
-                            {"token", session->sessionToken}};
-                    }
+                                if (propertyName == "UserPrivilege")
+                                {
+                                    const std::string* value =
+                                        std::get_if<std::string>(
+                                            &property.second);
+                                    if (value == nullptr)
+                                    {
+                                        asyncResp->res.result(
+                                            boost::beast::http::status::
+                                                internal_server_error);
+                                        return;
+                                    }
+                                    userRole = *value;
+                                }
+                            }
+                            std::string unsupportedClientId = "";
+                            auto session =
+                                persistent_data::SessionStore::getInstance()
+                                    .generateUserSession(
+                                        username, req.ipAddress.to_string(),
+                                        unsupportedClientId, userRole,
+                                        persistent_data::PersistenceType::
+                                            TIMEOUT,
+                                        isConfigureSelfOnly);
+
+                            if (looksLikePhosphorRest)
+                            {
+                                // Phosphor-Rest requires a very specific login
+                                // structure, and doesn't actually look at the
+                                // status code.
+                                // TODO(ed).... Fix that upstream
+                                asyncResp->res.jsonValue = {
+                                    {"data", "User '" + std::string(username) +
+                                                 "' logged in"},
+                                    {"message", "200 OK"},
+                                    {"status", "ok"}};
+
+                                // Hack alert.  Boost beast by default doesn't
+                                // let you declare multiple headers of the same
+                                // name, and in most cases this is fine.
+                                // Unfortunately here we need to set the Session
+                                // cookie, which requires the httpOnly
+                                // attribute, as well as the XSRF cookie, which
+                                // requires it to not have an httpOnly
+                                // attribute. To get the behavior we want, we
+                                // simply inject the second "set-cookie" string
+                                // into the value header, and get the result we
+                                // want, even though we are technicaly declaring
+                                // two headers here.
+                                asyncResp->res.addHeader(
+                                    "Set-Cookie",
+                                    "XSRF-TOKEN=" + session->csrfToken +
+                                        "; SameSite=Strict; "
+                                        "Secure\r\nSet-Cookie: "
+                                        "SESSION=" +
+                                        session->sessionToken +
+                                        "; SameSite=Strict; Secure; HttpOnly");
+                            }
+                            else
+                            {
+                                // if content type is json, assume json token
+                                asyncResp->res.jsonValue = {
+                                    {"token", session->sessionToken}};
+                            }
+                        };
+
+                    crow::connections::systemBus->async_method_call(
+                        std::move(getUserInfoCallback),
+                        persistent_data::userService,
+                        persistent_data::userObjPath,
+                        "xyz.openbmc_project.User.Manager", "GetUserInfo",
+                        std::string(username));
                 }
             }
             else
