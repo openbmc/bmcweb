@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a96083_b5efe815",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-10T18:30:49Z",
+      "side": 1,
+      "message": "And this is all the properties we had in the old Fan array at /redfish/v1/Chassis/chassis/Thermal ?\nWasn\u0027t there a bunch of partnumber, serialnumber, model etc?\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L1549",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 3
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
