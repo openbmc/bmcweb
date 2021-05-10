@@ -89,7 +89,7 @@ inline void requestRoutesSession(App& app)
                 if (session->username != req.session->username)
                 {
                     Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
+                        redfish::getUserPrivileges(req.session->userRole);
 
                     if (!effectiveUserPrivileges.isSupersetOf(
                             {{"ConfigureUsers"}}))
@@ -191,26 +191,71 @@ inline void requestRoutesSession(App& app)
                 }
 #endif
 
-                // User is authenticated - create session
-                std::shared_ptr<persistent_data::UserSession> session =
-                    persistent_data::SessionStore::getInstance()
-                        .generateUserSession(
-                            username, req.ipAddress.to_string(), clientId,
-                            persistent_data::PersistenceType::TIMEOUT,
-                            isConfigureSelfOnly);
-                asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
-                asyncResp->res.addHeader(
-                    "Location",
-                    "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
-                asyncResp->res.result(boost::beast::http::status::created);
-                if (session->isConfigureSelfOnly)
-                {
-                    messages::passwordChangeRequired(
-                        asyncResp->res, "/redfish/v1/AccountService/Accounts/" +
-                                            session->username);
-                }
+                crow::connections::systemBus->async_method_call(
+                    [req, asyncResp, username, clientId, isConfigureSelfOnly](
+                        boost::system::error_code ec,
+                        std::map<std::string,
+                                 std::variant<bool, std::string,
+                                              std::vector<std::string>>>
+                            userInfo) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "GetUserInfo failed, ignoring";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        const std::string* userRolePtr = nullptr;
+                        auto userInfoIter = userInfo.find("UserPrivilege");
+                        if (userInfoIter != userInfo.end())
+                        {
+                            userRolePtr =
+                                std::get_if<std::string>(&userInfoIter->second);
+                        }
+                        std::string userRole{};
+                        if (userRolePtr != nullptr)
+                        {
+                            userRole = *userRolePtr;
 
-                fillSessionObject(asyncResp->res, *session);
+                            std::string role =
+                                persistent_data::UserRoleMap::getInstance()
+                                    .getUserRole(username);
+                            if (role.empty())
+                            {
+                                persistent_data::UserRoleMap::getInstance()
+                                    .insertLDAPUserRoleFromDbus(username,
+                                                                userRole);
+                            }
+                        }
+
+                        std::shared_ptr<persistent_data::UserSession> session =
+                            persistent_data::SessionStore::getInstance()
+                                .generateUserSession(
+                                    username, req.ipAddress.to_string(),
+                                    clientId, userRole,
+                                    persistent_data::PersistenceType::TIMEOUT,
+                                    isConfigureSelfOnly);
+
+                        asyncResp->res.addHeader("X-Auth-Token",
+                                                 session->sessionToken);
+                        asyncResp->res.addHeader(
+                            "Location", "/redfish/v1/SessionService/Sessions/" +
+                                            session->uniqueId);
+
+                        asyncResp->res.result(
+                            boost::beast::http::status::created);
+
+                        if (session->isConfigureSelfOnly)
+                        {
+                            messages::passwordChangeRequired(
+                                asyncResp->res,
+                                "/redfish/v1/AccountService/Accounts/" +
+                                    session->username);
+                        }
+                        fillSessionObject(asyncResp->res, *session);
+                    },
+                    persistent_data::userService, persistent_data::userObjPath,
+                    "xyz.openbmc_project.User.Manager", "GetUserInfo",
+                    std::string(username));
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
