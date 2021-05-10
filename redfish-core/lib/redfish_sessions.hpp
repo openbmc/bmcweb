@@ -90,7 +90,7 @@ inline void requestRoutesSession(App& app)
                 if (session->username != req.session->username)
                 {
                     Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
+                        redfish::getUserPrivileges(req.session->userRole);
 
                     if (!effectiveUserPrivileges.isSupersetOf(
                             {{"ConfigureUsers"}}))
@@ -140,84 +140,138 @@ inline void requestRoutesSession(App& app)
         // endpoint responsible for giving the login privilege, and it is itself
         // its own route, it needs to not require Login
         .privileges({})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                std::string username;
-                std::string password;
-                std::optional<nlohmann::json> oemObject;
-                std::string clientId;
-                if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                         username, "Password", password, "Oem",
-                                         oemObject))
+        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
+                                                    const std::shared_ptr<
+                                                        bmcweb::AsyncResp>&
+                                                        asyncResp) -> void {
+            std::string username;
+            std::string password;
+            std::optional<nlohmann::json> oemObject;
+            std::string clientId;
+            if (!json_util::readJson(req, asyncResp->res, "UserName", username,
+                                     "Password", password, "Oem", oemObject))
+            {
+                return;
+            }
+
+            if (password.empty() || username.empty() ||
+                asyncResp->res.result() != boost::beast::http::status::ok)
+            {
+                if (username.empty())
                 {
-                    return;
+                    messages::propertyMissing(asyncResp->res, "UserName");
                 }
 
-                if (password.empty() || username.empty() ||
-                    asyncResp->res.result() != boost::beast::http::status::ok)
+                if (password.empty())
                 {
-                    if (username.empty())
-                    {
-                        messages::propertyMissing(asyncResp->res, "UserName");
-                    }
-
-                    if (password.empty())
-                    {
-                        messages::propertyMissing(asyncResp->res, "Password");
-                    }
-
-                    return;
+                    messages::propertyMissing(asyncResp->res, "Password");
                 }
 
-                int pamrc = pamAuthenticateUser(username, password);
-                bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
-                if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
-                {
-                    messages::resourceAtUriUnauthorized(
-                        asyncResp->res, std::string(req.url),
-                        "Invalid username or password");
-                    return;
-                }
+                return;
+            }
+
+            int pamrc = pamAuthenticateUser(username, password);
+            bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+            if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
+            {
+                messages::resourceAtUriUnauthorized(
+                    asyncResp->res, std::string(req.url),
+                    "Invalid username or password");
+                return;
+            }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                if (oemObject)
+            if (oemObject)
+            {
+                std::optional<nlohmann::json> bmcOem;
+                if (!json_util::readJson(*oemObject, asyncResp->res, "OpenBMC",
+                                         bmcOem))
                 {
-                    std::optional<nlohmann::json> bmcOem;
-                    if (!json_util::readJson(*oemObject, asyncResp->res,
-                                             "OpenBMC", bmcOem))
-                    {
-                        return;
-                    }
-                    if (!json_util::readJson(*bmcOem, asyncResp->res,
-                                             "ClientID", clientId))
-                    {
-                        BMCWEB_LOG_ERROR << "Could not read ClientId";
-                        return;
-                    }
+                    return;
                 }
+                if (!json_util::readJson(*bmcOem, asyncResp->res, "ClientID",
+                                         clientId))
+                {
+                    BMCWEB_LOG_ERROR << "Could not read ClientId";
+                    return;
+                }
+            }
 #endif
 
-                // User is authenticated - create session
-                std::shared_ptr<persistent_data::UserSession> session =
-                    persistent_data::SessionStore::getInstance()
-                        .generateUserSession(
-                            username, req.ipAddress.to_string(), clientId,
-                            persistent_data::PersistenceType::TIMEOUT,
-                            isConfigureSelfOnly);
-                asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
-                asyncResp->res.addHeader(
-                    "Location",
-                    "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
-                asyncResp->res.result(boost::beast::http::status::created);
-                if (session->isConfigureSelfOnly)
-                {
-                    messages::passwordChangeRequired(
-                        asyncResp->res, "/redfish/v1/AccountService/Accounts/" +
-                                            session->username);
-                }
+            crow::connections::systemBus->async_method_call(
+                [ipAddress = req.ipAddress, asyncResp, username, clientId,
+                 isConfigureSelfOnly](
+                    boost::system::error_code ec,
+                    const std::vector<std::pair<
+                        std::string, std::variant<bool, std::string,
+                                                  std::vector<std::string>>>>&
+                        userInfo) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "GetUserInfo failed, ignoring";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    std::string userRole{};
+                    for (const std::pair<
+                             std::string,
+                             std::variant<bool, std::string,
+                                          std::vector<std::string>>>& property :
+                         userInfo)
 
-                fillSessionObject(asyncResp->res, *session);
-            });
+                    {
+                        const std::string& propertyName = property.first;
+                        if (propertyName == "UserPrivilege")
+                        {
+                            const std::string* value =
+                                std::get_if<std::string>(&property.second);
+                            if (value == nullptr)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            userRole = *value;
+                            BMCWEB_LOG_ERROR << "User privilege " << userRole;
+                        }
+                    }
+
+                    std::string role =
+                        persistent_data::UserRoleMap::getInstance().getUserRole(
+                            username);
+                    if (role.empty())
+                    {
+                        persistent_data::UserRoleMap::getInstance()
+                            .insertLDAPUserRoleFromDbus(username, userRole);
+                    }
+
+                    std::shared_ptr<persistent_data::UserSession> session =
+                        persistent_data::SessionStore::getInstance()
+                            .generateUserSession(
+                                username, ipAddress.to_string(), clientId,
+                                userRole,
+                                persistent_data::PersistenceType::TIMEOUT,
+                                isConfigureSelfOnly);
+
+                    asyncResp->res.addHeader("X-Auth-Token",
+                                             session->sessionToken);
+                    asyncResp->res.addHeader(
+                        "Location", "/redfish/v1/SessionService/Sessions/" +
+                                        session->uniqueId);
+
+                    asyncResp->res.result(boost::beast::http::status::created);
+
+                    if (session->isConfigureSelfOnly)
+                    {
+                        messages::passwordChangeRequired(
+                            asyncResp->res,
+                            "/redfish/v1/AccountService/Accounts/" +
+                                session->username);
+                    }
+                    fillSessionObject(asyncResp->res, *session);
+                },
+                persistent_data::userService, persistent_data::userObjPath,
+                "xyz.openbmc_project.User.Manager", "GetUserInfo",
+                std::string(username));
+        });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
         .privileges(redfish::privileges::getSessionService)

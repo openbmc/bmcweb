@@ -240,10 +240,11 @@ class Connection :
             }
             sslUser.resize(lastChar);
             std::string unsupportedClientId = "";
+            std::string userRole = "";
             session = persistent_data::SessionStore::getInstance()
                           .generateUserSession(
                               sslUser, req->ipAddress.to_string(),
-                              unsupportedClientId,
+                              unsupportedClientId, userRole,
                               persistent_data::PersistenceType::TIMEOUT);
             if (auto sp = session.lock())
             {
