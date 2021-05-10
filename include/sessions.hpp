@@ -73,7 +73,41 @@ struct UserRoleMap
         }
         return it->second;
     }
+#if 0
+    void updateUserRoleFromDbus(std::string_view userName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [this, userName](boost::system::error_code ec,
+                        boost::container::flat_map<
+                        std::string, std::variant<bool, std::string,
+                                                  std::vector<std::string>>> userInfo) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "GetUserInfo failed, ignoring";
+                    return;
+                }
+                   const std::string* userRolePtr = nullptr;
+                    auto userInfoIter = userInfo.find("UserPrivilege");
+                    if (userInfoIter != userInfo.end())
+                    {
+                        userRolePtr =
+                            std::get_if<std::string>(&userInfoIter->second);
+                     BMCWEB_LOG_ERROR << "user role "  << *userRolePtr ;               
+                    }
 
+                    std::string userRole{};
+                    if (userRolePtr != nullptr)
+                    {
+                        userRole = *userRolePtr;
+                        BMCWEB_LOG_ERROR << "userName = " << userName
+                                         << " userRole = " << *userRolePtr;
+                        roleMap.emplace(userName, userRole);
+                    }
+            },
+            userService, userObjPath, "xyz.openbmc_project.User.Manager",
+            "GetUserInfo",std::string(userName));
+    }
+#endif
     std::string extractUserRole(const InterfacesPropType& interfacesProperties)
     {
         auto iface = interfacesProperties.find(userAttrIface);
@@ -269,6 +303,7 @@ struct UserSession
     std::string csrfToken;
     std::string clientId;
     std::string clientIp;
+    std::string userRole;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
     bool cookieAuth = false;
@@ -321,6 +356,10 @@ struct UserSession
             else if (element.key() == "username")
             {
                 userSession->username = *thisValue;
+            }
+            else if (element.key() == "user_role")
+            {
+                userSession->userRole = *thisValue;
             }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             else if (element.key() == "client_id")
@@ -437,7 +476,7 @@ class SessionStore
   public:
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username, const std::string_view clientIp,
-        const std::string_view clientId,
+        const std::string_view clientId, const std::string_view userRole,
         PersistenceType persistence = PersistenceType::TIMEOUT,
         bool isConfigureSelfOnly = false)
     {
@@ -489,8 +528,8 @@ class SessionStore
         auto session = std::make_shared<UserSession>(
             UserSession{uniqueId, sessionToken, std::string(username),
                         csrfToken, std::string(clientId), std::string(clientIp),
-                        std::chrono::steady_clock::now(), persistence, false,
-                        isConfigureSelfOnly});
+                        std::string(userRole), std::chrono::steady_clock::now(),
+                        persistence, false, isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;

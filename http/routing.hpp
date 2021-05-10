@@ -1199,12 +1199,13 @@ class Router
         if (req.session != nullptr)
         {
             // Get the user role from the session.
-            const std::string& userRole =
+            std::string userRole =
                 persistent_data::UserRoleMap::getInstance().getUserRole(
                     req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
+            if (userRole.empty())
+            {
+                userRole = req.session->userRole;
+            }
             // Get the user privileges from the role
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
@@ -1320,33 +1321,33 @@ class Router
         redfish::Privileges userPrivileges;
         if (req.session != nullptr)
         {
-            const std::string& userRole =
+            std::string userRole =
                 persistent_data::UserRoleMap::getInstance().getUserRole(
                     req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
+            if (userRole.empty())
+            {
+                userRole = std::string(req.session->userRole);
+            }
             // Get the user privileges from the role
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
 
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
-            res.result(boost::beast::http::status::forbidden);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::forbidden);
             return;
         }
 
         // any uncaught exceptions become 500s
         try
         {
-            rules[ruleIndex]->handle(req, res, found.second);
+            rules[ruleIndex]->handle(req, asyncResp, found.second);
         }
         catch (std::exception& e)
         {
             BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
             return;
         }
         catch (...)
@@ -1354,8 +1355,8 @@ class Router
             BMCWEB_LOG_ERROR
                 << "An uncaught exception occurred. The type was unknown "
                    "so no information was available.";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
             return;
         }
     }
