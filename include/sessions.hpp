@@ -1,11 +1,16 @@
 #pragma once
 
+#include "dbus_singleton.hpp"
 #include "logging.hpp"
 #include "random.hpp"
+#include "user_role_map.hpp"
 #include "utility.hpp"
 #include "utils/ip_utils.hpp"
 
+#include <boost/container/flat_map.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/bus/match.hpp>
+#include <sdbusplus/message.hpp>
 
 #include <algorithm>
 #include <csignal>
@@ -255,11 +260,14 @@ class SessionStore
             }
         }
 
+        std::string userRole =
+            crow::UserRoleMap::getInstance().getUserRole(username);
+
         auto session = std::make_shared<UserSession>(UserSession{
             uniqueId, sessionToken, std::string(username), csrfToken, clientId,
             redfish::ip_util::toString(clientIp),
             std::chrono::steady_clock::now(), persistence, false,
-            isConfigureSelfOnly});
+            isConfigureSelfOnly, userRole});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
