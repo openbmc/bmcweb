@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bfa83ec2_8afc05d2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-10T23:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e856abde_47f95fdd",
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8ff204c_ac38c41d",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 2
@@ -62,6 +80,54 @@
       "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5cf208_f836505e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-10T23:05:28Z",
+      "side": 1,
+      "message": "Done, using sdbusplus utility",
+      "parentUuid": "d8ff204c_ac38c41d",
+      "range": {
+        "startLine": 628,
+        "startChar": 22,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "042535f7_5414455d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-10T23:05:28Z",
+      "side": 1,
+      "message": "I have so far always checked for empty value for the same reason as that commit - the service validator complains. Personally, I think that\u0027s what we should do. But since this interface only has 1 property, there\u0027s no value to checking so I removed it.",
+      "parentUuid": "e7b86ce4_c3972360",
+      "range": {
+        "startLine": 628,
+        "startChar": 34,
+        "endLine": 628,
+        "endChar": 45
+      },
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
