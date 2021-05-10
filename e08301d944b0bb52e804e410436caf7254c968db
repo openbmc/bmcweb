@@ -381,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "aa567120_08d1e00f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T20:28:29Z",
+      "side": 1,
+      "message": "No, I put this on an unfortunately line, urlencode would be called on line 698",
+      "parentUuid": "0f1b568c_239efdec",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de2c602d_13bf33fd",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
