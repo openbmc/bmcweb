@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "00f9e1c9_37cd4bdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T17:19:26Z",
+      "side": 1,
+      "message": "The value was coming from DR keyword and was updated in interface as well.\nThough now PrettyName concept is gone so will be the output.",
+      "parentUuid": "c7542d84_0bec9163",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 31
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30bdf664_36aec453",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 27
@@ -310,6 +334,30 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e446892_dcf60a07",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T17:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c664dac3_944caff7",
+      "range": {
+        "startLine": 55,
+        "startChar": 40,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -644,6 +692,24 @@
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cddfa9f_a6f5953f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T17:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7179ce23_bbadd861",
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
