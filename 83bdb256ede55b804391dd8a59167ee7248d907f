@@ -46,6 +46,97 @@
       "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb916bf_f59e802b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2021-05-10T18:16:28Z",
+      "side": 1,
+      "message": "Can this portion be hard-coded?",
+      "range": {
+        "startLine": 955,
+        "startChar": 52,
+        "endLine": 955,
+        "endChar": 58
+      },
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3db028a_c0d41a3f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2021-05-10T18:16:28Z",
+      "side": 1,
+      "message": "This must be what you intend. It looks backward to me.\nThis really needs to be \ncpuPath appended with \"/redfish/v1/...../OperatingConfigs\"?\nEnhance the description of why this is desired?",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f3d8b4_7c5db2b7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2021-05-10T18:16:28Z",
+      "side": 1,
+      "message": "Does this need to assign an error return message?",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d988e5c_28f19fdb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2021-05-10T18:16:28Z",
+      "side": 1,
+      "message": "Nit: Consider eliminating the nested \"if\"?",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bd0c3cd_dccee8c7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2021-05-10T18:16:28Z",
+      "side": 1,
+      "message": "Does this need to assign an explicit error message?",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
