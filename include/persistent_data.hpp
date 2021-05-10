@@ -239,6 +239,7 @@ class ConfigFile
                 session["username"] = p.second->username;
                 session["csrf_token"] = p.second->csrfToken;
                 session["client_ip"] = p.second->clientIp;
+                session["user_role"] = p.second->userRole;
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 session["client_id"] = p.second->clientId;
 #endif

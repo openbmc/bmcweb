@@ -234,30 +234,74 @@ inline void handleSessionCollectionPost(
     }
 #endif
 
-    // User is authenticated - create session
-    std::shared_ptr<persistent_data::UserSession> session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, req.ipAddress, clientId,
-            persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
-    if (session == nullptr)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
+    crow::connections::systemBus->async_method_call(
+        [ipAddress = req.ipAddress, asyncResp, username, clientId,
+         isConfigureSelfOnly](
+            boost::system::error_code ec,
+            const std::vector<
+                std::pair<std::string, std::variant<bool, std::string,
+                                                    std::vector<std::string>>>>&
+                userInfo) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "GetUserInfo failed, ignoring";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string userRole{};
+        for (const std::pair<std::string,
+                             std::variant<bool, std::string,
+                                          std::vector<std::string>>>& property :
+             userInfo)
 
-    asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
-    asyncResp->res.addHeader(
-        "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
-    asyncResp->res.result(boost::beast::http::status::created);
-    if (session->isConfigureSelfOnly)
-    {
-        messages::passwordChangeRequired(
-            asyncResp->res,
-            crow::utility::urlFromPieces("redfish", "v1", "AccountService",
-                                         "Accounts", session->username));
-    }
+        {
+            const std::string& propertyName = property.first;
+            if (propertyName == "UserPrivilege")
+            {
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
+                if (value == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                userRole = *value;
+                BMCWEB_LOG_ERROR << "User privilege " << userRole;
+            }
+        }
 
-    fillSessionObject(asyncResp->res, *session);
+        std::string role =
+            persistent_data::UserRoleMap::getInstance().getUserRole(username);
+        if (role.empty())
+        {
+            persistent_data::UserRoleMap::getInstance()
+                .insertLDAPUserRoleFromDbus(username, userRole);
+        }
+
+        std::shared_ptr<persistent_data::UserSession> session =
+            persistent_data::SessionStore::getInstance().generateUserSession(
+                username, ipAddress, clientId, userRole,
+                persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
+
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+        asyncResp->res.addHeader("Location",
+                                 "/redfish/v1/SessionService/Sessions/" +
+                                     session->uniqueId);
+
+        asyncResp->res.result(boost::beast::http::status::created);
+
+        if (session->isConfigureSelfOnly)
+        {
+            messages::passwordChangeRequired(
+                asyncResp->res,
+                crow::utility::urlFromPieces("redfish", "v1", "AccountService",
+                                             "Accounts", session->username));
+        }
+        fillSessionObject(asyncResp->res, *session);
+        },
+        persistent_data::userService, persistent_data::userObjPath,
+        "xyz.openbmc_project.User.Manager", "GetUserInfo",
+        std::string(username));
 }
 inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
@@ -272,6 +316,7 @@ inline void handleSessionServiceHead(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/SessionService/SessionService.json>; rel=describedby");
 }
+
 inline void
     handleSessionServiceGet(crow::App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)

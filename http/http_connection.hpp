@@ -265,10 +265,12 @@ class Connection :
             sslUser.resize(lastChar);
             std::string unsupportedClientId;
             sessionIsFromTransport = true;
-            userSession = persistent_data::SessionStore::getInstance()
-                              .generateUserSession(
-                                  sslUser, req->ipAddress, unsupportedClientId,
-                                  persistent_data::PersistenceType::TIMEOUT);
+            std::string userRole = "";
+            userSession =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(
+                        sslUser, req->ipAddress, unsupportedClientId, userRole,
+                        persistent_data::PersistenceType::TIMEOUT);
             if (userSession != nullptr)
             {
                 BMCWEB_LOG_DEBUG
