@@ -1194,9 +1194,6 @@ class Router
             const std::string& userRole =
                 persistent_data::UserRoleMap::getInstance().getUserRole(
                     req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
             // Get the user privileges from the role
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
@@ -1315,9 +1312,6 @@ class Router
             const std::string& userRole =
                 persistent_data::UserRoleMap::getInstance().getUserRole(
                     req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
             // Get the user privileges from the role
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
