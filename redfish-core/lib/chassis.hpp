@@ -389,6 +389,42 @@ inline void requestRoutesChassis(App& app)
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+                        // Chassis UUID
+                        const std::string uuidInterface =
+                            "xyz.openbmc_project.Common.UUID";
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      uuidInterface) != interfaces2.end())
+                        {
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp](const boost::system::error_code ec,
+                                            const std::variant<std::string>&
+                                                chassisUUID) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "DBUS response error for "
+                                               "UUID";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    const std::string* value =
+                                        std::get_if<std::string>(&chassisUUID);
+                                    if (value == nullptr)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "Null value returned "
+                                               "for UUID";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    asyncResp->res.jsonValue["UUID"] = *value;
+                                },
+                                connectionName, path,
+                                "org.freedesktop.DBus.Properties", "Get",
+                                uuidInterface, "UUID");
+                        }
+
                         return;
                     }
 
