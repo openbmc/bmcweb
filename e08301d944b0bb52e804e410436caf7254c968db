@@ -357,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "0f1b568c_239efdec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-05-10T08:34:34Z",
+      "side": 1,
+      "message": "So are we expecting something like the below? (instead of /redfish/v1/Managers/bmc/LogServices/Dump/Entries/137/)\n\n\"Location: %2Fredfish%2Fv1%2FManagers%2Fbmc%2FLogServices%2FDump%2FEntries%2F137\"",
+      "parentUuid": "cfed8be7_e5aae1e6",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2c602d_13bf33fd",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 17
