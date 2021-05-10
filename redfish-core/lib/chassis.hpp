@@ -410,6 +410,22 @@ class Chassis : public Node
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
                         "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+                    // Chassis UUID
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](
+                            const boost::system::error_code /*ec2*/,
+                            const std::variant<std::string>& chassisUUID) {
+                                const std::string* s =
+                                    std::get_if<std::string>(&chassisUUID);
+                                if (s != nullptr && !s->empty())
+                                {
+                                    asyncResp->res.jsonValue["UUID"] = *s;
+                                }
+                            },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "Get", "xyz.openbmc_project.Common.UUID", "UUID");
+
                     return;
                 }
 
