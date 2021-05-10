@@ -427,6 +427,17 @@ class Chassis : public Node
                                     chassisType = std::get_if<std::string>(
                                         &property.second);
                                 }
+                                else if ((propertyName == "MinPowerWatts") ||
+                                         (propertyName == "MaxPowerWatts"))
+                                {
+                                    const uint32_t* value =
+                                        std::get_if<uint32_t>(&property.second);
+                                    if (value != nullptr)
+                                    {
+                                        asyncResp->res.jsonValue[propertyName] =
+                                            *value;
+                                    }
+                                }
                             }
                             // Update chassis type if defined
                             if (chassisType != nullptr && !chassisType->empty())
