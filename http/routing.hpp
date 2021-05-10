@@ -1199,12 +1199,13 @@ class Router
         if (req.session != nullptr)
         {
             // Get the user role from the session.
-            const std::string& userRole =
+            std::string userRole =
                 persistent_data::UserRoleMap::getInstance().getUserRole(
                     req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
+            if (userRole.empty())
+            {
+                userRole = req.session->userRole;
+            }
             // Get the user privileges from the role
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
@@ -1320,12 +1321,13 @@ class Router
         redfish::Privileges userPrivileges;
         if (req.session != nullptr)
         {
-            const std::string& userRole =
+            std::string userRole =
                 persistent_data::UserRoleMap::getInstance().getUserRole(
                     req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
+            if (userRole.empty())
+            {
+                userRole = std::string(req.session->userRole);
+            }
             // Get the user privileges from the role
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
