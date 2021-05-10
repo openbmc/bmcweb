@@ -555,6 +555,59 @@ inline void requestRoutesChassis(App& app)
                                 dimensionInterface);
                         }
 
+                        // Chassis power limits
+                        const std::string powerInterface =
+                            "xyz.openbmc_project.Inventory.Decorator."
+                            "PowerLimit";
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      powerInterface) != interfaces2.end())
+                        {
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp](
+                                    const boost::system::error_code ec,
+                                    const std::vector<std::pair<
+                                        std::string, std::variant<size_t>>>&
+                                        propertiesList) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "DBUS response error for "
+                                               "Chassis power limits";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    for (const std::pair<std::string,
+                                                         std::variant<size_t>>&
+                                             property : propertiesList)
+                                    {
+                                        const std::string& propertyName =
+                                            property.first;
+                                        if ((propertyName == "MinPowerWatts") ||
+                                            (propertyName == "MaxPowerWatts"))
+                                        {
+                                            const size_t* value =
+                                                std::get_if<size_t>(
+                                                    &property.second);
+                                            if (value == nullptr)
+                                            {
+                                                BMCWEB_LOG_DEBUG
+                                                    << "Null value returned "
+                                                       "for power limits";
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                                return;
+                                            }
+                                            asyncResp->res
+                                                .jsonValue[propertyName] =
+                                                *value;
+                                        }
+                                    }
+                                },
+                                connectionName, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                powerInterface);
+                        }
+
                         return;
                     }
 
