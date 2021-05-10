@@ -6,9 +6,11 @@
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "routing/baserule.hpp"
+#include "user_role_map.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <boost/url/format.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <memory>
@@ -128,41 +130,7 @@ inline bool
         return false;
     }
 
-    req.userRole = req.session->userRole;
     return true;
-}
-
-template <typename CallbackFn>
-void afterGetUserInfo(Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      BaseRule& rule, CallbackFn&& callback,
-                      const boost::system::error_code& ec,
-                      const dbus::utility::DBusPropertiesMap& userInfoMap)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("GetUserInfo failed...");
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
-        return;
-    }
-
-    if (!populateUserInfo(req, asyncResp, userInfoMap))
-    {
-        BMCWEB_LOG_ERROR("Failed to populate user information");
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
-        return;
-    }
-
-    if (!isUserPrivileged(req, asyncResp, rule))
-    {
-        // User is not privileged
-        BMCWEB_LOG_ERROR("Insufficient Privilege");
-        asyncResp->res.result(boost::beast::http::status::forbidden);
-        return;
-    }
-    callback(req);
 }
 
 template <typename CallbackFn>
@@ -175,15 +143,29 @@ void validatePrivilege(Request& req,
         return;
     }
     std::string username = req.session->username;
-    crow::connections::systemBus->async_method_call(
-        [&req, asyncResp, &rule, callback(std::forward<CallbackFn>(callback))](
-            const boost::system::error_code& ec,
-            const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
-        afterGetUserInfo(req, asyncResp, rule,
-                         std::forward<CallbackFn>(callback), ec, userInfoMap);
-        },
-        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
+    UserFields props =
+        UserRoleMap::getInstance().getUserRole(req.session->username);
+    if (props.userRole)
+    {
+        req.session->userRole = props.userRole.value_or("");
+    }
+    if (props.passwordExpired)
+    {
+        req.session->isConfigureSelfOnly = *props.passwordExpired;
+    }
+    if (props.userGroups)
+    {
+        req.session->userGroups = std::move(*props.userGroups);
+    }
+
+    if (!isUserPrivileged(req, asyncResp, rule))
+    {
+        // User is not privileged
+        BMCWEB_LOG_WARNING("Insufficient Privilege");
+        asyncResp->res.result(boost::beast::http::status::forbidden);
+        return;
+    }
+    callback(req);
 }
 
 } // namespace crow
