@@ -114,13 +114,84 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 // Note, this is not a very useful Variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
-using VariantType = std::variant<bool, std::string, uint64_t, uint32_t>;
+using VariantType = std::variant<bool, std::string, uint64_t, uint32_t, double>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,
                           std::vector<std::pair<std::string, VariantType>>>>>>;
 
 using PropertiesType = boost::container::flat_map<std::string, VariantType>;
+
+/**
+ * @brief Fill out chassis physical dimensions info by
+ * requesting data from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getChassisDimensions(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                 const std::string& service,
+                                 const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get chassis dimensions";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, VariantType>>&
+                propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for "
+                                    "Chassis dimensions";
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const std::pair<std::string, VariantType>& property :
+                 propertiesList)
+            {
+                const std::string& propertyName = property.first;
+                if (propertyName == "Height")
+                {
+                    const double* value = std::get_if<double>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for Height";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["HeightMm"] = *value;
+                }
+                else if (propertyName == "Width")
+                {
+                    const double* value = std::get_if<double>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for Width";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["WidthMm"] = *value;
+                }
+                else if (propertyName == "Depth")
+                {
+                    const double* value = std::get_if<double>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for Depth";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["DepthMm"] = *value;
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Decorator.Dimension");
+}
 
 inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                   const std::string& service,
@@ -506,6 +577,16 @@ inline void requestRoutesChassis(App& app)
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Item.Chassis");
+
+                        // Chassis physical dimensions
+                        const std::string dimensionInterface =
+                            "xyz.openbmc_project.Inventory.Decorator.Dimension";
+                        if (std::find(interfaces2.begin(), interfaces2.end(),
+                                      dimensionInterface) != interfaces2.end())
+                        {
+                            getChassisDimensions(asyncResp, connectionName,
+                                                 path);
+                        }
 
                         return;
                     }
