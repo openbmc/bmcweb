@@ -249,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "54fa5e8f_11a87572",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-10T16:38:10Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7d2169c4_73ec027a",
+      "range": {
+        "startLine": 291,
+        "startChar": 31,
+        "endLine": 291,
+        "endChar": 35
+      },
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd8a9e91_420e4e4c",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
