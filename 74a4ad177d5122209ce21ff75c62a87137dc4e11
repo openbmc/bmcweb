@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cdba56e_6921393c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3469,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T16:06:11Z",
+      "side": 1,
+      "message": "Please put this in its own function.",
+      "range": {
+        "startLine": 3448,
+        "startChar": 0,
+        "endLine": 3469,
+        "endChar": 9
+      },
+      "revId": "74a4ad177d5122209ce21ff75c62a87137dc4e11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba98a117_24c4e9fa",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3501,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T16:06:11Z",
+      "side": 1,
+      "message": "Also, this can be its own function\n\n\nWith that said, using this very specific interpretation of the resource uri worries me a little.",
+      "range": {
+        "startLine": 3471,
+        "startChar": 0,
+        "endLine": 3501,
+        "endChar": 0
+      },
+      "revId": "74a4ad177d5122209ce21ff75c62a87137dc4e11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
