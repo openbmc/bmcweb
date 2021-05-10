@@ -142,6 +142,30 @@
       "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ba0ff9e_4e85e742",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-10T17:52:10Z",
+      "side": 1,
+      "message": "thanks gunnar.\n\n\"I didn\u0027t find a REST best practice but it makes sense this is a child.\"\nHypermedia API is probably the thing you want to search for.\n\n\"I have wondered though if these should even be in the Redfish tree. \"\nThis is a valid concern, although the way it\u0027s done above is something I\u0027ve seen elsewhere.  From a redfish perspective, it doesn\u0027t really matter where they are, they\u0027re outside the spec.\n\n\n\"What if redfish comes out with an attachment schema (yeah I know unlikely) at\"\nRedfish doesn\u0027t define URLs, so this isn\u0027t a problem for us, we could simply define our IDs in such a way that they don\u0027t conflict, either by prepending something to it, base64 encoding it, or just calling it asdf for all Redfish is concerned.  This is actually one of the big advantages of a hypermedia API and following URI links instead of hardcoding them, you have flexibility for this exact scenario.\n\n\n\"These are OEM format. I wonder if /attachments/PostCodes/\u003cpost code id\u003e makes more sense. \"\n\nWe could do that if we wanted, but see above, there wouldn\u0027t be much advantage.",
+      "parentUuid": "3c4fccbd_000a9090",
+      "range": {
+        "startLine": 3291,
+        "startChar": 16,
+        "endLine": 3292,
+        "endChar": 31
+      },
+      "revId": "719f2dfb971454288d1d67c9e20e48a75b20c24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
