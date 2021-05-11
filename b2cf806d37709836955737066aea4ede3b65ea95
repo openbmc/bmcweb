@@ -22,6 +22,30 @@
       "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884b023e_0fe49326",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-11T02:48:43Z",
+      "side": 1,
+      "message": "The situation is like this. In our machine, there is no xyz.openbmc_project.Inventory.Decorator.Asset interface under the fan.\nas follows:\nbusctl introspect xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/system/chassis/motherboard/fan3\nNAME                                                  TYPE      .                            \norg.freedesktop.DBus.Introspectable                   interface .      \n.Introspect                                           method    .    \norg.freedesktop.DBus.Peer                             interface .     \n.GetMachineId                                         method    .      \n.Ping                                                 method    .     \norg.freedesktop.DBus.Properties                       interface .       \n.Get                                                  method    .     \n.GetAll                                               method    .     \n.Set                                                  method    .    \n.PropertiesChanged                                    signal    .\nxyz.openbmc_project.Association.Definitions           interface .         \n.Associations                                         property  .  \nxyz.openbmc_project.Inventory.Item                    interface .       \n.Present                                              property  .       \n.PrettyName                                           property  .       \nxyz.openbmc_project.Inventory.Item.Fan                interface .       \nxyz.openbmc_project.State.Decorator.OperationalStatus interface .        \n.Functional                                           property  . \n\nSo I didn’t add partnumber, serialnumber, model etc.\nBut there is xyz.openbmc_project.Inventory.Decorator.Asset interface under powersupply,\nas follows:\nbusctl introspect xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/system/chassis/motherboard/powersupply1\nNAME                                                  TYPE      .\norg.freedesktop.DBus.Introspectable                   interface .\n.Introspect                                           method    .\norg.freedesktop.DBus.Peer                             interface .\n.GetMachineId                                         method    .\n.Ping                                                 method    .\norg.freedesktop.DBus.Properties                       interface .\n.Get                                                  method    .\n.GetAll                                               method    .\n.Set                                                  method    .\n.PropertiesChanged                                    signal    .\nxyz.openbmc_project.Association.Definitions           interface .\n.Associations                                         property  .\nxyz.openbmc_project.Inventory.Decorator.Asset         interface .\n.BuildDate                                            property  .\n.Manufacturer                                         property  .\n.Model                                                property  .\n.PartNumber                                           property  .\n.SerialNumber                                         property  .\n.SparePartNumber                                      property  .\n.SubModel                                             property  .\nxyz.openbmc_project.Inventory.Item                    interface .\n.Present                                              property  .\n.PrettyName                                           property  .\nxyz.openbmc_project.Inventory.Item.PowerSupply        interface .\nxyz.openbmc_project.State.Decorator.OperationalStatus interface .\n.Functional                                           property  .\n\nThe same interface, is the data under these two similar?\nI can learn from the xyz.openbmc_project.Inventory.Decorator.Asset interface under powersupply to add partnumber, serialnumber, and model to the fan, but I can’t test it.\nDo I need to add it without testing?",
+      "parentUuid": "92a96083_b5efe815",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 3
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
