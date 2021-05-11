@@ -152,6 +152,30 @@
       "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca2046ee_ca345913",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T16:54:06Z",
+      "side": 1,
+      "message": "\u003e Actually, I guess I replied too soon. Non-populated CPUs will have an empty UniqueIdentifier on D-Bus and therefore creates a warning in the Redfish validator. I would rather filter out the empty strings, but ok.\n\nWarnings are generally ok to have, but shouldn\u0027t really appear on production systems where you have everything populated.  If the CPU sensors are publishing an interface that it\u0027s not filling, then it isn\u0027t really meeting its interface gaurantees, and probably needs fixed.\n\nbmcweb should not be making decisions about when/how data is valid, as that logic tends to be complex and system specific.",
+      "parentUuid": "a3bcf712_045f6c34",
+      "range": {
+        "startLine": 628,
+        "startChar": 34,
+        "endLine": 628,
+        "endChar": 45
+      },
+      "revId": "58d026108cf4321074a9f3a22fb0d14e7e41a396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
