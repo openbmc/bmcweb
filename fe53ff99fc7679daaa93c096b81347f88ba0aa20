@@ -100,6 +100,24 @@
     },
     {
       "key": {
+        "uuid": "6a7cda23_ba8c7e98",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T18:30:49Z",
+      "side": 1,
+      "message": "Please leave what\u0027s there.  It\u0027s more descriptive (even if it\u0027s a bit extreme).",
+      "parentUuid": "d95501a4_03332caa",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6d51fb7_2fc47603",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -134,6 +152,24 @@
       "writtenOn": "2021-05-11T17:32:29Z",
       "side": 1,
       "message": "add a trace",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0240d1_76966c6e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T18:30:49Z",
+      "side": 1,
+      "message": "Please don\u0027t.  We don\u0027t need to add traces for every possible error path.",
+      "parentUuid": "10052d5c_fed3b832",
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -406,6 +442,30 @@
     },
     {
       "key": {
+        "uuid": "75060625_0d2c25ee",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T18:30:49Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ca570948_42964645",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 66
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d147b181_e86adfda",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -463,6 +523,24 @@
       "writtenOn": "2021-05-11T17:32:29Z",
       "side": 1,
       "message": "does dbus call really throws this error?\nI don\u0027t think so",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05a66508_b7d1e541",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T18:30:49Z",
+      "side": 1,
+      "message": "Some do.",
+      "parentUuid": "47058a45_d5a875bf",
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
