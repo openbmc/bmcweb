@@ -25,6 +25,81 @@
     },
     {
       "key": {
+        "uuid": "2bc39729_51b33f77",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7cc38774_8a4fcc21",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae29f1f3_a5e427d6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "better to add error trace here. will be useful while debug\nwe are returning internal error from multiple places.",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fac1106_45caf534",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "I think better to use GetManagedObjects",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d95501a4_03332caa",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "please use \"BMCWEB_LOG_ERROR \u003c\u003c p.what()\"",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6d51fb7_2fc47603",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -42,6 +117,23 @@
         "endLine": 555,
         "endChar": 21
       },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10052d5c_fed3b832",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "add a trace",
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -157,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "d8a00db1_1b1729f4",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3ba0715e_f8ffd0c8",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 0
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ca4609e_2bcba6f8",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -226,6 +342,23 @@
     },
     {
       "key": {
+        "uuid": "5d7f087f_cc758129",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "no need to initialise to 0s right?",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ecab3b19_119fa28c",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -237,6 +370,30 @@
       "writtenOn": "2021-05-10T15:56:38Z",
       "side": 1,
       "message": "We\u0027re 7 scopes deep here.  This needs split up.",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 66
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca570948_42964645",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "Better use GetManagedObjects method instead of mapper, it simplifies code.",
+      "parentUuid": "ecab3b19_119fa28c",
       "range": {
         "startLine": 715,
         "startChar": 0,
@@ -289,6 +446,23 @@
         "endLine": 908,
         "endChar": 58
       },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47058a45_d5a875bf",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-11T17:32:29Z",
+      "side": 1,
+      "message": "does dbus call really throws this error?\nI don\u0027t think so",
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
