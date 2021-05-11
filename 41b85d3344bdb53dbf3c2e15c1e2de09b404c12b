@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "307f36e1_cf9fffc7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-11T14:18:11Z",
+      "side": 1,
+      "message": "nit: you can move one of the strings:\n[createdObjPath, dumpEntryPath \u003d std::move(dumpEntryPath)]",
+      "range": {
+        "startLine": 727,
+        "startChar": 9,
+        "endLine": 727,
+        "endChar": 38
+      },
+      "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98438350_9e43d9ac",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-11T14:18:11Z",
+      "side": 1,
+      "message": "nit: const",
+      "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
