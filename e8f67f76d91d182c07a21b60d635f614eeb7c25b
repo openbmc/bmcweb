@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbb4b4fb_f0f32274",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T16:48:03Z",
+      "side": 1,
+      "message": "It looks like you\u0027ve copied odata without really understanding the implication.  I don\u0027t see this type defined in your CSDL (or maybe you forgot to check that in), and it doesn\u0027t really meet the naming convention (upper camel case) of the other endpoints.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 66
+      },
+      "revId": "e8f67f76d91d182c07a21b60d635f614eeb7c25b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6441f5f4_559e88c4",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T16:48:03Z",
+      "side": 1,
+      "message": "nit, a hypermedia pointer shouldn\u0027t end in /",
+      "range": {
+        "startLine": 31,
+        "startChar": 67,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "e8f67f76d91d182c07a21b60d635f614eeb7c25b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43ef96b8_8b5fc364",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T16:48:03Z",
+      "side": 1,
+      "message": "Same nit as above;",
+      "range": {
+        "startLine": 35,
+        "startChar": 57,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "e8f67f76d91d182c07a21b60d635f614eeb7c25b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "070fcbc4_07a95368",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T16:48:03Z",
+      "side": 1,
+      "message": "This URI currently isn\u0027t defined, so as written, this is a broken hypermedia API.  Depending on how you want to break up your patches, you probably want to add these two lines in the next one.",
+      "range": {
+        "startLine": 35,
+        "startChar": 35,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "e8f67f76d91d182c07a21b60d635f614eeb7c25b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
