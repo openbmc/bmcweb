@@ -10,6 +10,10 @@
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url_view.hpp>
 
+#include <optional>
+#include <string>
+#include <string_view>
+
 namespace crow
 {
 
