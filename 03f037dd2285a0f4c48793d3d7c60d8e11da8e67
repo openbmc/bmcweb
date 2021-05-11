@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "41d71603_cfe8eb0a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-11T12:49:51Z",
+      "side": 1,
+      "message": "If it is needed to be done the check above also has this mistake. I mean:\n```\nif (aResp-\u003eres.jsonValue[\"Boot\"][\"BootSourceOverrideTarget\"] \u003d\u003d \"None\"\n```\nBecause this code checks against \"None\" value which can be obtained only from the `dbusToRfBootSource` function which is executed in a separate async call for the Dbus \"xyz.openbmc_project.Control.Boot.Source\" interface.\n\nIn this case it seems like all the calls should be chainloaded:\n```\nBootSource-\u003eBootMode-\u003eBootType\n```\n_____________\n\nThis is the example of the flaws in a current OpenBMC boot override design that I\u0027ve tried to highlight recently in a Discord.\nBecause there is no Enable/Disable flag for the boot override object on a Dbus, bmcweb and phosphor-ipmid have to do weird stuff like this. And they solve this problem in a separate ways: (speaking in terms of bmcweb)\n\nbmcweb:\n```\n\"BootSourceOverrideEnabled\u003dDisabled\" \u003d \"BootSourceOverrideMode\u003dUEFI\" + \"BootSourceOverrideTarget\u003dNone\"\n```\nipmid:\n```\n\"BootSourceOverrideEnabled\" can\u0027t be \"Disabled\", it is always \"Once\" or \"Continuous\"\n```",
+      "parentUuid": "c3cec1a7_430bdd22",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19e90649_cae64297",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
