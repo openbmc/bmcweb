@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "37eb41fe_4df12e6c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-11T14:58:02Z",
+      "side": 1,
+      "message": "Now when we use chain \"BootSource-\u003eBootMode-\u003eBootType\"\nThis would be always created in \"dbusToRfBootSource\" function",
+      "parentUuid": "bdffc168_4c473f02",
+      "range": {
+        "startLine": 1019,
+        "startChar": 36,
+        "endLine": 1019,
+        "endChar": 72
+      },
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67f01af4_9511ad02",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -161,6 +185,24 @@
     },
     {
       "key": {
+        "uuid": "361d043f_8c21a5e7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-11T14:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d71603_cfe8eb0a",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19e90649_cae64297",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -237,6 +279,24 @@
       "side": 1,
       "message": "+1.  Common error #11.",
       "parentUuid": "4d83340f_336e5417",
+      "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d767c9_1dbf21f5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-11T14:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1da898bd_d4757682",
       "revId": "03f037dd2285a0f4c48793d3d7c60d8e11da8e67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
