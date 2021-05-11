@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "b350cc33_3577c144",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T22:28:48Z",
+      "side": 1,
+      "message": "See if it\u0027s more clear now.\nconfigBaseName will look like \"config0\"\ncpuObjectPath will look like \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0\"",
+      "parentUuid": "04d10514_105e608c",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46f3d8b4_7c5db2b7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 17
@@ -198,6 +216,24 @@
       "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adbde257_cc8b1e52",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T22:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a67f97e_741a5b55",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
