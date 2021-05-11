@@ -5,7 +5,9 @@
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 
+#include <optional>
 #include <string>
+#include <string_view>
 
 namespace crow
 {
