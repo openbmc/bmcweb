@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "73dfa6a3_f958bd6f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-11T23:32:00Z",
+      "side": 1,
+      "message": "For the moment, yes.  Once we support multi-node setups (which is coming like a freight train) this will need fixed, but that\u0027s not your problem in this patchset.",
+      "parentUuid": "f0e4f665_521b6816",
+      "range": {
+        "startLine": 955,
+        "startChar": 52,
+        "endLine": 955,
+        "endChar": 58
+      },
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3db028a_c0d41a3f",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 17
