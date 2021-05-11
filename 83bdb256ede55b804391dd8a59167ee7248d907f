@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f0e4f665_521b6816",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T17:14:50Z",
+      "side": 1,
+      "message": "It is hardcoded everywhere in bmcweb so I assume yes.",
+      "parentUuid": "5fb916bf_f59e802b",
+      "range": {
+        "startLine": 955,
+        "startChar": 52,
+        "endLine": 955,
+        "endChar": 58
+      },
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3db028a_c0d41a3f",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 17
@@ -83,6 +107,24 @@
       "writtenOn": "2021-05-10T18:16:28Z",
       "side": 1,
       "message": "This must be what you intend. It looks backward to me.\nThis really needs to be \ncpuPath appended with \"/redfish/v1/...../OperatingConfigs\"?\nEnhance the description of why this is desired?",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d10514_105e608c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T17:14:50Z",
+      "side": 1,
+      "message": "i\u0027ll try to clarify the comments here",
+      "parentUuid": "a3db028a_c0d41a3f",
       "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -106,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "769ebf19_1c342648",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T17:14:50Z",
+      "side": 1,
+      "message": "json_util::readJson automatically adds an error message if it doesn\u0027t find any matching properties.",
+      "parentUuid": "46f3d8b4_7c5db2b7",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d988e5c_28f19fdb",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 17
@@ -123,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "4a67f97e_741a5b55",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T17:14:50Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "2d988e5c_28f19fdb",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bd0c3cd_dccee8c7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 17
@@ -134,6 +212,24 @@
       "writtenOn": "2021-05-10T18:16:28Z",
       "side": 1,
       "message": "Does this need to assign an explicit error message?",
+      "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1bcf41f_c77101ca",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-11T17:14:50Z",
+      "side": 1,
+      "message": "No, readJson will automatically add it.",
+      "parentUuid": "8bd0c3cd_dccee8c7",
       "revId": "83bdb256ede55b804391dd8a59167ee7248d907f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
