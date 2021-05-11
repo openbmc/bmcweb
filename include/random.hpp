@@ -20,11 +20,11 @@ struct OpenSSLGenerator
         return index;
     }
 
-    uint8_t max()
+    static constexpr uint8_t max()
     {
         return std::numeric_limits<uint8_t>::max();
     }
-    uint8_t min()
+    static constexpr uint8_t min()
     {
         return std::numeric_limits<uint8_t>::min();
     }
