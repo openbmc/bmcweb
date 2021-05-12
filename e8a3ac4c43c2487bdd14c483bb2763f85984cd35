@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a7e1583_6efdf9a3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-12T02:25:42Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70656eb2_5cf72c4a",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-12T02:25:42Z",
+      "side": 1,
+      "message": "I think I need to call async method dbus call to getUserInfo here\nBut seeing issue while adding async calling in method as this method returns session\n\nEd\ncan you please what can be done here",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
