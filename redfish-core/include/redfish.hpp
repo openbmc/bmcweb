@@ -19,6 +19,7 @@
 #include "../lib/bios.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
+#include "../lib/environment_metrics.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/log_services.hpp"
@@ -73,6 +74,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ServiceRoot>(app));
         nodes.emplace_back(std::make_unique<NetworkProtocol>(app));
         nodes.emplace_back(std::make_unique<SessionService>(app));
+        nodes.emplace_back(std::make_unique<EnvironmentMetrics>(app));
         nodes.emplace_back(std::make_unique<EthernetCollection>(app));
         nodes.emplace_back(std::make_unique<EthernetInterface>(app));
         nodes.emplace_back(std::make_unique<Thermal>(app));

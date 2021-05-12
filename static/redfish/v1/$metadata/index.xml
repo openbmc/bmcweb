@@ -574,6 +574,10 @@
     <edmx:Reference Uri="/redfish/v1/schema/DriveCollection_v1.xml">
         <edmx:Include Namespace="DriveCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/EnvironmentMetrics_v1.xml">
+        <edmx:Include Namespace="EnvironmentMetrics"/>
+        <edmx:Include Namespace="EnvironmentMetrics.v1_0_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/EthernetInterface_v1.xml">
         <edmx:Include Namespace="EthernetInterface"/>
         <edmx:Include Namespace="EthernetInterface.v1_0_0"/>
