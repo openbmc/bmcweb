@@ -345,6 +345,30 @@
     },
     {
       "key": {
+        "uuid": "6e6de808_578276a2",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-12T14:01:42Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "55ff01a1_8c1184df",
+      "range": {
+        "startLine": 291,
+        "startChar": 31,
+        "endLine": 291,
+        "endChar": 35
+      },
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd8a9e91_420e4e4c",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
@@ -452,6 +476,30 @@
       "side": 1,
       "message": "+1 ditto",
       "parentUuid": "deb3ba7b_c4915734",
+      "range": {
+        "startLine": 292,
+        "startChar": 22,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "f5550f3863f66f7c34dcbeef9f874814b0943676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8653cd49_d8fcafe6",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-12T14:01:42Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "1b477751_30d0eea3",
       "range": {
         "startLine": 292,
         "startChar": 22,
