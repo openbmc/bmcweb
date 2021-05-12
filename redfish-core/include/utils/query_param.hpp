@@ -49,6 +49,10 @@ class ProcessParam
                 return true;
             }
         }
+        if (isSelect)
+        {
+            processSelect();
+        }
         isPrased = false;
         return false;
     }
@@ -78,6 +82,7 @@ class ProcessParam
             return true;
         }
         isExpand = false;
+        isSelect = false;
         for (auto ite : req.urlParams)
         {
             if (ite->key() == "$expand")
@@ -109,6 +114,22 @@ class ProcessParam
                     messages::queryParameterValueFormatError(res, ite->value(),
                                                              ite->key());
                     return false;
+                }
+            }
+            else if (ite->key() == "$select")
+            {
+                isSelect = true;
+                selectPropertyVec.clear();
+                std::string value = std::string(ite->value());
+                auto result = stringSplit(value, ",");
+                for (auto& itResult : result)
+                {
+                    auto v = stringSplit(itResult, "/");
+                    if (v.empty())
+                    {
+                        continue;
+                    }
+                    selectPropertyVec.push_back(std::move(v));
                 }
             }
             continue;
@@ -212,6 +233,16 @@ class ProcessParam
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
         app.handle(*newReq, asyncResp);
         return true;
+    }
+
+    void processSelect()
+    {
+        jsonValue = nlohmann::json::object();
+        for (auto& it : selectPropertyVec)
+        {
+            recursiveSelect(it, res.jsonValue, jsonValue);
+        }
+        res.jsonValue = jsonValue;
     }
 
     void recursiveHyperlinks(nlohmann::json& j)
@@ -387,6 +418,88 @@ class ProcessParam
         }
     }
 
+    std::vector<std::string> stringSplit(const std::string& s,
+                                         const std::string& delim)
+    {
+        std::vector<std::string> elems;
+        size_t pos = 0;
+        size_t len = s.length();
+        size_t delimLen = delim.length();
+        if (delimLen == 0)
+        {
+            return elems;
+        }
+        while (pos < len)
+        {
+            size_t findPos = s.find(delim, pos);
+            if (findPos == std::string::npos)
+            {
+                elems.push_back(s.substr(pos, len - pos));
+                break;
+            }
+            elems.push_back(s.substr(pos, findPos - pos));
+            pos = findPos + delimLen;
+        }
+        return elems;
+    }
+
+    void recursiveSelect(std::vector<std::string> v, nlohmann::json& src,
+                         nlohmann::json& dst)
+    {
+        if (v.empty())
+        {
+            return;
+        }
+        if (src.is_array())
+        {
+            for (auto it : src)
+            {
+                dst.push_back(nlohmann::json());
+                recursiveSelect(v, it, dst.back());
+            }
+            return;
+        }
+        std::string key = v[0];
+        auto it = src.find(key);
+        if (v.size() == 1)
+        {
+            dst.insert(it, ++it);
+        }
+        else
+        {
+            v.erase(v.begin());
+            if (it->is_array())
+            {
+                dst[key] = nlohmann::json::array();
+            }
+            else
+            {
+                dst[key] = nlohmann::json::object();
+            }
+            recursiveSelect(v, *it, dst[key]);
+        }
+        it = src.find("@odata.id");
+        if (it != src.end())
+        {
+            dst.insert(it, ++it);
+        }
+        it = src.find("@odata.type");
+        if (it != src.end())
+        {
+            dst.insert(it, ++it);
+        }
+        it = src.find("@odata.context");
+        if (it != src.end())
+        {
+            dst.insert(it, ++it);
+        }
+        it = src.find("@odata.etag");
+        if (it != src.end())
+        {
+            dst.insert(it, ++it);
+        }
+    }
+
   private:
     App& app;
     crow::Response& res;
@@ -394,10 +507,12 @@ class ProcessParam
     bool isPrased = false;
     bool isOnly = false;
     bool isExpand = false;
+    bool isSelect = false;
     uint64_t expandLevel;
     const uint64_t maxLevel = 2;
     std::string expandType;
     std::vector<std::string> pendingUrlVec;
+    std::vector<std::vector<std::string>> selectPropertyVec;
     nlohmann::json jsonValue;
 };
 } // namespace query_param

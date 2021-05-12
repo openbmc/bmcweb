@@ -85,6 +85,8 @@ class ServiceRoot : public Node
             {"MaxLevels", 2},
             {"Links", true},
             {"NoLinks", true}};
+        asyncResp->res.jsonValue["ProtocolFeaturesSupported"]["SelectQuery"] =
+            true;
     }
 
     std::string uuid;
