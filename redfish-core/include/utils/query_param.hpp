@@ -57,6 +57,10 @@ class ProcessParam
         {
             processSkip(req);
         }
+        if (isTop)
+        {
+            processTop(req);
+        }
         isPrased = false;
         return false;
     }
@@ -88,6 +92,7 @@ class ProcessParam
         isExpand = false;
         isSelect = false;
         isSkip = false;
+        isTop = false;
         for (auto ite : req.urlParams)
         {
             if (ite->key() == "$expand")
@@ -143,6 +148,14 @@ class ProcessParam
                 if (skipValue > 0)
                 {
                     isSkip = true;
+                }
+            }
+            else if (ite->key() == "$top")
+            {
+                topValue = strtoul(ite->value().c_str(), nullptr, 10);
+                if (topValue > 0)
+                {
+                    isTop = true;
                 }
             }
             continue;
@@ -274,6 +287,22 @@ class ProcessParam
             return;
         }
         it->erase(it->begin(), it->begin() + int(skipValue));
+    }
+
+    void processTop(const crow::Request& req)
+    {
+        auto it = res.jsonValue.find("Members");
+        if (it == res.jsonValue.end())
+        {
+            res.jsonValue.clear();
+            messages::actionParameterNotSupported(res, "$top", req.url);
+            return;
+        }
+        if (it->size() <= topValue)
+        {
+            return;
+        }
+        it->erase(it->begin() + int(topValue), it->end());
     }
 
     void recursiveHyperlinks(nlohmann::json& j)
@@ -540,9 +569,11 @@ class ProcessParam
     bool isExpand = false;
     bool isSelect = false;
     bool isSkip = false;
+    bool isTop = false;
     uint64_t expandLevel;
     const uint64_t maxLevel = 2;
     uint64_t skipValue = 0;
+    uint64_t topValue = 0;
     std::string expandType;
     std::vector<std::string> pendingUrlVec;
     std::vector<std::vector<std::string>> selectPropertyVec;
