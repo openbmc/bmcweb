@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe94ad4b_446cd10c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 41
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T18:01:38Z",
+      "side": 1,
+      "message": "More details needed here.  You\u0027ve made several internal changes to data structures that need to be addressed in your commit message.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f10e46a_4893917d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T18:01:38Z",
+      "side": 1,
+      "message": "Why do we need this differently than completeRequest handler?  Can\u0027t we simply replace complete request handler with something that does the operation we need, then calls the former complete request handler?\n\nThat seems to be what you\u0027ve done in code, but I suspect can be done without adding another callback.\n\nAlso, for the later requests, we need to override completeRequestHandler, so that seems like a cleaner thing in the core.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 46
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9d6f399_e0584400",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T18:01:38Z",
+      "side": 1,
+      "message": "FYI, the node class is going away.  This will need to be done in another context.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 0
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c937d803_2594d10e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T18:01:38Z",
+      "side": 1,
+      "message": "Typo?  I\u0027m not sure why this variable is here.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed0bc3c_5d134aec",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T18:01:38Z",
+      "side": 1,
+      "message": "?  This class has no inheritence.  Why are these protected instead of private?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 12
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d9e68d_4d7c61e2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T18:01:38Z",
+      "side": 1,
+      "message": "capturing this by reference has ownership and lifetype issues.  I suspect this should be capturing by weak_ptr",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
