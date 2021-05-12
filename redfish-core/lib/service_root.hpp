@@ -79,6 +79,12 @@ class ServiceRoot : public Node
             {"@odata.id", "/redfish/v1/TelemetryService"}};
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"] = {
             {"OnlyMemberQuery", true}};
+        asyncResp->res.jsonValue["ProtocolFeaturesSupported"]["ExpandQuery"] = {
+            {"ExpandAll", true},
+            {"Levels", true},
+            {"MaxLevels", 2},
+            {"Links", true},
+            {"NoLinks", true}};
     }
 
     std::string uuid;
