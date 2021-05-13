@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "18aa1d67_a8e63b09",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T18:11:27Z",
+      "side": 1,
+      "message": "I guess I would vote the way it is. As is, is the established way.",
+      "parentUuid": "12d5fd8d_4f206208",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef9a5e70_89bdd30a",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
