@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17f659f5_3e214f78",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T18:29:34Z",
+      "side": 1,
+      "message": "Why not Name here with the rest instead of line 29 ?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "250a4b5a_9036b2d8",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T18:29:34Z",
+      "side": 1,
+      "message": "isn\u0027t Id typically the last segment of the URI ?\nE.g. system, bmc, etc. \n\nhttps://github.com/openbmc/bmcweb/blob/15c27bf8ea1f7e2f8e07d1eaf386466091d69c17/redfish-core/lib/systems.hpp#L2097\n\nI would expect more like: \n\n                    aResp-\u003eres.jsonValue[\"Id\"] \u003d portId;\n\n    aResp-\u003eres.jsonValue[\"Name\"] \u003d portId;",
+      "range": {
+        "startLine": 129,
+        "startChar": 50,
+        "endLine": 129,
+        "endChar": 54
+      },
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
