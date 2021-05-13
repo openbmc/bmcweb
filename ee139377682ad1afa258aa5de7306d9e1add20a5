@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "267d6ada_1368f316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T16:16:15Z",
+      "side": 1,
+      "message": "Still not wrapping at 72.",
+      "revId": "ee139377682ad1afa258aa5de7306d9e1add20a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9abfda0_c61bd1a9",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T16:16:15Z",
+      "side": 1,
+      "message": "can you remove?",
+      "range": {
+        "startLine": 483,
+        "startChar": 10,
+        "endLine": 483,
+        "endChar": 11
+      },
+      "revId": "ee139377682ad1afa258aa5de7306d9e1add20a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
