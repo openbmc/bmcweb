@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a2f7fe6_a71f1b22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-05-13T16:20:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "267d6ada_1368f316",
+      "revId": "ee139377682ad1afa258aa5de7306d9e1add20a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9abfda0_c61bd1a9",
         "filename": "Redfish.md",
         "patchSetId": 2
