@@ -227,6 +227,30 @@
     },
     {
       "key": {
+        "uuid": "72241f65_05561e8c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-13T17:39:38Z",
+      "side": 1,
+      "message": "George,\nIt\u0027s a good thought, but what you wrote is more code, more difficult to ensure it\u0027s correct, and compiles larger.  what is there is a similar pattern to what we do elsewhere, so I think it\u0027s the right thing to do in this case.",
+      "parentUuid": "f1707dfd_4244bf26",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 1
+      },
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d00aea69_e53b30c0",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 11
