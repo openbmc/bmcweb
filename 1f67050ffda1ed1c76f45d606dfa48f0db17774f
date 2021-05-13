@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f2a88243_539191a3",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T00:28:43Z",
+      "side": 1,
+      "message": "Also I though we were going to get rid of sync?",
+      "range": {
+        "startLine": 290,
+        "startChar": 46,
+        "endLine": 290,
+        "endChar": 51
+      },
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "970c01ab_4d6f97ff",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
