@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f538f7a9_a44e1bc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-13T11:56:36Z",
+      "side": 1,
+      "message": "Thank you.. Please could you update the commit to have busctl ?",
+      "revId": "a1324f3e81ecd3c8f6989d491b4636db6a5f81d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
