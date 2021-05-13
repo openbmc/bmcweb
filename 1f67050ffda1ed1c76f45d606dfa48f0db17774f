@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "f1a528bb_62d52531",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-13T15:24:57Z",
+      "side": 1,
+      "message": "sync can be removed from commit message since it was removed from the log message.",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20287fd7_a90e81ad",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-13T15:24:57Z",
+      "side": 1,
+      "message": "BMCTimeUpdated?  Or BMCTimeChanged?",
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2a88243_539191a3",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
@@ -84,6 +124,30 @@
       "side": 1,
       "message": "I understand. But in web page events are logged generally, so better to mention BMC once.\nBelow is ok?\n\"BMC time has been set successfully via %1.\"\n\"Date Time is set to %2 from %3.\",",
       "parentUuid": "970c01ab_4d6f97ff",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 59
+      },
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1a466e_e870d587",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-13T15:24:57Z",
+      "side": 1,
+      "message": "\"BMC time (changed/updated) via %1. New: %2. Previous: %3.\", where (changed/updated) depends on what the MessageId is?\n\nIf NTP and Manual are really the only options, we could also have two Messages and eliminate parameter %1.",
+      "parentUuid": "ed53fa49_1a41cac7",
       "range": {
         "startLine": 291,
         "startChar": 0,
