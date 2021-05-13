@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "led.hpp"
 #include "node.hpp"
 #include "redfish_util.hpp"
 
@@ -32,6 +33,18 @@
 
 namespace redfish
 {
+
+// Interfaces which imply a D-Bus object represents a Manager
+constexpr std::array<const char*, 1> bmcInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Bmc"};
+
+// Map of service name to list of interfaces
+using MapperServiceMap =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+// Map of object paths to MapperServiceMaps
+using MapperGetSubTreeResponse =
+    std::vector<std::pair<std::string, MapperServiceMap>>;
 
 /**
  * Function reboots the BMC.
@@ -1747,6 +1760,232 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "LocationCode");
 }
 
+/**
+ * Find the D-Bus object representing the requested Manager, and call the
+ * handler with the results. If matching object is not found, add 404 error to
+ * response and don't call the handler.
+ *
+ * @param[in,out]   aResp           Async HTTP response.
+ * @param[in]       handler         Callback to continue processing request upon
+ *                                  successfully finding object.
+ */
+template <typename Handler>
+inline void getManagerObject(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             Handler&& handler)
+{
+    BMCWEB_LOG_DEBUG << "Get available manager resources.";
+
+    // GetSubTree on all interfaces which provide info about a Manager
+    crow::connections::systemBus->async_method_call(
+        [aResp, handler = std::forward<Handler>(handler)](
+            boost::system::error_code ec,
+            const MapperGetSubTreeResponse& subtree) mutable {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const auto& [objectPath, serviceMap] : subtree)
+            {
+                bool found = false;
+                for (const auto& [serviceName, interfaceList] : serviceMap)
+                {
+                    if (std::find_first_of(
+                            interfaceList.begin(), interfaceList.end(),
+                            bmcInterfaces.begin(),
+                            bmcInterfaces.end()) != interfaceList.end())
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    continue;
+                }
+
+                handler(aResp, objectPath, serviceMap);
+                return;
+            }
+            messages::resourceNotFound(aResp->res, "Manager",
+                                       "#Manager.v1_11_0.Manager");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Bmc"});
+}
+
+inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& objectPath,
+                           const MapperServiceMap& serviceMap)
+{
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        bool bmcInterface = false;
+        bool assertInterface = false;
+        bool locationInterface = false;
+        bool associationInterface = false;
+        for (const auto& interface : interfaceList)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item.Bmc")
+            {
+                bmcInterface = true;
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                assertInterface = true;
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+            {
+                locationInterface = true;
+            }
+            else if (interface == "xyz.openbmc_project.Association.Definitions")
+            {
+                associationInterface = true;
+            }
+        }
+
+        if (bmcInterface && assertInterface)
+        {
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        const std::vector<
+                            std::pair<std::string, std::variant<std::string>>>&
+                            propertiesList) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "Can't get bmc asset!";
+                        return;
+                    }
+                    for (const std::pair<std::string,
+                                         std::variant<std::string>>& property :
+                         propertiesList)
+                    {
+                        const std::string& propertyName = property.first;
+
+                        if ((propertyName == "PartNumber") ||
+                            (propertyName == "SerialNumber") ||
+                            (propertyName == "Manufacturer") ||
+                            (propertyName == "Model") ||
+                            (propertyName == "SparePartNumber"))
+                        {
+                            const std::string* value =
+                                std::get_if<std::string>(&property.second);
+                            if (value == nullptr)
+                            {
+                                // illegal property
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            aResp->res.jsonValue[propertyName] = *value;
+                        }
+                    }
+                },
+                serviceName, objectPath, "org.freedesktop.DBus.Properties",
+                "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
+        }
+
+        if (bmcInterface && locationInterface)
+        {
+            getLocation(aResp, serviceName, objectPath);
+        }
+
+        if (bmcInterface && associationInterface)
+        {
+            getLocationIndicatorActive(aResp, objectPath);
+        }
+    }
+}
+
+inline void setManagerData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const MapperServiceMap& serviceMap,
+                           const std::string& objectPath, bool value)
+{
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        bool bmcInterface = false;
+        bool associationInterface = false;
+        for (const auto& interface : interfaceList)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item.Bmc")
+            {
+                bmcInterface = true;
+            }
+            else if (interface == "xyz.openbmc_project.Association.Definitions")
+            {
+                associationInterface = true;
+            }
+        }
+
+        if (bmcInterface && associationInterface)
+        {
+            setLocationIndicatorActive(aResp, objectPath, value);
+        }
+    }
+}
+
+/**
+ * Find the D-Bus object representing the requested Manager, and call the
+ * setManagerData with the results. If matching object is not found, add 404
+ * error to response and don't call the setManagerData.
+ *
+ * @param[in,out]   aResp        Async HTTP response.
+ * @param[in]       value        Value of the property
+ */
+inline void setManagerObject(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             bool value)
+{
+    BMCWEB_LOG_DEBUG << "Get available manager resources.";
+
+    // GetSubTree on all interfaces which provide info about a Manager
+    crow::connections::systemBus->async_method_call(
+        [aResp, value](boost::system::error_code ec,
+                       const MapperGetSubTreeResponse& subtree) mutable {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const auto& [objectPath, serviceMap] : subtree)
+            {
+                bool found = false;
+                for (const auto& [serviceName, interfaceList] : serviceMap)
+                {
+                    if (std::find_first_of(
+                            interfaceList.begin(), interfaceList.end(),
+                            bmcInterfaces.begin(),
+                            bmcInterfaces.end()) != interfaceList.end())
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    continue;
+                }
+
+                setManagerData(aResp, serviceMap, objectPath, value);
+                return;
+            }
+            messages::resourceNotFound(aResp->res, "Manager",
+                                       "#Manager.v1_11_0.Manager");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Bmc"});
+}
+
 class Manager : public Node
 {
   public:
@@ -1899,104 +2138,7 @@ class Manager : public Node
                 "org.freedesktop.systemd1.Manager", "Progress");
         }
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](
-                const boost::system::error_code ec,
-                const std::vector<std::pair<
-                    std::string, std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>>&
-                    subtree) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree "
-                                     << ec;
-                    return;
-                }
-                if (subtree.size() == 0)
-                {
-                    BMCWEB_LOG_DEBUG << "Can't find bmc D-Bus object!";
-                    return;
-                }
-                // Assume only 1 bmc D-Bus object
-                // Throw an error if there is more than 1
-                if (subtree.size() > 1)
-                {
-                    BMCWEB_LOG_DEBUG << "Found more than 1 bmc D-Bus object!";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                if (subtree[0].first.empty() || subtree[0].second.size() != 1)
-                {
-                    BMCWEB_LOG_DEBUG << "Error getting bmc D-Bus object!";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                const std::string& path = subtree[0].first;
-                const std::string& connectionName = subtree[0].second[0].first;
-
-                for (const auto& interfaceName : subtree[0].second[0].second)
-                {
-                    if (interfaceName ==
-                        "xyz.openbmc_project.Inventory.Decorator.Asset")
-                    {
-                        crow::connections::systemBus->async_method_call(
-                            [asyncResp](
-                                const boost::system::error_code ec,
-                                const std::vector<std::pair<
-                                    std::string, std::variant<std::string>>>&
-                                    propertiesList) {
-                                if (ec)
-                                {
-                                    BMCWEB_LOG_DEBUG << "Can't get bmc asset!";
-                                    return;
-                                }
-                                for (const std::pair<std::string,
-                                                     std::variant<std::string>>&
-                                         property : propertiesList)
-                                {
-                                    const std::string& propertyName =
-                                        property.first;
-
-                                    if ((propertyName == "PartNumber") ||
-                                        (propertyName == "SerialNumber") ||
-                                        (propertyName == "Manufacturer") ||
-                                        (propertyName == "Model") ||
-                                        (propertyName == "SparePartNumber"))
-                                    {
-                                        const std::string* value =
-                                            std::get_if<std::string>(
-                                                &property.second);
-                                        if (value == nullptr)
-                                        {
-                                            // illegal property
-                                            messages::internalError(
-                                                asyncResp->res);
-                                            return;
-                                        }
-                                        asyncResp->res.jsonValue[propertyName] =
-                                            *value;
-                                    }
-                                }
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Decorator.Asset");
-                    }
-                    else if (interfaceName == "xyz.openbmc_project.Inventory."
-                                              "Decorator.LocationCode")
-                    {
-                        getLocation(asyncResp, connectionName, path);
-                    }
-                }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Bmc"});
+        getManagerObject(asyncResp, getManagerData);
     }
 
     void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2006,9 +2148,11 @@ class Manager : public Node
         std::optional<nlohmann::json> oem;
         std::optional<nlohmann::json> links;
         std::optional<std::string> datetime;
+        std::optional<bool> locationIndicatorActive;
 
-        if (!json_util::readJson(req, asyncResp->res, "Oem", oem, "DateTime",
-                                 datetime, "Links", links))
+        if (!json_util::readJson(
+                req, asyncResp->res, "Oem", oem, "DateTime", datetime, "Links",
+                links, "LocationIndicatorActive", locationIndicatorActive))
         {
             return;
         }
@@ -2072,6 +2216,11 @@ class Manager : public Node
         if (datetime)
         {
             setDateTime(asyncResp, std::move(*datetime));
+        }
+
+        if (locationIndicatorActive)
+        {
+            setManagerObject(asyncResp, *locationIndicatorActive);
         }
     }
 
