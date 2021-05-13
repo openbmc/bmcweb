@@ -477,6 +477,11 @@ the other.
 - Model
 - ProcessorType
 - TotalThreads
+- PartNumber
+- SparePartNumber
+- SerialNumber
+- Location*
+- Version
 
 #### /redfish/v1/Systems/system/Storage
 ##### StorageCollection
