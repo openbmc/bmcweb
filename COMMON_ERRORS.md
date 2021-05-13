@@ -211,7 +211,7 @@ general these errors are benign, and not actually a real security threat, having
 a clean security run allows maintainers to minimize the amount of time spent
 triaging issues reported from these scanning tools.
 
-A inplementation of the above that handles 404 would look like:
+An implementation of the above that handles 404 would look like:
 ```C++
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
