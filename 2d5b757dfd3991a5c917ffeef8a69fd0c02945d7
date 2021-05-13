@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47959fb8_f13e11d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T14:00:35Z",
+      "side": 1,
+      "message": "We wrap the body at 72 chars.",
+      "revId": "2d5b757dfd3991a5c917ffeef8a69fd0c02945d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f11af7_77e43809",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T14:00:35Z",
+      "side": 1,
+      "message": "Let\u0027s just drop this commit about the backend.",
+      "range": {
+        "startLine": 9,
+        "startChar": 91,
+        "endLine": 9,
+        "endChar": 165
+      },
+      "revId": "2d5b757dfd3991a5c917ffeef8a69fd0c02945d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b9eb5c8_5795e8af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T14:00:35Z",
+      "side": 1,
+      "message": "can you drop this *?",
+      "range": {
+        "startLine": 9,
+        "startChar": 79,
+        "endLine": 9,
+        "endChar": 80
+      },
+      "revId": "2d5b757dfd3991a5c917ffeef8a69fd0c02945d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc2cc00b_345099cc",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T14:00:35Z",
+      "side": 1,
+      "message": "drop ?",
+      "range": {
+        "startLine": 483,
+        "startChar": 10,
+        "endLine": 483,
+        "endChar": 11
+      },
+      "revId": "2d5b757dfd3991a5c917ffeef8a69fd0c02945d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
