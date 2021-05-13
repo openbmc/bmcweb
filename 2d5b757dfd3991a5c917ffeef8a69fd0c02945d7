@@ -175,6 +175,30 @@
       "revId": "2d5b757dfd3991a5c917ffeef8a69fd0c02945d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "404f98b3_4561d122",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-13T17:45:33Z",
+      "side": 1,
+      "message": "Don\u0027t see it done in patchset 3",
+      "parentUuid": "e1eb5883_06baffb5",
+      "range": {
+        "startLine": 483,
+        "startChar": 10,
+        "endLine": 483,
+        "endChar": 11
+      },
+      "revId": "2d5b757dfd3991a5c917ffeef8a69fd0c02945d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
