@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc12c523_8e1163aa",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-13T06:26:50Z",
+      "side": 1,
+      "message": "yes, will change it to \"Indicates that BMC time is set via NTP/Manual.\"\nOk?",
+      "parentUuid": "f2a88243_539191a3",
+      "range": {
+        "startLine": 290,
+        "startChar": 46,
+        "endLine": 290,
+        "endChar": 51
+      },
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "970c01ab_4d6f97ff",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-12T20:56:00Z",
       "side": 1,
       "message": "Considering these are going to be concatenated on the same line, I suspect this can be simplified.  For example, we shouldn\u0027t be using the word \"BMC\" twice.  Really we shouldn\u0027t be saying BMC at all, bmc is implied by the fact that this is going to show up in the manager log, not the system log (i realize we break this rule in other places).",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 59
+      },
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed53fa49_1a41cac7",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-13T06:26:50Z",
+      "side": 1,
+      "message": "I understand. But in web page events are logged generally, so better to mention BMC once.\nBelow is ok?\n\"BMC time has been set successfully via %1.\"\n\"Date Time is set to %2 from %3.\",",
+      "parentUuid": "970c01ab_4d6f97ff",
       "range": {
         "startLine": 291,
         "startChar": 0,
