@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0de10d8b_c6082f29",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "Thanks,my thoughts are the same as Ganner, I think the previous approach is better.",
+      "parentUuid": "18aa1d67_a8e63b09",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef9a5e70_89bdd30a",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -107,6 +131,30 @@
       "writtenOn": "2021-05-12T07:09:26Z",
       "side": 1,
       "message": "nit: This conditions will be always true. std::variant is always initialized to have first type on the list. If you wait to verify this properly you need to change variant type to. std::variant\u003cmonostate, double\u003e\n\nThere is helper function in sdbusplus::asio::getProperty\u003cT\u003e which already handles it under the hood. Situation where property is different type on dbus will be changed to ec invalid_argument.\n\nhttps://github.com/openbmc/sdbusplus/blob/master/example/register-property.cpp",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6618506_9579f337",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "This is a good suggestion, but there is currently no plan for such a modification. If such modification is made after follow-up consultations, then proceed.",
+      "parentUuid": "ef9a5e70_89bdd30a",
       "range": {
         "startLine": 91,
         "startChar": 12,
@@ -142,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "2bf28f32_11e925dd",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "Okay, I will reimagine here to get a better way to solve.",
+      "parentUuid": "2ec222a2_96fb0055",
+      "range": {
+        "startLine": 144,
+        "startChar": 20,
+        "endLine": 211,
+        "endChar": 72
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74c1a9b2_d149e31c",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -153,6 +225,30 @@
       "writtenOn": "2021-05-12T07:09:26Z",
       "side": 1,
       "message": "serviceName is cofusing, looking at the signature it is vector\u003cServiceName\u003e so it should be names serviceNames, currectly we can assume that you are looking for service name with lenght different than 1 instead of looking for path in one service.",
+      "range": {
+        "startLine": 259,
+        "startChar": 42,
+        "endLine": 259,
+        "endChar": 53
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe42f87_72824182",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "I will do it.",
+      "parentUuid": "74c1a9b2_d149e31c",
       "range": {
         "startLine": 259,
         "startChar": 42,
@@ -188,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "fe544d8b_8da12906",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "The comment here seems redundant, I will delete it.",
+      "parentUuid": "66ab5546_f80c12df",
+      "range": {
+        "startLine": 275,
+        "startChar": 20,
+        "endLine": 275,
+        "endChar": 36
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bf32dbf_69ad7a33",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -199,6 +319,30 @@
       "writtenOn": "2021-05-12T07:09:26Z",
       "side": 1,
       "message": "isn\u0027t status same as info? If yes, then why add additional comment, function name tells us the same.",
+      "range": {
+        "startLine": 302,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 21
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fb0d27_b6889531",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "I will delete it.",
+      "parentUuid": "5bf32dbf_69ad7a33",
       "range": {
         "startLine": 302,
         "startChar": 4,
@@ -234,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "bb97d898_6dd4131e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "I will delete it.",
+      "parentUuid": "99441dbf_f7bac73f",
+      "range": {
+        "startLine": 304,
+        "startChar": 4,
+        "endLine": 304,
+        "endChar": 20
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "653e3a5b_4cbd5a6d",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -245,6 +413,30 @@
       "writtenOn": "2021-05-12T07:09:26Z",
       "side": 1,
       "message": "How about extracting this part to function, you could give it a name: addFanBelongingToChassis, then probably you could get rid of this comments.",
+      "range": {
+        "startLine": 387,
+        "startChar": 28,
+        "endLine": 441,
+        "endChar": 80
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf48840_7f527fe2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "I also considered whether to add a function. The function of this function is to verify whether the fan belongs to the chassis, but after adding the function, it seems that the current code is not easy to read. I will reprocess this and hope to find a better solution .",
+      "parentUuid": "653e3a5b_4cbd5a6d",
       "range": {
         "startLine": 387,
         "startChar": 28,
@@ -280,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "b984f527_4ff25a8d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "Many similar Constructors were written like this before, so this comment was added.",
+      "parentUuid": "8300778a_2ddfe184",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 463,
+        "endChar": 7
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58c6a908_501601df",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -291,6 +507,30 @@
       "writtenOn": "2021-05-12T07:09:26Z",
       "side": 1,
       "message": "no need for this comment, function is named exactly the same",
+      "range": {
+        "startLine": 552,
+        "startChar": 12,
+        "endLine": 552,
+        "endChar": 37
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "095e6480_5de71c47",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-14T06:38:09Z",
+      "side": 1,
+      "message": "I will delete it.",
+      "parentUuid": "58c6a908_501601df",
       "range": {
         "startLine": 552,
         "startChar": 12,
