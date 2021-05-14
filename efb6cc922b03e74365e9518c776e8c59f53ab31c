@@ -141,6 +141,30 @@
       "revId": "efb6cc922b03e74365e9518c776e8c59f53ab31c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "900b2bcd_b93ce8a5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-14T18:46:39Z",
+      "side": 1,
+      "message": "So I had used EthernetInterface::doPatch() as an example and that logic flow is what I intended for getProcessorObject: pass all the parameters as std::optionals into the single callback and then call per-parameter handlers as necessary.\n\nBut yeah, I did not account for the possibility of there being multiple object paths in play for a single processor since the single-path assumption was in place when I arrived.",
+      "parentUuid": "d3259ca7_21ea1f4b",
+      "range": {
+        "startLine": 1237,
+        "startChar": 0,
+        "endLine": 1239,
+        "endChar": 64
+      },
+      "revId": "efb6cc922b03e74365e9518c776e8c59f53ab31c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
