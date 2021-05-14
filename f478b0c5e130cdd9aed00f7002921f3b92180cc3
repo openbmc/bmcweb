@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3624965d_cece7b4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-05-14T16:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9abd2e43_672d9766",
+      "revId": "f478b0c5e130cdd9aed00f7002921f3b92180cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3921c8d_b79c537e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "45145564_44f51b09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-05-14T16:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3921c8d_b79c537e",
+      "revId": "f478b0c5e130cdd9aed00f7002921f3b92180cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbf46b72_e095e346",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "f478b0c5e130cdd9aed00f7002921f3b92180cc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc2ab0f_5ce98fdf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-05-14T16:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbf46b72_e095e346",
+      "revId": "f478b0c5e130cdd9aed00f7002921f3b92180cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
