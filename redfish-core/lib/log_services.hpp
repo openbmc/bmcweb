@@ -1203,7 +1203,6 @@ class JournalEventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
-        
         nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
         // Go through the log files and create a unique ID for each entry
@@ -1372,7 +1371,6 @@ class DBusEventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
-        
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
@@ -1503,7 +1501,8 @@ class DBusEventLogEntryCollection : public Node
                     if (filePath != nullptr)
                     {
                         thisEntry["AdditionalDataURI"] =
-                            "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
+                            "/redfish/v1/Systems/system/LogServices/EventLog/"
+                            "Entries/" +
                             std::to_string(*id) + "/attachment";
                     }
                 }
@@ -1653,7 +1652,8 @@ class DBusEventLogEntry : public Node
                 if (filePath != nullptr)
                 {
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
+                        "/redfish/v1/Systems/system/LogServices/EventLog/"
+                        "Entries/" +
                         std::to_string(*id) + "/attachment";
                 }
             },
@@ -1755,10 +1755,10 @@ class DBusEventLogEntryDownload : public Node
 {
   public:
     DBusEventLogEntryDownload(App& app) :
-        Node(
-            app,
-            "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/attachment",
-            std::string())
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/"
+             "attachment",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -2010,9 +2010,8 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
         {"Id", bmcJournalLogEntryID},
         {"Message", std::move(message)},
         {"EntryType", "Oem"},
-        {"Severity", severity <= 2   ? "Critical"
-                     : severity <= 4 ? "Warning"
-                                     : "OK"},
+        {"Severity",
+         severity <= 2 ? "Critical" : severity <= 4 ? "Warning" : "OK"},
         {"OemRecordFormat", "BMC Journal Entry"},
         {"Created", std::move(entryTimeStr)}};
     return 0;
