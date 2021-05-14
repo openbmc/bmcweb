@@ -2,6 +2,7 @@
 
 #include "node.hpp"
 #include "sensors.hpp"
+#include "utils/sensors_mapper.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
