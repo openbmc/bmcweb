@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5016ffa3_fb6311d3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:29:58Z",
+      "side": 1,
+      "message": "See other comment, please don\u0027t do this as a pattern.  Loop over the response, THEN decide if the object is not found.  Clearing the response clears more than just this message.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8d8485a_91b51f8d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:29:58Z",
+      "side": 1,
+      "message": "This should populate to empty string and be checked for that below, not 0.0.0.0.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 56
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "220e2b8d_cea8cb5f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:29:58Z",
+      "side": 1,
+      "message": "This is still too many scopes deep.  You\u0027ve done a good job splitting this code up sofar, I think one more round of simplification and we\u0027ll be there.",
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948addb6_36fc4f54",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:29:58Z",
+      "side": 1,
+      "message": "Need to check if address or port were not populated.",
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ba09ef_498c0ce6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:29:58Z",
+      "side": 1,
+      "message": "Do we also need to prefix the redfish IDs with something so we can differentiate between the two and the API is consistent?",
+      "range": {
+        "startLine": 745,
+        "startChar": 43,
+        "endLine": 745,
+        "endChar": 47
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd0a78ba_23dfb458",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:29:58Z",
+      "side": 1,
+      "message": "Please use the sdbusplus::message::object_path operator/ for this.",
+      "range": {
+        "startLine": 866,
+        "startChar": 30,
+        "endLine": 866,
+        "endChar": 38
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
