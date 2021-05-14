@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f02f058_a6302b21",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-14T18:16:39Z",
+      "side": 1,
+      "message": "Thank you! I knew this looked wrong but didn\u0027t know \"json pointer\" is what I needed. Also updated the other propertyValueIncorrect above.",
+      "parentUuid": "07cbd77c_4fe70586",
+      "range": {
+        "startLine": 957,
+        "startChar": 52,
+        "endLine": 957,
+        "endChar": 63
+      },
+      "revId": "efb6cc922b03e74365e9518c776e8c59f53ab31c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8c742a5_3cb1ff10",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 18
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-14T16:55:33Z",
       "side": 1,
       "message": "Slight organizational change, please do something like\n\n\nif (appliedConfigJson){\n   if (readJson)...\n\n\n   getProcessorObject....\n\n}\n\n\n\nThis helps the code be clean when the next parameter gets added that can be patched.",
+      "range": {
+        "startLine": 1237,
+        "startChar": 0,
+        "endLine": 1239,
+        "endChar": 64
+      },
+      "revId": "efb6cc922b03e74365e9518c776e8c59f53ab31c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37578ae4_e2be4716",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-05-14T18:16:39Z",
+      "side": 1,
+      "message": "If/when there are multiple parameters, I think there should still only be a single call to getProcessorObject to avoid repeating that lookup work. Your suggested logic would not allow that. Maybe we\u0027ll hold off on changing this until we see what the next patchable parameter actually entails?",
+      "parentUuid": "b8c742a5_3cb1ff10",
       "range": {
         "startLine": 1237,
         "startChar": 0,
