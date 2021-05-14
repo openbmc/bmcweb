@@ -525,6 +525,30 @@
     },
     {
       "key": {
+        "uuid": "4c1b23ab_7e038925",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:15:45Z",
+      "side": 1,
+      "message": "Please don\u0027t do this as a coding pattern, as it can lead to race conditions later if we have multiple async handlers.\n\nAs you wrote this you would add an early return out of the loop, and set the 404 after the loop completed which would give you the same behavior, but wouldn\u0027t require clearing the request every time.",
+      "parentUuid": "14122ac8_c9a6744b",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 0
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ca4609e_2bcba6f8",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
