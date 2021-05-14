@@ -1,7 +1,6 @@
 #pragma once
 
 #include "node.hpp"
-#include "sensors.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -399,7 +398,7 @@ class MetricReportDefinitionCollection : public Node
             std::make_shared<telemetry::AddReport>(std::move(args), asyncResp);
         for (const auto& [chassis, sensorType] : chassisSensors)
         {
-            retrieveUriToDbusMap(
+            telemetry::retrieveUriToDbusMap(
                 chassis, sensorType,
                 [asyncResp, addReportReq](
                     const boost::beast::http::status status,
