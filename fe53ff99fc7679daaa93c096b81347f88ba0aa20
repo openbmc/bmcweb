@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "85aab6de_985ea477",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bc39729_51b33f77",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae29f1f3_a5e427d6",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -66,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "832c1940_d8256554",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae29f1f3_a5e427d6",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fac1106_45caf534",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -80,6 +122,24 @@
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d93d7f6a_6683cafc",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fac1106_45caf534",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -159,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "58fd6434_d4ebc441",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d51fb7_2fc47603",
+      "range": {
+        "startLine": 555,
+        "startChar": 15,
+        "endLine": 555,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10052d5c_fed3b832",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -217,6 +301,30 @@
     },
     {
       "key": {
+        "uuid": "aadeb790_a0447e6e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12bfc9c0_08feac4f",
+      "range": {
+        "startLine": 576,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 21
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3436abb9_68de9e89",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -237,6 +345,30 @@
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678c647e_ae48a45c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3436abb9_68de9e89",
+      "range": {
+        "startLine": 590,
+        "startChar": 64,
+        "endLine": 590,
+        "endChar": 70
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -263,6 +395,30 @@
     },
     {
       "key": {
+        "uuid": "bd82b725_684e80db",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fc67a7d_255d0857",
+      "range": {
+        "startLine": 555,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 30
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9673a612_8e87dc04",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -277,6 +433,24 @@
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c84cc8a0_e15bdc4f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9673a612_8e87dc04",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -327,6 +501,30 @@
     },
     {
       "key": {
+        "uuid": "14122ac8_c9a6744b",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "If a matching snmp client id is found, the resourcenotFound will be cleared.",
+      "parentUuid": "d8a00db1_1b1729f4",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 0
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ca4609e_2bcba6f8",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -350,6 +548,30 @@
     },
     {
       "key": {
+        "uuid": "a0160cfc_886c0cd1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done，removed it.",
+      "parentUuid": "5ca4609e_2bcba6f8",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 25
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d72ced6b_0c0d5a08",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -361,6 +583,30 @@
       "writtenOn": "2021-05-10T15:56:38Z",
       "side": 1,
       "message": "nit, there\u0027s no need to construct a new string here;  Do what you did in the delete handler and just snip snmp from the front of the string.",
+      "range": {
+        "startLine": 693,
+        "startChar": 59,
+        "endLine": 693,
+        "endChar": 74
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5da33b_81f0c580",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "No, we need the \"snmp\" character to identify that this subscriptionId is an snmp trap client.\nThe d-bus snmp client path is like this: /xyz/openbmc_project/network/snmp/manager/1 \nWe use \"snmp\" + \"1\" as subscriptionId.",
+      "parentUuid": "d72ced6b_0c0d5a08",
       "range": {
         "startLine": 693,
         "startChar": 59,
@@ -396,6 +642,30 @@
     },
     {
       "key": {
+        "uuid": "99cb4239_b06da625",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "It is used to clear the resourcenotFound(line 667).\nI think all error messages will be returned and will not accumulate, so I use this way to handle 404.",
+      "parentUuid": "b41b0538_1275e6fd",
+      "range": {
+        "startLine": 700,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 47
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d7f087f_cc758129",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -410,6 +680,24 @@
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d710f4d_4ca250c1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d7f087f_cc758129",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -484,6 +772,30 @@
     },
     {
       "key": {
+        "uuid": "1c9d4134_55bf21aa",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75060625_0d2c25ee",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 66
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d147b181_e86adfda",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -507,6 +819,30 @@
     },
     {
       "key": {
+        "uuid": "7dd22a59_8710a670",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d147b181_e86adfda",
+      "range": {
+        "startLine": 902,
+        "startChar": 16,
+        "endLine": 902,
+        "endChar": 34
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96fd74fe_00552678",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -527,6 +863,30 @@
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4493c2a1_9d396b10",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96fd74fe_00552678",
+      "range": {
+        "startLine": 908,
+        "startChar": 51,
+        "endLine": 908,
+        "endChar": 58
+      },
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -577,6 +937,24 @@
       "side": 1,
       "message": "but Delete method does not return this error, no need of the check",
       "parentUuid": "05a66508_b7d1e541",
+      "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72924c56_f3a51091",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-14T13:03:34Z",
+      "side": 1,
+      "message": "Dbus call  will throw this error if the SNMP client path does not exist.\nThe response is:\nbusctl call xyz.openbmc_project.Network.SNMP /xyz/openbmc_project/network/snmp/manager/2 xyz.openbmc_project.Object.Delete Delete\nCall failed: Unknown object \u0027/xyz/openbmc_project/network/snmp/manager/2\u0027.",
+      "parentUuid": "893882f8_b05f549f",
       "revId": "fe53ff99fc7679daaa93c096b81347f88ba0aa20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
