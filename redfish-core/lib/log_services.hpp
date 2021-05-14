@@ -511,18 +511,16 @@ inline void
                 {
                     thisEntry["DiagnosticDataType"] = "Manager";
                     thisEntry["AdditionalDataURI"] =
-                        "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                        "attachment/" +
-                        entryID;
+                        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
                 }
                 else if (dumpType == "System")
                 {
                     thisEntry["DiagnosticDataType"] = "OEM";
                     thisEntry["OEMDiagnosticDataType"] = "System";
                     thisEntry["AdditionalDataURI"] =
-                        "/redfish/v1/Systems/system/LogServices/Dump/"
-                        "attachment/" +
-                        entryID;
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -636,9 +634,8 @@ inline void
                 {
                     asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        "/redfish/v1/Managers/bmc/LogServices/Dump/"
-                        "attachment/" +
-                        entryID;
+                        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
                 }
                 else if (dumpType == "System")
                 {
@@ -646,9 +643,8 @@ inline void
                     asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
                         "System";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        "/redfish/v1/Systems/system/LogServices/Dump/"
-                        "attachment/" +
-                        entryID;
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
                 }
             }
             if (foundDumpEntry == false)
@@ -1207,7 +1203,6 @@ class JournalEventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
-
         nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
         // Go through the log files and create a unique ID for each entry
@@ -1376,7 +1371,6 @@ class DBusEventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
-
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
@@ -1508,8 +1502,8 @@ class DBusEventLogEntryCollection : public Node
                     {
                         thisEntry["AdditionalDataURI"] =
                             "/redfish/v1/Systems/system/LogServices/EventLog/"
-                            "attachment/" +
-                            std::to_string(*id);
+                            "Entries/" +
+                            std::to_string(*id) + "/attachment";
                     }
                 }
                 std::sort(entriesArray.begin(), entriesArray.end(),
@@ -1659,8 +1653,8 @@ class DBusEventLogEntry : public Node
                 {
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
                         "/redfish/v1/Systems/system/LogServices/EventLog/"
-                        "attachment/" +
-                        std::to_string(*id);
+                        "Entries/" +
+                        std::to_string(*id) + "/attachment";
                 }
             },
             "xyz.openbmc_project.Logging",
@@ -1761,10 +1755,10 @@ class DBusEventLogEntryDownload : public Node
 {
   public:
     DBusEventLogEntryDownload(App& app) :
-        Node(
-            app,
-            "/redfish/v1/Systems/system/LogServices/EventLog/attachment/<str>/",
-            std::string())
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/"
+             "attachment",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
