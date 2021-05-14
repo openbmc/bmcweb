@@ -19,6 +19,46 @@
     },
     {
       "key": {
+        "uuid": "72145972_4c1764e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-05-14T06:51:34Z",
+      "side": 1,
+      "message": "The FanSpeed looks good. Where are Temperature and Power\u0027s excerpt?",
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e86cd9_96af0d3f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-05-14T06:51:34Z",
+      "side": 1,
+      "message": "From the documentation, EnvironmentMetrics does not exist only under Chassis. At least the example given in the document is /system/\u003csystemId\u003e/Processors/\u003cId\u003e/EnvironmentMetrics, isn\u0027t it?",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a56459e_6778a69f",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 1
