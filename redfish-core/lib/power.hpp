@@ -49,8 +49,7 @@ class Power : public Node
             {
                 BMCWEB_LOG_ERROR << "Don't find valid chassis path ";
                 messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
-                                           "Chassis",
-                                           sensorsAsyncResp->chassisId);
+                                           "Chassis", sensorsAsyncResp->id);
                 return;
             }
 
@@ -155,9 +154,8 @@ class Power : public Node
         asyncResp->res.jsonValue["PowerControl"] = nlohmann::json::array();
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            asyncResp, chassisName,
-            sensors::dbus::paths.at(sensors::node::power),
-            sensors::node::power);
+            asyncResp, chassisName, sensors::node::power,
+            sensors::dbus::paths.at(sensors::node::power));
 
         getChassisData(sensorAsyncResp);
 
@@ -199,7 +197,7 @@ class Power : public Node
 
                 std::string interfaceChassisName =
                     chassis.substr(lastPos + 1, len);
-                if (!interfaceChassisName.compare(sensorAsyncResp->chassisId))
+                if (!interfaceChassisName.compare(sensorAsyncResp->id))
                 {
                     found = true;
                     break;
@@ -209,7 +207,7 @@ class Power : public Node
             if (!found)
             {
                 BMCWEB_LOG_DEBUG << "Power Limit not present for "
-                                 << sensorAsyncResp->chassisId;
+                                 << sensorAsyncResp->id;
                 return;
             }
 
@@ -239,7 +237,7 @@ class Power : public Node
                         tempArray.push_back(
                             {{"@odata.type", "#Power.v1_0_0.PowerControl"},
                              {"@odata.id", "/redfish/v1/Chassis/" +
-                                               sensorAsyncResp->chassisId +
+                                               sensorAsyncResp->id +
                                                "/Power#/PowerControl/0"},
                              {"Name", "Chassis Power Control"},
                              {"MemberId", "0"}});
@@ -339,11 +337,9 @@ class Power : public Node
         }
 
         const std::string& chassisName = params[0];
-
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            asyncResp, chassisName,
-            sensors::dbus::paths.at(sensors::node::power),
-            sensors::node::power);
+            asyncResp, chassisName, sensors::node::power,
+            sensors::dbus::paths.at(sensors::node::power));
 
         std::optional<std::vector<nlohmann::json>> voltageCollections;
         std::optional<std::vector<nlohmann::json>> powerCtlCollections;

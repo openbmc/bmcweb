@@ -62,23 +62,21 @@ class SensorsAsyncResp
     };
 
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& chassisIdIn,
-                     const std::vector<const char*>& typesIn,
-                     const std::string_view& subNode) :
+                     const std::string& id, const std::string_view& node,
+                     const std::vector<const char*>& prefixes = {}) :
         asyncResp(asyncResp),
-        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
+        id{id}, node{node}, prefixes{prefixes}
     {}
 
     // Store extra data about sensor mapping and return it in callback
-    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& chassisIdIn,
-                     const std::vector<const char*>& typesIn,
-                     const std::string_view& subNode,
-                     DataCompleteCb&& creationComplete) :
+    SensorsAsyncResp(DataCompleteCb&& creationComplete,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& id, const std::string_view& node,
+                     const std::vector<const char*>& prefixes = {}) :
         asyncResp(asyncResp),
-        chassisId(chassisIdIn), types(typesIn),
-        chassisSubNode(subNode), metadata{std::vector<SensorData>()},
-        dataComplete{std::move(creationComplete)}
+        id{id}, node{node}, prefixes{prefixes},
+        metadata{std::vector<SensorData>()}, dataComplete{
+                                                 std::move(creationComplete)}
     {}
 
     ~SensorsAsyncResp()
@@ -107,14 +105,13 @@ class SensorsAsyncResp
         }
     }
 
-    void addMetadata(const nlohmann::json& sensorObject,
+    void addMetadata(const std::string& name, const std::string& objectUri,
                      const std::string& valueKey, const std::string& dbusPath)
     {
         if (metadata)
         {
-            metadata->emplace_back(SensorData{sensorObject["Name"],
-                                              sensorObject["@odata.id"],
-                                              valueKey, dbusPath});
+            metadata->emplace_back(
+                SensorData{name, objectUri, valueKey, dbusPath});
         }
     }
 
@@ -133,9 +130,10 @@ class SensorsAsyncResp
     }
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
-    const std::string chassisId;
-    const std::vector<const char*> types;
-    const std::string chassisSubNode;
+
+    std::string id;
+    std::string node;
+    std::vector<const char*> prefixes;
 
   private:
     std::optional<std::vector<SensorData>> metadata;
@@ -150,15 +148,14 @@ inline void
  * path of the sensor.
  *
  * Function builds valid Redfish response for sensor query of given chassis and
- * node. It then builds metadata about Redfish<->D-Bus correlations and provides
- * it to caller in a callback.
+ * node. It then builds metadata about Redfish<->D-Bus correlations and
+ * provides it to caller in a callback.
  *
- * @param chassis   Chassis for which retrieval should be performed
- * @param node  Node (group) of sensors. See sensors::node for supported values
+ * @param id   Resource id for which retrieval should be performed
+ * @param node  Group of sensors. See sensors::node for supported values
  * @param mapComplete   Callback to be called with retrieval result
  */
-inline void retrieveUriToDbusMap(const std::string& chassis,
-                                 const std::string& node,
+inline void retrieveUriToDbusMap(const std::string& id, const std::string& node,
                                  SensorsAsyncResp::DataCompleteCb&& mapComplete)
 {
     auto pathIt = sensors::dbus::paths.find(node);
@@ -178,7 +175,7 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
                 uriToDbus) { mapCompleteCb(status, uriToDbus); };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
-        asyncResp, chassis, pathIt->second, node, std::move(callback));
+        std::move(callback), asyncResp, id, node, pathIt->second);
     getChassisData(resp);
 }
 
