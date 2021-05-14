@@ -76,15 +76,14 @@ inline std::string getDbusReportPath(const std::string& id)
  * path of the sensor.
  *
  * Function builds valid Redfish response for sensor query of given chassis and
- * node. It then builds metadata about Redfish<->D-Bus correlations and provides
- * it to caller in a callback.
+ * node. It then builds metadata about Redfish<->D-Bus correlations and
+ * provides it to caller in a callback.
  *
- * @param chassis   Chassis for which retrieval should be performed
- * @param node  Node (group) of sensors. See sensors::node for supported values
+ * @param id   Resource id for which retrieval should be performed
+ * @param node  Group of sensors. See sensors::node for supported values
  * @param mapComplete   Callback to be called with retrieval result
  */
-inline void retrieveUriToDbusMap(const std::string& chassis,
-                                 const std::string& node,
+inline void retrieveUriToDbusMap(const std::string& id, const std::string& node,
                                  SensorsAsyncResp::DataCompleteCb&& mapComplete)
 {
     auto pathIt = sensors::dbus::paths.find(node);
@@ -104,7 +103,7 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
                 uriToDbus) { mapCompleteCb(status, uriToDbus); };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
-        asyncResp, chassis, pathIt->second, node, std::move(callback));
+        std::move(callback), asyncResp, id, node, pathIt->second);
     getChassisData(resp);
 }
 
