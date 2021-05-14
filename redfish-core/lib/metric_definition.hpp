@@ -10,6 +10,95 @@
 namespace redfish
 {
 
+namespace utils
+{
+
+enum class InventoryItemType
+{
+    // TODO: Support more types when proper schemas will be implemented
+    chassis
+};
+
+template <typename F>
+inline void
+    getInventoryNames(F&& cb,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    const std::array<const char*, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback = std::move(cb)](
+            const boost::system::error_code ec, const GetSubTreeType& tree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_DEBUG << "DBus call error: " << ec.value();
+                return;
+            }
+
+            std::vector<std::pair<std::string, InventoryItemType>> itemNames;
+            itemNames.reserve(tree.size());
+            for (const auto& [itemPath, serviceIfaces] : tree)
+            {
+                sdbusplus::message::object_path path(itemPath);
+                std::string name = path.filename();
+                if (name.empty())
+                {
+                    messages::internalError(asyncResp->res);
+                    BMCWEB_LOG_ERROR << "Invalid item: " << itemPath;
+                    return;
+                }
+
+                for (const auto& [service, ifaces] : serviceIfaces)
+                {
+                    for (const auto& iface : ifaces)
+                    {
+                        std::optional<InventoryItemType> type;
+                        if (iface ==
+                                "xyz.openbmc_project.Inventory.Item.Board" ||
+                            iface ==
+                                "xyz.openbmc_project.Inventory.Item.Chassis")
+                        {
+                            type = InventoryItemType::chassis;
+                        }
+
+                        if (type)
+                        {
+                            itemNames.emplace_back(name, *type);
+                        }
+                    }
+                }
+            }
+
+            callback(itemNames);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0, interfaces);
+}
+
+template <typename F>
+void retrieveMappings(
+    F& handler, const std::vector<std::pair<std::string, InventoryItemType>>&
+                    inventoryItems)
+{
+    for (const auto& [item, type] : inventoryItems)
+    {
+        if (type == utils::InventoryItemType::chassis)
+        {
+            for (const auto& [sensorNode, dbusPaths] : sensors::dbus::paths)
+            {
+                retrieveUriToDbusMap(item, sensorNode.data(), handler);
+            }
+        }
+    }
+}
+
+} // namespace utils
+
 namespace telemetry
 {
 
@@ -87,17 +176,11 @@ class MetricDefinitionCollection : public Node
         asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-        utils::getChassisNames(
-            [asyncResp](boost::system::error_code ec,
-                        const std::vector<std::string>& chassisNames) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    BMCWEB_LOG_ERROR << "getChassisNames error: " << ec.value();
-                    return;
-                }
-
-                auto handleRetrieveUriToDbusMap =
+        utils::getInventoryNames(
+            [asyncResp](const std::vector<
+                        std::pair<std::string, utils::InventoryItemType>>&
+                            inventoryItems) {
+                auto handleRetrieveMappings =
                     [asyncResp](const boost::beast::http::status status,
                                 const boost::container::flat_map<
                                     std::string, std::string>& uriToDbus) {
@@ -112,18 +195,9 @@ class MetricDefinitionCollection : public Node
                         }
                         telemetry::addMembers(asyncResp->res, uriToDbus);
                     };
-
-                for (const std::string& chassisName : chassisNames)
-                {
-                    for (const auto& [sensorNode, _] : sensors::dbus::paths)
-                    {
-                        BMCWEB_LOG_DEBUG << "Chassis: " << chassisName
-                                         << " sensor: " << sensorNode;
-                        retrieveUriToDbusMap(chassisName, sensorNode.data(),
-                                             handleRetrieveUriToDbusMap);
-                    }
-                }
-            });
+                utils::retrieveMappings(handleRetrieveMappings, inventoryItems);
+            },
+            asyncResp);
     }
 };
 
@@ -201,42 +275,29 @@ class MetricDefinition : public Node
             }
         });
 
-        utils::getChassisNames([asyncResp, finalizer,
-                                id](boost::system::error_code ec,
-                                    const std::vector<std::string>&
-                                        chassisNames) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                BMCWEB_LOG_ERROR << "getChassisNames error: " << ec.value();
-                return;
-            }
-
-            auto handleRetrieveUriToDbusMap =
-                [asyncResp, finalizer,
-                 id](const boost::beast::http::status status,
-                     const boost::container::flat_map<std::string, std::string>&
-                         uriToDbus) {
-                    if (status != boost::beast::http::status::ok)
-                    {
-                        BMCWEB_LOG_ERROR << "Failed to retrieve URI to dbus "
-                                            "sensors map with err "
-                                         << static_cast<unsigned>(status);
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    telemetry::addMetricProperty(*asyncResp, id, uriToDbus);
-                };
-
-            for (const std::string& chassisName : chassisNames)
-            {
-                for (const auto& [sensorNode, dbusPaths] : sensors::dbus::paths)
-                {
-                    retrieveUriToDbusMap(chassisName, sensorNode.data(),
-                                         handleRetrieveUriToDbusMap);
-                }
-            }
-        });
+        utils::getInventoryNames(
+            [asyncResp, finalizer,
+             id](const std::vector<std::pair<
+                     std::string, utils::InventoryItemType>>& inventoryItems) {
+                auto handleRetrieveMappings =
+                    [asyncResp, finalizer,
+                     id](const boost::beast::http::status status,
+                         const boost::container::flat_map<
+                             std::string, std::string>& uriToDbus) {
+                        if (status != boost::beast::http::status::ok)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Failed to retrieve URI to dbus "
+                                   "sensors map with err "
+                                << static_cast<unsigned>(status);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        telemetry::addMetricProperty(*asyncResp, id, uriToDbus);
+                    };
+                utils::retrieveMappings(handleRetrieveMappings, inventoryItems);
+            },
+            asyncResp);
     }
 };
 
