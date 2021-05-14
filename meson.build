@@ -335,7 +335,8 @@ srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
                      'redfish-core/ut/privileges_test.cpp',
                      'redfish-core/ut/lock_test.cpp',
                      'redfish-core/ut/configfile_test.cpp',
-                     'http/ut/utility_test.cpp']
+                     'http/ut/utility_test.cpp',
+                     'redfish-core/ut/priority_test.cpp']
 
 # Gather the Configuration data
 
@@ -393,11 +394,13 @@ executable('bmcweb',srcfiles_bmcweb,
 if(get_option('tests').enabled())
   foreach src_test : srcfiles_unittest
     testname = src_test.split('/')[-1].split('.')[0]
-    test(testname,executable(testname,src_test,
+    src_files = [src_test, 'redfish-core/src/error_messages.cpp']
+    test(testname,executable(testname,src_files,
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus,pam
+                                boost, boost_url, gtest,openssl,gmock,
+                                nlohmann_json,sdbusplus,pam
                               ]))
   endforeach
 endif
