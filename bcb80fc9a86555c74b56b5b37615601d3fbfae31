@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "230e6c41_a5beda11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "One sentence of description is nowhere near enough.  Also, please don\u0027t wrap your commit messages by hand.  50/72 please.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 8
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b08c1b_779344a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "we should spell this out as ServerSentEvent.  I don\u0027t think redfish uses abbreviations anywhere in the URI paths, so we should avoid them as well.\n\nAlso, isn\u0027t this URI going to conflict with other subscriptions?  What if you had a subscription with ID \"SSE\"",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 13,
+        "endChar": 47
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f18ddd8_ea1e9f40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "If this uri were plugged into a browser it works?  I thought SSE had to be initiated by javascript?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 49
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48bd6766_3fdf98ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "Which was?  What did the response tell you?",
+      "range": {
+        "startLine": 20,
+        "startChar": 42,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8b79ab_df5d6571",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "This still needs solved.  There shouldn\u0027t be anythign redfish-specific in the http layer.",
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3762a96_de407ab3",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "inline, not static.  There are many places this is incorrect.  Please fix all of them.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 6
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "784e2008_0224be2f",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "Please don\u0027t use res.end() in new code.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "765a66fc_002d28b6",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "nit, this seems like something the core would log, not a log in a specific handler.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 77
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d741e0a1_ba171b0b",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "This seems like an important TODO, otherwise won\u0027t we send all events to the consumer, and break the protocol?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4cc8b41_43e7da87",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "This seems incorrect for SSE.  Wouldn\u0027t SSE have no DeliveryRetryPolicy?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae1d841e_8f0e24a9",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c54fc6_52eb00fd",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "Nit, please invert the check on line 63, so that we end with the success path and return on the failing path.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b22827_5196466b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "Could this just be set in the constructor?  It looks like that\u0027s the only place we ever set it (in the same scope as when constructing).",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 0
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d5da77d_7fad8ba0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "?  this function seems incorrectly named, and this pattern seems odd.  wouldn\u0027t the SSE code itself map SSEConnection to ID, then we\u0027d access the subscription entirely by ID?",
+      "range": {
+        "startLine": 606,
+        "startChar": 8,
+        "endLine": 606,
+        "endChar": 25
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffafd729_b9e4f8c2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "FYI, this isn\u0027t enough randomness to ensure we get unique ids that never conflict.  it\u0027s not an issue with this patch but we should use a UUID here (which we have other examples of generating elsewhere in the code)",
+      "range": {
+        "startLine": 986,
+        "startChar": 62,
+        "endLine": 986,
+        "endChar": 64
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a3931ef_8ce0f98d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "this-\u003e isn\u0027t required.",
+      "range": {
+        "startLine": 1045,
+        "startChar": 30,
+        "endLine": 1045,
+        "endChar": 36
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586bf84f_88d589e8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "This is a copy of the shared pointer.  I\u0027m guessing you meant to do a reference, or it.second.get()",
+      "range": {
+        "startLine": 1047,
+        "startChar": 12,
+        "endLine": 1047,
+        "endChar": 41
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17c349b8_e25f536d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 1,
+      "message": "Capture the parameter you need by reference to be more specific.",
+      "range": {
+        "startLine": 1070,
+        "startChar": 13,
+        "endLine": 1070,
+        "endChar": 17
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

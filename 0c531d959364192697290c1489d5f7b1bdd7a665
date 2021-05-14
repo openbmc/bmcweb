@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da8e6541_a040b891",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T23:53:58Z",
+      "side": 0,
+      "message": "This move of code looks unrelated?  Maybe it needs it\u0027s own patch?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 1
+      },
+      "revId": "0c531d959364192697290c1489d5f7b1bdd7a665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
