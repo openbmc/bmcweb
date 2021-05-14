@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7303f20b_052ccb00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-14T20:10:15Z",
+      "side": 1,
+      "message": "Should not link a company specific repo like this from the project. Please remove.",
+      "revId": "e0d9d1393177b246ab0aee744e91fb24471c8a99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
