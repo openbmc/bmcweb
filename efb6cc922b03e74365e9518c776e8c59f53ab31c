@@ -93,6 +93,30 @@
       "revId": "efb6cc922b03e74365e9518c776e8c59f53ab31c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d463edfe_70c11535",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-14T18:29:04Z",
+      "side": 1,
+      "message": "\u003e If/when there are multiple parameters, I think there should still only be a single call to getProcessorObject to avoid repeating that lookup work.\n\nThis would presume that all the processor interfaces are hosted by a single object, which for intel they probably are, but for other processors we won\u0027t have that gaurantee.  With that said, the current code is wildly inconsistent in that regard.\n\n\u003e Your suggested logic would not allow that. Maybe we\u0027ll hold off on changing this until we see what the next patchable parameter actually entails?\n\nI think the logic would still allow for it, it would just require a two step process, parsing the parameters to data structures, THEN calling the getProcessorObject interface if any of the parameters we need are set, with that said, getProcessorObject wouldn\u0027t work as is, because it requires all interfaces to be accounted for, and doesn\u0027t have a concept of \"here\u0027s the parameters you need\" so it would have to be changed in that scenario anyway.\n\nAt the very least even if that never happens, making this look like every other patch handler helps in comprehension by maintainers.",
+      "parentUuid": "37578ae4_e2be4716",
+      "range": {
+        "startLine": 1237,
+        "startChar": 0,
+        "endLine": 1239,
+        "endChar": 64
+      },
+      "revId": "efb6cc922b03e74365e9518c776e8c59f53ab31c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
