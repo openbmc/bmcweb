@@ -5,6 +5,8 @@
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <systemd/sd-bus-protocol.h>
+
 #include <boost/container/flat_map.hpp>
 
 #include <tuple>
@@ -149,10 +151,19 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
         return false;
     }
 
+    if (args.name.empty() || args.name.length() > SD_BUS_MAXIMUM_NAME_LENGTH)
+    {
+        BMCWEB_LOG_ERROR << "Name has to have at least 1 byte "
+                         << "and not exceed " << SD_BUS_MAXIMUM_NAME_LENGTH;
+        messages::propertyValueIncorrect(res, "Id", args.name);
+        return false;
+    }
+
     constexpr const char* allowedCharactersInName =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
-    if (args.name.empty() || args.name.find_first_not_of(
-                                 allowedCharactersInName) != std::string::npos)
+
+    if (args.name.find_first_not_of(allowedCharactersInName) !=
+        std::string::npos)
     {
         BMCWEB_LOG_ERROR << "Failed to match " << args.name
                          << " with allowed character "
