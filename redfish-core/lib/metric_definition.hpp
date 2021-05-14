@@ -2,11 +2,35 @@
 
 #include "async_resp.hpp"
 #include "sensors.hpp"
-#include "utils/get_chassis_names.hpp"
+#include "utils/get_inventory_items.hpp"
 #include "utils/telemetry_utils.hpp"
 
 namespace redfish
 {
+
+namespace utils
+{
+
+template <typename F>
+void retrieveMappings(
+    F& handler,
+    const boost::container::flat_map<std::string, utils::InventoryItemType>&
+        inventoryItems)
+{
+    for (const auto& [item, type] : inventoryItems)
+    {
+        // Only Chassis sensors supported for now
+        if (type == utils::InventoryItemType::chassis)
+        {
+            for (const auto& [sensorNode, dbusPaths] : sensors::dbus::paths)
+            {
+                retrieveUriToDbusMap(item, sensorNode.data(), handler);
+            }
+        }
+    }
+}
+
+} // namespace utils
 
 namespace telemetry
 {
@@ -77,18 +101,20 @@ inline void requestRoutesMetricDefinitionCollection(App& app)
                 asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
                 asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-                utils::getChassisNames(
+                utils::getInventoryItems(
                     [asyncResp](boost::system::error_code ec,
-                                const std::vector<std::string>& chassisNames) {
+                                const boost::container::flat_map<
+                                    std::string, utils::InventoryItemType>&
+                                    inventoryItems) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
-                            BMCWEB_LOG_ERROR << "getChassisNames error: "
+                            BMCWEB_LOG_ERROR << "getInventoryItems error: "
                                              << ec.value();
                             return;
                         }
 
-                        auto handleRetrieveUriToDbusMap =
+                        auto handleRetrieveMappings =
                             [asyncResp](
                                 const boost::beast::http::status status,
                                 const boost::container::flat_map<
@@ -106,18 +132,8 @@ inline void requestRoutesMetricDefinitionCollection(App& app)
                                                       uriToDbus);
                             };
 
-                        for (const std::string& chassisName : chassisNames)
-                        {
-                            for (const auto& [sensorNode, _] :
-                                 sensors::dbus::paths)
-                            {
-                                BMCWEB_LOG_DEBUG << "Chassis: " << chassisName
-                                                 << " sensor: " << sensorNode;
-                                retrieveUriToDbusMap(
-                                    chassisName, sensorNode.data(),
-                                    handleRetrieveUriToDbusMap);
-                            }
-                        }
+                        utils::retrieveMappings(handleRetrieveMappings,
+                                                inventoryItems);
                     });
             });
 }
@@ -195,10 +211,12 @@ inline void requestRoutesMetricDefinition(App& app)
                 asyncResp->res.jsonValue["Units"] =
                     sensors::toReadingUnits(readingType);
 
-                utils::getChassisNames(
-                    [asyncResp, readingType](
-                        boost::system::error_code ec,
-                        const std::vector<std::string>& chassisNames) {
+                utils::getInventoryItems(
+                    [asyncResp,
+                     readingType](boost::system::error_code ec,
+                                  const boost::container::flat_map<
+                                      std::string, utils::InventoryItemType>&
+                                      inventoryItems) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
@@ -207,7 +225,7 @@ inline void requestRoutesMetricDefinition(App& app)
                             return;
                         }
 
-                        auto handleRetrieveUriToDbusMap =
+                        auto handleRetrieveMappings =
                             [asyncResp, readingType](
                                 const boost::beast::http::status status,
                                 const boost::container::flat_map<
@@ -225,16 +243,8 @@ inline void requestRoutesMetricDefinition(App& app)
                                     *asyncResp, readingType, uriToDbus);
                             };
 
-                        for (const std::string& chassisName : chassisNames)
-                        {
-                            for (const auto& [sensorNode, dbusPaths] :
-                                 sensors::dbus::paths)
-                            {
-                                retrieveUriToDbusMap(
-                                    chassisName, sensorNode.data(),
-                                    handleRetrieveUriToDbusMap);
-                            }
-                        }
+                        utils::retrieveMappings(handleRetrieveMappings,
+                                                inventoryItems);
                     });
             });
 }
