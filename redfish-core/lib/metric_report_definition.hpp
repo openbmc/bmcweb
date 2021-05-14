@@ -1,6 +1,5 @@
 #pragma once
 
-#include "sensors.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -389,7 +388,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                     std::move(args), asyncResp);
                 for (const auto& [chassis, sensorType] : chassisSensors)
                 {
-                    retrieveUriToDbusMap(
+                    telemetry::retrieveUriToDbusMap(
                         chassis, sensorType,
                         [asyncResp, addReportReq](
                             const boost::beast::http::status status,
