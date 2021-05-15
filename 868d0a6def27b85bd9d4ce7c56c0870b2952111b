@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d1cb9ad_fd968a24",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-15T03:41:48Z",
+      "side": 1,
+      "message": "Use `from_chars`?\n\nAlso, what happens if url \u003d \"$skip\u003d1abc\"?",
+      "range": {
+        "startLine": 142,
+        "startChar": 28,
+        "endLine": 142,
+        "endChar": 35
+      },
+      "revId": "868d0a6def27b85bd9d4ce7c56c0870b2952111b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41d9e7e_ed29f26e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-15T03:41:48Z",
+      "side": 1,
+      "message": "If `it-\u003esize() \u003c skipValue`, do we need to record log info? I am not sure.",
+      "revId": "868d0a6def27b85bd9d4ce7c56c0870b2952111b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87c510a3_80b33c3a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-15T03:41:48Z",
+      "side": 1,
+      "message": "Why not use the `int` type?",
+      "range": {
+        "startLine": 545,
+        "startChar": 3,
+        "endLine": 545,
+        "endChar": 27
+      },
+      "revId": "868d0a6def27b85bd9d4ce7c56c0870b2952111b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
