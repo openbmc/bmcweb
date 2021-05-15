@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "563d0de2_5da980c9",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-15T17:40:49Z",
+      "side": 1,
+      "message": "return?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c2a3361_a5a79ab6",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-15T17:40:49Z",
+      "side": 1,
+      "message": "should we use resource name \"Ports\" or schema name?\n\nwhat is more appropriate here?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17f659f5_3e214f78",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 17
@@ -36,6 +70,74 @@
         "endLine": 129,
         "endChar": 54
       },
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1455d738_cb87c643",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-15T17:40:49Z",
+      "side": 1,
+      "message": "can we return ResourceNotFound here?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57c2a86f_f7e17dd8",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-15T17:40:49Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb5c2526_82c4b13d",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-15T17:40:49Z",
+      "side": 1,
+      "message": "I think need to use exact resource name here\nFabricAdapters?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a81358d0_3a044694",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-15T17:40:49Z",
+      "side": 1,
+      "message": "Just a thought,\ncan we return invalid param/ bad request errors in this case?",
       "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
