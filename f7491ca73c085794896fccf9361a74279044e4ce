@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4db165bc_f6ea0928",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-15T03:50:03Z",
+      "side": 1,
+      "message": "These are magic numbers, could you define it as a const and explain it?\n\nThe same as below.",
+      "range": {
+        "startLine": 92,
+        "startChar": 41,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "f7491ca73c085794896fccf9361a74279044e4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
