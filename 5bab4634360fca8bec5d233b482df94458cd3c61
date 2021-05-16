@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "de2e8332_c50f5309",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "Why need a return?",
+      "parentUuid": "563d0de2_5da980c9",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c2a3361_a5a79ab6",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 17
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-15T17:40:49Z",
       "side": 1,
       "message": "should we use resource name \"Ports\" or schema name?\n\nwhat is more appropriate here?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f6afd6_98b5257f",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "Port ID is already there.\nIs there something else you are looking at?",
+      "parentUuid": "0c2a3361_a5a79ab6",
       "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -76,6 +112,48 @@
     },
     {
       "key": {
+        "uuid": "6d20eb72_7ab831f9",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17f659f5_3e214f78",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2cee18a1_80296ca6",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "250a4b5a_9036b2d8",
+      "range": {
+        "startLine": 129,
+        "startChar": 50,
+        "endLine": 129,
+        "endChar": 54
+      },
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1455d738_cb87c643",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 17
@@ -87,6 +165,24 @@
       "writtenOn": "2021-05-15T17:40:49Z",
       "side": 1,
       "message": "can we return ResourceNotFound here?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8bf568_a34b7881",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "This condition is not handling resource not found situation here. In case no object is found, 0 will be returned setting the array size to 0.\nThis is more of any issue in Dbus call.",
+      "parentUuid": "1455d738_cb87c643",
       "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "171c36e7_218afd24",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "This is also not a resource not found condition.",
+      "parentUuid": "57c2a86f_f7e17dd8",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb5c2526_82c4b13d",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 17
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "dc527f85_d47d68ef",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "AdapterID is there.",
+      "parentUuid": "fb5c2526_82c4b13d",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a81358d0_3a044694",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 17
@@ -138,6 +270,24 @@
       "writtenOn": "2021-05-15T17:40:49Z",
       "side": 1,
       "message": "Just a thought,\ncan we return invalid param/ bad request errors in this case?",
+      "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e9583b_6b949a88",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-16T06:50:16Z",
+      "side": 1,
+      "message": "Not sure, just in sync with other schema so far.",
+      "parentUuid": "a81358d0_3a044694",
       "revId": "5bab4634360fca8bec5d233b482df94458cd3c61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
