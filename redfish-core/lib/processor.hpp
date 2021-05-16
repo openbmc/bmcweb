@@ -399,6 +399,7 @@ inline void getAcceleratorDataByService(
             }
             aResp->res.jsonValue["Id"] = acclrtrId;
             aResp->res.jsonValue["Name"] = "Processor";
+            const std::string* processorType = nullptr;
             const bool* accPresent = nullptr;
             const bool* accFunctional = nullptr;
 
@@ -411,6 +412,10 @@ inline void getAcceleratorDataByService(
                 else if (property.first == "Present")
                 {
                     accPresent = std::get_if<bool>(&property.second);
+                }
+                else if (property.first == "Type")
+                {
+                    processorType = std::get_if<std::string>(&property.second);
                 }
             }
 
@@ -432,7 +437,15 @@ inline void getAcceleratorDataByService(
 
             aResp->res.jsonValue["Status"]["State"] = state;
             aResp->res.jsonValue["Status"]["Health"] = health;
-            aResp->res.jsonValue["ProcessorType"] = "Accelerator";
+            // Update processor type if defined
+            if (processorType != nullptr && !processorType->empty())
+            {
+                aResp->res.jsonValue["ProcessorType"] = *processorType;
+            }
+            else
+            {
+                aResp->res.jsonValue["ProcessorType"] = "Accelerator";
+            }
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
