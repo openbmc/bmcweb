@@ -425,6 +425,52 @@ inline void requestRoutesChassis(App& app)
                                 uuidInterface, "UUID");
                         }
 
+                        // Chassis item properties
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](
+                                const boost::system::error_code ec,
+                                const std::vector<
+                                    std::pair<std::string, VariantType>>&
+                                    propertiesList) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBUS response error for "
+                                           "Chassis properties";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                for (const std::pair<std::string, VariantType>&
+                                         property : propertiesList)
+                                {
+                                    const std::string& propertyName =
+                                        property.first;
+                                    if (propertyName == "Type")
+                                    {
+                                        auto chassisType =
+                                            std::get_if<std::string>(
+                                                &property.second);
+                                        if (chassisType != nullptr)
+                                        {
+                                            size_t typeStart =
+                                                chassisType->rfind('.');
+                                            if (typeStart != std::string::npos)
+                                            {
+                                                std::string value =
+                                                    chassisType->substr(
+                                                        typeStart + 1);
+                                                asyncResp->res
+                                                    .jsonValue["ChassisType"] =
+                                                    value;
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "GetAll",
+                            "xyz.openbmc_project.Inventory.Item.Chassis");
+
                         return;
                     }
 
