@@ -290,7 +290,6 @@ class Chassis : public Node
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId;
                     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-                    asyncResp->res.jsonValue["ChassisType"] = "RackMount";
                     asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] = {
                         {"target", "/redfish/v1/Chassis/" + chassisId +
                                        "/Actions/Chassis.Reset"},
@@ -410,6 +409,39 @@ class Chassis : public Node
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
                         "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+                    // Chassis item properties
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](
+                            const boost::system::error_code /*ec2*/,
+                            const std::vector<std::pair<
+                                std::string, VariantType>>& propertiesList) {
+                            const std::string* chassisType = nullptr;
+                            for (const std::pair<std::string, VariantType>&
+                                     property : propertiesList)
+                            {
+                                const std::string& propertyName =
+                                    property.first;
+                                if (propertyName == "Type")
+                                {
+                                    chassisType =
+                                        std::get_if<std::string>(&property.second);
+                                }
+                            }
+                            // Update chassis type if defined
+                            if (chassisType != nullptr && !chassisType->empty())
+                            {
+                                asyncResp->res.jsonValue["ChassisType"] =
+                                    *chassisType;
+                            }
+                            else
+                            {
+                                asyncResp->res.jsonValue["ChassisType"] =
+                                    "RackMount";
+                            }
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "GetAll", "xyz.openbmc_project.Inventory.Item.Chassis");
 
                     // Chassis UUID
                     crow::connections::systemBus->async_method_call(
