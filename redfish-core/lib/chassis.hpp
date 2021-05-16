@@ -27,6 +27,42 @@
 namespace redfish
 {
 
+inline std::string getChassisType(const std::string& chassisType)
+{
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Component")
+    {
+        return "Component";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Enclosure")
+    {
+        return "Enclosure";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Module")
+    {
+        return "Module";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount")
+    {
+        return "RackMount";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StandAlone")
+    {
+        return "StandAlone";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Zone")
+    {
+        return "Zone";
+    }
+    // Unknown or others
+    return std::string();
+}
+
 /**
  * @brief Retrieves chassis state properties over dbus
  *
@@ -424,6 +460,52 @@ inline void requestRoutesChassis(App& app)
                                 "org.freedesktop.DBus.Properties", "Get",
                                 uuidInterface, "UUID");
                         }
+
+                        // Chassis item properties
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](
+                                const boost::system::error_code ec,
+                                const std::vector<
+                                    std::pair<std::string, VariantType>>&
+                                    propertiesList) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBUS response error for "
+                                           "Chassis properties";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                for (const std::pair<std::string, VariantType>&
+                                         property : propertiesList)
+                                {
+                                    const std::string& propertyName =
+                                        property.first;
+                                    if (propertyName == "Type")
+                                    {
+                                        const std::string* value =
+                                            std::get_if<std::string>(
+                                                &property.second);
+                                        if (value == nullptr)
+                                        {
+                                            BMCWEB_LOG_DEBUG
+                                                << "Null value returned "
+                                                   "for type";
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+                                        std::string chassisType =
+                                            getChassisType(*value);
+                                        asyncResp->res
+                                            .jsonValue["ChassisType"] =
+                                            chassisType;
+                                    }
+                                }
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "GetAll",
+                            "xyz.openbmc_project.Inventory.Item.Chassis");
 
                         return;
                     }
