@@ -44,6 +44,27 @@ constexpr std::array<const char*, 2> processorInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Cpu",
     "xyz.openbmc_project.Inventory.Item.Accelerator"};
 
+inline std::string getProcessorType(const std::string& processorType)
+{
+    if (processorType == "xyz.openbmc_project.Inventory.Item.Accelerator."
+                         "AcceleratorType.Accelerator")
+    {
+        return "Accelerator";
+    }
+    if (processorType ==
+        "xyz.openbmc_project.Inventory.Item.Accelerator.AcceleratorType.FPGA")
+    {
+        return "FPGA";
+    }
+    if (processorType ==
+        "xyz.openbmc_project.Inventory.Item.Accelerator.AcceleratorType.GPU")
+    {
+        return "GPU";
+    }
+    // Unknown or others
+    return std::string();
+}
+
 /**
  * @brief Fill out uuid info of a processor by
  * requesting data from the given D-Bus object.
@@ -422,6 +443,20 @@ inline void getAcceleratorDataByService(
                 {
                     accPresent = std::get_if<bool>(&property.second);
                 }
+                else if (property.first == "Type")
+                {
+                    const std::string* accType =
+                        std::get_if<std::string>(&property.second);
+                    if (accType == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for type";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    std::string processorType = getProcessorType(*accType);
+                    aResp->res.jsonValue["ProcessorType"] = processorType;
+                }
             }
 
             std::string state = "Enabled";
@@ -442,7 +477,6 @@ inline void getAcceleratorDataByService(
 
             aResp->res.jsonValue["Status"]["State"] = state;
             aResp->res.jsonValue["Status"]["Health"] = health;
-            aResp->res.jsonValue["ProcessorType"] = "Accelerator";
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
