@@ -422,6 +422,24 @@ inline void getAcceleratorDataByService(
                 {
                     accPresent = std::get_if<bool>(&property.second);
                 }
+                else if (property.first == "Type")
+                {
+                    auto accType = std::get_if<std::string>(&property.second);
+                    if (accType == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for type";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    size_t typeStart = accType->rfind('.');
+                    if (typeStart != std::string::npos)
+                    {
+                        std::string processorType =
+                            accType->substr(typeStart + 1);
+                        aResp->res.jsonValue["ProcessorType"] = processorType;
+                    }
+                }
             }
 
             std::string state = "Enabled";
@@ -442,7 +460,6 @@ inline void getAcceleratorDataByService(
 
             aResp->res.jsonValue["Status"]["State"] = state;
             aResp->res.jsonValue["Status"]["Health"] = health;
-            aResp->res.jsonValue["ProcessorType"] = "Accelerator";
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
