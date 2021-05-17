@@ -658,6 +658,11 @@ inline void handleHypervisorIPv4StaticPatch(
                              asyncResp);
         // Set the DHCPEnabled to false since the Static IPv4 is set
         setDHCPEnabled(ifaceId, false, asyncResp);
+
+        // Set this interface to disabled/inactive. This will be set
+        // to enabled/active by the pldm once the hypervisor
+        // consumes the updated settings from the user.
+        setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
     }
     else
     {
@@ -890,6 +895,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             if (ipv4Addresses)
             {
                 messages::propertyNotWritable(asyncResp->res, "IPv4Addresses");
+                return;
             }
 
             if (dhcpv4)
@@ -951,15 +957,16 @@ inline void requestRoutesHypervisorSystems(App& app)
                             (translateDHCPEnabledToBool(ethData.DHCPEnabled,
                                                         true)))
                         {
-                            BMCWEB_LOG_INFO
-                                << "Ignoring the delete on ipv4StaticAddresses "
+                            BMCWEB_LOG_ERROR
+                                << "Failed to delete on ipv4StaticAddresses "
                                    "as the interface is DHCP enabled";
+                            messages::propertyValueConflict(
+                                asyncResp->res, "IPv4StaticAddresses",
+                                "DHCPEnabled");
+                            return;
                         }
-                        else
-                        {
-                            handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
-                                                            asyncResp);
-                        }
+                        handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
+                                                        asyncResp);
                     }
 
                     if (hostName)
@@ -971,11 +978,6 @@ inline void requestRoutesHypervisorSystems(App& app)
                     {
                         setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
                     }
-
-                    // Set this interface to disabled/inactive. This will be set
-                    // to enabled/active by the pldm once the hypervisor
-                    // consumes the updated settings from the user.
-                    setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
                 });
             asyncResp->res.result(boost::beast::http::status::accepted);
         });
