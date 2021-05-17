@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "466f6ebf_00a95ad8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001114
+      },
+      "writtenOn": "2021-05-17T18:43:22Z",
+      "side": 1,
+      "message": "Same reasoning can be used here. length \u003e 255 also generate invalid d-bus path, as d-bus object name cannot exceed 255 bytes.",
+      "parentUuid": "adf6118b_0c824d1d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "f1cc9050a017d9b76f7d9de032787c51273174f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55343513_ddc0bfc7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "In your commit message please.",
       "parentUuid": "bef0ea32_9a655f2f",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "f1cc9050a017d9b76f7d9de032787c51273174f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f59e45cc_6503f645",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001114
+      },
+      "writtenOn": "2021-05-17T18:43:22Z",
+      "side": 1,
+      "message": "It is already in commit message (I added it after first comment).",
+      "parentUuid": "bf015c1b_71c4dc6c",
       "range": {
         "startLine": 13,
         "startChar": 0,
