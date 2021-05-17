@@ -948,6 +948,7 @@ class HypervisorInterface : public Node
         if (ipv4Addresses)
         {
             messages::propertyNotWritable(asyncResp->res, "IPv4Addresses");
+            return;
         }
 
         if (dhcpv4)
@@ -1007,15 +1008,17 @@ class HypervisorInterface : public Node
                     if ((ipv4Json.is_null()) &&
                         (translateDHCPEnabledToBool(ethData.DHCPEnabled, true)))
                     {
-                        BMCWEB_LOG_INFO
-                            << "Ignoring the delete on ipv4StaticAddresses "
+                        BMCWEB_LOG_ERROR
+                            << "Failed to delete on ipv4StaticAddresses "
                                "as the interface is DHCP enabled";
+                        messages::propertyValueConflict(asyncResp->res,
+                                                        "IPv4StaticAddresses",
+                                                        "DHCPEnabled");
+
+                        return;
                     }
-                    else
-                    {
-                        handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
-                                                        asyncResp);
-                    }
+                    handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
+                                                    asyncResp);
                 }
 
                 if (hostName)
