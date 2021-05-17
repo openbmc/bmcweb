@@ -567,6 +567,26 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         std::variant<std::string>(origin));
 }
 
+inline void
+    setIPv4InterfaceEnabled(const std::string& ifaceId, bool isActive,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Object.Enable", "Enabled",
+        std::variant<bool>(isActive));
+}
+
 inline void handleHypervisorIPv4StaticPatch(
     const std::string& ifaceId, const nlohmann::json& input,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -663,6 +683,11 @@ inline void handleHypervisorIPv4StaticPatch(
                              asyncResp);
         // Set the DHCPEnabled to false since the Static IPv4 is set
         setDHCPEnabled(ifaceId, false, asyncResp);
+
+        // Set this interface to disabled/inactive. This will be set
+        // to enabled/active by the host interface once the hypervisor
+        // consumes the updated settings from the user.
+        setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
     }
     else
     {
@@ -697,26 +722,6 @@ inline void
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
         std::variant<std::string>(hostName));
-}
-
-inline void
-    setIPv4InterfaceEnabled(const std::string& ifaceId, const bool& isActive,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Object.Enable", "Enabled",
-        std::variant<bool>(isActive));
 }
 
 inline void requestRoutesHypervisorSystems(App& app)
@@ -942,15 +947,16 @@ inline void requestRoutesHypervisorSystems(App& app)
                             (translateDHCPEnabledToBool(ethData.DHCPEnabled,
                                                         true)))
                         {
-                            BMCWEB_LOG_INFO
-                                << "Ignoring the delete on ipv4StaticAddresses "
+                            BMCWEB_LOG_ERROR
+                                << "Failed to delete on ipv4StaticAddresses "
                                    "as the interface is DHCP enabled";
+                            messages::propertyValueConflict(
+                                asyncResp->res, "IPv4StaticAddresses",
+                                "DHCPEnabled");
+                            return;
                         }
-                        else
-                        {
-                            handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
-                                                            asyncResp);
-                        }
+                        handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
+                                                        asyncResp);
                     }
 
                     if (hostName)
@@ -962,11 +968,6 @@ inline void requestRoutesHypervisorSystems(App& app)
                     {
                         setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
                     }
-
-                    // Set this interface to disabled/inactive. This will be set
-                    // to enabled/active by the pldm once the hypervisor
-                    // consumes the updated settings from the user.
-                    setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
                 });
             asyncResp->res.result(boost::beast::http::status::accepted);
         });
