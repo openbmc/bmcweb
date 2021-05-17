@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "8e0ae519_f8e28217",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-17T16:14:27Z",
+      "side": 1,
+      "message": "Yes, this seems like a conflict between the Redfish spec and the Base registry.  It may be good to get clarification from the DMTF on the correct format.",
+      "parentUuid": "ab1aff80_b7b6e348",
+      "revId": "b53de256cf35de6c55a16823b2de50ee0d3fbbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67040994_0695cf7c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
