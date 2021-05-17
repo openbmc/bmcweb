@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f8c73b37_11c3c25e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-17T06:17:59Z",
+      "side": 1,
+      "message": "Power consumption (Watts) is the PowerConsumedWatts in the old Power schema, and is called PowerWatts in EnvironmentMetrics in 20.4. The description here is not clear enough and will be changed in the next commit.",
+      "parentUuid": "b5a902c4_81b1cd31",
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72145972_4c1764e2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-14T06:51:34Z",
       "side": 1,
       "message": "The FanSpeed looks good. Where are Temperature and Power\u0027s excerpt?",
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77bf4096_7896a3f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-17T06:17:59Z",
+      "side": 1,
+      "message": "These have not yet been implemented. Currently, there are no such related sensors in our machine. We are now looking for how to implement related sensors.",
+      "parentUuid": "72145972_4c1764e2",
       "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "48f2c0f2_c7dfdd01",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-17T06:17:59Z",
+      "side": 1,
+      "message": "What is needed at present is EnvironmentMetrics under chassis. If there are related needs in the future, then add EnvironmentMetrics under other paths.",
+      "parentUuid": "b1e86cd9_96af0d3f",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a56459e_6778a69f",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 1
@@ -70,6 +130,30 @@
       "writtenOn": "2021-05-13T17:54:50Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 182,
+        "startChar": 3,
+        "endLine": 182,
+        "endChar": 23
+      },
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cd96b78_2b0b0cc3",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-05-17T06:17:59Z",
+      "side": 1,
+      "message": "I will delete it.",
+      "parentUuid": "4a56459e_6778a69f",
       "range": {
         "startLine": 182,
         "startChar": 3,
