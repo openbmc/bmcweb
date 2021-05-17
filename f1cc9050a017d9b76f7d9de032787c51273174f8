@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "adf6118b_0c824d1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-17T16:17:23Z",
+      "side": 1,
+      "message": "\u003e Bmcweb is first place where we can check this, therefore it is most optimal solution from performance PoV.\n\nWhy do we care about \"performance\" of an error condition?  All it has to be is faster than the golden path.\n\n\u003e Also there are also another name-related checks there (for example checking that length \u003e 0), so checking it here is reasonable (via SRP).\n\nlength \u003c 0 is different, as it would cause use to generate a bad dbus path and be removed from the bus, so that makes some sense to check here.\n\nbmcweb should be faithfully transforming redfish -\u003e dbus.  Any other checks should be done within the other daemons to avoid duplication of code between the interfaces.",
+      "parentUuid": "5ef1555f_3ac15638",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "f1cc9050a017d9b76f7d9de032787c51273174f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55343513_ddc0bfc7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Add POST request (POST redfish/v1/TelemetryService/MetricReportDefinitions) with proper Id, asserted that response is equal to 400. Then checked if there are any Report Definitions (with GET redfish/v1/TelemetryService/MetricReportDefinitions).",
       "parentUuid": "55343513_ddc0bfc7",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "f1cc9050a017d9b76f7d9de032787c51273174f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf015c1b_71c4dc6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-17T16:17:23Z",
+      "side": 1,
+      "message": "In your commit message please.",
+      "parentUuid": "bef0ea32_9a655f2f",
       "range": {
         "startLine": 13,
         "startChar": 0,
