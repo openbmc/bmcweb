@@ -22,6 +22,30 @@
       "revId": "1b254128b025a4c9d119c4bfd858ed938cc8651c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc376a1_64ebe372",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-05-17T16:37:05Z",
+      "side": 1,
+      "message": "Ed\nI don\u0027t think so, just do nothing while user patching of static ip addresses when DHCP enabled.",
+      "parentUuid": "0479179b_390b13ce",
+      "range": {
+        "startLine": 1012,
+        "startChar": 0,
+        "endLine": 1013,
+        "endChar": 66
+      },
+      "revId": "1b254128b025a4c9d119c4bfd858ed938cc8651c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
