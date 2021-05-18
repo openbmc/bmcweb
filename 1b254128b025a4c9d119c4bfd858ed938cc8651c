@@ -70,6 +70,30 @@
       "revId": "1b254128b025a4c9d119c4bfd858ed938cc8651c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f37f72d_4130c507",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-05-18T03:47:37Z",
+      "side": 1,
+      "message": "Client should not assume that the setting is accepted by the BMC. Ravi, you may consider returning the error PropertyValueConflict - to give a meaningful response to the client.",
+      "parentUuid": "10349028_21851f91",
+      "range": {
+        "startLine": 1012,
+        "startChar": 0,
+        "endLine": 1013,
+        "endChar": 66
+      },
+      "revId": "1b254128b025a4c9d119c4bfd858ed938cc8651c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
