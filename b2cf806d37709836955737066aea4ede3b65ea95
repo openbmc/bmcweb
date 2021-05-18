@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "b551353f_f888882e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-18T09:11:24Z",
+      "side": 1,
+      "message": "There is many articles which shows better ways to have clean code:\nhttps://blog.usejournal.com/stop-writing-code-comments-28fef5272752\n\nI disagree with both of you, doing something because everyone else is doing it doesn\u0027t convince me. Anyway I am not a maintainer so you can mark it as resolved.",
+      "parentUuid": "0de10d8b_c6082f29",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef9a5e70_89bdd30a",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "This is a good suggestion, but there is currently no plan for such a modification. If such modification is made after follow-up consultations, then proceed.",
       "parentUuid": "ef9a5e70_89bdd30a",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3ab213_84089f29",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-18T09:11:24Z",
+      "side": 1,
+      "message": "Then you should change std::variant\u003cdouble\u003e to std::variant\u003cmonostate, double\u003e only then you code will be correct and you will get nullptr if property is different type on dbus.",
+      "parentUuid": "a6618506_9579f337",
       "range": {
         "startLine": 91,
         "startChar": 12,
