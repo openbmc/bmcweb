@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7b6b9bd_5dce3e26",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-18T09:17:08Z",
+      "side": 1,
+      "message": "Why is it needed? If we clear it it means we should not fill it in the first place. Also what if there will be concurrent call which adds something important to response it will be discarded here. It will be hard to debug.",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 27
+      },
+      "revId": "c47d60dc31a3d09df50feb6fb402d78f12e67a93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
