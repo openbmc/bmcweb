@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "51e18715_98d6d595",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-05-18T03:25:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77bf4096_7896a3f5",
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1e86cd9_96af0d3f",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 1
@@ -107,6 +125,30 @@
       "side": 1,
       "message": "What is needed at present is EnvironmentMetrics under chassis. If there are related needs in the future, then add EnvironmentMetrics under other paths.",
       "parentUuid": "b1e86cd9_96af0d3f",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "5c814944dc6446d067c0934a6c9b4412cb7de377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fefdad75_1c79b1d9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-05-18T03:25:25Z",
+      "side": 1,
+      "message": "ok, I get it.\nMy other meaning is that the /chassis/.../EnvironmentMetrics path should be implemented in chassis.hpp, not in this file.\n\nAnd this class name can be changed to ChassisEnvironmentMetrics. Considering that this Schema will be implemented in other paths in the future.\n\nThen environment_metrics.hpp should move to redfish-core/include/utils. Refer to it in the header of the chassis.hpp file like collection.hpp.",
+      "parentUuid": "48f2c0f2_c7dfdd01",
       "range": {
         "startLine": 140,
         "startChar": 4,
