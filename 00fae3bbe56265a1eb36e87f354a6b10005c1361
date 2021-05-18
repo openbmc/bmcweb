@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7fc4fce5_519058ae",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-18T11:01:25Z",
+      "side": 1,
+      "message": "Done. Decide if the object is not found, after loop over the response.",
+      "parentUuid": "5016ffa3_fb6311d3",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8d8485a_91b51f8d",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 20
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1e6ea6a1_166792c6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-18T11:01:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d8485a_91b51f8d",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 56
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "220e2b8d_cea8cb5f",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 20
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "5938685d_36918d5e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-18T11:01:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "220e2b8d_cea8cb5f",
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "948addb6_36fc4f54",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 20
@@ -79,6 +145,24 @@
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "822cfade_769b98ad",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-18T11:01:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "948addb6_36fc4f54",
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "61fed8c5_520fd261",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-18T11:01:25Z",
+      "side": 1,
+      "message": "No, I don\u0027t think we need to.\nOnly snmp is special because it does not use event service manager to generate subscriptionID and save data.",
+      "parentUuid": "f9ba09ef_498c0ce6",
+      "range": {
+        "startLine": 745,
+        "startChar": 43,
+        "endLine": 745,
+        "endChar": 47
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd0a78ba_23dfb458",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 20
@@ -116,6 +224,30 @@
       "writtenOn": "2021-05-14T23:29:58Z",
       "side": 1,
       "message": "Please use the sdbusplus::message::object_path operator/ for this.",
+      "range": {
+        "startLine": 866,
+        "startChar": 30,
+        "endLine": 866,
+        "endChar": 38
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07571845_fc099a84",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-18T11:01:25Z",
+      "side": 1,
+      "message": "Hi Ed， I tried to use sdbusplus::message::object_path operator/ for this but failed. I think it may not be applicable here.\nI did some tests:\n1.             \n  sdbusplus::message::object_path path(\"/\");\n  path /\u003d \"abc\";\n  std::cerr \u003c\u003c \"test path \u003d \" \u003c\u003c path.str \u003c\u003c std::endl;\n\n  The output is \"test path \u003d /abc\", it is right.\n\n2.\n  sdbusplus::message::object_path path(\"/xyz/openbmc_project/network/snmp/manager/\");\n  path /\u003d \"abc\";\n  std::cerr \u003c\u003c \"test path \u003d \" \u003c\u003c path.str \u003c\u003c std::endl;\n\n  The output is \"test path \u003d \", the path.str is NULL, it is wrong.\n\n\nThe only difference between 1 and 2 is \"/xyz/openbmc_project/network/snmp/manager/\".",
+      "parentUuid": "dd0a78ba_23dfb458",
       "range": {
         "startLine": 866,
         "startChar": 30,
