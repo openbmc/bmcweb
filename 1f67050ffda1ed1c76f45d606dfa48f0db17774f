@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "58d5e850_52bd1b0a",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-19T06:34:37Z",
+      "side": 1,
+      "message": "Changed to BMCTimeUpdated. Thank you.",
+      "parentUuid": "333f22fa_a8ab2ba0",
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2a88243_539191a3",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
@@ -104,6 +122,30 @@
       "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6217a76a_3a9ff1cd",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-19T06:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc12c523_8e1163aa",
+      "range": {
+        "startLine": 290,
+        "startChar": 46,
+        "endLine": 290,
+        "endChar": 51
+      },
+      "revId": "1f67050ffda1ed1c76f45d606dfa48f0db17774f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
