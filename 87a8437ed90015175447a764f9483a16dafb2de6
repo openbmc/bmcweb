@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4b9afac1_e4955f4c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-19T10:03:31Z",
+      "side": 1,
+      "message": "@Ed: I think we are trying to fix all the old issues as part of this commit ?.. I prefer we have a commit of its own to fix them and not link \u0027em to this .  But that\u0027s just my opinion.",
+      "parentUuid": "144553f1_5677eec1",
+      "range": {
+        "startLine": 741,
+        "startChar": 0,
+        "endLine": 749,
+        "endChar": 13
+      },
+      "revId": "87a8437ed90015175447a764f9483a16dafb2de6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "223d63a1_6c8f4427",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 66
