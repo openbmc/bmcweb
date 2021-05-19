@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c04ea2d_f448f801",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-19T15:46:55Z",
+      "side": 1,
+      "message": "I like Ed\u0027s suggestion of 2 messages..\nSomething like: \n\n\nBMCTimeUpdatedViaNTP\nBMC time has been set via NTP\nBMC Date Time is set to %1 from %2.\n\nBMCTimeUPdatedViaManual\nBMC time has been set manually\nBMC Date Time is set to %1 from %2.",
+      "revId": "5becd0a923bae6e6c83788ebb27505de5adca82f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
