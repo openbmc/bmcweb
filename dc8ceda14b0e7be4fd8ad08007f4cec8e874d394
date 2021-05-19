@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0914fced_c451273b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-19T07:05:51Z",
+      "side": 1,
+      "message": "I am now confused.. Why is this needed for LocationIndicatorActive commit ?.. Also, it\u0027s not an Inventory item type, but of type Control.\n\nLooks like the whole framework has been changed since set:65 and that is clearly not needed for \"LocationIndicatorActive\".\n\nI would leave it to the maintainers.. but I am not looking at fixing all the old issues in one commit in the name of led support, I would like a new commit of its own to fix something that is unrelated to led.",
+      "revId": "dc8ceda14b0e7be4fd8ad08007f4cec8e874d394",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
