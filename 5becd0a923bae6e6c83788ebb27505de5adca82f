@@ -16,6 +16,24 @@
       "revId": "5becd0a923bae6e6c83788ebb27505de5adca82f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d0d262c_20522fde",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-05-19T17:59:54Z",
+      "side": 1,
+      "message": "And then third one also where the BMC can update its time based on the Host time as Jason mentioned. So basically 3 messages for logging BMC time update.",
+      "parentUuid": "9c04ea2d_f448f801",
+      "revId": "5becd0a923bae6e6c83788ebb27505de5adca82f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
