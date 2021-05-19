@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_3_1.json",
     "$ref": "#/definitions/TelemetryService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -153,7 +153,7 @@
                 "Timestamp": {
                     "description": "The date and time when the metric is obtained.  A management application can establish a time series of metric data by retrieving the instances of metric value and sorting them according to their timestamp.",
                     "format": "date-time",
-                    "longDescription": "The value shall time when the metric value was obtained.  Note that this value might be different from the time when this instance is created.",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this value may be different from the time when this instance is created.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -188,7 +188,7 @@
         "ResetMetricReportDefinitionsToDefaults": {
             "additionalProperties": false,
             "description": "The action to reset the metric report definitions to factory defaults.",
-            "longDescription": "This action shall reset all entries found in the metric report definition collection to factory defaults.  This action might delete members of the metric report definition collection.",
+            "longDescription": "This action shall reset all entries found in the metric report definition collection to factory defaults.  This action may delete members of the metric report definition collection.",
             "parameters": {},
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -221,7 +221,7 @@
         "ResetTriggersToDefaults": {
             "additionalProperties": false,
             "description": "The action to reset the triggers to factory defaults.",
-            "longDescription": "This action shall reset all entries found in the triggers collection to factory defaults.  This action might delete members of the triggers collection.",
+            "longDescription": "This action shall reset all entries found in the triggers collection to factory defaults.  This action may delete members of the triggers collection.",
             "parameters": {},
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -459,5 +459,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#TelemetryService.v1_3_0.TelemetryService"
+    "title": "#TelemetryService.v1_3_1.TelemetryService"
 }

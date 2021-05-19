@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_11_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_12_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -466,7 +466,7 @@
                 },
                 "Manufacturer": {
                     "description": "The manufacturer of this manager.",
-                    "longDescription": "This property shall contain the name of the organization responsible for producing the manager.  This organization might be the entity from whom the manager is purchased, but this is not necessarily true.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the manager.  This organization may be the entity from whom the manager is purchased, but this is not necessarily true.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -537,7 +537,7 @@
                 "RemoteAccountService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/AccountService",
                     "description": "The link to the account service resource for the remote manager that this resource represents.",
-                    "longDescription": "This property shall contain a link to the account service resource for the remote manager that this resource represents.  This property shall only be present when providing aggregation of Redfish services.",
+                    "longDescription": "This property shall contain a link to the account service resource for the remote manager that this resource represents.  This property shall only be present when providing aggregation of a remote manager.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
@@ -585,7 +585,7 @@
                         }
                     ],
                     "description": "The UUID of the Redfish service that is hosted by this manager.",
-                    "longDescription": "This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property might imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point.",
+                    "longDescription": "This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property may imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point.",
                     "readonly": true
                 },
                 "SparePartNumber": {
@@ -605,10 +605,16 @@
                 },
                 "TimeZoneName": {
                     "description": "The time zone of the manager.",
-                    "longDescription": "This property shall contain the time zone of the manager.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  A Redfish service might not be able to ensure accuracy and consistency between the DateTimeOffset property and this property.  Therefore, to specify the correct time zone offset, see the DateTimeOffset property.",
+                    "longDescription": "This property shall contain the time zone of the manager.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  A Redfish service may not be able to ensure accuracy and consistency between the DateTimeOffset property and this property.  Therefore, to specify the correct time zone offset, see the DateTimeOffset property.",
                     "readonly": false,
                     "type": "string",
                     "versionAdded": "v1_10_0"
+                },
+                "USBPorts": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
+                    "description": "The USB ports of the manager.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection that represent the USB ports of the manager.",
+                    "versionAdded": "v1_12_0"
                 },
                 "UUID": {
                     "anyOf": [
@@ -806,8 +812,8 @@
         },
         "ResetToDefaults": {
             "additionalProperties": false,
-            "description": "The reset action resets the manager settings to factory defaults.  This might cause the manager to reset.",
-            "longDescription": "This action shall reset the manager settings.  This action might impact other resources.",
+            "description": "The reset action resets the manager settings to factory defaults.  This can cause the manager to reset.",
+            "longDescription": "This action shall reset the manager settings.  This action can impact other resources.",
             "parameters": {
                 "ResetType": {
                     "$ref": "#/definitions/ResetToDefaultsType",
@@ -918,6 +924,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#Manager.v1_11_0.Manager"
+    "release": "2021.1",
+    "title": "#Manager.v1_12_0.Manager"
 }

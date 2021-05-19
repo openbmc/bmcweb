@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Power v1.7.0                                                        -->
+<!--# Redfish Schema:  Power v1.7.1                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -80,7 +80,7 @@
 
       <Action Name="PowerSupplyReset" IsBound="true">
         <Annotation Term="OData.Description" String="This action resets the targeted power supply."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType might affect the power supply output."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType can affect the power supply output."/>
         <Parameter Name="Power" Type="Power.v1_3_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
@@ -650,7 +650,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_0_10.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_0_10.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -658,6 +658,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_0_11.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_0_11.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_0_11.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_0_12.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_12.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_12.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_12.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_0">
@@ -674,7 +683,7 @@
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The manufacturer of this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the power supply.  This organization might be the entity from whom the power supply is purchased, but this is not necessarily true."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the power supply.  This organization may be the entity from whom the power supply is purchased, but this is not necessarily true."/>
         </Property>
         <Property Name="InputRanges" Type="Collection(Power.v1_1_0.InputRange)" Nullable="false">
           <Annotation Term="OData.Description" String="The input ranges that the power supply can use."/>
@@ -820,7 +829,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_1_8.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_1_8.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -828,6 +837,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_1_9.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_1_9.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_1_9.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_1_10.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_10.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_10.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_10.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_0">
@@ -929,7 +947,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_2_8.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_2_8.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -937,6 +955,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_2_9.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_2_9.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_2_9.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_2_10.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_10.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_10.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_10.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_0">
@@ -1098,7 +1125,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_3_6.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_3_6.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -1106,6 +1133,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_3_7.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_3_7.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_3_7.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_3_8.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_8.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_8.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_8.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_0">
@@ -1180,7 +1216,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_4_5.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_4_5.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -1188,6 +1224,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_4_6.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_4_6.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_4_6.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_4_7.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_7.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_7.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_7.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_0">
@@ -1285,7 +1330,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_5_4.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_5_4.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -1293,6 +1338,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_5_5.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_5_5.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_5_5.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_5_6.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_6.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_5_6.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_6.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_6_0">
@@ -1317,7 +1371,7 @@
       <EntityType Name="Voltage" BaseType="Power.v1_6_0.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_6_0.PowerSupply"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
@@ -1325,6 +1379,15 @@
       <EntityType Name="PowerControl" BaseType="Power.v1_6_1.PowerControl"/>
       <EntityType Name="Voltage" BaseType="Power.v1_6_1.Voltage"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_6_1.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_6_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_6_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_6_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_6_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_7_0">
@@ -1339,6 +1402,15 @@
       <EntityType Name="Voltage" BaseType="Power.v1_6_2.Voltage"/>
 
       <EntityType Name="PowerSupply" BaseType="Power.v1_6_2.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="Power" BaseType="Power.v1_7_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_7_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_7_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_7_0.PowerSupply"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_2_0.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ANAAccessState": {
             "enum": [
@@ -12,7 +12,7 @@
                 "PersistentLoss"
             ],
             "enumDescriptions": {
-                "Inacessible": "Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA Group.",
+                "Inaccessible": "Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA Group.",
                 "NonOptimized": "Commands processed by a controller that reports this state for an ANA Group provide non-optimized access characteristics, such as lower performance or non-optimal use of subsystem resources, to any namespace in the ANA Group.",
                 "Optimized": "Commands processed by a controller provide optimized access to any namespace in the ANA group.",
                 "PersistentLoss": "The group is persistently inaccessible.  Commands are persistently not able to access user data of namespaces in the ANA Group."
@@ -293,6 +293,16 @@
                         "null"
                     ]
                 },
+                "SupportsReservations": {
+                    "description": "Indicates if the controller supports reservations.",
+                    "longDescription": "This property shall indicate if the controller supports reservations.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
                 "SupportsSQAssociations": {
                     "description": "Indicates whether or not the controller supports SQ Associations.",
                     "longDescription": "This property shall indicate whether or not the controller supports SQ Associations.",
@@ -458,7 +468,7 @@
                 },
                 "PMRUnreliable": {
                     "description": "The Persistent Memory Region has become unreliable.",
-                    "longDescription": "This property shall indicate that the Persistent Memory Region has become unreliable.  PCIe memory reads might return invalid data or generate poisoned PCIe TLP(s).  Persistent Memory Region memory writes might not update memory or might update memory with undefined data.  The Persistent Memory Region might also have become non-persistent.",
+                    "longDescription": "This property shall indicate that the Persistent Memory Region has become unreliable.  PCIe memory reads can return invalid data or generate poisoned PCIe TLP(s).  Persistent Memory Region memory writes might not update memory or might update memory with undefined data.  The Persistent Memory Region might also have become non-persistent.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -641,6 +651,13 @@
                     ],
                     "readonly": true
                 },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this storage controller.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this storage controller.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
                 "FirmwareVersion": {
                     "description": "The firmware version of this storage controller.",
                     "longDescription": "This property shall contain the firmware version as defined by the manufacturer for the associated storage controller.",
@@ -674,7 +691,7 @@
                 },
                 "Manufacturer": {
                     "description": "The manufacturer of this storage controller.",
-                    "longDescription": "This property shall contain the name of the organization responsible for producing the storage controller.  This organization might be the entity from which the storage controller is purchased, but this is not necessarily true.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the storage controller.  This organization may be the entity from which the storage controller is purchased, but this is not necessarily true.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -812,6 +829,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#StorageController.v1_1_0.StorageController"
+    "release": "2021.1",
+    "title": "#StorageController.v1_2_0.StorageController"
 }

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_7_1.json",
     "$ref": "#/definitions/Thermal",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Fan": {
             "additionalProperties": false,
@@ -107,7 +107,7 @@
                 },
                 "Manufacturer": {
                     "description": "The manufacturer of this fan.",
-                    "longDescription": "This property shall contain the name of the organization responsible for producing the fan.  This organization might be the entity from whom the fan is purchased, but this is not necessarily true.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the fan.  This organization may be the entity from whom the fan is purchased, but this is not necessarily true.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -351,7 +351,7 @@
             ],
             "enumDescriptions": {
                 "Percent": "The fan reading and thresholds are measured as a percentage.",
-                "RPM": "The fan reading and thresholds are measured in rotations per minute."
+                "RPM": "The fan reading and thresholds are measured in revolutions per minute."
             },
             "type": "string"
         },
@@ -830,5 +830,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#Thermal.v1_7_0.Thermal"
+    "title": "#Thermal.v1_7_1.Thermal"
 }

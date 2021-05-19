@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_11_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_12_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -183,7 +183,7 @@
                 },
                 "ProgrammableFromHost": {
                     "description": "An indication of whether the FPGA firmware can be reprogrammed from the host by using system software.",
-                    "longDescription": "This property shall indicate whether the FPGA firmware can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the FPGA firmware from the system interface.  In either state, a management controller might be able to program the FPGA firmware by using the sideband interface.",
+                    "longDescription": "This property shall indicate whether the FPGA firmware can be reprogrammed from the host by using system software.  If `false`, system software shall not be able to program the FPGA firmware from the system interface.  In either state, a management controller may be able to program the FPGA firmware by using the sideband interface.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -231,7 +231,7 @@
                 },
                 "ProgrammableFromHost": {
                     "description": "An indication of whether the reconfiguration slot can be reprogrammed from the host by using system software.",
-                    "longDescription": "This property shall indicate whether the reconfiguration slot can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the reconfiguration slot from the system interface.  In either state, a management controller might be able to program the reconfiguration slot by using the sideband interface.",
+                    "longDescription": "This property shall indicate whether the reconfiguration slot can be reprogrammed from the host by using system software.  If `false`, system software shall not be able to program the reconfiguration slot from the system interface.  In either state, a management controller may be able to program the reconfiguration slot by using the sideband interface.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -356,6 +356,20 @@
                 },
                 "Endpoints@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "GraphicsController": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/GraphicsController.json#/definitions/GraphicsController"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the graphics controller associated with this processor.",
+                    "longDescription": "This property shall contain a link to resource of type GraphicsController that is associated with this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_12_0"
                 },
                 "Memory": {
                     "description": "An array of links to the memory associated with this processor.",
@@ -572,6 +586,13 @@
                     ],
                     "readonly": true
                 },
+                "Enabled": {
+                    "description": "An indication of whether this processor is enabled.",
+                    "longDescription": "The value of this property shall indicate if this processor is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_12_0"
+                },
                 "EnvironmentMetrics": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
                     "description": "The link to the environment metrics for this processor.",
@@ -734,7 +755,7 @@
                 },
                 "OperatingSpeedMHz": {
                     "description": "Operating speed of the processor in MHz.",
-                    "longDescription": "This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor might change more frequently than the manager is able to monitor.",
+                    "longDescription": "This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor may change more frequently than the manager is able to monitor.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -824,7 +845,7 @@
                 },
                 "SpeedLimitMHz": {
                     "description": "The clock limit of the processor in MHz.",
-                    "longDescription": "This property shall contain the clock limit of the processor in MHz. This value shall be within the range of MinSpeedMHz and MaxSpeedMHz as provided by the manufacturer of this processor.",
+                    "longDescription": "This property shall contain the clock limit of the processor in MHz.  This value shall be within the range of MinSpeedMHz and MaxSpeedMHz as provided by the manufacturer of this processor.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -1339,6 +1360,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#Processor.v1_11_0.Processor"
+    "release": "2021.1",
+    "title": "#Processor.v1_12_0.Processor"
 }

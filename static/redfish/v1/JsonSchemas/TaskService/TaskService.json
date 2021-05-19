@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/TaskService.v1_1_6.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/TaskService.v1_2_0.json",
     "$ref": "#/definitions/TaskService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -161,6 +161,14 @@
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
+                "TaskAutoDeleteTimeoutMinutes": {
+                    "description": "The number of minutes after which a completed task is deleted by the service.",
+                    "longDescription": "This property shall contain the number of minutes after which a completed task, where TaskState contains the value `Completed`, `Killed`, `Cancelled`, or `Exception`, is deleted by the service.",
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_2_0"
+                },
                 "Tasks": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TaskCollection.json#/definitions/TaskCollection",
                     "description": "The links to the collection of tasks.",
@@ -178,6 +186,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2017.1",
-    "title": "#TaskService.v1_1_6.TaskService"
+    "release": "2021.1",
+    "title": "#TaskService.v1_2_0.TaskService"
 }

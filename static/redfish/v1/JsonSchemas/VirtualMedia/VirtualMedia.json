@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_3_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_4_0.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -269,6 +269,13 @@
                     "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_1_0"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of server certificates for the server referenced by the Image property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
                 "ConnectedVia": {
                     "anyOf": [
                         {
@@ -353,6 +360,12 @@
                     ],
                     "versionAdded": "v1_3_0"
                 },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_4_0"
+                },
                 "TransferMethod": {
                     "anyOf": [
                         {
@@ -391,6 +404,16 @@
                     ],
                     "versionAdded": "v1_3_0"
                 },
+                "VerifyCertificate": {
+                    "description": "An indication of whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.",
+                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
                 "WriteProtected": {
                     "description": "An indication of whether the media is write-protected.",
                     "longDescription": "This property shall indicate whether the remote device media prevents writing to that media.",
@@ -411,6 +434,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#VirtualMedia.v1_3_2.VirtualMedia"
+    "release": "2021.1",
+    "title": "#VirtualMedia.v1_4_0.VirtualMedia"
 }

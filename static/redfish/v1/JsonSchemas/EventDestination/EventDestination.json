@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_10_1.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -49,10 +49,10 @@
                 "TerminateAfterRetries": "The subscription is terminated after the maximum number of retries is reached."
             },
             "enumLongDescriptions": {
-                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  The interval between retries remains constant and is specified by the DeliveryRetryIntervalSeconds property in the event service.",
-                "RetryForeverWithBackoff": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  Retry attempts are issued over time according to a service-defined backoff algorithm.  The backoff algorithm might insert an increasing amount of delay between retry attempts and might reach a maximum.",
-                "SuspendRetries": "The subscription is suspended after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service.",
-                "TerminateAfterRetries": "The subscription is terminated after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service."
+                "RetryForever": "This value shall indicate the subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  The interval between retries remains constant and is specified by the DeliveryRetryIntervalSeconds property in the event service.",
+                "RetryForeverWithBackoff": "This value shall indicate the subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  Retry attempts are issued over time according to a service-defined backoff algorithm.  The backoff algorithm may insert an increasing amount of delay between retry attempts and may reach a maximum.",
+                "SuspendRetries": "This value shall indicate the subscription is suspended after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service.",
+                "TerminateAfterRetries": "This value shall indicate the subscription is terminated after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service."
             },
             "enumVersionAdded": {
                 "RetryForeverWithBackoff": "v1_10_0"
@@ -813,5 +813,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#EventDestination.v1_10_0.EventDestination"
+    "title": "#EventDestination.v1_10_1.EventDestination"
 }

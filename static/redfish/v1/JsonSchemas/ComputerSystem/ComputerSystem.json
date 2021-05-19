@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_15_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -142,7 +142,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an ordered array of boot source aliases of the BootSource type that represents the persistent boot order of this computer system.",
+                    "longDescription": "This property shall contain an ordered array of boot source aliases of the BootSource type that represents the persistent boot order of this computer system.  This array shall not contain duplicate values.  Virtual devices for an alias should take precedence over a physical device.  Systems may attempt to boot from multiple devices that share an alias.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_6_0"
@@ -253,7 +253,7 @@
                         }
                     ],
                     "description": "The current boot source to use at the next boot instead of the normal boot device, if BootSourceOverrideEnabled is `true`.",
-                    "longDescription": "This property shall contain the source to boot the system from, overriding the normal boot order.  The Redfish.AllowableValues annotation specifies the valid values for this property.  `Pxe` indicates to PXE boot from the primary NIC; `Floppy`, `Cd`, `Usb`, and `Hdd` indicate to boot from their devices respectively.  `BiosSetup` indicates to boot into the native BIOS screen setup.  `Utilities` and `Diags` indicate to boot from the local utilities or diagnostics partitions.  `UefiTarget` indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride.  `UefiBootNext` indicates to boot from the UEFI BootOptionReference found in BootNext.  Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "longDescription": "This property shall contain the source to boot the system from, overriding the normal boot order.  The @Redfish.AllowableValues annotation specifies the valid values for this property.  `UefiTarget` indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride.  `UefiBootNext` indicates to boot from the UEFI BootOptionReference found in BootNext.  Virtual devices for a target should take precedence over a physical device.  Systems may attempt to boot from multiple devices that share a target identifier.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false
                 },
                 "Certificates": {
@@ -284,6 +284,20 @@
                         "null"
                     ],
                     "versionAdded": "v1_11_0"
+                },
+                "StopBootOnFault": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/StopBootOnFault"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "If the boot should stop on a fault.",
+                    "longDescription": "This property shall contain the setting if the boot should stop on a fault.",
+                    "readonly": false,
+                    "versionAdded": "v1_15_0"
                 },
                 "TrustedModuleRequiredToBoot": {
                     "anyOf": [
@@ -395,6 +409,7 @@
                 "SecondaryProcessorInitializationStarted",
                 "PCIResourceConfigStarted",
                 "SystemHardwareInitializationComplete",
+                "SetupEntered",
                 "OSBootStarted",
                 "OSRunning",
                 "OEM"
@@ -409,6 +424,7 @@
                 "PCIResourceConfigStarted": "The system has started initializing the PCI resources.",
                 "PrimaryProcessorInitializationStarted": "The system has started initializing the primary processor.",
                 "SecondaryProcessorInitializationStarted": "The system has started initializing the remaining processors.",
+                "SetupEntered": "The system has entered the setup utility.",
                 "SystemHardwareInitializationComplete": "The system has completed initializing all hardware."
             },
             "enumLongDescriptions": {
@@ -421,7 +437,11 @@
                 "PCIResourceConfigStarted": "This value shall indicate that the system has started to initialize PCI resources.",
                 "PrimaryProcessorInitializationStarted": "This value shall indicate that the system has started to initialize the primary processor.",
                 "SecondaryProcessorInitializationStarted": "This value shall indicate that the system has started to initialize the secondary processors.",
+                "SetupEntered": "This value shall indicate that the system has entered the setup utility.",
                 "SystemHardwareInitializationComplete": "This value shall indicate that the system has completed initializing all hardware."
+            },
+            "enumVersionAdded": {
+                "SetupEntered": "v1_15_0"
             },
             "type": "string"
         },
@@ -503,7 +523,7 @@
                 },
                 "BiosVersion": {
                     "description": "The version of the system BIOS or primary system firmware.",
-                    "longDescription": "This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property might contain a version string that represents the primary system firmware.",
+                    "longDescription": "This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property may contain a version string that represents the primary system firmware.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -564,6 +584,13 @@
                     "description": "The information about the graphical console (KVM-IP) service of this system.",
                     "longDescription": "This property shall contain the information about the graphical console (KVM-IP) service of this system.",
                     "versionAdded": "v1_13_0"
+                },
+                "GraphicsControllers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/GraphicsControllerCollection.json#/definitions/GraphicsControllerCollection",
+                    "description": "The link to a collection of graphics controllers that can output video for this system.",
+                    "longDescription": "This property shall contain a link to a resource collection of type GraphicsControllerCollection that contains graphics controllers that can output video for this system.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
                 },
                 "HostName": {
                     "description": "The DNS host name, without any domain information.",
@@ -751,6 +778,20 @@
                     ],
                     "versionAdded": "v1_13_0"
                 },
+                "PowerMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/PowerMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power mode setting of the computer system.",
+                    "longDescription": "This property shall contain the computer system power mode setting.",
+                    "readonly": false,
+                    "versionAdded": "v1_15_0"
+                },
                 "PowerOffDelaySeconds": {
                     "description": "The number of seconds to delay power off during a reset.  Zero seconds indicates no delay to power off.",
                     "longDescription": "This property shall contain the number of seconds to delay power off during a reset.  The value `0` shall indicate no delay to power off.",
@@ -889,6 +930,13 @@
                     "longDescription": "This object shall contain an array of objects with properties that describe the trusted modules for this resource.",
                     "type": "array",
                     "versionAdded": "v1_1_0"
+                },
+                "USBControllers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/USBControllerCollection.json#/definitions/USBControllerCollection",
+                    "description": "The link to a collection of USB controllers for this system.",
+                    "longDescription": "This property shall contain a link to a resource collection of type USBControllerCollection that contains USB controllers for this system.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
                 },
                 "UUID": {
                     "anyOf": [
@@ -1395,6 +1443,33 @@
             "properties": {},
             "type": "object"
         },
+        "PowerMode": {
+            "enum": [
+                "MaximumPerformance",
+                "BalancedPerformance",
+                "PowerSaving",
+                "Static",
+                "OSControlled",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "BalancedPerformance": "The system performs at the highest speeds while utilization is high and performs at reduced speeds when the utilization is low.",
+                "MaximumPerformance": "The system performs at the highest speeds possible.",
+                "OEM": "The system power mode is OEM-defined.",
+                "OSControlled": "The system power mode is controlled by the operating system.",
+                "PowerSaving": "The system performs at reduced speeds to save power.",
+                "Static": "The system power mode is static."
+            },
+            "enumLongDescriptions": {
+                "BalancedPerformance": "This value shall indicate the system performs at the highest speeds possible when the utilization is high and performs at reduced speeds when the utilization is low to save power.  This mode is a compromise between `MaximumPerformance` and `PowerSaving`.",
+                "MaximumPerformance": "This value shall indicate the system performs at the highest speeds possible.  This mode should be used when performance is the top priority.",
+                "OEM": "This value shall indicate the system performs at an OEM-defined power mode.",
+                "OSControlled": "This value shall indicate the system performs at a operating system controlled power mode.",
+                "PowerSaving": "This value shall indicate the system performs at reduced speeds to save power.  This mode should be used when power saving is the top priority.",
+                "Static": "This value shall indicate the system performs at a static base speed."
+            },
+            "type": "string"
+        },
         "PowerRestorePolicyTypes": {
             "description": "The enumerations of PowerRestorePolicyTypes specify the choice of power state for the system when power is applied.",
             "enum": [
@@ -1495,6 +1570,13 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "ThreadingEnabled": {
+                    "description": "An indication of whether threading is enabled on all processors in this system.",
+                    "longDescription": "The value of this property shall indicate that all Processor resources in this system where the ProcessorType property contains `CPU` have multiple threading support enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_15_0"
                 }
             },
             "type": "object"
@@ -1686,6 +1768,21 @@
             },
             "type": "object",
             "versionAdded": "v1_5_0"
+        },
+        "StopBootOnFault": {
+            "enum": [
+                "Never",
+                "AnyFault"
+            ],
+            "enumDescriptions": {
+                "AnyFault": "The system should stop the boot on any fault.",
+                "Never": "The system performs any normal recovery actions during boot if a fault occurs."
+            },
+            "enumLongDescriptions": {
+                "AnyFault": "This value shall indicate the system will stop the boot if a fault occurs.  This includes, but is not limited to, faults that affect performance, fault tolerance, or capacity.",
+                "Never": "This value shall indicate the system will continue to attempt to boot if a fault occurs."
+            },
+            "type": "string"
         },
         "SystemType": {
             "enum": [
@@ -1970,6 +2067,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#ComputerSystem.v1_14_0.ComputerSystem"
+    "release": "2021.1",
+    "title": "#ComputerSystem.v1_15_0.ComputerSystem"
 }

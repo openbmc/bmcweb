@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_8_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -96,6 +96,17 @@
                 "@odata.type": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
+                "AccountExpiration": {
+                    "description": "Indicates the date and time when this account expires.  If `null`, the account never expires.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when this account expires.  The service shall disable or delete an account that has expired.  This property shall not apply to accounts created by the Redfish Host Interface Specification-defined credential bootstrapping.  If the value is `null`, or the property is not present, the account never expires.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
                 "AccountTypes": {
                     "description": "The account types.",
                     "items": {
@@ -108,7 +119,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service might add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property.",
+                    "longDescription": "This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service may add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -142,6 +153,13 @@
                     "longDescription": "This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.",
                     "readonly": false,
                     "type": "boolean"
+                },
+                "HostBootstrapAccount": {
+                    "description": "An indication of whether this account is a bootstrap account for the host interface.",
+                    "longDescription": "This property shall indicate whether this account is a bootstrap account created by the Redfish Host Interface Specification-defined credential bootstrapping.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_8_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -191,7 +209,7 @@
                 },
                 "PasswordChangeRequired": {
                     "description": "An indication of whether the service requires that the password for this account be changed before further access to the account is allowed.",
-                    "longDescription": "This property shall indicate whether the service requires that the password for this account be changed before further access to the account is allowed.  The implementation might deny access to the service if the password has not been changed.  A manager account created with an initial PasswordChangeRequired value of `true` might force a password change before first access of the account.  When the Password property for this account is updated, the service shall set this property to `false`.",
+                    "longDescription": "This property shall indicate whether the service requires that the password for this account be changed before further access to the account is allowed.  The implementation may deny access to the service if the password has not been changed.  A manager account created with an initial PasswordChangeRequired value of `true` may force a password change before first access of the account.  When the Password property for this account is updated, the service shall set this property to `false`.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -202,7 +220,7 @@
                 "PasswordExpiration": {
                     "description": "Indicates the date and time when this account password expires.  If `null`, the account password never expires.",
                     "format": "date-time",
-                    "longDescription": "This property shall contain the date and time when this account password expires.  If the value is `null`, the account password never expires.",
+                    "longDescription": "This property shall contain the date and time when this account password expires.  If the value is `null`, the account password never expires.  If provided during account creation or password modification, this value shall override the value of the PasswordExpirationDays property in the AccountService resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -231,7 +249,7 @@
                 },
                 "StrictAccountTypes": {
                     "description": "Indicates if the service needs to use the account types exactly as specified when the account is created or updated.",
-                    "longDescription": "This property shall indicate if the service needs to use the value of AccountTypes and OEMAccountTypes values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service might add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service might cause account types to be added to or removed from the AccountTypes and OEMAccountTypes properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed.",
+                    "longDescription": "This property shall indicate if the service needs to use the value of AccountTypes and OEMAccountTypes values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service may add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service can cause account types to be added to or removed from the AccountTypes and OEMAccountTypes properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -423,6 +441,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#ManagerAccount.v1_7_0.ManagerAccount"
+    "release": "2021.1",
+    "title": "#ManagerAccount.v1_8_0.ManagerAccount"
 }

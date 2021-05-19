@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_10_1.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -533,7 +533,7 @@
                 },
                 "Manufacturer": {
                     "description": "The manufacturer of this storage controller.",
-                    "longDescription": "This property shall contain the name of the organization responsible for producing the storage controller.  This organization might be the entity from which the storage controller is purchased, but this is not necessarily true.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the storage controller.  This organization may be the entity from which the storage controller is purchased, but this is not necessarily true.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -794,5 +794,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#Storage.v1_10_0.Storage"
+    "title": "#Storage.v1_10_1.Storage"
 }

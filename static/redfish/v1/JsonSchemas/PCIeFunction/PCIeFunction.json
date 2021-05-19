@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_2_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_3_0.json",
     "$ref": "#/definitions/PCIeFunction",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -273,6 +273,13 @@
                         "null"
                     ]
                 },
+                "Enabled": {
+                    "description": "An indication of whether this PCIe device function is enabled.",
+                    "longDescription": "The value of this property shall indicate if this PCIe device function is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_3_0"
+                },
                 "FunctionId": {
                     "description": "The PCIe Function Number.",
                     "longDescription": "This property shall contain the PCIe Function Number within a given PCIe device.",
@@ -362,6 +369,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.1",
-    "title": "#PCIeFunction.v1_2_3.PCIeFunction"
+    "release": "2021.1",
+    "title": "#PCIeFunction.v1_3_0.PCIeFunction"
 }

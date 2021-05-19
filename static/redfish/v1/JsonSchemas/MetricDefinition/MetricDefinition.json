@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_2_0.json",
     "$ref": "#/definitions/MetricDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -451,17 +451,22 @@
                 "Discrete",
                 "Gauge",
                 "Counter",
-                "Countdown"
+                "Countdown",
+                "String"
             ],
             "enumDescriptions": {
                 "Countdown": "The metric is a countdown metric.  The metric reading is a non-negative integer that decreases monotonically.  When a counter reaches its minimum, the value resets to preset value and resumes counting down.",
                 "Counter": "The metric is a counter metric.  The metric reading is a non-negative integer that increases monotonically.  When a counter reaches its maximum, the value resets to 0 and resumes counting.",
                 "Discrete": "The metric is a discrete metric.  The metric value is discrete.  The possible values are listed in the DiscreteValues property.",
-                "Gauge": "The metric is a gauge metric.  The metric value is a real number.  When the metric value reaches the gauges extrema, it stays at that value, until the reading falls within the extrema.",
-                "Numeric": "The metric is a numeric metric.  The metric value is any real number."
+                "Gauge": "The metric is a gauge metric.  The metric value is a real number.  When the metric value reaches the gauge's extrema, it stays at that value, until the reading falls within the extrema.",
+                "Numeric": "The metric is a numeric metric.  The metric value is any real number.",
+                "String": "The metric is a non-discrete string metric.  The metric reading is a non-discrete string that displays some non-discrete, non-numeric data."
             },
             "enumLongDescriptions": {
                 "Discrete": "The metric values shall indicate discrete states."
+            },
+            "enumVersionAdded": {
+                "String": "v1_2_0"
             },
             "longDescription": "This property shall contain the type of metric.",
             "type": "string"
@@ -532,6 +537,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#MetricDefinition.v1_1_1.MetricDefinition"
+    "release": "2021.1",
+    "title": "#MetricDefinition.v1_2_0.MetricDefinition"
 }

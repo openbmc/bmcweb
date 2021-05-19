@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TelemetryService v1.3.0                                             -->
+<!--# Redfish Schema:  TelemetryService v1.3.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -125,7 +125,7 @@
 
       <Action Name="ResetMetricReportDefinitionsToDefaults" IsBound="true">
         <Annotation Term="OData.Description" String="The action to reset the metric report definitions to factory defaults."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset all entries found in the metric report definition collection to factory defaults.  This action might delete members of the metric report definition collection."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset all entries found in the metric report definition collection to factory defaults.  This action may delete members of the metric report definition collection."/>
         <Parameter Name="TelemetryService" Type="TelemetryService.v1_0_0.Actions"/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
@@ -139,7 +139,7 @@
 
       <Action Name="ResetTriggersToDefaults" IsBound="true">
         <Annotation Term="OData.Description" String="The action to reset the triggers to factory defaults."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset all entries found in the triggers collection to factory defaults.  This action might delete members of the triggers collection."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset all entries found in the triggers collection to factory defaults.  This action may delete members of the triggers collection."/>
         <Parameter Name="TelemetryService" Type="TelemetryService.v1_0_0.Actions"/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
@@ -252,7 +252,7 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_0_0.TelemetryService"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description of the LogService property.  It was also created to update descriptions that this schema defines."/>
@@ -269,6 +269,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_0_3.TelemetryService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_0_4.TelemetryService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_1_0">
@@ -295,7 +301,7 @@
         <Property Name="Timestamp" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time when the metric is obtained.  A management application can establish a time series of metric data by retrieving the instances of metric value and sorting them according to their timestamp."/>
-          <Annotation Term="OData.LongDescription" String="The value shall time when the metric value was obtained.  Note that this value might be different from the time when this instance is created."/>
+          <Annotation Term="OData.LongDescription" String="The value shall time when the metric value was obtained.  Note that this value may be different from the time when this instance is created."/>
         </Property>
         <Property Name="MetricProperty" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -317,7 +323,7 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_0.TelemetryService"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description of the LogService property.  It was also created to update descriptions that this schema defines."/>
@@ -334,6 +340,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_3.TelemetryService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_4.TelemetryService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_2_0">
@@ -361,12 +373,24 @@
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_2_1.TelemetryService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_2_2.TelemetryService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
       <Annotation Term="OData.Description" String="This version was created to add the ClearMetricReports, ResetMetricReportDefinitionsToDefaults, and ResetTriggersToDefaults actions."/>
 
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_2_2.TelemetryService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_3_0.TelemetryService"/>
     </Schema>
 
   </edmx:DataServices>

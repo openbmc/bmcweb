@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry v1.3.5                                            -->
+<!--# Redfish Schema:  AttributeRegistry v1.3.6                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -97,7 +97,7 @@
         <Property Name="SystemId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The ID of the systems to which this attribute registry applies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the system ID that identifies the systems to which this attribute registry applies.  This might be identified by one or more properties in the computer system resource, such as Model, SubModel, or SKU."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the system ID that identifies the systems to which this attribute registry applies.  This can be identified by one or more properties in the computer system resource, such as Model, SubModel, or SKU."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]+$"/>
         </Property>
       </ComplexType>
@@ -156,7 +156,7 @@
         <Property Name="CurrentValue" Type="Edm.PrimitiveType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The placeholder of the current value for the attribute."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the placeholder of the current value for the attribute, to aid in evaluating dependencies.  The evaluation results of the Dependencies array might affect the current attribute value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the placeholder of the current value for the attribute, to aid in evaluating dependencies.  The evaluation results of the Dependencies array may affect the current attribute value."/>
         </Property>
         <Property Name="DefaultValue" Type="Edm.PrimitiveType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -177,7 +177,7 @@
         <Property Name="ReadOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces.  The evaluation results of the Dependencies array might affect the read-only state of an attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces.  The evaluation results of the Dependencies array may affect the read-only state of an attribute."/>
         </Property>
         <Property Name="WriteOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -187,12 +187,12 @@
         <Property Name="GrayOut" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified.  The evaluation results of the Dependencies array might affect the grayed-out state of an attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified.  The evaluation results of the Dependencies array may affect the grayed-out state of an attribute."/>
         </Property>
         <Property Name="Hidden" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this attribute is hidden in user interfaces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is hidden in user interfaces.  The evaluation results of the Dependencies array might affect the hidden state of an attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is hidden in user interfaces.  The evaluation results of the Dependencies array may affect the hidden state of an attribute."/>
         </Property>
         <Property Name="Immutable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -570,6 +570,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_9.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_10.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -660,6 +666,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_8.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_9.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -734,6 +746,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_6.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_7.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -751,7 +769,7 @@
         <Property Name="Hidden" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this menu is hidden in user interfaces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this menu is hidden in user interfaces.  The evaluation results of the Dependencies array might affect the hidden state of a menu."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this menu is hidden in user interfaces.  The evaluation results of the Dependencies array may affect the hidden state of a menu."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -788,6 +806,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_4.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_5.AttributeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

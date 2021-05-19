@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricDefinition v1.1.1                                             -->
+<!--# Redfish Schema:  MetricDefinition v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -75,13 +75,24 @@
           <Annotation Term="OData.LongDescription" String="The metric values shall indicate discrete states."/>
         </Member>
         <Member Name="Gauge">
-          <Annotation Term="OData.Description" String="The metric is a gauge metric.  The metric value is a real number.  When the metric value reaches the gauges extrema, it stays at that value, until the reading falls within the extrema."/>
+          <Annotation Term="OData.Description" String="The metric is a gauge metric.  The metric value is a real number.  When the metric value reaches the gauge's extrema, it stays at that value, until the reading falls within the extrema."/>
         </Member>
         <Member Name="Counter">
           <Annotation Term="OData.Description" String="The metric is a counter metric.  The metric reading is a non-negative integer that increases monotonically.  When a counter reaches its maximum, the value resets to 0 and resumes counting."/>
         </Member>
         <Member Name="Countdown">
           <Annotation Term="OData.Description" String="The metric is a countdown metric.  The metric reading is a non-negative integer that decreases monotonically.  When a counter reaches its minimum, the value resets to preset value and resumes counting down."/>
+        </Member>
+        <Member Name="String">
+          <Annotation Term="OData.Description" String="The metric is a non-discrete string metric.  The metric reading is a non-discrete string that displays some non-discrete, non-numeric data."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -351,11 +362,17 @@
       <Annotation Term="OData.Description" String="This version was created to update the descriptions for CalculationParameters."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_4.MetricDefinition"/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_5.MetricDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_6.MetricDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_0">
@@ -371,11 +388,25 @@
         </Property>
       </EntityType>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_0.MetricDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_1.MetricDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `String` to the MetricType enumeration."/>
+
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_2.MetricDefinition"/>
     </Schema>
 
   </edmx:DataServices>

@@ -12,7 +12,7 @@ import glob
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2020.4"
+VERSION = "DSP8010_2021.1"
 
 # To use a new schema, add to list and rerun tool
 include_list = [

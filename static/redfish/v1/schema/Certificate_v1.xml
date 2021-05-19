@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.2.2                                                  -->
+<!--# Redfish Schema:  Certificate v1.3.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -22,6 +22,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -103,6 +104,10 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/UpdateService/RemoteServerCertificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -417,7 +422,7 @@
         <Property Name="UefiSignatureOwner" Type="Edm.Guid">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UEFI signature owner for this certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for secure boot database certificates."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for certificates managed by UEFI."/>
         </Property>
       </EntityType>
     </Schema>
@@ -432,6 +437,42 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_2_1.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of UefiSignatureOwner for all certificates managed by UEFI."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_2.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_3.Certificate">
+        <Property Name="SerialNumber" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the ASCII representation of the serial number of the certificate, as defined by the RFC5280 'serialNumber' field."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}:){0,}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="Fingerprint" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The fingerprint of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the ASCII representation of the fingerprint of the certificate.  The hash algorithm used to generate this fingerprint shall be specified by the FingerprintHashAlgorithm property."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}:){0,}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="FingerprintHashAlgorithm" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hash algorithm for the fingerprint of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the hash algorithm used for generating the Fingerprint property.  The value shall be one of the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+        </Property>
+        <Property Name="SignatureAlgorithm" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The algorithm used for creating the signature of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the algorithm used for generating the signature of the certificate, as defined by the RFC5280 'signatureAlgorithm' field.  The value shall be a string representing the ASN.1 OID of the signature algorithm as defined in, but not limited to, RFC3279, RFC4055, or RFC4491."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_9_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -51,7 +51,7 @@
                 "OnReset": "Apply on a reset."
             },
             "enumLongDescriptions": {
-                "AtMaintenanceWindowStart": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service might perform resets during this maintenance window.",
+                "AtMaintenanceWindowStart": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service may perform resets during this maintenance window.",
                 "Immediate": "This value shall indicate the HttpPushUri-provided software is applied immediately.",
                 "InMaintenanceWindowOnReset": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window.",
                 "OnReset": "This value shall indicate the HttpPushUri-provided software is applied when the system or service is reset."
@@ -464,6 +464,13 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "RemoteServerCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of server certificates for the server referenced by the ImageURI property in SimpleUpdate.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
                 "ServiceEnabled": {
                     "description": "An indication of whether this service is enabled.",
                     "longDescription": "This property shall indicate whether this service is enabled.",
@@ -483,6 +490,16 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "VerifyRemoteServerCertificate": {
+                    "description": "An indication of whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
+                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
                 }
             },
             "required": [
@@ -495,6 +512,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#UpdateService.v1_8_3.UpdateService"
+    "release": "2021.1",
+    "title": "#UpdateService.v1_9_0.UpdateService"
 }

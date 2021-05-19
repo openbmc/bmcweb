@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_2_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_3_0.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -106,6 +106,21 @@
                     ],
                     "readonly": true
                 },
+                "Fingerprint": {
+                    "description": "The fingerprint of the certificate.",
+                    "longDescription": "The value of this property shall be a string containing the ASCII representation of the fingerprint of the certificate.  The hash algorithm used to generate this fingerprint shall be specified by the FingerprintHashAlgorithm property.",
+                    "pattern": "^([0-9A-Fa-f]{2}:){0,}([0-9A-Fa-f]{2})$",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "FingerprintHashAlgorithm": {
+                    "description": "The hash algorithm for the fingerprint of the certificate.",
+                    "longDescription": "The value of this property shall be a string containing the hash algorithm used for generating the Fingerprint property.  The value shall be one of the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -140,6 +155,21 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "SerialNumber": {
+                    "description": "The serial number of the certificate.",
+                    "longDescription": "The value of this property shall be a string containing the ASCII representation of the serial number of the certificate, as defined by the RFC5280 'serialNumber' field.",
+                    "pattern": "^([0-9A-Fa-f]{2}:){0,}([0-9A-Fa-f]{2})$",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "SignatureAlgorithm": {
+                    "description": "The algorithm used for creating the signature of the certificate.",
+                    "longDescription": "The value of this property shall be a string containing the algorithm used for generating the signature of the certificate, as defined by the RFC5280 'signatureAlgorithm' field.  The value shall be a string representing the ASN.1 OID of the signature algorithm as defined in, but not limited to, RFC3279, RFC4055, or RFC4491.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
                 "Subject": {
                     "$ref": "#/definitions/Identifier",
                     "description": "The subject of the certificate.",
@@ -147,7 +177,7 @@
                 },
                 "UefiSignatureOwner": {
                     "description": "The UEFI signature owner for this certificate.",
-                    "longDescription": "The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for secure boot database certificates.",
+                    "longDescription": "The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for certificates managed by UEFI.",
                     "pattern": "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})",
                     "readonly": true,
                     "type": [
@@ -452,6 +482,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#Certificate.v1_2_2.Certificate"
+    "release": "2021.1",
+    "title": "#Certificate.v1_3_0.Certificate"
 }

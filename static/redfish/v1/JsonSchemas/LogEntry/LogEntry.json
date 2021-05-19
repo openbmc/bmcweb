@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_9_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -337,6 +337,13 @@
                     ],
                     "versionAdded": "v1_3_0"
                 },
+                "Resolution": {
+                    "description": "Used to provide suggestions on how to resolve the situation that caused the log entry.",
+                    "longDescription": "This property shall contain the resolution of the log entry.  Services can replace the resolution defined in the message registry with a more specific resolution in a log entry.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
+                },
                 "Resolved": {
                     "description": "Indicates if the cause of the log entry has been resolved or repaired.",
                     "longDescription": "This property shall contain an indication if the cause of the log entry has been resolved or repaired.  The value `true` shall indicate if the cause of the log entry has been resolved or repaired.  This property shall contain the value `false` if the log entry is still active.  The value `false` shall be the initial state.",
@@ -368,6 +375,16 @@
                     "description": "The sensor type to which the log entry pertains if the entry type is `SEL`.",
                     "longDescription": "This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3, Sensor Type Codes, in the IPMI Specification v2.0 revision 1.1 describes these enumerations.",
                     "readonly": true
+                },
+                "ServiceProviderNotified": {
+                    "description": "Indicates if the log entry has been sent to the service provider.",
+                    "longDescription": "This property shall contain an indication if the log entry has been sent to the service provider.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
                 },
                 "Severity": {
                     "anyOf": [
@@ -659,6 +676,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#LogEntry.v1_8_0.LogEntry"
+    "release": "2021.1",
+    "title": "#LogEntry.v1_9_0.LogEntry"
 }

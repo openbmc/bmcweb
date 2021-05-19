@@ -1,7 +1,7 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_11_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ContactInfo": {
             "additionalProperties": false,
@@ -66,6 +66,9 @@
                 "NSID",
                 "NGUID"
             ],
+            "enumDeprecated": {
+                "NSID": "This value has been deprecated due to its non-uniqueness and `NGUID` should be used."
+            },
             "enumDescriptions": {
                 "EUI": "The IEEE-defined 64-bit Extended Unique Identifier (EUI).",
                 "FC_WWN": "The Fibre Channel (FC) World Wide Name (WWN).",
@@ -77,19 +80,22 @@
                 "iQN": "The iSCSI Qualified Name (iQN)."
             },
             "enumLongDescriptions": {
-                "EUI": "This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.",
-                "FC_WWN": "This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.",
-                "NAA": "This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.",
-                "NGUID": "This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.",
+                "EUI": "This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
+                "FC_WWN": "This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
+                "NAA": "This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the pattern '^(([0-9A-Fa-f]{2}){8}){1,2}$', where the most significant octet is first.",
+                "NGUID": "This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}){16}$', where the most significant octet is first.",
                 "NQN": "This durable name shall be in the NVMe Qualified Name (NQN) format, as defined in the NVN Express over Fabric Specification.",
                 "NSID": "This durable name shall be in the NVM Namespace Identifier (NSID) format, as defined in the NVN Express Specification.",
-                "UUID": "This durable name shall contain the hexadecimal representation of the UUID, as defined in the International Telecom Union's OSI networking and system aspects - Naming, Addressing and Registration Specification.",
+                "UUID": "This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The DurableName property shall follow the pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'.",
                 "iQN": "This durable name shall be in the iSCSI Qualified Name (iQN) format, as defined in RFC3720 and RFC3721."
             },
             "enumVersionAdded": {
                 "NGUID": "v1_10_0",
                 "NQN": "v1_6_0",
                 "NSID": "v1_6_0"
+            },
+            "enumVersionDeprecated": {
+                "NSID": "v1_12_0"
             },
             "type": "string"
         },
@@ -239,8 +245,8 @@
                 },
                 "PartLocation": {
                     "$ref": "#/definitions/PartLocation",
-                    "description": "The part location within the placement.",
-                    "longDescription": "The location within a resource.  This representation shall indicate the location within the Placement.",
+                    "description": "The part location for a resource within an enclosure.",
+                    "longDescription": "This property shall contain the part location for a resource within an enclosure.  This representation shall indicate the location of a part within a location specified by the Placement property.",
                     "versionAdded": "v1_5_0"
                 },
                 "Placement": {
@@ -259,30 +265,36 @@
             "type": "object"
         },
         "LocationType": {
-            "description": "The location types for PartLocation.",
+            "description": "The types of locations for a part within an enclosure.",
             "enum": [
                 "Slot",
                 "Bay",
                 "Connector",
-                "Socket"
+                "Socket",
+                "Backplane"
             ],
             "enumDescriptions": {
-                "Bay": "The bay as the type of location.",
-                "Connector": "The connector as the type of location.",
-                "Slot": "The slot as the type of location.",
-                "Socket": "The socket as the type of location."
+                "Backplane": "A backplane.",
+                "Bay": "A bay.",
+                "Connector": "A connector or port.",
+                "Slot": "A slot.",
+                "Socket": "A socket."
             },
             "enumLongDescriptions": {
-                "Bay": "Bay shall indicate the type of PartLocation is of the Bay type.",
-                "Connector": "Connector shall indicate the type of PartLocation is of the Connector type.",
-                "Slot": "Slot shall indicate the type of PartLocation is of the Slot type.",
-                "Socket": "Socket shall indicate the type of PartLocation of the Socket type."
+                "Backplane": "This value shall indicate the part is a backplane in an enclosure.",
+                "Bay": "This value shall indicate the part is located in a bay.",
+                "Connector": "This value shall indicate the part is located in a connector or port.",
+                "Slot": "This value shall indicate the part is located in a slot.",
+                "Socket": "This value shall indicate the part is located in a socket."
             },
-            "longDescription": "Enumeration literals shall name the type of location in use.",
+            "enumVersionAdded": {
+                "Backplane": "v1_12_0"
+            },
+            "longDescription": "This enumeration shall list the types of locations for a part within an enclosure.",
             "type": "string"
         },
         "Orientation": {
-            "description": "The orientation for the ordering of the part location ordinal value.",
+            "description": "The orientations for the ordering of the part location ordinal value.",
             "enum": [
                 "FrontToBack",
                 "BackToFront",
@@ -300,20 +312,20 @@
                 "TopToBottom": "The ordering for the LocationOrdinalValue is top to bottom."
             },
             "enumLongDescriptions": {
-                "BackToFront": "This value shall be used to indicate the ordering for LocationOrdinalValue is back to front.",
-                "BottomToTop": "This value shall be used to indicate the ordering for LocationOrdinalValue is bottom to top.",
-                "FrontToBack": "This value shall be used to indicate the ordering for LocationOrdinalValue is front to back.",
-                "LeftToRight": "This value shall be used to indicate the ordering for LocationOrdinalValue is left to right.",
-                "RightToLeft": "This value shall be used to indicate the ordering for LocationOrdinalValue is right to left.",
-                "TopToBottom": "This value shall be used to indicate the ordering for LocationOrdinalValue is top to bottom."
+                "BackToFront": "This value shall indicate the ordering for LocationOrdinalValue is back to front.",
+                "BottomToTop": "This value shall indicate the ordering for LocationOrdinalValue is bottom to top.",
+                "FrontToBack": "This value shall indicate the ordering for LocationOrdinalValue is front to back.",
+                "LeftToRight": "This value shall indicate the ordering for LocationOrdinalValue is left to right.",
+                "RightToLeft": "This value shall indicate the ordering for LocationOrdinalValue is right to left.",
+                "TopToBottom": "This value shall indicate the ordering for LocationOrdinalValue is top to bottom."
             },
-            "longDescription": "These enumeration literals shall name the orientation for the location type ordering in determining the LocationOrdinalValue.",
+            "longDescription": "This enumeration shall list the orientations for the ordering of the LocationOrdinalValue property.",
             "type": "string"
         },
         "PartLocation": {
             "additionalProperties": false,
-            "description": "The part location within the placement.",
-            "longDescription": "This type shall describe a location within a resource.  This representation shall indicate the location within the Placement.",
+            "description": "The part location for a resource within an enclosure.",
+            "longDescription": "This type shall describe a location for a resource within an enclosure.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -330,8 +342,8 @@
             },
             "properties": {
                 "LocationOrdinalValue": {
-                    "description": "The number that represents the location of the part.  If LocationType is `slot` and this unit is in slot 2, the LocationOrdinalValue is 2.",
-                    "longDescription": "This property shall contain the number that represents the location of the part based on the LocationType.  LocationOrdinalValue shall be measured based on the Orientation value starting with 0.",
+                    "description": "The number that represents the location of the part.  For example, if LocationType is `Slot` and this unit is in slot 2, the LocationOrdinalValue is `2`.",
+                    "longDescription": "This property shall contain the number that represents the location of the part based on the LocationType.  LocationOrdinalValue shall be measured based on the Orientation value starting with `0`.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -348,8 +360,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The type of location of the part, such as slot, bay, socket and slot.",
-                    "longDescription": "This property shall contain the type of location of the part, such as slot, bay, socket and slot.",
+                    "description": "The type of location of the part, such as slot, bay, socket, or slot.",
+                    "longDescription": "This property shall contain the type of location of the part, such as slot, bay, socket, or slot.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
@@ -844,7 +856,7 @@
             "type": "string"
         },
         "Reference": {
-            "description": "The reference area for the location of the part.",
+            "description": "The reference areas for the location of the part within an enclosure.",
             "enum": [
                 "Top",
                 "Bottom",
@@ -864,15 +876,15 @@
                 "Top": "The part is in the top of the unit."
             },
             "enumLongDescriptions": {
-                "Bottom": "This value shall be used to indicate the part is in the bottom of the unit.",
-                "Front": "This value shall be used to indicate the part is in the front of the unit.",
-                "Left": "This value shall be used to indicate the part is on the left side of of the unit.",
-                "Middle": "This value shall be used to indicate the part is in the middle of the unit.",
-                "Rear": "This value shall be used to indicate the part is in the rear of the unit.",
-                "Right": "This value shall be used to indicate the part is on the right side of the unit.",
-                "Top": "This value shall be used to indicate the part is in the top of the unit."
+                "Bottom": "This value shall indicate the part is in the bottom of the unit.",
+                "Front": "This value shall indicate the part is in the front of the unit.",
+                "Left": "This value shall indicate the part is on the left side of of the unit.",
+                "Middle": "This value shall indicate the part is in the middle of the unit.",
+                "Rear": "This value shall indicate the part is in the rear of the unit.",
+                "Right": "This value shall indicate the part is on the right side of the unit.",
+                "Top": "This value shall indicate the part is in the top of the unit."
             },
-            "longDescription": "The enumerated literals shall name the reference for the part location.",
+            "longDescription": "This enumeration shall list the reference areas for the location of the part within an enclosure.",
             "type": "string"
         },
         "ReferenceableMember": {
@@ -1037,6 +1049,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#Resource.v1_11_0"
+    "release": "2021.1",
+    "title": "#Resource.v1_12_0"
 }

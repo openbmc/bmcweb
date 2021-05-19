@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Role.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Role.v1_3_1.json",
     "$ref": "#/definitions/Role",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -102,7 +102,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Privileges.json#/definitions/PrivilegeType"
                     },
-                    "longDescription": "This property shall contain the Redfish privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations might prevent writing to this property.",
+                    "longDescription": "This property shall contain the Redfish privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations may prevent writing to this property.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -141,7 +141,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain the OEM privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations might prevent writing to this property.",
+                    "longDescription": "This property shall contain the OEM privileges for this role.  For predefined roles, this property shall be read-only.  For custom roles, some implementations may prevent writing to this property.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -174,5 +174,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#Role.v1_3_0.Role"
+    "title": "#Role.v1_3_1.Role"
 }

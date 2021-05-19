@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.11.0                                                    -->
+<!--# Redfish Schema:  Resource v1.12.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -114,6 +114,14 @@
         <Property Name="Conditions" Type="Collection(Resource.Condition)">
           <Annotation Term="OData.Description" String="Conditions in this resource that require attention."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the Health or HealthRollup of this resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -288,7 +296,7 @@
         </Member>
         <Member Name="PushPowerButton">
           <Annotation Term="OData.Description" String="Simulate the pressing of the physical power button on this unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will behave as if the physical power button is pressed.  The behavior of pressing the physical power button might be dependent on the state of the unit and the behavior might be configurable."/>  
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will behave as if the physical power button is pressed.  The behavior of pressing the physical power button may be dependent on the state of the unit and the behavior may be configurable."/>
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Power cycle the unit.  Behaves like a full power removal, followed by a power restore to the resource."/>
@@ -445,10 +453,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_0">
@@ -506,7 +519,7 @@
       <EnumType Name="DurableNameFormat">
         <Member Name="NAA">
           <Annotation Term="OData.Description" String="The Name Address Authority (NAA) format."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the pattern '^(([0-9A-Fa-f]{2}){8}){1,2}$', where the most significant octet is first."/>
         </Member>
         <Member Name="iQN">
           <Annotation Term="OData.Description" String="The iSCSI Qualified Name (iQN)."/>
@@ -514,15 +527,15 @@
         </Member>
         <Member Name="FC_WWN">
           <Annotation Term="OData.Description" String="The Fibre Channel (FC) World Wide Name (WWN)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
         </Member>
         <Member Name="UUID">
           <Annotation Term="OData.Description" String="The Universally Unique Identifier (UUID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the UUID, as defined in the International Telecom Union's OSI networking and system aspects - Naming, Addressing and Registration Specification."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The DurableName property shall follow the pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'."/>
         </Member>
         <Member Name="EUI">
           <Annotation Term="OData.Description" String="The IEEE-defined 64-bit Extended Unique Identifier (EUI)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
         </Member>
         <Member Name="NQN">
           <Annotation Term="OData.Description" String="The NVMe Qualified Name (NQN)."/>
@@ -545,12 +558,17 @@
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_6_0"/>
               </Record>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_12_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated due to its non-uniqueness and `NGUID` should be used."/>
+              </Record>
             </Collection>
           </Annotation>
         </Member>
         <Member Name="NGUID">
           <Annotation Term="OData.Description" String="The Namespace Globally Unique Identifier (NGUID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}){16}$', where the most significant octet is first."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -617,10 +635,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
@@ -678,10 +701,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
@@ -967,10 +995,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
@@ -1018,10 +1051,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
@@ -1030,91 +1068,103 @@
       <Annotation Term="OData.Description" String="This version was created to add PartLocation to Location."/>
 
       <EnumType Name="LocationType">
-        <Annotation Term="OData.Description" String="The location types for PartLocation."/>
-        <Annotation Term="OData.LongDescription" String="Enumeration literals shall name the type of location in use."/>
+        <Annotation Term="OData.Description" String="The types of locations for a part within an enclosure."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the types of locations for a part within an enclosure."/>
         <Member Name="Slot">
-          <Annotation Term="OData.Description" String="The slot as the type of location."/>
-          <Annotation Term="OData.LongDescription" String="Slot shall indicate the type of PartLocation is of the Slot type."/>
+          <Annotation Term="OData.Description" String="A slot."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is located in a slot."/>
         </Member>
         <Member Name="Bay">
-          <Annotation Term="OData.Description" String="The bay as the type of location."/>
-          <Annotation Term="OData.LongDescription" String="Bay shall indicate the type of PartLocation is of the Bay type."/>
+          <Annotation Term="OData.Description" String="A bay."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is located in a bay."/>
         </Member>
         <Member Name="Connector">
-          <Annotation Term="OData.Description" String="The connector as the type of location."/>
-          <Annotation Term="OData.LongDescription" String="Connector shall indicate the type of PartLocation is of the Connector type."/>
+          <Annotation Term="OData.Description" String="A connector or port."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is located in a connector or port."/>
         </Member>
         <Member Name="Socket">
-          <Annotation Term="OData.Description" String="The socket as the type of location."/>
-          <Annotation Term="OData.LongDescription" String="Socket shall indicate the type of PartLocation of the Socket type."/>
+          <Annotation Term="OData.Description" String="A socket."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is located in a socket."/>
+        </Member>
+        <Member Name="Backplane">
+          <Annotation Term="OData.Description" String="A backplane."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is a backplane in an enclosure."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_12_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
       <EnumType Name="Reference">
-        <Annotation Term="OData.Description" String="The reference area for the location of the part."/>
-        <Annotation Term="OData.LongDescription" String="The enumerated literals shall name the reference for the part location."/>
+        <Annotation Term="OData.Description" String="The reference areas for the location of the part within an enclosure."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the reference areas for the location of the part within an enclosure."/>
         <Member Name="Top">
           <Annotation Term="OData.Description" String="The part is in the top of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is in the top of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is in the top of the unit."/>
         </Member>
         <Member Name="Bottom">
           <Annotation Term="OData.Description" String="The part is in the bottom of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is in the bottom of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is in the bottom of the unit."/>
         </Member>
         <Member Name="Front">
           <Annotation Term="OData.Description" String="The part is in the front of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is in the front of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is in the front of the unit."/>
         </Member>
         <Member Name="Rear">
           <Annotation Term="OData.Description" String="The part is in the rear of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is in the rear of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is in the rear of the unit."/>
         </Member>
         <Member Name="Left">
           <Annotation Term="OData.Description" String="The part is on the left side of of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is on the left side of of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is on the left side of of the unit."/>
         </Member>
         <Member Name="Right">
           <Annotation Term="OData.Description" String="The part is on the right side of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is on the right side of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is on the right side of the unit."/>
         </Member>
         <Member Name="Middle">
           <Annotation Term="OData.Description" String="The part is in the middle of the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the part is in the middle of the unit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is in the middle of the unit."/>
         </Member>
       </EnumType>
 
       <EnumType Name="Orientation">
-        <Annotation Term="OData.Description" String="The orientation for the ordering of the part location ordinal value."/>
-        <Annotation Term="OData.LongDescription" String="These enumeration literals shall name the orientation for the location type ordering in determining the LocationOrdinalValue."/>
+        <Annotation Term="OData.Description" String="The orientations for the ordering of the part location ordinal value."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the orientations for the ordering of the LocationOrdinalValue property."/>
         <Member Name="FrontToBack">
           <Annotation Term="OData.Description" String="The ordering for LocationOrdinalValue is front to back."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the ordering for LocationOrdinalValue is front to back."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is front to back."/>
         </Member>
         <Member Name="BackToFront">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is back to front."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the ordering for LocationOrdinalValue is back to front."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is back to front."/>
         </Member>
         <Member Name="TopToBottom">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is top to bottom."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the ordering for LocationOrdinalValue is top to bottom."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is top to bottom."/>
         </Member>
         <Member Name="BottomToTop">
           <Annotation Term="OData.Description" String="The ordering for LocationOrdinalValue is bottom to top."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the ordering for LocationOrdinalValue is bottom to top."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is bottom to top."/>
         </Member>
         <Member Name="LeftToRight">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is left to right."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the ordering for LocationOrdinalValue is left to right."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is left to right."/>
         </Member>
         <Member Name="RightToLeft">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is right to left."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the ordering for LocationOrdinalValue is right to left."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is right to left."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="PartLocation">
-        <Annotation Term="OData.Description" String="The part location within the placement."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a location within a resource.  This representation shall indicate the location within the Placement."/>
+        <Annotation Term="OData.Description" String="The part location for a resource within an enclosure."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a location for a resource within an enclosure."/>
         <Property Name="ServiceLabel" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The label of the part location, such as a silk-screened name or a printed label."/>
@@ -1122,13 +1172,13 @@
         </Property>
         <Property Name="LocationType" Type="Resource.v1_5_0.LocationType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of location of the part, such as slot, bay, socket and slot."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of location of the part, such as slot, bay, socket and slot."/>
+          <Annotation Term="OData.Description" String="The type of location of the part, such as slot, bay, socket, or slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of location of the part, such as slot, bay, socket, or slot."/>
         </Property>
         <Property Name="LocationOrdinalValue" Type="Edm.Int64" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The number that represents the location of the part.  If LocationType is `slot` and this unit is in slot 2, the LocationOrdinalValue is 2."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number that represents the location of the part based on the LocationType.  LocationOrdinalValue shall be measured based on the Orientation value starting with 0."/>
+          <Annotation Term="OData.Description" String="The number that represents the location of the part.  For example, if LocationType is `Slot` and this unit is in slot 2, the LocationOrdinalValue is `2`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number that represents the location of the part based on the LocationType.  LocationOrdinalValue shall be measured based on the Orientation value starting with `0`."/>
         </Property>
         <Property Name="Reference" Type="Resource.v1_5_0.Reference">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1144,8 +1194,8 @@
 
       <ComplexType Name="Location" BaseType="Resource.v1_3_0.Location">
         <Property Name="PartLocation" Type="Resource.v1_5_0.PartLocation" Nullable="false">
-          <Annotation Term="OData.Description" String="The part location within the placement."/>
-          <Annotation Term="OData.LongDescription" String="The location within a resource.  This representation shall indicate the location within the Placement."/>
+          <Annotation Term="OData.Description" String="The part location for a resource within an enclosure."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the part location for a resource within an enclosure.  This representation shall indicate the location of a part within a location specified by the Placement property."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -1184,10 +1234,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
@@ -1246,10 +1301,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
@@ -1325,10 +1385,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
@@ -1361,10 +1426,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
@@ -1387,10 +1457,15 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add long descriptions to the ResetType enumeration values."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
@@ -1398,16 +1473,32 @@
       <Annotation Term="Redfish.Release" String="2020.3"/>
       <Annotation Term="OData.Description" String="This version was created to add the `NGUID` enumeration to Identifiers."/>
     </Schema>
-    
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
       <Annotation Term="OData.Description" String="This version was created to add the Conditions array property to Status."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `NSID` enumeration from Identifiers.  It was also created to add `Backplane` to LocationType within PartLocation."/>
     </Schema>
 
   </edmx:DataServices>

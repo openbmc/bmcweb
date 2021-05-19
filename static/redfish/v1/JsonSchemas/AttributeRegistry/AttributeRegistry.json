@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_5.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_6.json",
     "$ref": "#/definitions/AttributeRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -212,7 +212,7 @@
                 },
                 "CurrentValue": {
                     "description": "The placeholder of the current value for the attribute.",
-                    "longDescription": "This property shall contain the placeholder of the current value for the attribute, to aid in evaluating dependencies.  The evaluation results of the Dependencies array might affect the current attribute value.",
+                    "longDescription": "This property shall contain the placeholder of the current value for the attribute, to aid in evaluating dependencies.  The evaluation results of the Dependencies array may affect the current attribute value.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -252,7 +252,7 @@
                 },
                 "GrayOut": {
                     "description": "An indication of whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified.",
-                    "longDescription": "This property shall indicate whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified.  The evaluation results of the Dependencies array might affect the grayed-out state of an attribute.",
+                    "longDescription": "This property shall indicate whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified.  The evaluation results of the Dependencies array may affect the grayed-out state of an attribute.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -270,7 +270,7 @@
                 },
                 "Hidden": {
                     "description": "An indication of whether this attribute is hidden in user interfaces.",
-                    "longDescription": "This property shall indicate whether this attribute is hidden in user interfaces.  The evaluation results of the Dependencies array might affect the hidden state of an attribute.",
+                    "longDescription": "This property shall indicate whether this attribute is hidden in user interfaces.  The evaluation results of the Dependencies array may affect the hidden state of an attribute.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -340,7 +340,7 @@
                 },
                 "ReadOnly": {
                     "description": "An indication of whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces.",
-                    "longDescription": "This property shall indicate whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces.  The evaluation results of the Dependencies array might affect the read-only state of an attribute.",
+                    "longDescription": "This property shall indicate whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces.  The evaluation results of the Dependencies array may affect the read-only state of an attribute.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -755,7 +755,7 @@
                 },
                 "Hidden": {
                     "description": "An indication of whether this menu is hidden in user interfaces.",
-                    "longDescription": "This property shall indicate whether this menu is hidden in user interfaces.  The evaluation results of the Dependencies array might affect the hidden state of a menu.",
+                    "longDescription": "This property shall indicate whether this menu is hidden in user interfaces.  The evaluation results of the Dependencies array may affect the hidden state of a menu.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -905,7 +905,7 @@
                 },
                 "SystemId": {
                     "description": "The ID of the systems to which this attribute registry applies.",
-                    "longDescription": "This property shall contain the system ID that identifies the systems to which this attribute registry applies.  This might be identified by one or more properties in the computer system resource, such as Model, SubModel, or SKU.",
+                    "longDescription": "This property shall contain the system ID that identifies the systems to which this attribute registry applies.  This can be identified by one or more properties in the computer system resource, such as Model, SubModel, or SKU.",
                     "pattern": "^[A-Za-z0-9]+$",
                     "readonly": true,
                     "type": [
@@ -919,5 +919,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#AttributeRegistry.v1_3_5.AttributeRegistry"
+    "title": "#AttributeRegistry.v1_3_6.AttributeRegistry"
 }

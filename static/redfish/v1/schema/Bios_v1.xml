@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Bios v1.1.1                                                         -->
+<!--# Redfish Schema:  Bios v1.2.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2020 DMTF.                                                            -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -64,7 +64,7 @@
 
       <Action Name="ResetBios" IsBound="true">
         <Annotation Term="OData.Description" String="This action resets the BIOS attributes to default."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the BIOS attributes to their default values.  To apply the default values, a system reset might be required.  This action might impact other resources."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the BIOS attributes to their default values.  To apply the default values, a system reset may be required.  This action can impact other resources.  This action may clear pending values in the settings resource."/>
         <Parameter Name="Bios" Type="Bios.v1_0_0.Actions"/>
       </Action>
 
@@ -186,6 +186,12 @@
       <EntityType Name="Bios" BaseType="Bios.v1_0_7.Bios"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology and clarify behavior of the ResetBios action."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_0_8.Bios"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -219,6 +225,25 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Bios" BaseType="Bios.v1_1_0.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology and clarify behavior of the ResetBios action."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_1_1.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+
+      <EntityType Name="Bios" BaseType="Bios.v1_1_2.Bios">
+        <Property Name="ResetBiosToDefaultsPending" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether there is a pending request to reset the BIOS attributes to default values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether there is a pending request to reset the BIOS attributes to default values.  A successful completion of the ResetBios action shall set this property to `true`.  Applying the default attribute values to this resource shall set this property to `false`.  Services may reject modification requests to the settings resource if this property contains `true`."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
