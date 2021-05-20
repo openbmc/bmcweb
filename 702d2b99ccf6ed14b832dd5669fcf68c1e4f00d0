@@ -22,6 +22,30 @@
       "revId": "702d2b99ccf6ed14b832dd5669fcf68c1e4f00d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba73d2e_e9fff579",
+        "filename": "meson_options.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-05-20T06:50:25Z",
+      "side": 1,
+      "message": "This topic has been discuss in previous PR, please refer to the link:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39093/4/meson_options.txt#16",
+      "parentUuid": "83097688_f98efede",
+      "range": {
+        "startLine": 22,
+        "startChar": 57,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "702d2b99ccf6ed14b832dd5669fcf68c1e4f00d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
