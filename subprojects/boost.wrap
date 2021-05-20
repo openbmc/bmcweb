@@ -1,4 +1,4 @@
 [wrap-file]
-source_url = https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
-source_hash = aeb26f80e80945e82ee93e5939baebdca47b9dee80a07d3144be1e1a6a66dd6a
+source_url = https://github.com/boostorg/boost/archive/refs/tags/boost-1.75.0.tar.gz
+source_hash = fc46538e67ccf880ab1823c99f4d19cdbaa9d974dcbcda226c7e608d11903e14
 source_filename = boost_1_75_0.tar.gz
