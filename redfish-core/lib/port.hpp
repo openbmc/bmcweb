@@ -1,5 +1,7 @@
 #pragma once
 
+#include "led.hpp"
+
 #include <node.hpp>
 #include <utils/json_utils.hpp>
 
@@ -58,6 +60,11 @@ inline void getPortProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     connection.first, portInvPath,
                     "org.freedesktop.DBus.Properties", "Get", interface,
                     "LocationCode");
+            }
+
+            if (interface == "xyz.openbmc_project.Association.Definitions")
+            {
+                getLocationIndicatorActive(aResp, portInvPath);
             }
         }
     }
@@ -337,6 +344,103 @@ class Port : public Node
         getPort(asyncResp, portId, adapterId);
     }
 
+    void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        if (params.size() != 2)
+        {
+            BMCWEB_LOG_DEBUG << "Port doPatch param size is not equal to 2";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::optional<bool> locationIndicatorActive;
+        if (!json_util::readJson(req, asyncResp->res, "LocationIndicatorActive",
+                                 locationIndicatorActive))
+        {
+            return;
+        }
+
+        const std::string& adapterId = params[0];
+        const std::string& portId = params[1];
+
+        auto setPortData = [asyncResp, locationIndicatorActive](
+                               const std::string& objectPath,
+                               const ServiceMap& serviceMap) {
+            for (const auto& [serviceName, interfaceList] : serviceMap)
+            {
+                for (const auto& interface : interfaceList)
+                {
+                    if (interface == "xyz.openbmc_project."
+                                     "Association.Definitions" &&
+                        locationIndicatorActive)
+                    {
+                        setLocationIndicatorActive(asyncResp, objectPath,
+                                                   *locationIndicatorActive);
+                        return;
+                    }
+                }
+            }
+        };
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, portId, adapterId,
+             setPortData = std::move(setPortData)](
+                const boost::system::error_code ec,
+                const MapperGetSubTreeResponse& subtree) {
+                if (ec.value() == boost::system::errc::io_error)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "#Port.v1_3_0.Port", portId);
+                    return;
+                }
+
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBus method call failed with error "
+                                     << ec.value();
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                // incase no port object is found GetSubtree returns with empty
+                // vector.
+                for (const auto& [objectPath, serviceMap] : subtree)
+                {
+                    std::string parentAdapter =
+                        sdbusplus::message::object_path(objectPath)
+                            .parent_path();
+                    parentAdapter =
+                        sdbusplus::message::object_path(parentAdapter)
+                            .filename();
+
+                    if (parentAdapter == adapterId)
+                    {
+                        std::string portName =
+                            sdbusplus::message::object_path(objectPath)
+                                .filename();
+
+                        if (portName != portId)
+                        {
+                            // not the port we are interested in
+                            continue;
+                        }
+
+                        setPortData(objectPath, serviceMap);
+                        return;
+                    }
+                }
+                BMCWEB_LOG_ERROR << "Port not found";
+                messages::resourceNotFound(asyncResp->res, "Port", portId);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0,
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Connector"});
+    }
 }; // class port
 
 } // namespace redfish
