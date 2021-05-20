@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1773264_2e099c2d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-20T19:17:26Z",
+      "side": 1,
+      "message": "nit:\n\nIs this clear enough that we are talking HTTP status codes of the 5xx server errors type?\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors\n\nI just don\u0027t want in the future to think you are talking something like a 500 second timeout or wait.",
+      "range": {
+        "startLine": 1339,
+        "startChar": 44,
+        "endLine": 1339,
+        "endChar": 45
+      },
+      "revId": "fdceca23bb37804289b3650ff4cbcfece8f058f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777ed5c7_c0801e36",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-20T19:17:26Z",
+      "side": 1,
+      "message": "nit:\n\nIs null the best choice description for the end user, especially when shown in the Web UI?\nI understand null, but I am not sure everyone does.\n\nMaybe \"UserPrivilege property value is nonexistent\"",
+      "range": {
+        "startLine": 95,
+        "startChar": 65,
+        "endLine": 95,
+        "endChar": 69
+      },
+      "revId": "fdceca23bb37804289b3650ff4cbcfece8f058f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
