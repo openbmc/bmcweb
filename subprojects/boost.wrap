@@ -1,4 +1,4 @@
 [wrap-file]
-source_url = https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
-source_hash = aeb26f80e80945e82ee93e5939baebdca47b9dee80a07d3144be1e1a6a66dd6a
-source_filename = boost_1_75_0.tar.gz
+source_url = https://downloads.yoctoproject.org/mirror/sources/boost_1_75_0.tar.bz2
+source_hash = 953db31e016db7bb207f11432bef7df100516eeb746843fa0486a222e3fd49cb
+source_filename = 1_75_0.tar.bz2
