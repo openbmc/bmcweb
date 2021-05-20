@@ -22,6 +22,30 @@
       "revId": "de8d94a3dfda08ef6a80a245e2a31df8ec2496d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d907a0_cb36fd01",
+        "filename": "subprojects/boost.wrap",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-05-20T18:03:22Z",
+      "side": 0,
+      "message": "I doubt it. bintray is scheduled to be sunset on May, 1, 2021.\nhttps://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/",
+      "parentUuid": "cd0d03d6_c372f62d",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 35
+      },
+      "revId": "de8d94a3dfda08ef6a80a245e2a31df8ec2496d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

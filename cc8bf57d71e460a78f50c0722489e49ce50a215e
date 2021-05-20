@@ -16,6 +16,24 @@
       "revId": "cc8bf57d71e460a78f50c0722489e49ce50a215e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b85d55cc_0db069ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-05-20T18:03:22Z",
+      "side": 1,
+      "message": "I built it after deleting the old subprojects/boost_1_75_0/.",
+      "parentUuid": "7bbd20b3_d70cb610",
+      "revId": "cc8bf57d71e460a78f50c0722489e49ce50a215e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
