@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8d50cad7_47c59615",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-20T19:22:58Z",
+      "side": 1,
+      "message": "More detail needed here.  What is a \"resiliency error\"?  Why is it needed?  Why don\u0027t the existing message types meet that need?  Is there implementations of this somewhere else in review?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "d5b9544b1a83946d6dd0f5b704ae0f0bdfba408a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75c5c044_e5f544a8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
