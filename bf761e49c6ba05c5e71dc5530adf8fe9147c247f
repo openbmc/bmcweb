@@ -149,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "bde35696_4b896e05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-05-20T18:57:19Z",
+      "side": 1,
+      "message": "I ran the red fish validator, and this change does not create any issue.",
+      "parentUuid": "4a86baee_bae8067a",
+      "revId": "bf761e49c6ba05c5e71dc5530adf8fe9147c247f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eca37b45_7d0e509b",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 9
