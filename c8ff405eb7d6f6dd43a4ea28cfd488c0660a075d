@@ -46,6 +46,30 @@
       "revId": "c8ff405eb7d6f6dd43a4ea28cfd488c0660a075d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c1f1c72_14b1f732",
+        "filename": "Redfish.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-20T19:06:39Z",
+      "side": 1,
+      "message": "Most of the \"links\" things were written before we had an implementation and are arguably wrong.  \n\nGreat example, we don\u0027t have a storage schema, but it\u0027s listed 6 lines down from here.\n\nIn terms of usability, I think calling out each parameter would be better, and this document is already wildly inconsistent (and outright wrong in places) so I think we\u0027re only improving things by putting more information.\n\nWith that said, this patchset as it stands is technically better.  If you didn\u0027t want to change it, I\u0027d be fine with it as-is.",
+      "parentUuid": "aa36cc46_30f730ca",
+      "range": {
+        "startLine": 483,
+        "startChar": 2,
+        "endLine": 483,
+        "endChar": 10
+      },
+      "revId": "c8ff405eb7d6f6dd43a4ea28cfd488c0660a075d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
