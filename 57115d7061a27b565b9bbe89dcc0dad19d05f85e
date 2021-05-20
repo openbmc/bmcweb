@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44da4e23_8e7d1d35",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-20T18:32:50Z",
+      "side": 1,
+      "message": "Still see \"Redfish\" in here. If not using the Redfish Protocol would not expect any hits for the word \"Redfish\".",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b0b2ffa_50882080",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-20T18:32:50Z",
+      "side": 1,
+      "message": "Is there an Odata equivalent ?",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ad82c5c_8aad348e",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-20T18:32:50Z",
+      "side": 1,
+      "message": "Can we remove? Is there an Odata equivalent ? This is the version of the ServiceRoot ? Why is it needed?",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94dd4530_b8b07d5a",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-20T18:32:50Z",
+      "side": 1,
+      "message": "I am still confused.. Does this use the Redfish specification / Protocol? Is this just an Odata RESTful API ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 168,
+        "endLine": 41,
+        "endChar": 190
+      },
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4af383_5a625293",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-20T18:32:50Z",
+      "side": 1,
+      "message": "This is required, but don\u0027t see this in the implementation of this schema?",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
