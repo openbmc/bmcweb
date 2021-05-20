@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e803777_799aa312",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-05-20T22:28:56Z",
+      "side": 1,
+      "message": "Got it. Thank you.",
+      "parentUuid": "44da4e23_8e7d1d35",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b0b2ffa_50882080",
         "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
         "patchSetId": 22
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "82005e9f_f4a60d32",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-05-20T22:28:56Z",
+      "side": 1,
+      "message": "I suspect we don\u0027t need it. Will remove all Redfish annotations/references and revisit if there is any issues later on.\n\nThank you Gunnar.",
+      "parentUuid": "2b0b2ffa_50882080",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ad82c5c_8aad348e",
         "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
         "patchSetId": 22
@@ -50,6 +86,24 @@
       "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87659428_c25615bb",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-05-20T22:28:56Z",
+      "side": 1,
+      "message": "Remove until we need it.",
+      "parentUuid": "6ad82c5c_8aad348e",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "717448c8_60e0ec84",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-05-20T22:28:56Z",
+      "side": 1,
+      "message": "Though Google does not need to strictly follow the Redfish specification for this new Service Root, Google would like to conform to the Redfish specification as much as possible. Removing the wordings as it seems to imply that Google will strictly adhere to the Redfish specification.",
+      "parentUuid": "94dd4530_b8b07d5a",
+      "range": {
+        "startLine": 41,
+        "startChar": 168,
+        "endLine": 41,
+        "endChar": 190
+      },
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd4af383_5a625293",
         "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
         "patchSetId": 22
@@ -90,6 +168,24 @@
       "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae24075c_afc37798",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2021-05-20T22:28:56Z",
+      "side": 1,
+      "message": "True. This was me jumping ahead. We might not need it actually.",
+      "parentUuid": "fd4af383_5a625293",
+      "revId": "57115d7061a27b565b9bbe89dcc0dad19d05f85e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
