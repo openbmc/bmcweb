@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75c5c044_e5f544a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-20T18:16:30Z",
+      "side": 1,
+      "message": "Can you explain more why this is needed? \nThis is used for a mismatched svn checksum? What else? \nIs this a catch all for a bunch of firmware errors?",
+      "revId": "d5b9544b1a83946d6dd0f5b704ae0f0bdfba408a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
