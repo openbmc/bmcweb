@@ -1,5 +1,7 @@
 #pragma once
 
+#include "led.hpp"
+
 #include <node.hpp>
 #include <utils/json_utils.hpp>
 
@@ -58,6 +60,11 @@ inline void getPortProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     connection.first, portInvPath,
                     "org.freedesktop.DBus.Properties", "Get", interface,
                     "LocationCode");
+            }
+
+            if (interface == "xyz.openbmc_project.Association.Definitions")
+            {
+                getLocationIndicatorActive(aResp, portInvPath);
             }
         }
     }
