@@ -126,7 +126,7 @@
    starting any openbmc development.
    [Common Errors](https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md).
 
-14. ### Developing and Testing
+14. ### Developing and Testing with SDK
   There are a variety of ways to develop and test bmcweb software changes.
   Here are the steps for using the SDK and QEMU.
 
@@ -215,6 +215,34 @@
   Your change should not introduce any new validator errors. Please include
   the Redfish Service Validator results as part of the commit message
   ["Tested" field](https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#testing).
+
+14. ### Developing and Testing with Yocto qemu
+  yocto has tools for building and running qemu. These tools avoid some of the
+  configuration issues that come from downloading a prebuild image, and
+  mofifying binaries. Useing yocto qemu also using the TAP interface which some
+  find be more stable.
+  - set up a build enviroment
+  ```
+  source setup romulus myBuild/build
+  ```
+  - add the open embedded machine
+  ```
+  MACHINE ??= "qemux86"
+  ```
+  - devtool bmcweb
+  ```
+  devtool modify bmcweb myNewLocalbmcweb/
+  ```
+  - build the x86 machine
+  ```
+  MACHINE=qemux86 bitbake obmc-phosphor-image
+  ```
+  - run the yocto qemu
+  ```
+  runqemu myBuild/build/tmp/deploy/images/qemux86/ nographic qemuparams="-m 2048"
+  ```
+  - after that the all the a TAP network interface is added, and all the normal
+    curl commands work.
 
 ## clang-tidy
 
