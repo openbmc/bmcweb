@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8456c05_2e759dbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-21T18:39:07Z",
+      "side": 1,
+      "message": "Can you explain more of why UUID is needed for these resources (processors, chassis)?",
+      "revId": "a9379a5f769af7e70334211e6172208574affa98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
