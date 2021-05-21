@@ -16,6 +16,24 @@
       "revId": "2b76541ea3226d561c3000d7503ea42939a7febb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16544815_b15816e2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-05-21T06:15:01Z",
+      "side": 1,
+      "message": "This is required for dump creation call and will be populated for other types of dump apart from bmc and system dump, so remains null in this case.\n\nThe dbus call requires this additional argument (which will be null in case of bmc and system dumps \u003d\u003e CreateDump a{ss} 0).\nHence this change.",
+      "parentUuid": "12c85815_b1a4b9f8",
+      "revId": "2b76541ea3226d561c3000d7503ea42939a7febb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
