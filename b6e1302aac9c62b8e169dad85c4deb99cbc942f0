@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d1e160c_20d5c133",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-05-21T18:28:01Z",
+      "side": 1,
+      "message": "Just optional: The function is checking if octet is accepted, so the function name could be more specific, like isOctetAccepted.",
+      "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
