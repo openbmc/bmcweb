@@ -33,6 +33,24 @@
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c256e30d_1dd3e5d8",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-05-21T09:31:32Z",
+      "side": 1,
+      "message": "Do we need to make the blocking call here to get the user role? I know that as per the bmcweb guideline we should not make the blocking calls.\nEd,Gunnar can throw some light here.",
+      "parentUuid": "70656eb2_5cf72c4a",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
