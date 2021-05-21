@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "40a80697_233fb979",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-21T20:03:31Z",
+      "side": 1,
+      "message": "Should we check error_code? \n            if (ec)\n            {\n                BMCWEB_LOG_ERROR \u003c\u003c \"Failed to read cpu version: \" \u003c\u003c ec;\n                messages::internalError(aResp-\u003eres);\n                return;\n            }",
+      "revId": "3a723efddec51f3d7ec55651937f69abd10c3931",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4955a812_34c836fb",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -18,6 +35,29 @@
         "startChar": 35,
         "endLine": 95,
         "endChar": 51
+      },
+      "revId": "3a723efddec51f3d7ec55651937f69abd10c3931",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66b06315_9f2cd45c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-21T20:03:31Z",
+      "side": 1,
+      "message": "Typically we do the inverse check.. \n\n            if (value \u003d\u003d nullptr)\n            {\n                BMCWEB_LOG_ERROR \u003c\u003c \".....\n                messages::internalError(aResp-\u003eres);\n                return;\n            }",
+      "range": {
+        "startLine": 95,
+        "startChar": 16,
+        "endLine": 95,
+        "endChar": 32
       },
       "revId": "3a723efddec51f3d7ec55651937f69abd10c3931",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
