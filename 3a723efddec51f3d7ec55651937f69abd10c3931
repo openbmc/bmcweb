@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4955a812_34c836fb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-21T18:49:54Z",
+      "side": 1,
+      "message": "we typically don\u0027t check for empty. Is there any reason it would be empty ?",
+      "range": {
+        "startLine": 95,
+        "startChar": 35,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "3a723efddec51f3d7ec55651937f69abd10c3931",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
