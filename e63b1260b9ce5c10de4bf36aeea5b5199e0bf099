@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ac60435d_2a4a36b2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-21T09:57:17Z",
+      "side": 1,
+      "message": "Why it isn\u0027t const?",
+      "range": {
+        "startLine": 242,
+        "startChar": 11,
+        "endLine": 243,
+        "endChar": 38
+      },
+      "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ba3f3cf_432072bf",
         "filename": "http/routing.hpp",
         "patchSetId": 7
@@ -41,6 +64,121 @@
         "startChar": 2,
         "endLine": 1320,
         "endChar": 33
+      },
+      "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44dcc4d_1f1d3382",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-21T09:57:17Z",
+      "side": 1,
+      "message": "Update suggests that element already exists and you are changing it. Insert would better describe what this function does.\n\nEmplace will return pair\u003cexistingIt, false\u003e if there is already element in roleMap, so you are not updating existing element you are only adding new one when doesn\u0027t exist.",
+      "range": {
+        "startLine": 77,
+        "startChar": 9,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48286f2c_895aa947",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-21T09:57:17Z",
+      "side": 1,
+      "message": "No need to comment that, emplace works in similar way that insert so it is obvious you are adding new new element.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 56
+      },
+      "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caf3064f_b2adac20",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-21T09:57:17Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like ERROR, also it would say nothing to person who reads it in logs. What is the intent of this error log?",
+      "range": {
+        "startLine": 250,
+        "startChar": 20,
+        "endLine": 252,
+        "endChar": 0
+      },
+      "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a04e778_024a228b",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-21T09:57:17Z",
+      "side": 1,
+      "message": "No need for that. Function name below already says that.",
+      "range": {
+        "startLine": 253,
+        "startChar": 20,
+        "endLine": 253,
+        "endChar": 69
+      },
+      "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af01e415_2223fbf1",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-21T09:57:17Z",
+      "side": 1,
+      "message": "nit: extract to function, that should increase readability",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 262,
+        "endChar": 17
       },
       "revId": "e63b1260b9ce5c10de4bf36aeea5b5199e0bf099",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
