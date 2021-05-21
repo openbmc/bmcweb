@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fdfd660c_dd95d304",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-21T16:04:07Z",
+      "side": 1,
+      "message": "\u003e Do you have any suggestion how to replace it. Our use case is that we need to execute few async_calls and when all of them are finished execute another callback.\n\nUpdate the response object with the new information in each callback.  As a general rule, you will update a few fields (like count) more than once, but in practice it\u0027s a lot more efficient, and has much better behavior when something fails.\n\n\u003e We can make it separate from asyncResp, create class Finalizer with only std::function as parameter, will it be acceptable?\n\nI would prefer we don\u0027t have a finalizer class at all.  It implies that our async operations have some kind of related structure, which ideally they shouldn\u0027t, outside of the Response object being created.",
+      "parentUuid": "e9c5a315_1a192757",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aec60e54_f69d9fe1",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 70
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "4ea1ba94_ffd4bc30",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-21T16:04:07Z",
+      "side": 1,
+      "message": "Does this imply that this code should be deduplicated with the chassis code then?",
+      "parentUuid": "23c9c367_7701e883",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e48fee9_14358c02",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 70
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "It is only used to group together different kinds of sensors. You can see example below how it will looks like on redfish.\n\n```\nGET redfish/v1/TelemetryService/MetricDefinitions\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions\",\n\"@odata.type\": \"#MetricDefinitionCollection.MetricDefinitionCollection\",\n\"Members\": [\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions/utilization\"\n},\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions/fan_tach\"\n},\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions/fan_pwm\"\n},\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions/temperature\"\n}\n],\n\"Members@odata.count\": 4,\n\"Name\": \"Metric Definition Collection\"\n}\n\nGET redfish/v1/TelemetryService/MetricDefinitions/utilization\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions/utilization\",\n\"@odata.type\": \"#MetricDefinition.v1_0_3.MetricDefinition\",\n\"Id\": \"utilization\",\n\"IsLinear\": true,\n\"MetricDataType\": \"Decimal\",\n\"MetricProperties\": [\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/AverageCupsIndex/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/AverageHostCpuUtilization/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/AverageHostMemoryBandwidthUtilization/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/AverageHostPciBandwidthUtilization/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/CupsIndex/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/HostCpuUtilization/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/HostMemoryBandwidthUtilization/Reading\",\n\"/redfish/v1/Chassis/AC_Baseboard/Sensors/HostPciBandwidthUtilization/Reading\"\n],\n\"MetricType\": \"Numeric\",\n\"Name\": \"utilization\",\n\"Units\": \"%\"\n}\n```",
       "parentUuid": "6e48fee9_14358c02",
+      "range": {
+        "startLine": 124,
+        "startChar": 45,
+        "endLine": 124,
+        "endChar": 60
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c69cd7e_4f206cfa",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-21T16:04:07Z",
+      "side": 1,
+      "message": "Right, but redfish generally doesn\u0027t use that vernacular, hence why the sensor subsystem does some translation.",
+      "parentUuid": "7790a107_203f63e0",
       "range": {
         "startLine": 124,
         "startChar": 45,
