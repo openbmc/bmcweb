@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fe0222b3_09eab565",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-05-23T09:42:39Z",
+      "side": 1,
+      "message": "Resiliency error is the error occurred during firmware update failure or image authentication failures.\nThe existing error codes BMCFirmwareResiliencyError for BMC errors and BIOSFirmwareResiliencyError for BIOS errors is not useful for the new platform which sends the common error code during BMC, PCH or CPLD firmware update failures. Hence a common message entry is required to capture the update failure error.\nImplemented in https://gerrit.openbmc-project.xyz/c/openbmc/pfr-manager/+/43281",
+      "parentUuid": "8d50cad7_47c59615",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "d5b9544b1a83946d6dd0f5b704ae0f0bdfba408a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75c5c044_e5f544a8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2021-05-20T18:16:30Z",
       "side": 1,
       "message": "Can you explain more why this is needed? \nThis is used for a mismatched svn checksum? What else? \nIs this a catch all for a bunch of firmware errors?",
+      "revId": "d5b9544b1a83946d6dd0f5b704ae0f0bdfba408a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d876a4_0578d400",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-05-23T09:42:39Z",
+      "side": 1,
+      "message": "This is requirement for new platform where CPLD reports a common error code when BMC, PCH or CPLD update failed.\n\nThis error occurs when firmware(BMC, PCH or CPLD) update failed due to mismatched SVN or due to image authentication failure or invalid update intent",
+      "parentUuid": "75c5c044_e5f544a8",
       "revId": "d5b9544b1a83946d6dd0f5b704ae0f0bdfba408a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
