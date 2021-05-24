@@ -91,6 +91,30 @@
       "revId": "2123ed7e9d3c617f92c6963ac507f49e25031300",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb5f421_41ca4ba3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-05-24T17:11:26Z",
+      "side": 1,
+      "message": "I wonder if this is the right time to change https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml#L5 to an enum. That will enforce sane behavior on the provider. It\u0027s probably ipmi-fru-parser that\u0027s using that Type property as a string. I haven\u0027t checked why it had to be a string though.",
+      "parentUuid": "7d1db3ae_26b04df2",
+      "range": {
+        "startLine": 435,
+        "startChar": 37,
+        "endLine": 435,
+        "endChar": 48
+      },
+      "revId": "2123ed7e9d3c617f92c6963ac507f49e25031300",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
