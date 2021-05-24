@@ -264,6 +264,30 @@
     },
     {
       "key": {
+        "uuid": "9ce48001_3eb8908f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-24T17:06:38Z",
+      "side": 1,
+      "message": "\u003e In my opinion introducing this new utility function in review could be helpful,\n\nFeel free to push your own patchsets to this effect so we can evaluate this statement, but I\u0027m not going to start requiring people use a pattern that is new to bmcweb, when we have code to handle these cases already that\u0027s pretty common.\n\n\u003e I just want to clarify one think, is it forbidden to use getProperty\u003cT\u003e in bmcweb?\n\nDoes it make the code cleaner and more consistent without sacrificing performance?  Today it isn\u0027t used and increases the likelihood we inject new errors, but that\u0027s not to say it\u0027s \"forbidden\" it\u0027s just that nobody has proven the utility inside bmcweb.\n\n\n\u003e Also if you are going to stay with async_method_call you need to change every variant to include std::monostate as first argument otherwise if your type on dbus is different you will end up with value which might be hard to debug. \n\nThis isn\u0027t needed.  Somehow we\u0027ve managed just fine without it thusfar and to my understanding (so long as you handle your error codes) there is no functional impact to default constructed values.\n\n\n\u003e You are attempting to async_method_call(\"Properties\", \"Get\", std::variant\u003cint64_t\u003e) result will be variant with int64_t with value 0.\n\nIn your example you\u0027ve completely omitted that there is a separate error code, which we have well defined handling of today.  With that said, if you can point to a place where this is actually an issue in practice, I\u0027m happy to discuss further, but we can\u0027t be coding against these \"might be hard to debug\" conditions that so far as I\u0027m aware, nobody has seen and we have paths to handle.\n\n\nWith all of the above said, I\u0027d support changes to make std::monostate required on all variants, but I\u0027m not going to require it on new code until we\u0027re at least somewhat consistent.",
+      "parentUuid": "988f4834_772af320",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d812b03_dda769f2",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
