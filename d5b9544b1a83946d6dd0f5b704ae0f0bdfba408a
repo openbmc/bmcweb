@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "97488228_7b6f4b8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-05-24T04:48:12Z",
+      "side": 1,
+      "message": "Updated the commit message. Thank You",
+      "parentUuid": "3f18b470_334b4b9e",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "d5b9544b1a83946d6dd0f5b704ae0f0bdfba408a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75c5c044_e5f544a8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
