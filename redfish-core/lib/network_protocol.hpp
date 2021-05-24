@@ -421,29 +421,24 @@ class NetworkProtocol : public Node
             "xyz.openbmc_project.Network.EthernetInterface", "NTPServers",
             std::variant<std::vector<std::string>>{ntpServers});
     }
-
-    void handleIpmiProtocolEnabled(
-        const bool ipmiProtocolEnabled,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    void handleProtocolEnabled(
+        const bool ProtocolEnabled,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string_view netBasePath)
     {
         crow::connections::systemBus->async_method_call(
-            [ipmiProtocolEnabled,
-             asyncResp](const boost::system::error_code ec,
-                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            [ProtocolEnabled, asyncResp,
+             netBasePath](const boost::system::error_code ec,
+                          const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
 
-                constexpr char const* netipmidBasePath =
-                    "/xyz/openbmc_project/control/service/"
-                    "phosphor_2dipmi_2dnet_40";
-
                 for (const auto& entry : subtree)
                 {
-                    if (boost::algorithm::starts_with(entry.first,
-                                                      netipmidBasePath))
+                    if (boost::algorithm::starts_with(entry.first, netBasePath))
                     {
                         crow::connections::systemBus->async_method_call(
                             [asyncResp](const boost::system::error_code ec2) {
@@ -456,7 +451,7 @@ class NetworkProtocol : public Node
                             entry.second.begin()->first, entry.first,
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Control.Service.Attributes",
-                            "Running", std::variant<bool>{ipmiProtocolEnabled});
+                            "Running", std::variant<bool>{ProtocolEnabled});
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp](const boost::system::error_code ec2) {
@@ -469,7 +464,7 @@ class NetworkProtocol : public Node
                             entry.second.begin()->first, entry.first,
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Control.Service.Attributes",
-                            "Enabled", std::variant<bool>{ipmiProtocolEnabled});
+                            "Enabled", std::variant<bool>{ProtocolEnabled});
                     }
                 }
             },
@@ -489,9 +484,10 @@ class NetworkProtocol : public Node
         std::optional<std::string> newHostName;
         std::optional<nlohmann::json> ntp;
         std::optional<nlohmann::json> ipmi;
+        std::optional<nlohmann::json> ssh;
 
         if (!json_util::readJson(req, asyncResp->res, "NTP", ntp, "HostName",
-                                 newHostName, "IPMI", ipmi))
+                                 newHostName, "IPMI", ipmi, "SSH", ssh))
         {
             return;
         }
@@ -543,7 +539,26 @@ class NetworkProtocol : public Node
 
             if (ipmiProtocolEnabled)
             {
-                handleIpmiProtocolEnabled(*ipmiProtocolEnabled, asyncResp);
+                handleProtocolEnabled(*ipmiProtocolEnabled, asyncResp,
+                                      "/xyz/openbmc_project/control/service/"
+                                      "phosphor_2dipmi_2dnet_40");
+            }
+        }
+
+        if (ssh)
+        {
+            std::optional<bool> sshProtocolEnabled;
+            if (!json_util::readJson(*ssh, asyncResp->res, "ProtocolEnabled",
+                                     sshProtocolEnabled))
+            {
+                return;
+            }
+
+            if (sshProtocolEnabled)
+            {
+                handleProtocolEnabled(
+                    *sshProtocolEnabled, asyncResp,
+                    "/xyz/openbmc_project/control/service/dropbear");
             }
         }
     }
