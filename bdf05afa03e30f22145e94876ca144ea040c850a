@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8bc6a9e_d307bbf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-24T16:08:44Z",
+      "side": 1,
+      "message": "Please wrap your commit messages 50/72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "bdf05afa03e30f22145e94876ca144ea040c850a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b07e11b_a8006e37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-24T16:08:44Z",
+      "side": 1,
+      "message": "Any other patches needed to make this work?",
+      "revId": "bdf05afa03e30f22145e94876ca144ea040c850a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6482eff_f0256db4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-24T16:08:44Z",
+      "side": 1,
+      "message": "This check isn\u0027t needed.",
+      "range": {
+        "startLine": 441,
+        "startChar": 40,
+        "endLine": 441,
+        "endChar": 66
+      },
+      "revId": "bdf05afa03e30f22145e94876ca144ea040c850a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829f0d39_32579280",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-24T16:08:44Z",
+      "side": 1,
+      "message": "This is going to post the \"type\" property directly to redfish, which is incorrect.  Can you please provide more details about your test setup?  I would\u0027ve expected the validator to catch this issue, but you mention that you ran it.",
+      "range": {
+        "startLine": 443,
+        "startChar": 57,
+        "endLine": 443,
+        "endChar": 70
+      },
+      "revId": "bdf05afa03e30f22145e94876ca144ea040c850a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
