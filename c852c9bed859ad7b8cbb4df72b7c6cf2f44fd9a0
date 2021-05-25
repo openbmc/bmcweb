@@ -288,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "5e35897b_482d4158",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-25T07:59:32Z",
+      "side": 1,
+      "message": "Just to clarify if we are on same page.\n\nDbus: Property name X with type uint64_t with value 13.\n\nCode: async_method_call(\u0027Get\u0027, variant\u003cuint32_t\u003e), result: ec \u003d success, variant with type uint32_t and value 0.\n\nCode: async_method_call(\u0027Get\u0027, variant\u003cstd::monostate, uint32_t\u003e), result: ec \u003d success, variant with type std::monostate.\n\nCode: async_method_call(\u0027Get\u0027, variant\u003cuint64_t\u003e), result: ec \u003d success, variant with type uint64_t and value 13.\n\nCode: async_method_call(\u0027Get\u0027, variant\u003cstd::monostate, uint64_t\u003e), result: ec \u003d success, variant with type uint64_t and value 13.\n\n\nThanks for answers I understand the situation now. In future review I will not mention getProperty\u003cT\u003e to avoid inconsistency in code and I will just let people know as a nit comment about the std::monostate and what issue it might solve.",
+      "parentUuid": "9ce48001_3eb8908f",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 13
+      },
+      "revId": "c852c9bed859ad7b8cbb4df72b7c6cf2f44fd9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d812b03_dda769f2",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 58
