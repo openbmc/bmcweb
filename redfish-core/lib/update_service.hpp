@@ -786,16 +786,16 @@ class SoftwareInventory : public Node
     {
         if (purpose == fw_util::bmcPurpose)
         {
-            nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
-            members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
-            aResp->res.jsonValue["Members@odata.count"] = members.size();
+            nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            relatedItem.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
+            aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
         }
         else if (purpose == fw_util::biosPurpose)
         {
-            nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
-            members.push_back(
+            nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            relatedItem.push_back(
                 {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
-            aResp->res.jsonValue["Members@odata.count"] = members.size();
+            aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
         }
         else
         {
