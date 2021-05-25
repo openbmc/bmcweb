@@ -140,6 +140,30 @@
       "revId": "06023d73bda712e71872f4fdc5b9e56a517139c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d0781a_94caf304",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 3527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T18:42:53Z",
+      "side": 1,
+      "message": "\u003e I don’t think it should be an error if there is no data。\n\nWe disagree.  If there\u0027s no data, but there\u0027s supposed to be that should be 404.  (I think).\n\n\u003e I need to print information and return directly.\n\u003e \n\u003e Ack",
+      "parentUuid": "ea37e2bb_35bb85f2",
+      "range": {
+        "startLine": 3527,
+        "startChar": 69,
+        "endLine": 3527,
+        "endChar": 73
+      },
+      "revId": "06023d73bda712e71872f4fdc5b9e56a517139c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

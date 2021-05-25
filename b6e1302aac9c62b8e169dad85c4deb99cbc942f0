@@ -16,6 +16,115 @@
       "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41cb62f2_d42dd13e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T18:42:53Z",
+      "side": 1,
+      "message": "This is the wrong file for this.  http_utility.hpp seems like a better spot.\n\nYou\u0027ll also see that we have a \"requestPrefersHtml\" method there.  I suspect this needs to be combined with that one, as this is the more generic form (I think).  Lets discuss more once you have it moved.",
+      "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21020d28_1efe020c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3471,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T18:42:53Z",
+      "side": 1,
+      "message": "Please don\u0027t add member functions like this that don\u0027t use any member variables.  The Node class is in the process of being removed, and methods like this make it harder.\n\nhttps://github.com/openbmc/bmcweb/issues/181",
+      "range": {
+        "startLine": 3442,
+        "startChar": 0,
+        "endLine": 3471,
+        "endChar": 5
+      },
+      "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5855a20_6632e4fe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3489,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T18:42:53Z",
+      "side": 1,
+      "message": "String copy.",
+      "range": {
+        "startLine": 3489,
+        "startChar": 8,
+        "endLine": 3489,
+        "endChar": 30
+      },
+      "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f9886da_27c08526",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3519,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T18:42:53Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be not found?",
+      "range": {
+        "startLine": 3519,
+        "startChar": 20,
+        "endLine": 3519,
+        "endChar": 60
+      },
+      "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f90b92_7114a4a2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3539,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T18:42:53Z",
+      "side": 1,
+      "message": "output isn\u0027t used on stack.  Can you just do this in one line and avoid the move entirely?",
+      "range": {
+        "startLine": 3539,
+        "startChar": 40,
+        "endLine": 3539,
+        "endChar": 57
+      },
+      "revId": "b6e1302aac9c62b8e169dad85c4deb99cbc942f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
