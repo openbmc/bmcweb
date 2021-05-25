@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "82df91a8_8a739b0b",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-25T13:34:22Z",
+      "side": 1,
+      "message": "That is below.. And this commit doesn\u0027t touch it.",
+      "parentUuid": "efdf8bf5_fa50f257",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 14
+      },
+      "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21021fab_e3b6bc32",
         "filename": "Redfish.md",
         "patchSetId": 2
@@ -152,6 +176,24 @@
       "writtenOn": "2021-05-24T16:47:15Z",
       "side": 1,
       "message": "That looks like a bug on your system (possibly on all systems).  Lets document what it should be here, and we\u0027ll try to figure out what the issue is on that system.",
+      "parentUuid": "0048ab3e_86574208",
+      "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0fc87fb_b3053355",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-25T13:34:22Z",
+      "side": 1,
+      "message": "Oh, I see the error: \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/update_service.hpp#L791",
       "parentUuid": "0048ab3e_86574208",
       "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
