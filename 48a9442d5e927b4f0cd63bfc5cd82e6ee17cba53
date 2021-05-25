@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a23806c_9b53927a",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T01:47:59Z",
+      "side": 1,
+      "message": "There\u0027s no need to call res.end() when using AsyncResp objects.",
+      "range": {
+        "startLine": 1704,
+        "startChar": 0,
+        "endLine": 1704,
+        "endChar": 42
+      },
+      "revId": "48a9442d5e927b4f0cd63bfc5cd82e6ee17cba53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e25ec506_80a15b7c",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-25T01:47:59Z",
+      "side": 1,
+      "message": "This else does nothing because of the return on 1705, please remove the else and tab in the below.",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1708,
+        "endChar": 29
+      },
+      "revId": "48a9442d5e927b4f0cd63bfc5cd82e6ee17cba53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
