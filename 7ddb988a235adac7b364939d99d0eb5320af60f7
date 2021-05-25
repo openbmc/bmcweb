@@ -234,6 +234,24 @@
       "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a1eeed_6f71ddee",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-25T16:34:57Z",
+      "side": 1,
+      "message": "Cool. Thanks!",
+      "parentUuid": "e50f033d_c2ce3247",
+      "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
