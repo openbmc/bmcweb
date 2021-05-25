@@ -1698,34 +1698,35 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             {
                                 BMCWEB_LOG_ERROR << "Bad dbus request error: "
                                                  << ec2;
+                                setErrorResponse(
+                                    res, boost::beast::http::status::not_found,
+                                    notFoundDesc, notFoundMsg);
+                                return;
+                            }
+                            nlohmann::json properties;
+                            int r =
+                                convertDBusToJSON("a{sv}", msg, properties);
+                            if (r < 0)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "convertDBusToJSON failed";
                             }
                             else
                             {
-                                nlohmann::json properties;
-                                int r =
-                                    convertDBusToJSON("a{sv}", msg, properties);
-                                if (r < 0)
+                                for (auto& prop : properties.items())
                                 {
-                                    BMCWEB_LOG_ERROR
-                                        << "convertDBusToJSON failed";
-                                }
-                                else
-                                {
-                                    for (auto& prop : properties.items())
-                                    {
-                                        // if property name is empty, or
-                                        // matches our search query, add it
-                                        // to the response json
+                                    // if property name is empty, or
+                                    // matches our search query, add it
+                                    // to the response json
 
-                                        if (propertyName->empty())
-                                        {
-                                            (*response)[prop.key()] =
-                                                std::move(prop.value());
-                                        }
-                                        else if (prop.key() == *propertyName)
-                                        {
-                                            *response = std::move(prop.value());
-                                        }
+                                    if (propertyName->empty())
+                                    {
+                                        (*response)[prop.key()] =
+                                            std::move(prop.value());
+                                    }
+                                    else if (prop.key() == *propertyName)
+                                    {
+                                        *response = std::move(prop.value());
                                     }
                                 }
                             }
