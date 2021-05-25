@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f66b79dc_d49ab557",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2021-05-25T02:19:39Z",
+      "side": 1,
+      "message": "Thanks your review, I have removed it.",
+      "parentUuid": "8a23806c_9b53927a",
+      "range": {
+        "startLine": 1704,
+        "startChar": 0,
+        "endLine": 1704,
+        "endChar": 42
+      },
+      "revId": "48a9442d5e927b4f0cd63bfc5cd82e6ee17cba53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e25ec506_80a15b7c",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "48a9442d5e927b4f0cd63bfc5cd82e6ee17cba53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059a84c0_f45975e4",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2021-05-25T02:19:39Z",
+      "side": 1,
+      "message": "Thanks your review again. I have removed it and tab.",
+      "parentUuid": "e25ec506_80a15b7c",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1708,
+        "endChar": 29
+      },
+      "revId": "48a9442d5e927b4f0cd63bfc5cd82e6ee17cba53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
