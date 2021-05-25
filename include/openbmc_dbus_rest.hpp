@@ -1698,6 +1698,11 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             {
                                 BMCWEB_LOG_ERROR << "Bad dbus request error: "
                                                  << ec2;
+                                setErrorResponse(
+                                    res, boost::beast::http::status::not_found,
+                                    notFoundDesc, notFoundMsg);
+                                res.end();
+                                return;
                             }
                             else
                             {
