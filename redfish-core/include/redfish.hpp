@@ -180,6 +180,11 @@ class RedfishService
         requestRoutesSystemPCIeDeviceCollection(app);
         requestRoutesSystemPCIeDevice(app);
 
+        requestRoutesChassisPCIeFunctionCollection(app);
+        requestRoutesChassisPCIeFunction(app);
+        requestRoutesChassisPCIeDeviceCollection(app);
+        requestRoutesChassisPCIeDevice(app);
+
         requestRoutesSensorCollection(app);
         requestRoutesSensor(app);
 
