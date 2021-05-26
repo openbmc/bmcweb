@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52d82eb2_317ad088",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:02:47Z",
+      "side": 1,
+      "message": "See below, but it\u0027s odd to me we\u0027d have any \"default\" here on set.",
+      "range": {
+        "startLine": 1368,
+        "startChar": 0,
+        "endLine": 1368,
+        "endChar": 80
+      },
+      "revId": "9e0a2c361f2caad39ac7605e06a7127a159bbd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "040b692f_8e5fb890",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:02:47Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need to be within the if(bootType) check?  If the user hasn\u0027t requested anything (either explicitly or implicitly), we shouldn\u0027t be changing the setting.",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1415,
+        "endChar": 48
+      },
+      "revId": "9e0a2c361f2caad39ac7605e06a7127a159bbd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e44419_9e260847",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:02:47Z",
+      "side": 1,
+      "message": "Does this need to be set before the boot type/boot mode?  (not sure here).\n\nAlso, this should be in its own method, similar to setBootType",
+      "range": {
+        "startLine": 1571,
+        "startChar": 0,
+        "endLine": 1585,
+        "endChar": 52
+      },
+      "revId": "9e0a2c361f2caad39ac7605e06a7127a159bbd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
