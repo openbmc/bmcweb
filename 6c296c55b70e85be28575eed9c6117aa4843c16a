@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aba97ddc_931f8948",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 1,
+      "message": "This is nowhere near enough detail for the changes being made here.  You seem to have forgotten to add \"why\" these changes are being made, and 90% of the description is a spec that doesn\u0027t really apply to what\u0027s being done here.\n\nThe security working group is not authoritative, and while I\u0027m sure you had a great discussion in that forum, we need to capture that in the commit message;  Feel free to reach out to the other members of the security working group for help if needed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7672a7a0_79803c5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 1,
+      "message": "You seem to have omitted that TLS 1.2 is being effectively removed here.  When you update this commit message, please note that.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 49
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9089ff9_aec747e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 1,
+      "message": "if you have to make a list, you probably need 3 patchsets.",
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fedb0757_dd4c41c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 1,
+      "message": "This is a key word here.  Our certificates aren\u0027t \"Publicly trusted\" so I suspect this specification is out of scope for our default generated certificates.  If you think it\u0027s relevant, it would be good to talk through why this spec applies.",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a57fbc2_e26cefab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 1,
+      "message": "Are there any compatibility concerns with old OSes or client versions of OpenSSL with any of these changes?",
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca948e71_1a9872a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 1,
+      "message": "Edge?  Curl?  Older OS distros?\n\nWe don\u0027t need to physically test everything, but I\u0027d like at least some documentation on why we think we\u0027re not going to break anything important here.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

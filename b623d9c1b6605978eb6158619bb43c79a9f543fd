@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a9a91dd_11847263",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T20:44:17Z",
+      "side": 0,
+      "message": "This is going to remove all TLS 1.2 support.  Also, your changes don\u0027t seem to match either mozilla modern or mozilla compatibility, which is currently where we take our cipher suites list from.  OpenBMC itself is not an authority on cipher suites, and should not be making these decisions itself;  Any change to this list should reference mozilla.  With that said, it does look like we\u0027re running off an old version of mozilla intermediate compatibility, so if we wanted to update to that, we could and I would be in support of that.\n\nhttps://wiki.mozilla.org/Security/Server_Side_TLS",
+      "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
