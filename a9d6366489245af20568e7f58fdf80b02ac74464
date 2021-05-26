@@ -16,6 +16,24 @@
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aefbead_25113fdf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T03:34:42Z",
+      "side": 1,
+      "message": "No, we checked here:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/94/redfish-core/lib/processor.hpp#1039\n\nI remembered that is Ed\u0027s suggestion.",
+      "parentUuid": "8148dc35_d2190367",
+      "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
