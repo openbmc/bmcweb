@@ -16,6 +16,24 @@
       "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25720de0_14b61f03",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-26T21:07:49Z",
+      "side": 0,
+      "message": "You are correct about Mozilla\u0027s recommendations, this is tighter.\n\nThe secure Cipher Suites of TLSv1.2 are\nstill present and functional.\n\nTLSv1.2 (server order)\n\n xc02c   ECDHE-ECDSA-AES256-GCM-SHA384     ECDH 253   AESGCM      256      TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\n xcca9   ECDHE-ECDSA-CHACHA20-POLY1305     ECDH 253   ChaCha20    256      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\n xc02b   ECDHE-ECDSA-AES128-GCM-SHA256     ECDH 253   AESGCM      128      TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLSv1.3 (server order)\n x1302   TLS_AES_256_GCM_SHA384            ECDH 253   AESGCM      256      TLS_AES_256_GCM_SHA384\n x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH 253   ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256\n x1301   TLS_AES_128_GCM_SHA256            ECDH 253   AESGCM      128      TLS_AES_128_GCM_SHA256",
+      "parentUuid": "3a9a91dd_11847263",
+      "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
