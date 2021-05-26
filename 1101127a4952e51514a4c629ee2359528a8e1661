@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f11ac70d_77fe5572",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T12:11:42Z",
+      "side": 1,
+      "message": "oh.. We should not be logging any error if there is no association. Not having association is perfectly fine.",
+      "parentUuid": "ac2eb40e_5ab54b6f",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16c3e949_be9fd6c3",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-26T12:00:53Z",
       "side": 1,
       "message": "Is this expected to be exactly of Size 1?",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "256aaf5c_ee83fa59",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T12:11:42Z",
+      "side": 1,
+      "message": "Are you thinking of 1:many associations ?. I would think it would always be 1 since it\u0027s LED group association and LED Group D-Bus object would just be 1",
+      "parentUuid": "16c3e949_be9fd6c3",
       "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
