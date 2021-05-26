@@ -164,6 +164,30 @@
       "revId": "06023d73bda712e71872f4fdc5b9e56a517139c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6c500e_423078fb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 3527,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T03:37:36Z",
+      "side": 1,
+      "message": "\u003e We disagree.  If there\u0027s no data, but there\u0027s supposed to be that should be 404.  (I think).\n\nAck",
+      "parentUuid": "e6d0781a_94caf304",
+      "range": {
+        "startLine": 3527,
+        "startChar": 69,
+        "endLine": 3527,
+        "endChar": 73
+      },
+      "revId": "06023d73bda712e71872f4fdc5b9e56a517139c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
