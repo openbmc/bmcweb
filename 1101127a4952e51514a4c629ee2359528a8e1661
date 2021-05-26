@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac2eb40e_5ab54b6f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-26T12:00:53Z",
+      "side": 1,
+      "message": "In case there is no entry in association file. I think we don\u0027t need to log internalError.",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c3e949_be9fd6c3",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-26T12:00:53Z",
+      "side": 1,
+      "message": "Is this expected to be exactly of Size 1?",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16174a31_fb101264",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-26T12:00:53Z",
+      "side": 1,
+      "message": "nit: Can we use reference here?",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d33d1cb0_dc18b4d2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-26T12:00:53Z",
+      "side": 1,
+      "message": "Do we need to execute this loop only once?",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
