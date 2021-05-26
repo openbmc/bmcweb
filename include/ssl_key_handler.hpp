@@ -248,9 +248,13 @@ inline void generateSslCertificate(const std::string& filepath,
 
             // not before this moment
             X509_gmtime_adj(X509_get_notBefore(x509), 0);
-            // Cert is valid for 10 years
+            // Cert is valid for 1 year 32 days; that is 397 days
+            // which is the maxium that The Certification Authority Browser Forum,
+            // also known as CA/Browser Forum, states as allowed.
+            // Subscriber Certificates issued after 1 September 2020 MUST have
+            // a Validity Period no greater than 398 days.
             X509_gmtime_adj(X509_get_notAfter(x509),
-                            60L * 60L * 24L * 365L * 10L);
+                            60L * 60L * 24L * 397L);
 
             // set the public key to the key we just generated
             X509_set_pubkey(x509, pPrivKey);
@@ -372,6 +376,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
     // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
 
     SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
+    SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_CIPHER_SERVER_PREFERENCE);
 
     BMCWEB_LOG_DEBUG << "Using default TrustStore location: " << trustStorePath;
     mSslContext->add_verify_path(trustStorePath);
@@ -395,11 +400,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
                                 "ECDHE-ECDSA-CHACHA20-POLY1305:"
                                 "ECDHE-RSA-CHACHA20-POLY1305:"
                                 "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                "ECDHE-RSA-AES128-GCM-SHA256:"
-                                "ECDHE-ECDSA-AES256-SHA384:"
-                                "ECDHE-RSA-AES256-SHA384:"
-                                "ECDHE-ECDSA-AES128-SHA256:"
-                                "ECDHE-RSA-AES128-SHA256";
+                                "ECDHE-RSA-AES128-GCM-SHA256:";
 
     if (SSL_CTX_set_cipher_list(mSslContext->native_handle(),
                                 mozillaModern.c_str()) != 1)
