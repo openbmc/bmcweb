@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ade47e64_8d458c14",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 63
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T06:04:01Z",
+      "side": 1,
+      "message": "After thought : Where are we checking if the property is LocationIndicatorActive and then setting this ?.. for example : we can have a D-Bus object implement both DIMM and Association and it might not be LED and may be some other association right ?.",
+      "revId": "75b830d0771641b5cbeb84e9e32b42a26e64d97b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
