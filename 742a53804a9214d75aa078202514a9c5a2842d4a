@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "2b91a346_c1e68f73",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T09:41:13Z",
+      "side": 1,
+      "message": "could you please respond here also ?.. Someone else may be reviewing this and they might not know what CPU commit etc",
+      "parentUuid": "6c69b045_c012b138",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc157f6f_3a9320d3",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 18
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "What is the value of `instance ID`?",
       "parentUuid": "bc157f6f_3a9320d3",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b21a4c_6f5224ba",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T09:41:13Z",
+      "side": 1,
+      "message": "I mean : in dimm, we have below one in Patch.\n\nconst std::string\u0026 dimmId \u003d params[0]\n\nHowever, I don\u0027t see that here..  \nredfish/v1/Managers/bmc",
+      "parentUuid": "b59e16e0_be8c296a",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
