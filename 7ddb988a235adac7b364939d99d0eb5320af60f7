@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cd3a8885_0f2e60a6",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-26T04:30:20Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/8c9ced1f1706a0abac4106ceba6716e6481d1079\n\nIf you don\u0027t mind removing. :)",
+      "parentUuid": "5c4ae70e_320fc2d1",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ac26c41_4213d749",
         "filename": "Redfish.md",
         "patchSetId": 2
