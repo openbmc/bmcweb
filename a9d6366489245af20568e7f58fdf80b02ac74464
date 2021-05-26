@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e79284ab_5caf0f5d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T09:38:59Z",
+      "side": 1,
+      "message": "If there are no associations, we should not treat \u0027em as errors.. it\u0027s perfectly normal not to have associations. \n\nHaving said that, my comment was on PATCH.. but looks like you have GET here in your response ?",
+      "parentUuid": "b8b07040_793d3346",
+      "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8148dc35_d2190367",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 94
