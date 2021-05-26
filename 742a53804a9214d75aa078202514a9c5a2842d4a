@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "bc157f6f_3a9320d3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T06:44:32Z",
+      "side": 1,
+      "message": "we also need the instance ID right ?.. ( like CPU and DIMM ) ?",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a01e25_03ee9231",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2221,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T06:44:32Z",
+      "side": 1,
+      "message": "It also needs to get the param[0] as bmc_id right ?",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "047f6f94_e1ce50ed",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 18
