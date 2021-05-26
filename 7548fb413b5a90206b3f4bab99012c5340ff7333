@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "84029fbd_afc23962",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-26T21:30:22Z",
+      "side": 1,
+      "message": "No it will be used for anyone who want to set a highest or lowest priority.",
+      "parentUuid": "c2a81778_f39518c1",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 38
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e52ae7e_49ef4910",
         "filename": "redfish-core/ut/priority_test.cpp",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884f92e3_785b7661",
+        "filename": "redfish-core/ut/priority_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-26T21:30:22Z",
+      "side": 1,
+      "message": "yes. This is the way to set priority. The default priority value is 0 so most of the current node/rule doesn\u0027t need to explicitly set the priority. \n\nThe priority is designed to set default rule for redfish node in the future.",
+      "parentUuid": "6e52ae7e_49ef4910",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 79
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
