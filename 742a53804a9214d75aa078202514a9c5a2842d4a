@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6c69b045_c012b138",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T09:39:12Z",
+      "side": 1,
+      "message": "I responded in CPU commit.",
+      "parentUuid": "6c8dcf9e_d0e545c0",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc157f6f_3a9320d3",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 18
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-26T06:44:32Z",
       "side": 1,
       "message": "we also need the instance ID right ?.. ( like CPU and DIMM ) ?",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59e16e0_be8c296a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T09:39:12Z",
+      "side": 1,
+      "message": "What is the value of `instance ID`?",
+      "parentUuid": "bc157f6f_3a9320d3",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1306b423_af1fb187",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2221,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T09:39:12Z",
+      "side": 1,
+      "message": "I do not think we need `bmc_id`.\nWhat is the value of `bmc_id`?",
+      "parentUuid": "10a01e25_03ee9231",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "047f6f94_e1ce50ed",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 18
@@ -67,6 +121,24 @@
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "889c0047_d695c402",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T09:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "047f6f94_e1ce50ed",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
