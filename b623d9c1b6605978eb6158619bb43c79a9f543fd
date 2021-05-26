@@ -52,6 +52,24 @@
       "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d118bdd3_47d19b30",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-26T23:11:36Z",
+      "side": 0,
+      "message": "3) Removes Obsoleted CBC ciphers (AES, ARIA etc.)\n   These 4 cipher suites were removed because they are\n   Obsoleted CBC ciphers (AES, ARIA etc.) and CVE-2013-0169\n   LUCKY13 experimental potentially VULNERABLE, uses\n   cipher block chaining (CBC) ciphers with TLS.\n   1) \"ECDHE-ECDSA-AES256-SHA384:\"\n   2) \"ECDHE-RSA-AES256-SHA384:\"\n   3) \"ECDHE-ECDSA-AES128-SHA256:\"\n   4) \"ECDHE-RSA-AES128-SHA256\"\n   Again from https://github.com/drwetter/testssl.sh\n\nI have no problem if the OpenBMC community want to take\nthe, probably minor, risk in favor of following Mozilla\u0027s\nrecommendations and / or more compatibility.",
+      "parentUuid": "f6ae71df_3902f4cc",
+      "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
