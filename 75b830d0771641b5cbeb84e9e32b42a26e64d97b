@@ -16,6 +16,24 @@
       "revId": "75b830d0771641b5cbeb84e9e32b42a26e64d97b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "196d360a_0ae5e739",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 63
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T09:43:58Z",
+      "side": 1,
+      "message": "Refer: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/94/redfish-core/lib/processor.hpp#1038",
+      "parentUuid": "ade47e64_8d458c14",
+      "revId": "75b830d0771641b5cbeb84e9e32b42a26e64d97b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
