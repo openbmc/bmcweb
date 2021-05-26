@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7b557a1a_b4270b07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:28:45Z",
+      "side": 1,
+      "message": "The link isn\u0027t sufficient.  Cut and paste also doesn\u0027t work.  Please write a commit message that talks through this change so others can review it properly.  The commit message should be self-describing, although you can add other references if you want.",
+      "parentUuid": "b57c19b2_319d6226",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7672a7a0_79803c5b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I tend to disagree, the secure Cipher Suites of TLSv1.2 are\nstill present and functional.\n\nTLSv1.2 (server order)\n xc02c   ECDHE-ECDSA-AES256-GCM-SHA384     ECDH 253   AESGCM      256      TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\n xcca9   ECDHE-ECDSA-CHACHA20-POLY1305     ECDH 253   ChaCha20    256      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\n xc02b   ECDHE-ECDSA-AES128-GCM-SHA256     ECDH 253   AESGCM      128      TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLSv1.3 (server order)\n x1302   TLS_AES_256_GCM_SHA384            ECDH 253   AESGCM      256      TLS_AES_256_GCM_SHA384\n x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH 253   ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256\n x1301   TLS_AES_128_GCM_SHA256            ECDH 253   AESGCM      128      TLS_AES_128_GCM_SHA256",
       "parentUuid": "7672a7a0_79803c5b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 49
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "871deabd_b2350810",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:28:45Z",
+      "side": 1,
+      "message": "We removed some things.  Lets get a better commit message here about why we\u0027re doing these things, and get the relevant links to the security authorities we reference, and go from there.",
+      "parentUuid": "bdca1c5e_eda7177a",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -178,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "e25fef04_4e4aea4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:28:45Z",
+      "side": 1,
+      "message": "Clearly you think the spec applies, because you wrote the patch and chose to include it, so lets at least get your views written down so we have somewhere to start from.",
+      "parentUuid": "dac6ae57_8e9aa0e5",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a57fbc2_e26cefab",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -207,6 +279,24 @@
       "side": 1,
       "message": "I do not believe so, but other options are welcome.\n\n Running client simulations (HTTP) via sockets\n\n Browser                      Protocol  Cipher Suite Name (OpenSSL)       Forward Secrecy\n------------------------------------------------------------------------------------------------\n Android 4.4.2                TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Android 5.0.0                TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)\n Android 6.0                  TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)\n Android 7.0 (native)         No connection\n Android 8.1 (native)         TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     253 bit ECDH (X25519)\n Android 9.0 (native)         TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Android 10.0 (native)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Chrome 74 (Win 10)           TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Chrome 79 (Win 10)           TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Firefox 66 (Win 8.1/10)      TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Firefox 71 (Win 10)          TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n IE 6 XP                      No connection\n IE 8 Win 7                   No connection\n IE 8 XP                      No connection\n IE 11 Win 7                  TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n IE 11 Win 8.1                TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n IE 11 Win Phone 8.1          TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n IE 11 Win 10                 TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Edge 15 Win 10               TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     253 bit ECDH (X25519)\n Edge 17 (Win 10)             TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     253 bit ECDH (X25519)\n Opera 66 (Win 10)            TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Safari 9 iOS 9               TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Safari 9 OS X 10.11          TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Safari 10 OS X 10.12         TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Safari 12.1 (iOS 12.2)       TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Safari 13.0 (macOS 10.14.6)  TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Apple ATS 9 iOS 9            TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Java 6u45                    No connection\n Java 7u25                    No connection\n Java 8u161                   TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n Java 11.0.2 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            256 bit ECDH (P-256)\n Java 12.0.1 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            256 bit ECDH (P-256)\n OpenSSL 1.0.2e               TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     256 bit ECDH (P-256)\n OpenSSL 1.1.0l (Debian)      TLSv1.2   ECDHE-ECDSA-AES256-GCM-SHA384     253 bit ECDH (X25519)\n OpenSSL 1.1.1d (Debian)      TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)\n Thunderbird (68.3)           TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)",
       "parentUuid": "6a57fbc2_e26cefab",
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e2f7021_4d2fe43a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:28:45Z",
+      "side": 1,
+      "message": "something like: \"This list is no different than when run previously\"  would help a lot.",
+      "parentUuid": "b50ec782_89b4fd15",
       "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -248,6 +338,30 @@
       "side": 1,
       "message": "All of theses work as well.\n\nMicrosoft Edge\nVersion 90.0.818.66 (Official build) (64-bit)\n\nOpera\nVersion:76.0.4017.123 and Version:76.0.4017.154\n\nwget --no-check-certificate https://rain127bmc.aus.stglabs.ibm.com\nwget -V\nGNU Wget 1.19.4 built on linux-gnu.\n\ncurl --insecure -I https://rain127bmc.aus.stglabs.ibm.com/\nHTTP/1.1 401 Unauthorized\nStrict-Transport-Security: max-age\u003d31536000; includeSubdomains; preload\nX-Frame-Options: DENY\nPragma: no-cache\nCache-Control: no-Store,no-Cache\nX-XSS-Protection: 1; mode\u003dblock\nX-Content-Type-Options: nosniff\nContent-Security-Policy: default-src \u0027none\u0027; img-src \u0027self\u0027 data:; font-src \u0027self\u0027; style-src \u0027self\u0027; script-src \u0027self\u0027; connect-src \u0027self\u0027 wss:; form-action \u0027none\u0027; frame-ancestors \u0027none\u0027; plugin-types \u0027none\u0027; base-uri \u0027none\u0027\nDate: Wed, 26 May 2021 21:05:16 GMT\nContent-Length: 12\ncurl -V\ncurl 7.58.0 (x86_64-pc-linux-gnu) libcurl/7.58.0 OpenSSL/1.1.1 zlib/1.2.11 libidn2/2.0.4 libpsl/0.19.1 (+libidn2/2.0.4) nghttp2/1.30.0 librtmp/2.3\nRelease-Date: 2018-01-24",
       "parentUuid": "ca948e71_1a9872a3",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "6c296c55b70e85be28575eed9c6117aa4843c16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ebc419a_e9323271",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:28:45Z",
+      "side": 1,
+      "message": "curl pulls openssl from the distro, so per-distro tests, or at least a statement of compatibility is probably what\u0027s needed here.  \n\nI don\u0027t expect you to test every possible distro, but I\u0027d like some backup that we\u0027re not breaking anything important.  As an example, does ubuntu 16.04 still work?",
+      "parentUuid": "1977f30e_8429edc3",
       "range": {
         "startLine": 49,
         "startChar": 0,

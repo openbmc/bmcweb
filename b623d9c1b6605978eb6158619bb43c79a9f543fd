@@ -34,6 +34,24 @@
       "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ae71df_3902f4cc",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-26T21:28:45Z",
+      "side": 0,
+      "message": "\u003e You are correct about Mozilla\u0027s recommendations, this is tighter.\n\u003e \n\nI will reiterate, OpenBMC is not a security authority.  If you think that these are the ciphers we should be using, feel free to bring that up with mozilla and get them to change their guidelines.  If we deviate from their guidelines, we should have a VERY good reason to do so, and take on that added maintenance burden.\n\n\u003e The secure Cipher Suites of TLSv1.2 are\n\u003e still present and functional.\n\nFair point.  I will admit, I didn\u0027t actually look this up, and assumed.  mea culpa.\n\n\u003e \n\u003e TLSv1.2 (server order)\n\u003e \n\u003e  xc02c   ECDHE-ECDSA-AES256-GCM-SHA384     ECDH 253   AESGCM      256      TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\n\u003e  xcca9   ECDHE-ECDSA-CHACHA20-POLY1305     ECDH 253   ChaCha20    256      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\n\u003e  xc02b   ECDHE-ECDSA-AES128-GCM-SHA256     ECDH 253   AESGCM      128      TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\n\u003e TLSv1.3 (server order)\n\u003e  x1302   TLS_AES_256_GCM_SHA384            ECDH 253   AESGCM      256      TLS_AES_256_GCM_SHA384\n\u003e  x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH 253   ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256\n\u003e  x1301   TLS_AES_128_GCM_SHA256            ECDH 253   AESGCM      128      TLS_AES_128_GCM_SHA256",
+      "parentUuid": "25720de0_14b61f03",
+      "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
