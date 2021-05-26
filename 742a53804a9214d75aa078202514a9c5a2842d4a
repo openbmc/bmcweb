@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c8dcf9e_d0e545c0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T06:01:54Z",
+      "side": 1,
+      "message": "hmm.  this is looking different from Memory. We should be checking if the property in question in question is locationIndicatorActive and only then call this right ?",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047f6f94_e1ce50ed",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-26T06:01:54Z",
+      "side": 1,
+      "message": "The way it is organised now, it calls this irrespective of PATCH on any property. So, to continue what has been existing ( and possibly refactor later ) we may want to do if(locationIndicatorActive) { setManagerObject()\n\nor check what is the property inside the set object",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
