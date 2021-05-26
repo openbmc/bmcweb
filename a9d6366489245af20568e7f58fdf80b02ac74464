@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b8b07040_793d3346",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-26T09:10:54Z",
+      "side": 1,
+      "message": "Yes, I know what is your mean.\n\n\u003e we can have a D-Bus object implement both CPU and Association and it might not be LED and may be some other association right \n\nWe will return 500 error\nlike this:\n```\ncurl -k -H \"X-Auth-Token: $token\" https://${bmc}/redfish/v1/Systems/system/Processors/cpu0\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/Processors/cpu0\",\n  \"@odata.type\": \"#Processor.v1_11_0.Processor\",\n  \"Id\": \"cpu0\",\n  \"InstructionSet\": \"PowerISA\",\n  \"Manufacturer\": \"IBM\",\n  \"MaxSpeedMHz\": 0,\n  \"Name\": \"Processor\",\n  \"PartNumber\": \"02CY415\",\n  \"ProcessorArchitecture\": \"Power\",\n  \"ProcessorId\": {\n    \"EffectiveFamily\": \"\"\n  },\n  \"ProcessorType\": \"CPU\",\n  \"SerialNumber\": \"YA1934319126\",\n  \"Socket\": \"\",\n  \"SparePartNumber\": \"\",\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  },\n  \"TotalCores\": 20,\n  \"TotalThreads\": 0,\n  \"Version\": \"22\",\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The request failed due to an internal service error.  The service is still operational.\",\n        \"MessageArgs\": [],\n        \"MessageId\": \"Base.1.8.1.InternalError\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Resubmit the request.  If the problem persists, consider resetting the service.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.InternalError\",\n    \"message\": \"The request failed due to an internal service error.  The service is still operational.\"\n  }\n}\n```\n\nBut I think we do not need to return 500 when the `objPath + \"/identify_led_group\"` path does not exists, return directly.\n\n@Vishwa, @Ed\nWhat do you think?",
+      "parentUuid": "44ceab5a_451786ef",
+      "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8148dc35_d2190367",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 94
