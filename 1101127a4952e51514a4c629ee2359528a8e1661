@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7fb8452a_227c0d4c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T03:25:52Z",
+      "side": 1,
+      "message": "Can we remove this?\nBecause I do not think we need to return 500 error if there are no associations",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 52
+      },
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac2eb40e_5ab54b6f",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 9
