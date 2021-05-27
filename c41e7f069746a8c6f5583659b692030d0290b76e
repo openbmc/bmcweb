@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b273f6e_a1d73656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "This isn\u0027t a list anymore.  Please write this like a normal commit message.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2702e506_46aec538",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "What breaks exactly?  These are untrusted certificates, so I would expect there\u0027s no behavior change for a user, both certs will be untrusted by the browser.",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f77248ff_11917b93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "Please wrap your commit messages 50/72.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a833b0de_d4c11b9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "?  Seems like this was a copy paste error.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 46
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f0c5cb_e7c73f7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "Simply listing a bunch of articles doesn\u0027t help much to understand why OpenBMC needs this change.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cb0819_587d4b79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "Reiterating..... because you seem to have ignored the previous comment;  This is for publicly trusted certificates, which the BMC default cert is not publicly trusted (we make our own CA).  If the BMC default certificate is going to by publicly trusted, that\u0027s a whole different discussion;  If it isn\u0027t (which has been the case for a while) this document doesn\u0027t apply.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98cb4d4c_0d16e397",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "What about older OSes;  Does this break any compatibility with say, Ubuntu 16.04?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43ca1c50_68c24eeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:20:01Z",
+      "side": 1,
+      "message": "Double sign off.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 65
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
