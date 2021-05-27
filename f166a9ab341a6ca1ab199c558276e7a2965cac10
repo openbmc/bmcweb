@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c78cc47_32217078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:22:22Z",
+      "side": 1,
+      "message": "Please take a look at the comments made on your first patches commit message;  A number of those formatting and depth issues apply here too.  Please fix them.",
+      "revId": "f166a9ab341a6ca1ab199c558276e7a2965cac10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
