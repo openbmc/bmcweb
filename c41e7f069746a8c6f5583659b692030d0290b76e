@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "02f04b3a_2536a30f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T01:02:44Z",
+      "side": 1,
+      "message": "This wasn\u0027t done on the latest patchset.  it looks like you wrapped on 50 character lines?",
+      "parentUuid": "7afaf7e7_5981d67a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a833b0de_d4c11b9a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6

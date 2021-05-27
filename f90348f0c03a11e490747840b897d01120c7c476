@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd809044_29792a90",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T01:02:44Z",
+      "side": 1,
+      "message": "This isn\u0027t a CA signed certificate, so please clarify what you mean by this.",
+      "range": {
+        "startLine": 12,
+        "startChar": 45,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "f90348f0c03a11e490747840b897d01120c7c476",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
