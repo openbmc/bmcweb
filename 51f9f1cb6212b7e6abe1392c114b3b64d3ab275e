@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "51837ca6_6b3d6e8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T16:08:07Z",
+      "side": 1,
+      "message": "\u003e This new endpoints were added per your request.\n\nI\u0027m talking specifically about the API.  Regardless of whether I requested it, there should be some details in the commit message.\n\n\u003e \n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41131/2/redfish-core/lib/sensors.hpp#99\n\u003e \n\u003e There is no additional change related to this endpoints,\n\nThere might be a language boundary here.  By \"endpoint\" I mean \"new uri handler in the redfish tree\" of which there are definitely changes in this patchset.\n\n\u003e we just list them here as an example. Also in review in the link there was same discussion and there is no impact to the user.\n\nConsidering we\u0027ve added new URIs, there\u0027s SOME impact to the user, in that they\u0027ll see the new functionality you\u0027ve added.",
+      "parentUuid": "076f023e_722e08c8",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6af8fd95_44b339fc",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 76
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "I analyzed the code in sensors.hpp and this mapping function needs chassis name as parameter. Without rewriting sensors.hpp this is only way to retrieve this mapping.\n\nWhile looking at it I found a way to remove finalizer callback, that should make it simpler.",
       "parentUuid": "3cb09047_e81054a5",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 63
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91badab2_e7fc2afc",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T16:08:07Z",
+      "side": 1,
+      "message": "\u003e I analyzed the code in sensors.hpp and this mapping function needs chassis name as parameter. Without rewriting sensors.hpp this is only way to retrieve this mapping.\n\nThis doesn\u0027t seem true;  The mapper should be able to give you the mapping based on the \"all_sensors\" association.\n\n\u003e \n\u003e While looking at it I found a way to remove finalizer callback, that should make it simpler.\n\nThat helps, but I\u0027d still like to see us doing a single mapper call here.",
+      "parentUuid": "a7835e2b_df01cc9f",
       "range": {
         "startLine": 231,
         "startChar": 12,
