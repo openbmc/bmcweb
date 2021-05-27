@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c74f5eaf_8d0440d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:59:11Z",
+      "side": 1,
+      "message": "\u003e Well that will be know in the future after a Web browser is updated in the field.\n\nThis doesn\u0027t answer the question..... what breaks?  These are untrusted certificates, once browsers stop trusting certs with \u003e 397 day validtity, they will continue to be untrusted certificates;  So far as I\u0027m aware, there is no change.\n\n\u003e \n\u003e \"The desire is to prevent breakage when a Web browser is updated in the field.\"\n\n\"breakage\" isn\u0027t very descriptive.  see above for what I\u0027m getting at, I have a suspicion nothing breaks because these aren\u0027t public certificates, unless you have information that I don\u0027t have.",
+      "parentUuid": "b97f79a6_2ae9db66",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a833b0de_d4c11b9a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -187,6 +211,30 @@
       "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7259ddaf_b07c1cd0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:59:11Z",
+      "side": 1,
+      "message": "Then this is an incomplete sentence?  Please clarify.",
+      "parentUuid": "401ef426_94884ad4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 46
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
@@ -295,6 +343,30 @@
       "side": 1,
       "message": "Not tested.",
       "parentUuid": "98cb4d4c_0d16e397",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aced08fb_7f6fc617",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:59:11Z",
+      "side": 1,
+      "message": "Cool, let me know when it has been, or we at least have some idea of the impact to users.  The last time we updated cipher suites we broke a bunch of users and it was a lot of replying;  This time I\u0027d like to have the answers ready ahead of time as to what\u0027s broken, and what can be done to remedy their situation (even if that answer is just, \"upgrade your OS past X).",
+      "parentUuid": "89d74157_768a5d0c",
       "range": {
         "startLine": 82,
         "startChar": 0,
