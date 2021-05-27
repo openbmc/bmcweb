@@ -372,6 +372,8 @@ inline std::shared_ptr<boost::asio::ssl::context>
     // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
 
     SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
+    SSL_CTX_set_options(mSslContext->native_handle(),
+                        SSL_OP_CIPHER_SERVER_PREFERENCE);
 
     BMCWEB_LOG_DEBUG << "Using default TrustStore location: " << trustStorePath;
     mSslContext->add_verify_path(trustStorePath);
