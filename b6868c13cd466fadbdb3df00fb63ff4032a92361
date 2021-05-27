@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abe18bc0_e7f55ed0",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T16:20:38Z",
+      "side": 1,
+      "message": "We generally don\u0027t use auto in this context.  std::string please.",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "b6868c13cd466fadbdb3df00fb63ff4032a92361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b5d81e6_2fd6a779",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T16:20:38Z",
+      "side": 1,
+      "message": "This is roughly what I was expecting here.  Good job.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "b6868c13cd466fadbdb3df00fb63ff4032a92361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "396c3e94_c155600a",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T16:20:38Z",
+      "side": 1,
+      "message": "These need to be filled in after you could possibly return 404, otherwise you will get a half filled in response.  This likely would\u0027ve showed up in your testing.\n\nFYI, this was commented on previously.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 0
+      },
+      "revId": "b6868c13cd466fadbdb3df00fb63ff4032a92361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
