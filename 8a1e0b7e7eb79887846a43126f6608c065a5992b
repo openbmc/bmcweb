@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "0b9a511c_66651c4c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T02:37:49Z",
+      "side": 1,
+      "message": "\u003e What is the privilege registry\n\nPrivilege registry is what defines what these permissions should be.",
+      "parentUuid": "b98bc41a_0838ced1",
+      "range": {
+        "startLine": 1154,
+        "startChar": 20,
+        "endLine": 1154,
+        "endChar": 29
+      },
+      "revId": "8a1e0b7e7eb79887846a43126f6608c065a5992b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c960706_8080de94",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 18
