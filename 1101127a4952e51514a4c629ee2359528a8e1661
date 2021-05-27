@@ -126,6 +126,29 @@
       "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e8c53c_00da78b7",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-27T08:06:21Z",
+      "side": 1,
+      "message": "It seems that the global variable is not needed.You only use this variable in two methods, and the first method calls the second method. After the methods are executed, this variable does not need to keep alive, so is it better to use function parameters?",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 23
+      },
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
