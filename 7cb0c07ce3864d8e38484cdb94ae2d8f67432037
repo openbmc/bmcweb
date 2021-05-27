@@ -22,6 +22,30 @@
       "revId": "7cb0c07ce3864d8e38484cdb94ae2d8f67432037",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0ae5be_74eea557",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T06:14:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "657771d8_1b39fcc7",
+      "range": {
+        "startLine": 377,
+        "startChar": 24,
+        "endLine": 377,
+        "endChar": 47
+      },
+      "revId": "7cb0c07ce3864d8e38484cdb94ae2d8f67432037",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
