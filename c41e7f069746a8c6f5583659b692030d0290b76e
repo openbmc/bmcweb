@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b259dad7_dbd4c5b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-27T00:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b273f6e_a1d73656",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2702e506_46aec538",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -62,6 +86,54 @@
       "range": {
         "startLine": 13,
         "startChar": 0,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7afaf7e7_5981d67a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-27T00:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77248ff_11917b93",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b97f79a6_2ae9db66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-27T00:50:14Z",
+      "side": 1,
+      "message": "Well that will be know in the future after a Web browser is updated in the field.\n\n\"The desire is to prevent breakage when a Web browser is updated in the field.\"",
+      "parentUuid": "2702e506_46aec538",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
         "endLine": 17,
         "endChar": 24
       },
@@ -164,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "c5cf8564_1453c39b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-27T00:50:14Z",
+      "side": 1,
+      "message": "Removed that section.",
+      "parentUuid": "30cb0819_587d4b79",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98cb4d4c_0d16e397",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -175,6 +271,30 @@
       "writtenOn": "2021-05-27T00:20:01Z",
       "side": 1,
       "message": "What about older OSes;  Does this break any compatibility with say, Ubuntu 16.04?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "c41e7f069746a8c6f5583659b692030d0290b76e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89d74157_768a5d0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-05-27T00:50:14Z",
+      "side": 1,
+      "message": "Not tested.",
+      "parentUuid": "98cb4d4c_0d16e397",
       "range": {
         "startLine": 82,
         "startChar": 0,
