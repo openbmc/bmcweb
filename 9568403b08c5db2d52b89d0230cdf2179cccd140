@@ -39,6 +39,91 @@
       "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba6134e_2b5e2d94",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-27T15:16:37Z",
+      "side": 1,
+      "message": "You use vector of pairs here but flat_map on 173.  Can you please make them consistent?",
+      "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "240b48d5_2f98ef9e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-27T15:16:37Z",
+      "side": 1,
+      "message": "Are these new properties available over PCI?",
+      "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333ae513_c18de1de",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-27T15:16:37Z",
+      "side": 1,
+      "message": "Same here for consistency between vector of pairs vs. flat_map.",
+      "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3457971c_ae94110d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-27T15:16:37Z",
+      "side": 1,
+      "message": "Can this change to if (interface !\u003d pcieDeviceInterface) {return} to reduce the scope indent of the following code?",
+      "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33d90d67_622cf21d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-05-27T15:16:37Z",
+      "side": 1,
+      "message": "Same here to reduce indentation.",
+      "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
