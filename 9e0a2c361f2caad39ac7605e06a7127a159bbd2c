@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "363d8273_6fd873e8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-27T14:49:26Z",
+      "side": 1,
+      "message": "This is one more hack that goes from the limitations of the current implementation of Boot Override feature in OpenBMC (see https://lists.ozlabs.org/pipermail/openbmc/2021-May/026533.html).\nThe main problem is a fact that we don\u0027t have any `enabled` property for the Dbus Boot settings override.\nTherefore if we have received \"BootSourceOverrideEnabled\u003dDisabled\", the only \u0027sane\u0027 thing that we can do is to set BootSource/BootMode/BootType to their default values.\n\nYou can look at the `setBootModeOrSource` function that wasn\u0027t changed in this commit, it uses the same principle.\n```\n    std::string bootSourceStr \u003d\n        \"xyz.openbmc_project.Control.Boot.Source.Sources.Default\";\n    std::string bootModeStr \u003d\n        \"xyz.openbmc_project.Control.Boot.Mode.Modes.Regular\";\n```",
+      "parentUuid": "52d82eb2_317ad088",
+      "range": {
+        "startLine": 1368,
+        "startChar": 0,
+        "endLine": 1368,
+        "endChar": 80
+      },
+      "revId": "9e0a2c361f2caad39ac7605e06a7127a159bbd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "040b692f_8e5fb890",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "613a4308_b4f71575",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-27T14:49:26Z",
+      "side": 1,
+      "message": "We need to try to do this in a current design.\nFor example if a user only have requested \"BootSourceOverrideEnabled\u003dDisabled\", we need to set all the parameters to their default values:\n```\nBootSource \u003d Default\nBootMode \u003d Regular\nBootType \u003d EFI\n```",
+      "parentUuid": "040b692f_8e5fb890",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1415,
+        "endChar": 48
+      },
+      "revId": "9e0a2c361f2caad39ac7605e06a7127a159bbd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76e44419_9e260847",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2021-05-26T21:02:47Z",
       "side": 1,
       "message": "Does this need to be set before the boot type/boot mode?  (not sure here).\n\nAlso, this should be in its own method, similar to setBootType",
+      "range": {
+        "startLine": 1571,
+        "startChar": 0,
+        "endLine": 1585,
+        "endChar": 52
+      },
+      "revId": "9e0a2c361f2caad39ac7605e06a7127a159bbd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3102512d_9c25d101",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-05-27T14:49:26Z",
+      "side": 1,
+      "message": "I don\u0027t think that there should be any strict order, I think they can be set independently.",
+      "parentUuid": "76e44419_9e260847",
       "range": {
         "startLine": 1571,
         "startChar": 0,
