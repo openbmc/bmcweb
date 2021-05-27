@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04a992fc_d6085a4e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:48:37Z",
+      "side": 1,
+      "message": "Nit: Add `BMCWEB_LOG_DEBUG \u003c\u003c \"PowerSupply doPatch param size is not equal to 2\";`",
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d86eb184_15acfe67",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:48:37Z",
+      "side": 1,
+      "message": "please invert this check",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 36
+      },
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a40606a3_2bbaba91",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:48:37Z",
+      "side": 1,
+      "message": "Why need this?",
+      "range": {
+        "startLine": 589,
+        "startChar": 8,
+        "endLine": 589,
+        "endChar": 47
+      },
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
