@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2a6c3e79_ae25f137",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T02:36:30Z",
+      "side": 1,
+      "message": "In a perfect world, we should be using sdbusplus::message::object_path along with operator/ to build the path, then checking that for empty()\n\nWith that said, the router will never hand you an empty param (\u003cstr\u003e is defined as 1 character or more) so it\u0027s not an issue in practice that needs to be checked.",
+      "parentUuid": "de9852de_e6fc7772",
+      "range": {
+        "startLine": 794,
+        "startChar": 12,
+        "endLine": 794,
+        "endChar": 30
+      },
+      "revId": "8a1e0b7e7eb79887846a43126f6608c065a5992b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c2eff13_b6da9c88",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 18
