@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33a3d832_abd1be46",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "Ed‘s suggstion is `please invert this check`\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/66/redfish-core/lib/processor.hpp#1222",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 5
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99fa2930_5e053079",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "setLocationIndicatorActiveFlag looks like a function name, locationIndicatorActiveFlag is better",
+      "range": {
+        "startLine": 422,
+        "startChar": 16,
+        "endLine": 422,
+        "endChar": 46
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49453840_32be7492",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "Remove const \u0026",
+      "range": {
+        "startLine": 422,
+        "startChar": 4,
+        "endLine": 422,
+        "endChar": 15
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a1fece_32565c0d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 484,
+        "startChar": 29,
+        "endLine": 484,
+        "endChar": 72
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48aa6a74_afdbdc3d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 549,
+        "startChar": 23,
+        "endLine": 549,
+        "endChar": 66
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90266e74_c595169c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "Remove const?",
+      "range": {
+        "startLine": 636,
+        "startChar": 8,
+        "endLine": 636,
+        "endChar": 13
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a26e92e4_59c7df75",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "Nit: Add `BMCWEB_LOG_DEBUG \u003c\u003c \"Assembly doPatch param size is not equal to 1\";`",
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c937bd0c_a5a2c8b4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-27T05:45:20Z",
+      "side": 1,
+      "message": "Remove const",
+      "range": {
+        "startLine": 654,
+        "startChar": 8,
+        "endLine": 654,
+        "endChar": 13
+      },
+      "revId": "d15e7e966f27c3f1d9b4a621805f5195392f27a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
