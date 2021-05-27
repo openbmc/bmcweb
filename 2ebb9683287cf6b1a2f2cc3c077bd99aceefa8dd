@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05806066_8232e8b2",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-27T00:40:51Z",
+      "side": 0,
+      "message": "This is the safety check that we\u0027ve now lost because we\u0027ve moved to a pointer.",
+      "range": {
+        "startLine": 1154,
+        "startChar": 0,
+        "endLine": 1158,
+        "endChar": 0
+      },
+      "revId": "2ebb9683287cf6b1a2f2cc3c077bd99aceefa8dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
