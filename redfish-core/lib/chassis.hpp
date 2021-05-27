@@ -267,8 +267,8 @@ inline void requestRoutesChassis(App& app)
                                                          chassisId +
                                                          "/ResetActionInfo"}};
                         asyncResp->res.jsonValue["PCIeDevices"] = {
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices"}};
+                            {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                              "/PCIeDevices"}};
 
                         const std::string& connectionName =
                             connectionNames[0].first;
