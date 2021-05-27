@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1862b1b4_501dd8fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32b22b3e_e8619212",
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7aaa163_d90dbe2a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 76
@@ -30,6 +48,30 @@
       "writtenOn": "2021-05-21T16:04:07Z",
       "side": 1,
       "message": "Can we talk a little more about what changes a user would expect here?  We\u0027ve added 3 new endpoints.  How are these meant to be used?  Why do these add value?",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "076f023e_722e08c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "This new endpoints were added per your request.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41131/2/redfish-core/lib/sensors.hpp#99\n\nThere is no additional change related to this endpoints, we just list them here as an example. Also in review in the link there was same discussion and there is no impact to the user.",
+      "parentUuid": "f7aaa163_d90dbe2a",
       "range": {
         "startLine": 12,
         "startChar": 12,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "7de5fdc3_260806c3",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "Thanks for comment, while digging into sensors.hpp I found a way to verify if page exist before we perform any additional operations.",
+      "parentUuid": "6af8fd95_44b339fc",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 13
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cb09047_e81054a5",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 76
@@ -76,6 +142,30 @@
       "writtenOn": "2021-05-21T16:13:36Z",
       "side": 1,
       "message": "Why does this need to get the chassis names first?  Wouldn\u0027t we get all the sensors first, then associate them back to their chassis?  It seems odd we would do it in the reverse.\n\nI suspect if we invert this flow, the finalizer class will no longer be needed, as we can simply use the mapper response to listing the sensor to drive the 404 behavior.",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 63
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7835e2b_df01cc9f",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "I analyzed the code in sensors.hpp and this mapping function needs chassis name as parameter. Without rewriting sensors.hpp this is only way to retrieve this mapping.\n\nWhile looking at it I found a way to remove finalizer callback, that should make it simpler.",
+      "parentUuid": "3cb09047_e81054a5",
       "range": {
         "startLine": 231,
         "startChar": 12,

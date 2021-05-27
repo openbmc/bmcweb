@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c473efb1_d68d54d6",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "Finalizer removed, done.",
+      "parentUuid": "fdfd660c_dd95d304",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aec60e54_f69d9fe1",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 70
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Does this imply that this code should be deduplicated with the chassis code then?",
       "parentUuid": "23c9c367_7701e883",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f53d5fb3_d25629ce",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "I didn\u0027t explain it properly, my bad. By align the code I didn\u0027t mean any additional work. We are already using same code as chassis to fill response.\n\nBy align the code I meant if code in sensors.hpp (function retrieveUriToDbusMap) changes for example additional parameter then code align is needed.",
+      "parentUuid": "4ea1ba94_ffd4bc30",
       "range": {
         "startLine": 64,
         "startChar": 0,
@@ -259,6 +307,30 @@
       "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d740565_f564dfcf",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9c69cd7e_4f206cfa",
+      "range": {
+        "startLine": 124,
+        "startChar": 45,
+        "endLine": 124,
+        "endChar": 60
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -400,6 +472,30 @@
       "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd8dbb2_f45f591e",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-27T07:38:21Z",
+      "side": 1,
+      "message": "Done:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/42987",
+      "parentUuid": "ea6f015a_ec38199f",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 35
+      },
+      "revId": "28254a28fe94d9d2c8935e66c6393b31cb81131f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
