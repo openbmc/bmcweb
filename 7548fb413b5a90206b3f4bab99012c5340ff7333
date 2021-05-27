@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c629bf38_f15792fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "I thought about making it 2 patches. But I found it is hard to explain the reason why we need the first patch until it reaches second patch of adding priority. \n\nI can make it a separate patch if you think it is more clear. \n\nThe reason of the refactor is that, priority belongs to rule and routing algorithm(find) belongs to trie. In order to implement priority search/find, rule needs to be visible to Tire. \n\nFor the previous implement, both rule (vector) and trie are parallel member variables of router. So when trie need to visit rule for priority, it has to claim its ownership by router then redirect to rule with vector index. \n\nGiven that trie and router are two individual class, I believe it is a bad practice to add a router*/router\u0026 to trie to claim the ownership. Making rule belongs to Trie makes more sense.",
+      "parentUuid": "20f5787a_de5fb5df",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 62
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4e83f4b_a850450a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-27T00:40:51Z",
       "side": 1,
       "message": "Can we just remove it entirely?  We don\u0027t use it, and its usage was deprecated a long time ago.  The code you\u0027re seeing there is just remnants that haven\u0027t been cleaned up.",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e07dd64_99356e31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "Yep, I can do that.",
+      "parentUuid": "a4e83f4b_a850450a",
       "range": {
         "startLine": 18,
         "startChar": 3,
@@ -68,6 +116,30 @@
       "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70efa0dc_78e70b72",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "This is a bug fix actually. routing.hpp requires this header. \n\nThis problem wasn\u0027t exposed because of the include sequence. bmcweb include this header ahead of routing.hpp.",
+      "parentUuid": "db5f40db_3e08e807",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "14be1fad_bbb27d2d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "But we still need priorityMin(). I am going to use min for default rule of redfish to read cached responses. \n\nI made a priorityMax() because: \n1. the beauty of symmetry (LoL. \n2. it is easier for the users to static_assert their priority within [min, max).",
+      "parentUuid": "28a54e7a_7c319f34",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd4576ef_9fb0a33e",
         "filename": "http/routing.hpp",
         "patchSetId": 9
@@ -152,6 +248,30 @@
       "writtenOn": "2021-05-27T00:40:51Z",
       "side": 1,
       "message": "This is taking ownership of a raw pointer, which we don\u0027t really want from a safety perspective, if we continue with combining the structs this way, we should be using some form of smart pointer.",
+      "range": {
+        "startLine": 676,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 32
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a871941_c66ac3d5",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "The old mechanism didn\u0027t take ownership either. Explained in L1323",
+      "parentUuid": "fd4576ef_9fb0a33e",
       "range": {
         "startLine": 676,
         "startChar": 8,
@@ -187,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "8228c9e8_6ed37fe2",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "It was used for getRedirectRule(). Since we are deprecating getRedirectRule(), we can delete it.",
+      "parentUuid": "2f5e9140_690173df",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 692,
+        "endChar": 19
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b172dcd0_0cc1a122",
         "filename": "http/routing.hpp",
         "patchSetId": 9
@@ -198,6 +342,30 @@
       "writtenOn": "2021-05-27T00:40:51Z",
       "side": 1,
       "message": "You\u0027re capturing a pointer by value here, which makes it really easy to have lifetime issues.  The old mechanism was safer, because routes were always added to the array, and range checked before being used.",
+      "range": {
+        "startLine": 1323,
+        "startChar": 30,
+        "endLine": 1323,
+        "endChar": 34
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee509c60_ec565112",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-05-27T18:32:10Z",
+      "side": 1,
+      "message": "Both mechanism should be equally safe: \n\n1. In the old one, we push/pop Trie node and rule vector at the same time. That means the life time of a rule is the same no matter outside the trie node(using vector index) or inside. \n\n2. the allrules vector is still there. (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43502/9/http/routing.hpp#b1460). The original rule vector is just the bare ptr copy of the allrules element, which doesn\u0027t preserve life time at all. \n\n3. there is no rule deletion at all, so the lifetime of a rule is basically from the rule creation until the end of game. Actually, the originally implementation made it impossible to delete, since a deletion in the middle of rule list will cause every index of following the rules minus one.",
+      "parentUuid": "b172dcd0_0cc1a122",
       "range": {
         "startLine": 1323,
         "startChar": 30,
