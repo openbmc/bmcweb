@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "de9852de_e6fc7772",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-05-27T02:26:15Z",
+      "side": 1,
+      "message": "I found that there is code to check parameters in some methods, but not in other methods. Do we need this check? Should all methods with parameters add or delete this code?",
+      "range": {
+        "startLine": 794,
+        "startChar": 12,
+        "endLine": 794,
+        "endChar": 30
+      },
+      "revId": "8a1e0b7e7eb79887846a43126f6608c065a5992b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c2eff13_b6da9c88",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 18
