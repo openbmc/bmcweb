@@ -408,6 +408,24 @@
       "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0a0b482_a5df7036",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-28T16:41:52Z",
+      "side": 1,
+      "message": "Now that https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43520 went in, can you fix this?",
+      "parentUuid": "386edd34_8a297d26",
+      "revId": "7ddb988a235adac7b364939d99d0eb5320af60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
