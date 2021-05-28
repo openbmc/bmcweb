@@ -76,6 +76,24 @@
     },
     {
       "key": {
+        "uuid": "85a9ef35_2b600308",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-05-28T08:54:04Z",
+      "side": 1,
+      "message": "I am also interested about it. In addition, would you implement PCIeInterface \"PCIeType\" property in the future?",
+      "parentUuid": "240b48d5_2f98ef9e",
+      "revId": "9568403b08c5db2d52b89d0230cdf2179cccd140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "333ae513_c18de1de",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 3
