@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "a0d4c1d4_32d7fa60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-28T11:40:51Z",
+      "side": 1,
+      "message": "MetricDefinition depends on code in sensors.hpp and have generic mechanism. Only change is there if user want to list sensors supported by telemetry service they will be available under redfish/v1/TelemetryService/MetricDefinitions.\n\nIs that what you meant? Is adding this information in the commit message will be enough?",
+      "parentUuid": "51837ca6_6b3d6e8d",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6af8fd95_44b339fc",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 76
@@ -214,6 +238,30 @@
       "side": 1,
       "message": "\u003e I analyzed the code in sensors.hpp and this mapping function needs chassis name as parameter. Without rewriting sensors.hpp this is only way to retrieve this mapping.\n\nThis doesn\u0027t seem true;  The mapper should be able to give you the mapping based on the \"all_sensors\" association.\n\n\u003e \n\u003e While looking at it I found a way to remove finalizer callback, that should make it simpler.\n\nThat helps, but I\u0027d still like to see us doing a single mapper call here.",
       "parentUuid": "a7835e2b_df01cc9f",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 63
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb7057e_1a4408ce",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-05-28T11:40:51Z",
+      "side": 1,
+      "message": "I could not find anything that would not require to rewrite sensors.hpp. If you know solution could you provide example?",
+      "parentUuid": "91badab2_e7fc2afc",
       "range": {
         "startLine": 231,
         "startChar": 12,
