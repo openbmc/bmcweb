@@ -1661,6 +1661,221 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 #endif
 
 /**
+ * @brief Retrieves system power mode
+ *
+ * @param[in] aResp  Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get power mode.";
+
+    // Get Power Mode object path:
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on Power.Mode GetSubTree " << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                // As noted above, this is an optional interface so just return
+                // if there is no instance found
+                return;
+            }
+            if (subtree.size() > 1)
+            {
+                // More then one PowerMode object is not supported and is an
+                // error
+                BMCWEB_LOG_DEBUG
+                    << "Found more than 1 system D-Bus Power.Mode objects: "
+                    << subtree.size();
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "Power.Mode mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& service = subtree[0].second.begin()->first;
+            if (service.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Power.Mode service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Valid Power Mode object found, now read the current value
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        const std::variant<std::string>& pmode) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error on PowerMode Get: " << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    const std::string* s = std::get_if<std::string>(&pmode);
+                    if (s == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Unable to get PowerMode value";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG << "Current power mode: " << *s;
+                    if (*s == "xyz.openbmc_project.Control.Power.Mode."
+                              "PowerMode.Static")
+                    {
+                        aResp->res.jsonValue["PowerMode"] = "Static";
+                    }
+                    else if (*s == "xyz.openbmc_project.Control.Power.Mode."
+                                   "PowerMode.MaximumPerformance")
+                    {
+                        aResp->res.jsonValue["PowerMode"] =
+                            "MaximumPerformance";
+                    }
+                    else if (*s == "xyz.openbmc_project.Control.Power.Mode."
+                                   "PowerMode.PowerSaving")
+                    {
+                        aResp->res.jsonValue["PowerMode"] = "PowerSaving";
+                    }
+                    else
+                    {
+                        // Any other modes would be returned as OEM
+                        aResp->res.jsonValue["PowerMode"] = "OEM";
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Control.Power.Mode", "PowerMode");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.Power.Mode"});
+}
+
+/**
+ * @brief Sets system power mode.
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] pmode   system power mode from request.
+ *
+ * @return None.
+ */
+inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& pmode)
+{
+    BMCWEB_LOG_DEBUG << "Set power mode.";
+
+    // Get Power Mode object path:
+    crow::connections::systemBus->async_method_call(
+        [aResp, pmode](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on Power.Mode GetSubTree " << ec;
+                // This is an optional D-Bus object, but user attempted to patch
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                // This is an optional D-Bus object, but user attempted to patch
+                messages::resourceNotFound(aResp->res, "ComputerSystem",
+                                           "PowerMode");
+                return;
+            }
+            if (subtree.size() > 1)
+            {
+                // More then one PowerMode object is not supported and is an
+                // error
+                BMCWEB_LOG_DEBUG
+                    << "Found more than 1 system D-Bus Power.Mode objects: "
+                    << subtree.size();
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "Power.Mode mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& service = subtree[0].second.begin()->first;
+            if (service.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Power.Mode service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Valid Power Mode object found
+            const boost::container::flat_map<std::string, std::string>
+                policyMaps = {
+                    {"Static",
+                     "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                     "Static"},
+                    {"PowerSaving",
+                     "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                     "PowerSaving"},
+                    {"MaximumPerformance",
+                     "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                     "MaximumPerformance"},
+                    {"OEM", "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                            "OEM"}};
+
+            auto pmodeMapsIt = policyMaps.find(pmode);
+            if (pmodeMapsIt == policyMaps.end())
+            {
+                messages::propertyValueNotInList(aResp->res, pmode,
+                                                 "PowerMode");
+                return;
+            }
+
+            std::string powerMode = pmodeMapsIt->second;
+            BMCWEB_LOG_DEBUG << "Setting power mode(" << powerMode << ") -> "
+                             << path;
+
+            // Set the Power Mode property
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
+                std::variant<std::string>(powerMode));
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.Power.Mode"});
+}
+
+/**
  * @brief Translates watchdog timeout action DBUS property value to redfish.
  *
  * @param[in] dbusAction    The watchdog timeout action in D-BUS.
@@ -2156,6 +2371,7 @@ inline void requestRoutesSystems(App& app)
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
             getProvisioningStatus(asyncResp);
 #endif
+            getPowerMode(asyncResp);
         });
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges({"ConfigureComponent"})
@@ -2168,13 +2384,14 @@ inline void requestRoutesSystems(App& app)
                 std::optional<nlohmann::json> wdtTimerProps;
                 std::optional<std::string> assetTag;
                 std::optional<std::string> powerRestorePolicy;
+                std::optional<std::string> powerMode;
 
                 if (!json_util::readJson(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
                         "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
-                        assetTag))
+                        assetTag, "PowerMode", powerMode))
                 {
                     return;
                 }
@@ -2246,6 +2463,11 @@ inline void requestRoutesSystems(App& app)
                 if (powerRestorePolicy)
                 {
                     setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+                }
+
+                if (powerMode)
+                {
+                    setPowerMode(asyncResp, *powerMode);
                 }
             });
 }
