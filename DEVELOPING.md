@@ -137,20 +137,10 @@
   directions in the gerrit setup document.
   - Clone bmcweb from gerrit
   ```
-  git clone ssh://openbmc.gerrit/bmcweb/
+  git clone ssh://openbmc.gerrit/openbmc/bmcweb/
   ```
 
-  - Ensure it compiles
-  ```
-  cmake ./ && make
-  ```
-  **Note:** If you'd like to enable debug traces in bmcweb, use the
-  following command for cmake
-  ```
-  cmake ./ -DCMAKE_BUILD_TYPE:type=Debug
-  ```
-
-  - Make your changes as needed, rebuild with `make`
+  - Follow directions in README.md to compile
 
   - Reduce binary size by stripping it when ready for testing
   ```
