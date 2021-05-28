@@ -40,6 +40,11 @@ mentioned in `bmcweb/subprojects`.
 meson builddir -Dwrap_mode=nofallback
 ninja -C builddir
 ```
+### Enable debug traces
+```ascii
+meson builddir -Dbuildtype=debug
+ninja -C builddir
+```
 ### Generate test coverage report:
 ```ascii
 meson builddir -Db_coverage=true -Dtests=enabled
