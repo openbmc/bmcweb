@@ -528,6 +528,7 @@ the other.
 - MemorySummary
 - Model
 - PartNumber
+- PowerMode
 - PowerRestorePolicy
 - PowerState
 - ProcessorSummary
