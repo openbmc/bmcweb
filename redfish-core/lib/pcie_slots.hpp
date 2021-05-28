@@ -324,8 +324,11 @@ void checkPCIeSlotsCount(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
             index = 0;
             auto slotNum = subtree.size();
+            unsigned int slotCheckIndex = 0;
             for (const auto& [objectPath, serviceName] : subtree)
             {
+                slotCheckIndex++;
+
                 if (objectPath.empty() || serviceName.size() != 1)
                 {
                     BMCWEB_LOG_ERROR << "Error getting PCIeSlot D-Bus object!";
@@ -339,13 +342,34 @@ void checkPCIeSlotsCount(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 // whether it belongs to this ChassisID
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, chassisID, pcieSlotPath, total, slotNum,
-                     callback{std::move(callback)}](
+                     slotCheckIndex, callback{std::move(callback)}](
                         const boost::system::error_code ec,
                         const std::variant<std::vector<std::string>>&
                             endpoints) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "DBUS response error";
+                            if (ec.value() == EBADR)
+                            {
+                                if (slotCheckIndex == slotNum)
+                                {
+                                    // the total number of slots in the request
+                                    // is correct
+                                    if (index == total)
+                                    {
+                                        callback();
+                                    }
+                                    else
+                                    {
+                                        messages::resourceNotFound(
+                                            asyncResp->res, "Chassis",
+                                            "slots count");
+                                        return;
+                                    }
+                                }
+                                // This PCIeSlot have no chassis association.
+                                return;
+                            }
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -377,7 +401,7 @@ void checkPCIeSlotsCount(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         index++;
 
                         // All the objectPaths have been checked
-                        if (index == slotNum)
+                        if (slotCheckIndex == slotNum)
                         {
                             // the total number of slots in the request is
                             // correct
@@ -457,6 +481,11 @@ inline void setPCIeSlotsLocationIndicator(
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "DBUS response error";
+                            if (ec.value() == EBADR)
+                            {
+                                // This PCIeSlot have no chassis association.
+                                return;
+                            }
                             messages::internalError(asyncResp->res);
                             return;
                         }
