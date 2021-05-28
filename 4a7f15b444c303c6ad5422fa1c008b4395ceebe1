@@ -62,6 +62,29 @@
       "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bb06cd_1d48184e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-05-28T02:59:04Z",
+      "side": 1,
+      "message": "nit: this comment should be moved to the doGet method.",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 614,
+        "endChar": 29
+      },
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
