@@ -1661,6 +1661,190 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 #endif
 
 /**
+ * @brief Populate Actions if any are valid for PowerMode object
+ *
+ * The PowerMode object is optional so this function will only set the
+ * Action if the object is found
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline std::string
+    getPowerModeObject(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    std::string pmObj;
+    BMCWEB_LOG_DEBUG << "Get PowerMode object";
+    crow::connections::systemBus->async_method_call(
+        [aResp, pmObj](const boost::system::error_code ec,
+                       std::vector<std::string>& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return pmObj;
+            }
+
+            if (resp.size() == 0)
+            {
+                // As noted above, this is an optional interface so just return
+                // if there is no instance found
+                BMCWEB_LOG_DEBUG
+                    << "DEBUG: No PowerMode Object (ok - optional)";
+                return pmObj;
+            }
+
+            if (resp.size() > 1)
+            {
+                // More then one PowerMode object is not supported and is an
+                // error
+                BMCWEB_LOG_DEBUG << "DEBUG: Multiple PowerMode Objects! size: "
+                                 << resp.size();
+                messages::internalError(aResp->res);
+                return pmObj;
+            }
+
+            // Object present so system support limited ComputerSystem Action
+            BMCWEB_LOG_DEBUG << "DEBUG: Found 1 PowerMode Object: " << resp[0];
+            const std::string& pmObj = resp[0];
+            // const std::string& path = subtree[0].first;
+            return pmObj;
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.Power.Mode"});
+
+    return pmObj;
+}
+
+/**
+ * @brief Retrieves system power mode
+ *
+ * @param[in] aResp  Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get power mode.";
+
+    std::string pmObj = getPowerModeObject(aResp);
+    BMCWEB_LOG_DEBUG << "Get power mode - obj: " << pmObj;
+    if (pmObj.size() == 0)
+    {
+        pmObj = "/xyz/openbmc_project/control/host0/power_mode";
+        BMCWEB_LOG_DEBUG << "ERROR: obj was not found... using " << pmObj;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& pmode) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+
+            const std::string* s = std::get_if<std::string>(&pmode);
+            BMCWEB_LOG_DEBUG << "Power mode: " << *s;
+            if (s != nullptr)
+            {
+                if (*s ==
+                    "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static")
+                {
+                    aResp->res.jsonValue["PowerMode"] = "Static";
+                }
+                else if (*s == "xyz.openbmc_project.Control.Power.Mode."
+                               "PowerMode.MaximumPerformance")
+                {
+                    aResp->res.jsonValue["PowerMode"] = "MaximumPerformance";
+                }
+                else if (*s == "xyz.openbmc_project.Control.Power.Mode."
+                               "PowerMode.PowerSaving")
+                {
+                    aResp->res.jsonValue["PowerMode"] = "PowerSaving";
+                }
+                else if (*s ==
+                         "xyz.openbmc_project.Control.Power.Mode.PowerMode.OEM")
+                {
+                    aResp->res.jsonValue["PowerMode"] = "OEM";
+                }
+                else
+                {
+                    aResp->res.jsonValue["PowerMode"] = "UNKNOWN";
+                }
+            }
+        },
+        "xyz.openbmc_project.Settings", pmObj,
+        //"/xyz/openbmc_project/control/host0/power_mode",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Control.Power.Mode", "PowerMode");
+}
+
+/**
+ * @brief Sets system power mode.
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] pmode   system power mode from request.
+ *
+ * @return None.
+ */
+inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& pmode)
+{
+    BMCWEB_LOG_DEBUG << "Set power mode.";
+
+    const boost::container::flat_map<std::string, std::string> policyMaps = {
+        {"Static", "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                   "Static"},
+        {"PowerSaving", "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                        "PowerSaving"},
+        {"MaximumPerformance",
+         "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+         "MaximumPerformance"},
+        {"OEM", "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                "OEM"}};
+
+    std::string powerMode;
+    std::string pmObj = getPowerModeObject(aResp);
+    if (pmObj.size() == 0)
+    {
+        pmObj = "/xyz/openbmc_project/control/host0/power_mode";
+        BMCWEB_LOG_DEBUG << "ERROR: obj was not found... using " << pmObj;
+    }
+
+    auto pmodeMapsIt = policyMaps.find(pmode);
+    if (pmodeMapsIt == policyMaps.end())
+    {
+        messages::propertyValueNotInList(aResp->res, pmode, "PowerMode");
+        return;
+    }
+
+    powerMode = pmodeMapsIt->second;
+    BMCWEB_LOG_DEBUG << "Set power mode(" << powerMode << "," << pmObj << ")";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        pmObj, //"/xyz/openbmc_project/control/host0/power_mode",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
+        std::variant<std::string>(powerMode));
+
+    BMCWEB_LOG_DEBUG << "Set power mode #2(" << powerMode << "," << pmObj
+                     << ")";
+}
+
+/**
  * @brief Translates watchdog timeout action DBUS property value to redfish.
  *
  * @param[in] dbusAction    The watchdog timeout action in D-BUS.
@@ -2179,6 +2363,7 @@ class Systems : public Node
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
+        getPowerMode(asyncResp);
     }
 
     void doPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2191,12 +2376,14 @@ class Systems : public Node
         std::optional<nlohmann::json> wdtTimerProps;
         std::optional<std::string> assetTag;
         std::optional<std::string> powerRestorePolicy;
+        std::optional<std::string> powerMode;
 
-        if (!json_util::readJson(
-                req, asyncResp->res, "IndicatorLED", indicatorLed,
-                "LocationIndicatorActive", locationIndicatorActive, "Boot",
-                bootProps, "WatchdogTimer", wdtTimerProps, "PowerRestorePolicy",
-                powerRestorePolicy, "AssetTag", assetTag))
+        if (!json_util::readJson(req, asyncResp->res, "IndicatorLED",
+                                 indicatorLed, "LocationIndicatorActive",
+                                 locationIndicatorActive, "Boot", bootProps,
+                                 "WatchdogTimer", wdtTimerProps,
+                                 "PowerRestorePolicy", powerRestorePolicy,
+                                 "AssetTag", assetTag, "PowerMode", powerMode))
         {
             return;
         }
@@ -2263,6 +2450,11 @@ class Systems : public Node
         if (powerRestorePolicy)
         {
             setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+        }
+
+        if (powerMode)
+        {
+            setPowerMode(asyncResp, *powerMode);
         }
     }
 };
