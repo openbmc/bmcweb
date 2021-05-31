@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6b011c53_d9c6a383",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 100
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-31T09:38:27Z",
+      "side": 1,
+      "message": "I do not think so.\nWe can return directly if the `objPath + \"/identify_led_group\"` path does not exist.",
+      "parentUuid": "65e7ac60_3581514d",
+      "range": {
+        "startLine": 296,
+        "startChar": 16,
+        "endLine": 296,
+        "endChar": 32
+      },
+      "revId": "71103353b98fc4d18a5b2ce472b44e28c0788919",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4458f4c8_adcac37d",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 100
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-31T08:57:12Z",
       "side": 1,
       "message": "above",
+      "range": {
+        "startLine": 367,
+        "startChar": 16,
+        "endLine": 367,
+        "endChar": 32
+      },
+      "revId": "71103353b98fc4d18a5b2ce472b44e28c0788919",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c892353_2edf5bbb",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 100
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-05-31T09:38:27Z",
+      "side": 1,
+      "message": "as above",
+      "parentUuid": "4458f4c8_adcac37d",
       "range": {
         "startLine": 367,
         "startChar": 16,
