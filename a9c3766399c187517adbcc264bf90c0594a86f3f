@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f5d4294_cbfaa67f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-31T07:20:12Z",
+      "side": 1,
+      "message": "Done. In other comments, Ed told me not to wrap lines manually, or to wrap lines strictly according to 72 characters. \nI will follow the 72 character line feed strictly in the future commit message.",
+      "parentUuid": "c21f2315_620e5d0f",
+      "revId": "a9c3766399c187517adbcc264bf90c0594a86f3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1485c98_abdfd0c8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bce11ca6_a55a5bcb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-31T07:20:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1485c98_abdfd0c8",
+      "revId": "a9c3766399c187517adbcc264bf90c0594a86f3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d40e5f4_9bfb15ba",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2021-05-28T16:23:00Z",
       "side": 1,
       "message": "Why is this needed? Why not match what is below in setPCIeSlotsLocationIndicator ?",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 33
+      },
+      "revId": "a9c3766399c187517adbcc264bf90c0594a86f3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76bc5708_11a053ce",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-05-31T07:20:12Z",
+      "side": 1,
+      "message": "The function \"checkPCIeSlotsCount\" is used to check whether the pcieslot count in doPatch request matches the actual pcieslot count of d-bus.\n\nIf the last pcieslot has no chassis association, the code will enter here, which also needs to call callback().",
+      "parentUuid": "6d40e5f4_9bfb15ba",
       "range": {
         "startLine": 352,
         "startChar": 0,
