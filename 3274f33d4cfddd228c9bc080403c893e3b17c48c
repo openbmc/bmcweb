@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41866a8a_edb48a05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-31T17:24:11Z",
+      "side": 1,
+      "message": "Can you help me understand this more? \nWhen I read the spec, there is 2 different arrays, IPv4Addresses and IPv4StaticAddresses. IPv4StaticAddresses is RW, IPv4Addresses is RO. \nI would think if we can\u0027t erase an  IP address it shouldn\u0027t be in IPv4StaticAddresses.\n\n                \"IPv4Addresses\": {\n                    \"description\": \"The IPv4 addresses currently in use by this interface.\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address\"\n                    },\n                    \"longDescription\": \"This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of AddressOrigin.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services may reject updates to this array for this reason.\",\n                    \"type\": \"array\"\n                },\n                \"IPv4StaticAddresses\": {\n                    \"description\": \"The IPv4 static addresses assigned to this interface.  See IPv4Addresses for the addresses in use by this interface.\",\n                    \"items\": {\n                        \"anyOf\": [\n                            {\n                                \"$ref\": \"http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address\"\n                            },\n                            {\n                                \"type\": \"null\"\n                            }\n                        ]\n                    },\n                    \"longDescription\": \"This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The IPv4Addresses property shall also list the addresses that this interface uses .\",\n                    \"type\": \"array\",\n                    \"versionAdded\": \"v1_4_0\"\n                },",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "3274f33d4cfddd228c9bc080403c893e3b17c48c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccf2ef72_d331e35e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-31T17:24:11Z",
+      "side": 1,
+      "message": "isn\u0027t this the same as below, this one is with DHCP disabled? and the 2nd one with DHCP enabled?\n\nSomething like would be more clear:\n \nWith DHCP disabled: \ncurl -k -v -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH -d \u0027{\"IPv4StaticAddresses\": [null]}\u0027 https://${bmc_ip}/redfish/v1/Systems/hypervisor/EthernetInterfaces/eth0\n...\n\u003cinsert http response codes\u003e\n...\n\nWith DHCP enabled: \n curl -k -D headers.txt -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH -d \u0027{\"IPv4StaticAddresses\": [null]}\u0027 https://${bmc_ip}/redfish/v1/Systems/hypervisor/EthernetInterfaces/eth0\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 201
+      },
+      "revId": "3274f33d4cfddd228c9bc080403c893e3b17c48c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
