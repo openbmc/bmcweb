@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49d47ba2_94ab0cd0",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-05-31T17:44:49Z",
+      "side": 1,
+      "message": "Could include link like above. [README.md](https://github.com/openbmc/bmcweb#configuration)",
+      "revId": "2372ed6cbd5d80e8eb104d1bb3e32f547ba6658f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
